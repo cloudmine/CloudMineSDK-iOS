@@ -43,6 +43,9 @@
 		7AD36F75146C623B00DD4734 /* YAJLiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AD36F74146C623B00DD4734 /* YAJLiOS.framework */; };
 		7AD36F79146C643E00DD4734 /* CMObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD36F77146C643E00DD4734 /* CMObject.h */; };
 		7AD36F7A146C643E00DD4734 /* CMObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD36F78146C643E00DD4734 /* CMObject.m */; };
+		7AD36F7E146C650500DD4734 /* CMWebService.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD36F7C146C650500DD4734 /* CMWebService.h */; };
+		7AD36F7F146C650500DD4734 /* CMWebService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD36F7D146C650500DD4734 /* CMWebService.m */; };
+		7AD36F81146C656600DD4734 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AD36F80146C656600DD4734 /* UIKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +100,9 @@
 		7AD36F74146C623B00DD4734 /* YAJLiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YAJLiOS.framework; sourceTree = "<group>"; };
 		7AD36F77146C643E00DD4734 /* CMObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMObject.h; sourceTree = "<group>"; };
 		7AD36F78146C643E00DD4734 /* CMObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObject.m; sourceTree = "<group>"; };
+		7AD36F7C146C650500DD4734 /* CMWebService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMWebService.h; sourceTree = "<group>"; };
+		7AD36F7D146C650500DD4734 /* CMWebService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMWebService.m; sourceTree = "<group>"; };
+		7AD36F80146C656600DD4734 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +111,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A0413DA146C5B7400EF537A /* libz.dylib in Frameworks */,
+				7AD36F81146C656600DD4734 /* UIKit.framework in Frameworks */,
 				7A0413D8146C5B7000EF537A /* CoreGraphics.framework in Frameworks */,
 				7A0413D6146C5B6900EF537A /* MobileCoreServices.framework in Frameworks */,
 				7A0413D4146C5B5C00EF537A /* SystemConfiguration.framework in Frameworks */,
@@ -204,6 +211,7 @@
 		7AB4AB61145DC5D8006AEF67 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7AD36F80146C656600DD4734 /* UIKit.framework */,
 				7A0413D9146C5B7400EF537A /* libz.dylib */,
 				7A0413D7146C5B7000EF537A /* CoreGraphics.framework */,
 				7A0413D5146C5B6900EF537A /* MobileCoreServices.framework */,
@@ -266,8 +274,18 @@
 			children = (
 				7AD36F77146C643E00DD4734 /* CMObject.h */,
 				7AD36F78146C643E00DD4734 /* CMObject.m */,
+				7AD36F7B146C64F300DD4734 /* Web Services */,
 			);
 			path = src;
+			sourceTree = "<group>";
+		};
+		7AD36F7B146C64F300DD4734 /* Web Services */ = {
+			isa = PBXGroup;
+			children = (
+				7AD36F7C146C650500DD4734 /* CMWebService.h */,
+				7AD36F7D146C650500DD4734 /* CMWebService.m */,
+			);
+			path = "Web Services";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -291,6 +309,7 @@
 				7A0413CD146C5B3A00EF537A /* ASIProgressDelegate.h in Headers */,
 				7A0413CE146C5B3A00EF537A /* Reachability.h in Headers */,
 				7AD36F79146C643E00DD4734 /* CMObject.h in Headers */,
+				7AD36F7E146C650500DD4734 /* CMWebService.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +421,7 @@
 				7A0413CC146C5B3A00EF537A /* ASINetworkQueue.m in Sources */,
 				7A0413CF146C5B3A00EF537A /* Reachability.m in Sources */,
 				7AD36F7A146C643E00DD4734 /* CMObject.m in Sources */,
+				7AD36F7F146C650500DD4734 /* CMWebService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
