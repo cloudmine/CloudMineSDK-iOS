@@ -41,6 +41,7 @@
 		7AB4AB77145DC5D8006AEF67 /* libcloudmine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB5F145DC5D8006AEF67 /* libcloudmine.a */; };
 		7AB4AB7D145DC5D8006AEF67 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7AB4AB7B145DC5D8006AEF67 /* InfoPlist.strings */; };
 		7AB4AB80145DC5D8006AEF67 /* iosTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB4AB7F145DC5D8006AEF67 /* iosTests.m */; };
+		7AD36F75146C623B00DD4734 /* YAJLiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AD36F74146C623B00DD4734 /* YAJLiOS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +94,8 @@
 		7AB4AB7C145DC5D8006AEF67 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7AB4AB7E145DC5D8006AEF67 /* iosTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iosTests.h; sourceTree = "<group>"; };
 		7AB4AB7F145DC5D8006AEF67 /* iosTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iosTests.m; sourceTree = "<group>"; };
+		7AD36F73146C623B00DD4734 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		7AD36F74146C623B00DD4734 /* YAJLiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YAJLiOS.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +109,7 @@
 				7A0413D4146C5B5C00EF537A /* SystemConfiguration.framework in Frameworks */,
 				7A0413D2146C5B5200EF537A /* CFNetwork.framework in Frameworks */,
 				7AB4AB63145DC5D8006AEF67 /* Foundation.framework in Frameworks */,
+				7AD36F75146C623B00DD4734 /* YAJLiOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +129,7 @@
 		7A04139F146C5B3A00EF537A /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				7AD36F72146C623B00DD4734 /* YAJL */,
 				7A0413A0146C5B3A00EF537A /* ASIHTTPRequest */,
 			);
 			path = Vendor;
@@ -245,6 +250,15 @@
 				7AB4AB7B145DC5D8006AEF67 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7AD36F72146C623B00DD4734 /* YAJL */ = {
+			isa = PBXGroup;
+			children = (
+				7AD36F73146C623B00DD4734 /* LICENSE */,
+				7AD36F74146C623B00DD4734 /* YAJLiOS.framework */,
+			);
+			path = YAJL;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -431,6 +445,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_LDFLAGS = "-all_load";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -448,6 +463,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_LDFLAGS = "-all_load";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -457,9 +473,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/ios.dst;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/ios/Vendor/YAJL\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ios/cloudmine-ios-Prefix.pch";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
 				PRODUCT_NAME = cloudmine;
 				SKIP_INSTALL = YES;
 			};
@@ -469,9 +492,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/ios.dst;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/ios/Vendor/YAJL\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ios/cloudmine-ios-Prefix.pch";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
 				PRODUCT_NAME = cloudmine;
 				SKIP_INSTALL = YES;
 			};
