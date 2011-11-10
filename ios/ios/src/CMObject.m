@@ -1,13 +1,13 @@
 //
-//  ios.h
-//  ios
+//  CMObject.m
+//  cloudmine-ios
 //
 //  Copyright (c) 2011 CloudMine, LLC. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
-#import <Foundation/Foundation.h>
+#import "CMObject.h"
 
-@interface ios : NSObject
+@implementation CMObject
 
 @end
