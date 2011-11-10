@@ -2,8 +2,8 @@
 //  RecipesTests.h
 //  RecipesTests
 //
-//  Created by Marc Weil on 11/10/11.
-//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2011 CloudMine, LLC. All rights reserved.
+//  See LICENSE file included with SDK for details.
 //
 
 #import <SenTestingKit/SenTestingKit.h>

@@ -13,7 +13,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7A6C7DE1146C23AC00C1EA66"
+               BlueprintIdentifier = "7A041360146C579A00EF537A"
                BuildableName = "Recipes.app"
                BlueprintName = "Recipes"
                ReferencedContainer = "container:Recipes.xcodeproj">
@@ -31,7 +31,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7A6C7E0A146C23AC00C1EA66"
+               BlueprintIdentifier = "7A041384146C579A00EF537A"
                BuildableName = "RecipesTests.octest"
                BlueprintName = "RecipesTests"
                ReferencedContainer = "container:Recipes.xcodeproj">
@@ -41,7 +41,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7A6C7DE1146C23AC00C1EA66"
+            BlueprintIdentifier = "7A041360146C579A00EF537A"
             BuildableName = "Recipes.app"
             BlueprintName = "Recipes"
             ReferencedContainer = "container:Recipes.xcodeproj">
@@ -59,7 +59,7 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7A6C7DE1146C23AC00C1EA66"
+            BlueprintIdentifier = "7A041360146C579A00EF537A"
             BuildableName = "Recipes.app"
             BlueprintName = "Recipes"
             ReferencedContainer = "container:Recipes.xcodeproj">
@@ -77,7 +77,7 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7A6C7DE1146C23AC00C1EA66"
+            BlueprintIdentifier = "7A041360146C579A00EF537A"
             BuildableName = "Recipes.app"
             BlueprintName = "Recipes"
             ReferencedContainer = "container:Recipes.xcodeproj">

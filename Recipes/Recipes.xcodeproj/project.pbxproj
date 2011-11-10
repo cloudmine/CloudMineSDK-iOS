@@ -7,203 +7,155 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7A041344146C2AAD00EF537A /* _Ingredient.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A041339146C2AAD00EF537A /* _Ingredient.m */; };
-		7A041345146C2AAD00EF537A /* _NutritionStat.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A04133B146C2AAD00EF537A /* _NutritionStat.m */; };
-		7A041346146C2AAD00EF537A /* _Recipe.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A04133D146C2AAD00EF537A /* _Recipe.m */; };
-		7A041347146C2AAD00EF537A /* Ingredient.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A04133F146C2AAD00EF537A /* Ingredient.m */; };
-		7A041348146C2AAD00EF537A /* NutritionStat.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A041341146C2AAD00EF537A /* NutritionStat.m */; };
-		7A041349146C2AAD00EF537A /* Recipe.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A041343146C2AAD00EF537A /* Recipe.m */; };
-		7A04134C146C2B3F00EF537A /* libcloudmine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A04134B146C2B3F00EF537A /* libcloudmine.a */; };
-		7A6C7DE7146C23AC00C1EA66 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A6C7DE6146C23AC00C1EA66 /* UIKit.framework */; };
-		7A6C7DE9146C23AC00C1EA66 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A6C7DE8146C23AC00C1EA66 /* Foundation.framework */; };
-		7A6C7DEB146C23AC00C1EA66 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A6C7DEA146C23AC00C1EA66 /* CoreGraphics.framework */; };
-		7A6C7DED146C23AC00C1EA66 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A6C7DEC146C23AC00C1EA66 /* CoreData.framework */; };
-		7A6C7DF3146C23AC00C1EA66 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7A6C7DF1146C23AC00C1EA66 /* InfoPlist.strings */; };
-		7A6C7DF5146C23AC00C1EA66 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6C7DF4146C23AC00C1EA66 /* main.m */; };
-		7A6C7DF9146C23AC00C1EA66 /* CMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6C7DF8146C23AC00C1EA66 /* CMAppDelegate.m */; };
-		7A6C7DFC146C23AC00C1EA66 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A6C7DFA146C23AC00C1EA66 /* MainStoryboard.storyboard */; };
-		7A6C7DFF146C23AC00C1EA66 /* Recipes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7A6C7DFD146C23AC00C1EA66 /* Recipes.xcdatamodeld */; };
-		7A6C7E02146C23AC00C1EA66 /* CMMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6C7E01146C23AC00C1EA66 /* CMMasterViewController.m */; };
-		7A6C7E05146C23AC00C1EA66 /* CMDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6C7E04146C23AC00C1EA66 /* CMDetailViewController.m */; };
-		7A6C7E0D146C23AC00C1EA66 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A6C7E0C146C23AC00C1EA66 /* SenTestingKit.framework */; };
-		7A6C7E0E146C23AC00C1EA66 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A6C7DE6146C23AC00C1EA66 /* UIKit.framework */; };
-		7A6C7E0F146C23AC00C1EA66 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A6C7DE8146C23AC00C1EA66 /* Foundation.framework */; };
-		7A6C7E10146C23AC00C1EA66 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A6C7DEC146C23AC00C1EA66 /* CoreData.framework */; };
-		7A6C7E18146C23AC00C1EA66 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7A6C7E16146C23AC00C1EA66 /* InfoPlist.strings */; };
-		7A6C7E1B146C23AC00C1EA66 /* RecipesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6C7E1A146C23AC00C1EA66 /* RecipesTests.m */; };
+		7A041366146C579A00EF537A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A041365146C579A00EF537A /* UIKit.framework */; };
+		7A041368146C579A00EF537A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A041367146C579A00EF537A /* Foundation.framework */; };
+		7A04136A146C579A00EF537A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A041369146C579A00EF537A /* CoreGraphics.framework */; };
+		7A041370146C579A00EF537A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7A04136E146C579A00EF537A /* InfoPlist.strings */; };
+		7A041372146C579A00EF537A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A041371146C579A00EF537A /* main.m */; };
+		7A041376146C579A00EF537A /* CMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A041375146C579A00EF537A /* CMAppDelegate.m */; };
+		7A041379146C579A00EF537A /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A041377146C579A00EF537A /* MainStoryboard.storyboard */; };
+		7A04137C146C579A00EF537A /* CMMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A04137B146C579A00EF537A /* CMMasterViewController.m */; };
+		7A04137F146C579A00EF537A /* CMDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A04137E146C579A00EF537A /* CMDetailViewController.m */; };
+		7A041387146C579A00EF537A /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A041386146C579A00EF537A /* SenTestingKit.framework */; };
+		7A041388146C579A00EF537A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A041365146C579A00EF537A /* UIKit.framework */; };
+		7A041389146C579A00EF537A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A041367146C579A00EF537A /* Foundation.framework */; };
+		7A041391146C579A00EF537A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7A04138F146C579A00EF537A /* InfoPlist.strings */; };
+		7A041394146C579A00EF537A /* RecipesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A041393146C579A00EF537A /* RecipesTests.m */; };
+		7A04139E146C57DC00EF537A /* libcloudmine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A04139D146C57DC00EF537A /* libcloudmine.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		7A6C7E11146C23AC00C1EA66 /* PBXContainerItemProxy */ = {
+		7A04138A146C579A00EF537A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 7A6C7DD9146C23AC00C1EA66 /* Project object */;
+			containerPortal = 7A041358146C579A00EF537A /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 7A6C7DE1146C23AC00C1EA66;
+			remoteGlobalIDString = 7A041360146C579A00EF537A;
 			remoteInfo = Recipes;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		7A041338146C2AAD00EF537A /* _Ingredient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Ingredient.h; sourceTree = "<group>"; };
-		7A041339146C2AAD00EF537A /* _Ingredient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Ingredient.m; sourceTree = "<group>"; };
-		7A04133A146C2AAD00EF537A /* _NutritionStat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _NutritionStat.h; sourceTree = "<group>"; };
-		7A04133B146C2AAD00EF537A /* _NutritionStat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _NutritionStat.m; sourceTree = "<group>"; };
-		7A04133C146C2AAD00EF537A /* _Recipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Recipe.h; sourceTree = "<group>"; };
-		7A04133D146C2AAD00EF537A /* _Recipe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Recipe.m; sourceTree = "<group>"; };
-		7A04133E146C2AAD00EF537A /* Ingredient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ingredient.h; sourceTree = "<group>"; };
-		7A04133F146C2AAD00EF537A /* Ingredient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ingredient.m; sourceTree = "<group>"; };
-		7A041340146C2AAD00EF537A /* NutritionStat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NutritionStat.h; sourceTree = "<group>"; };
-		7A041341146C2AAD00EF537A /* NutritionStat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NutritionStat.m; sourceTree = "<group>"; };
-		7A041342146C2AAD00EF537A /* Recipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recipe.h; sourceTree = "<group>"; };
-		7A041343146C2AAD00EF537A /* Recipe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recipe.m; sourceTree = "<group>"; };
-		7A04134B146C2B3F00EF537A /* libcloudmine.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcloudmine.a; path = "../ios/build/Debug-iphoneos/libcloudmine.a"; sourceTree = "<group>"; };
-		7A6C7DE2146C23AC00C1EA66 /* Recipes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Recipes.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		7A6C7DE6146C23AC00C1EA66 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		7A6C7DE8146C23AC00C1EA66 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		7A6C7DEA146C23AC00C1EA66 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		7A6C7DEC146C23AC00C1EA66 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		7A6C7DF0146C23AC00C1EA66 /* Recipes-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Recipes-Info.plist"; sourceTree = "<group>"; };
-		7A6C7DF2146C23AC00C1EA66 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		7A6C7DF4146C23AC00C1EA66 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		7A6C7DF6146C23AC00C1EA66 /* Recipes-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Recipes-Prefix.pch"; sourceTree = "<group>"; };
-		7A6C7DF7146C23AC00C1EA66 /* CMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMAppDelegate.h; sourceTree = "<group>"; };
-		7A6C7DF8146C23AC00C1EA66 /* CMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMAppDelegate.m; sourceTree = "<group>"; };
-		7A6C7DFB146C23AC00C1EA66 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		7A6C7DFE146C23AC00C1EA66 /* Recipes.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Recipes.xcdatamodel; sourceTree = "<group>"; };
-		7A6C7E00146C23AC00C1EA66 /* CMMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMMasterViewController.h; sourceTree = "<group>"; };
-		7A6C7E01146C23AC00C1EA66 /* CMMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMMasterViewController.m; sourceTree = "<group>"; };
-		7A6C7E03146C23AC00C1EA66 /* CMDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMDetailViewController.h; sourceTree = "<group>"; };
-		7A6C7E04146C23AC00C1EA66 /* CMDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMDetailViewController.m; sourceTree = "<group>"; };
-		7A6C7E0B146C23AC00C1EA66 /* RecipesTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecipesTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		7A6C7E0C146C23AC00C1EA66 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		7A6C7E15146C23AC00C1EA66 /* RecipesTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RecipesTests-Info.plist"; sourceTree = "<group>"; };
-		7A6C7E17146C23AC00C1EA66 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		7A6C7E19146C23AC00C1EA66 /* RecipesTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecipesTests.h; sourceTree = "<group>"; };
-		7A6C7E1A146C23AC00C1EA66 /* RecipesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecipesTests.m; sourceTree = "<group>"; };
+		7A041361146C579A00EF537A /* Recipes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Recipes.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A041365146C579A00EF537A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		7A041367146C579A00EF537A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		7A041369146C579A00EF537A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		7A04136D146C579A00EF537A /* Recipes-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Recipes-Info.plist"; sourceTree = "<group>"; };
+		7A04136F146C579A00EF537A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7A041371146C579A00EF537A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		7A041373146C579A00EF537A /* Recipes-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Recipes-Prefix.pch"; sourceTree = "<group>"; };
+		7A041374146C579A00EF537A /* CMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMAppDelegate.h; sourceTree = "<group>"; };
+		7A041375146C579A00EF537A /* CMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMAppDelegate.m; sourceTree = "<group>"; };
+		7A041378146C579A00EF537A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		7A04137A146C579A00EF537A /* CMMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMMasterViewController.h; sourceTree = "<group>"; };
+		7A04137B146C579A00EF537A /* CMMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMMasterViewController.m; sourceTree = "<group>"; };
+		7A04137D146C579A00EF537A /* CMDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMDetailViewController.h; sourceTree = "<group>"; };
+		7A04137E146C579A00EF537A /* CMDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMDetailViewController.m; sourceTree = "<group>"; };
+		7A041385146C579A00EF537A /* RecipesTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecipesTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A041386146C579A00EF537A /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		7A04138E146C579A00EF537A /* RecipesTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RecipesTests-Info.plist"; sourceTree = "<group>"; };
+		7A041390146C579A00EF537A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7A041392146C579A00EF537A /* RecipesTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecipesTests.h; sourceTree = "<group>"; };
+		7A041393146C579A00EF537A /* RecipesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecipesTests.m; sourceTree = "<group>"; };
+		7A04139D146C57DC00EF537A /* libcloudmine.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcloudmine.a; path = "../ios/build/Debug-iphoneos/libcloudmine.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		7A6C7DDF146C23AC00C1EA66 /* Frameworks */ = {
+		7A04135E146C579A00EF537A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A04134C146C2B3F00EF537A /* libcloudmine.a in Frameworks */,
-				7A6C7DE7146C23AC00C1EA66 /* UIKit.framework in Frameworks */,
-				7A6C7DE9146C23AC00C1EA66 /* Foundation.framework in Frameworks */,
-				7A6C7DEB146C23AC00C1EA66 /* CoreGraphics.framework in Frameworks */,
-				7A6C7DED146C23AC00C1EA66 /* CoreData.framework in Frameworks */,
+				7A04139E146C57DC00EF537A /* libcloudmine.a in Frameworks */,
+				7A041366146C579A00EF537A /* UIKit.framework in Frameworks */,
+				7A041368146C579A00EF537A /* Foundation.framework in Frameworks */,
+				7A04136A146C579A00EF537A /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7A6C7E07146C23AC00C1EA66 /* Frameworks */ = {
+		7A041381146C579A00EF537A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A6C7E0D146C23AC00C1EA66 /* SenTestingKit.framework in Frameworks */,
-				7A6C7E0E146C23AC00C1EA66 /* UIKit.framework in Frameworks */,
-				7A6C7E0F146C23AC00C1EA66 /* Foundation.framework in Frameworks */,
-				7A6C7E10146C23AC00C1EA66 /* CoreData.framework in Frameworks */,
+				7A041387146C579A00EF537A /* SenTestingKit.framework in Frameworks */,
+				7A041388146C579A00EF537A /* UIKit.framework in Frameworks */,
+				7A041389146C579A00EF537A /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7A041337146C2AAD00EF537A /* Data Model Classes */ = {
+		7A041356146C579A00EF537A = {
 			isa = PBXGroup;
 			children = (
-				7A041338146C2AAD00EF537A /* _Ingredient.h */,
-				7A041339146C2AAD00EF537A /* _Ingredient.m */,
-				7A04133A146C2AAD00EF537A /* _NutritionStat.h */,
-				7A04133B146C2AAD00EF537A /* _NutritionStat.m */,
-				7A04133C146C2AAD00EF537A /* _Recipe.h */,
-				7A04133D146C2AAD00EF537A /* _Recipe.m */,
-				7A04133E146C2AAD00EF537A /* Ingredient.h */,
-				7A04133F146C2AAD00EF537A /* Ingredient.m */,
-				7A041340146C2AAD00EF537A /* NutritionStat.h */,
-				7A041341146C2AAD00EF537A /* NutritionStat.m */,
-				7A041342146C2AAD00EF537A /* Recipe.h */,
-				7A041343146C2AAD00EF537A /* Recipe.m */,
-			);
-			name = "Data Model Classes";
-			path = DataModelClasses;
-			sourceTree = "<group>";
-		};
-		7A6C7DD7146C23AC00C1EA66 = {
-			isa = PBXGroup;
-			children = (
-				7A04134B146C2B3F00EF537A /* libcloudmine.a */,
-				7A6C7DEE146C23AC00C1EA66 /* Recipes */,
-				7A6C7E13146C23AC00C1EA66 /* RecipesTests */,
-				7A6C7DE5146C23AC00C1EA66 /* Frameworks */,
-				7A6C7DE3146C23AC00C1EA66 /* Products */,
+				7A04139D146C57DC00EF537A /* libcloudmine.a */,
+				7A04136B146C579A00EF537A /* Recipes */,
+				7A04138C146C579A00EF537A /* RecipesTests */,
+				7A041364146C579A00EF537A /* Frameworks */,
+				7A041362146C579A00EF537A /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		7A6C7DE3146C23AC00C1EA66 /* Products */ = {
+		7A041362146C579A00EF537A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7A6C7DE2146C23AC00C1EA66 /* Recipes.app */,
-				7A6C7E0B146C23AC00C1EA66 /* RecipesTests.octest */,
+				7A041361146C579A00EF537A /* Recipes.app */,
+				7A041385146C579A00EF537A /* RecipesTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		7A6C7DE5146C23AC00C1EA66 /* Frameworks */ = {
+		7A041364146C579A00EF537A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7A6C7DE6146C23AC00C1EA66 /* UIKit.framework */,
-				7A6C7DE8146C23AC00C1EA66 /* Foundation.framework */,
-				7A6C7DEA146C23AC00C1EA66 /* CoreGraphics.framework */,
-				7A6C7DEC146C23AC00C1EA66 /* CoreData.framework */,
-				7A6C7E0C146C23AC00C1EA66 /* SenTestingKit.framework */,
+				7A041365146C579A00EF537A /* UIKit.framework */,
+				7A041367146C579A00EF537A /* Foundation.framework */,
+				7A041369146C579A00EF537A /* CoreGraphics.framework */,
+				7A041386146C579A00EF537A /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		7A6C7DEE146C23AC00C1EA66 /* Recipes */ = {
+		7A04136B146C579A00EF537A /* Recipes */ = {
 			isa = PBXGroup;
 			children = (
-				7A041337146C2AAD00EF537A /* Data Model Classes */,
-				7A6C7DF7146C23AC00C1EA66 /* CMAppDelegate.h */,
-				7A6C7DF8146C23AC00C1EA66 /* CMAppDelegate.m */,
-				7A6C7DFA146C23AC00C1EA66 /* MainStoryboard.storyboard */,
-				7A6C7E00146C23AC00C1EA66 /* CMMasterViewController.h */,
-				7A6C7E01146C23AC00C1EA66 /* CMMasterViewController.m */,
-				7A6C7E03146C23AC00C1EA66 /* CMDetailViewController.h */,
-				7A6C7E04146C23AC00C1EA66 /* CMDetailViewController.m */,
-				7A6C7DFD146C23AC00C1EA66 /* Recipes.xcdatamodeld */,
-				7A6C7DEF146C23AC00C1EA66 /* Supporting Files */,
+				7A041374146C579A00EF537A /* CMAppDelegate.h */,
+				7A041375146C579A00EF537A /* CMAppDelegate.m */,
+				7A041377146C579A00EF537A /* MainStoryboard.storyboard */,
+				7A04137A146C579A00EF537A /* CMMasterViewController.h */,
+				7A04137B146C579A00EF537A /* CMMasterViewController.m */,
+				7A04137D146C579A00EF537A /* CMDetailViewController.h */,
+				7A04137E146C579A00EF537A /* CMDetailViewController.m */,
+				7A04136C146C579A00EF537A /* Supporting Files */,
 			);
 			path = Recipes;
 			sourceTree = "<group>";
 		};
-		7A6C7DEF146C23AC00C1EA66 /* Supporting Files */ = {
+		7A04136C146C579A00EF537A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				7A6C7DF0146C23AC00C1EA66 /* Recipes-Info.plist */,
-				7A6C7DF1146C23AC00C1EA66 /* InfoPlist.strings */,
-				7A6C7DF4146C23AC00C1EA66 /* main.m */,
-				7A6C7DF6146C23AC00C1EA66 /* Recipes-Prefix.pch */,
+				7A04136D146C579A00EF537A /* Recipes-Info.plist */,
+				7A04136E146C579A00EF537A /* InfoPlist.strings */,
+				7A041371146C579A00EF537A /* main.m */,
+				7A041373146C579A00EF537A /* Recipes-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		7A6C7E13146C23AC00C1EA66 /* RecipesTests */ = {
+		7A04138C146C579A00EF537A /* RecipesTests */ = {
 			isa = PBXGroup;
 			children = (
-				7A6C7E19146C23AC00C1EA66 /* RecipesTests.h */,
-				7A6C7E1A146C23AC00C1EA66 /* RecipesTests.m */,
-				7A6C7E14146C23AC00C1EA66 /* Supporting Files */,
+				7A041392146C579A00EF537A /* RecipesTests.h */,
+				7A041393146C579A00EF537A /* RecipesTests.m */,
+				7A04138D146C579A00EF537A /* Supporting Files */,
 			);
 			path = RecipesTests;
 			sourceTree = "<group>";
 		};
-		7A6C7E14146C23AC00C1EA66 /* Supporting Files */ = {
+		7A04138D146C579A00EF537A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				7A6C7E15146C23AC00C1EA66 /* RecipesTests-Info.plist */,
-				7A6C7E16146C23AC00C1EA66 /* InfoPlist.strings */,
+				7A04138E146C579A00EF537A /* RecipesTests-Info.plist */,
+				7A04138F146C579A00EF537A /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -211,13 +163,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		7A6C7DE1146C23AC00C1EA66 /* Recipes */ = {
+		7A041360146C579A00EF537A /* Recipes */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7A6C7E1E146C23AC00C1EA66 /* Build configuration list for PBXNativeTarget "Recipes" */;
+			buildConfigurationList = 7A041397146C579A00EF537A /* Build configuration list for PBXNativeTarget "Recipes" */;
 			buildPhases = (
-				7A6C7DDE146C23AC00C1EA66 /* Sources */,
-				7A6C7DDF146C23AC00C1EA66 /* Frameworks */,
-				7A6C7DE0146C23AC00C1EA66 /* Resources */,
+				7A04135D146C579A00EF537A /* Sources */,
+				7A04135E146C579A00EF537A /* Frameworks */,
+				7A04135F146C579A00EF537A /* Resources */,
 			);
 			buildRules = (
 			);
@@ -225,76 +177,76 @@
 			);
 			name = Recipes;
 			productName = Recipes;
-			productReference = 7A6C7DE2146C23AC00C1EA66 /* Recipes.app */;
+			productReference = 7A041361146C579A00EF537A /* Recipes.app */;
 			productType = "com.apple.product-type.application";
 		};
-		7A6C7E0A146C23AC00C1EA66 /* RecipesTests */ = {
+		7A041384146C579A00EF537A /* RecipesTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7A6C7E21146C23AC00C1EA66 /* Build configuration list for PBXNativeTarget "RecipesTests" */;
+			buildConfigurationList = 7A04139A146C579A00EF537A /* Build configuration list for PBXNativeTarget "RecipesTests" */;
 			buildPhases = (
-				7A6C7E06146C23AC00C1EA66 /* Sources */,
-				7A6C7E07146C23AC00C1EA66 /* Frameworks */,
-				7A6C7E08146C23AC00C1EA66 /* Resources */,
-				7A6C7E09146C23AC00C1EA66 /* ShellScript */,
+				7A041380146C579A00EF537A /* Sources */,
+				7A041381146C579A00EF537A /* Frameworks */,
+				7A041382146C579A00EF537A /* Resources */,
+				7A041383146C579A00EF537A /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				7A6C7E12146C23AC00C1EA66 /* PBXTargetDependency */,
+				7A04138B146C579A00EF537A /* PBXTargetDependency */,
 			);
 			name = RecipesTests;
 			productName = RecipesTests;
-			productReference = 7A6C7E0B146C23AC00C1EA66 /* RecipesTests.octest */;
+			productReference = 7A041385146C579A00EF537A /* RecipesTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		7A6C7DD9146C23AC00C1EA66 /* Project object */ = {
+		7A041358146C579A00EF537A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0420;
 			};
-			buildConfigurationList = 7A6C7DDC146C23AC00C1EA66 /* Build configuration list for PBXProject "Recipes" */;
+			buildConfigurationList = 7A04135B146C579A00EF537A /* Build configuration list for PBXProject "Recipes" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = 7A6C7DD7146C23AC00C1EA66;
-			productRefGroup = 7A6C7DE3146C23AC00C1EA66 /* Products */;
+			mainGroup = 7A041356146C579A00EF537A;
+			productRefGroup = 7A041362146C579A00EF537A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7A6C7DE1146C23AC00C1EA66 /* Recipes */,
-				7A6C7E0A146C23AC00C1EA66 /* RecipesTests */,
+				7A041360146C579A00EF537A /* Recipes */,
+				7A041384146C579A00EF537A /* RecipesTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		7A6C7DE0146C23AC00C1EA66 /* Resources */ = {
+		7A04135F146C579A00EF537A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A6C7DF3146C23AC00C1EA66 /* InfoPlist.strings in Resources */,
-				7A6C7DFC146C23AC00C1EA66 /* MainStoryboard.storyboard in Resources */,
+				7A041370146C579A00EF537A /* InfoPlist.strings in Resources */,
+				7A041379146C579A00EF537A /* MainStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7A6C7E08146C23AC00C1EA66 /* Resources */ = {
+		7A041382146C579A00EF537A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A6C7E18146C23AC00C1EA66 /* InfoPlist.strings in Resources */,
+				7A041391146C579A00EF537A /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		7A6C7E09146C23AC00C1EA66 /* ShellScript */ = {
+		7A041383146C579A00EF537A /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -310,63 +262,56 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		7A6C7DDE146C23AC00C1EA66 /* Sources */ = {
+		7A04135D146C579A00EF537A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A6C7DF5146C23AC00C1EA66 /* main.m in Sources */,
-				7A6C7DF9146C23AC00C1EA66 /* CMAppDelegate.m in Sources */,
-				7A6C7DFF146C23AC00C1EA66 /* Recipes.xcdatamodeld in Sources */,
-				7A6C7E02146C23AC00C1EA66 /* CMMasterViewController.m in Sources */,
-				7A6C7E05146C23AC00C1EA66 /* CMDetailViewController.m in Sources */,
-				7A041344146C2AAD00EF537A /* _Ingredient.m in Sources */,
-				7A041345146C2AAD00EF537A /* _NutritionStat.m in Sources */,
-				7A041346146C2AAD00EF537A /* _Recipe.m in Sources */,
-				7A041347146C2AAD00EF537A /* Ingredient.m in Sources */,
-				7A041348146C2AAD00EF537A /* NutritionStat.m in Sources */,
-				7A041349146C2AAD00EF537A /* Recipe.m in Sources */,
+				7A041372146C579A00EF537A /* main.m in Sources */,
+				7A041376146C579A00EF537A /* CMAppDelegate.m in Sources */,
+				7A04137C146C579A00EF537A /* CMMasterViewController.m in Sources */,
+				7A04137F146C579A00EF537A /* CMDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7A6C7E06146C23AC00C1EA66 /* Sources */ = {
+		7A041380146C579A00EF537A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A6C7E1B146C23AC00C1EA66 /* RecipesTests.m in Sources */,
+				7A041394146C579A00EF537A /* RecipesTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		7A6C7E12146C23AC00C1EA66 /* PBXTargetDependency */ = {
+		7A04138B146C579A00EF537A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 7A6C7DE1146C23AC00C1EA66 /* Recipes */;
-			targetProxy = 7A6C7E11146C23AC00C1EA66 /* PBXContainerItemProxy */;
+			target = 7A041360146C579A00EF537A /* Recipes */;
+			targetProxy = 7A04138A146C579A00EF537A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		7A6C7DF1146C23AC00C1EA66 /* InfoPlist.strings */ = {
+		7A04136E146C579A00EF537A /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				7A6C7DF2146C23AC00C1EA66 /* en */,
+				7A04136F146C579A00EF537A /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		7A6C7DFA146C23AC00C1EA66 /* MainStoryboard.storyboard */ = {
+		7A041377146C579A00EF537A /* MainStoryboard.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				7A6C7DFB146C23AC00C1EA66 /* en */,
+				7A041378146C579A00EF537A /* en */,
 			);
 			name = MainStoryboard.storyboard;
 			sourceTree = "<group>";
 		};
-		7A6C7E16146C23AC00C1EA66 /* InfoPlist.strings */ = {
+		7A04138F146C579A00EF537A /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				7A6C7E17146C23AC00C1EA66 /* en */,
+				7A041390146C579A00EF537A /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -374,7 +319,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		7A6C7E1C146C23AC00C1EA66 /* Debug */ = {
+		7A041395146C579A00EF537A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -399,7 +344,7 @@
 			};
 			name = Debug;
 		};
-		7A6C7E1D146C23AC00C1EA66 /* Release */ = {
+		7A041396146C579A00EF537A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -419,13 +364,12 @@
 			};
 			name = Release;
 		};
-		7A6C7E1F146C23AC00C1EA66 /* Debug */ = {
+		7A041398146C579A00EF537A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Recipes/Recipes-Prefix.pch";
 				INFOPLIST_FILE = "Recipes/Recipes-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../ios/build/Debug-iphoneos\"",
@@ -435,13 +379,12 @@
 			};
 			name = Debug;
 		};
-		7A6C7E20146C23AC00C1EA66 /* Release */ = {
+		7A041399146C579A00EF537A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Recipes/Recipes-Prefix.pch";
 				INFOPLIST_FILE = "Recipes/Recipes-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../ios/build/Debug-iphoneos\"",
@@ -451,7 +394,7 @@
 			};
 			name = Release;
 		};
-		7A6C7E22146C23AC00C1EA66 /* Debug */ = {
+		7A04139B146C579A00EF537A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Recipes.app/Recipes";
@@ -468,7 +411,7 @@
 			};
 			name = Debug;
 		};
-		7A6C7E23146C23AC00C1EA66 /* Release */ = {
+		7A04139C146C579A00EF537A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Recipes.app/Recipes";
@@ -488,47 +431,32 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		7A6C7DDC146C23AC00C1EA66 /* Build configuration list for PBXProject "Recipes" */ = {
+		7A04135B146C579A00EF537A /* Build configuration list for PBXProject "Recipes" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7A6C7E1C146C23AC00C1EA66 /* Debug */,
-				7A6C7E1D146C23AC00C1EA66 /* Release */,
+				7A041395146C579A00EF537A /* Debug */,
+				7A041396146C579A00EF537A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7A6C7E1E146C23AC00C1EA66 /* Build configuration list for PBXNativeTarget "Recipes" */ = {
+		7A041397146C579A00EF537A /* Build configuration list for PBXNativeTarget "Recipes" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7A6C7E1F146C23AC00C1EA66 /* Debug */,
-				7A6C7E20146C23AC00C1EA66 /* Release */,
+				7A041398146C579A00EF537A /* Debug */,
+				7A041399146C579A00EF537A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
-		7A6C7E21146C23AC00C1EA66 /* Build configuration list for PBXNativeTarget "RecipesTests" */ = {
+		7A04139A146C579A00EF537A /* Build configuration list for PBXNativeTarget "RecipesTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7A6C7E22146C23AC00C1EA66 /* Debug */,
-				7A6C7E23146C23AC00C1EA66 /* Release */,
+				7A04139B146C579A00EF537A /* Debug */,
+				7A04139C146C579A00EF537A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		7A6C7DFD146C23AC00C1EA66 /* Recipes.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				7A6C7DFE146C23AC00C1EA66 /* Recipes.xcdatamodel */,
-			);
-			currentVersion = 7A6C7DFE146C23AC00C1EA66 /* Recipes.xcdatamodel */;
-			path = Recipes.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
-	rootObject = 7A6C7DD9146C23AC00C1EA66 /* Project object */;
+	rootObject = 7A041358146C579A00EF537A /* Project object */;
 }
