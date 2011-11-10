@@ -14,8 +14,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7AB4AB5E145DC5D8006AEF67"
-               BuildableName = "libios.a"
-               BlueprintName = "ios"
+               BuildableName = "libcloudmine.a"
+               BlueprintName = "cloudmine-ios"
                ReferencedContainer = "container:cloudmine-ios.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,8 +32,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7AB4AB6E145DC5D8006AEF67"
-               BuildableName = "iosTests.octest"
-               BlueprintName = "iosTests"
+               BuildableName = "cloudmine-iosTests.octest"
+               BlueprintName = "cloudmine-iosTests"
                ReferencedContainer = "container:cloudmine-ios.xcodeproj">
             </BuildableReference>
          </TestableReference>
