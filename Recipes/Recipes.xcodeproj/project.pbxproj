@@ -24,6 +24,7 @@
 		7A6C7E10146C23AC00C1EA66 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A6C7DEC146C23AC00C1EA66 /* CoreData.framework */; };
 		7A6C7E18146C23AC00C1EA66 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7A6C7E16146C23AC00C1EA66 /* InfoPlist.strings */; };
 		7A6C7E1B146C23AC00C1EA66 /* RecipesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6C7E1A146C23AC00C1EA66 /* RecipesTests.m */; };
+		7A6C7E27146C254500C1EA66 /* libcloudmine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A6C7E26146C254500C1EA66 /* libcloudmine.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,7 +61,7 @@
 		7A6C7E17146C23AC00C1EA66 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7A6C7E19146C23AC00C1EA66 /* RecipesTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecipesTests.h; sourceTree = "<group>"; };
 		7A6C7E1A146C23AC00C1EA66 /* RecipesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecipesTests.m; sourceTree = "<group>"; };
-		7A6C7E24146C248500C1EA66 /* libios.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libios.a; path = "../ios/build/Release-iphoneos/libios.a"; sourceTree = "<group>"; };
+		7A6C7E26146C254500C1EA66 /* libcloudmine.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libcloudmine.a; path = "../ios/build/Release-iphoneos/libcloudmine.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A6C7E27146C254500C1EA66 /* libcloudmine.a in Frameworks */,
 				7A6C7DE7146C23AC00C1EA66 /* UIKit.framework in Frameworks */,
 				7A6C7DE9146C23AC00C1EA66 /* Foundation.framework in Frameworks */,
 				7A6C7DEB146C23AC00C1EA66 /* CoreGraphics.framework in Frameworks */,
@@ -92,7 +94,7 @@
 		7A6C7DD7146C23AC00C1EA66 = {
 			isa = PBXGroup;
 			children = (
-				7A6C7E24146C248500C1EA66 /* libios.a */,
+				7A6C7E26146C254500C1EA66 /* libcloudmine.a */,
 				7A6C7DEE146C23AC00C1EA66 /* Recipes */,
 				7A6C7E13146C23AC00C1EA66 /* RecipesTests */,
 				7A6C7DE5146C23AC00C1EA66 /* Frameworks */,
