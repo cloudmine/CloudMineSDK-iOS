@@ -60,6 +60,7 @@
 		7A6C7E17146C23AC00C1EA66 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7A6C7E19146C23AC00C1EA66 /* RecipesTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecipesTests.h; sourceTree = "<group>"; };
 		7A6C7E1A146C23AC00C1EA66 /* RecipesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecipesTests.m; sourceTree = "<group>"; };
+		7A6C7E24146C248500C1EA66 /* libios.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libios.a; path = "../ios/build/Release-iphoneos/libios.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +92,7 @@
 		7A6C7DD7146C23AC00C1EA66 = {
 			isa = PBXGroup;
 			children = (
+				7A6C7E24146C248500C1EA66 /* libios.a */,
 				7A6C7DEE146C23AC00C1EA66 /* Recipes */,
 				7A6C7E13146C23AC00C1EA66 /* RecipesTests */,
 				7A6C7DE5146C23AC00C1EA66 /* Frameworks */,

@@ -12,7 +12,7 @@
 		7AB4AB71145DC5D8006AEF67 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB70145DC5D8006AEF67 /* SenTestingKit.framework */; };
 		7AB4AB73145DC5D8006AEF67 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB72145DC5D8006AEF67 /* UIKit.framework */; };
 		7AB4AB74145DC5D8006AEF67 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB62145DC5D8006AEF67 /* Foundation.framework */; };
-		7AB4AB77145DC5D8006AEF67 /* libios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB5F145DC5D8006AEF67 /* libios.a */; };
+		7AB4AB77145DC5D8006AEF67 /* libcloudmine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB5F145DC5D8006AEF67 /* libcloudmine.a */; };
 		7AB4AB7D145DC5D8006AEF67 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7AB4AB7B145DC5D8006AEF67 /* InfoPlist.strings */; };
 		7AB4AB80145DC5D8006AEF67 /* iosTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB4AB7F145DC5D8006AEF67 /* iosTests.m */; };
 /* End PBXBuildFile section */
@@ -28,15 +28,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		7AB4AB5F145DC5D8006AEF67 /* libios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libios.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		7AB4AB5F145DC5D8006AEF67 /* libcloudmine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcloudmine.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AB4AB62145DC5D8006AEF67 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		7AB4AB66145DC5D8006AEF67 /* ios-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ios-Prefix.pch"; sourceTree = "<group>"; };
+		7AB4AB66145DC5D8006AEF67 /* cloudmine-ios-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cloudmine-ios-Prefix.pch"; sourceTree = "<group>"; };
 		7AB4AB67145DC5D8006AEF67 /* ios.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ios.h; sourceTree = "<group>"; };
 		7AB4AB68145DC5D8006AEF67 /* ios.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ios.m; sourceTree = "<group>"; };
-		7AB4AB6F145DC5D8006AEF67 /* iosTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iosTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7AB4AB6F145DC5D8006AEF67 /* cloudmine-iosTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "cloudmine-iosTests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AB4AB70145DC5D8006AEF67 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		7AB4AB72145DC5D8006AEF67 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		7AB4AB7A145DC5D8006AEF67 /* iosTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iosTests-Info.plist"; sourceTree = "<group>"; };
+		7AB4AB7A145DC5D8006AEF67 /* cloudmine-iosTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "cloudmine-iosTests-Info.plist"; sourceTree = "<group>"; };
 		7AB4AB7C145DC5D8006AEF67 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7AB4AB7E145DC5D8006AEF67 /* iosTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iosTests.h; sourceTree = "<group>"; };
 		7AB4AB7F145DC5D8006AEF67 /* iosTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iosTests.m; sourceTree = "<group>"; };
@@ -58,7 +58,7 @@
 				7AB4AB71145DC5D8006AEF67 /* SenTestingKit.framework in Frameworks */,
 				7AB4AB73145DC5D8006AEF67 /* UIKit.framework in Frameworks */,
 				7AB4AB74145DC5D8006AEF67 /* Foundation.framework in Frameworks */,
-				7AB4AB77145DC5D8006AEF67 /* libios.a in Frameworks */,
+				7AB4AB77145DC5D8006AEF67 /* libcloudmine.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,8 +78,8 @@
 		7AB4AB60145DC5D8006AEF67 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7AB4AB5F145DC5D8006AEF67 /* libios.a */,
-				7AB4AB6F145DC5D8006AEF67 /* iosTests.octest */,
+				7AB4AB5F145DC5D8006AEF67 /* libcloudmine.a */,
+				7AB4AB6F145DC5D8006AEF67 /* cloudmine-iosTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -107,7 +107,7 @@
 		7AB4AB65145DC5D8006AEF67 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				7AB4AB66145DC5D8006AEF67 /* ios-Prefix.pch */,
+				7AB4AB66145DC5D8006AEF67 /* cloudmine-ios-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -125,7 +125,7 @@
 		7AB4AB79145DC5D8006AEF67 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				7AB4AB7A145DC5D8006AEF67 /* iosTests-Info.plist */,
+				7AB4AB7A145DC5D8006AEF67 /* cloudmine-iosTests-Info.plist */,
 				7AB4AB7B145DC5D8006AEF67 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -144,9 +144,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		7AB4AB5E145DC5D8006AEF67 /* ios */ = {
+		7AB4AB5E145DC5D8006AEF67 /* cloudmine-ios */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7AB4AB83145DC5D8006AEF67 /* Build configuration list for PBXNativeTarget "ios" */;
+			buildConfigurationList = 7AB4AB83145DC5D8006AEF67 /* Build configuration list for PBXNativeTarget "cloudmine-ios" */;
 			buildPhases = (
 				7AB4AB5B145DC5D8006AEF67 /* Sources */,
 				7AB4AB5C145DC5D8006AEF67 /* Frameworks */,
@@ -156,14 +156,14 @@
 			);
 			dependencies = (
 			);
-			name = ios;
+			name = "cloudmine-ios";
 			productName = ios;
-			productReference = 7AB4AB5F145DC5D8006AEF67 /* libios.a */;
+			productReference = 7AB4AB5F145DC5D8006AEF67 /* libcloudmine.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		7AB4AB6E145DC5D8006AEF67 /* iosTests */ = {
+		7AB4AB6E145DC5D8006AEF67 /* cloudmine-iosTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7AB4AB86145DC5D8006AEF67 /* Build configuration list for PBXNativeTarget "iosTests" */;
+			buildConfigurationList = 7AB4AB86145DC5D8006AEF67 /* Build configuration list for PBXNativeTarget "cloudmine-iosTests" */;
 			buildPhases = (
 				7AB4AB6A145DC5D8006AEF67 /* Sources */,
 				7AB4AB6B145DC5D8006AEF67 /* Frameworks */,
@@ -175,9 +175,9 @@
 			dependencies = (
 				7AB4AB76145DC5D8006AEF67 /* PBXTargetDependency */,
 			);
-			name = iosTests;
+			name = "cloudmine-iosTests";
 			productName = iosTests;
-			productReference = 7AB4AB6F145DC5D8006AEF67 /* iosTests.octest */;
+			productReference = 7AB4AB6F145DC5D8006AEF67 /* cloudmine-iosTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -189,7 +189,7 @@
 				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = "CloudMine, LLC";
 			};
-			buildConfigurationList = 7AB4AB59145DC5D8006AEF67 /* Build configuration list for PBXProject "ios" */;
+			buildConfigurationList = 7AB4AB59145DC5D8006AEF67 /* Build configuration list for PBXProject "cloudmine-ios" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -201,8 +201,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7AB4AB5E145DC5D8006AEF67 /* ios */,
-				7AB4AB6E145DC5D8006AEF67 /* iosTests */,
+				7AB4AB5E145DC5D8006AEF67 /* cloudmine-ios */,
+				7AB4AB6E145DC5D8006AEF67 /* cloudmine-iosTests */,
 			);
 		};
 /* End PBXProject section */
@@ -256,7 +256,7 @@
 /* Begin PBXTargetDependency section */
 		7AB4AB76145DC5D8006AEF67 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 7AB4AB5E145DC5D8006AEF67 /* ios */;
+			target = 7AB4AB5E145DC5D8006AEF67 /* cloudmine-ios */;
 			targetProxy = 7AB4AB75145DC5D8006AEF67 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -320,9 +320,9 @@
 			buildSettings = {
 				DSTROOT = /tmp/ios.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ios/ios-Prefix.pch";
+				GCC_PREFIX_HEADER = "ios/cloudmine-ios-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = cloudmine;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -332,9 +332,9 @@
 			buildSettings = {
 				DSTROOT = /tmp/ios.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ios/ios-Prefix.pch";
+				GCC_PREFIX_HEADER = "ios/cloudmine-ios-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = cloudmine;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -348,8 +348,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ios/ios-Prefix.pch";
-				INFOPLIST_FILE = "iosTests/iosTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "cloudmine-iosTests-Info.plist";
+				PRODUCT_NAME = "cloudmine-iosTests";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -363,8 +363,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ios/ios-Prefix.pch";
-				INFOPLIST_FILE = "iosTests/iosTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "cloudmine-iosTests-Info.plist";
+				PRODUCT_NAME = "cloudmine-iosTests";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
@@ -372,7 +372,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		7AB4AB59145DC5D8006AEF67 /* Build configuration list for PBXProject "ios" */ = {
+		7AB4AB59145DC5D8006AEF67 /* Build configuration list for PBXProject "cloudmine-ios" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7AB4AB81145DC5D8006AEF67 /* Debug */,
@@ -381,7 +381,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7AB4AB83145DC5D8006AEF67 /* Build configuration list for PBXNativeTarget "ios" */ = {
+		7AB4AB83145DC5D8006AEF67 /* Build configuration list for PBXNativeTarget "cloudmine-ios" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7AB4AB84145DC5D8006AEF67 /* Debug */,
@@ -390,7 +390,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7AB4AB86145DC5D8006AEF67 /* Build configuration list for PBXNativeTarget "iosTests" */ = {
+		7AB4AB86145DC5D8006AEF67 /* Build configuration list for PBXNativeTarget "cloudmine-iosTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7AB4AB87145DC5D8006AEF67 /* Debug */,

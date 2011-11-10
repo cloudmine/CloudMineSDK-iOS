@@ -5,6 +5,6 @@
       location = "group:Recipes/Recipes.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:ios/ios.xcodeproj">
+      location = "group:ios/cloudmine-ios.xcodeproj">
    </FileRef>
 </Workspace>
