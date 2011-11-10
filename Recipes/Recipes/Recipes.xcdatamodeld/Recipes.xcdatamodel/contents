@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="1" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="872" systemVersion="11C74" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Ingredient" syncable="YES">
+    <entity name="Ingredient" representedClassName="Ingredient" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="NutritionStat" syncable="YES">
+    <entity name="NutritionStat" representedClassName="NutritionStat" syncable="YES">
         <attribute name="amount" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="unit" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="Recipe" syncable="YES">
+    <entity name="Recipe" representedClassName="Recipe" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="ingredients" toMany="YES" minCount="1" deletionRule="Nullify" destinationEntity="Ingredient" syncable="YES"/>
         <relationship name="nutrition" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="NutritionStat" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Recipe" positionX="160" positionY="192" width="128" height="90"/>
         <element name="Ingredient" positionX="160" positionY="192" width="128" height="60"/>
         <element name="NutritionStat" positionX="160" positionY="192" width="128" height="90"/>
+        <element name="Recipe" positionX="160" positionY="192" width="128" height="90"/>
     </elements>
 </model>

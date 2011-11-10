@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A041344146C2AAD00EF537A /* _Ingredient.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A041339146C2AAD00EF537A /* _Ingredient.m */; };
+		7A041345146C2AAD00EF537A /* _NutritionStat.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A04133B146C2AAD00EF537A /* _NutritionStat.m */; };
+		7A041346146C2AAD00EF537A /* _Recipe.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A04133D146C2AAD00EF537A /* _Recipe.m */; };
+		7A041347146C2AAD00EF537A /* Ingredient.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A04133F146C2AAD00EF537A /* Ingredient.m */; };
+		7A041348146C2AAD00EF537A /* NutritionStat.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A041341146C2AAD00EF537A /* NutritionStat.m */; };
+		7A041349146C2AAD00EF537A /* Recipe.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A041343146C2AAD00EF537A /* Recipe.m */; };
+		7A04134C146C2B3F00EF537A /* libcloudmine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A04134B146C2B3F00EF537A /* libcloudmine.a */; };
 		7A6C7DE7146C23AC00C1EA66 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A6C7DE6146C23AC00C1EA66 /* UIKit.framework */; };
 		7A6C7DE9146C23AC00C1EA66 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A6C7DE8146C23AC00C1EA66 /* Foundation.framework */; };
 		7A6C7DEB146C23AC00C1EA66 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A6C7DEA146C23AC00C1EA66 /* CoreGraphics.framework */; };
@@ -24,7 +31,6 @@
 		7A6C7E10146C23AC00C1EA66 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A6C7DEC146C23AC00C1EA66 /* CoreData.framework */; };
 		7A6C7E18146C23AC00C1EA66 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7A6C7E16146C23AC00C1EA66 /* InfoPlist.strings */; };
 		7A6C7E1B146C23AC00C1EA66 /* RecipesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6C7E1A146C23AC00C1EA66 /* RecipesTests.m */; };
-		7A6C7E27146C254500C1EA66 /* libcloudmine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A6C7E26146C254500C1EA66 /* libcloudmine.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +44,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7A041338146C2AAD00EF537A /* _Ingredient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Ingredient.h; sourceTree = "<group>"; };
+		7A041339146C2AAD00EF537A /* _Ingredient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Ingredient.m; sourceTree = "<group>"; };
+		7A04133A146C2AAD00EF537A /* _NutritionStat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _NutritionStat.h; sourceTree = "<group>"; };
+		7A04133B146C2AAD00EF537A /* _NutritionStat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _NutritionStat.m; sourceTree = "<group>"; };
+		7A04133C146C2AAD00EF537A /* _Recipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Recipe.h; sourceTree = "<group>"; };
+		7A04133D146C2AAD00EF537A /* _Recipe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Recipe.m; sourceTree = "<group>"; };
+		7A04133E146C2AAD00EF537A /* Ingredient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ingredient.h; sourceTree = "<group>"; };
+		7A04133F146C2AAD00EF537A /* Ingredient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ingredient.m; sourceTree = "<group>"; };
+		7A041340146C2AAD00EF537A /* NutritionStat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NutritionStat.h; sourceTree = "<group>"; };
+		7A041341146C2AAD00EF537A /* NutritionStat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NutritionStat.m; sourceTree = "<group>"; };
+		7A041342146C2AAD00EF537A /* Recipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recipe.h; sourceTree = "<group>"; };
+		7A041343146C2AAD00EF537A /* Recipe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recipe.m; sourceTree = "<group>"; };
+		7A04134B146C2B3F00EF537A /* libcloudmine.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcloudmine.a; path = "../ios/build/Debug-iphoneos/libcloudmine.a"; sourceTree = "<group>"; };
 		7A6C7DE2146C23AC00C1EA66 /* Recipes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Recipes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A6C7DE6146C23AC00C1EA66 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7A6C7DE8146C23AC00C1EA66 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -61,7 +80,6 @@
 		7A6C7E17146C23AC00C1EA66 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7A6C7E19146C23AC00C1EA66 /* RecipesTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecipesTests.h; sourceTree = "<group>"; };
 		7A6C7E1A146C23AC00C1EA66 /* RecipesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecipesTests.m; sourceTree = "<group>"; };
-		7A6C7E26146C254500C1EA66 /* libcloudmine.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libcloudmine.a; path = "../ios/build/Release-iphoneos/libcloudmine.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,7 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A6C7E27146C254500C1EA66 /* libcloudmine.a in Frameworks */,
+				7A04134C146C2B3F00EF537A /* libcloudmine.a in Frameworks */,
 				7A6C7DE7146C23AC00C1EA66 /* UIKit.framework in Frameworks */,
 				7A6C7DE9146C23AC00C1EA66 /* Foundation.framework in Frameworks */,
 				7A6C7DEB146C23AC00C1EA66 /* CoreGraphics.framework in Frameworks */,
@@ -91,10 +109,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7A041337146C2AAD00EF537A /* Data Model Classes */ = {
+			isa = PBXGroup;
+			children = (
+				7A041338146C2AAD00EF537A /* _Ingredient.h */,
+				7A041339146C2AAD00EF537A /* _Ingredient.m */,
+				7A04133A146C2AAD00EF537A /* _NutritionStat.h */,
+				7A04133B146C2AAD00EF537A /* _NutritionStat.m */,
+				7A04133C146C2AAD00EF537A /* _Recipe.h */,
+				7A04133D146C2AAD00EF537A /* _Recipe.m */,
+				7A04133E146C2AAD00EF537A /* Ingredient.h */,
+				7A04133F146C2AAD00EF537A /* Ingredient.m */,
+				7A041340146C2AAD00EF537A /* NutritionStat.h */,
+				7A041341146C2AAD00EF537A /* NutritionStat.m */,
+				7A041342146C2AAD00EF537A /* Recipe.h */,
+				7A041343146C2AAD00EF537A /* Recipe.m */,
+			);
+			name = "Data Model Classes";
+			path = DataModelClasses;
+			sourceTree = "<group>";
+		};
 		7A6C7DD7146C23AC00C1EA66 = {
 			isa = PBXGroup;
 			children = (
-				7A6C7E26146C254500C1EA66 /* libcloudmine.a */,
+				7A04134B146C2B3F00EF537A /* libcloudmine.a */,
 				7A6C7DEE146C23AC00C1EA66 /* Recipes */,
 				7A6C7E13146C23AC00C1EA66 /* RecipesTests */,
 				7A6C7DE5146C23AC00C1EA66 /* Frameworks */,
@@ -126,6 +164,7 @@
 		7A6C7DEE146C23AC00C1EA66 /* Recipes */ = {
 			isa = PBXGroup;
 			children = (
+				7A041337146C2AAD00EF537A /* Data Model Classes */,
 				7A6C7DF7146C23AC00C1EA66 /* CMAppDelegate.h */,
 				7A6C7DF8146C23AC00C1EA66 /* CMAppDelegate.m */,
 				7A6C7DFA146C23AC00C1EA66 /* MainStoryboard.storyboard */,
@@ -280,6 +319,12 @@
 				7A6C7DFF146C23AC00C1EA66 /* Recipes.xcdatamodeld in Sources */,
 				7A6C7E02146C23AC00C1EA66 /* CMMasterViewController.m in Sources */,
 				7A6C7E05146C23AC00C1EA66 /* CMDetailViewController.m in Sources */,
+				7A041344146C2AAD00EF537A /* _Ingredient.m in Sources */,
+				7A041345146C2AAD00EF537A /* _NutritionStat.m in Sources */,
+				7A041346146C2AAD00EF537A /* _Recipe.m in Sources */,
+				7A041347146C2AAD00EF537A /* Ingredient.m in Sources */,
+				7A041348146C2AAD00EF537A /* NutritionStat.m in Sources */,
+				7A041349146C2AAD00EF537A /* Recipe.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,6 +426,10 @@
 				GCC_PREFIX_HEADER = "Recipes/Recipes-Prefix.pch";
 				INFOPLIST_FILE = "Recipes/Recipes-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../ios/build/Debug-iphoneos\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -393,6 +442,10 @@
 				GCC_PREFIX_HEADER = "Recipes/Recipes-Prefix.pch";
 				INFOPLIST_FILE = "Recipes/Recipes-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../ios/build/Debug-iphoneos\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -451,6 +504,7 @@
 				7A6C7E20146C23AC00C1EA66 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7A6C7E21146C23AC00C1EA66 /* Build configuration list for PBXNativeTarget "RecipesTests" */ = {
 			isa = XCConfigurationList;
@@ -459,6 +513,7 @@
 				7A6C7E23146C23AC00C1EA66 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
