@@ -48,6 +48,8 @@
 		7AD36F81146C656600DD4734 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AD36F80146C656600DD4734 /* UIKit.framework */; };
 		7AD36F84146CA4AC00DD4734 /* CMAPICredentials.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD36F82146CA4AC00DD4734 /* CMAPICredentials.h */; };
 		7AD36F85146CA4AC00DD4734 /* CMAPICredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD36F83146CA4AC00DD4734 /* CMAPICredentials.m */; };
+		7AD36F88146CAE0700DD4734 /* CMUserCredentials.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD36F86146CAE0600DD4734 /* CMUserCredentials.h */; };
+		7AD36F89146CAE0700DD4734 /* CMUserCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD36F87146CAE0700DD4734 /* CMUserCredentials.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +109,8 @@
 		7AD36F80146C656600DD4734 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7AD36F82146CA4AC00DD4734 /* CMAPICredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMAPICredentials.h; sourceTree = "<group>"; };
 		7AD36F83146CA4AC00DD4734 /* CMAPICredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMAPICredentials.m; sourceTree = "<group>"; };
+		7AD36F86146CAE0600DD4734 /* CMUserCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMUserCredentials.h; sourceTree = "<group>"; };
+		7AD36F87146CAE0700DD4734 /* CMUserCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUserCredentials.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -288,6 +292,8 @@
 			children = (
 				7AD36F7C146C650500DD4734 /* CMWebService.h */,
 				7AD36F7D146C650500DD4734 /* CMWebService.m */,
+				7AD36F86146CAE0600DD4734 /* CMUserCredentials.h */,
+				7AD36F87146CAE0700DD4734 /* CMUserCredentials.m */,
 				7AD36F82146CA4AC00DD4734 /* CMAPICredentials.h */,
 				7AD36F83146CA4AC00DD4734 /* CMAPICredentials.m */,
 			);
@@ -317,6 +323,7 @@
 				7AD36F79146C643E00DD4734 /* CMObject.h in Headers */,
 				7AD36F7E146C650500DD4734 /* CMWebService.h in Headers */,
 				7AD36F84146CA4AC00DD4734 /* CMAPICredentials.h in Headers */,
+				7AD36F88146CAE0700DD4734 /* CMUserCredentials.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,6 +437,7 @@
 				7AD36F7A146C643E00DD4734 /* CMObject.m in Sources */,
 				7AD36F7F146C650500DD4734 /* CMWebService.m in Sources */,
 				7AD36F85146CA4AC00DD4734 /* CMAPICredentials.m in Sources */,
+				7AD36F89146CAE0700DD4734 /* CMUserCredentials.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
