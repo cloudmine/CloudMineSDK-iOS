@@ -12,6 +12,8 @@
 @implementation CMWebService
 @synthesize networkQueue;
 
+#pragma mark - Service initialization
+
 - (id)init {
     CMAPICredentials *credentials = [CMAPICredentials sharedInstance];
     NSAssert([credentials apiKey] && [credentials appKey],
@@ -20,6 +22,9 @@
 }
 
 - (id)initWithAPIKey:(NSString *)apiKey appKey:(NSString *)appKey {
+    NSParameterAssert(apiKey);
+    NSParameterAssert(appKey);
+    
     if (self = [super init]) {
         self.networkQueue = [ASINetworkQueue queue];
         _apiKey = apiKey;
