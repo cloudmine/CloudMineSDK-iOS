@@ -17,7 +17,10 @@
 static __strong NSSet *_validHTTPVerbs = nil;
 
 @interface CMWebService (Private)
-- (NSURL *)constructTextUrlAtUserLevel:(BOOL)atUserLevel;
+- (NSURL *)constructTextUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys;
+- (ASIHTTPRequest *)constructHTTPRequestWithVerb:(NSString *)verb URL:(NSURL *)url userCredentials:(CMUserCredentials *)userCredentials;
+- (void)executeRequest:(ASIHTTPRequest *)request successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+          errorHandler:(void (^)(NSError *error))errorHandler;
 @end
 
 @implementation CMWebService
@@ -52,11 +55,34 @@ static __strong NSSet *_validHTTPVerbs = nil;
 
 - (void)getValuesForKeys:(NSArray *)keys successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
             errorHandler:(void (^)(NSError *error))errorHandler {
+    
+    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"GET" URL:[self constructTextUrlAtUserLevel:NO withKeys:keys]
+                                                 userCredentials:nil];
+    [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
 }
 
 - (void)getValuesForKeys:(NSArray *)keys withUserCredentials:(CMUserCredentials *)credentials successHandler:(void (^)(NSArray *objects))successHandler
             errorHandler:(void (^)(NSError *error))errorHandler {
     
+}
+
+#pragma - Request queueing and execution
+
+- (void)executeRequest:(ASIHTTPRequest *)request successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+          errorHandler:(void (^)(NSError *error))errorHandler {
+    
+    __unsafe_unretained ASIHTTPRequest *blockRequest = request; // Stop the retain cycle.
+    
+    [request setCompletionBlock:^{
+        NSDictionary *results = [blockRequest.responseString yajl_JSON];
+        successHandler([results objectForKey:@"success"], [results objectForKey:@"errors"]);
+    }];
+    
+    [request setFailedBlock:^{
+        errorHandler(blockRequest.error);
+    }];
+    
+    [self.networkQueue addOperation:request];
 }
 
 #pragma - Request construction
@@ -66,23 +92,23 @@ static __strong NSSet *_validHTTPVerbs = nil;
     
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
     request.requestMethod = verb;
-    request.username = userCredentials.userId;
-    request.password = userCredentials.password;
-    
+    if (userCredentials) {
+        request.username = userCredentials.userId;
+        request.password = userCredentials.password;
+    }
     return request;
 }
 
 #pragma mark - General URL construction
 
-- (NSURL *)constructTextUrlAtUserLevel:(BOOL)atUserLevel {
+- (NSURL *)constructTextUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys {
+    NSURL *url;
     if (atUserLevel) {
-        return [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/user/text", _appKey]];
+        url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/user/text", _appKey]];
     } else {
-        return [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/text", _appKey]];
+        url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/text", _appKey]];
     }
-}
-
-- (NSURL *)appendKeys:(NSArray *)keys toUrl:(NSURL *)url {
+    
     return [url URLByAppendingQueryString:[NSString stringWithFormat:@"keys=%@", [keys componentsJoinedByString:@","]]];
 }
 

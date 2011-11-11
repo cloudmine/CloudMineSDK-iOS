@@ -31,7 +31,7 @@
  * One of these exists for each instance of <tt>CMWebService</tt>, allowing you to parallelize
  * network communication.
  */
-@property (strong) ASINetworkQueue *networkQueue;
+@property (nonatomic, strong) ASINetworkQueue *networkQueue;
 
 /**
  * Default initializer for the web service connector. You <strong>must</strong> have already configured the 
