@@ -7,8 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ASIHTTPRequest.h"
-#import "ASINetworkQueue.h"
+
+@class ASINetworkQueue;
+@class CMUserCredentials;
+
+/**
+ * Base URL for the current version of the CloudMine API.
+ */
+#define CM_BASE_URL @"https://api.cloudmine.me/v1"
 
 /**
  * Base class for all classes concerned with the communication between the client device and the CloudMine 
@@ -27,7 +33,39 @@
  */
 @property (strong) ASINetworkQueue *networkQueue;
 
+/**
+ * Default initializer for the web service connector. You <strong>must</strong> have already configured the 
+ * <tt>CMUserCredentials</tt> singleton or an exception will be thrown.
+ *
+ * @throws NSInternalConsistencyException <tt>CMUserCredentials</tt> has not been configured.
+ */
 - (id)init;
+
+/**
+ * Initializes an instance of a web service connector with the given API key and secret app key.
+ */
 - (id)initWithAPIKey:(NSString *)apiKey appKey:(NSString *)appKey;
+
+/**
+ * Asynchronously retrieve objects for the named app-level keys. On completion, the <tt>successHandler</tt> block 
+ * will be called with a dictionary of the objects retrieved as well as a dictionary of the key-related errors returned from the server.
+ *
+ * @param keys The keys to fetch.
+ * @param successHandler The block to be called when the objects have been populated.
+ * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
+ */
+- (void)getValuesForKeys:(NSArray *)keys successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+            errorHandler:(void (^)(NSError *error))errorHandler;
+
+/**
+ * Asynchronously retrieve objects for the named user-level keys. On completion, the <tt>successHandler</tt> block 
+ * will be called with a dictionary of the objects retrieved as well as a dictionary of the key-related errors returned from the server.
+ *
+ * @param keys The keys to fetch.
+ * @param successHandler The block to be called when the objects have been populated.
+ * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
+ */
+- (void)getValuesForKeys:(NSArray *)keys withUserCredentials:(CMUserCredentials *)credentials successHandler:(void (^)(NSArray *objects))successHandler
+            errorHandler:(void (^)(NSError *error))errorHandler;
 
 @end
