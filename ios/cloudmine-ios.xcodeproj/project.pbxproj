@@ -50,6 +50,8 @@
 		7AD36F85146CA4AC00DD4734 /* CMAPICredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD36F83146CA4AC00DD4734 /* CMAPICredentials.m */; };
 		7AD36F88146CAE0700DD4734 /* CMUserCredentials.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD36F86146CAE0600DD4734 /* CMUserCredentials.h */; };
 		7AD36F89146CAE0700DD4734 /* CMUserCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD36F87146CAE0700DD4734 /* CMUserCredentials.m */; };
+		7AD36F8D146CB6A600DD4734 /* NSURL+QueryParameterAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD36F8B146CB6A600DD4734 /* NSURL+QueryParameterAdditions.h */; };
+		7AD36F8E146CB6A600DD4734 /* NSURL+QueryParameterAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD36F8C146CB6A600DD4734 /* NSURL+QueryParameterAdditions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +113,8 @@
 		7AD36F83146CA4AC00DD4734 /* CMAPICredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMAPICredentials.m; sourceTree = "<group>"; };
 		7AD36F86146CAE0600DD4734 /* CMUserCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMUserCredentials.h; sourceTree = "<group>"; };
 		7AD36F87146CAE0700DD4734 /* CMUserCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUserCredentials.m; sourceTree = "<group>"; };
+		7AD36F8B146CB6A600DD4734 /* NSURL+QueryParameterAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+QueryParameterAdditions.h"; sourceTree = "<group>"; };
+		7AD36F8C146CB6A600DD4734 /* NSURL+QueryParameterAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+QueryParameterAdditions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -282,6 +286,7 @@
 			children = (
 				7AD36F77146C643E00DD4734 /* CMObject.h */,
 				7AD36F78146C643E00DD4734 /* CMObject.m */,
+				7AD36F8A146CB69000DD4734 /* Extensions */,
 				7AD36F7B146C64F300DD4734 /* Web Services */,
 			);
 			path = src;
@@ -298,6 +303,15 @@
 				7AD36F83146CA4AC00DD4734 /* CMAPICredentials.m */,
 			);
 			path = "Web Services";
+			sourceTree = "<group>";
+		};
+		7AD36F8A146CB69000DD4734 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7AD36F8B146CB6A600DD4734 /* NSURL+QueryParameterAdditions.h */,
+				7AD36F8C146CB6A600DD4734 /* NSURL+QueryParameterAdditions.m */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -324,6 +338,7 @@
 				7AD36F7E146C650500DD4734 /* CMWebService.h in Headers */,
 				7AD36F84146CA4AC00DD4734 /* CMAPICredentials.h in Headers */,
 				7AD36F88146CAE0700DD4734 /* CMUserCredentials.h in Headers */,
+				7AD36F8D146CB6A600DD4734 /* NSURL+QueryParameterAdditions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,6 +453,7 @@
 				7AD36F7F146C650500DD4734 /* CMWebService.m in Sources */,
 				7AD36F85146CA4AC00DD4734 /* CMAPICredentials.m in Sources */,
 				7AD36F89146CAE0700DD4734 /* CMUserCredentials.m in Sources */,
+				7AD36F8E146CB6A600DD4734 /* NSURL+QueryParameterAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
