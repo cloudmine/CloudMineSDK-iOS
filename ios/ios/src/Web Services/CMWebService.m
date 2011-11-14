@@ -18,7 +18,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
 
 @interface CMWebService (Private)
 - (NSURL *)constructTextUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys;
-- (ASIHTTPRequest *)constructHTTPRequestWithVerb:(NSString *)verb URL:(NSURL *)url userCredentials:(CMUserCredentials *)userCredentials;
+- (ASIHTTPRequest *)constructHTTPRequestWithVerb:(NSString *)verb URL:(NSURL *)url apiKey:(NSString *)apiKey userCredentials:(CMUserCredentials *)userCredentials;
 - (void)executeRequest:(ASIHTTPRequest *)request successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
           errorHandler:(void (^)(NSError *error))errorHandler;
 @end
@@ -57,6 +57,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
             errorHandler:(void (^)(NSError *error))errorHandler {
     
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"GET" URL:[self constructTextUrlAtUserLevel:NO withKeys:keys]
+                                                          apiKey:_apiKey
                                                  userCredentials:nil];
     [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
 }
@@ -83,11 +84,12 @@ static __strong NSSet *_validHTTPVerbs = nil;
     }];
     
     [self.networkQueue addOperation:request];
+    [self.networkQueue go]; 
 }
 
 #pragma - Request construction
 
-- (ASIHTTPRequest *)constructHTTPRequestWithVerb:(NSString *)verb URL:(NSURL *)url userCredentials:(CMUserCredentials *)userCredentials {
+- (ASIHTTPRequest *)constructHTTPRequestWithVerb:(NSString *)verb URL:(NSURL *)url apiKey:(NSString *)apiKey userCredentials:(CMUserCredentials *)userCredentials {
     NSAssert([_validHTTPVerbs containsObject:verb], @"You must pass in a valid HTTP verb. Possible choices are: GET, POST, PUT, and DELETE");
     
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
@@ -96,6 +98,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
         request.username = userCredentials.userId;
         request.password = userCredentials.password;
     }
+    [request addRequestHeader:@"X-CloudMine-ApiKey" value:apiKey];
     return request;
 }
 
@@ -109,7 +112,9 @@ static __strong NSSet *_validHTTPVerbs = nil;
         url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/text", _appKey]];
     }
     
-    return [url URLByAppendingQueryString:[NSString stringWithFormat:@"keys=%@", [keys componentsJoinedByString:@","]]];
+    NSString *builtString = [NSString stringWithFormat:@"keys=%@", [keys componentsJoinedByString:@","]];
+    url = [url URLByAppendingQueryString:builtString];
+    return url;
 }
 
 @end

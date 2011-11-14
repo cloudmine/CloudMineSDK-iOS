@@ -40,7 +40,6 @@
 		7AB4AB77145DC5D8006AEF67 /* libcloudmine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB5F145DC5D8006AEF67 /* libcloudmine.a */; };
 		7AB4AB7D145DC5D8006AEF67 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7AB4AB7B145DC5D8006AEF67 /* InfoPlist.strings */; };
 		7AB4AB80145DC5D8006AEF67 /* iosTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB4AB7F145DC5D8006AEF67 /* iosTests.m */; };
-		7AD36F75146C623B00DD4734 /* YAJLiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AD36F74146C623B00DD4734 /* YAJLiOS.framework */; };
 		7AD36F79146C643E00DD4734 /* CMObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD36F77146C643E00DD4734 /* CMObject.h */; };
 		7AD36F7A146C643E00DD4734 /* CMObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD36F78146C643E00DD4734 /* CMObject.m */; };
 		7AD36F7E146C650500DD4734 /* CMWebService.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD36F7C146C650500DD4734 /* CMWebService.h */; };
@@ -52,6 +51,7 @@
 		7AD36F89146CAE0700DD4734 /* CMUserCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD36F87146CAE0700DD4734 /* CMUserCredentials.m */; };
 		7AD36F8D146CB6A600DD4734 /* NSURL+QueryParameterAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD36F8B146CB6A600DD4734 /* NSURL+QueryParameterAdditions.h */; };
 		7AD36F8E146CB6A600DD4734 /* NSURL+QueryParameterAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD36F8C146CB6A600DD4734 /* NSURL+QueryParameterAdditions.m */; };
+		7AF6685514719FC900E2A06D /* YAJLiOS in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AF6685414719FC800E2A06D /* YAJLiOS */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,6 +115,7 @@
 		7AD36F87146CAE0700DD4734 /* CMUserCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUserCredentials.m; sourceTree = "<group>"; };
 		7AD36F8B146CB6A600DD4734 /* NSURL+QueryParameterAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+QueryParameterAdditions.h"; sourceTree = "<group>"; };
 		7AD36F8C146CB6A600DD4734 /* NSURL+QueryParameterAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+QueryParameterAdditions.m"; sourceTree = "<group>"; };
+		7AF6685414719FC800E2A06D /* YAJLiOS */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = YAJLiOS; path = ios/Vendor/YAJL/YAJLiOS.framework/Versions/A/YAJLiOS; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,13 +124,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A0413DA146C5B7400EF537A /* libz.dylib in Frameworks */,
+				7AF6685514719FC900E2A06D /* YAJLiOS in Frameworks */,
 				7AD36F81146C656600DD4734 /* UIKit.framework in Frameworks */,
 				7A0413D8146C5B7000EF537A /* CoreGraphics.framework in Frameworks */,
 				7A0413D6146C5B6900EF537A /* MobileCoreServices.framework in Frameworks */,
 				7A0413D4146C5B5C00EF537A /* SystemConfiguration.framework in Frameworks */,
 				7A0413D2146C5B5200EF537A /* CFNetwork.framework in Frameworks */,
 				7AB4AB63145DC5D8006AEF67 /* Foundation.framework in Frameworks */,
-				7AD36F75146C623B00DD4734 /* YAJLiOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,6 +205,7 @@
 		7AB4AB54145DC5D8006AEF67 = {
 			isa = PBXGroup;
 			children = (
+				7AF6685414719FC800E2A06D /* YAJLiOS */,
 				7AB4AB64145DC5D8006AEF67 /* ios */,
 				7AB4AB78145DC5D8006AEF67 /* iosTests */,
 				7AB4AB61145DC5D8006AEF67 /* Frameworks */,
@@ -352,6 +354,7 @@
 				7AB4AB5B145DC5D8006AEF67 /* Sources */,
 				7AB4AB5C145DC5D8006AEF67 /* Frameworks */,
 				7AB4AB5D145DC5D8006AEF67 /* Headers */,
+				7AF6684A1471960B00E2A06D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -432,6 +435,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		7AF6684A1471960B00E2A06D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "# Version 2.0 (updated for Xcode 4, with some fixes)\n# Changes:\n#    - Works with xcode 4, even when running xcode 3 projects (Workarounds for apple bugs)\n#    - Faster / better: only runs lipo once, instead of once per recursion\n#    - Added some debugging statemetns that can be switched on/off by changing the DEBUG_THIS_SCRIPT variable to \"true\"\n#    - Fixed some typos\n# \n# Purpose:\n#   Create a static library for iPhone from within XCode\n#   Because Apple staff DELIBERATELY broke Xcode to make this impossible from the GUI (Xcode 3.2.3 specifically states this in the Release notes!)\n#   ...no, I don't understand why they did this!\n#\n# Author: Adam Martin - http://twitter.com/redglassesapps\n# Based on: original script from Eonil (main changes: Eonil's script WILL NOT WORK in Xcode GUI - it WILL CRASH YOUR COMPUTER)\n#\n# More info: see this Stack Overflow question: http://stackoverflow.com/questions/3520977/build-fat-static-library-device-simulator-using-xcode-and-sdk-4\n#################[ Tests: helps workaround any future bugs in Xcode ]########\n#\nDEBUG_THIS_SCRIPT=\"false\"\nif [ $DEBUG_THIS_SCRIPT = \"true\" ]\nthen\necho \"########### TESTS #############\"\necho \"Use the following variables when debugging this script; note that they may change on recursions\"\necho \"BUILD_DIR = $BUILD_DIR\"\necho \"BUILD_ROOT = $BUILD_ROOT\"\necho \"CONFIGURATION_BUILD_DIR = $CONFIGURATION_BUILD_DIR\"\necho \"BUILT_PRODUCTS_DIR = $BUILT_PRODUCTS_DIR\"\necho \"CONFIGURATION_TEMP_DIR = $CONFIGURATION_TEMP_DIR\"\necho \"TARGET_BUILD_DIR = $TARGET_BUILD_DIR\"\nfi\n#####################[ part 1 ]##################\n# First, work out the BASESDK version number (NB: Apple ought to report this, but they hide it)\n#    (incidental: searching for substrings in sh is a nightmare! Sob)\nSDK_VERSION=$(echo ${SDK_NAME} | grep -o '.\\{3\\}$')\n# Next, work out if we're in SIM or DEVICE\nif [ ${PLATFORM_NAME} = \"iphonesimulator\" ]\nthen\nOTHER_SDK_TO_BUILD=iphoneos${SDK_VERSION}\nelse\nOTHER_SDK_TO_BUILD=iphonesimulator${SDK_VERSION}\nfi\necho \"XCode has selected SDK: ${PLATFORM_NAME} with version: ${SDK_VERSION} (although back-targetting: ${IPHONEOS_DEPLOYMENT_TARGET})\"\necho \"...therefore, OTHER_SDK_TO_BUILD = ${OTHER_SDK_TO_BUILD}\"\n#\n#####################[ end of part 1 ]##################\n#####################[ part 2 ]##################\n#\n# IF this is the original invocation, invoke WHATEVER other builds are required\n#\n# Xcode is already building ONE target...\n#\n# ...but this is a LIBRARY, so Apple is wrong to set it to build just one.\n# ...we need to build ALL targets\n# ...we MUST NOT re-build the target that is ALREADY being built: Xcode WILL CRASH YOUR COMPUTER if you try this (infinite recursion!)\n#\n#\n# So: build ONLY the missing platforms/configurations.\nif [ \"true\" == ${ALREADYINVOKED:-false} ]\nthen\necho \"RECURSION: I am NOT the root invocation, so I'm NOT going to recurse\"\nelse\n# CRITICAL:\n# Prevent infinite recursion (Xcode sucks)\nexport ALREADYINVOKED=\"true\"\necho \"RECURSION: I am the root ... recursing all missing build targets NOW...\"\necho \"RECURSION: ...about to invoke: xcodebuild -configuration \\\"${CONFIGURATION}\\\" -target \\\"${TARGET_NAME}\\\" -sdk \\\"${OTHER_SDK_TO_BUILD}\\\" ${ACTION} RUN_CLANG_STATIC_ANALYZER=NO\"\nxcodebuild -configuration \"${CONFIGURATION}\" -target \"${TARGET_NAME}\" -sdk \"${OTHER_SDK_TO_BUILD}\" ${ACTION} RUN_CLANG_STATIC_ANALYZER=NO BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\nACTION=\"build\"\n#Merge all platform binaries as a fat binary for each configurations.\n# Calculate where the (multiple) built files are coming from:\nCURRENTCONFIG_DEVICE_DIR=${SYMROOT}/${CONFIGURATION}-iphoneos\nCURRENTCONFIG_SIMULATOR_DIR=${SYMROOT}/${CONFIGURATION}-iphonesimulator\necho \"Taking device build from: ${CURRENTCONFIG_DEVICE_DIR}\"\necho \"Taking simulator build from: ${CURRENTCONFIG_SIMULATOR_DIR}\"\nCREATING_UNIVERSAL_DIR=${SYMROOT}/${CONFIGURATION}-universal\necho \"...I will output a universal build to: ${CREATING_UNIVERSAL_DIR}\"\n# ... remove the products of previous runs of this script\n#      NB: this directory is ONLY created by this script - it should be safe to delete!\nrm -rf \"${CREATING_UNIVERSAL_DIR}\"\nmkdir \"${CREATING_UNIVERSAL_DIR}\"\n#\necho \"lipo: for current configuration (${CONFIGURATION}) creating output file: ${CREATING_UNIVERSAL_DIR}/${EXECUTABLE_NAME}\"\nlipo -create -output \"${CREATING_UNIVERSAL_DIR}/${EXECUTABLE_NAME}\" \"${CURRENTCONFIG_DEVICE_DIR}/${EXECUTABLE_NAME}\" \"${CURRENTCONFIG_SIMULATOR_DIR}/${EXECUTABLE_NAME}\"\n#########\n#\n# Added: StackOverflow suggestion to also copy \"include\" files\n#    (untested, but should work OK)\n#\nif [ -d \"${CURRENTCONFIG_DEVICE_DIR}/usr/local/include\" ]\nthen\nmkdir -p \"${CREATING_UNIVERSAL_DIR}/usr/local/include\"\n# * needs to be outside the double quotes?\ncp \"${CURRENTCONFIG_DEVICE_DIR}/usr/local/include/\"* \"${CREATING_UNIVERSAL_DIR}/usr/local/include\"\nfi\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -541,6 +557,10 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ios/cloudmine-ios-Prefix.pch";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/ios/Vendor/YAJL/YAJLiOS.framework/Versions/A\"",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -560,6 +580,10 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ios/cloudmine-ios-Prefix.pch";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/ios/Vendor/YAJL/YAJLiOS.framework/Versions/A\"",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

@@ -7,6 +7,7 @@
 //
 
 #import "CMMasterViewController.h"
+#import "CMWebService.h"
 
 @implementation CMMasterViewController
 
@@ -45,6 +46,13 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    CMWebService *service = [[CMWebService alloc] initWithAPIKey:@"323e63d2ad7a42a98724bc948c8c3497" appKey:@"d469d5f59791436fba6eac1fdc55c8ea"];
+    [service getValuesForKeys:[NSArray array] successHandler:^(NSDictionary *results, NSDictionary *errors) {
+        NSLog(@"results:\n%@\n\nerrors:\n%@", results, errors);
+    } errorHandler:^(NSError *error) {
+        NSLog(@"errors!\n\n%@", error);
+    }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
