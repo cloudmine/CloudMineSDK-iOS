@@ -60,7 +60,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
 
 - (void)getValuesForKeys:(NSArray *)keys withUserCredentials:(CMUserCredentials *)credentials 
           successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler errorHandler:(void (^)(NSError *error))errorHandler {
-    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"GET" URL:[self constructTextUrlAtUserLevel:NO withKeys:keys]
+    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"GET" URL:[self constructTextUrlAtUserLevel:(credentials != nil) withKeys:keys]
                                                           apiKey:_apiKey
                                                  userCredentials:credentials];
     [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
