@@ -55,16 +55,15 @@ static __strong NSSet *_validHTTPVerbs = nil;
 
 - (void)getValuesForKeys:(NSArray *)keys successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
             errorHandler:(void (^)(NSError *error))errorHandler {
-    
-    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"GET" URL:[self constructTextUrlAtUserLevel:NO withKeys:keys]
-                                                          apiKey:_apiKey
-                                                 userCredentials:nil];
-    [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
+    [self getValuesForKeys:keys withUserCredentials:nil successHandler:successHandler errorHandler:errorHandler];
 }
 
-- (void)getValuesForKeys:(NSArray *)keys withUserCredentials:(CMUserCredentials *)credentials successHandler:(void (^)(NSArray *objects))successHandler
-            errorHandler:(void (^)(NSError *error))errorHandler {
-    
+- (void)getValuesForKeys:(NSArray *)keys withUserCredentials:(CMUserCredentials *)credentials 
+          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler errorHandler:(void (^)(NSError *error))errorHandler {
+    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"GET" URL:[self constructTextUrlAtUserLevel:NO withKeys:keys]
+                                                          apiKey:_apiKey
+                                                 userCredentials:credentials];
+    [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
 }
 
 #pragma - Request queueing and execution

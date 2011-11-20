@@ -62,10 +62,11 @@
  * will be called with a dictionary of the objects retrieved as well as a dictionary of the key-related errors returned from the server.
  *
  * @param keys The keys to fetch.
+ * @param credentials The user identifier and password of the user.
  * @param successHandler The block to be called when the objects have been populated.
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
  */
-- (void)getValuesForKeys:(NSArray *)keys withUserCredentials:(CMUserCredentials *)credentials successHandler:(void (^)(NSArray *objects))successHandler
-            errorHandler:(void (^)(NSError *error))errorHandler;
+- (void)getValuesForKeys:(NSArray *)keys withUserCredentials:(CMUserCredentials *)credentials
+          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler errorHandler:(void (^)(NSError *error))errorHandler;
 
 @end
