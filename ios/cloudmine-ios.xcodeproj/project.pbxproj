@@ -40,12 +40,13 @@
 		7A308A3A14798F19008ADD3C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D7146C5B7000EF537A /* CoreGraphics.framework */; };
 		7A308A3B14798F1D008ADD3C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D1146C5B5200EF537A /* CFNetwork.framework */; };
 		7A308A3C14798F29008ADD3C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D9146C5B7400EF537A /* libz.dylib */; };
+		7A308A4414799134008ADD3C /* CMWebServiceSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A308A4314799134008ADD3C /* CMWebServiceSpec.m */; };
+		7A308A4C14799471008ADD3C /* libKiwi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A308A4B14799471008ADD3C /* libKiwi.a */; };
 		7AB4AB63145DC5D8006AEF67 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB62145DC5D8006AEF67 /* Foundation.framework */; };
 		7AB4AB71145DC5D8006AEF67 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB70145DC5D8006AEF67 /* SenTestingKit.framework */; };
 		7AB4AB74145DC5D8006AEF67 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB62145DC5D8006AEF67 /* Foundation.framework */; };
 		7AB4AB77145DC5D8006AEF67 /* libcloudmine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB5F145DC5D8006AEF67 /* libcloudmine.a */; };
 		7AB4AB7D145DC5D8006AEF67 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7AB4AB7B145DC5D8006AEF67 /* InfoPlist.strings */; };
-		7AB4AB80145DC5D8006AEF67 /* iosTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB4AB7F145DC5D8006AEF67 /* iosTests.m */; };
 		7AD36F79146C643E00DD4734 /* CMObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD36F77146C643E00DD4734 /* CMObject.h */; };
 		7AD36F7A146C643E00DD4734 /* CMObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD36F78146C643E00DD4734 /* CMObject.m */; };
 		7AD36F7E146C650500DD4734 /* CMWebService.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD36F7C146C650500DD4734 /* CMWebService.h */; };
@@ -99,6 +100,8 @@
 		7A0413D5146C5B6900EF537A /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		7A0413D7146C5B7000EF537A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		7A0413D9146C5B7400EF537A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		7A308A4314799134008ADD3C /* CMWebServiceSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMWebServiceSpec.m; sourceTree = "<group>"; };
+		7A308A4B14799471008ADD3C /* libKiwi.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libKiwi.a; path = "kiwi/build/Release-iphoneos/libKiwi.a"; sourceTree = "<group>"; };
 		7AB4AB5F145DC5D8006AEF67 /* libcloudmine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcloudmine.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AB4AB62145DC5D8006AEF67 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7AB4AB66145DC5D8006AEF67 /* cloudmine-ios-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cloudmine-ios-Prefix.pch"; sourceTree = "<group>"; };
@@ -106,8 +109,6 @@
 		7AB4AB70145DC5D8006AEF67 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		7AB4AB7A145DC5D8006AEF67 /* cloudmine-iosTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "cloudmine-iosTests-Info.plist"; sourceTree = "<group>"; };
 		7AB4AB7C145DC5D8006AEF67 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		7AB4AB7E145DC5D8006AEF67 /* iosTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iosTests.h; sourceTree = "<group>"; };
-		7AB4AB7F145DC5D8006AEF67 /* iosTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iosTests.m; sourceTree = "<group>"; };
 		7AD36F73146C623B00DD4734 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		7AD36F74146C623B00DD4734 /* YAJLiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YAJLiOS.framework; sourceTree = "<group>"; };
 		7AD36F77146C643E00DD4734 /* CMObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMObject.h; sourceTree = "<group>"; };
@@ -144,6 +145,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A308A4C14799471008ADD3C /* libKiwi.a in Frameworks */,
 				7A308A3C14798F29008ADD3C /* libz.dylib in Frameworks */,
 				7A308A3B14798F1D008ADD3C /* CFNetwork.framework in Frameworks */,
 				7A308A3A14798F19008ADD3C /* CoreGraphics.framework in Frameworks */,
@@ -217,7 +219,6 @@
 		7AB4AB54145DC5D8006AEF67 = {
 			isa = PBXGroup;
 			children = (
-				7AF6685414719FC800E2A06D /* YAJLiOS */,
 				7AB4AB64145DC5D8006AEF67 /* ios */,
 				7AB4AB78145DC5D8006AEF67 /* iosTests */,
 				7AB4AB61145DC5D8006AEF67 /* Frameworks */,
@@ -237,6 +238,8 @@
 		7AB4AB61145DC5D8006AEF67 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7A308A4B14799471008ADD3C /* libKiwi.a */,
+				7AF6685414719FC800E2A06D /* YAJLiOS */,
 				7AD36F80146C656600DD4734 /* UIKit.framework */,
 				7A0413D9146C5B7400EF537A /* libz.dylib */,
 				7A0413D7146C5B7000EF537A /* CoreGraphics.framework */,
@@ -270,8 +273,7 @@
 		7AB4AB78145DC5D8006AEF67 /* iosTests */ = {
 			isa = PBXGroup;
 			children = (
-				7AB4AB7E145DC5D8006AEF67 /* iosTests.h */,
-				7AB4AB7F145DC5D8006AEF67 /* iosTests.m */,
+				7A308A4314799134008ADD3C /* CMWebServiceSpec.m */,
 				7AB4AB79145DC5D8006AEF67 /* Supporting Files */,
 			);
 			path = iosTests;
@@ -489,7 +491,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AB4AB80145DC5D8006AEF67 /* iosTests.m in Sources */,
+				7A308A4414799134008ADD3C /* CMWebServiceSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -608,6 +610,7 @@
 		7AB4AB87145DC5D8006AEF67 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
@@ -618,9 +621,11 @@
 				INFOPLIST_FILE = "iosTests/cloudmine-iosTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(SRCROOT)/kiwi/build/Debug-iphonesimulator",
 					"\"$(SRCROOT)/ios/Vendor/YAJL/YAJLiOS.framework/Versions/A\"",
 				);
 				PRODUCT_NAME = "cloudmine-iosTests";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/kiwi/Kiwi";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -628,6 +633,7 @@
 		7AB4AB88145DC5D8006AEF67 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
@@ -638,9 +644,11 @@
 				INFOPLIST_FILE = "iosTests/cloudmine-iosTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(SRCROOT)/kiwi/build/Debug-iphonesimulator",
 					"\"$(SRCROOT)/ios/Vendor/YAJL/YAJLiOS.framework/Versions/A\"",
 				);
 				PRODUCT_NAME = "cloudmine-iosTests";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/kiwi/Kiwi";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
