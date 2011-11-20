@@ -18,9 +18,9 @@ static __strong NSSet *_validHTTPVerbs = nil;
 
 @interface CMWebService (Private)
 - (NSURL *)constructTextUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys;
+- (NSURL *)constructDataUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys;
 - (ASIHTTPRequest *)constructHTTPRequestWithVerb:(NSString *)verb URL:(NSURL *)url apiKey:(NSString *)apiKey userCredentials:(CMUserCredentials *)userCredentials;
-- (void)executeRequest:(ASIHTTPRequest *)request successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
-          errorHandler:(void (^)(NSError *error))errorHandler;
+- (void)executeRequest:(ASIHTTPRequest *)request successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler errorHandler:(void (^)(NSError *error))errorHandler;
 @end
 
 @implementation CMWebService
@@ -61,6 +61,51 @@ static __strong NSSet *_validHTTPVerbs = nil;
 - (void)getValuesForKeys:(NSArray *)keys withUserCredentials:(CMUserCredentials *)credentials 
           successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler errorHandler:(void (^)(NSError *error))errorHandler {
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"GET" URL:[self constructTextUrlAtUserLevel:(credentials != nil) withKeys:keys]
+                                                          apiKey:_apiKey
+                                                 userCredentials:credentials];
+    [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
+}
+
+#pragma mark - POST (update) requests for non-binary data
+
+- (void)updateValuesForKeys:(NSArray *)keys successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+            errorHandler:(void (^)(NSError *error))errorHandler {
+    [self updateValuesForKeys:keys withUserCredentials:nil successHandler:successHandler errorHandler:errorHandler];
+}
+
+- (void)updateValuesForKeys:(NSArray *)keys withUserCredentials:(CMUserCredentials *)credentials 
+          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler errorHandler:(void (^)(NSError *error))errorHandler {
+    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:[self constructTextUrlAtUserLevel:(credentials != nil) withKeys:keys]
+                                                          apiKey:_apiKey
+                                                 userCredentials:credentials];
+    [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
+}
+
+#pragma mark - PUT (replace) requests for non-binary data
+
+- (void)setValuesForKeys:(NSArray *)keys successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+               errorHandler:(void (^)(NSError *error))errorHandler {
+    [self setValuesForKeys:keys withUserCredentials:nil successHandler:successHandler errorHandler:errorHandler];
+}
+
+- (void)setValuesForKeys:(NSArray *)keys withUserCredentials:(CMUserCredentials *)credentials 
+             successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler errorHandler:(void (^)(NSError *error))errorHandler {
+    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"PUT" URL:[self constructTextUrlAtUserLevel:(credentials != nil) withKeys:keys]
+                                                          apiKey:_apiKey
+                                                 userCredentials:credentials];
+    [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
+}
+
+#pragma mark - DELETE requests for data
+
+- (void)deleteValuesForKeys:(NSArray *)keys successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+            errorHandler:(void (^)(NSError *error))errorHandler {
+    [self deleteValuesForKeys:keys withUserCredentials:nil successHandler:successHandler errorHandler:errorHandler];
+}
+
+- (void)deleteValuesForKeys:(NSArray *)keys withUserCredentials:(CMUserCredentials *)credentials 
+          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler errorHandler:(void (^)(NSError *error))errorHandler {
+    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"DELETE" URL:[self constructDataUrlAtUserLevel:(credentials != nil) withKeys:keys]
                                                           apiKey:_apiKey
                                                  userCredentials:credentials];
     [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
@@ -109,6 +154,19 @@ static __strong NSSet *_validHTTPVerbs = nil;
         url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/user/text", _appKey]];
     } else {
         url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/text", _appKey]];
+    }
+    
+    NSString *builtString = [NSString stringWithFormat:@"keys=%@", [keys componentsJoinedByString:@","]];
+    url = [url URLByAppendingQueryString:builtString];
+    return url;
+}
+
+- (NSURL *)constructDataUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys {
+    NSURL *url;
+    if (atUserLevel) {
+        url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/user/data", _appKey]];
+    } else {
+        url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/data", _appKey]];
     }
     
     NSString *builtString = [NSString stringWithFormat:@"keys=%@", [keys componentsJoinedByString:@","]];
