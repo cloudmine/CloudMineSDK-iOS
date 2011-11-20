@@ -34,6 +34,12 @@
 		7A0413D6146C5B6900EF537A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D5146C5B6900EF537A /* MobileCoreServices.framework */; };
 		7A0413D8146C5B7000EF537A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D7146C5B7000EF537A /* CoreGraphics.framework */; };
 		7A0413DA146C5B7400EF537A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D9146C5B7400EF537A /* libz.dylib */; };
+		7A308A3714798EFD008ADD3C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AD36F80146C656600DD4734 /* UIKit.framework */; };
+		7A308A3814798F0E008ADD3C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D5146C5B6900EF537A /* MobileCoreServices.framework */; };
+		7A308A3914798F12008ADD3C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D3146C5B5C00EF537A /* SystemConfiguration.framework */; };
+		7A308A3A14798F19008ADD3C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D7146C5B7000EF537A /* CoreGraphics.framework */; };
+		7A308A3B14798F1D008ADD3C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D1146C5B5200EF537A /* CFNetwork.framework */; };
+		7A308A3C14798F29008ADD3C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D9146C5B7400EF537A /* libz.dylib */; };
 		7AB4AB63145DC5D8006AEF67 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB62145DC5D8006AEF67 /* Foundation.framework */; };
 		7AB4AB71145DC5D8006AEF67 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB70145DC5D8006AEF67 /* SenTestingKit.framework */; };
 		7AB4AB74145DC5D8006AEF67 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB62145DC5D8006AEF67 /* Foundation.framework */; };
@@ -138,6 +144,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A308A3C14798F29008ADD3C /* libz.dylib in Frameworks */,
+				7A308A3B14798F1D008ADD3C /* CFNetwork.framework in Frameworks */,
+				7A308A3A14798F19008ADD3C /* CoreGraphics.framework in Frameworks */,
+				7A308A3914798F12008ADD3C /* SystemConfiguration.framework in Frameworks */,
+				7A308A3814798F0E008ADD3C /* MobileCoreServices.framework in Frameworks */,
+				7A308A3714798EFD008ADD3C /* UIKit.framework in Frameworks */,
 				7AB4AB71145DC5D8006AEF67 /* SenTestingKit.framework in Frameworks */,
 				7AB4AB74145DC5D8006AEF67 /* Foundation.framework in Frameworks */,
 				7AB4AB77145DC5D8006AEF67 /* libcloudmine.a in Frameworks */,
@@ -599,10 +611,15 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"\"$(SRCROOT)/ios/Vendor/YAJL\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ios/ios-Prefix.pch";
-				INFOPLIST_FILE = "cloudmine-iosTests-Info.plist";
+				GCC_PREFIX_HEADER = "ios/cloudmine-ios-Prefix.pch";
+				INFOPLIST_FILE = "iosTests/cloudmine-iosTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/ios/Vendor/YAJL/YAJLiOS.framework/Versions/A\"",
+				);
 				PRODUCT_NAME = "cloudmine-iosTests";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -614,10 +631,15 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"\"$(SRCROOT)/ios/Vendor/YAJL\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ios/ios-Prefix.pch";
-				INFOPLIST_FILE = "cloudmine-iosTests-Info.plist";
+				GCC_PREFIX_HEADER = "ios/cloudmine-ios-Prefix.pch";
+				INFOPLIST_FILE = "iosTests/cloudmine-iosTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/ios/Vendor/YAJL/YAJLiOS.framework/Versions/A\"",
+				);
 				PRODUCT_NAME = "cloudmine-iosTests";
 				WRAPPER_EXTENSION = octest;
 			};
