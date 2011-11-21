@@ -35,6 +35,9 @@ describe(@"CMWebService", ^{
             [[request.url should] equal:expectedUrl];
         } forSelector:@selector(addOperation:)];
         
+        // Validate the request when it's pushed onto the network queue so
+        // we don't interfere with the construction and use of the request
+        // otherwise throughout the production code.
         [service.networkQueue addMessageSpy:spy forMessagePattern:[KWMessagePattern messagePatternWithSelector:@selector(addOperation:)]];
         
         [[service.networkQueue should] receive:@selector(addOperation:)];
