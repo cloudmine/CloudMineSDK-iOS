@@ -40,7 +40,7 @@ describe(@"CMWebService", ^{
         [[service.networkQueue should] receive:@selector(addOperation:)];
         [[service.networkQueue should] receive:@selector(go)];
         
-        [service getValuesForKeys:[NSArray array]
+        [service getValuesForKeys:nil
                    successHandler:^(NSDictionary *results, NSDictionary *errors) {
                        NSLog(@"success");
                    } errorHandler:^(NSError *error) {

@@ -156,8 +156,10 @@ static __strong NSSet *_validHTTPVerbs = nil;
         url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/text", _appKey]];
     }
     
-    NSString *builtString = [NSString stringWithFormat:@"keys=%@", [keys componentsJoinedByString:@","]];
-    url = [url URLByAppendingQueryString:builtString];
+    if (keys && [keys count] > 0) {
+        NSString *builtString = [NSString stringWithFormat:@"keys=%@", [keys componentsJoinedByString:@","]];
+        url = [url URLByAppendingQueryString:builtString];
+    }
     return url;
 }
 
