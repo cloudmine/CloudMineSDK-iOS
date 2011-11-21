@@ -34,6 +34,7 @@ describe(@"CMWebService", ^{
             ASIHTTPRequest *request;
             [invocation getArgument:&request atIndex:2]; // only arg is the request
             [[request.url should] equal:expectedUrl];
+            [[request.requestMethod should] equal:@"GET"];
         } forSelector:@selector(addOperation:)];
         
         // Validate the request when it's pushed onto the network queue so
@@ -59,6 +60,7 @@ describe(@"CMWebService", ^{
             ASIHTTPRequest *request;
             [invocation getArgument:&request atIndex:2]; // only arg is the request
             [[request.url should] equal:expectedUrl];
+            [[request.requestMethod should] equal:@"GET"];
         } forSelector:@selector(addOperation:)];
         
         // Validate the request when it's pushed onto the network queue so
@@ -87,6 +89,7 @@ describe(@"CMWebService", ^{
             [[request.url should] equal:expectedUrl];
             [[request.username should] equal:@"user"];
             [[request.password should] equal:@"pass"];
+            [[request.requestMethod should] equal:@"GET"];
         } forSelector:@selector(addOperation:)];
         
         // Validate the request when it's pushed onto the network queue so
@@ -116,6 +119,7 @@ describe(@"CMWebService", ^{
             [[request.url should] equal:expectedUrl];
             [[request.username should] equal:@"user"];
             [[request.password should] equal:@"pass"];
+            [[request.requestMethod should] equal:@"GET"];
         } forSelector:@selector(addOperation:)];
         
         // Validate the request when it's pushed onto the network queue so
