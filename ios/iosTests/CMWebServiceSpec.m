@@ -26,11 +26,13 @@ describe(@"CMWebService", ^{
     });
     
     it(@"should construct app-level GET request URLs correctly", ^{
-//        NSString *expectedUrl = [NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/text", appId];
+        NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/text", appId]];
         
         id spy = [[CMBlockValidationMessageSpy alloc] init];
         [spy addValidationBlock:^(NSInvocation *invocation) {
-            NSLog(@"Received invocation (%@)", invocation);
+            ASIHTTPRequest *request;
+            [invocation getArgument:&request atIndex:2]; // only arg is the request
+            [[request.url should] equal:expectedUrl];
         } forSelector:@selector(addOperation:)];
         
         [service.networkQueue addMessageSpy:spy forMessagePattern:[KWMessagePattern messagePatternWithSelector:@selector(addOperation:)]];
@@ -38,7 +40,7 @@ describe(@"CMWebService", ^{
         [[service.networkQueue should] receive:@selector(addOperation:)];
         [[service.networkQueue should] receive:@selector(go)];
         
-        [service getValuesForKeys:[NSArray arrayWithObjects:@"key1",@"key2", nil]
+        [service getValuesForKeys:[NSArray array]
                    successHandler:^(NSDictionary *results, NSDictionary *errors) {
                        NSLog(@"success");
                    } errorHandler:^(NSError *error) {
