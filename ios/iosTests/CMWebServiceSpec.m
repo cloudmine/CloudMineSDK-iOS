@@ -13,6 +13,22 @@
 #import "CMBlockValidationMessageSpy.h"
 #import "CMWebService.h"
 
+// Validate the request when it's pushed onto the network queue so \
+// we don't interfere with the construction and use of the request
+// otherwise throughout the production code.
+#define requireRequestUrlOnQueue(service, expectedUrl) \
+\
+id spy = [[CMBlockValidationMessageSpy alloc] init]; \
+[spy addValidationBlock:^(NSInvocation *invocation) { \
+    ASIHTTPRequest *request; \
+    [invocation getArgument:&request atIndex:2]; \
+    [[request.url should] equal:expectedUrl]; \
+} forSelector:@selector(addOperation:)]; \
+\
+[service.networkQueue addMessageSpy:spy forMessagePattern:[KWMessagePattern messagePatternWithSelector:@selector(addOperation:)]]; \
+[[service.networkQueue should] receive:@selector(addOperation:)]; \
+[[service.networkQueue should] receive:@selector(go)];
+
 SPEC_BEGIN(CMWebServiceSpec)
 
 describe(@"CMWebService", ^{
@@ -28,20 +44,7 @@ describe(@"CMWebService", ^{
     it(@"should construct app-level GET request URLs correctly", ^{
         NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/text", appId]];
         
-        id spy = [[CMBlockValidationMessageSpy alloc] init];
-        [spy addValidationBlock:^(NSInvocation *invocation) {
-            ASIHTTPRequest *request;
-            [invocation getArgument:&request atIndex:2]; // only arg is the request
-            [[request.url should] equal:expectedUrl];
-        } forSelector:@selector(addOperation:)];
-        
-        // Validate the request when it's pushed onto the network queue so
-        // we don't interfere with the construction and use of the request
-        // otherwise throughout the production code.
-        [service.networkQueue addMessageSpy:spy forMessagePattern:[KWMessagePattern messagePatternWithSelector:@selector(addOperation:)]];
-        
-        [[service.networkQueue should] receive:@selector(addOperation:)];
-        [[service.networkQueue should] receive:@selector(go)];
+        requireRequestUrlOnQueue(service, expectedUrl);
         
         [service getValuesForKeys:nil
                    successHandler:^(NSDictionary *results, NSDictionary *errors) {
@@ -53,20 +56,7 @@ describe(@"CMWebService", ^{
     it(@"should construct app-level GET request (with keys) URLs correctly", ^{
         NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/text?keys=k1,k2", appId]];
         
-        id spy = [[CMBlockValidationMessageSpy alloc] init];
-        [spy addValidationBlock:^(NSInvocation *invocation) {
-            ASIHTTPRequest *request;
-            [invocation getArgument:&request atIndex:2]; // only arg is the request
-            [[request.url should] equal:expectedUrl];
-        } forSelector:@selector(addOperation:)];
-        
-        // Validate the request when it's pushed onto the network queue so
-        // we don't interfere with the construction and use of the request
-        // otherwise throughout the production code.
-        [service.networkQueue addMessageSpy:spy forMessagePattern:[KWMessagePattern messagePatternWithSelector:@selector(addOperation:)]];
-        
-        [[service.networkQueue should] receive:@selector(addOperation:)];
-        [[service.networkQueue should] receive:@selector(go)];
+        requireRequestUrlOnQueue(service, expectedUrl);
         
         [service getValuesForKeys:[NSArray arrayWithObjects:@"k1", @"k2", nil]
                    successHandler:^(NSDictionary *results, NSDictionary *errors) {
@@ -77,3 +67,4 @@ describe(@"CMWebService", ^{
 });
 
 SPEC_END
+
