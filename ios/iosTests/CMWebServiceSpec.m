@@ -207,6 +207,74 @@ describe(@"CMWebService", ^{
              ];    
         });
     });
+    
+    context(@"should construct PUT request", ^{
+        it(@"URLs at the app level correctly", ^{
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/text", appId]];
+            NSMutableDictionary *dataToPost = [[NSMutableDictionary alloc] init];
+            [dataToPost setObject:@"val1" forKey:@"key1"];
+            [dataToPost setObject:@"val2" forKey:@"key2"];
+            [dataToPost setObject:[NSArray arrayWithObjects:@"arrVal1", @"arrVal2", nil] forKey:@"arrKey1"];
+            
+            id spy = [[CMBlockValidationMessageSpy alloc] init];
+            [spy addValidationBlock:^(NSInvocation *invocation) {
+                ASIHTTPRequest *request;
+                [invocation getArgument:&request atIndex:2]; // only arg is the request
+                [[request.url should] equal:expectedUrl];
+                [[request.requestMethod should] equal:@"PUT"];
+                [[[request.postBody yajl_JSON] should] equal:dataToPost];
+            } forSelector:@selector(addOperation:)];
+            
+            // Validate the request when it's pushed onto the network queue so
+            // we don't interfere with the construction and use of the request
+            // otherwise throughout the production code.
+            [service.networkQueue addMessageSpy:spy forMessagePattern:[KWMessagePattern messagePatternWithSelector:@selector(addOperation:)]];
+            
+            [[service.networkQueue should] receive:@selector(addOperation:)];
+            [[service.networkQueue should] receive:@selector(go)];
+            
+            [service setValuesFromDictionary:dataToPost 
+                                 successHandler:^(NSDictionary *results, NSDictionary *errors) {
+                                 } errorHandler:^(NSError *error) {
+                                 }
+             ];    
+        });
+        
+        it(@"URLs at the user level correctly", ^{
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/text", appId]];
+            NSMutableDictionary *dataToPost = [[NSMutableDictionary alloc] init];
+            [dataToPost setObject:@"val1" forKey:@"key1"];
+            [dataToPost setObject:@"val2" forKey:@"key2"];
+            [dataToPost setObject:[NSArray arrayWithObjects:@"arrVal1", @"arrVal2", nil] forKey:@"arrKey1"];
+            CMUserCredentials *creds = [[CMUserCredentials alloc] initWithUserId:@"user" andPassword:@"pass"];
+            
+            id spy = [[CMBlockValidationMessageSpy alloc] init];
+            [spy addValidationBlock:^(NSInvocation *invocation) {
+                ASIHTTPRequest *request;
+                [invocation getArgument:&request atIndex:2]; // only arg is the request
+                [[request.url should] equal:expectedUrl];
+                [[request.username should] equal:@"user"];
+                [[request.password should] equal:@"pass"];
+                [[request.requestMethod should] equal:@"PUT"];
+                [[[request.postBody yajl_JSON] should] equal:dataToPost];
+            } forSelector:@selector(addOperation:)];
+            
+            // Validate the request when it's pushed onto the network queue so
+            // we don't interfere with the construction and use of the request
+            // otherwise throughout the production code.
+            [service.networkQueue addMessageSpy:spy forMessagePattern:[KWMessagePattern messagePatternWithSelector:@selector(addOperation:)]];
+            
+            [[service.networkQueue should] receive:@selector(addOperation:)];
+            [[service.networkQueue should] receive:@selector(go)];
+            
+            [service setValuesFromDictionary:dataToPost
+                            withUserCredentials:creds
+                                 successHandler:^(NSDictionary *results, NSDictionary *errors) {
+                                 } errorHandler:^(NSError *error) {
+                                 }
+             ];    
+        });
+    });
 });
 
 SPEC_END
