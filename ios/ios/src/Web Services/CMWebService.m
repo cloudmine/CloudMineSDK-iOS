@@ -21,6 +21,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
 - (NSURL *)constructDataUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys;
 - (ASIHTTPRequest *)constructHTTPRequestWithVerb:(NSString *)verb URL:(NSURL *)url apiKey:(NSString *)apiKey userCredentials:(CMUserCredentials *)userCredentials;
 - (void)executeRequest:(ASIHTTPRequest *)request successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler errorHandler:(void (^)(NSError *error))errorHandler;
+- (NSURL *)appendKeys:(NSArray *)keys toURL:(NSURL *)theUrl;
 @end
 
 @implementation CMWebService
@@ -160,11 +161,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
         url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/text", _appKey]];
     }
     
-    if (keys && [keys count] > 0) {
-        NSString *builtString = [NSString stringWithFormat:@"keys=%@", [keys componentsJoinedByString:@","]];
-        url = [url URLByAppendingQueryString:builtString];
-    }
-    return url;
+    return [self appendKeys:keys toURL:url];
 }
 
 - (NSURL *)constructDataUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys {
@@ -175,9 +172,16 @@ static __strong NSSet *_validHTTPVerbs = nil;
         url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/data", _appKey]];
     }
     
-    NSString *builtString = [NSString stringWithFormat:@"keys=%@", [keys componentsJoinedByString:@","]];
-    url = [url URLByAppendingQueryString:builtString];
-    return url;
+    return [self appendKeys:keys toURL:url];
+}
+
+- (NSURL *)appendKeys:(NSArray *)keys toURL:(NSURL *)theUrl {
+    NSURL *newUrl = theUrl;
+    if (keys && [keys count] > 0) {
+        NSString *builtString = [NSString stringWithFormat:@"keys=%@", [keys componentsJoinedByString:@","]];
+        newUrl = [theUrl URLByAppendingQueryString:builtString];
+    }
+    return newUrl;
 }
 
 @end
