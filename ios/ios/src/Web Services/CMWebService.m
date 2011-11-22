@@ -68,31 +68,35 @@ static __strong NSSet *_validHTTPVerbs = nil;
 
 #pragma mark - POST (update) requests for non-binary data
 
-- (void)updateValuesForKeys:(NSArray *)keys successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+- (void)updateValuesFromDictionary:(NSDictionary *)data successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
             errorHandler:(void (^)(NSError *error))errorHandler {
-    [self updateValuesForKeys:keys withUserCredentials:nil successHandler:successHandler errorHandler:errorHandler];
+    [self updateValuesFromDictionary:data withUserCredentials:nil successHandler:successHandler errorHandler:errorHandler];
 }
 
-- (void)updateValuesForKeys:(NSArray *)keys withUserCredentials:(CMUserCredentials *)credentials 
+- (void)updateValuesFromDictionary:(NSDictionary *)data withUserCredentials:(CMUserCredentials *)credentials 
           successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler errorHandler:(void (^)(NSError *error))errorHandler {
-    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:[self constructTextUrlAtUserLevel:(credentials != nil) withKeys:keys]
+    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST" 
+                                                             URL:[self constructTextUrlAtUserLevel:(credentials != nil) withKeys:nil]
                                                           apiKey:_apiKey
                                                  userCredentials:credentials];
+    [request appendPostData:[[data yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
     [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
 }
 
 #pragma mark - PUT (replace) requests for non-binary data
 
-- (void)setValuesForKeys:(NSArray *)keys successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+- (void)setValuesFromDictionary:(NSDictionary *)data successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
                errorHandler:(void (^)(NSError *error))errorHandler {
-    [self setValuesForKeys:keys withUserCredentials:nil successHandler:successHandler errorHandler:errorHandler];
+    [self setValuesFromDictionary:data withUserCredentials:nil successHandler:successHandler errorHandler:errorHandler];
 }
 
-- (void)setValuesForKeys:(NSArray *)keys withUserCredentials:(CMUserCredentials *)credentials 
+- (void)setValuesFromDictionary:(NSDictionary *)data withUserCredentials:(CMUserCredentials *)credentials 
              successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler errorHandler:(void (^)(NSError *error))errorHandler {
-    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"PUT" URL:[self constructTextUrlAtUserLevel:(credentials != nil) withKeys:keys]
+    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"PUT" 
+                                                             URL:[self constructTextUrlAtUserLevel:(credentials != nil) withKeys:nil]
                                                           apiKey:_apiKey
                                                  userCredentials:credentials];
+    [request appendPostData:[[data yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
     [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
 }
 

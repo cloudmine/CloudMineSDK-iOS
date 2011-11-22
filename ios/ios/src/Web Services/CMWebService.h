@@ -69,16 +69,16 @@
 - (void)getValuesForKeys:(NSArray *)keys withUserCredentials:(CMUserCredentials *)credentials
           successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler errorHandler:(void (^)(NSError *error))errorHandler;
 
-- (void)updateValuesForKeys:(NSArray *)keys successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+- (void)updateValuesFromDictionary:(NSDictionary *)data successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
                errorHandler:(void (^)(NSError *error))errorHandler;
 
-- (void)updateValuesForKeys:(NSArray *)keys withUserCredentials:(CMUserCredentials *)credentials 
+- (void)updateValuesFromDictionary:(NSDictionary *)data withUserCredentials:(CMUserCredentials *)credentials 
              successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler errorHandler:(void (^)(NSError *error))errorHandler;
 
-- (void)setValuesForKeys:(NSArray *)keys successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+- (void)setValuesFromDictionary:(NSDictionary *)data successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
             errorHandler:(void (^)(NSError *error))errorHandler;
 
-- (void)setValuesForKeys:(NSArray *)keys withUserCredentials:(CMUserCredentials *)credentials 
+- (void)setValuesFromDictionary:(NSDictionary *)data withUserCredentials:(CMUserCredentials *)credentials 
           successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler errorHandler:(void (^)(NSError *error))errorHandler;
 
 - (void)deleteAllWithSuccessHandler:(void (^)(void)) errorHandler:(void (^)(NSError *error))errorHandler;
