@@ -34,6 +34,8 @@
 		7A0413D6146C5B6900EF537A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D5146C5B6900EF537A /* MobileCoreServices.framework */; };
 		7A0413D8146C5B7000EF537A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D7146C5B7000EF537A /* CoreGraphics.framework */; };
 		7A0413DA146C5B7400EF537A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D9146C5B7400EF537A /* libz.dylib */; };
+		7A04E86B147D8435006E00AB /* CMServerFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A04E869147D8435006E00AB /* CMServerFunction.h */; };
+		7A04E86C147D8435006E00AB /* CMServerFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A04E86A147D8435006E00AB /* CMServerFunction.m */; };
 		7A0DB1BC147B016B007F482C /* CMBlockValidationMessageSpy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0DB1BB147B016B007F482C /* CMBlockValidationMessageSpy.m */; };
 		7A308A3714798EFD008ADD3C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AD36F80146C656600DD4734 /* UIKit.framework */; };
 		7A308A3814798F0E008ADD3C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D5146C5B6900EF537A /* MobileCoreServices.framework */; };
@@ -101,6 +103,8 @@
 		7A0413D5146C5B6900EF537A /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		7A0413D7146C5B7000EF537A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		7A0413D9146C5B7400EF537A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		7A04E869147D8435006E00AB /* CMServerFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMServerFunction.h; sourceTree = "<group>"; };
+		7A04E86A147D8435006E00AB /* CMServerFunction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMServerFunction.m; sourceTree = "<group>"; };
 		7A0DB1BA147B016B007F482C /* CMBlockValidationMessageSpy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMBlockValidationMessageSpy.h; sourceTree = "<group>"; };
 		7A0DB1BB147B016B007F482C /* CMBlockValidationMessageSpy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMBlockValidationMessageSpy.m; sourceTree = "<group>"; };
 		7A308A4314799134008ADD3C /* CMWebServiceSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMWebServiceSpec.m; sourceTree = "<group>"; };
@@ -330,6 +334,8 @@
 				7AD36F87146CAE0700DD4734 /* CMUserCredentials.m */,
 				7AD36F82146CA4AC00DD4734 /* CMAPICredentials.h */,
 				7AD36F83146CA4AC00DD4734 /* CMAPICredentials.m */,
+				7A04E869147D8435006E00AB /* CMServerFunction.h */,
+				7A04E86A147D8435006E00AB /* CMServerFunction.m */,
 			);
 			path = "Web Services";
 			sourceTree = "<group>";
@@ -368,6 +374,7 @@
 				7AD36F84146CA4AC00DD4734 /* CMAPICredentials.h in Headers */,
 				7AD36F88146CAE0700DD4734 /* CMUserCredentials.h in Headers */,
 				7AD36F8D146CB6A600DD4734 /* NSURL+QueryParameterAdditions.h in Headers */,
+				7A04E86B147D8435006E00AB /* CMServerFunction.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -497,6 +504,7 @@
 				7AD36F85146CA4AC00DD4734 /* CMAPICredentials.m in Sources */,
 				7AD36F89146CAE0700DD4734 /* CMUserCredentials.m in Sources */,
 				7AD36F8E146CB6A600DD4734 /* NSURL+QueryParameterAdditions.m in Sources */,
+				7A04E86C147D8435006E00AB /* CMServerFunction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
