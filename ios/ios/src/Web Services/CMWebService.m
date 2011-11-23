@@ -125,7 +125,20 @@ static __strong NSSet *_validHTTPVerbs = nil;
     
     [request setCompletionBlock:^{
         NSDictionary *results = [blockRequest.responseString yajl_JSON];
-        successHandler([results objectForKey:@"success"], [results objectForKey:@"errors"]);
+        NSDictionary *successes;
+        NSDictionary *errors;
+        if (results) {
+            successes = [results objectForKey:@"success"];
+            if (!successes) {
+                successes = [NSDictionary dictionary];
+            }
+            
+            errors = [results objectForKey:@"errors"];
+            if (!errors) {
+                errors = [NSDictionary dictionary];
+            }
+        }
+        successHandler(successes, errors);
     }];
     
     [request setFailedBlock:^{
