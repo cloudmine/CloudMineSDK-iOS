@@ -11,10 +11,10 @@
 @implementation CMUserCredentials
 @synthesize userId, password;
 
-- (id)initWithUserId:(NSString *)userId andPassword:(NSString *)password {
+- (id)initWithUserId:(NSString *)theUserId andPassword:(NSString *)thePassword {
     if (self = [super init]) {
-        self.userId = userId;
-        self.password = password;
+        self.userId = theUserId;
+        self.password = thePassword;
     }
     return self;
 }
