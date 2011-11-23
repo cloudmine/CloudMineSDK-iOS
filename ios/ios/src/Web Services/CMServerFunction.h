@@ -25,4 +25,6 @@
 
 - (id)initWithFunctionName:(NSString *)theFunctionName extraParameters:(NSDictionary *)theExtraParameters responseContainsResultOnly:(BOOL)resultOnly performAsynchronously:(BOOL)async;
 
+- (NSString *)queryStringRepresentation;
+
 @end

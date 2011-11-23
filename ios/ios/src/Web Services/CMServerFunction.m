@@ -15,6 +15,8 @@
 @synthesize resultOnly;
 @synthesize async;
 
+#pragma mark - Constructors
+
 + (id)serverFunctionWithName:(NSString *)theFunctionName {
     return [[self alloc] initWithFunctionName:theFunctionName 
                               extraParameters:nil
@@ -55,6 +57,30 @@
         self.async = isAsync;
     }
     return self;
+}
+
+#pragma - Alternate representations
+
+- (NSString *)queryStringRepresentation {
+    NSMutableArray *querySegments = [NSMutableArray arrayWithCapacity:4];
+    
+    if (self.functionName && [self.functionName length] > 0) {
+        [querySegments addObject:[NSString stringWithFormat:@"f=%@", self.functionName]];
+    }
+    
+    if (self.extraParameters && [self.extraParameters count] > 0) {
+        [querySegments addObject:[NSString stringWithFormat:@"params=%@", [self.extraParameters yajl_JSONString]]];
+    }
+    
+    if (self.resultOnly) {
+        [querySegments addObject:@"result_only=true"];
+    }
+    
+    if (self.async) {
+        [querySegments addObject:@"async=true"];
+    }
+    
+    return [querySegments componentsJoinedByString:@"&"];
 }
 
 @end
