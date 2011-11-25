@@ -59,6 +59,11 @@
     return self;
 }
 
+- (id)init {
+    [[NSException exceptionWithName:@"NotImplemented" reason:@"This constructor is not implemented. Use initWithFunctionName:extraParameters:responseContainsResultOnly:performAsynchronously: instead, or use one of the available static convenience initializers."  userInfo:nil] raise];
+    return nil;
+}
+
 #pragma - Alternate representations
 
 - (NSString *)queryStringRepresentation {
