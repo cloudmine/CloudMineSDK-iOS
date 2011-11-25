@@ -46,6 +46,10 @@
 		7A308A3C14798F29008ADD3C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D9146C5B7400EF537A /* libz.dylib */; };
 		7A308A4414799134008ADD3C /* CMWebServiceSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A308A4314799134008ADD3C /* CMWebServiceSpec.m */; };
 		7A308A4C14799471008ADD3C /* libKiwi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A308A4B14799471008ADD3C /* libKiwi.a */; };
+		7AABA2DC1480433500FD52A0 /* CMJSONEncoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AABA2DA1480433500FD52A0 /* CMJSONEncoder.h */; };
+		7AABA2DD1480433500FD52A0 /* CMJSONEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AABA2DB1480433500FD52A0 /* CMJSONEncoder.m */; };
+		7AABA2E01480435800FD52A0 /* CMJSONDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AABA2DE1480435800FD52A0 /* CMJSONDecoder.h */; };
+		7AABA2E11480435800FD52A0 /* CMJSONDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AABA2DF1480435800FD52A0 /* CMJSONDecoder.m */; };
 		7AB4AB63145DC5D8006AEF67 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB62145DC5D8006AEF67 /* Foundation.framework */; };
 		7AB4AB71145DC5D8006AEF67 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB70145DC5D8006AEF67 /* SenTestingKit.framework */; };
 		7AB4AB74145DC5D8006AEF67 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB62145DC5D8006AEF67 /* Foundation.framework */; };
@@ -111,6 +115,10 @@
 		7A0DB1BB147B016B007F482C /* CMBlockValidationMessageSpy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMBlockValidationMessageSpy.m; sourceTree = "<group>"; };
 		7A308A4314799134008ADD3C /* CMWebServiceSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMWebServiceSpec.m; sourceTree = "<group>"; };
 		7A308A4B14799471008ADD3C /* libKiwi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libKiwi.a; path = "kiwi/build/Release-iphoneos/libKiwi.a"; sourceTree = "<group>"; };
+		7AABA2DA1480433500FD52A0 /* CMJSONEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMJSONEncoder.h; sourceTree = "<group>"; };
+		7AABA2DB1480433500FD52A0 /* CMJSONEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMJSONEncoder.m; sourceTree = "<group>"; };
+		7AABA2DE1480435800FD52A0 /* CMJSONDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMJSONDecoder.h; sourceTree = "<group>"; };
+		7AABA2DF1480435800FD52A0 /* CMJSONDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMJSONDecoder.m; sourceTree = "<group>"; };
 		7AB4AB5F145DC5D8006AEF67 /* libcloudmine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcloudmine.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AB4AB62145DC5D8006AEF67 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7AB4AB66145DC5D8006AEF67 /* cloudmine-ios-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cloudmine-ios-Prefix.pch"; sourceTree = "<group>"; };
@@ -339,6 +347,10 @@
 				7AD36F83146CA4AC00DD4734 /* CMAPICredentials.m */,
 				7A04E869147D8435006E00AB /* CMServerFunction.h */,
 				7A04E86A147D8435006E00AB /* CMServerFunction.m */,
+				7AABA2DA1480433500FD52A0 /* CMJSONEncoder.h */,
+				7AABA2DB1480433500FD52A0 /* CMJSONEncoder.m */,
+				7AABA2DE1480435800FD52A0 /* CMJSONDecoder.h */,
+				7AABA2DF1480435800FD52A0 /* CMJSONDecoder.m */,
 			);
 			path = "Web Services";
 			sourceTree = "<group>";
@@ -378,6 +390,8 @@
 				7AD36F88146CAE0700DD4734 /* CMUserCredentials.h in Headers */,
 				7AD36F8D146CB6A600DD4734 /* NSURL+QueryParameterAdditions.h in Headers */,
 				7A04E86B147D8435006E00AB /* CMServerFunction.h in Headers */,
+				7AABA2DC1480433500FD52A0 /* CMJSONEncoder.h in Headers */,
+				7AABA2E01480435800FD52A0 /* CMJSONDecoder.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -508,6 +522,8 @@
 				7AD36F89146CAE0700DD4734 /* CMUserCredentials.m in Sources */,
 				7AD36F8E146CB6A600DD4734 /* NSURL+QueryParameterAdditions.m in Sources */,
 				7A04E86C147D8435006E00AB /* CMServerFunction.m in Sources */,
+				7AABA2DD1480433500FD52A0 /* CMJSONEncoder.m in Sources */,
+				7AABA2E11480435800FD52A0 /* CMJSONDecoder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
