@@ -7,7 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CMJSONSerializable.h"
 
-@interface CMObject : NSObject
+@interface CMObject : NSObject <CMJSONSerializable> {
+    NSString *_objectId;
+}
 
 @end

@@ -50,6 +50,8 @@
 		7AABA2DD1480433500FD52A0 /* CMJSONEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AABA2DB1480433500FD52A0 /* CMJSONEncoder.m */; };
 		7AABA2E01480435800FD52A0 /* CMJSONDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AABA2DE1480435800FD52A0 /* CMJSONDecoder.h */; };
 		7AABA2E11480435800FD52A0 /* CMJSONDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AABA2DF1480435800FD52A0 /* CMJSONDecoder.m */; };
+		7AABA2E31480513500FD52A0 /* CMJSONSerializable.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AABA2E21480513500FD52A0 /* CMJSONSerializable.h */; };
+		7AABA2E51480549A00FD52A0 /* CMJSONEncoderSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AABA2E41480549A00FD52A0 /* CMJSONEncoderSpec.m */; };
 		7AB4AB63145DC5D8006AEF67 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB62145DC5D8006AEF67 /* Foundation.framework */; };
 		7AB4AB71145DC5D8006AEF67 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB70145DC5D8006AEF67 /* SenTestingKit.framework */; };
 		7AB4AB74145DC5D8006AEF67 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB62145DC5D8006AEF67 /* Foundation.framework */; };
@@ -119,6 +121,8 @@
 		7AABA2DB1480433500FD52A0 /* CMJSONEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMJSONEncoder.m; sourceTree = "<group>"; };
 		7AABA2DE1480435800FD52A0 /* CMJSONDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMJSONDecoder.h; sourceTree = "<group>"; };
 		7AABA2DF1480435800FD52A0 /* CMJSONDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMJSONDecoder.m; sourceTree = "<group>"; };
+		7AABA2E21480513500FD52A0 /* CMJSONSerializable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMJSONSerializable.h; sourceTree = "<group>"; };
+		7AABA2E41480549A00FD52A0 /* CMJSONEncoderSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMJSONEncoderSpec.m; sourceTree = "<group>"; };
 		7AB4AB5F145DC5D8006AEF67 /* libcloudmine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcloudmine.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AB4AB62145DC5D8006AEF67 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7AB4AB66145DC5D8006AEF67 /* cloudmine-ios-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cloudmine-ios-Prefix.pch"; sourceTree = "<group>"; };
@@ -301,6 +305,7 @@
 			children = (
 				7A308A4314799134008ADD3C /* CMWebServiceSpec.m */,
 				7A04E86E147D90F5006E00AB /* CMServerFunctionSpec.m */,
+				7AABA2E41480549A00FD52A0 /* CMJSONEncoderSpec.m */,
 				7A0DB1B8147B0153007F482C /* Support */,
 				7AB4AB79145DC5D8006AEF67 /* Supporting Files */,
 			);
@@ -351,6 +356,7 @@
 				7AABA2DB1480433500FD52A0 /* CMJSONEncoder.m */,
 				7AABA2DE1480435800FD52A0 /* CMJSONDecoder.h */,
 				7AABA2DF1480435800FD52A0 /* CMJSONDecoder.m */,
+				7AABA2E21480513500FD52A0 /* CMJSONSerializable.h */,
 			);
 			path = "Web Services";
 			sourceTree = "<group>";
@@ -392,6 +398,7 @@
 				7A04E86B147D8435006E00AB /* CMServerFunction.h in Headers */,
 				7AABA2DC1480433500FD52A0 /* CMJSONEncoder.h in Headers */,
 				7AABA2E01480435800FD52A0 /* CMJSONDecoder.h in Headers */,
+				7AABA2E31480513500FD52A0 /* CMJSONSerializable.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -534,6 +541,7 @@
 				7A308A4414799134008ADD3C /* CMWebServiceSpec.m in Sources */,
 				7A0DB1BC147B016B007F482C /* CMBlockValidationMessageSpy.m in Sources */,
 				7A04E86F147D90F5006E00AB /* CMServerFunctionSpec.m in Sources */,
+				7AABA2E51480549A00FD52A0 /* CMJSONEncoderSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

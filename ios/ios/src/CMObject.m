@@ -10,4 +10,18 @@
 
 @implementation CMObject
 
+#pragma mark - Turnkey JSON serialization methods
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    return [super init];
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    
+}
+
+- (NSString *)objectId {
+    return nil;
+}
+
 @end
