@@ -52,6 +52,8 @@
 		7AABA2E11480435800FD52A0 /* CMJSONDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AABA2DF1480435800FD52A0 /* CMJSONDecoder.m */; };
 		7AABA2E31480513500FD52A0 /* CMJSONSerializable.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AABA2E21480513500FD52A0 /* CMJSONSerializable.h */; };
 		7AABA2E51480549A00FD52A0 /* CMJSONEncoderSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AABA2E41480549A00FD52A0 /* CMJSONEncoderSpec.m */; };
+		7AABA2E81480598300FD52A0 /* NSString+UUID.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AABA2E61480598300FD52A0 /* NSString+UUID.h */; };
+		7AABA2E91480598300FD52A0 /* NSString+UUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AABA2E71480598300FD52A0 /* NSString+UUID.m */; };
 		7AB4AB63145DC5D8006AEF67 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB62145DC5D8006AEF67 /* Foundation.framework */; };
 		7AB4AB71145DC5D8006AEF67 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB70145DC5D8006AEF67 /* SenTestingKit.framework */; };
 		7AB4AB74145DC5D8006AEF67 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB62145DC5D8006AEF67 /* Foundation.framework */; };
@@ -123,6 +125,8 @@
 		7AABA2DF1480435800FD52A0 /* CMJSONDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMJSONDecoder.m; sourceTree = "<group>"; };
 		7AABA2E21480513500FD52A0 /* CMJSONSerializable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMJSONSerializable.h; sourceTree = "<group>"; };
 		7AABA2E41480549A00FD52A0 /* CMJSONEncoderSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMJSONEncoderSpec.m; sourceTree = "<group>"; };
+		7AABA2E61480598300FD52A0 /* NSString+UUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+UUID.h"; sourceTree = "<group>"; };
+		7AABA2E71480598300FD52A0 /* NSString+UUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+UUID.m"; sourceTree = "<group>"; };
 		7AB4AB5F145DC5D8006AEF67 /* libcloudmine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcloudmine.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AB4AB62145DC5D8006AEF67 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7AB4AB66145DC5D8006AEF67 /* cloudmine-ios-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cloudmine-ios-Prefix.pch"; sourceTree = "<group>"; };
@@ -366,6 +370,8 @@
 			children = (
 				7AD36F8B146CB6A600DD4734 /* NSURL+QueryParameterAdditions.h */,
 				7AD36F8C146CB6A600DD4734 /* NSURL+QueryParameterAdditions.m */,
+				7AABA2E61480598300FD52A0 /* NSString+UUID.h */,
+				7AABA2E71480598300FD52A0 /* NSString+UUID.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -399,6 +405,7 @@
 				7AABA2DC1480433500FD52A0 /* CMJSONEncoder.h in Headers */,
 				7AABA2E01480435800FD52A0 /* CMJSONDecoder.h in Headers */,
 				7AABA2E31480513500FD52A0 /* CMJSONSerializable.h in Headers */,
+				7AABA2E81480598300FD52A0 /* NSString+UUID.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,6 +538,7 @@
 				7A04E86C147D8435006E00AB /* CMServerFunction.m in Sources */,
 				7AABA2DD1480433500FD52A0 /* CMJSONEncoder.m in Sources */,
 				7AABA2E11480435800FD52A0 /* CMJSONDecoder.m in Sources */,
+				7AABA2E91480598300FD52A0 /* NSString+UUID.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
