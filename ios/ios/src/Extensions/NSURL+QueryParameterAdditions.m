@@ -17,7 +17,12 @@
     
     NSString *URLString = [[NSString alloc] initWithFormat:@"%@%@%@", [self absoluteString],
                            [self query] ? @"&" : @"?", queryString];
-    return [NSURL URLWithString:URLString];
+    NSString *escapedURLString = (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, 
+                                                                         (__bridge CFStringRef)URLString, 
+                                                                         NULL, 
+                                                                         NULL, 
+                                                                         kCFStringEncodingUTF8);
+    return [NSURL URLWithString:escapedURLString];
 }
 
 @end
