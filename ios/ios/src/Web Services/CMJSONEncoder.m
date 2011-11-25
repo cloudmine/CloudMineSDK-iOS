@@ -7,6 +7,7 @@
 //
 
 #import "CMJSONEncoder.h"
+#import "CMJSONSerializable.h"
 
 @interface CMJSONEncoder (Private)
 - (NSData *)jsonData;
@@ -16,16 +17,31 @@
 
 #pragma mark - Kickoff methods
 
-- (NSData *)serializeObjects:(id<NSFastEnumeration>)objects {
-    for (id<NSObject,NSCoding> object in objects) {
-        if (![object conformsToProtocol:@protocol(NSCoding)]) {
++ (NSData *)serializeObjects:(id<NSFastEnumeration>)objects {
+    NSMutableDictionary *topLevelObjectsDictionary = [NSMutableDictionary dictionary];
+    for (id<NSObject,CMJSONSerializable> object in objects) {
+        if (![object conformsToProtocol:@protocol(CMJSONSerializable)]) {
             [[NSException exceptionWithName:NSInvalidArgumentException
-                                     reason:@"All objects to be serialized to JSON must conform to NSCoding"
-                                   userInfo:nil] raise];
+                                     reason:@"All objects to be serialized to JSON must conform to CMJSONSerializable"
+                                   userInfo:[NSDictionary dictionaryWithObject:object forKey:@"object"]]
+             raise];
         }
-        [object encodeWithCoder:self];
+        
+        if (![object respondsToSelector:@selector(objectId)] || object.objectId == nil) {
+            [[NSException exceptionWithName:NSInvalidArgumentException
+                                     reason:@"All objects must supply their own unique, non-nil object identifier"
+                                   userInfo:[NSDictionary dictionaryWithObject:object forKey:@"object"]] 
+             raise];
+        }
+        
+        // Each top-level object gets its own encoder, and the result of each serialization is stored
+        // at the key specified by the object.
+        CMJSONEncoder *objectEncoder = [[self alloc] init];
+        [object encodeWithCoder:objectEncoder];
+        [topLevelObjectsDictionary setObject:objectEncoder.jsonRepresentation forKey:object.objectId];
     }
-    return [self jsonData];
+    
+    return [[topLevelObjectsDictionary yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding];
 }
 
 #pragma mark - Keyed archiving methods defined by NSCoder
@@ -58,10 +74,12 @@
     [_encodedData setObject:[NSNumber numberWithInt:intv] forKey:key];
 }
 
-- (void)encodeObject:(id<NSCoding>)objv forKey:(NSString *)key {
+- (void)encodeObject:(id<CMJSONSerializable>)objv forKey:(NSString *)key {
+    // A new encoder is needed as we are digging down further into the object
+    // and we don't want to flatten the data in all the sub-objects.
     CMJSONEncoder *newEncoder = [[[self class] alloc] init];
     [objv encodeWithCoder:newEncoder];
-    [_encodedData setObject:newEncoder.encodedData forKey:key];
+    [_encodedData setObject:newEncoder.jsonRepresentation forKey:key];
 }
 
 #pragma mark - Required methods (metadata and base serialization methods)
@@ -76,7 +94,7 @@
     return [[_encodedData yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding];
 }
 
-- (NSDictionary *)encodedData {
+- (NSDictionary *)jsonRepresentation {
     return [_encodedData copy];
 }
 

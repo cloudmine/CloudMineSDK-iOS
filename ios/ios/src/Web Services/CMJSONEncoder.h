@@ -20,8 +20,9 @@
     NSMutableDictionary *_encodedData;
 }
 
-@property (readonly) NSDictionary *encodedData;
+@property (readonly) NSDictionary *jsonRepresentation;
+@property (readonly) NSData *jsonData;
 
-- (NSData *)serializeObjects:(id<NSFastEnumeration>)objects;
++ (NSData *)serializeObjects:(id<NSFastEnumeration>)objects;
 
 @end
