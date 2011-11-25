@@ -48,6 +48,7 @@ describe(@"CMWebService", ^{
             [[service.networkQueue should] receive:@selector(go)];
             
             [service getValuesForKeys:nil
+                   serverSideFunction:nil
                        successHandler:^(NSDictionary *results, NSDictionary *errors) {
                        } errorHandler:^(NSError *error) {
                        }
@@ -75,6 +76,7 @@ describe(@"CMWebService", ^{
             [[service.networkQueue should] receive:@selector(go)];
             
             [service getValuesForKeys:[NSArray arrayWithObjects:@"k1", @"k2", nil]
+                   serverSideFunction:nil
                        successHandler:^(NSDictionary *results, NSDictionary *errors) {
                        } errorHandler:^(NSError *error) {
                        }
@@ -105,6 +107,7 @@ describe(@"CMWebService", ^{
             [[service.networkQueue should] receive:@selector(go)];
             
             [service getValuesForKeys:nil
+                   serverSideFunction:nil
                   withUserCredentials:creds
                        successHandler:^(NSDictionary *results, NSDictionary *errors) {
                        } errorHandler:^(NSError *error) {
@@ -136,6 +139,7 @@ describe(@"CMWebService", ^{
             [[service.networkQueue should] receive:@selector(go)];
             
             [service getValuesForKeys:[NSArray arrayWithObjects:@"k1", @"k2", nil]
+                   serverSideFunction:nil
                   withUserCredentials:creds
                        successHandler:^(NSDictionary *results, NSDictionary *errors) {
                        } errorHandler:^(NSError *error) {
@@ -171,6 +175,7 @@ describe(@"CMWebService", ^{
             [[service.networkQueue should] receive:@selector(go)];
             
             [service updateValuesFromDictionary:dataToPost 
+                             serverSideFunction:nil
                                  successHandler:^(NSDictionary *results, NSDictionary *errors) {
                                  } errorHandler:^(NSError *error) {
                                  }
@@ -206,6 +211,7 @@ describe(@"CMWebService", ^{
             [[service.networkQueue should] receive:@selector(go)];
             
             [service updateValuesFromDictionary:dataToPost
+                             serverSideFunction:nil
                             withUserCredentials:creds
                                  successHandler:^(NSDictionary *results, NSDictionary *errors) {
                                  } errorHandler:^(NSError *error) {
@@ -241,6 +247,7 @@ describe(@"CMWebService", ^{
             [[service.networkQueue should] receive:@selector(go)];
             
             [service setValuesFromDictionary:dataToPost 
+                          serverSideFunction:nil
                                  successHandler:^(NSDictionary *results, NSDictionary *errors) {
                                  } errorHandler:^(NSError *error) {
                                  }
@@ -276,6 +283,7 @@ describe(@"CMWebService", ^{
             [[service.networkQueue should] receive:@selector(go)];
             
             [service setValuesFromDictionary:dataToPost
+                          serverSideFunction:nil
                             withUserCredentials:creds
                                  successHandler:^(NSDictionary *results, NSDictionary *errors) {
                                  } errorHandler:^(NSError *error) {
@@ -309,7 +317,7 @@ describe(@"CMWebService", ^{
                        successHandler:^(NSDictionary *results, NSDictionary *errors) {
                        } errorHandler:^(NSError *error) {
                        }
-             ];    
+             ];
         });
         
         it(@"URLs at the app level with keys correctly", ^{

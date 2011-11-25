@@ -12,16 +12,17 @@
 #import "CMWebService.h"
 #import "CMAPICredentials.h"
 #import "CMUserCredentials.h"
+#import "CMServerFunction.h"
 #import "NSURL+QueryParameterAdditions.h"
 
 static __strong NSSet *_validHTTPVerbs = nil;
 
 @interface CMWebService (Private)
-- (NSURL *)constructTextUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys;
-- (NSURL *)constructDataUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys;
+- (NSURL *)constructTextUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys withServerSideFunction:(CMServerFunction *)function;
+- (NSURL *)constructDataUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys withServerSideFunction:(CMServerFunction *)function;
 - (ASIHTTPRequest *)constructHTTPRequestWithVerb:(NSString *)verb URL:(NSURL *)url apiKey:(NSString *)apiKey userCredentials:(CMUserCredentials *)userCredentials;
 - (void)executeRequest:(ASIHTTPRequest *)request successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler errorHandler:(void (^)(NSError *error))errorHandler;
-- (NSURL *)appendKeys:(NSArray *)keys toURL:(NSURL *)theUrl;
+- (NSURL *)appendKeys:(NSArray *)keys andServerSideFunction:(CMServerFunction *)function toURL:(NSURL *)theUrl;
 @end
 
 @implementation CMWebService
@@ -54,14 +55,22 @@ static __strong NSSet *_validHTTPVerbs = nil;
 
 #pragma mark - GET requests for non-binary data
 
-- (void)getValuesForKeys:(NSArray *)keys successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+- (void)getValuesForKeys:(NSArray *)keys 
+      serverSideFunction:(CMServerFunction *)function 
+          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
             errorHandler:(void (^)(NSError *error))errorHandler {
-    [self getValuesForKeys:keys withUserCredentials:nil successHandler:successHandler errorHandler:errorHandler];
+    [self getValuesForKeys:keys serverSideFunction:function withUserCredentials:nil successHandler:successHandler errorHandler:errorHandler];
 }
 
-- (void)getValuesForKeys:(NSArray *)keys withUserCredentials:(CMUserCredentials *)credentials 
-          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler errorHandler:(void (^)(NSError *error))errorHandler {
-    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"GET" URL:[self constructTextUrlAtUserLevel:(credentials != nil) withKeys:keys]
+- (void)getValuesForKeys:(NSArray *)keys 
+      serverSideFunction:(CMServerFunction *)function
+     withUserCredentials:(CMUserCredentials *)credentials
+          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+            errorHandler:(void (^)(NSError *error))errorHandler {
+    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"GET" 
+                                                             URL:[self constructTextUrlAtUserLevel:(credentials != nil) 
+                                                                                          withKeys:keys
+                                                                            withServerSideFunction:function]
                                                           apiKey:_apiKey
                                                  userCredentials:credentials];
     [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
@@ -69,15 +78,22 @@ static __strong NSSet *_validHTTPVerbs = nil;
 
 #pragma mark - POST (update) requests for non-binary data
 
-- (void)updateValuesFromDictionary:(NSDictionary *)data successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
-            errorHandler:(void (^)(NSError *error))errorHandler {
-    [self updateValuesFromDictionary:data withUserCredentials:nil successHandler:successHandler errorHandler:errorHandler];
+- (void)updateValuesFromDictionary:(NSDictionary *)data 
+                serverSideFunction:(CMServerFunction *)function
+                    successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+                      errorHandler:(void (^)(NSError *error))errorHandler {
+    [self updateValuesFromDictionary:data serverSideFunction:function withUserCredentials:nil successHandler:successHandler errorHandler:errorHandler];
 }
 
-- (void)updateValuesFromDictionary:(NSDictionary *)data withUserCredentials:(CMUserCredentials *)credentials 
-          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler errorHandler:(void (^)(NSError *error))errorHandler {
+- (void)updateValuesFromDictionary:(NSDictionary *)data
+                serverSideFunction:(CMServerFunction *)function
+               withUserCredentials:(CMUserCredentials *)credentials 
+                successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler
+                      errorHandler:(void (^)(NSError *error))errorHandler {
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST" 
-                                                             URL:[self constructTextUrlAtUserLevel:(credentials != nil) withKeys:nil]
+                                                             URL:[self constructTextUrlAtUserLevel:(credentials != nil)
+                                                                                          withKeys:nil
+                                                                            withServerSideFunction:function]
                                                           apiKey:_apiKey
                                                  userCredentials:credentials];
     [request appendPostData:[[data yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
@@ -86,15 +102,22 @@ static __strong NSSet *_validHTTPVerbs = nil;
 
 #pragma mark - PUT (replace) requests for non-binary data
 
-- (void)setValuesFromDictionary:(NSDictionary *)data successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
-               errorHandler:(void (^)(NSError *error))errorHandler {
-    [self setValuesFromDictionary:data withUserCredentials:nil successHandler:successHandler errorHandler:errorHandler];
+- (void)setValuesFromDictionary:(NSDictionary *)data
+             serverSideFunction:(CMServerFunction *)function
+                 successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+                   errorHandler:(void (^)(NSError *error))errorHandler {
+    [self setValuesFromDictionary:data serverSideFunction:function withUserCredentials:nil successHandler:successHandler errorHandler:errorHandler];
 }
 
-- (void)setValuesFromDictionary:(NSDictionary *)data withUserCredentials:(CMUserCredentials *)credentials 
-             successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler errorHandler:(void (^)(NSError *error))errorHandler {
+- (void)setValuesFromDictionary:(NSDictionary *)data
+             serverSideFunction:(CMServerFunction *)function
+            withUserCredentials:(CMUserCredentials *)credentials 
+                 successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler
+                   errorHandler:(void (^)(NSError *error))errorHandler {
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"PUT" 
-                                                             URL:[self constructTextUrlAtUserLevel:(credentials != nil) withKeys:nil]
+                                                             URL:[self constructTextUrlAtUserLevel:(credentials != nil) 
+                                                                                          withKeys:nil
+                                                                            withServerSideFunction:function]
                                                           apiKey:_apiKey
                                                  userCredentials:credentials];
     [request appendPostData:[[data yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
@@ -103,14 +126,19 @@ static __strong NSSet *_validHTTPVerbs = nil;
 
 #pragma mark - DELETE requests for data
 
-- (void)deleteValuesForKeys:(NSArray *)keys successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
-            errorHandler:(void (^)(NSError *error))errorHandler {
+- (void)deleteValuesForKeys:(NSArray *)keys 
+             successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+               errorHandler:(void (^)(NSError *error))errorHandler {
     [self deleteValuesForKeys:keys withUserCredentials:nil successHandler:successHandler errorHandler:errorHandler];
 }
 
-- (void)deleteValuesForKeys:(NSArray *)keys withUserCredentials:(CMUserCredentials *)credentials 
-          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler errorHandler:(void (^)(NSError *error))errorHandler {
-    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"DELETE" URL:[self constructDataUrlAtUserLevel:(credentials != nil) withKeys:keys]
+- (void)deleteValuesForKeys:(NSArray *)keys
+        withUserCredentials:(CMUserCredentials *)credentials 
+             successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler
+               errorHandler:(void (^)(NSError *error))errorHandler {
+    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"DELETE" URL:[self constructDataUrlAtUserLevel:(credentials != nil) 
+                                                                                                        withKeys:keys
+                                                                                          withServerSideFunction:nil]
                                                           apiKey:_apiKey
                                                  userCredentials:credentials];
     [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
@@ -118,7 +146,8 @@ static __strong NSSet *_validHTTPVerbs = nil;
 
 #pragma - Request queueing and execution
 
-- (void)executeRequest:(ASIHTTPRequest *)request successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+- (void)executeRequest:(ASIHTTPRequest *)request 
+        successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
           errorHandler:(void (^)(NSError *error))errorHandler {
     
     __unsafe_unretained ASIHTTPRequest *blockRequest = request; // Stop the retain cycle.
@@ -166,7 +195,9 @@ static __strong NSSet *_validHTTPVerbs = nil;
 
 #pragma mark - General URL construction
 
-- (NSURL *)constructTextUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys {
+- (NSURL *)constructTextUrlAtUserLevel:(BOOL)atUserLevel
+                              withKeys:(NSArray *)keys 
+                withServerSideFunction:(CMServerFunction *)function {
     NSURL *url;
     if (atUserLevel) {
         url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/user/text", _appKey]];
@@ -174,10 +205,12 @@ static __strong NSSet *_validHTTPVerbs = nil;
         url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/text", _appKey]];
     }
     
-    return [self appendKeys:keys toURL:url];
+    return [self appendKeys:keys andServerSideFunction:function toURL:url];
 }
 
-- (NSURL *)constructDataUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys {
+- (NSURL *)constructDataUrlAtUserLevel:(BOOL)atUserLevel
+                              withKeys:(NSArray *)keys
+                withServerSideFunction:(CMServerFunction *)function {
     NSURL *url;
     if (atUserLevel) {
         url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/user/data", _appKey]];
@@ -185,16 +218,18 @@ static __strong NSSet *_validHTTPVerbs = nil;
         url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/data", _appKey]];
     }
     
-    return [self appendKeys:keys toURL:url];
+    return [self appendKeys:keys andServerSideFunction:function toURL:url];
 }
 
-- (NSURL *)appendKeys:(NSArray *)keys toURL:(NSURL *)theUrl {
-    NSURL *newUrl = theUrl;
+- (NSURL *)appendKeys:(NSArray *)keys andServerSideFunction:(CMServerFunction *)function toURL:(NSURL *)theUrl {
+    NSMutableArray *queryComponents = [NSMutableArray arrayWithCapacity:2];
     if (keys && [keys count] > 0) {
-        NSString *builtString = [NSString stringWithFormat:@"keys=%@", [keys componentsJoinedByString:@","]];
-        newUrl = [theUrl URLByAppendingQueryString:builtString];
+        [queryComponents addObject:[NSString stringWithFormat:@"keys=%@", [keys componentsJoinedByString:@","]]];
     }
-    return newUrl;
+    if (function) {
+        [queryComponents addObject:[function queryStringRepresentation]];
+    }
+    return [theUrl URLByAppendingQueryString:[queryComponents componentsJoinedByString:@"&"]];
 }
 
 @end

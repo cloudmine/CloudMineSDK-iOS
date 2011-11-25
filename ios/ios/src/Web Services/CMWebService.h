@@ -10,6 +10,7 @@
 
 @class ASINetworkQueue;
 @class CMUserCredentials;
+@class CMServerFunction;
 
 /**
  * Base URL for the current version of the CloudMine API.
@@ -51,10 +52,12 @@
  * will be called with a dictionary of the objects retrieved as well as a dictionary of the key-related errors returned from the server.
  *
  * @param keys The keys to fetch. If <tt>nil</tt> or an empty array, all objects will be returned.
+ * @param serverSideFunction The server-side code snippet and related options to execute with this request, or nil if none.
  * @param successHandler The block to be called when the objects have been populated.
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
  */
 - (void)getValuesForKeys:(NSArray *)keys 
+      serverSideFunction:(CMServerFunction *)function
           successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler
             errorHandler:(void (^)(NSError *error))errorHandler;
 
@@ -63,11 +66,13 @@
  * will be called with a dictionary of the objects retrieved as well as a dictionary of the key-related errors returned from the server.
  *
  * @param keys The keys to fetch.
+ * @param serverSideFunction The server-side code snippet and related options to execute with this request, or nil if none.
  * @param credentials The user identifier and password of the user.
  * @param successHandler The block to be called when the objects have been populated.
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
  */
-- (void)getValuesForKeys:(NSArray *)keys 
+- (void)getValuesForKeys:(NSArray *)keys  
+      serverSideFunction:(CMServerFunction *)function
      withUserCredentials:(CMUserCredentials *)credentials
           successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
             errorHandler:(void (^)(NSError *error))errorHandler;
@@ -78,10 +83,12 @@
  * key-related errors returned from the server.
  *
  * @param data A dictionary mapping top-level keys to the values to be used to update the object.
+ * @param serverSideFunction The server-side code snippet and related options to execute with this request, or nil if none.
  * @param successHandler The block to be called when the objects have been populated.
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
  */
-- (void)updateValuesFromDictionary:(NSDictionary *)data 
+- (void)updateValuesFromDictionary:(NSDictionary *)data  
+                serverSideFunction:(CMServerFunction *)function
                     successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
                       errorHandler:(void (^)(NSError *error))errorHandler;
 
@@ -91,11 +98,13 @@
  * key-related errors returned from the server.
  *
  * @param data A dictionary mapping top-level keys to the values to be used to update the object.
+ * @param serverSideFunction The server-side code snippet and related options to execute with this request, or nil if none.
  * @param credentials The user identifier and password of the user.
  * @param successHandler The block to be called when the objects have been populated.
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
  */
-- (void)updateValuesFromDictionary:(NSDictionary *)data
+- (void)updateValuesFromDictionary:(NSDictionary *)data 
+                serverSideFunction:(CMServerFunction *)function
                withUserCredentials:(CMUserCredentials *)credentials 
                     successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
                       errorHandler:(void (^)(NSError *error))errorHandler;
@@ -110,10 +119,12 @@
  * @see updateValuesFromDictionary:successHandler:errorHandler:
  *
  * @param data A dictionary mapping top-level keys to the values to be used to update the object.
+ * @param serverSideFunction The server-side code snippet and related options to execute with this request, or nil if none.
  * @param successHandler The block to be called when the objects have been populated.
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
  */
-- (void)setValuesFromDictionary:(NSDictionary *)data 
+- (void)setValuesFromDictionary:(NSDictionary *)data  
+             serverSideFunction:(CMServerFunction *)function
                  successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
                    errorHandler:(void (^)(NSError *error))errorHandler;
 
@@ -127,10 +138,12 @@
  * @see updateValuesFromDictionary:userCredentials:successHandler:errorHandler:
  *
  * @param data A dictionary mapping top-level keys to the values to be used to update the object.
+ * @param serverSideFunction The server-side code snippet and related options to execute with this request, or nil if none.
  * @param successHandler The block to be called when the objects have been populated.
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
  */
-- (void)setValuesFromDictionary:(NSDictionary *)data 
+- (void)setValuesFromDictionary:(NSDictionary *)data  
+             serverSideFunction:(CMServerFunction *)function
             withUserCredentials:(CMUserCredentials *)credentials 
                  successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
                    errorHandler:(void (^)(NSError *error))errorHandler;
