@@ -54,7 +54,8 @@
  * @param successHandler The block to be called when the objects have been populated.
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
  */
-- (void)getValuesForKeys:(NSArray *)keys successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+- (void)getValuesForKeys:(NSArray *)keys 
+          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler
             errorHandler:(void (^)(NSError *error))errorHandler;
 
 /**
@@ -66,8 +67,10 @@
  * @param successHandler The block to be called when the objects have been populated.
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
  */
-- (void)getValuesForKeys:(NSArray *)keys withUserCredentials:(CMUserCredentials *)credentials
-          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler errorHandler:(void (^)(NSError *error))errorHandler;
+- (void)getValuesForKeys:(NSArray *)keys 
+     withUserCredentials:(CMUserCredentials *)credentials
+          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+            errorHandler:(void (^)(NSError *error))errorHandler;
 
 /**
  * Asynchronously update one or more objects for the app-level keys included in <tt>data</tt>. On completion, the <tt>successHandler</tt>  
@@ -78,8 +81,9 @@
  * @param successHandler The block to be called when the objects have been populated.
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
  */
-- (void)updateValuesFromDictionary:(NSDictionary *)data successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
-               errorHandler:(void (^)(NSError *error))errorHandler;
+- (void)updateValuesFromDictionary:(NSDictionary *)data 
+                    successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+                      errorHandler:(void (^)(NSError *error))errorHandler;
 
 /**
  * Asynchronously update one or more objects for the user-level keys included in <tt>data</tt>. On completion, the <tt>successHandler</tt>  
@@ -91,8 +95,10 @@
  * @param successHandler The block to be called when the objects have been populated.
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
  */
-- (void)updateValuesFromDictionary:(NSDictionary *)data withUserCredentials:(CMUserCredentials *)credentials 
-             successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler errorHandler:(void (^)(NSError *error))errorHandler;
+- (void)updateValuesFromDictionary:(NSDictionary *)data
+               withUserCredentials:(CMUserCredentials *)credentials 
+                    successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+                      errorHandler:(void (^)(NSError *error))errorHandler;
 
 /**
  * Asynchronously create or replace one or more objects for the values of the app-level keys included in <tt>data</tt>. On completion, the <tt>successHandler</tt>  
@@ -107,8 +113,9 @@
  * @param successHandler The block to be called when the objects have been populated.
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
  */
-- (void)setValuesFromDictionary:(NSDictionary *)data successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
-            errorHandler:(void (^)(NSError *error))errorHandler;
+- (void)setValuesFromDictionary:(NSDictionary *)data 
+                 successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+                   errorHandler:(void (^)(NSError *error))errorHandler;
 
 /**
  * Asynchronously create or replace one or more objects for the values of the user-level keys included in <tt>data</tt>. On completion, the <tt>successHandler</tt>  
@@ -123,8 +130,10 @@
  * @param successHandler The block to be called when the objects have been populated.
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
  */
-- (void)setValuesFromDictionary:(NSDictionary *)data withUserCredentials:(CMUserCredentials *)credentials 
-          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler errorHandler:(void (^)(NSError *error))errorHandler;
+- (void)setValuesFromDictionary:(NSDictionary *)data 
+            withUserCredentials:(CMUserCredentials *)credentials 
+                 successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+                   errorHandler:(void (^)(NSError *error))errorHandler;
 
 /**
  * Asynchronously delete objects for the named app-level keys. On completion, the <tt>successHandler</tt> block 
@@ -137,7 +146,8 @@
  * @param successHandler The block to be called when the objects have been populated.
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
  */
-- (void)deleteValuesForKeys:(NSArray *)keys successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+- (void)deleteValuesForKeys:(NSArray *)keys 
+             successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
                errorHandler:(void (^)(NSError *error))errorHandler;
 
 /**
@@ -151,7 +161,9 @@
  * @param successHandler The block to be called when the objects have been populated.
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
  */
-- (void)deleteValuesForKeys:(NSArray *)keys withUserCredentials:(CMUserCredentials *)credentials 
-             successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler errorHandler:(void (^)(NSError *error))errorHandler;
+- (void)deleteValuesForKeys:(NSArray *)keys 
+        withUserCredentials:(CMUserCredentials *)credentials 
+             successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+               errorHandler:(void (^)(NSError *error))errorHandler;
 
 @end
