@@ -101,7 +101,28 @@ describe(@"CMJSONEncoder", ^{
         
         // Run the serialization.
         NSData *jsonData = [CMJSONEncoder serializeObjects:[NSSet setWithObject:object]];
-        [[jsonData shouldNot] beNil];
+        [jsonData shouldNotBeNil];
+        
+        // Check the integrity data.
+        NSDictionary *inflatedJsonData = [jsonData yajl_JSON];
+        [inflatedJsonData shouldNotBeNil];
+        [[[inflatedJsonData should] have:1] items];
+        
+        NSDictionary *theOnlyObject = [[inflatedJsonData allValues] objectAtIndex:0];
+        [[[theOnlyObject should] have:5] items];
+        [[[theOnlyObject objectForKey:@"string1"] should] equal:@"Hello World"];
+        [[[theOnlyObject objectForKey:@"string2"] should] equal:@"Apple Macintosh"];
+        [[[theOnlyObject objectForKey:@"simpleInt"] should] equal:theValue(42)];
+        [[theOnlyObject objectForKey:@"arrayOfBooleans"] shouldNotBeNil];
+        [[[[theOnlyObject objectForKey:@"arrayOfBooleans"] should] have:5] items];
+        [[theOnlyObject objectForKey:@"nestedObject"] shouldNotBeNil];
+        
+        NSDictionary *nestedObject = [theOnlyObject objectForKey:@"nestedObject"];
+        [[[nestedObject objectForKey:@"string1"] should] equal:@"Nested 1"];
+        [[[nestedObject objectForKey:@"string2"] should] equal:@"Nested 2"];
+        [[[nestedObject objectForKey:@"simpleInt"] should] equal:theValue(999)];
+        [[[nestedObject objectForKey:@"arrayOfBooleans"] should] equal:[NSNull null]];
+        [[[nestedObject objectForKey:@"nestedObject"] should] equal:[NSNull null]];
     });
 });
 
