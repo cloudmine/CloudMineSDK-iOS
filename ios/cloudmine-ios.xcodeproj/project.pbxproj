@@ -50,7 +50,7 @@
 		7AABA2DD1480433500FD52A0 /* CMJSONEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AABA2DB1480433500FD52A0 /* CMJSONEncoder.m */; };
 		7AABA2E01480435800FD52A0 /* CMJSONDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AABA2DE1480435800FD52A0 /* CMJSONDecoder.h */; };
 		7AABA2E11480435800FD52A0 /* CMJSONDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AABA2DF1480435800FD52A0 /* CMJSONDecoder.m */; };
-		7AABA2E31480513500FD52A0 /* CMJSONSerializable.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AABA2E21480513500FD52A0 /* CMJSONSerializable.h */; };
+		7AABA2E31480513500FD52A0 /* CMSerializable.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AABA2E21480513500FD52A0 /* CMSerializable.h */; };
 		7AABA2E51480549A00FD52A0 /* CMJSONEncoderSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AABA2E41480549A00FD52A0 /* CMJSONEncoderSpec.m */; };
 		7AABA2E81480598300FD52A0 /* NSString+UUID.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AABA2E61480598300FD52A0 /* NSString+UUID.h */; };
 		7AABA2E91480598300FD52A0 /* NSString+UUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AABA2E71480598300FD52A0 /* NSString+UUID.m */; };
@@ -123,7 +123,7 @@
 		7AABA2DB1480433500FD52A0 /* CMJSONEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMJSONEncoder.m; sourceTree = "<group>"; };
 		7AABA2DE1480435800FD52A0 /* CMJSONDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMJSONDecoder.h; sourceTree = "<group>"; };
 		7AABA2DF1480435800FD52A0 /* CMJSONDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMJSONDecoder.m; sourceTree = "<group>"; };
-		7AABA2E21480513500FD52A0 /* CMJSONSerializable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMJSONSerializable.h; sourceTree = "<group>"; };
+		7AABA2E21480513500FD52A0 /* CMSerializable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMSerializable.h; sourceTree = "<group>"; };
 		7AABA2E41480549A00FD52A0 /* CMJSONEncoderSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMJSONEncoderSpec.m; sourceTree = "<group>"; };
 		7AABA2E61480598300FD52A0 /* NSString+UUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+UUID.h"; sourceTree = "<group>"; };
 		7AABA2E71480598300FD52A0 /* NSString+UUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+UUID.m"; sourceTree = "<group>"; };
@@ -360,7 +360,7 @@
 				7AABA2DB1480433500FD52A0 /* CMJSONEncoder.m */,
 				7AABA2DE1480435800FD52A0 /* CMJSONDecoder.h */,
 				7AABA2DF1480435800FD52A0 /* CMJSONDecoder.m */,
-				7AABA2E21480513500FD52A0 /* CMJSONSerializable.h */,
+				7AABA2E21480513500FD52A0 /* CMSerializable.h */,
 			);
 			path = "Web Services";
 			sourceTree = "<group>";
@@ -404,7 +404,7 @@
 				7A04E86B147D8435006E00AB /* CMServerFunction.h in Headers */,
 				7AABA2DC1480433500FD52A0 /* CMJSONEncoder.h in Headers */,
 				7AABA2E01480435800FD52A0 /* CMJSONDecoder.h in Headers */,
-				7AABA2E31480513500FD52A0 /* CMJSONSerializable.h in Headers */,
+				7AABA2E31480513500FD52A0 /* CMSerializable.h in Headers */,
 				7AABA2E81480598300FD52A0 /* NSString+UUID.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

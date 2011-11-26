@@ -7,7 +7,7 @@
 //
 
 #import "CMJSONEncoder.h"
-#import "CMJSONSerializable.h"
+#import "CMSerializable.h"
 
 @interface CMJSONEncoder (Private)
 - (NSData *)jsonData;
@@ -22,10 +22,10 @@
 
 + (NSData *)serializeObjects:(id<NSFastEnumeration>)objects {
     NSMutableDictionary *topLevelObjectsDictionary = [NSMutableDictionary dictionary];
-    for (id<NSObject,CMJSONSerializable> object in objects) {
-        if (![object conformsToProtocol:@protocol(CMJSONSerializable)]) {
+    for (id<NSObject,CMSerializable> object in objects) {
+        if (![object conformsToProtocol:@protocol(CMSerializable)]) {
             [[NSException exceptionWithName:NSInvalidArgumentException
-                                     reason:@"All objects to be serialized to JSON must conform to CMJSONSerializable"
+                                     reason:@"All objects to be serialized to JSON must conform to CMSerializable"
                                    userInfo:[NSDictionary dictionaryWithObject:object forKey:@"object"]]
              raise];
         }
@@ -120,8 +120,8 @@
     } else if ([objv isKindOfClass:[NSDictionary class]]) {
         return [self encodeAllInDictionary:objv];
     } else {
-        NSAssert([objv conformsToProtocol:@protocol(CMJSONSerializable)],
-                 @"Trying to serialize unknown object %@ (must be collection, scalar, or conform to CMJSONSerializable)", 
+        NSAssert([objv conformsToProtocol:@protocol(CMSerializable)],
+                 @"Trying to serialize unknown object %@ (must be collection, scalar, or conform to CMSerializable)", 
                   objv);
         
         // A new encoder is needed as we are digging down further into a custom object

@@ -10,13 +10,13 @@
 
 #import <uuid/uuid.h>
 #import "CMJSONEncoder.h"
-#import "CMJSONSerializable.h"
+#import "CMSerializable.h"
 #import "NSString+UUID.h"
 
 #pragma mark - Supporting objects
 
-@interface GenericSerializableObject : NSObject <CMJSONSerializable> {
-    // The magical object id required by the CMJSONSerializable protocol.
+@interface GenericSerializableObject : NSObject <CMSerializable> {
+    // The magical object id required by the CMSerializable protocol.
     NSString *_objectId;
 }
 
