@@ -11,5 +11,6 @@
 @protocol CMJSONSerializable <NSObject, NSCoding>
 
 @property (atomic, readonly) NSString *objectId;
+@property (atomic, readonly) NSString *className;
 
 @end

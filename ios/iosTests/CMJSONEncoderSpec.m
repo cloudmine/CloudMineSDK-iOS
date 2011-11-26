@@ -83,6 +83,10 @@
     return _objectId;
 }
 
+- (NSString *)className {
+    return NSStringFromClass([self class]);
+}
+
 @end
 
 #pragma mark - Specs
