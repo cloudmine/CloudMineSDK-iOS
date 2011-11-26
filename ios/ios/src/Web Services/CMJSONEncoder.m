@@ -11,6 +11,8 @@
 
 @interface CMJSONEncoder (Private)
 - (NSData *)jsonData;
+- (NSArray *)encodeAllInList:(NSArray *)list;
+- (NSDictionary *)encodeAllInDictionary:(NSDictionary *)dictionary;
 @end
 
 @implementation CMJSONEncoder
@@ -74,12 +76,33 @@
     [_encodedData setObject:[NSNumber numberWithInt:intv] forKey:key];
 }
 
-- (void)encodeObject:(id<CMJSONSerializable>)objv forKey:(NSString *)key {
-    // A new encoder is needed as we are digging down further into the object
-    // and we don't want to flatten the data in all the sub-objects.
-    CMJSONEncoder *newEncoder = [[[self class] alloc] init];
-    [objv encodeWithCoder:newEncoder];
-    [_encodedData setObject:newEncoder.jsonRepresentation forKey:key];
+- (void)encodeObject:(id)objv forKey:(NSString *)key {   
+    if ([objv isKindOfClass:[NSString class]] || [objv isKindOfClass:[NSNumber class]]) {
+        // Strings and numbers are natively handled in JSON and need no further decomposition.
+        [_encodedData setObject:objv forKey:key];
+    } else if ([objv isKindOfClass:[NSArray class]]) {
+        [_encodedData setObject:[self encodeAllInList:objv] forKey:key];
+    } else if ([objv isKindOfClass:[NSSet class]]) {
+        [_encodedData setObject:[self encodeAllInList:[objv allObjects]] forKey:key];
+    } else if ([objv isKindOfClass:[NSDictionary class]]) {
+        [_encodedData setObject:[self encodeAllInDictionary:objv] forKey:key];
+    } else {
+        // A new encoder is needed as we are digging down further into a custom object
+        // and we don't want to flatten the data in all the sub-objects.
+        CMJSONEncoder *newEncoder = [[[self class] alloc] init];
+        [objv encodeWithCoder:newEncoder];
+        [_encodedData setObject:newEncoder.jsonRepresentation forKey:key];
+    }
+}
+
+#pragma mark - Private encoding methods
+
+- (NSArray *)encodeAllInList:(NSArray *)list {
+    
+}
+
+- (NSDictionary *)encodeAllInDictionary:(NSDictionary *)dictionary {
+    
 }
 
 #pragma mark - Required methods (metadata and base serialization methods)
