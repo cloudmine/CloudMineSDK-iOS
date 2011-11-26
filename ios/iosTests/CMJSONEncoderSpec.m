@@ -9,7 +9,7 @@
 #import "Kiwi.h"
 
 #import <uuid/uuid.h>
-#import "CMJSONEncoder.h"
+#import "CMObjectEncoder.h"
 #import "CMSerializable.h"
 #import "NSString+UUID.h"
 
@@ -100,7 +100,7 @@ describe(@"CMJSONEncoder", ^{
         [object fillPropertiesWithDefaults];
         
         // Run the serialization.
-        NSData *jsonData = [CMJSONEncoder serializeObjects:[NSSet setWithObject:object]];
+        NSData *jsonData = [CMObjectEncoder serializeObjects:[NSSet setWithObject:object]];
         [jsonData shouldNotBeNil];
         
         // Check the integrity data.
