@@ -20,7 +20,7 @@
 
 #pragma mark - Kickoff methods
 
-+ (NSData *)serializeObjects:(id<NSFastEnumeration>)objects {
++ (NSDictionary *)encodeObjects:(id<NSFastEnumeration>)objects {
     NSMutableDictionary *topLevelObjectsDictionary = [NSMutableDictionary dictionary];
     for (id<NSObject,CMSerializable> object in objects) {
         if (![object conformsToProtocol:@protocol(CMSerializable)]) {
@@ -41,10 +41,10 @@
         // at the key specified by the object.
         CMObjectEncoder *objectEncoder = [[self alloc] init];
         [object encodeWithCoder:objectEncoder];
-        [topLevelObjectsDictionary setObject:objectEncoder.jsonRepresentation forKey:object.objectId];
+        [topLevelObjectsDictionary setObject:objectEncoder.dictionaryRepresentation forKey:object.objectId];
     }
     
-    return [[topLevelObjectsDictionary yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding];
+    return topLevelObjectsDictionary;
 }
 
 - (id)init {
@@ -130,7 +130,7 @@
         [objv encodeWithCoder:newEncoder];
         
         // Must encode the type of this object for decoding purposes.
-        NSMutableDictionary *jsonRepresentation = [NSMutableDictionary dictionaryWithDictionary:newEncoder.jsonRepresentation];
+        NSMutableDictionary *jsonRepresentation = [NSMutableDictionary dictionaryWithDictionary:newEncoder.dictionaryRepresentation];
         [jsonRepresentation setObject:[objv className] forKey:@"__type__"];
         return jsonRepresentation;
     }
@@ -144,11 +144,7 @@
 
 #pragma mark - Translation methods
 
-- (NSData *)jsonData {
-    return [[_encodedData yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding];
-}
-
-- (NSDictionary *)jsonRepresentation {
+- (NSDictionary *)dictionaryRepresentation {
     return [_encodedData copy];
 }
 

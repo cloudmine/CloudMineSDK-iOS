@@ -54,6 +54,8 @@
 		7AABA30114818DCA00FD52A0 /* CMObjectDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AABA2FC14818DCA00FD52A0 /* CMObjectDecoder.m */; };
 		7AABA30214818DCA00FD52A0 /* CMObjectEncoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AABA2FE14818DCA00FD52A0 /* CMObjectEncoder.h */; };
 		7AABA30314818DCA00FD52A0 /* CMObjectEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AABA2FF14818DCA00FD52A0 /* CMObjectEncoder.m */; };
+		7AABA30614818E2A00FD52A0 /* CMJSONEncoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AABA30414818E2A00FD52A0 /* CMJSONEncoder.h */; };
+		7AABA30714818E2A00FD52A0 /* CMJSONEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AABA30514818E2A00FD52A0 /* CMJSONEncoder.m */; };
 		7AB4AB63145DC5D8006AEF67 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB62145DC5D8006AEF67 /* Foundation.framework */; };
 		7AB4AB71145DC5D8006AEF67 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB70145DC5D8006AEF67 /* SenTestingKit.framework */; };
 		7AB4AB74145DC5D8006AEF67 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB62145DC5D8006AEF67 /* Foundation.framework */; };
@@ -127,6 +129,8 @@
 		7AABA2FC14818DCA00FD52A0 /* CMObjectDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectDecoder.m; sourceTree = "<group>"; };
 		7AABA2FE14818DCA00FD52A0 /* CMObjectEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMObjectEncoder.h; sourceTree = "<group>"; };
 		7AABA2FF14818DCA00FD52A0 /* CMObjectEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectEncoder.m; sourceTree = "<group>"; };
+		7AABA30414818E2A00FD52A0 /* CMJSONEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMJSONEncoder.h; sourceTree = "<group>"; };
+		7AABA30514818E2A00FD52A0 /* CMJSONEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMJSONEncoder.m; sourceTree = "<group>"; };
 		7AB4AB5F145DC5D8006AEF67 /* libcloudmine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcloudmine.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AB4AB62145DC5D8006AEF67 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7AB4AB66145DC5D8006AEF67 /* cloudmine-ios-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cloudmine-ios-Prefix.pch"; sourceTree = "<group>"; };
@@ -264,6 +268,8 @@
 			children = (
 				7AABA2FE14818DCA00FD52A0 /* CMObjectEncoder.h */,
 				7AABA2FF14818DCA00FD52A0 /* CMObjectEncoder.m */,
+				7AABA30414818E2A00FD52A0 /* CMJSONEncoder.h */,
+				7AABA30514818E2A00FD52A0 /* CMJSONEncoder.m */,
 			);
 			path = Encoding;
 			sourceTree = "<group>";
@@ -422,6 +428,7 @@
 				7AABA2E81480598300FD52A0 /* NSString+UUID.h in Headers */,
 				7AABA30014818DCA00FD52A0 /* CMObjectDecoder.h in Headers */,
 				7AABA30214818DCA00FD52A0 /* CMObjectEncoder.h in Headers */,
+				7AABA30614818E2A00FD52A0 /* CMJSONEncoder.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -555,6 +562,7 @@
 				7AABA2E91480598300FD52A0 /* NSString+UUID.m in Sources */,
 				7AABA30114818DCA00FD52A0 /* CMObjectDecoder.m in Sources */,
 				7AABA30314818DCA00FD52A0 /* CMObjectEncoder.m in Sources */,
+				7AABA30714818E2A00FD52A0 /* CMJSONEncoder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
