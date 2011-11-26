@@ -13,6 +13,7 @@
 - (NSData *)jsonData;
 - (NSArray *)encodeAllInList:(NSArray *)list;
 - (NSDictionary *)encodeAllInDictionary:(NSDictionary *)dictionary;
+- (NSDictionary *)serializeContentsOfObject:(id)obj;
 @end
 
 @implementation CMJSONEncoder
@@ -46,6 +47,13 @@
     return [[topLevelObjectsDictionary yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding];
 }
 
+- (id)init {
+    if (self = [super init]) {
+        _encodedData = [NSMutableDictionary dictionary];
+    }
+    return self;
+}
+
 #pragma mark - Keyed archiving methods defined by NSCoder
 
 - (BOOL)containsValueForKey:(NSString *)key {
@@ -76,33 +84,56 @@
     [_encodedData setObject:[NSNumber numberWithInt:intv] forKey:key];
 }
 
-- (void)encodeObject:(id)objv forKey:(NSString *)key {   
-    if ([objv isKindOfClass:[NSString class]] || [objv isKindOfClass:[NSNumber class]]) {
-        // Strings and numbers are natively handled in JSON and need no further decomposition.
-        [_encodedData setObject:objv forKey:key];
-    } else if ([objv isKindOfClass:[NSArray class]]) {
-        [_encodedData setObject:[self encodeAllInList:objv] forKey:key];
-    } else if ([objv isKindOfClass:[NSSet class]]) {
-        [_encodedData setObject:[self encodeAllInList:[objv allObjects]] forKey:key];
-    } else if ([objv isKindOfClass:[NSDictionary class]]) {
-        [_encodedData setObject:[self encodeAllInDictionary:objv] forKey:key];
-    } else {
-        // A new encoder is needed as we are digging down further into a custom object
-        // and we don't want to flatten the data in all the sub-objects.
-        CMJSONEncoder *newEncoder = [[[self class] alloc] init];
-        [objv encodeWithCoder:newEncoder];
-        [_encodedData setObject:newEncoder.jsonRepresentation forKey:key];
-    }
+- (void)encodeObject:(id)objv forKey:(NSString *)key {
+    [_encodedData setObject:[self serializeContentsOfObject:objv] forKey:key];
 }
 
 #pragma mark - Private encoding methods
 
 - (NSArray *)encodeAllInList:(NSArray *)list {
-    
+    NSMutableArray *encodedArray = [NSMutableArray arrayWithCapacity:[list count]];
+    for (id item in list) {
+        [encodedArray addObject:[self serializeContentsOfObject:item]];
+    }
+    return encodedArray;
 }
 
 - (NSDictionary *)encodeAllInDictionary:(NSDictionary *)dictionary {
-    
+    NSMutableDictionary *encodedDictionary = [NSMutableDictionary dictionaryWithCapacity:[dictionary count]];
+    for (id key in dictionary) {
+        [encodedDictionary setObject:[self serializeContentsOfObject:[dictionary objectForKey:key]] forKey:key];
+    }
+    [encodedDictionary setObject:@"map" forKey:@"__type__"]; // to differentiate between a custom object and a dictionary.
+    return encodedDictionary;
+}
+
+- (id)serializeContentsOfObject:(id)objv {
+    if (objv == nil) {
+        return [NSNull null];
+    } else if ([objv isKindOfClass:[NSString class]] || [objv isKindOfClass:[NSNumber class]]) {
+        // Strings and numbers are natively handled in JSON and need no further decomposition.
+        return objv;
+    } else if ([objv isKindOfClass:[NSArray class]]) {
+        return [self encodeAllInList:objv];
+    } else if ([objv isKindOfClass:[NSSet class]]) {
+        return [self encodeAllInList:[objv allObjects]];
+    } else if ([objv isKindOfClass:[NSDictionary class]]) {
+        return [self encodeAllInDictionary:objv];
+    } else {
+        NSAssert([objv conformsToProtocol:@protocol(CMJSONSerializable)],
+                 @"Trying to serialize unknown object %@ (must be collection, scalar, or conform to CMJSONSerializable)", 
+                  objv);
+        
+        // A new encoder is needed as we are digging down further into a custom object
+        // and we don't want to flatten the data in all the sub-objects.
+        CMJSONEncoder *newEncoder = [[[self class] alloc] init];
+        [objv encodeWithCoder:newEncoder];
+        
+        // Must encode the type of this object for decoding purposes.
+        NSMutableDictionary *jsonRepresentation = [NSMutableDictionary dictionaryWithDictionary:newEncoder.jsonRepresentation];
+        [jsonRepresentation setObject:[objv className] forKey:@"__type__"];
+        return jsonRepresentation;
+    }
 }
 
 #pragma mark - Required methods (metadata and base serialization methods)
