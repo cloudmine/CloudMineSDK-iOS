@@ -46,14 +46,14 @@
 		7A308A3C14798F29008ADD3C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D9146C5B7400EF537A /* libz.dylib */; };
 		7A308A4414799134008ADD3C /* CMWebServiceSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A308A4314799134008ADD3C /* CMWebServiceSpec.m */; };
 		7A308A4C14799471008ADD3C /* libKiwi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A308A4B14799471008ADD3C /* libKiwi.a */; };
-		7AABA2DC1480433500FD52A0 /* CMObjectEncoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AABA2DA1480433500FD52A0 /* CMObjectEncoder.h */; };
-		7AABA2DD1480433500FD52A0 /* CMObjectEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AABA2DB1480433500FD52A0 /* CMObjectEncoder.m */; };
-		7AABA2E01480435800FD52A0 /* CMObjectDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AABA2DE1480435800FD52A0 /* CMObjectDecoder.h */; };
-		7AABA2E11480435800FD52A0 /* CMObjectDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AABA2DF1480435800FD52A0 /* CMObjectDecoder.m */; };
 		7AABA2E31480513500FD52A0 /* CMSerializable.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AABA2E21480513500FD52A0 /* CMSerializable.h */; };
 		7AABA2E51480549A00FD52A0 /* CMJSONEncoderSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AABA2E41480549A00FD52A0 /* CMJSONEncoderSpec.m */; };
 		7AABA2E81480598300FD52A0 /* NSString+UUID.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AABA2E61480598300FD52A0 /* NSString+UUID.h */; };
 		7AABA2E91480598300FD52A0 /* NSString+UUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AABA2E71480598300FD52A0 /* NSString+UUID.m */; };
+		7AABA30014818DCA00FD52A0 /* CMObjectDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AABA2FB14818DCA00FD52A0 /* CMObjectDecoder.h */; };
+		7AABA30114818DCA00FD52A0 /* CMObjectDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AABA2FC14818DCA00FD52A0 /* CMObjectDecoder.m */; };
+		7AABA30214818DCA00FD52A0 /* CMObjectEncoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AABA2FE14818DCA00FD52A0 /* CMObjectEncoder.h */; };
+		7AABA30314818DCA00FD52A0 /* CMObjectEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AABA2FF14818DCA00FD52A0 /* CMObjectEncoder.m */; };
 		7AB4AB63145DC5D8006AEF67 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB62145DC5D8006AEF67 /* Foundation.framework */; };
 		7AB4AB71145DC5D8006AEF67 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB70145DC5D8006AEF67 /* SenTestingKit.framework */; };
 		7AB4AB74145DC5D8006AEF67 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB62145DC5D8006AEF67 /* Foundation.framework */; };
@@ -119,14 +119,14 @@
 		7A0DB1BB147B016B007F482C /* CMBlockValidationMessageSpy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMBlockValidationMessageSpy.m; sourceTree = "<group>"; };
 		7A308A4314799134008ADD3C /* CMWebServiceSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMWebServiceSpec.m; sourceTree = "<group>"; };
 		7A308A4B14799471008ADD3C /* libKiwi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libKiwi.a; path = "kiwi/build/Release-iphoneos/libKiwi.a"; sourceTree = "<group>"; };
-		7AABA2DA1480433500FD52A0 /* CMObjectEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMObjectEncoder.h; sourceTree = "<group>"; };
-		7AABA2DB1480433500FD52A0 /* CMObjectEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectEncoder.m; sourceTree = "<group>"; };
-		7AABA2DE1480435800FD52A0 /* CMObjectDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMObjectDecoder.h; sourceTree = "<group>"; };
-		7AABA2DF1480435800FD52A0 /* CMObjectDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectDecoder.m; sourceTree = "<group>"; };
 		7AABA2E21480513500FD52A0 /* CMSerializable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMSerializable.h; sourceTree = "<group>"; };
 		7AABA2E41480549A00FD52A0 /* CMJSONEncoderSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMJSONEncoderSpec.m; sourceTree = "<group>"; };
 		7AABA2E61480598300FD52A0 /* NSString+UUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+UUID.h"; sourceTree = "<group>"; };
 		7AABA2E71480598300FD52A0 /* NSString+UUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+UUID.m"; sourceTree = "<group>"; };
+		7AABA2FB14818DCA00FD52A0 /* CMObjectDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMObjectDecoder.h; sourceTree = "<group>"; };
+		7AABA2FC14818DCA00FD52A0 /* CMObjectDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectDecoder.m; sourceTree = "<group>"; };
+		7AABA2FE14818DCA00FD52A0 /* CMObjectEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMObjectEncoder.h; sourceTree = "<group>"; };
+		7AABA2FF14818DCA00FD52A0 /* CMObjectEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectEncoder.m; sourceTree = "<group>"; };
 		7AB4AB5F145DC5D8006AEF67 /* libcloudmine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcloudmine.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AB4AB62145DC5D8006AEF67 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7AB4AB66145DC5D8006AEF67 /* cloudmine-ios-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cloudmine-ios-Prefix.pch"; sourceTree = "<group>"; };
@@ -250,6 +250,24 @@
 			path = Support;
 			sourceTree = "<group>";
 		};
+		7AABA2FA14818DCA00FD52A0 /* Decoding */ = {
+			isa = PBXGroup;
+			children = (
+				7AABA2FB14818DCA00FD52A0 /* CMObjectDecoder.h */,
+				7AABA2FC14818DCA00FD52A0 /* CMObjectDecoder.m */,
+			);
+			path = Decoding;
+			sourceTree = "<group>";
+		};
+		7AABA2FD14818DCA00FD52A0 /* Encoding */ = {
+			isa = PBXGroup;
+			children = (
+				7AABA2FE14818DCA00FD52A0 /* CMObjectEncoder.h */,
+				7AABA2FF14818DCA00FD52A0 /* CMObjectEncoder.m */,
+			);
+			path = Encoding;
+			sourceTree = "<group>";
+		};
 		7AB4AB54145DC5D8006AEF67 = {
 			isa = PBXGroup;
 			children = (
@@ -348,6 +366,8 @@
 		7AD36F7B146C64F300DD4734 /* Web Services */ = {
 			isa = PBXGroup;
 			children = (
+				7AABA2FA14818DCA00FD52A0 /* Decoding */,
+				7AABA2FD14818DCA00FD52A0 /* Encoding */,
 				7AD36F7C146C650500DD4734 /* CMWebService.h */,
 				7AD36F7D146C650500DD4734 /* CMWebService.m */,
 				7AD36F86146CAE0600DD4734 /* CMUserCredentials.h */,
@@ -356,10 +376,6 @@
 				7AD36F83146CA4AC00DD4734 /* CMAPICredentials.m */,
 				7A04E869147D8435006E00AB /* CMServerFunction.h */,
 				7A04E86A147D8435006E00AB /* CMServerFunction.m */,
-				7AABA2DA1480433500FD52A0 /* CMObjectEncoder.h */,
-				7AABA2DB1480433500FD52A0 /* CMObjectEncoder.m */,
-				7AABA2DE1480435800FD52A0 /* CMObjectDecoder.h */,
-				7AABA2DF1480435800FD52A0 /* CMObjectDecoder.m */,
 				7AABA2E21480513500FD52A0 /* CMSerializable.h */,
 			);
 			path = "Web Services";
@@ -402,10 +418,10 @@
 				7AD36F88146CAE0700DD4734 /* CMUserCredentials.h in Headers */,
 				7AD36F8D146CB6A600DD4734 /* NSURL+QueryParameterAdditions.h in Headers */,
 				7A04E86B147D8435006E00AB /* CMServerFunction.h in Headers */,
-				7AABA2DC1480433500FD52A0 /* CMObjectEncoder.h in Headers */,
-				7AABA2E01480435800FD52A0 /* CMObjectDecoder.h in Headers */,
 				7AABA2E31480513500FD52A0 /* CMSerializable.h in Headers */,
 				7AABA2E81480598300FD52A0 /* NSString+UUID.h in Headers */,
+				7AABA30014818DCA00FD52A0 /* CMObjectDecoder.h in Headers */,
+				7AABA30214818DCA00FD52A0 /* CMObjectEncoder.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -536,9 +552,9 @@
 				7AD36F89146CAE0700DD4734 /* CMUserCredentials.m in Sources */,
 				7AD36F8E146CB6A600DD4734 /* NSURL+QueryParameterAdditions.m in Sources */,
 				7A04E86C147D8435006E00AB /* CMServerFunction.m in Sources */,
-				7AABA2DD1480433500FD52A0 /* CMObjectEncoder.m in Sources */,
-				7AABA2E11480435800FD52A0 /* CMObjectDecoder.m in Sources */,
 				7AABA2E91480598300FD52A0 /* NSString+UUID.m in Sources */,
+				7AABA30114818DCA00FD52A0 /* CMObjectDecoder.m in Sources */,
+				7AABA30314818DCA00FD52A0 /* CMObjectEncoder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
