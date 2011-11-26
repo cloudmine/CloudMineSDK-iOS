@@ -9,7 +9,7 @@
 #import "Kiwi.h"
 
 #import <uuid/uuid.h>
-#import "CMObjectEncoder.h"
+#import "CMJSONEncoder.h"
 #import "CMSerializable.h"
 #import "NSString+UUID.h"
 
@@ -100,15 +100,13 @@ describe(@"CMJSONEncoder", ^{
         [object fillPropertiesWithDefaults];
         
         // Run the serialization.
-        NSData *jsonData = [CMObjectEncoder serializeObjects:[NSSet setWithObject:object]];
-        [jsonData shouldNotBeNil];
+        NSDictionary *dictionaryOfData = [CMObjectEncoder encodeObjects:[NSSet setWithObject:object]];
         
         // Check the integrity data.
-        NSDictionary *inflatedJsonData = [jsonData yajl_JSON];
-        [inflatedJsonData shouldNotBeNil];
-        [[[inflatedJsonData should] have:1] items];
+        [dictionaryOfData shouldNotBeNil];
+        [[[dictionaryOfData should] have:1] items];
         
-        NSDictionary *theOnlyObject = [[inflatedJsonData allValues] objectAtIndex:0];
+        NSDictionary *theOnlyObject = [[dictionaryOfData allValues] objectAtIndex:0];
         [[[theOnlyObject should] have:5] items];
         [[[theOnlyObject objectForKey:@"string1"] should] equal:@"Hello World"];
         [[[theOnlyObject objectForKey:@"string2"] should] equal:@"Apple Macintosh"];

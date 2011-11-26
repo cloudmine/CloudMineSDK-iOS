@@ -1,5 +1,5 @@
 //
-//  CMJSONEncoder.m
+//  CMObjectEncoder.m
 //  cloudmine-ios
 //
 //  Copyright (c) 2011 CloudMine, LLC. All rights reserved.
@@ -10,7 +10,6 @@
 #import "CMSerializable.h"
 
 @interface CMObjectEncoder (Private)
-- (NSData *)jsonData;
 - (NSArray *)encodeAllInList:(NSArray *)list;
 - (NSDictionary *)encodeAllInDictionary:(NSDictionary *)dictionary;
 - (NSDictionary *)serializeContentsOfObject:(id)obj;
@@ -25,7 +24,7 @@
     for (id<NSObject,CMSerializable> object in objects) {
         if (![object conformsToProtocol:@protocol(CMSerializable)]) {
             [[NSException exceptionWithName:NSInvalidArgumentException
-                                     reason:@"All objects to be serialized to JSON must conform to CMSerializable"
+                                     reason:@"All objects to be serialized to CloudMine must conform to CMSerializable"
                                    userInfo:[NSDictionary dictionaryWithObject:object forKey:@"object"]]
              raise];
         }
@@ -39,9 +38,9 @@
         
         // Each top-level object gets its own encoder, and the result of each serialization is stored
         // at the key specified by the object.
-        CMObjectEncoder *objectEncoder = [[self alloc] init];
+        CMObjectEncoder *objectEncoder = [[CMObjectEncoder alloc] init];
         [object encodeWithCoder:objectEncoder];
-        [topLevelObjectsDictionary setObject:objectEncoder.dictionaryRepresentation forKey:object.objectId];
+        [topLevelObjectsDictionary setObject:objectEncoder.encodedRepresentation forKey:object.objectId];
     }
     
     return topLevelObjectsDictionary;
@@ -111,7 +110,7 @@
     if (objv == nil) {
         return [NSNull null];
     } else if ([objv isKindOfClass:[NSString class]] || [objv isKindOfClass:[NSNumber class]]) {
-        // Strings and numbers are natively handled in JSON and need no further decomposition.
+        // Strings and numbers are natively handled and need no further decomposition.
         return objv;
     } else if ([objv isKindOfClass:[NSArray class]]) {
         return [self encodeAllInList:objv];
@@ -126,13 +125,13 @@
         
         // A new encoder is needed as we are digging down further into a custom object
         // and we don't want to flatten the data in all the sub-objects.
-        CMObjectEncoder *newEncoder = [[[self class] alloc] init];
+        CMObjectEncoder *newEncoder = [[CMObjectEncoder alloc] init];
         [objv encodeWithCoder:newEncoder];
         
         // Must encode the type of this object for decoding purposes.
-        NSMutableDictionary *jsonRepresentation = [NSMutableDictionary dictionaryWithDictionary:newEncoder.dictionaryRepresentation];
-        [jsonRepresentation setObject:[objv className] forKey:@"__type__"];
-        return jsonRepresentation;
+        NSMutableDictionary *serializedRepresentation = [NSMutableDictionary dictionaryWithDictionary:newEncoder.encodedRepresentation];
+        [serializedRepresentation setObject:[objv className] forKey:@"__type__"];
+        return serializedRepresentation;
     }
 }
 
@@ -144,7 +143,7 @@
 
 #pragma mark - Translation methods
 
-- (NSDictionary *)dictionaryRepresentation {
+- (NSDictionary *)encodedRepresentation {
     return [_encodedData copy];
 }
 
@@ -161,7 +160,7 @@
 
 - (void)encodeInt64:(int64_t)intv forKey:(NSString *)key {
     [[NSException exceptionWithName:NSInvalidArgumentException 
-                             reason:@"JSON does not support 64-bit integers. Use 32-bit or a string instead." 
+                             reason:@"64-bit integers are not supported. Use 32-bit or a string instead." 
                            userInfo:nil] 
      raise];
 }

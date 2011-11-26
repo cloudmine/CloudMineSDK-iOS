@@ -12,14 +12,14 @@
 
 #pragma mark - Kickoff methods
 
-+ (NSData *)encodeObjects:(id<NSFastEnumeration>)objects {
-    return [[[super encodeObjects:objects] yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding];
++ (NSString *)encodeObjects:(id<NSFastEnumeration>)objects {
+    return [[super encodeObjects:objects] yajl_JSONString];
 }
 
 #pragma mark - Translation methods
 
-- (NSData *)jsonData {
-    return [[_encodedData yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding];
+- (NSString *)encodedRepresentation {
+    return [_encodedData yajl_JSONString];
 }
 
 @end
