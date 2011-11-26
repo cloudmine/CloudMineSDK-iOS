@@ -7,13 +7,21 @@
 //
 
 #import "CMObject.h"
+#import "NSString+UUID.h"
 
 @implementation CMObject
 
-#pragma mark - Turnkey JSON serialization methods
+#pragma mark - Turnkey serialization methods
+
+- (id)init {
+    if (self = [super init]) {
+        _objectId = [NSString stringWithUUID];
+    }
+    return self;
+}
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
-    return [super init];
+    return [self init];
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {

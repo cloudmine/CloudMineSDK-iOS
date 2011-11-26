@@ -8,7 +8,6 @@
 
 #import "Kiwi.h"
 
-#import <uuid/uuid.h>
 #import "CMJSONEncoder.h"
 #import "CMSerializable.h"
 #import "NSString+UUID.h"
