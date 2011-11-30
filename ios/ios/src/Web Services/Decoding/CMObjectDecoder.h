@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CMObjectDecoder : NSCoder
+@interface CMObjectDecoder : NSCoder {
+    NSDictionary *_dictionaryRepresentation;
+}
+
++ (NSArray *)decodeObjects:(NSDictionary *)serializedObjects;
+
+- (id)initWithSerializedObjectRepresentation:(NSDictionary *)representation;
 
 @end
