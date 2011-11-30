@@ -10,7 +10,7 @@
 
 /**
  * Encodes objects and scalar values into a dictionary form. This is meant for simple domain model relationships
- * and should not be considered as general purpose as <tt>NSArchiver</tt> and <tt>NSUnarchiver≤/tt>, which
+ * and should not be considered as general purpose as <tt>NSArchiver</tt> and <tt>NSUnarchiver</tt>, which
  * can be used easily to serialize entire user interfaces.
  *
  * Other than that note, this works the exact same way as standard Cocoa object serialization and deserailization

@@ -25,11 +25,11 @@
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    
+    return;
 }
 
 - (NSString *)objectId {
-    return nil;
+    return _objectId;
 }
 
 - (NSString *)className {
