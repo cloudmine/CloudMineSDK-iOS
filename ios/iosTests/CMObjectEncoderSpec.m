@@ -29,7 +29,8 @@ describe(@"CMObjectEncoder", ^{
         [[[dictionaryOfData should] have:1] items];
         
         NSDictionary *theOnlyObject = [[dictionaryOfData allValues] objectAtIndex:0];
-        [[[theOnlyObject should] have:5] items];
+        [[[theOnlyObject should] have:6] items];
+        [[[theOnlyObject objectForKey:@"__type__"] should] equal:@"CMGenericSerializableObject"];
         [[[theOnlyObject objectForKey:@"string1"] should] equal:@"Hello World"];
         [[[theOnlyObject objectForKey:@"string2"] should] equal:@"Apple Macintosh"];
         [[[theOnlyObject objectForKey:@"simpleInt"] should] equal:theValue(42)];

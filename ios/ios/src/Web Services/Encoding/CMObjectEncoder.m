@@ -40,7 +40,9 @@
         // at the key specified by the object.
         CMObjectEncoder *objectEncoder = [[CMObjectEncoder alloc] init];
         [object encodeWithCoder:objectEncoder];
-        [topLevelObjectsDictionary setObject:objectEncoder.encodedRepresentation forKey:object.objectId];
+        NSMutableDictionary *encodedRepresentation = [NSMutableDictionary dictionaryWithDictionary:objectEncoder.encodedRepresentation];
+        [encodedRepresentation setObject:[object className] forKey:@"__type__"];
+        [topLevelObjectsDictionary setObject:encodedRepresentation forKey:object.objectId];
     }
     
     return topLevelObjectsDictionary;
