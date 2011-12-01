@@ -95,10 +95,7 @@
 }
 
 - (id)decodeObjectForKey:(NSString *)key {
-    NSDictionary *subObjectRepresentation = [_dictionaryRepresentation objectForKey:key];
-    CMObjectDecoder *subObjectDecoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:subObjectRepresentation];
-    return [[[CMObjectDecoder typeFromDictionaryRepresentation:subObjectRepresentation] alloc] initWithCoder:subObjectDecoder];
-
+    return [self deserializeContentsOfObject:[_dictionaryRepresentation objectForKey:key]];
 }
 
 #pragma mark - Private encoding methods
@@ -133,7 +130,22 @@
     return decodedDictionary;
 }
 
-- (id)deserializeContentsOfObject:(NSDictionary *)objectRepresentation {
+- (id)deserializeContentsOfObject:(id)objv {
+    if ([objv isKindOfClass:[NSNull class]]) {
+        return nil;
+    } else if ([objv isKindOfClass:[NSString class]] || [objv isKindOfClass:[NSNumber class]]) {
+        // Strings and numbers are natively handled and need no further decomposition.
+        return objv;
+    } else if ([objv isKindOfClass:[NSArray class]]) {
+        return [self decodeAllInList:objv];
+    } else if ([objv isKindOfClass:[NSDictionary class]] && [[objv objectForKey:@"__type__"] isEqualToString:@"map"]) {
+        return [self decodeAllInDictionary:objv];
+    } else {
+        // A new decoder is needed as we are digging down further into a custom object.
+        CMObjectDecoder *subObjectDecoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:objv];
+        Class objectClass = [CMObjectDecoder typeFromDictionaryRepresentation:objv];
+        return [[objectClass alloc] initWithCoder:subObjectDecoder];
+    }
 }
 
 #pragma mark - Required methods (metadata and base serialization methods)

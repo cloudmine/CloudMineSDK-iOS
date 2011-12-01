@@ -36,11 +36,11 @@
 }
 
 - (BOOL)isEqual:(CMGenericSerializableObject *)object {
-    return ([self.string1 isEqualToString:object.string1] &&
-            [self.string2 isEqualToString:object.string2] &&
+    return (((!self.string1 && !object.string1) || [self.string1 isEqualToString:object.string1]) &&
+            ((!self.string2 && !object.string2) || [self.string2 isEqualToString:object.string2]) &&
             self.simpleInt == object.simpleInt &&
-            [self.arrayOfBooleans isEqualToArray:object.arrayOfBooleans] &&
-            [self.nestedObject isEqual:object.nestedObject]);
+            ((!self.arrayOfBooleans && !object.arrayOfBooleans) || [self.arrayOfBooleans isEqualToArray:object.arrayOfBooleans]) &&
+            ((!self.nestedObject && !self.nestedObject) || [self.nestedObject isEqual:object.nestedObject]));
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
@@ -52,8 +52,14 @@
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
-    // Not implemented for the purposes of this test suite.
-    return nil;
+    if (self = [super init]) {
+        self.string1 = [aDecoder decodeObjectForKey:@"string1"];
+        self.string2 = [aDecoder decodeObjectForKey:@"string2"];
+        self.simpleInt = [aDecoder decodeIntForKey:@"simpleInt"];
+        self.arrayOfBooleans = [aDecoder decodeObjectForKey:@"arrayOfBooleans"];
+        self.nestedObject = [aDecoder decodeObjectForKey:@"nestedObject"];
+    }
+    return self;
 }
 
 - (NSString *)objectId {

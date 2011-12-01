@@ -8,6 +8,7 @@
 
 #import "Kiwi.h"
 
+#import "CMObjectEncoder.h"
 #import "CMObjectDecoder.h"
 #import "CMSerializable.h"
 #import "NSString+UUID.h"
@@ -15,8 +16,25 @@
 
 SPEC_BEGIN(CMObjectDecoderSpec)
 
+/**
+ * Note: This test relies on the proper functioning of <tt>CMObjectEncoder</tt> to 
+ * generate the original dictionary representation of the object and to test
+ * the symmetry of the encode/decode methods.
+ */
 describe(@"CMObjectDecoder", ^{
-    pending(@"pending...", NULL);
+    it(@"should decode a single object correctly", ^{
+        // Create the original object and serialize it. This will serve as the input for the real test.
+        CMGenericSerializableObject *originalObject = [[CMGenericSerializableObject alloc] initWithObjectId:[NSString stringWithUUID]];
+        [originalObject fillPropertiesWithDefaults];
+        NSDictionary *originalObjectDictionaryRepresentation = [CMObjectEncoder encodeObjects:[NSSet setWithObject:originalObject]];
+        
+        // Create everything needed to decode this representation now.
+        NSArray *decodedObjects = [CMObjectDecoder decodeObjects:originalObjectDictionaryRepresentation];
+        
+        // Test the symmetry.
+        [[[decodedObjects should] have:1] items];
+        [[[decodedObjects objectAtIndex:0] should] equal:originalObject];
+    });
 });
 
 SPEC_END
