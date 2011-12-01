@@ -7,6 +7,14 @@
 //
 
 #import "CMObjectDecoder.h"
+#import "CMSerializable.h"
+
+@interface CMObjectDecoder (Private)
++ (Class)typeFromDictionaryRepresentation:(NSDictionary *)representation;
+- (NSArray *)decodeAllInList:(NSArray *)list;
+- (NSDictionary *)decodeAllInDictionary:(NSDictionary *)dictionary;
+- (id)deserializeContentsOfObject:(id)objv;
+@end
 
 @implementation CMObjectDecoder
 
@@ -14,6 +22,18 @@
 
 + (NSArray *)decodeObjects:(NSDictionary *)serializedObjects {
     NSMutableArray *decodedObjects = [NSMutableArray arrayWithCapacity:[serializedObjects count]];
+    
+    for (NSString *key in serializedObjects) {
+        NSDictionary *objectRepresentation = [serializedObjects objectForKey:key];
+        CMObjectDecoder *decoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:objectRepresentation];
+        id<CMSerializable> decodedObject = [[[CMObjectDecoder typeFromDictionaryRepresentation:objectRepresentation] alloc] initWithCoder:decoder];
+        
+        if (decodedObject) {
+            [decodedObjects addObject:decodedObject];
+        } else {
+            NSLog(@"Failed to deserialize and inflate object with dictionary representation:\n%@", objectRepresentation);
+        }
+    }
     
     return decodedObjects;
 }
@@ -75,12 +95,15 @@
 }
 
 - (id)decodeObjectForKey:(NSString *)key {
-    
+    NSDictionary *subObjectRepresentation = [_dictionaryRepresentation objectForKey:key];
+    CMObjectDecoder *subObjectDecoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:subObjectRepresentation];
+    return [[[CMObjectDecoder typeFromDictionaryRepresentation:subObjectRepresentation] alloc] initWithCoder:subObjectDecoder];
+
 }
 
 #pragma mark - Private encoding methods
 
-- (Class)typeFromDictionaryRepresentation:(NSDictionary *)representation {
++ (Class)typeFromDictionaryRepresentation:(NSDictionary *)representation {
     NSString *className = [representation objectForKey:@"__type__"];
     Class klass = nil;
     
@@ -92,6 +115,25 @@
     }
     
     return klass;
+}
+
+- (NSArray *)decodeAllInList:(NSArray *)list {
+    NSMutableArray *decodedArray = [NSMutableArray arrayWithCapacity:[list count]];
+    for (id item in list) {
+        [decodedArray addObject:[self deserializeContentsOfObject:item]];
+    }
+    return decodedArray;
+}
+
+- (NSDictionary *)decodeAllInDictionary:(NSDictionary *)dictionary {
+    NSMutableDictionary *decodedDictionary = [NSMutableDictionary dictionaryWithCapacity:[dictionary count]];
+    for (id key in dictionary) {
+        [decodedDictionary setObject:[self deserializeContentsOfObject:[dictionary objectForKey:key]] forKey:key];
+    }
+    return decodedDictionary;
+}
+
+- (id)deserializeContentsOfObject:(NSDictionary *)objectRepresentation {
 }
 
 #pragma mark - Required methods (metadata and base serialization methods)

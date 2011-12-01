@@ -21,7 +21,10 @@
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
-    return [self init];
+    if (self = [super init]) {
+        _objectId = [aDecoder decodeObjectForKey:@"__id"];
+    }
+    return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {

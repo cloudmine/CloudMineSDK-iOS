@@ -46,6 +46,8 @@
 		7A308A3C14798F29008ADD3C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D9146C5B7400EF537A /* libz.dylib */; };
 		7A308A4414799134008ADD3C /* CMWebServiceSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A308A4314799134008ADD3C /* CMWebServiceSpec.m */; };
 		7A308A4C14799471008ADD3C /* libKiwi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A308A4B14799471008ADD3C /* libKiwi.a */; };
+		7A6B800D14871BCA00D8B211 /* CMObjectDecoderSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6B800C14871BCA00D8B211 /* CMObjectDecoderSpec.m */; };
+		7A6B801114871E3700D8B211 /* CMGenericSerializableObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6B801014871E3700D8B211 /* CMGenericSerializableObject.m */; };
 		7AABA2E31480513500FD52A0 /* CMSerializable.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AABA2E21480513500FD52A0 /* CMSerializable.h */; };
 		7AABA2E51480549A00FD52A0 /* CMObjectEncoderSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AABA2E41480549A00FD52A0 /* CMObjectEncoderSpec.m */; };
 		7AABA2E81480598300FD52A0 /* NSString+UUID.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AABA2E61480598300FD52A0 /* NSString+UUID.h */; };
@@ -121,6 +123,9 @@
 		7A0DB1BB147B016B007F482C /* CMBlockValidationMessageSpy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMBlockValidationMessageSpy.m; sourceTree = "<group>"; };
 		7A308A4314799134008ADD3C /* CMWebServiceSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMWebServiceSpec.m; sourceTree = "<group>"; };
 		7A308A4B14799471008ADD3C /* libKiwi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libKiwi.a; path = "kiwi/build/Release-iphoneos/libKiwi.a"; sourceTree = "<group>"; };
+		7A6B800C14871BCA00D8B211 /* CMObjectDecoderSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectDecoderSpec.m; sourceTree = "<group>"; };
+		7A6B800F14871E3700D8B211 /* CMGenericSerializableObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMGenericSerializableObject.h; sourceTree = "<group>"; };
+		7A6B801014871E3700D8B211 /* CMGenericSerializableObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMGenericSerializableObject.m; sourceTree = "<group>"; };
 		7AABA2E21480513500FD52A0 /* CMSerializable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMSerializable.h; sourceTree = "<group>"; };
 		7AABA2E41480549A00FD52A0 /* CMObjectEncoderSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectEncoderSpec.m; sourceTree = "<group>"; };
 		7AABA2E61480598300FD52A0 /* NSString+UUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+UUID.h"; sourceTree = "<group>"; };
@@ -250,6 +255,8 @@
 			children = (
 				7A0DB1BA147B016B007F482C /* CMBlockValidationMessageSpy.h */,
 				7A0DB1BB147B016B007F482C /* CMBlockValidationMessageSpy.m */,
+				7A6B800F14871E3700D8B211 /* CMGenericSerializableObject.h */,
+				7A6B801014871E3700D8B211 /* CMGenericSerializableObject.m */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -334,6 +341,7 @@
 				7A308A4314799134008ADD3C /* CMWebServiceSpec.m */,
 				7A04E86E147D90F5006E00AB /* CMServerFunctionSpec.m */,
 				7AABA2E41480549A00FD52A0 /* CMObjectEncoderSpec.m */,
+				7A6B800C14871BCA00D8B211 /* CMObjectDecoderSpec.m */,
 				7A0DB1B8147B0153007F482C /* Support */,
 				7AB4AB79145DC5D8006AEF67 /* Supporting Files */,
 			);
@@ -574,6 +582,8 @@
 				7A0DB1BC147B016B007F482C /* CMBlockValidationMessageSpy.m in Sources */,
 				7A04E86F147D90F5006E00AB /* CMServerFunctionSpec.m in Sources */,
 				7AABA2E51480549A00FD52A0 /* CMObjectEncoderSpec.m in Sources */,
+				7A6B800D14871BCA00D8B211 /* CMObjectDecoderSpec.m in Sources */,
+				7A6B801114871E3700D8B211 /* CMGenericSerializableObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
