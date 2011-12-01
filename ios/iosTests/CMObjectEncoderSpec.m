@@ -1,5 +1,5 @@
 //
-//  CMJSONEncoderSpec.m
+//  CMObjectEncoderSpec.m
 //  cloudmine-iosTests
 //
 //  Copyright (c) 2011 CloudMine, LLC. All rights reserved.
@@ -8,7 +8,7 @@
 
 #import "Kiwi.h"
 
-#import "CMJSONEncoder.h"
+#import "CMObjectEncoder.h"
 #import "CMSerializable.h"
 #import "NSString+UUID.h"
 
@@ -90,9 +90,9 @@
 
 #pragma mark - Specs
 
-SPEC_BEGIN(CMJSONEncoderSpec)
+SPEC_BEGIN(CMObjectEncoderSpec)
 
-describe(@"CMJSONEncoder", ^{    
+describe(@"CMObjectEncoder", ^{
     it(@"should encode a single object correctly", ^{
         NSString *uuid = [NSString stringWithUUID];
         GenericSerializableObject *object = [[GenericSerializableObject alloc] initWithObjectId:uuid];
