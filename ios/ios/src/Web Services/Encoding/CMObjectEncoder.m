@@ -8,6 +8,7 @@
 
 #import "CMObjectEncoder.h"
 #import "CMSerializable.h"
+#import "CMObjectSerialization.h"
 
 @interface CMObjectEncoder (Private)
 - (NSArray *)encodeAllInList:(NSArray *)list;
@@ -41,7 +42,7 @@
         CMObjectEncoder *objectEncoder = [[CMObjectEncoder alloc] init];
         [object encodeWithCoder:objectEncoder];
         NSMutableDictionary *encodedRepresentation = [NSMutableDictionary dictionaryWithDictionary:objectEncoder.encodedRepresentation];
-        [encodedRepresentation setObject:[object className] forKey:@"__type__"];
+        [encodedRepresentation setObject:[object className] forKey:CM_INTERNAL_TYPE_STORAGE_KEY];
         [topLevelObjectsDictionary setObject:encodedRepresentation forKey:object.objectId];
     }
     
@@ -104,7 +105,7 @@
     for (id key in dictionary) {
         [encodedDictionary setObject:[self serializeContentsOfObject:[dictionary objectForKey:key]] forKey:key];
     }
-    [encodedDictionary setObject:@"map" forKey:@"__type__"]; // to differentiate between a custom object and a dictionary.
+    [encodedDictionary setObject:CM_INTERNAL_HASH_CLASSNAME forKey:CM_INTERNAL_TYPE_STORAGE_KEY]; // to differentiate between a custom object and a dictionary.
     return encodedDictionary;
 }
 
@@ -132,7 +133,7 @@
         
         // Must encode the type of this object for decoding purposes.
         NSMutableDictionary *serializedRepresentation = [NSMutableDictionary dictionaryWithDictionary:newEncoder.encodedRepresentation];
-        [serializedRepresentation setObject:[objv className] forKey:@"__type__"];
+        [serializedRepresentation setObject:[objv className] forKey:CM_INTERNAL_TYPE_STORAGE_KEY];
         return serializedRepresentation;
     }
 }

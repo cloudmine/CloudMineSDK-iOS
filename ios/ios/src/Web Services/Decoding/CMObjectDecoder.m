@@ -8,6 +8,7 @@
 
 #import "CMObjectDecoder.h"
 #import "CMSerializable.h"
+#import "CMObjectSerialization.h"
 
 @interface CMObjectDecoder (Private)
 + (Class)typeFromDictionaryRepresentation:(NSDictionary *)representation;
@@ -101,10 +102,10 @@
 #pragma mark - Private encoding methods
 
 + (Class)typeFromDictionaryRepresentation:(NSDictionary *)representation {
-    NSString *className = [representation objectForKey:@"__type__"];
+    NSString *className = [representation objectForKey:CM_INTERNAL_TYPE_STORAGE_KEY];
     Class klass = nil;
     
-    if ([className isEqualToString:@"map"]) {
+    if ([className isEqualToString:CM_INTERNAL_HASH_CLASSNAME]) {
         klass = [NSDictionary class];
     } else {
         klass = NSClassFromString(className);
@@ -138,7 +139,7 @@
         return objv;
     } else if ([objv isKindOfClass:[NSArray class]]) {
         return [self decodeAllInList:objv];
-    } else if ([objv isKindOfClass:[NSDictionary class]] && [[objv objectForKey:@"__type__"] isEqualToString:@"map"]) {
+    } else if ([objv isKindOfClass:[NSDictionary class]] && [[objv objectForKey:CM_INTERNAL_TYPE_STORAGE_KEY] isEqualToString:CM_INTERNAL_HASH_CLASSNAME]) {
         return [self decodeAllInDictionary:objv];
     } else {
         // A new decoder is needed as we are digging down further into a custom object.

@@ -12,6 +12,7 @@
 #import "CMSerializable.h"
 #import "NSString+UUID.h"
 #import "CMGenericSerializableObject.h"
+#import "CMObjectSerialization.h"
 
 SPEC_BEGIN(CMObjectEncoderSpec)
 
@@ -30,7 +31,7 @@ describe(@"CMObjectEncoder", ^{
         
         NSDictionary *theOnlyObject = [[dictionaryOfData allValues] objectAtIndex:0];
         [[[theOnlyObject should] have:6] items];
-        [[[theOnlyObject objectForKey:@"__type__"] should] equal:@"CMGenericSerializableObject"];
+        [[[theOnlyObject objectForKey:CM_INTERNAL_TYPE_STORAGE_KEY] should] equal:@"CMGenericSerializableObject"];
         [[[theOnlyObject objectForKey:@"string1"] should] equal:@"Hello World"];
         [[[theOnlyObject objectForKey:@"string2"] should] equal:@"Apple Macintosh"];
         [[[theOnlyObject objectForKey:@"simpleInt"] should] equal:theValue(42)];
