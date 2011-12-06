@@ -6,12 +6,9 @@
 //  See LICENSE file included with SDK for details.
 //
 
-#import "CMSerializable.h"
+#import "CMObject.h"
 
-@interface CMGenericSerializableObject : NSObject <CMSerializable> {
-    // The magical object id required by the CMSerializable protocol.
-    NSString *_objectId;
-}
+@interface CMGenericSerializableObject : CMObject
 
 // All the properties we will try to serialize in the tests.
 @property (nonatomic, strong) NSString *string1;
@@ -20,7 +17,6 @@
 @property (nonatomic, strong) NSArray *arrayOfBooleans;
 @property (nonatomic, strong) CMGenericSerializableObject *nestedObject;
 
-- (id)initWithObjectId:(NSString *)theObjectId;
 - (void)fillPropertiesWithDefaults;
 
 @end

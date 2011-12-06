@@ -35,6 +35,23 @@ describe(@"CMObjectDecoder", ^{
         [[[decodedObjects should] have:1] items];
         [[[decodedObjects objectAtIndex:0] should] equal:originalObject];
     });
+    
+    it(@"should decode multiple objects correctly", ^{
+        NSMutableArray *originalObjects = [NSMutableArray arrayWithCapacity:5];
+        for (int i=0; i<5; i++) {
+            CMGenericSerializableObject *obj = [[CMGenericSerializableObject alloc] initWithObjectId:[NSString stringWithUUID]];
+            [obj fillPropertiesWithDefaults];
+            [originalObjects addObject:obj];
+        }
+        
+        NSDictionary *originalObjectsDictionaryRepresentation = [CMObjectEncoder encodeObjects:originalObjects];
+        NSArray *decodedObjects = [CMObjectDecoder decodeObjects:originalObjectsDictionaryRepresentation];
+        
+        [[[decodedObjects should] have:5] items];
+        [decodedObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            [[obj should] equal:[originalObjects objectAtIndex:idx]];
+        }];
+    });
 });
 
 SPEC_END

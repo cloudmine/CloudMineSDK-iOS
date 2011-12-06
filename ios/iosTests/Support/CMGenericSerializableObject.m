@@ -11,13 +11,6 @@
 @implementation CMGenericSerializableObject
 @synthesize string1, string2, simpleInt, arrayOfBooleans, nestedObject;
 
-- (id)initWithObjectId:(NSString *)theObjectId {
-    if (self = [super init]) {
-        _objectId = theObjectId;
-    }
-    return self;
-}
-
 - (void)fillPropertiesWithDefaults {
     self.string1 = @"Hello World";
     self.string2 = @"Apple Macintosh";
@@ -60,14 +53,6 @@
         self.nestedObject = [aDecoder decodeObjectForKey:@"nestedObject"];
     }
     return self;
-}
-
-- (NSString *)objectId {
-    return _objectId;
-}
-
-- (NSString *)className {
-    return NSStringFromClass([self class]);
 }
 
 @end
