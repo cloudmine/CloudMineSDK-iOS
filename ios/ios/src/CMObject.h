@@ -31,6 +31,8 @@
  */
 - (id)init;
 
+- (id)initWithObjectId:(NSString *)theObjectId;
+
 /**
  * Default behavior does nothing other than call <tt>[self init]</tt>. Override this in your subclasses
  * to define logic for creating an instance of each subclass from a serialized representation.

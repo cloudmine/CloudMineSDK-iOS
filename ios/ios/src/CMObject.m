@@ -8,27 +8,32 @@
 
 #import "CMObject.h"
 #import "NSString+UUID.h"
+#import "CMObjectSerialization.h"
 
 @implementation CMObject
 
 #pragma mark - Turnkey serialization methods
 
 - (id)init {
+    return [self initWithObjectId:[NSString stringWithUUID]];
+}
+
+- (id)initWithObjectId:(NSString *)theObjectId {
     if (self = [super init]) {
-        _objectId = [NSString stringWithUUID];
+        _objectId = theObjectId;
     }
     return self;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super init]) {
-        _objectId = [aDecoder decodeObjectForKey:@"__id"];
+        _objectId = [aDecoder decodeObjectForKey:CM_INTERNAL_OBJECTID_KEY];
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    return;
+    [aCoder encodeObject:self.objectId forKey:CM_INTERNAL_OBJECTID_KEY];
 }
 
 - (NSString *)objectId {

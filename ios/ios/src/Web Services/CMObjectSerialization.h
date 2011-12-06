@@ -22,3 +22,9 @@
  * correct type of object.
  */
 #define CM_INTERNAL_TYPE_STORAGE_KEY @"__type__"
+
+/**
+ * The key to be used to store the id of the object being serialized. The value of this
+ * becomes the key of the object's representation in dictionary form.
+ */
+#define CM_INTERNAL_OBJECTID_KEY @"__id__"
