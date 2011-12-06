@@ -190,6 +190,10 @@ static __strong NSSet *_validHTTPVerbs = nil;
         request.password = userCredentials.password;
     }
     [request addRequestHeader:@"X-CloudMine-ApiKey" value:apiKey];
+    
+    // TODO: This should be customizable to change between JSON, GZIP'd JSON, and MsgPack.
+    [request addRequestHeader:@"Content-type" value:@"application/json"];
+    [request addRequestHeader:@"Accept" value:@"application/json"];
     return request;
 }
 
