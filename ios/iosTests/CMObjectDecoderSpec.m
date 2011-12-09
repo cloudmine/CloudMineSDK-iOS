@@ -24,7 +24,7 @@ SPEC_BEGIN(CMObjectDecoderSpec)
 describe(@"CMObjectDecoder", ^{
     it(@"should decode a single object correctly", ^{
         // Create the original object and serialize it. This will serve as the input for the real test.
-        CMGenericSerializableObject *originalObject = [[CMGenericSerializableObject alloc] initWithObjectId:[NSString stringWithUUID]];
+        CMGenericSerializableObject *originalObject = [[CMGenericSerializableObject alloc] init];
         [originalObject fillPropertiesWithDefaults];
         NSDictionary *originalObjectDictionaryRepresentation = [CMObjectEncoder encodeObjects:[NSSet setWithObject:originalObject]];
         
@@ -39,7 +39,7 @@ describe(@"CMObjectDecoder", ^{
     it(@"should decode multiple objects correctly", ^{
         NSMutableArray *originalObjects = [NSMutableArray arrayWithCapacity:5];
         for (int i=0; i<5; i++) {
-            CMGenericSerializableObject *obj = [[CMGenericSerializableObject alloc] initWithObjectId:[NSString stringWithUUID]];
+            CMGenericSerializableObject *obj = [[CMGenericSerializableObject alloc] init];
             [obj fillPropertiesWithDefaults];
             [originalObjects addObject:obj];
         }

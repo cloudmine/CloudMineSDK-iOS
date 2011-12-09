@@ -37,6 +37,7 @@
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
+    [super encodeWithCoder:aCoder];
     [aCoder encodeObject:self.string1 forKey:@"string1"];
     [aCoder encodeObject:self.string2 forKey:@"string2"];
     [aCoder encodeInt:self.simpleInt forKey:@"simpleInt"];
@@ -45,7 +46,7 @@
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
-    if (self = [super init]) {
+    if (self = [super initWithCoder:aDecoder]) {
         self.string1 = [aDecoder decodeObjectForKey:@"string1"];
         self.string2 = [aDecoder decodeObjectForKey:@"string2"];
         self.simpleInt = [aDecoder decodeIntForKey:@"simpleInt"];
