@@ -17,6 +17,11 @@
  */
 #define CM_BASE_URL @"https://api.cloudmine.me/v1"
 
+typedef enum {
+    CMFileCreated = 0,
+    CMFileUpdated
+} CMFileUploadResult;
+
 /**
  * Base class for all classes concerned with the communication between the client device and the CloudMine 
  * web services.
@@ -38,7 +43,7 @@
  * Default initializer for the web service connector. You <strong>must</strong> have already configured the 
  * <tt>CMUserCredentials</tt> singleton or an exception will be thrown.
  *
- * @throws NSInternalConsistencyException <tt>CMUserCredentials</tt> has not been configured.
+ * @throws NSInternalInconsistencyException <tt>CMUserCredentials</tt> has not been configured.
  */
 - (id)init;
 
@@ -77,12 +82,29 @@
           successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
             errorHandler:(void (^)(NSError *error))errorHandler;
 
+/**
+ * Asynchronously retrieve a binary file for the named app-level key. On completion, the <tt>successHandler</tt> block 
+ * will be called with the raw data from the server.
+ *
+ * @param keys The key of the binary file to fetch.
+ * @param successHandler The block to be called when the file has been fully downloaded.
+ * @param errorHandler The block to be called if the request failed.
+ */
 - (void)getBinaryDataNamed:(NSString *)key
-       withUserCredentials:(CMUserCredentials *)credentials
             successHandler:(void (^)(NSData *data))successHandler 
               errorHandler:(void (^)(NSError *error))errorHandler;
 
+/**
+ * Asynchronously retrieve a binary file for the named user-leve key. On completion, the <tt>successHandler</tt> block 
+ * will be called with the raw data from the server.
+ *
+ * @param keys The key of the binary file to fetch.
+ * @param credentials The user identifier and password of the user.
+ * @param successHandler The block to be called when the file has been fully downloaded.
+ * @param errorHandler The block to be called if the request failed.
+ */
 - (void)getBinaryDataNamed:(NSString *)key
+       withUserCredentials:(CMUserCredentials *)credentials
             successHandler:(void (^)(NSData *data))successHandler 
               errorHandler:(void (^)(NSError *error))errorHandler;
 
@@ -118,30 +140,84 @@
                     successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
                       errorHandler:(void (^)(NSError *error))errorHandler;
 
+/**
+ * Asynchronously upload the raw binary data contained in <tt>data</tt> with an optional MIME type as an app-level object.
+ * On completion, the <tt>successHandler</tt> block will be called with a status code indicating 
+ * whether a file with the given key previously existed on the server or had to be created new.
+ *
+ * @param data The raw binary data of the file to upload.
+ * @param key The unique name of this file.
+ * @param mimeType The MIME type of this file. When later fetched, this MIME type will be used in the Content-Type header. If <tt>nil</tt>, defaults to <tt>application/octet-stream</tt>.
+ * @param successHandler The block to be called when the file has finished uploading. The <tt>result</tt> parameter indicates whether the file was new to the server or not.
+ * @param errorHandler The block to be called if the request failed.
+ */
 - (void)uploadBinaryData:(NSData *)data
                    named:(NSString *)key
               ofMimeType:(NSString *)mimeType
-          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+          successHandler:(void (^)(CMFileUploadResult result))successHandler 
             errorHandler:(void (^)(NSError *error))errorHandler;
 
+/**
+ * Asynchronously upload the raw binary data contained in <tt>data</tt> with an optional MIME type as a user-level object.
+ * On completion, the <tt>successHandler</tt> block will be called with a status code indicating 
+ * whether a file with the given key previously existed on the server or had to be created new.
+ *
+ * @param data The raw binary data of the file to upload.
+ * @param key The unique name of this file.
+ * @param mimeType The MIME type of this file. When later fetched, this MIME type will be used in the Content-Type header. If <tt>nil</tt>, defaults to <tt>application/octet-stream</tt>.
+ * @param credentials The user identifier and password of the user.
+ * @param successHandler The block to be called when the file has finished uploading. The <tt>result</tt> parameter indicates whether the file was new to the server or not.
+ * @param errorHandler The block to be called if the request failed.
+ */
 - (void)uploadBinaryData:(NSData *)data
                    named:(NSString *)key
               ofMimeType:(NSString *)mimeType
      withUserCredentials:(CMUserCredentials *)credentials
-          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+          successHandler:(void (^)(CMFileUploadResult result))successHandler 
             errorHandler:(void (^)(NSError *error))errorHandler;
 
+/**
+ * Asynchronously upload the raw binary data contained in the file stored at the path specified by <tt>path</tt> with an optional
+ * MIME type as an app-level object. Unlike its cousin method <tt>uploadBinaryData:</tt>, this method streams the contents of 
+ * the file directly from the filesystem without first loading it into RAM, making it perfect for uploading large files
+ * on the filesystem efficiently.
+ * 
+ * On completion, the <tt>successHandler</tt> block will be called with a status code indicating 
+ * whether a file with the given key previously existed on the server or had to be created new.
+ *
+ * @param data The raw binary data of the file to upload.
+ * @param key The unique name of this file.
+ * @param mimeType The MIME type of this file. When later fetched, this MIME type will be used in the Content-Type header. If <tt>nil</tt>, defaults to <tt>application/octet-stream</tt>.
+ * @param successHandler The block to be called when the file has finished uploading. The <tt>result</tt> parameter indicates whether the file was new to the server or not.
+ * @param errorHandler The block to be called if the request failed.
+ */
 - (void)uploadFileAtPath:(NSString *)path
                    named:(NSString *)key
               ofMimeType:(NSString *)mimeType
-          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+          successHandler:(void (^)(CMFileUploadResult result))successHandler 
             errorHandler:(void (^)(NSError *error))errorHandler;
 
+/**
+ * Asynchronously upload the raw binary data contained in the file stored at the path specified by <tt>path</tt> with an optional
+ * MIME type as an user-level object. Unlike its cousin method <tt>uploadBinaryData:</tt>, this method streams the contents of 
+ * the file directly from the filesystem without first loading it into RAM, making it perfect for uploading large files
+ * on the filesystem efficiently.
+ * 
+ * On completion, the <tt>successHandler</tt> block will be called with a status code indicating 
+ * whether a file with the given key previously existed on the server or had to be created new.
+ *
+ * @param data The raw binary data of the file to upload.
+ * @param key The unique name of this file.
+ * @param mimeType The MIME type of this file. When later fetched, this MIME type will be used in the Content-Type header. If <tt>nil</tt>, defaults to <tt>application/octet-stream</tt>.
+ * @param credentials The user identifier and password of the user.
+ * @param successHandler The block to be called when the file has finished uploading. The <tt>result</tt> parameter indicates whether the file was new to the server or not.
+ * @param errorHandler The block to be called if the request failed.
+ */
 - (void)uploadFileAtPath:(NSString *)path
                    named:(NSString *)key
               ofMimeType:(NSString *)mimeType
      withUserCredentials:(CMUserCredentials *)credentials
-          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+          successHandler:(void (^)(CMFileUploadResult result))successHandler 
             errorHandler:(void (^)(NSError *error))errorHandler;
 
 /**

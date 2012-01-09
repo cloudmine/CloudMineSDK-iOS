@@ -24,6 +24,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
 - (ASIHTTPRequest *)constructHTTPRequestWithVerb:(NSString *)verb URL:(NSURL *)url apiKey:(NSString *)apiKey binaryData:(BOOL)isForBinaryData userCredentials:(CMUserCredentials *)userCredentials;
 - (void)executeRequest:(ASIHTTPRequest *)request successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler errorHandler:(void (^)(NSError *error))errorHandler;
 - (void)executeBinaryDataFetchRequest:(ASIHTTPRequest *)request successHandler:(void (^)(NSData *data))successHandler  errorHandler:(void (^)(NSError *error))errorHandler;
+- (void)executeBinaryDataUploadRequest:(ASIHTTPRequest *)request successHandler:(void (^)(CMFileUploadResult result))successHandler errorHandler:(void (^)(NSError *error))errorHandler;
 - (NSURL *)appendKeys:(NSArray *)keys andServerSideFunction:(CMServerFunction *)function toURL:(NSURL *)theUrl;
 @end
 
@@ -130,7 +131,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
 - (void)uploadBinaryData:(NSData *)data
                    named:(NSString *)key
               ofMimeType:(NSString *)mimeType
-          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+          successHandler:(void (^)(CMFileUploadResult result))successHandler 
             errorHandler:(void (^)(NSError *error))errorHandler {
     [self uploadBinaryData:data
                      named:key
@@ -144,7 +145,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
                    named:(NSString *)key
               ofMimeType:(NSString *)mimeType
      withUserCredentials:(CMUserCredentials *)credentials
-          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+          successHandler:(void (^)(CMFileUploadResult result))successHandler 
             errorHandler:(void (^)(NSError *error))errorHandler {
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST" 
                                                              URL:[self constructBinaryUrlAtUserLevel:(credentials != nil)
@@ -156,13 +157,13 @@ static __strong NSSet *_validHTTPVerbs = nil;
         [request addRequestHeader:@"Content-Type" value:mimeType];
     }
     [request setPostBody:[data mutableCopy]];
-    [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
+    [self executeBinaryDataUploadRequest:request successHandler:successHandler errorHandler:errorHandler];
 }
 
 - (void)uploadFileAtPath:(NSString *)path
                    named:(NSString *)key
               ofMimeType:(NSString *)mimeType
-          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+          successHandler:(void (^)(CMFileUploadResult result))successHandler 
             errorHandler:(void (^)(NSError *error))errorHandler {
     [self uploadFileAtPath:path
                      named:key
@@ -176,7 +177,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
                    named:(NSString *)key
               ofMimeType:(NSString *)mimeType
      withUserCredentials:(CMUserCredentials *)credentials
-          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+          successHandler:(void (^)(CMFileUploadResult result))successHandler 
             errorHandler:(void (^)(NSError *error))errorHandler {
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST" 
                                                              URL:[self constructBinaryUrlAtUserLevel:(credentials != nil)
@@ -189,7 +190,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
     }
     [request setShouldStreamPostDataFromDisk:YES];
     [request setPostBodyFilePath:path];
-    [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
+    [self executeBinaryDataUploadRequest:request successHandler:successHandler errorHandler:errorHandler];
 }
 
 #pragma mark - PUT (replace) requests for non-binary data
@@ -280,6 +281,24 @@ static __strong NSSet *_validHTTPVerbs = nil;
     
     [request setCompletionBlock:^{
         successHandler(blockRequest.responseData);
+    }];
+    
+    [request setFailedBlock:^{
+        errorHandler(blockRequest.error);
+    }];
+    
+    [self.networkQueue addOperation:request];
+    [self.networkQueue go]; 
+}
+
+- (void)executeBinaryDataUploadRequest:(ASIHTTPRequest *)request 
+                       successHandler:(void (^)(CMFileUploadResult result))successHandler 
+                         errorHandler:(void (^)(NSError *error))errorHandler {
+    
+    __unsafe_unretained ASIHTTPRequest *blockRequest = request; // Stop the retain cycle.
+    
+    [request setCompletionBlock:^{
+        successHandler(blockRequest.responseStatusCode == 201 ? CMFileCreated : CMFileUpdated);
     }];
     
     [request setFailedBlock:^{

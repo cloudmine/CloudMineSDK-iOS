@@ -299,7 +299,7 @@ describe(@"CMWebService", ^{
             [service uploadBinaryData:data
                                 named:binaryKey
                            ofMimeType:@"application/cloudmine"
-                       successHandler:^(NSDictionary *results, NSDictionary *errors) {
+                       successHandler:^(CMFileUploadResult result) {
                        } errorHandler:^(NSError *error) {
                        }
              ];
@@ -374,7 +374,7 @@ describe(@"CMWebService", ^{
                             named:binaryKey
                        ofMimeType:@"application/cloudmine"
               withUserCredentials:creds
-                   successHandler:^(NSDictionary *results, NSDictionary *errors) {
+                   successHandler:^(CMFileUploadResult result) {
                    } errorHandler:^(NSError *error) {
                    }
          ];
