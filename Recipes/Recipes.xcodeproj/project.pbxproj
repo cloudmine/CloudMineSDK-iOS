@@ -21,7 +21,7 @@
 		7A041389146C579A00EF537A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A041367146C579A00EF537A /* Foundation.framework */; };
 		7A041391146C579A00EF537A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7A04138F146C579A00EF537A /* InfoPlist.strings */; };
 		7A041394146C579A00EF537A /* RecipesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A041393146C579A00EF537A /* RecipesTests.m */; };
-		7AF668491471950F00E2A06D /* libcloudmine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A04139D146C57DC00EF537A /* libcloudmine.a */; };
+		7A87316314BB0DD8000D6DEA /* CloudMine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A87316214BB0DD8000D6DEA /* CloudMine.framework */; };
 		7AF6684D1471985E00E2A06D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AF6684C1471985E00E2A06D /* CFNetwork.framework */; };
 		7AF6684F1471986700E2A06D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AF6684E1471986700E2A06D /* SystemConfiguration.framework */; };
 		7AF668511471987500E2A06D /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AF668501471987500E2A06D /* MobileCoreServices.framework */; };
@@ -60,7 +60,7 @@
 		7A041390146C579A00EF537A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7A041392146C579A00EF537A /* RecipesTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecipesTests.h; sourceTree = "<group>"; };
 		7A041393146C579A00EF537A /* RecipesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecipesTests.m; sourceTree = "<group>"; };
-		7A04139D146C57DC00EF537A /* libcloudmine.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcloudmine.a; path = "../ios/build/Debug-iphoneos/libcloudmine.a"; sourceTree = "<group>"; };
+		7A87316214BB0DD8000D6DEA /* CloudMine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudMine.framework; path = "../ios/build/Release-iphoneuniversal/CloudMine.framework"; sourceTree = "<group>"; };
 		7AF6684C1471985E00E2A06D /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		7AF6684E1471986700E2A06D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		7AF668501471987500E2A06D /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -76,9 +76,9 @@
 				7AF668511471987500E2A06D /* MobileCoreServices.framework in Frameworks */,
 				7AF6684F1471986700E2A06D /* SystemConfiguration.framework in Frameworks */,
 				7AF6684D1471985E00E2A06D /* CFNetwork.framework in Frameworks */,
-				7AF668491471950F00E2A06D /* libcloudmine.a in Frameworks */,
 				7A041366146C579A00EF537A /* UIKit.framework in Frameworks */,
 				7A041368146C579A00EF537A /* Foundation.framework in Frameworks */,
+				7A87316314BB0DD8000D6DEA /* CloudMine.framework in Frameworks */,
 				7A04136A146C579A00EF537A /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -119,10 +119,10 @@
 			isa = PBXGroup;
 			children = (
 				7AF668521471989B00E2A06D /* libz.dylib */,
+				7A87316214BB0DD8000D6DEA /* CloudMine.framework */,
 				7AF668501471987500E2A06D /* MobileCoreServices.framework */,
 				7AF6684E1471986700E2A06D /* SystemConfiguration.framework */,
 				7AF6684C1471985E00E2A06D /* CFNetwork.framework */,
-				7A04139D146C57DC00EF537A /* libcloudmine.a */,
 				7A041365146C579A00EF537A /* UIKit.framework */,
 				7A041367146C579A00EF537A /* Foundation.framework */,
 				7A041369146C579A00EF537A /* CoreGraphics.framework */,
@@ -355,7 +355,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/../ios/ios/src/**";
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = "-all_load";
 				SDKROOT = iphoneos;
@@ -375,7 +375,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/../ios/ios/src/**";
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-all_load";
@@ -387,13 +387,15 @@
 		7A041398146C579A00EF537A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../ios/build/Release-iphoneuniversal\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Recipes/Recipes-Prefix.pch";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Recipes/Recipes-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../ios/build/Debug-universal\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -402,13 +404,15 @@
 		7A041399146C579A00EF537A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../ios/build/Release-iphoneuniversal\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Recipes/Recipes-Prefix.pch";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Recipes/Recipes-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../ios/build/Debug-universal\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
