@@ -19,9 +19,11 @@ static __strong NSSet *_validHTTPVerbs = nil;
 
 @interface CMWebService (Private)
 - (NSURL *)constructTextUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys withServerSideFunction:(CMServerFunction *)function;
+- (NSURL *)constructBinaryUrlAtUserLevel:(BOOL)atUserLevel withKey:(NSString *)key;
 - (NSURL *)constructDataUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys withServerSideFunction:(CMServerFunction *)function;
-- (ASIHTTPRequest *)constructHTTPRequestWithVerb:(NSString *)verb URL:(NSURL *)url apiKey:(NSString *)apiKey userCredentials:(CMUserCredentials *)userCredentials;
+- (ASIHTTPRequest *)constructHTTPRequestWithVerb:(NSString *)verb URL:(NSURL *)url apiKey:(NSString *)apiKey binaryData:(BOOL)isForBinaryData userCredentials:(CMUserCredentials *)userCredentials;
 - (void)executeRequest:(ASIHTTPRequest *)request successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler errorHandler:(void (^)(NSError *error))errorHandler;
+- (void)executeBinaryDataFetchRequest:(ASIHTTPRequest *)request successHandler:(void (^)(NSData *data))successHandler  errorHandler:(void (^)(NSError *error))errorHandler;
 - (NSURL *)appendKeys:(NSArray *)keys andServerSideFunction:(CMServerFunction *)function toURL:(NSURL *)theUrl;
 @end
 
@@ -72,8 +74,30 @@ static __strong NSSet *_validHTTPVerbs = nil;
                                                                                           withKeys:keys
                                                                             withServerSideFunction:function]
                                                           apiKey:_apiKey
+                                                      binaryData:NO
                                                  userCredentials:credentials];
     [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
+}
+
+#pragma mark - GET requests for binary data
+
+- (void)getBinaryDataNamed:(NSString *)key
+            successHandler:(void (^)(NSData *data))successHandler
+              errorHandler:(void (^)(NSError *error))errorHandler {
+    [self getBinaryDataNamed:key withUserCredentials:nil successHandler:successHandler errorHandler:errorHandler];
+}
+
+- (void)getBinaryDataNamed:(NSString *)key
+       withUserCredentials:(CMUserCredentials *)credentials
+            successHandler:(void (^)(NSData *data))successHandler 
+              errorHandler:(void (^)(NSError *error))errorHandler {
+    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"GET" 
+                                                             URL:[self constructBinaryUrlAtUserLevel:(credentials != nil)
+                                                                                             withKey:key]
+                                                          apiKey:_apiKey
+                                                      binaryData:NO
+                                                 userCredentials:credentials];
+    [self executeBinaryDataFetchRequest:request successHandler:successHandler errorHandler:errorHandler];
 }
 
 #pragma mark - POST (update) requests for non-binary data
@@ -95,8 +119,76 @@ static __strong NSSet *_validHTTPVerbs = nil;
                                                                                           withKeys:nil
                                                                             withServerSideFunction:function]
                                                           apiKey:_apiKey
+                                                      binaryData:NO
                                                  userCredentials:credentials];
     [request appendPostData:[[data yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
+    [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
+}
+
+#pragma mark - POST requests for binary data
+
+- (void)uploadBinaryData:(NSData *)data
+                   named:(NSString *)key
+              ofMimeType:(NSString *)mimeType
+          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+            errorHandler:(void (^)(NSError *error))errorHandler {
+    [self uploadBinaryData:data
+                     named:key
+                ofMimeType:mimeType 
+       withUserCredentials:nil 
+            successHandler:successHandler
+              errorHandler:errorHandler];
+}
+
+- (void)uploadBinaryData:(NSData *)data
+                   named:(NSString *)key
+              ofMimeType:(NSString *)mimeType
+     withUserCredentials:(CMUserCredentials *)credentials
+          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+            errorHandler:(void (^)(NSError *error))errorHandler {
+    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST" 
+                                                             URL:[self constructBinaryUrlAtUserLevel:(credentials != nil)
+                                                                                             withKey:key]
+                                                          apiKey:_apiKey
+                                                      binaryData:YES
+                                                 userCredentials:credentials];
+    if (mimeType && ![mimeType isEqualToString:@""]) {
+        [request addRequestHeader:@"Content-Type" value:mimeType];
+    }
+    [request setPostBody:[data mutableCopy]];
+    [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
+}
+
+- (void)uploadFileAtPath:(NSString *)path
+                   named:(NSString *)key
+              ofMimeType:(NSString *)mimeType
+          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+            errorHandler:(void (^)(NSError *error))errorHandler {
+    [self uploadFileAtPath:path
+                     named:key
+                ofMimeType:mimeType
+       withUserCredentials:nil
+            successHandler:successHandler
+              errorHandler:errorHandler];
+}
+
+- (void)uploadFileAtPath:(NSString *)path
+                   named:(NSString *)key
+              ofMimeType:(NSString *)mimeType
+     withUserCredentials:(CMUserCredentials *)credentials
+          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+            errorHandler:(void (^)(NSError *error))errorHandler {
+    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST" 
+                                                             URL:[self constructBinaryUrlAtUserLevel:(credentials != nil)
+                                                                                             withKey:key]
+                                                          apiKey:_apiKey
+                                                      binaryData:YES
+                                                 userCredentials:credentials];
+    if (mimeType && ![mimeType isEqualToString:@""]) {
+        [request addRequestHeader:@"Content-Type" value:mimeType];
+    }
+    [request setShouldStreamPostDataFromDisk:YES];
+    [request setPostBodyFilePath:path];
     [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
 }
 
@@ -119,6 +211,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
                                                                                           withKeys:nil
                                                                             withServerSideFunction:function]
                                                           apiKey:_apiKey
+                                                      binaryData:NO
                                                  userCredentials:credentials];
     [request appendPostData:[[data yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
     [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
@@ -140,6 +233,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
                                                                                                         withKeys:keys
                                                                                           withServerSideFunction:nil]
                                                           apiKey:_apiKey
+                                                      binaryData:NO
                                                  userCredentials:credentials];
     [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
 }
@@ -154,8 +248,8 @@ static __strong NSSet *_validHTTPVerbs = nil;
     
     [request setCompletionBlock:^{
         NSDictionary *results = [blockRequest.responseString yajl_JSON];
-        NSDictionary *successes;
-        NSDictionary *errors;
+        NSDictionary *successes = nil;
+        NSDictionary *errors = nil;
         if (results) {
             successes = [results objectForKey:@"success"];
             if (!successes) {
@@ -178,9 +272,31 @@ static __strong NSSet *_validHTTPVerbs = nil;
     [self.networkQueue go]; 
 }
 
+- (void)executeBinaryDataFetchRequest:(ASIHTTPRequest *)request 
+        successHandler:(void (^)(NSData *data))successHandler 
+          errorHandler:(void (^)(NSError *error))errorHandler {
+    
+    __unsafe_unretained ASIHTTPRequest *blockRequest = request; // Stop the retain cycle.
+    
+    [request setCompletionBlock:^{
+        successHandler(blockRequest.responseData);
+    }];
+    
+    [request setFailedBlock:^{
+        errorHandler(blockRequest.error);
+    }];
+    
+    [self.networkQueue addOperation:request];
+    [self.networkQueue go]; 
+}
+
 #pragma - Request construction
 
-- (ASIHTTPRequest *)constructHTTPRequestWithVerb:(NSString *)verb URL:(NSURL *)url apiKey:(NSString *)apiKey userCredentials:(CMUserCredentials *)userCredentials {
+- (ASIHTTPRequest *)constructHTTPRequestWithVerb:(NSString *)verb 
+                                             URL:(NSURL *)url
+                                          apiKey:(NSString *)apiKey
+                                      binaryData:(BOOL)isForBinaryData
+                                 userCredentials:(CMUserCredentials *)userCredentials {
     NSAssert([_validHTTPVerbs containsObject:verb], @"You must pass in a valid HTTP verb. Possible choices are: GET, POST, PUT, and DELETE");
     
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
@@ -192,8 +308,12 @@ static __strong NSSet *_validHTTPVerbs = nil;
     [request addRequestHeader:@"X-CloudMine-ApiKey" value:apiKey];
     
     // TODO: This should be customizable to change between JSON, GZIP'd JSON, and MsgPack.
-    [request addRequestHeader:@"Content-type" value:@"application/json"];
-    [request addRequestHeader:@"Accept" value:@"application/json"];
+    
+    // Don't do this for binary data since that requires further intervention by the developer.
+    if (!isForBinaryData) {
+        [request addRequestHeader:@"Content-type" value:@"application/json"];
+        [request addRequestHeader:@"Accept" value:@"application/json"];
+    }
     return request;
 }
 
@@ -211,6 +331,19 @@ static __strong NSSet *_validHTTPVerbs = nil;
     
     return [self appendKeys:keys andServerSideFunction:function toURL:url];
 }
+
+- (NSURL *)constructBinaryUrlAtUserLevel:(BOOL)atUserLevel
+                                withKey:(NSString *)key {
+    NSURL *url;
+    if (atUserLevel) {
+        url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/user/binary/%@", _appKey, key]];
+    } else {
+        url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/binary/%@", _appKey, key]];
+    }
+    
+    return url;
+}
+
 
 - (NSURL *)constructDataUrlAtUserLevel:(BOOL)atUserLevel
                               withKeys:(NSArray *)keys

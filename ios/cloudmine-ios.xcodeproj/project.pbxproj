@@ -76,6 +76,7 @@
 		7A87315A14BB0AD0000D6DEA /* CMServerFunction.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7A04E869147D8435006E00AB /* CMServerFunction.h */; };
 		7A87315B14BB0AD0000D6DEA /* CMSerializable.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AABA2E21480513500FD52A0 /* CMSerializable.h */; };
 		7A87315C14BB0AD0000D6DEA /* CMObjectSerialization.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7A7EDBD9148EBE3800AB5B69 /* CMObjectSerialization.h */; };
+		7A87316614BB309F000D6DEA /* NSMutableData+RandomData.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A87316514BB309F000D6DEA /* NSMutableData+RandomData.m */; };
 		7AABA2E31480513500FD52A0 /* CMSerializable.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AABA2E21480513500FD52A0 /* CMSerializable.h */; };
 		7AABA2E51480549A00FD52A0 /* CMObjectEncoderSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AABA2E41480549A00FD52A0 /* CMObjectEncoderSpec.m */; };
 		7AABA2E81480598300FD52A0 /* NSString+UUID.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AABA2E61480598300FD52A0 /* NSString+UUID.h */; };
@@ -179,6 +180,8 @@
 		7A6B800F14871E3700D8B211 /* CMGenericSerializableObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMGenericSerializableObject.h; sourceTree = "<group>"; };
 		7A6B801014871E3700D8B211 /* CMGenericSerializableObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMGenericSerializableObject.m; sourceTree = "<group>"; };
 		7A7EDBD9148EBE3800AB5B69 /* CMObjectSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMObjectSerialization.h; sourceTree = "<group>"; };
+		7A87316414BB309F000D6DEA /* NSMutableData+RandomData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableData+RandomData.h"; sourceTree = "<group>"; };
+		7A87316514BB309F000D6DEA /* NSMutableData+RandomData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableData+RandomData.m"; sourceTree = "<group>"; };
 		7AABA2E21480513500FD52A0 /* CMSerializable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMSerializable.h; sourceTree = "<group>"; };
 		7AABA2E41480549A00FD52A0 /* CMObjectEncoderSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectEncoderSpec.m; sourceTree = "<group>"; };
 		7AABA2E61480598300FD52A0 /* NSString+UUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+UUID.h"; sourceTree = "<group>"; };
@@ -310,6 +313,8 @@
 				7A0DB1BB147B016B007F482C /* CMBlockValidationMessageSpy.m */,
 				7A6B800F14871E3700D8B211 /* CMGenericSerializableObject.h */,
 				7A6B801014871E3700D8B211 /* CMGenericSerializableObject.m */,
+				7A87316414BB309F000D6DEA /* NSMutableData+RandomData.h */,
+				7A87316514BB309F000D6DEA /* NSMutableData+RandomData.m */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -655,6 +660,7 @@
 				7AABA2E51480549A00FD52A0 /* CMObjectEncoderSpec.m in Sources */,
 				7A6B800D14871BCA00D8B211 /* CMObjectDecoderSpec.m in Sources */,
 				7A6B801114871E3700D8B211 /* CMGenericSerializableObject.m in Sources */,
+				7A87316614BB309F000D6DEA /* NSMutableData+RandomData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

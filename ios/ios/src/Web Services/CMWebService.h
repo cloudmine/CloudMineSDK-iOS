@@ -77,6 +77,15 @@
           successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
             errorHandler:(void (^)(NSError *error))errorHandler;
 
+- (void)getBinaryDataNamed:(NSString *)key
+       withUserCredentials:(CMUserCredentials *)credentials
+            successHandler:(void (^)(NSData *data))successHandler 
+              errorHandler:(void (^)(NSError *error))errorHandler;
+
+- (void)getBinaryDataNamed:(NSString *)key
+            successHandler:(void (^)(NSData *data))successHandler 
+              errorHandler:(void (^)(NSError *error))errorHandler;
+
 /**
  * Asynchronously update one or more objects for the app-level keys included in <tt>data</tt>. On completion, the <tt>successHandler</tt>  
  * block will be called with a dictionary of the keys of the objects that were created and updated as well as a dictionary of the
@@ -108,6 +117,32 @@
                withUserCredentials:(CMUserCredentials *)credentials 
                     successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
                       errorHandler:(void (^)(NSError *error))errorHandler;
+
+- (void)uploadBinaryData:(NSData *)data
+                   named:(NSString *)key
+              ofMimeType:(NSString *)mimeType
+          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+            errorHandler:(void (^)(NSError *error))errorHandler;
+
+- (void)uploadBinaryData:(NSData *)data
+                   named:(NSString *)key
+              ofMimeType:(NSString *)mimeType
+     withUserCredentials:(CMUserCredentials *)credentials
+          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+            errorHandler:(void (^)(NSError *error))errorHandler;
+
+- (void)uploadFileAtPath:(NSString *)path
+                   named:(NSString *)key
+              ofMimeType:(NSString *)mimeType
+          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+            errorHandler:(void (^)(NSError *error))errorHandler;
+
+- (void)uploadFileAtPath:(NSString *)path
+                   named:(NSString *)key
+              ofMimeType:(NSString *)mimeType
+     withUserCredentials:(CMUserCredentials *)credentials
+          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+            errorHandler:(void (^)(NSError *error))errorHandler;
 
 /**
  * Asynchronously create or replace one or more objects for the values of the app-level keys included in <tt>data</tt>. On completion, the <tt>successHandler</tt>  
