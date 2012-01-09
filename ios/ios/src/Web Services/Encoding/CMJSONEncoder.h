@@ -30,7 +30,7 @@
  * the JSON representation of all the serialized objects that can be subsequently sent over the wire to
  * CloudMine's web services.
  *
- * @params objects
+ * @param objects
  * @returns The JSON representation of the objects, ready to be sent to CloudMine.
  */
 + (NSString *)encodeObjects:(id<NSFastEnumeration>)objects;

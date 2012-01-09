@@ -6,6 +6,8 @@
 //  See LICENSE file included with SDK for details.
 //
 
+/** @file */
+
 #import <Foundation/Foundation.h>
 
 @class ASINetworkQueue;
@@ -17,8 +19,14 @@
  */
 #define CM_BASE_URL @"https://api.cloudmine.me/v1"
 
+/**
+ * @enum Enumeration of possible results from a file upload operation.
+ */
 typedef enum {
+    /** File was created new on the server */
     CMFileCreated = 0,
+    
+    /** File previously existed on server and was replaced with new content */
     CMFileUpdated
 } CMFileUploadResult;
 
@@ -57,7 +65,7 @@ typedef enum {
  * will be called with a dictionary of the objects retrieved as well as a dictionary of the key-related errors returned from the server.
  *
  * @param keys The keys to fetch. If <tt>nil</tt> or an empty array, all objects will be returned.
- * @param serverSideFunction The server-side code snippet and related options to execute with this request, or nil if none.
+ * @param function The server-side code snippet and related options to execute with this request, or nil if none.
  * @param successHandler The block to be called when the objects have been populated.
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
  */
@@ -71,7 +79,7 @@ typedef enum {
  * will be called with a dictionary of the objects retrieved as well as a dictionary of the key-related errors returned from the server.
  *
  * @param keys The keys to fetch.
- * @param serverSideFunction The server-side code snippet and related options to execute with this request, or nil if none.
+ * @param function The server-side code snippet and related options to execute with this request, or nil if none.
  * @param credentials The user identifier and password of the user.
  * @param successHandler The block to be called when the objects have been populated.
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
@@ -114,7 +122,7 @@ typedef enum {
  * key-related errors returned from the server.
  *
  * @param data A dictionary mapping top-level keys to the values to be used to update the object.
- * @param serverSideFunction The server-side code snippet and related options to execute with this request, or nil if none.
+ * @param function The server-side code snippet and related options to execute with this request, or nil if none.
  * @param successHandler The block to be called when the objects have been populated.
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
  */
@@ -129,7 +137,7 @@ typedef enum {
  * key-related errors returned from the server.
  *
  * @param data A dictionary mapping top-level keys to the values to be used to update the object.
- * @param serverSideFunction The server-side code snippet and related options to execute with this request, or nil if none.
+ * @param function The server-side code snippet and related options to execute with this request, or nil if none.
  * @param credentials The user identifier and password of the user.
  * @param successHandler The block to be called when the objects have been populated.
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
@@ -185,7 +193,7 @@ typedef enum {
  * On completion, the <tt>successHandler</tt> block will be called with a status code indicating 
  * whether a file with the given key previously existed on the server or had to be created new.
  *
- * @param data The raw binary data of the file to upload.
+ * @param path The path to the file to upload.
  * @param key The unique name of this file.
  * @param mimeType The MIME type of this file. When later fetched, this MIME type will be used in the Content-Type header. If <tt>nil</tt>, defaults to <tt>application/octet-stream</tt>.
  * @param successHandler The block to be called when the file has finished uploading. The <tt>result</tt> parameter indicates whether the file was new to the server or not.
@@ -206,7 +214,7 @@ typedef enum {
  * On completion, the <tt>successHandler</tt> block will be called with a status code indicating 
  * whether a file with the given key previously existed on the server or had to be created new.
  *
- * @param data The raw binary data of the file to upload.
+ * @param path The path to the file to upload.
  * @param key The unique name of this file.
  * @param mimeType The MIME type of this file. When later fetched, this MIME type will be used in the Content-Type header. If <tt>nil</tt>, defaults to <tt>application/octet-stream</tt>.
  * @param credentials The user identifier and password of the user.
@@ -249,7 +257,8 @@ typedef enum {
  * @see updateValuesFromDictionary:userCredentials:successHandler:errorHandler:
  *
  * @param data A dictionary mapping top-level keys to the values to be used to update the object.
- * @param serverSideFunction The server-side code snippet and related options to execute with this request, or nil if none.
+ * @param function The server-side code snippet and related options to execute with this request, or nil if none.
+ * @param credentials The user identifier and password of the user.
  * @param successHandler The block to be called when the objects have been populated.
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
  */
@@ -282,6 +291,7 @@ typedef enum {
  * however they will <strong>always</strong> be empty.
  *
  * @param keys The keys to delete. If <tt>nil</tt> or an empty array, <strong>all of this user's objects will be deleted.</strong>
+ * @param credentials The user identifier and password of the user.
  * @param successHandler The block to be called when the objects have been populated.
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
  */
