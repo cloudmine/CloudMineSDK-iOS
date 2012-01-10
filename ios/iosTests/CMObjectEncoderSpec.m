@@ -38,16 +38,19 @@ describe(@"CMObjectEncoder", ^{
         [[[theOnlyObject objectForKey:@"simpleInt"] should] equal:theValue(42)];
         [[theOnlyObject objectForKey:@"arrayOfBooleans"] shouldNotBeNil];
         [[[[theOnlyObject objectForKey:@"arrayOfBooleans"] should] have:5] items];
-        [[theOnlyObject objectForKey:@"nestedObject"] shouldNotBeNil];
         
-        NSDictionary *nestedObject = [theOnlyObject objectForKey:@"nestedObject"];
-        [[[nestedObject objectForKey:CM_INTERNAL_OBJECTID_KEY] should] equal:object.nestedObject.objectId];
-        [[[nestedObject objectForKey:CM_INTERNAL_TYPE_STORAGE_KEY] should] equal:@"CMGenericSerializableObject"];
-        [[[nestedObject objectForKey:@"string1"] should] equal:@"Nested 1"];
-        [[[nestedObject objectForKey:@"string2"] should] equal:@"Nested 2"];
-        [[[nestedObject objectForKey:@"simpleInt"] should] equal:theValue(999)];
-        [[[nestedObject objectForKey:@"arrayOfBooleans"] should] equal:[NSNull null]];
-        [[[nestedObject objectForKey:@"nestedObject"] should] equal:[NSNull null]];
+        //TODO: Uncomment when server-side support for object relationships is done.
+        
+//        [[theOnestednlyObject objectForKey:@"nestedObject"] shouldNotBeNil];
+        
+//        NSDictionary *nestedObject = [theOnlyObject objectForKey:@"nestedObject"];
+//        [[[nestedObject objectForKey:CM_INTERNAL_OBJECTID_KEY] should] equal:object.nestedObject.objectId];
+//        [[[nestedObject objectForKey:CM_INTERNAL_TYPE_STORAGE_KEY] should] equal:@"CMGenericSerializableObject"];
+//        [[[nestedObject objectForKey:@"string1"] should] equal:@"Nested 1"];
+//        [[[nestedObject objectForKey:@"string2"] should] equal:@"Nested 2"];
+//        [[[nestedObject objectForKey:@"simpleInt"] should] equal:theValue(999)];
+//        [[[nestedObject objectForKey:@"arrayOfBooleans"] should] equal:[NSNull null]];
+//        [[[nestedObject objectForKey:@"nestedObject"] should] equal:[NSNull null]];
     });
 });
 

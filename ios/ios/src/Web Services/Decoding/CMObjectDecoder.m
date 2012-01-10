@@ -142,10 +142,19 @@
     } else if ([objv isKindOfClass:[NSDictionary class]] && [[objv objectForKey:CM_INTERNAL_TYPE_STORAGE_KEY] isEqualToString:CM_INTERNAL_HASH_CLASSNAME]) {
         return [self decodeAllInDictionary:objv];
     } else {
-        // A new decoder is needed as we are digging down further into a custom object.
-        CMObjectDecoder *subObjectDecoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:objv];
-        Class objectClass = [CMObjectDecoder typeFromDictionaryRepresentation:objv];
-        return [[objectClass alloc] initWithCoder:subObjectDecoder];
+        [[NSException exceptionWithName:@"CMInternalInconsistencyException"
+                                 reason:@"Trying to deserialize a non-dictionary object is not supported." 
+                               userInfo:nil] 
+         raise];
+        
+        return nil;
+
+        //TODO: Uncomment the lines below when server-side support for object relationships is done.
+        
+//        // A new decoder is needed as we are digging down further into a custom object.
+//        CMObjectDecoder *subObjectDecoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:objv];
+//        Class objectClass = [CMObjectDecoder typeFromDictionaryRepresentation:objv];
+//        return [[objectClass alloc] initWithCoder:subObjectDecoder];
     }
 }
 
