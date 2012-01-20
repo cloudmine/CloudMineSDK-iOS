@@ -9,6 +9,7 @@
 #import "CMObjectDecoder.h"
 #import "CMSerializable.h"
 #import "CMObjectSerialization.h"
+#import "CMGeoPoint.h"
 
 @interface CMObjectDecoder (Private)
 + (Class)typeFromDictionaryRepresentation:(NSDictionary *)representation;
@@ -139,15 +140,21 @@
         return objv;
     } else if ([objv isKindOfClass:[NSArray class]]) {
         return [self decodeAllInList:objv];
-    } else if ([objv isKindOfClass:[NSDictionary class]] && [[objv objectForKey:CM_INTERNAL_TYPE_STORAGE_KEY] isEqualToString:CM_INTERNAL_HASH_CLASSNAME]) {
-        return [self decodeAllInDictionary:objv];
-    } else {
-        [[NSException exceptionWithName:@"CMInternalInconsistencyException"
-                                 reason:@"Trying to deserialize a non-dictionary object is not supported." 
-                               userInfo:nil] 
-         raise];
-        
-        return nil;
+    } else if ([objv isKindOfClass:[NSDictionary class]]) {
+        if ([[objv objectForKey:CM_INTERNAL_TYPE_STORAGE_KEY] isEqualToString:CM_INTERNAL_HASH_CLASSNAME]) {
+            return [self decodeAllInDictionary:objv];
+        } else if ([[objv objectForKey:CM_INTERNAL_TYPE_STORAGE_KEY] isEqualToString:CMGeoPointClassName]) {
+            CMObjectDecoder *subObjectDecoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:objv];
+            return [[CMGeoPoint alloc] initWithCoder:subObjectDecoder];
+        }
+    }
+    
+    [[NSException exceptionWithName:@"CMInternalInconsistencyException"
+                             reason:@"Trying to deserialize a non-dictionary object is not supported." 
+                           userInfo:nil] 
+     raise];
+    
+    return nil;
 
         //TODO: Uncomment the lines below when server-side support for object relationships is done.
         
@@ -155,7 +162,6 @@
 //        CMObjectDecoder *subObjectDecoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:objv];
 //        Class objectClass = [CMObjectDecoder typeFromDictionaryRepresentation:objv];
 //        return [[objectClass alloc] initWithCoder:subObjectDecoder];
-    }
 }
 
 #pragma mark - Required methods (metadata and base serialization methods)

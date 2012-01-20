@@ -17,14 +17,7 @@
  *
  * This will also take care of generating a default <tt>objectId</tt> for you, in the form of a UUID.
  */
-@interface CMObject : NSObject <CMSerializable> {
-    /**
-     * A default objectId for you to use. Access this through the
-     * <tt>objectId</tt> property defined in <tt>CMSerializable</tt>.
-     * @see CMSerializable
-     */
-    NSString *_objectId;
-}
+@interface CMObject : NSObject <CMSerializable>
 
 /**
  * Initializes this object by generating a UUID as the default value for <tt>objectId</tt>.

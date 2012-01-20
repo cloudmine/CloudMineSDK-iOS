@@ -15,7 +15,7 @@
 @property (nonatomic, strong) NSString *string2;
 @property (nonatomic, assign) int simpleInt;
 @property (nonatomic, strong) NSArray *arrayOfBooleans;
-@property (nonatomic, strong) CMGenericSerializableObject *nestedObject;
+@property (nonatomic, strong) id<CMSerializable> nestedObject;
 
 - (void)fillPropertiesWithDefaults;
 

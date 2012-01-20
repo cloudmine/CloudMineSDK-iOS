@@ -64,6 +64,12 @@
 		7A308A4C14799471008ADD3C /* libKiwi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A308A4B14799471008ADD3C /* libKiwi.a */; };
 		7A6B800D14871BCA00D8B211 /* CMObjectDecoderSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6B800C14871BCA00D8B211 /* CMObjectDecoderSpec.m */; };
 		7A6B801114871E3700D8B211 /* CMGenericSerializableObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6B801014871E3700D8B211 /* CMGenericSerializableObject.m */; };
+		7A7E31C014C4D0920091F1E3 /* CMGeoPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A7E31BE14C4D0920091F1E3 /* CMGeoPoint.h */; };
+		7A7E31C114C4D0920091F1E3 /* CMGeoPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A7E31BF14C4D0920091F1E3 /* CMGeoPoint.m */; };
+		7A7E31C414C603780091F1E3 /* CMGeoPointTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A7E31C314C603780091F1E3 /* CMGeoPointTest.m */; };
+		7A7E31C814C88F8A0091F1E3 /* CMStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A7E31C614C88F8A0091F1E3 /* CMStore.h */; };
+		7A7E31C914C88F8A0091F1E3 /* CMStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A7E31C714C88F8A0091F1E3 /* CMStore.m */; };
+		7A7E31CB14C88F980091F1E3 /* CMStoreSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A7E31CA14C88F970091F1E3 /* CMStoreSpec.m */; };
 		7A7EDBDA148EBE3800AB5B69 /* CMObjectSerialization.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A7EDBD9148EBE3800AB5B69 /* CMObjectSerialization.h */; };
 		7A87315214BB0AD0000D6DEA /* CMObject.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AD36F77146C643E00DD4734 /* CMObject.h */; };
 		7A87315314BB0AD0000D6DEA /* NSString+UUID.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AABA2E61480598300FD52A0 /* NSString+UUID.h */; };
@@ -179,6 +185,12 @@
 		7A6B800C14871BCA00D8B211 /* CMObjectDecoderSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectDecoderSpec.m; sourceTree = "<group>"; };
 		7A6B800F14871E3700D8B211 /* CMGenericSerializableObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMGenericSerializableObject.h; sourceTree = "<group>"; };
 		7A6B801014871E3700D8B211 /* CMGenericSerializableObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMGenericSerializableObject.m; sourceTree = "<group>"; };
+		7A7E31BE14C4D0920091F1E3 /* CMGeoPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMGeoPoint.h; sourceTree = "<group>"; };
+		7A7E31BF14C4D0920091F1E3 /* CMGeoPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMGeoPoint.m; sourceTree = "<group>"; };
+		7A7E31C314C603780091F1E3 /* CMGeoPointTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMGeoPointTest.m; sourceTree = "<group>"; };
+		7A7E31C614C88F8A0091F1E3 /* CMStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMStore.h; sourceTree = "<group>"; };
+		7A7E31C714C88F8A0091F1E3 /* CMStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMStore.m; sourceTree = "<group>"; };
+		7A7E31CA14C88F970091F1E3 /* CMStoreSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMStoreSpec.m; sourceTree = "<group>"; };
 		7A7EDBD9148EBE3800AB5B69 /* CMObjectSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMObjectSerialization.h; sourceTree = "<group>"; };
 		7A87316414BB309F000D6DEA /* NSMutableData+RandomData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableData+RandomData.h"; sourceTree = "<group>"; };
 		7A87316514BB309F000D6DEA /* NSMutableData+RandomData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableData+RandomData.m"; sourceTree = "<group>"; };
@@ -319,6 +331,15 @@
 			path = Support;
 			sourceTree = "<group>";
 		};
+		7A7E31C514C88F760091F1E3 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				7A7E31C614C88F8A0091F1E3 /* CMStore.h */,
+				7A7E31C714C88F8A0091F1E3 /* CMStore.m */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
 		7AABA2FA14818DCA00FD52A0 /* Decoding */ = {
 			isa = PBXGroup;
 			children = (
@@ -401,6 +422,8 @@
 				7A04E86E147D90F5006E00AB /* CMServerFunctionSpec.m */,
 				7AABA2E41480549A00FD52A0 /* CMObjectEncoderSpec.m */,
 				7A6B800C14871BCA00D8B211 /* CMObjectDecoderSpec.m */,
+				7A7E31C314C603780091F1E3 /* CMGeoPointTest.m */,
+				7A7E31CA14C88F970091F1E3 /* CMStoreSpec.m */,
 				7A0DB1B8147B0153007F482C /* Support */,
 				7AB4AB79145DC5D8006AEF67 /* Supporting Files */,
 			);
@@ -430,8 +453,11 @@
 			children = (
 				7AD36F77146C643E00DD4734 /* CMObject.h */,
 				7AD36F78146C643E00DD4734 /* CMObject.m */,
+				7A7E31BE14C4D0920091F1E3 /* CMGeoPoint.h */,
+				7A7E31BF14C4D0920091F1E3 /* CMGeoPoint.m */,
 				7AD36F8A146CB69000DD4734 /* Extensions */,
 				7AD36F7B146C64F300DD4734 /* Web Services */,
+				7A7E31C514C88F760091F1E3 /* Storage */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -498,6 +524,8 @@
 				7AABA30214818DCA00FD52A0 /* CMObjectEncoder.h in Headers */,
 				7AABA30614818E2A00FD52A0 /* CMJSONEncoder.h in Headers */,
 				7A7EDBDA148EBE3800AB5B69 /* CMObjectSerialization.h in Headers */,
+				7A7E31C014C4D0920091F1E3 /* CMGeoPoint.h in Headers */,
+				7A7E31C814C88F8A0091F1E3 /* CMStore.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -647,6 +675,8 @@
 				7AABA30114818DCA00FD52A0 /* CMObjectDecoder.m in Sources */,
 				7AABA30314818DCA00FD52A0 /* CMObjectEncoder.m in Sources */,
 				7AABA30714818E2A00FD52A0 /* CMJSONEncoder.m in Sources */,
+				7A7E31C114C4D0920091F1E3 /* CMGeoPoint.m in Sources */,
+				7A7E31C914C88F8A0091F1E3 /* CMStore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -661,6 +691,8 @@
 				7A6B800D14871BCA00D8B211 /* CMObjectDecoderSpec.m in Sources */,
 				7A6B801114871E3700D8B211 /* CMGenericSerializableObject.m in Sources */,
 				7A87316614BB309F000D6DEA /* NSMutableData+RandomData.m in Sources */,
+				7A7E31C414C603780091F1E3 /* CMGeoPointTest.m in Sources */,
+				7A7E31CB14C88F980091F1E3 /* CMStoreSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -846,6 +878,7 @@
 				7A87314E14BB09E3000D6DEA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7AB4AB59145DC5D8006AEF67 /* Build configuration list for PBXProject "cloudmine-ios" */ = {
 			isa = XCConfigurationList;

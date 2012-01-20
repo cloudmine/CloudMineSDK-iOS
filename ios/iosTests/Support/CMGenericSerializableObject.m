@@ -49,7 +49,8 @@
     [aCoder encodeObject:self.arrayOfBooleans forKey:@"arrayOfBooleans"];
     
     //TODO: Uncomment when server-side support for object relationships is done.
-//    [aCoder encodeObject:self.nestedObject forKey:@"nestedObject"];
+    if (self.nestedObject)
+        [aCoder encodeObject:self.nestedObject forKey:@"nestedObject"];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {

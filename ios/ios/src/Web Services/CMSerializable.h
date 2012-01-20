@@ -14,7 +14,7 @@
  * Every object must have a form of unique identifier. Implement this
  * in the classes that implement this protocol to provide that identifier.
  */
-@property (atomic, readonly) NSString *objectId;
+@property (atomic, readonly, strong) NSString *objectId;
 
 /**
  * The name of this class. This property must be overriden and implemented
@@ -24,6 +24,6 @@
  * want to stick with the non-prefixed class name for encoding and decoding purposes so
  * everything matches up in each version of your app).
  */
-@property (atomic, readonly) NSString *className;
+@property (atomic, readonly, strong) NSString *className;
 
 @end

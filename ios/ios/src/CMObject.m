@@ -11,8 +11,7 @@
 #import "CMObjectSerialization.h"
 
 @implementation CMObject
-
-#pragma mark - Turnkey serialization methods
+@synthesize objectId;
 
 - (id)init {
     return [self initWithObjectId:[NSString stringWithUUID]];
@@ -20,14 +19,14 @@
 
 - (id)initWithObjectId:(NSString *)theObjectId {
     if (self = [super init]) {
-        _objectId = theObjectId;
+        objectId = theObjectId;
     }
     return self;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super init]) {
-        _objectId = [aDecoder decodeObjectForKey:CM_INTERNAL_OBJECTID_KEY];
+        objectId = [aDecoder decodeObjectForKey:CM_INTERNAL_OBJECTID_KEY];
     }
     return self;
 }
@@ -37,11 +36,15 @@
 }
 
 - (NSString *)objectId {
-    return _objectId;
+    return objectId;
 }
 
 - (NSString *)className {
     return NSStringFromClass([self class]);
+}
+
+- (BOOL)isEqual:(id)object {
+    return [self.objectId isEqualToString:[object objectId]];
 }
 
 @end

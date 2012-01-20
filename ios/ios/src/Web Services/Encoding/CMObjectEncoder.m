@@ -9,6 +9,7 @@
 #import "CMObjectEncoder.h"
 #import "CMSerializable.h"
 #import "CMObjectSerialization.h"
+#import "CMGeoPoint.h"
 
 @interface CMObjectEncoder (Private)
 - (NSArray *)encodeAllInList:(NSArray *)list;
@@ -121,6 +122,12 @@
         return [self encodeAllInList:[objv allObjects]];
     } else if ([objv isKindOfClass:[NSDictionary class]]) {
         return [self encodeAllInDictionary:objv];
+    } else if ([objv isKindOfClass:[CMGeoPoint class]]) {
+        CMObjectEncoder *newEncoder = [[CMObjectEncoder alloc] init];
+        [objv encodeWithCoder:newEncoder];
+        NSMutableDictionary *serializedRepresentation = [NSMutableDictionary dictionaryWithDictionary:newEncoder.encodedRepresentation];
+        [serializedRepresentation setObject:[objv className] forKey:CM_INTERNAL_TYPE_STORAGE_KEY];
+        return serializedRepresentation;
     } else {
         [[NSException exceptionWithName:@"CMInternalInconsistencyException"
                                  reason:@"You can only store simple values, dictionaries, and arrays in CMObject instance variables." 

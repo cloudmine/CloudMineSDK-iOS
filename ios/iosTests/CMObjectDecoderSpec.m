@@ -52,6 +52,13 @@ describe(@"CMObjectDecoder", ^{
             [[obj should] equal:[originalObjects objectAtIndex:idx]];
         }];
     });
+    
+    it(@"should NOT be able to deserialize a dictionary when it's at the top-level", ^{
+        NSDictionary *dictionary = [@"{ \"1234\": { \"__id__\": \"1234\", \"__type__\": \"map\", \"name\": \"foo\" } }" yajl_JSON];
+        [[theBlock(^{
+            [CMObjectDecoder decodeObjects:dictionary];
+        }) should] raiseWithName:@"CMInternalInconsistencyException"];
+    });
 });
 
 SPEC_END
