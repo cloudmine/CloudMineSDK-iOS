@@ -262,7 +262,9 @@ static __strong NSSet *_validHTTPVerbs = nil;
                 errors = [NSDictionary dictionary];
             }
         }
-        successHandler(successes, errors);
+        if (successHandler != nil) {
+            successHandler(successes, errors);
+        }
     }];
     
     [request setFailedBlock:^{
@@ -280,11 +282,15 @@ static __strong NSSet *_validHTTPVerbs = nil;
     __unsafe_unretained ASIHTTPRequest *blockRequest = request; // Stop the retain cycle.
     
     [request setCompletionBlock:^{
-        successHandler(blockRequest.responseData);
+        if (successHandler != nil) {
+            successHandler(blockRequest.responseData);
+        }
     }];
     
     [request setFailedBlock:^{
-        errorHandler(blockRequest.error);
+        if (errorHandler != nil) {
+            errorHandler(blockRequest.error);
+        }
     }];
     
     [self.networkQueue addOperation:request];
@@ -298,11 +304,15 @@ static __strong NSSet *_validHTTPVerbs = nil;
     __unsafe_unretained ASIHTTPRequest *blockRequest = request; // Stop the retain cycle.
     
     [request setCompletionBlock:^{
-        successHandler(blockRequest.responseStatusCode == 201 ? CMFileCreated : CMFileUpdated);
+        if (successHandler != nil) {
+            successHandler(blockRequest.responseStatusCode == 201 ? CMFileCreated : CMFileUpdated);
+        }
     }];
     
     [request setFailedBlock:^{
-        errorHandler(blockRequest.error);
+        if (errorHandler != nil) {
+            errorHandler(blockRequest.error);
+        }
     }];
     
     [self.networkQueue addOperation:request];
