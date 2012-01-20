@@ -147,7 +147,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
      withUserCredentials:(CMUserCredentials *)credentials
           successHandler:(void (^)(CMFileUploadResult result))successHandler 
             errorHandler:(void (^)(NSError *error))errorHandler {
-    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST" 
+    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"PUT" 
                                                              URL:[self constructBinaryUrlAtUserLevel:(credentials != nil)
                                                                                              withKey:key]
                                                           apiKey:_apiKey
@@ -179,7 +179,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
      withUserCredentials:(CMUserCredentials *)credentials
           successHandler:(void (^)(CMFileUploadResult result))successHandler 
             errorHandler:(void (^)(NSError *error))errorHandler {
-    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST" 
+    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"PUT" 
                                                              URL:[self constructBinaryUrlAtUserLevel:(credentials != nil)
                                                                                              withKey:key]
                                                           apiKey:_apiKey
@@ -333,6 +333,8 @@ static __strong NSSet *_validHTTPVerbs = nil;
     if (userCredentials) {
         request.username = userCredentials.userId;
         request.password = userCredentials.password;
+        request.shouldPresentCredentialsBeforeChallenge = YES;
+        request.authenticationScheme = (NSString *)kCFHTTPAuthenticationSchemeBasic;
     }
     [request addRequestHeader:@"X-CloudMine-ApiKey" value:apiKey];
     
