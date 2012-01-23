@@ -112,18 +112,6 @@
 		7AD36F89146CAE0700DD4734 /* CMUserCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD36F87146CAE0700DD4734 /* CMUserCredentials.m */; };
 		7AD36F8D146CB6A600DD4734 /* NSURL+QueryParameterAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD36F8B146CB6A600DD4734 /* NSURL+QueryParameterAdditions.h */; };
 		7AD36F8E146CB6A600DD4734 /* NSURL+QueryParameterAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD36F8C146CB6A600DD4734 /* NSURL+QueryParameterAdditions.m */; };
-		7AD921F114C9E32C0032DDDE /* MABaseFuture.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD921E514C9E32C0032DDDE /* MABaseFuture.h */; };
-		7AD921F214C9E32C0032DDDE /* MABaseFuture.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD921E614C9E32C0032DDDE /* MABaseFuture.m */; };
-		7AD921F314C9E32C0032DDDE /* MACompoundFuture.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD921E714C9E32C0032DDDE /* MACompoundFuture.h */; };
-		7AD921F414C9E32C0032DDDE /* MACompoundFuture.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD921E814C9E32C0032DDDE /* MACompoundFuture.m */; };
-		7AD921F514C9E32C0032DDDE /* MAFuture.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD921E914C9E32C0032DDDE /* MAFuture.h */; };
-		7AD921F614C9E32C0032DDDE /* MAFuture.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD921EA14C9E32C0032DDDE /* MAFuture.m */; };
-		7AD921F714C9E32C0032DDDE /* MAFutureInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD921EB14C9E32C0032DDDE /* MAFutureInternal.h */; };
-		7AD921F814C9E32C0032DDDE /* MAMethodSignatureCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD921EC14C9E32C0032DDDE /* MAMethodSignatureCache.h */; };
-		7AD921F914C9E32C0032DDDE /* MAMethodSignatureCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD921ED14C9E32C0032DDDE /* MAMethodSignatureCache.m */; };
-		7AD921FA14C9E32C0032DDDE /* MAProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD921EE14C9E32C0032DDDE /* MAProxy.h */; };
-		7AD921FB14C9E32C0032DDDE /* MAProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD921EF14C9E32C0032DDDE /* MAProxy.m */; };
-		7AD921FC14C9E32C0032DDDE /* tester.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD921F014C9E32C0032DDDE /* tester.m */; };
 		7AF6685514719FC900E2A06D /* YAJLiOS in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AF6685414719FC800E2A06D /* YAJLiOS */; };
 /* End PBXBuildFile section */
 
@@ -242,20 +230,6 @@
 		7AD36F87146CAE0700DD4734 /* CMUserCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUserCredentials.m; sourceTree = "<group>"; };
 		7AD36F8B146CB6A600DD4734 /* NSURL+QueryParameterAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+QueryParameterAdditions.h"; sourceTree = "<group>"; };
 		7AD36F8C146CB6A600DD4734 /* NSURL+QueryParameterAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+QueryParameterAdditions.m"; sourceTree = "<group>"; };
-		7AD921E314C9E32C0032DDDE /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		7AD921E414C9E32C0032DDDE /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		7AD921E514C9E32C0032DDDE /* MABaseFuture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MABaseFuture.h; sourceTree = "<group>"; };
-		7AD921E614C9E32C0032DDDE /* MABaseFuture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MABaseFuture.m; sourceTree = "<group>"; };
-		7AD921E714C9E32C0032DDDE /* MACompoundFuture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MACompoundFuture.h; sourceTree = "<group>"; };
-		7AD921E814C9E32C0032DDDE /* MACompoundFuture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MACompoundFuture.m; sourceTree = "<group>"; };
-		7AD921E914C9E32C0032DDDE /* MAFuture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAFuture.h; sourceTree = "<group>"; };
-		7AD921EA14C9E32C0032DDDE /* MAFuture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MAFuture.m; sourceTree = "<group>"; };
-		7AD921EB14C9E32C0032DDDE /* MAFutureInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAFutureInternal.h; sourceTree = "<group>"; };
-		7AD921EC14C9E32C0032DDDE /* MAMethodSignatureCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAMethodSignatureCache.h; sourceTree = "<group>"; };
-		7AD921ED14C9E32C0032DDDE /* MAMethodSignatureCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MAMethodSignatureCache.m; sourceTree = "<group>"; };
-		7AD921EE14C9E32C0032DDDE /* MAProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAProxy.h; sourceTree = "<group>"; };
-		7AD921EF14C9E32C0032DDDE /* MAProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MAProxy.m; sourceTree = "<group>"; };
-		7AD921F014C9E32C0032DDDE /* tester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = tester.m; sourceTree = "<group>"; };
 		7AF6685414719FC800E2A06D /* YAJLiOS */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = YAJLiOS; path = ios/Vendor/YAJL/YAJLiOS.framework/Versions/A/YAJLiOS; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -298,7 +272,6 @@
 		7A04139F146C5B3A00EF537A /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				7AD921E214C9E32C0032DDDE /* MAFuture */,
 				7AD36F72146C623B00DD4734 /* YAJL */,
 				7A0413A0146C5B3A00EF537A /* ASIHTTPRequest */,
 			);
@@ -525,27 +498,6 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		7AD921E214C9E32C0032DDDE /* MAFuture */ = {
-			isa = PBXGroup;
-			children = (
-				7AD921E314C9E32C0032DDDE /* .gitignore */,
-				7AD921E414C9E32C0032DDDE /* LICENSE */,
-				7AD921E514C9E32C0032DDDE /* MABaseFuture.h */,
-				7AD921E614C9E32C0032DDDE /* MABaseFuture.m */,
-				7AD921E714C9E32C0032DDDE /* MACompoundFuture.h */,
-				7AD921E814C9E32C0032DDDE /* MACompoundFuture.m */,
-				7AD921E914C9E32C0032DDDE /* MAFuture.h */,
-				7AD921EA14C9E32C0032DDDE /* MAFuture.m */,
-				7AD921EB14C9E32C0032DDDE /* MAFutureInternal.h */,
-				7AD921EC14C9E32C0032DDDE /* MAMethodSignatureCache.h */,
-				7AD921ED14C9E32C0032DDDE /* MAMethodSignatureCache.m */,
-				7AD921EE14C9E32C0032DDDE /* MAProxy.h */,
-				7AD921EF14C9E32C0032DDDE /* MAProxy.m */,
-				7AD921F014C9E32C0032DDDE /* tester.m */,
-			);
-			path = MAFuture;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -580,12 +532,6 @@
 				7A7EDBDA148EBE3800AB5B69 /* CMObjectSerialization.h in Headers */,
 				7A7E31C014C4D0920091F1E3 /* CMGeoPoint.h in Headers */,
 				7A7E31C814C88F8A0091F1E3 /* CMStore.h in Headers */,
-				7AD921F114C9E32C0032DDDE /* MABaseFuture.h in Headers */,
-				7AD921F314C9E32C0032DDDE /* MACompoundFuture.h in Headers */,
-				7AD921F514C9E32C0032DDDE /* MAFuture.h in Headers */,
-				7AD921F714C9E32C0032DDDE /* MAFutureInternal.h in Headers */,
-				7AD921F814C9E32C0032DDDE /* MAMethodSignatureCache.h in Headers */,
-				7AD921FA14C9E32C0032DDDE /* MAProxy.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -737,12 +683,6 @@
 				7AABA30714818E2A00FD52A0 /* CMJSONEncoder.m in Sources */,
 				7A7E31C114C4D0920091F1E3 /* CMGeoPoint.m in Sources */,
 				7A7E31C914C88F8A0091F1E3 /* CMStore.m in Sources */,
-				7AD921F214C9E32C0032DDDE /* MABaseFuture.m in Sources */,
-				7AD921F414C9E32C0032DDDE /* MACompoundFuture.m in Sources */,
-				7AD921F614C9E32C0032DDDE /* MAFuture.m in Sources */,
-				7AD921F914C9E32C0032DDDE /* MAMethodSignatureCache.m in Sources */,
-				7AD921FB14C9E32C0032DDDE /* MAProxy.m in Sources */,
-				7AD921FC14C9E32C0032DDDE /* tester.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -875,7 +815,6 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ios/cloudmine-ios-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = "";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/ios/Vendor/YAJL/YAJLiOS.framework/Versions/A\"",
