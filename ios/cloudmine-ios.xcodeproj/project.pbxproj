@@ -112,6 +112,9 @@
 		7AD36F89146CAE0700DD4734 /* CMUserCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD36F87146CAE0700DD4734 /* CMUserCredentials.m */; };
 		7AD36F8D146CB6A600DD4734 /* NSURL+QueryParameterAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD36F8B146CB6A600DD4734 /* NSURL+QueryParameterAdditions.h */; };
 		7AD36F8E146CB6A600DD4734 /* NSURL+QueryParameterAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD36F8C146CB6A600DD4734 /* NSURL+QueryParameterAdditions.m */; };
+		7AD9221C14CF47360032DDDE /* CMPagingDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD9221A14CF47350032DDDE /* CMPagingDescriptor.h */; };
+		7AD9221D14CF47360032DDDE /* CMPagingDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD9221B14CF47350032DDDE /* CMPagingDescriptor.m */; };
+		7AD9222014CF5B9B0032DDDE /* CMPagingDescriptorSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD9221F14CF5B9B0032DDDE /* CMPagingDescriptorSpec.m */; };
 		7AF6685514719FC900E2A06D /* YAJLiOS in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AF6685414719FC800E2A06D /* YAJLiOS */; };
 /* End PBXBuildFile section */
 
@@ -230,6 +233,9 @@
 		7AD36F87146CAE0700DD4734 /* CMUserCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUserCredentials.m; sourceTree = "<group>"; };
 		7AD36F8B146CB6A600DD4734 /* NSURL+QueryParameterAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+QueryParameterAdditions.h"; sourceTree = "<group>"; };
 		7AD36F8C146CB6A600DD4734 /* NSURL+QueryParameterAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+QueryParameterAdditions.m"; sourceTree = "<group>"; };
+		7AD9221A14CF47350032DDDE /* CMPagingDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPagingDescriptor.h; sourceTree = "<group>"; };
+		7AD9221B14CF47350032DDDE /* CMPagingDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPagingDescriptor.m; sourceTree = "<group>"; };
+		7AD9221F14CF5B9B0032DDDE /* CMPagingDescriptorSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPagingDescriptorSpec.m; sourceTree = "<group>"; };
 		7AF6685414719FC800E2A06D /* YAJLiOS */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = YAJLiOS; path = ios/Vendor/YAJL/YAJLiOS.framework/Versions/A/YAJLiOS; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -430,6 +436,7 @@
 				7A6B800C14871BCA00D8B211 /* CMObjectDecoderSpec.m */,
 				7A7E31C314C603780091F1E3 /* CMGeoPointTest.m */,
 				7A7E31CA14C88F970091F1E3 /* CMStoreSpec.m */,
+				7AD9221F14CF5B9B0032DDDE /* CMPagingDescriptorSpec.m */,
 				7A0DB1B8147B0153007F482C /* Support */,
 				7AB4AB79145DC5D8006AEF67 /* Supporting Files */,
 			);
@@ -483,6 +490,8 @@
 				7A04E86A147D8435006E00AB /* CMServerFunction.m */,
 				7AABA2E21480513500FD52A0 /* CMSerializable.h */,
 				7A7EDBD9148EBE3800AB5B69 /* CMObjectSerialization.h */,
+				7AD9221A14CF47350032DDDE /* CMPagingDescriptor.h */,
+				7AD9221B14CF47350032DDDE /* CMPagingDescriptor.m */,
 			);
 			path = "Web Services";
 			sourceTree = "<group>";
@@ -532,6 +541,7 @@
 				7A7EDBDA148EBE3800AB5B69 /* CMObjectSerialization.h in Headers */,
 				7A7E31C014C4D0920091F1E3 /* CMGeoPoint.h in Headers */,
 				7A7E31C814C88F8A0091F1E3 /* CMStore.h in Headers */,
+				7AD9221C14CF47360032DDDE /* CMPagingDescriptor.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -683,6 +693,7 @@
 				7AABA30714818E2A00FD52A0 /* CMJSONEncoder.m in Sources */,
 				7A7E31C114C4D0920091F1E3 /* CMGeoPoint.m in Sources */,
 				7A7E31C914C88F8A0091F1E3 /* CMStore.m in Sources */,
+				7AD9221D14CF47360032DDDE /* CMPagingDescriptor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -699,6 +710,7 @@
 				7A87316614BB309F000D6DEA /* NSMutableData+RandomData.m in Sources */,
 				7A7E31C414C603780091F1E3 /* CMGeoPointTest.m in Sources */,
 				7A7E31CB14C88F980091F1E3 /* CMStoreSpec.m in Sources */,
+				7AD9222014CF5B9B0032DDDE /* CMPagingDescriptorSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
