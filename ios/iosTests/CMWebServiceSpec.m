@@ -282,7 +282,7 @@ describe(@"CMWebService", ^{
                 ASIHTTPRequest *request = nil;
                 [invocation getArgument:&request atIndex:2]; // only arg is the request
                 [[request.url should] equal:expectedUrl];
-                [[request.requestMethod should] equal:@"POST"];
+                [[request.requestMethod should] equal:@"PUT"];
                 [[[[request requestHeaders] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
                 [[[[request requestHeaders] objectForKey:@"Content-Type"] should] equal:@"application/cloudmine"];
                 [[request.postBody should] equal:data];
@@ -354,7 +354,7 @@ describe(@"CMWebService", ^{
             ASIHTTPRequest *request = nil;
             [invocation getArgument:&request atIndex:2]; // only arg is the request
             [[request.url should] equal:expectedUrl];
-            [[request.requestMethod should] equal:@"POST"];
+            [[request.requestMethod should] equal:@"PUT"];
             [[[[request requestHeaders] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
             [[[[request requestHeaders] objectForKey:@"Content-Type"] should] equal:@"application/cloudmine"];
             [[request.postBody should] equal:data];
