@@ -12,6 +12,7 @@
 #import "CMWebService.h"
 #import "CMGenericSerializableObject.h"
 #import "CMAPICredentials.h"
+#import "CMBlockValidationMessageSpy.h"
 
 SPEC_BEGIN(CMStoreSpec)
 
@@ -31,7 +32,7 @@ describe(@"CMStore", ^{
     });
     
     context(@"given no query or keys", ^{
-        it(@"should return all objects when the store is accessed", ^{
+        it(@"should pass all objects to provided callback when the store is asked for all objects", ^{
             NSMutableDictionary *webServiceResponse = [[NSMutableDictionary alloc] initWithCapacity:10];
             NSMutableArray *allObjectsInResponse = [[NSMutableArray alloc] initWithCapacity:10];
             for(int i=0; i<10; i++) {
@@ -40,17 +41,22 @@ describe(@"CMStore", ^{
                 [webServiceResponse setObject:obj forKey:obj.objectId];
                 [allObjectsInResponse addObject:obj];
             }
-            [[webService should] receive:@selector(getValuesForKeys:serverSideFunction:successHandler:errorHandler:) andReturn:webServiceResponse withCount:1];
             
-            NSSet *objects = [store allObjects];
-            [[[objects should] have:10] items];
-            for (CMGenericSerializableObject *theObj in objects) {
-                [[allObjectsInResponse should] contain:theObj];
-            }
+            id spy = [[CMBlockValidationMessageSpy alloc] init];
+            [spy addValidationBlock:^(NSInvocation *invocation) {
+                
+            } forSelector:@selector(getValuesForKeys:serverSideFunction:successHandler:errorHandler:)];
+            
+            [store allObjects:^(NSArray *objects) {
+                [[[objects should] have:10] items];
+                for (CMGenericSerializableObject *theObj in objects) {
+                    [[allObjectsInResponse should] contain:theObj];
+                }
+            }];
         });
         
         context(@"given permission to use the local cache", ^{
-            it(@"should not make a web call if objects exist in local cache", ^{
+            pending(@"should not make a web call if objects exist in local cache", ^{
                 
             });
         });

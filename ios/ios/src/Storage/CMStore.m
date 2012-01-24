@@ -7,6 +7,11 @@
 //
 
 #import "CMStore.h"
+#import "CMObjectDecoder.h"
+#import "CMObjectEncoder.h"
+#import "CMAPICredentials.h"
+
+#define _CMAssertAPICredentialsInitialized NSAssert([[CMAPICredentials sharedInstance] apiKey] != nil && [[[CMAPICredentials sharedInstance] apiKey] length] > 0 && [[CMAPICredentials sharedInstance] appKey] != nil && [[[CMAPICredentials sharedInstance] appKey] length] > 0, @"The CMAPICredentials singleton must be initialized before using a CloudMine Store")
 
 @implementation CMStore
 @synthesize webService;
@@ -26,18 +31,25 @@
 
 #pragma mark - Object retrieval
 
-- (NSSet *)allObjects {
-    NSMutableSet *objects = [[NSMutableSet alloc] init];
+- (void)allObjects:(CMStoreObjectCallback)callback {   
+    NSParameterAssert(callback);
+    _CMAssertAPICredentialsInitialized;
     
     [webService getValuesForKeys:nil 
               serverSideFunction:nil
                   successHandler:^(NSDictionary *results, NSDictionary *errors) {
+                      callback([CMObjectDecoder decodeObjects:results]);
                   } errorHandler:^(NSError *error) {
+                      NSLog(@"Error occurred during request: %@", [error description]);
+                      callback(nil);
                   }
      ];
-    
-    // Return a copy to avoid mutation.
-    return [NSSet setWithSet:objects];
+}
+
+- (void)allObjectsOfType:(NSString *)type callback:(CMStoreObjectCallback)callback {
+    NSParameterAssert(callback);
+    NSParameterAssert(type);
+    _CMAssertAPICredentialsInitialized;
 }
 
 @end
