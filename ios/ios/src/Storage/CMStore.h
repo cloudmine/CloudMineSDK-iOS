@@ -14,6 +14,7 @@
 #import "CMStoreOptions.h"
 #import "CMServerFunction.h"
 #import "CMPagingDescriptor.h"
+#import "CMUser.h"
 
 /**
  * Callback block signature for all operations on <tt>CMStore</tt> that fetch objects
@@ -31,10 +32,17 @@ typedef void (^CMStoreObjectCallback)(NSArray *objects);
  * All of the async methods in this class take a callback of type <tt>CMStoreObjectCallback</tt> that will
  * be called with all the object instances once they are finished downloading and inflating.
  */
-@interface CMStore : NSObject
+@interface CMStore : NSObject {
+@private
+    NSMutableSet *_cachedAppObjects;
+    NSMutableSet *_cachedUserObjects;
+}
 
 /** The <tt>CMWebService</tt> instance that backs this store */
 @property (nonatomic, strong) CMWebService *webService;
+
+/** The user to be used when accessing user-level objects. This is ignored for app-level objects. */
+@property (nonatomic, strong) CMUser *user;
 
 /**
  * Convenience method to return a newly initialized CMStore instance.
@@ -53,8 +61,12 @@ typedef void (^CMStoreObjectCallback)(NSArray *objects);
  */
 - (id)init;
 
+- (id)initWithUser:(CMUser *)theUser;
+
 - (void)allObjects:(CMStoreObjectCallback)callback additionalOptions:(CMStoreOptions *)options;
+- (void)allUserObjects:(CMStoreObjectCallback)callback additionalOptions:(CMStoreOptions *)options;
 
 - (void)allObjects:(CMStoreObjectCallback)callback ofType:(NSString *)type additionalOptions:(CMStoreOptions *)options;
+- (void)allUserObjects:(CMStoreObjectCallback)callback ofType:(NSString *)type additionalOptions:(CMStoreOptions *)options;
 
 @end
