@@ -9,7 +9,11 @@
 /** @file */
 
 #import <Foundation/Foundation.h>
+
 #import "CMWebService.h"
+#import "CMStoreOptions.h"
+#import "CMServerFunction.h"
+#import "CMPagingDescriptor.h"
 
 /**
  * Callback block signature for all operations on <tt>CMStore</tt> that fetch objects

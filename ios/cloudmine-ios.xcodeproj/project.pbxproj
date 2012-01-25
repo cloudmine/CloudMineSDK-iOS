@@ -80,7 +80,7 @@
 		7A87315514BB0AD0000D6DEA /* CMObjectEncoder.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AABA2FE14818DCA00FD52A0 /* CMObjectEncoder.h */; };
 		7A87315614BB0AD0000D6DEA /* CMJSONEncoder.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AABA30414818E2A00FD52A0 /* CMJSONEncoder.h */; };
 		7A87315714BB0AD0000D6DEA /* CMWebService.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AD36F7C146C650500DD4734 /* CMWebService.h */; };
-		7A87315814BB0AD0000D6DEA /* CMUserCredentials.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AD36F86146CAE0600DD4734 /* CMUserCredentials.h */; };
+		7A87315814BB0AD0000D6DEA /* CMUser.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AD36F86146CAE0600DD4734 /* CMUser.h */; };
 		7A87315914BB0AD0000D6DEA /* CMAPICredentials.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AD36F82146CA4AC00DD4734 /* CMAPICredentials.h */; };
 		7A87315A14BB0AD0000D6DEA /* CMServerFunction.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7A04E869147D8435006E00AB /* CMServerFunction.h */; };
 		7A87315B14BB0AD0000D6DEA /* CMSerializable.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AABA2E21480513500FD52A0 /* CMSerializable.h */; };
@@ -108,8 +108,8 @@
 		7AD36F81146C656600DD4734 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AD36F80146C656600DD4734 /* UIKit.framework */; };
 		7AD36F84146CA4AC00DD4734 /* CMAPICredentials.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD36F82146CA4AC00DD4734 /* CMAPICredentials.h */; };
 		7AD36F85146CA4AC00DD4734 /* CMAPICredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD36F83146CA4AC00DD4734 /* CMAPICredentials.m */; };
-		7AD36F88146CAE0700DD4734 /* CMUserCredentials.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD36F86146CAE0600DD4734 /* CMUserCredentials.h */; };
-		7AD36F89146CAE0700DD4734 /* CMUserCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD36F87146CAE0700DD4734 /* CMUserCredentials.m */; };
+		7AD36F88146CAE0700DD4734 /* CMUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD36F86146CAE0600DD4734 /* CMUser.h */; };
+		7AD36F89146CAE0700DD4734 /* CMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD36F87146CAE0700DD4734 /* CMUser.m */; };
 		7AD36F8D146CB6A600DD4734 /* NSURL+QueryParameterAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD36F8B146CB6A600DD4734 /* NSURL+QueryParameterAdditions.h */; };
 		7AD36F8E146CB6A600DD4734 /* NSURL+QueryParameterAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD36F8C146CB6A600DD4734 /* NSURL+QueryParameterAdditions.m */; };
 		7AD9221C14CF47360032DDDE /* CMPagingDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD9221A14CF47350032DDDE /* CMPagingDescriptor.h */; };
@@ -147,7 +147,7 @@
 				7A87315514BB0AD0000D6DEA /* CMObjectEncoder.h in CopyFiles */,
 				7A87315614BB0AD0000D6DEA /* CMJSONEncoder.h in CopyFiles */,
 				7A87315714BB0AD0000D6DEA /* CMWebService.h in CopyFiles */,
-				7A87315814BB0AD0000D6DEA /* CMUserCredentials.h in CopyFiles */,
+				7A87315814BB0AD0000D6DEA /* CMUser.h in CopyFiles */,
 				7A87315914BB0AD0000D6DEA /* CMAPICredentials.h in CopyFiles */,
 				7A87315A14BB0AD0000D6DEA /* CMServerFunction.h in CopyFiles */,
 				7A87315B14BB0AD0000D6DEA /* CMSerializable.h in CopyFiles */,
@@ -232,8 +232,8 @@
 		7AD36F80146C656600DD4734 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7AD36F82146CA4AC00DD4734 /* CMAPICredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMAPICredentials.h; sourceTree = "<group>"; };
 		7AD36F83146CA4AC00DD4734 /* CMAPICredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMAPICredentials.m; sourceTree = "<group>"; };
-		7AD36F86146CAE0600DD4734 /* CMUserCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMUserCredentials.h; sourceTree = "<group>"; };
-		7AD36F87146CAE0700DD4734 /* CMUserCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUserCredentials.m; sourceTree = "<group>"; };
+		7AD36F86146CAE0600DD4734 /* CMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMUser.h; sourceTree = "<group>"; };
+		7AD36F87146CAE0700DD4734 /* CMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUser.m; sourceTree = "<group>"; };
 		7AD36F8B146CB6A600DD4734 /* NSURL+QueryParameterAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+QueryParameterAdditions.h"; sourceTree = "<group>"; };
 		7AD36F8C146CB6A600DD4734 /* NSURL+QueryParameterAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+QueryParameterAdditions.m"; sourceTree = "<group>"; };
 		7AD9221A14CF47350032DDDE /* CMPagingDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPagingDescriptor.h; sourceTree = "<group>"; };
@@ -491,8 +491,8 @@
 				7AABA2FD14818DCA00FD52A0 /* Encoding */,
 				7AD36F7C146C650500DD4734 /* CMWebService.h */,
 				7AD36F7D146C650500DD4734 /* CMWebService.m */,
-				7AD36F86146CAE0600DD4734 /* CMUserCredentials.h */,
-				7AD36F87146CAE0700DD4734 /* CMUserCredentials.m */,
+				7AD36F86146CAE0600DD4734 /* CMUser.h */,
+				7AD36F87146CAE0700DD4734 /* CMUser.m */,
 				7AD36F82146CA4AC00DD4734 /* CMAPICredentials.h */,
 				7AD36F83146CA4AC00DD4734 /* CMAPICredentials.m */,
 				7A04E869147D8435006E00AB /* CMServerFunction.h */,
@@ -539,7 +539,7 @@
 				7AD36F79146C643E00DD4734 /* CMObject.h in Headers */,
 				7AD36F7E146C650500DD4734 /* CMWebService.h in Headers */,
 				7AD36F84146CA4AC00DD4734 /* CMAPICredentials.h in Headers */,
-				7AD36F88146CAE0700DD4734 /* CMUserCredentials.h in Headers */,
+				7AD36F88146CAE0700DD4734 /* CMUser.h in Headers */,
 				7AD36F8D146CB6A600DD4734 /* NSURL+QueryParameterAdditions.h in Headers */,
 				7A04E86B147D8435006E00AB /* CMServerFunction.h in Headers */,
 				7AABA2E31480513500FD52A0 /* CMSerializable.h in Headers */,
@@ -694,7 +694,7 @@
 				7AD36F7A146C643E00DD4734 /* CMObject.m in Sources */,
 				7AD36F7F146C650500DD4734 /* CMWebService.m in Sources */,
 				7AD36F85146CA4AC00DD4734 /* CMAPICredentials.m in Sources */,
-				7AD36F89146CAE0700DD4734 /* CMUserCredentials.m in Sources */,
+				7AD36F89146CAE0700DD4734 /* CMUser.m in Sources */,
 				7AD36F8E146CB6A600DD4734 /* NSURL+QueryParameterAdditions.m in Sources */,
 				7A04E86C147D8435006E00AB /* CMServerFunction.m in Sources */,
 				7AABA2E91480598300FD52A0 /* NSString+UUID.m in Sources */,

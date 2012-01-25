@@ -14,7 +14,7 @@
 
 #import "CMBlockValidationMessageSpy.h"
 #import "CMWebService.h"
-#import "CMUserCredentials.h"
+#import "CMUser.h"
 #import "CMServerFunction.h"
 
 SPEC_BEGIN(CMWebServiceSpec)
@@ -173,7 +173,7 @@ describe(@"CMWebService", ^{
         
         it(@"JSON URLs at the user level correctly", ^{
             NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/text", appId]];
-            CMUserCredentials *creds = [[CMUserCredentials alloc] initWithUserId:@"user" andPassword:@"pass"];
+            CMUser *creds = [[CMUser alloc] initWithUserId:@"user" andPassword:@"pass"];
             
             id spy = [[CMBlockValidationMessageSpy alloc] init];
             [spy addValidationBlock:^(NSInvocation *invocation) {
@@ -206,7 +206,7 @@ describe(@"CMWebService", ^{
         it(@"binary data URLs at the user level correctly", ^{
             NSString *binaryKey = @"filename";
             NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/binary/%@", appId, binaryKey]];
-            CMUserCredentials *creds = [[CMUserCredentials alloc] initWithUserId:@"user" andPassword:@"pass"];
+            CMUser *creds = [[CMUser alloc] initWithUserId:@"user" andPassword:@"pass"];
             
             id spy = [[CMBlockValidationMessageSpy alloc] init];
             [spy addValidationBlock:^(NSInvocation *invocation) {
@@ -236,7 +236,7 @@ describe(@"CMWebService", ^{
         
         it(@"JSON URLs at the user level with keys correctly", ^{
             NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/text?keys=k1,k2", appId]];
-            CMUserCredentials *creds = [[CMUserCredentials alloc] initWithUserId:@"user" andPassword:@"pass"];
+            CMUser *creds = [[CMUser alloc] initWithUserId:@"user" andPassword:@"pass"];
             
             id spy = [[CMBlockValidationMessageSpy alloc] init];
             [spy addValidationBlock:^(NSInvocation *invocation) {
@@ -340,7 +340,7 @@ describe(@"CMWebService", ^{
             [dataToPost setObject:@"val1" forKey:@"key1"];
             [dataToPost setObject:@"val2" forKey:@"key2"];
             [dataToPost setObject:[NSArray arrayWithObjects:@"arrVal1", @"arrVal2", nil] forKey:@"arrKey1"];
-            CMUserCredentials *creds = [[CMUserCredentials alloc] initWithUserId:@"user" andPassword:@"pass"];
+            CMUser *creds = [[CMUser alloc] initWithUserId:@"user" andPassword:@"pass"];
             
             id spy = [[CMBlockValidationMessageSpy alloc] init];
             [spy addValidationBlock:^(NSInvocation *invocation) {
@@ -375,7 +375,7 @@ describe(@"CMWebService", ^{
     it(@"binary data URLs at the user level correctly", ^{
         NSString *binaryKey = @"filename";
         NSData *data = [NSMutableData randomDataWithLength:100];
-        CMUserCredentials *creds = [[CMUserCredentials alloc] initWithUserId:@"user" andPassword:@"pass"];
+        CMUser *creds = [[CMUser alloc] initWithUserId:@"user" andPassword:@"pass"];
         NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/binary/%@", appId, binaryKey]];
         
         id spy = [[CMBlockValidationMessageSpy alloc] init];
@@ -449,7 +449,7 @@ describe(@"CMWebService", ^{
             [dataToPost setObject:@"val1" forKey:@"key1"];
             [dataToPost setObject:@"val2" forKey:@"key2"];
             [dataToPost setObject:[NSArray arrayWithObjects:@"arrVal1", @"arrVal2", nil] forKey:@"arrKey1"];
-            CMUserCredentials *creds = [[CMUserCredentials alloc] initWithUserId:@"user" andPassword:@"pass"];
+            CMUser *creds = [[CMUser alloc] initWithUserId:@"user" andPassword:@"pass"];
             
             id spy = [[CMBlockValidationMessageSpy alloc] init];
             [spy addValidationBlock:^(NSInvocation *invocation) {
@@ -538,7 +538,7 @@ describe(@"CMWebService", ^{
         
         it(@"JSON URLs at the user level correctly", ^{
             NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/data", appId]];
-            CMUserCredentials *creds = [[CMUserCredentials alloc] initWithUserId:@"user" andPassword:@"pass"];
+            CMUser *creds = [[CMUser alloc] initWithUserId:@"user" andPassword:@"pass"];
             
             id spy = [[CMBlockValidationMessageSpy alloc] init];
             [spy addValidationBlock:^(NSInvocation *invocation) {
@@ -569,7 +569,7 @@ describe(@"CMWebService", ^{
         
         it(@"JSON URLs at the user level with keys correctly", ^{
             NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/data?keys=k1,k2", appId]];
-            CMUserCredentials *creds = [[CMUserCredentials alloc] initWithUserId:@"user" andPassword:@"pass"];
+            CMUser *creds = [[CMUser alloc] initWithUserId:@"user" andPassword:@"pass"];
             
             id spy = [[CMBlockValidationMessageSpy alloc] init];
             [spy addValidationBlock:^(NSInvocation *invocation) {

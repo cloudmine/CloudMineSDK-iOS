@@ -6,9 +6,9 @@
 //  See LICENSE file included with SDK for details.
 //
 
-#import "CMUserCredentials.h"
+#import "CMUser.h"
 
-@implementation CMUserCredentials
+@implementation CMUser
 @synthesize userId, password;
 
 - (id)initWithUserId:(NSString *)theUserId andPassword:(NSString *)thePassword {

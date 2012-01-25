@@ -11,7 +11,7 @@
 #import <Foundation/Foundation.h>
 
 @class ASINetworkQueue;
-@class CMUserCredentials;
+@class CMUser;
 @class CMServerFunction;
 
 /**
@@ -86,7 +86,7 @@ typedef enum {
  */
 - (void)getValuesForKeys:(NSArray *)keys  
       serverSideFunction:(CMServerFunction *)function
-     withUserCredentials:(CMUserCredentials *)credentials
+     withUserCredentials:(CMUser *)credentials
           successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
             errorHandler:(void (^)(NSError *error))errorHandler;
 
@@ -97,7 +97,7 @@ typedef enum {
 
 - (void)searchValuesFor:(NSString *)searchQuery
      serverSideFunction:(CMServerFunction *)function
-    withUserCredentials:(CMUserCredentials *)credentials
+    withUserCredentials:(CMUser *)credentials
          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
            errorHandler:(void (^)(NSError *error))errorHandler;
 
@@ -123,7 +123,7 @@ typedef enum {
  * @param errorHandler The block to be called if the request failed.
  */
 - (void)getBinaryDataNamed:(NSString *)key
-       withUserCredentials:(CMUserCredentials *)credentials
+       withUserCredentials:(CMUser *)credentials
             successHandler:(void (^)(NSData *data))successHandler 
               errorHandler:(void (^)(NSError *error))errorHandler;
 
@@ -155,7 +155,7 @@ typedef enum {
  */
 - (void)updateValuesFromDictionary:(NSDictionary *)data 
                 serverSideFunction:(CMServerFunction *)function
-               withUserCredentials:(CMUserCredentials *)credentials 
+               withUserCredentials:(CMUser *)credentials 
                     successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
                       errorHandler:(void (^)(NSError *error))errorHandler;
 
@@ -191,7 +191,7 @@ typedef enum {
 - (void)uploadBinaryData:(NSData *)data
                    named:(NSString *)key
               ofMimeType:(NSString *)mimeType
-     withUserCredentials:(CMUserCredentials *)credentials
+     withUserCredentials:(CMUser *)credentials
           successHandler:(void (^)(CMFileUploadResult result))successHandler 
             errorHandler:(void (^)(NSError *error))errorHandler;
 
@@ -235,7 +235,7 @@ typedef enum {
 - (void)uploadFileAtPath:(NSString *)path
                    named:(NSString *)key
               ofMimeType:(NSString *)mimeType
-     withUserCredentials:(CMUserCredentials *)credentials
+     withUserCredentials:(CMUser *)credentials
           successHandler:(void (^)(CMFileUploadResult result))successHandler 
             errorHandler:(void (^)(NSError *error))errorHandler;
 
@@ -275,7 +275,7 @@ typedef enum {
  */
 - (void)setValuesFromDictionary:(NSDictionary *)data  
              serverSideFunction:(CMServerFunction *)function
-            withUserCredentials:(CMUserCredentials *)credentials 
+            withUserCredentials:(CMUser *)credentials 
                  successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
                    errorHandler:(void (^)(NSError *error))errorHandler;
 
@@ -307,7 +307,7 @@ typedef enum {
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
  */
 - (void)deleteValuesForKeys:(NSArray *)keys 
-        withUserCredentials:(CMUserCredentials *)credentials 
+        withUserCredentials:(CMUser *)credentials 
              successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
                errorHandler:(void (^)(NSError *error))errorHandler;
 

@@ -11,7 +11,7 @@
 
 #import "CMWebService.h"
 #import "CMAPICredentials.h"
-#import "CMUserCredentials.h"
+#import "CMUser.h"
 #import "CMServerFunction.h"
 #import "NSURL+QueryParameterAdditions.h"
 
@@ -21,7 +21,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
 - (NSURL *)constructTextUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys query:(NSString *)searchString withServerSideFunction:(CMServerFunction *)function;
 - (NSURL *)constructBinaryUrlAtUserLevel:(BOOL)atUserLevel withKey:(NSString *)key;
 - (NSURL *)constructDataUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys withServerSideFunction:(CMServerFunction *)function;
-- (ASIHTTPRequest *)constructHTTPRequestWithVerb:(NSString *)verb URL:(NSURL *)url apiKey:(NSString *)apiKey binaryData:(BOOL)isForBinaryData userCredentials:(CMUserCredentials *)userCredentials;
+- (ASIHTTPRequest *)constructHTTPRequestWithVerb:(NSString *)verb URL:(NSURL *)url apiKey:(NSString *)apiKey binaryData:(BOOL)isForBinaryData userCredentials:(CMUser *)userCredentials;
 - (void)executeRequest:(ASIHTTPRequest *)request successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler errorHandler:(void (^)(NSError *error))errorHandler;
 - (void)executeBinaryDataFetchRequest:(ASIHTTPRequest *)request successHandler:(void (^)(NSData *data))successHandler  errorHandler:(void (^)(NSError *error))errorHandler;
 - (void)executeBinaryDataUploadRequest:(ASIHTTPRequest *)request successHandler:(void (^)(CMFileUploadResult result))successHandler errorHandler:(void (^)(NSError *error))errorHandler;
@@ -67,7 +67,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
 
 - (void)getValuesForKeys:(NSArray *)keys 
       serverSideFunction:(CMServerFunction *)function
-     withUserCredentials:(CMUserCredentials *)credentials
+     withUserCredentials:(CMUser *)credentials
           successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
             errorHandler:(void (^)(NSError *error))errorHandler {
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"GET" 
@@ -92,7 +92,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
 
 - (void)searchValuesFor:(NSString *)searchQuery
      serverSideFunction:(CMServerFunction *)function
-    withUserCredentials:(CMUserCredentials *)credentials
+    withUserCredentials:(CMUser *)credentials
          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
            errorHandler:(void (^)(NSError *error))errorHandler {
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"GET" 
@@ -115,7 +115,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
 }
 
 - (void)getBinaryDataNamed:(NSString *)key
-       withUserCredentials:(CMUserCredentials *)credentials
+       withUserCredentials:(CMUser *)credentials
             successHandler:(void (^)(NSData *data))successHandler 
               errorHandler:(void (^)(NSError *error))errorHandler {
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"GET" 
@@ -138,7 +138,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
 
 - (void)updateValuesFromDictionary:(NSDictionary *)data
                 serverSideFunction:(CMServerFunction *)function
-               withUserCredentials:(CMUserCredentials *)credentials 
+               withUserCredentials:(CMUser *)credentials 
                 successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler
                       errorHandler:(void (^)(NSError *error))errorHandler {
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST" 
@@ -171,7 +171,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
 - (void)uploadBinaryData:(NSData *)data
                    named:(NSString *)key
               ofMimeType:(NSString *)mimeType
-     withUserCredentials:(CMUserCredentials *)credentials
+     withUserCredentials:(CMUser *)credentials
           successHandler:(void (^)(CMFileUploadResult result))successHandler 
             errorHandler:(void (^)(NSError *error))errorHandler {
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"PUT" 
@@ -203,7 +203,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
 - (void)uploadFileAtPath:(NSString *)path
                    named:(NSString *)key
               ofMimeType:(NSString *)mimeType
-     withUserCredentials:(CMUserCredentials *)credentials
+     withUserCredentials:(CMUser *)credentials
           successHandler:(void (^)(CMFileUploadResult result))successHandler 
             errorHandler:(void (^)(NSError *error))errorHandler {
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"PUT" 
@@ -231,7 +231,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
 
 - (void)setValuesFromDictionary:(NSDictionary *)data
              serverSideFunction:(CMServerFunction *)function
-            withUserCredentials:(CMUserCredentials *)credentials 
+            withUserCredentials:(CMUser *)credentials 
                  successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler
                    errorHandler:(void (^)(NSError *error))errorHandler {
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"PUT" 
@@ -255,7 +255,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
 }
 
 - (void)deleteValuesForKeys:(NSArray *)keys
-        withUserCredentials:(CMUserCredentials *)credentials 
+        withUserCredentials:(CMUser *)credentials 
              successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler
                errorHandler:(void (^)(NSError *error))errorHandler {
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"DELETE" URL:[self constructDataUrlAtUserLevel:(credentials != nil) 
@@ -353,7 +353,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
                                              URL:(NSURL *)url
                                           apiKey:(NSString *)apiKey
                                       binaryData:(BOOL)isForBinaryData
-                                 userCredentials:(CMUserCredentials *)userCredentials {
+                                 userCredentials:(CMUser *)userCredentials {
     NSAssert([_validHTTPVerbs containsObject:verb], @"You must pass in a valid HTTP verb. Possible choices are: GET, POST, PUT, and DELETE");
     
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
