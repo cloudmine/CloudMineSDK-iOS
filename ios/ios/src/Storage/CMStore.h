@@ -53,8 +53,8 @@ typedef void (^CMStoreObjectCallback)(NSArray *objects);
  */
 - (id)init;
 
-- (void)allObjects:(CMStoreObjectCallback)callback;
+- (void)allObjects:(CMStoreObjectCallback)callback additionalOptions:(CMStoreOptions *)options;
 
-- (void)allObjectsOfType:(NSString *)type callback:(CMStoreObjectCallback)callback;
+- (void)allObjects:(CMStoreObjectCallback)callback ofType:(NSString *)type additionalOptions:(CMStoreOptions *)options;
 
 @end
