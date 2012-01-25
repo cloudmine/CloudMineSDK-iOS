@@ -2,8 +2,8 @@
 //  NSURL+QueryParameterAdditions.m
 //  cloudmine-ios
 //
-//  Created by Marc Weil on 11/10/11.
 //  Copyright (c) 2011 CloudMine, LLC. All rights reserved.
+//  See LICENSE file included with SDK for details.
 //
 
 #import "NSURL+QueryParameterAdditions.h"
@@ -17,12 +17,7 @@
     
     NSString *URLString = [[NSString alloc] initWithFormat:@"%@%@%@", [self absoluteString],
                            [self query] ? @"&" : @"?", queryString];
-    NSString *escapedURLString = (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, 
-                                                                         (__bridge CFStringRef)URLString, 
-                                                                         NULL, 
-                                                                         NULL, 
-                                                                         kCFStringEncodingUTF8);
-    return [NSURL URLWithString:escapedURLString];
+    return [NSURL URLWithString:[URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
 
 @end
