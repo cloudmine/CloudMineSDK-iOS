@@ -26,13 +26,13 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super init]) {
-        objectId = [aDecoder decodeObjectForKey:CM_INTERNAL_OBJECTID_KEY];
+        objectId = [aDecoder decodeObjectForKey:CMInternalObjectIdKey];
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    [aCoder encodeObject:self.objectId forKey:CM_INTERNAL_OBJECTID_KEY];
+    [aCoder encodeObject:self.objectId forKey:CMInternalObjectIdKey];
 }
 
 - (NSString *)objectId {

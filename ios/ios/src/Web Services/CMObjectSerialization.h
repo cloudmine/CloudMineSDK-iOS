@@ -14,17 +14,17 @@
  * To distinguish between dictionary representation and an actual dictionary object 
  * on the client side, this special classname is used to represent the latter.
  */
-#define CM_INTERNAL_HASH_CLASSNAME @"map"
+#define CMInternalHashClassName @"map"
 
 /**
  * The key to be used to store the class name of an object when serializing it
  * into a dictionary. This will be used on deserialization to instantiate the
  * correct type of object.
  */
-#define CM_INTERNAL_TYPE_STORAGE_KEY @"__type__"
+#define CMInternalTypeStorageKey @"__type__"
 
 /**
  * The key to be used to store the id of the object being serialized. The value of this
  * becomes the key of the object's representation in dictionary form.
  */
-#define CM_INTERNAL_OBJECTID_KEY @"__id__"
+#define CMInternalObjectIdKey @"__id__"
