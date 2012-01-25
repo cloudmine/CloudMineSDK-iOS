@@ -79,8 +79,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div id="doc-content">
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a>  </div>
+<a href="#pub-methods">Public Member Functions</a>  </div>
   <div class="headertitle">
 <div class="title">CMObject Class Reference</div>  </div>
 </div>
@@ -89,6 +88,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p><code>#import &lt;<a class="el" href="_c_m_object_8h_source.html">CMObject.h</a>&gt;</code></p>
 
 <p>Inherits <a class="el" href="protocol_c_m_serializable-p.html">&lt;CMSerializable&gt;</a>.</p>
+
+<p>Inherited by <a class="el" href="interface_c_m_geo_point.html">CMGeoPoint</a>.</p>
 
 <p><a href="class_c_m_object-members.html">List of all members.</a></p>
 <table class="memberdecls">
@@ -99,9 +100,6 @@ Public Member Functions</h2></td></tr>
 (id)&#160;</td><td class="memItemRight" valign="bottom">- <b>initWithObjectId:</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(id)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_object.html#a1f06802da6db1e7a329f74a4bf61c7a2">initWithCoder:</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_object.html#a6c13f53a999141aa655e57700595fc38">encodeWithCoder:</a></td></tr>
-<tr><td colspan="2"><h2><a name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">NSString *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_c_m_object.html#a0cecb424a669b0312db4cb4bdae8729d">_objectId</a></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Extend from this instead of <code>NSObject</code> for all model objects in your app that need to be backed by remote storage on CloudMine. Be sure to implement <code>initWithCoder:</code> and <code>encodeWithCoder:</code> in each of these model classes to define how to serialize and deserialize the object. This behavior follows the standard archiving/unarchiving conventions defined by Apple's <code>NSCoding</code> protocol.</p>
@@ -164,24 +162,6 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<hr/><h2>Member Data Documentation</h2>
-<a class="anchor" id="a0cecb424a669b0312db4cb4bdae8729d"></a><!-- doxytag: member="CMObject::_objectId" ref="a0cecb424a669b0312db4cb4bdae8729d" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (NSString*) <a class="el" href="interface_c_m_object.html#a0cecb424a669b0312db4cb4bdae8729d">_objectId</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>A default objectId for you to use. Access this through the <code>objectId</code> property defined in <code><a class="el" href="protocol_c_m_serializable-p.html">CMSerializable</a></code>. </p>
-<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="protocol_c_m_serializable-p.html">CMSerializable</a> </dd></dl>
-
-<p>Definition at line <a class="el" href="_c_m_object_8h_source.html#l00026">26</a> of file <a class="el" href="_c_m_object_8h_source.html">CMObject.h</a>.</p>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>ios/src/<a class="el" href="_c_m_object_8h_source.html">CMObject.h</a></li>
 </ul>
@@ -190,7 +170,7 @@ Protected Attributes</h2></td></tr>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="interface_c_m_object.html">CMObject</a>      </li>
-      <li class="footer">Generated on Mon Jan 9 2012 13:43:47 for CloudMine iOS SDK by&#160;
+      <li class="footer">Generated on Wed Jan 25 2012 14:46:43 for CloudMine iOS SDK by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </li>
     </ul>
@@ -200,7 +180,7 @@ Protected Attributes</h2></td></tr>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">

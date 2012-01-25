@@ -91,25 +91,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00009"></a>00009 <span class="preprocessor">#import &lt;Foundation/Foundation.h&gt;</span>
 <a name="l00010"></a>00010 <span class="preprocessor">#import &quot;CMSerializable.h&quot;</span>
 <a name="l00011"></a>00011 
-<a name="l00020"></a><a class="code" href="interface_c_m_object.html">00020</a> <span class="keyword">@interface </span><a class="code" href="interface_c_m_object.html">CMObject</a> : NSObject &lt;<a class="code" href="protocol_c_m_serializable-p.html">CMSerializable</a>&gt; {
-<a name="l00026"></a><a class="code" href="interface_c_m_object.html#a0cecb424a669b0312db4cb4bdae8729d">00026</a>     NSString *<a class="code" href="interface_c_m_object.html#a0cecb424a669b0312db4cb4bdae8729d">_objectId</a>;
-<a name="l00027"></a>00027 }
+<a name="l00020"></a><a class="code" href="interface_c_m_object.html">00020</a> <span class="keyword">@interface </span><a class="code" href="interface_c_m_object.html">CMObject</a> : NSObject &lt;<a class="code" href="protocol_c_m_serializable-p.html">CMSerializable</a>&gt;
+<a name="l00021"></a>00021 
+<a name="l00025"></a>00025 - (id)<a class="code" href="interface_c_m_object.html#a9a333abe636c2aaa411f71d1c714c945">init</a>;
+<a name="l00026"></a>00026 
+<a name="l00027"></a>00027 - (id)initWithObjectId:(NSString *)theObjectId;
 <a name="l00028"></a>00028 
-<a name="l00032"></a>00032 - (id)init;
-<a name="l00033"></a>00033 
-<a name="l00034"></a>00034 - (id)initWithObjectId:(NSString *)theObjectId;
-<a name="l00035"></a>00035 
-<a name="l00042"></a>00042 - (id)initWithCoder:(NSCoder *)aDecoder;
-<a name="l00043"></a>00043 
-<a name="l00050"></a>00050 - (void)encodeWithCoder:(NSCoder *)aCoder;
-<a name="l00051"></a>00051 
-<a name="l00052"></a>00052 <span class="keyword">@end</span>
+<a name="l00035"></a>00035 - (id)initWithCoder:(NSCoder *)aDecoder;
+<a name="l00036"></a>00036 
+<a name="l00043"></a>00043 - (void)encodeWithCoder:(NSCoder *)aCoder;
+<a name="l00044"></a>00044 
+<a name="l00045"></a>00045 <span class="keyword">@end</span>
 </pre></div></div>
 </div>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><b>CMObject.h</b>      </li>
-      <li class="footer">Generated on Mon Jan 9 2012 13:43:47 for CloudMine iOS SDK by&#160;
+      <li class="footer">Generated on Wed Jan 25 2012 14:46:43 for CloudMine iOS SDK by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </li>
     </ul>
@@ -119,7 +117,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">

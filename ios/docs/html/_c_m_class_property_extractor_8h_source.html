@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>CloudMine iOS SDK: Member List</title>
+<title>CloudMine iOS SDK: ios/src/Introspection/CMClassPropertyExtractor.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
@@ -35,8 +35,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
-      <li><a href="files.html"><span>Files</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li id="searchli">
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -57,10 +57,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
-      <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
-      <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
-      <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
+      <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 </div>
@@ -74,23 +72,35 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-  initNavTree('interface_c_m_user_credentials.html','');
+  initNavTree('_c_m_class_property_extractor_8h.html','');
 </script>
 <div id="doc-content">
 <div class="header">
   <div class="headertitle">
-<div class="title">CMUserCredentials Member List</div>  </div>
+<div class="title">ios/src/Introspection/CMClassPropertyExtractor.h</div>  </div>
 </div>
 <div class="contents">
-This is the complete list of members for <a class="el" href="interface_c_m_user_credentials.html">CMUserCredentials</a>, including all inherited members.<table>
-  <tr bgcolor="#f0f0f0"><td>-&#160;</td><td><b>initWithUserId:andPassword:</b> (defined in <a class="el" href="interface_c_m_user_credentials.html">CMUserCredentials</a>)</td><td><a class="el" href="interface_c_m_user_credentials.html">CMUserCredentials</a></td><td></td></tr>
-  <tr class="memlist"><td></td><td><a class="el" href="interface_c_m_user_credentials.html#ab306c094376bbc518e604d2e5dcb9c57">password</a></td><td><a class="el" href="interface_c_m_user_credentials.html">CMUserCredentials</a></td><td></td></tr>
-  <tr class="memlist"><td></td><td><a class="el" href="interface_c_m_user_credentials.html#a5f73304c17747c112e6a6cb97c35a3e4">userId</a></td><td><a class="el" href="interface_c_m_user_credentials.html">CMUserCredentials</a></td><td></td></tr>
-</table></div>
+<div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">//</span>
+<a name="l00002"></a>00002 <span class="comment">//  ClassPropertyExtractor.h</span>
+<a name="l00003"></a>00003 <span class="comment">//  cloudmine-ios</span>
+<a name="l00004"></a>00004 <span class="comment">//</span>
+<a name="l00005"></a>00005 <span class="comment">//  Copyright (c) 2011 CloudMine, LLC. All rights reserved.</span>
+<a name="l00006"></a>00006 <span class="comment">//  See LICENSE file included with SDK for details.</span>
+<a name="l00007"></a>00007 <span class="comment">//</span>
+<a name="l00008"></a>00008 
+<a name="l00009"></a>00009 <span class="preprocessor">#import &lt;Foundation/Foundation.h&gt;</span>
+<a name="l00010"></a>00010 
+<a name="l00011"></a><a class="code" href="interface_c_m_class_property_extractor.html">00011</a> <span class="keyword">@interface </span><a class="code" href="interface_c_m_class_property_extractor.html">CMClassPropertyExtractor</a> : NSObject
+<a name="l00012"></a>00012 
+<a name="l00013"></a>00013 + (NSSet *)propertiesForClass:(Class)klass;
+<a name="l00014"></a>00014 
+<a name="l00015"></a>00015 <span class="keyword">@end</span>
+</pre></div></div>
 </div>
   <div id="nav-path" class="navpath">
     <ul>
-      <li class="footer">Generated on Mon Jan 9 2012 13:43:47 for CloudMine iOS SDK by&#160;
+      <li class="navelem"><b>CMClassPropertyExtractor.h</b>      </li>
+      <li class="footer">Generated on Wed Jan 25 2012 14:46:43 for CloudMine iOS SDK by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </li>
     </ul>
@@ -100,7 +110,7 @@ This is the complete list of members for <a class="el" href="interface_c_m_user_
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">

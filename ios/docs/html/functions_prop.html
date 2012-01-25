@@ -67,7 +67,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="functions.html"><span>All</span></a></li>
       <li><a href="functions_func.html"><span>Functions</span></a></li>
-      <li><a href="functions_vars.html"><span>Variables</span></a></li>
       <li class="current"><a href="functions_prop.html"><span>Properties</span></a></li>
     </ul>
   </div>
@@ -109,6 +108,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>functionName
 : <a class="el" href="interface_c_m_server_function.html#a8ae6acedc3030784acd47bbdba62770b">CMServerFunction</a>
 </li>
+<li>latitude
+: <a class="el" href="interface_c_m_geo_point.html#afc402687531fa01eca8d6746b009d417">CMGeoPoint</a>
+</li>
+<li>longitude
+: <a class="el" href="interface_c_m_geo_point.html#abd36c69e324a8022ffee4f022de4a9e5">CMGeoPoint</a>
+</li>
 <li>networkQueue
 : <a class="el" href="interface_c_m_web_service.html#a07aafe0a4b2668b2b6f75cee245d1434">CMWebService</a>
 </li>
@@ -116,20 +121,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="protocol_c_m_serializable-p.html#a030e4239b227f0097e86688b5a4f4947">&lt;CMSerializable&gt;</a>
 </li>
 <li>password
-: <a class="el" href="interface_c_m_user_credentials.html#ab306c094376bbc518e604d2e5dcb9c57">CMUserCredentials</a>
+: <a class="el" href="interface_c_m_user.html#ac2491f631569e280b4114df4252bb507">CMUser</a>
 </li>
 <li>resultOnly
 : <a class="el" href="interface_c_m_server_function.html#ab1c45b7eff50653fd89fa99e7aa7cec4">CMServerFunction</a>
 </li>
 <li>userId
-: <a class="el" href="interface_c_m_user_credentials.html#a5f73304c17747c112e6a6cb97c35a3e4">CMUserCredentials</a>
+: <a class="el" href="interface_c_m_user.html#aae1ccbb80ad2e0627ea3c0154fe8b822">CMUser</a>
+</li>
+<li>webService
+: <a class="el" href="interface_c_m_store.html#a01b95df1b7cb7e92f2b671923c7c17b1">CMStore</a>
 </li>
 </ul>
 </div>
 </div>
   <div id="nav-path" class="navpath">
     <ul>
-      <li class="footer">Generated on Mon Jan 9 2012 13:43:47 for CloudMine iOS SDK by&#160;
+      <li class="footer">Generated on Wed Jan 25 2012 14:46:43 for CloudMine iOS SDK by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </li>
     </ul>
@@ -139,7 +147,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">

@@ -95,7 +95,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(id)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_server_function.html#a99bb4b0ede33f8f565c47be0e7f42d92">initWithFunctionName:extraParameters:responseContainsResultOnly:performAsynchronously:</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(id)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_server_function.html#a16ebf5447f07ff91b94c3718b2977ef6">init</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">(NSString *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_server_function.html#ade558d7f2bb324377e3fa1e1186b49ee">queryStringRepresentation</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">(NSString *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_server_function.html#aed0761fc5064797d132e4ef13c0f5d32">stringRepresentation</a></td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(id)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_c_m_server_function.html#aa2db5489d1f909314b0955c770f2c682">serverFunctionWithName:</a></td></tr>
@@ -188,24 +188,6 @@ Properties</h2></td></tr>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd><a class="el" href="interface_c_m_server_function.html">CMServerFunction</a> The newly initialized object. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="ade558d7f2bb324377e3fa1e1186b49ee"></a><!-- doxytag: member="CMServerFunction::queryStringRepresentation" ref="ade558d7f2bb324377e3fa1e1186b49ee" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (NSString *) queryStringRepresentation </td>
-          <td></td>
-          <td class="paramname"></td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>This is the query string that will be appended to the CloudMine HTTP call's URL to trigger the server-side code snippet and all its related options encapsulated in this object.</p>
-<dl class="return"><dt><b>Returns:</b></dt><dd>NSString The valid query string representation of all the options encapsulated in this object. </dd></dl>
 
 </div>
 </div>
@@ -367,6 +349,24 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="aed0761fc5064797d132e4ef13c0f5d32"></a><!-- doxytag: member="CMServerFunction::stringRepresentation" ref="aed0761fc5064797d132e4ef13c0f5d32" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (NSString *) stringRepresentation </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>This is the query string that will be appended to the CloudMine HTTP call's URL to trigger the server-side code snippet and all its related options encapsulated in this object.</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>NSString The valid query string representation of all the options encapsulated in this object. </dd></dl>
+
+</div>
+</div>
 <hr/><h2>Property Documentation</h2>
 <a class="anchor" id="a6c657b633f0582b8719635cd661a6bb9"></a><!-- doxytag: member="CMServerFunction::async" ref="a6c657b633f0582b8719635cd661a6bb9" args="" -->
 <div class="memitem">
@@ -444,7 +444,7 @@ Properties</h2></td></tr>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="interface_c_m_server_function.html">CMServerFunction</a>      </li>
-      <li class="footer">Generated on Mon Jan 9 2012 13:43:47 for CloudMine iOS SDK by&#160;
+      <li class="footer">Generated on Wed Jan 25 2012 14:46:43 for CloudMine iOS SDK by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </li>
     </ul>
@@ -454,7 +454,7 @@ Properties</h2></td></tr>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">

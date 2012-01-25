@@ -3,13 +3,18 @@ var NAVTREE =
   [ "CloudMine iOS SDK", "index.html", [
     [ "Class List", "annotated.html", [
       [ "CMAPICredentials", "interface_c_m_a_p_i_credentials.html", null ],
+      [ "CMClassPropertyExtractor", "interface_c_m_class_property_extractor.html", null ],
+      [ "CMGeoPoint", "interface_c_m_geo_point.html", null ],
       [ "CMJSONEncoder", "interface_c_m_j_s_o_n_encoder.html", null ],
       [ "CMObject", "interface_c_m_object.html", null ],
       [ "CMObjectDecoder", "interface_c_m_object_decoder.html", null ],
       [ "CMObjectEncoder", "interface_c_m_object_encoder.html", null ],
+      [ "CMPagingDescriptor", "interface_c_m_paging_descriptor.html", null ],
       [ "<CMSerializable>", "protocol_c_m_serializable-p.html", null ],
       [ "CMServerFunction", "interface_c_m_server_function.html", null ],
-      [ "CMUserCredentials", "interface_c_m_user_credentials.html", null ],
+      [ "CMStore", "interface_c_m_store.html", null ],
+      [ "CMStoreOptions", "interface_c_m_store_options.html", null ],
+      [ "CMUser", "interface_c_m_user.html", null ],
       [ "CMWebService", "interface_c_m_web_service.html", null ],
       [ "NSString(UUID)", "interface_n_s_string_07_u_u_i_d_08.html", null ],
       [ "NSURL(QueryParameterAdditions)", "interface_n_s_u_r_l_07_query_parameter_additions_08.html", null ]
@@ -17,29 +22,40 @@ var NAVTREE =
     [ "Class Index", "classes.html", null ],
     [ "Class Hierarchy", "hierarchy.html", [
       [ "CMAPICredentials", "interface_c_m_a_p_i_credentials.html", null ],
+      [ "CMClassPropertyExtractor", "interface_c_m_class_property_extractor.html", null ],
       [ "CMObjectDecoder", "interface_c_m_object_decoder.html", null ],
       [ "CMObjectEncoder", "interface_c_m_object_encoder.html", [
         [ "CMJSONEncoder", "interface_c_m_j_s_o_n_encoder.html", null ]
       ] ],
+      [ "CMPagingDescriptor", "interface_c_m_paging_descriptor.html", null ],
       [ "<CMSerializable>", "protocol_c_m_serializable-p.html", [
-        [ "CMObject", "interface_c_m_object.html", null ]
+        [ "CMObject", "interface_c_m_object.html", [
+          [ "CMGeoPoint", "interface_c_m_geo_point.html", null ]
+        ] ]
       ] ],
       [ "CMServerFunction", "interface_c_m_server_function.html", null ],
-      [ "CMUserCredentials", "interface_c_m_user_credentials.html", null ],
+      [ "CMStore", "interface_c_m_store.html", null ],
+      [ "CMStoreOptions", "interface_c_m_store_options.html", null ],
+      [ "CMUser", "interface_c_m_user.html", null ],
       [ "CMWebService", "interface_c_m_web_service.html", null ],
       [ "NSString(UUID)", "interface_n_s_string_07_u_u_i_d_08.html", null ],
       [ "NSURL(QueryParameterAdditions)", "interface_n_s_u_r_l_07_query_parameter_additions_08.html", null ]
     ] ],
     [ "Class Members", "functions.html", null ],
     [ "File List", "files.html", [
+      [ "ios/src/CMGeoPoint.h", null, null ],
       [ "ios/src/CMObject.h", null, null ],
       [ "ios/src/Extensions/NSString+UUID.h", null, null ],
       [ "ios/src/Extensions/NSURL+QueryParameterAdditions.h", null, null ],
+      [ "ios/src/Introspection/CMClassPropertyExtractor.h", null, null ],
+      [ "ios/src/Storage/CMStore.h", "_c_m_store_8h.html", null ],
+      [ "ios/src/Storage/CMStoreOptions.h", null, null ],
       [ "ios/src/Web Services/CMAPICredentials.h", null, null ],
       [ "ios/src/Web Services/CMObjectSerialization.h", null, null ],
+      [ "ios/src/Web Services/CMPagingDescriptor.h", null, null ],
       [ "ios/src/Web Services/CMSerializable.h", null, null ],
       [ "ios/src/Web Services/CMServerFunction.h", null, null ],
-      [ "ios/src/Web Services/CMUserCredentials.h", null, null ],
+      [ "ios/src/Web Services/CMUser.h", null, null ],
       [ "ios/src/Web Services/CMWebService.h", "_c_m_web_service_8h.html", null ],
       [ "ios/src/Web Services/Decoding/CMObjectDecoder.h", null, null ],
       [ "ios/src/Web Services/Encoding/CMJSONEncoder.h", null, null ],
