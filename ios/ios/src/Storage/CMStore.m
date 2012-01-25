@@ -38,7 +38,7 @@
     
     [webService getValuesForKeys:nil
               serverSideFunction:nil
-             withUserCredentials:nil
+             user:nil
                   successHandler:^(NSDictionary *results, NSDictionary *errors) {
                       callback([CMObjectDecoder decodeObjects:results]);
                   } errorHandler:^(NSError *error) {

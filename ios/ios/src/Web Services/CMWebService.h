@@ -13,6 +13,7 @@
 @class ASINetworkQueue;
 @class CMUser;
 @class CMServerFunction;
+@class CMPagingDescriptor;
 
 /**
  * Base URL for the current version of the CloudMine API.
@@ -28,6 +29,7 @@ typedef enum {
     
     /** File previously existed on server and was replaced with new content */
     CMFileUpdated
+    
 } CMFileUploadResult;
 
 /**
@@ -66,19 +68,19 @@ typedef enum {
  *
  * @param keys The keys to fetch.
  * @param function The server-side code snippet and related options to execute with this request, or nil if none.
- * @param credentials The user whose data to fetch. If nil, fetches app-level objects.
+ * @param user The user whose data to fetch. If nil, fetches app-level objects.
  * @param successHandler The block to be called when the objects have been populated.
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
  */
 - (void)getValuesForKeys:(NSArray *)keys  
       serverSideFunction:(CMServerFunction *)function
-     withUserCredentials:(CMUser *)credentials
+                    user:(CMUser *)user
           successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
             errorHandler:(void (^)(NSError *error))errorHandler;
 
 - (void)searchValuesFor:(NSString *)searchQuery
      serverSideFunction:(CMServerFunction *)function
-    withUserCredentials:(CMUser *)credentials
+                   user:(CMUser *)user
          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
            errorHandler:(void (^)(NSError *error))errorHandler;
 
@@ -87,12 +89,12 @@ typedef enum {
  * will be called with the raw data from the server.
  *
  * @param keys The key of the binary file to fetch.
- * @param credentials The user whose data to fetch. If nil, fetches app-level objects.
+ * @param user The user whose data to fetch. If nil, fetches app-level objects.
  * @param successHandler The block to be called when the file has been fully downloaded.
  * @param errorHandler The block to be called if the request failed.
  */
 - (void)getBinaryDataNamed:(NSString *)key
-       withUserCredentials:(CMUser *)credentials
+                      user:(CMUser *)user
             successHandler:(void (^)(NSData *data))successHandler 
               errorHandler:(void (^)(NSError *error))errorHandler;
 
@@ -103,13 +105,13 @@ typedef enum {
  *
  * @param data A dictionary mapping top-level keys to the values to be used to update the object.
  * @param function The server-side code snippet and related options to execute with this request, or nil if none.
- * @param credentials The user whose data to write. If nil, writes as app-level objects.
+ * @param user The user whose data to write. If nil, writes as app-level objects.
  * @param successHandler The block to be called when the objects have been populated.
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
  */
 - (void)updateValuesFromDictionary:(NSDictionary *)data 
                 serverSideFunction:(CMServerFunction *)function
-               withUserCredentials:(CMUser *)credentials 
+                              user:(CMUser *)user 
                     successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
                       errorHandler:(void (^)(NSError *error))errorHandler;
 
@@ -121,14 +123,14 @@ typedef enum {
  * @param data The raw binary data of the file to upload.
  * @param key The unique name of this file.
  * @param mimeType The MIME type of this file. When later fetched, this MIME type will be used in the Content-Type header. If <tt>nil</tt>, defaults to <tt>application/octet-stream</tt>.
- * @param credentials The user whose data to write. If nil, writes as app-level objects.
+ * @param user The user whose data to write. If nil, writes as app-level objects.
  * @param successHandler The block to be called when the file has finished uploading. The <tt>result</tt> parameter indicates whether the file was new to the server or not.
  * @param errorHandler The block to be called if the request failed.
  */
 - (void)uploadBinaryData:(NSData *)data
                    named:(NSString *)key
               ofMimeType:(NSString *)mimeType
-     withUserCredentials:(CMUser *)credentials
+                    user:(CMUser *)user
           successHandler:(void (^)(CMFileUploadResult result))successHandler 
             errorHandler:(void (^)(NSError *error))errorHandler;
 
@@ -144,14 +146,14 @@ typedef enum {
  * @param path The path to the file to upload.
  * @param key The unique name of this file.
  * @param mimeType The MIME type of this file. When later fetched, this MIME type will be used in the Content-Type header. If <tt>nil</tt>, defaults to <tt>application/octet-stream</tt>.
- * @param credentials The user whose data to write. If nil, writes as app-level objects.
+ * @param user The user whose data to write. If nil, writes as app-level objects.
  * @param successHandler The block to be called when the file has finished uploading. The <tt>result</tt> parameter indicates whether the file was new to the server or not.
  * @param errorHandler The block to be called if the request failed.
  */
 - (void)uploadFileAtPath:(NSString *)path
                    named:(NSString *)key
               ofMimeType:(NSString *)mimeType
-     withUserCredentials:(CMUser *)credentials
+                    user:(CMUser *)user
           successHandler:(void (^)(CMFileUploadResult result))successHandler 
             errorHandler:(void (^)(NSError *error))errorHandler;
 
@@ -162,17 +164,17 @@ typedef enum {
  *
  * Note that if the key already exists server-side, this method will fully replace its value. For updating via merge, see the <tt>updateValuesFromDictionary</tt> methods.
  *
- * @see updateValuesFromDictionary:userCredentials:successHandler:errorHandler:
+ * @see updateValuesFromDictionary:user:successHandler:errorHandler:
  *
  * @param data A dictionary mapping top-level keys to the values to be used to update the object.
  * @param function The server-side code snippet and related options to execute with this request, or nil if none.
- * @param credentials The user whose data to write. If nil, writes as app-level objects.
+ * @param user The user whose data to write. If nil, writes as app-level objects.
  * @param successHandler The block to be called when the objects have been populated.
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
  */
 - (void)setValuesFromDictionary:(NSDictionary *)data  
              serverSideFunction:(CMServerFunction *)function
-            withUserCredentials:(CMUser *)credentials 
+                           user:(CMUser *)user 
                  successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
                    errorHandler:(void (^)(NSError *error))errorHandler;
 
@@ -184,12 +186,12 @@ typedef enum {
  * however they will <strong>always</strong> be empty.
  *
  * @param keys The keys to delete. If <tt>nil</tt> or an empty array, <strong>all of this user's objects will be deleted.</strong>
- * @param credentials The user whose data to delete. If nil, deletes app-level objects.
+ * @param user The user whose data to delete. If nil, deletes app-level objects.
  * @param successHandler The block to be called when the objects have been populated.
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
  */
 - (void)deleteValuesForKeys:(NSArray *)keys 
-        withUserCredentials:(CMUser *)credentials 
+                       user:(CMUser *)user 
              successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
                errorHandler:(void (^)(NSError *error))errorHandler;
 

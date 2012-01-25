@@ -52,7 +52,7 @@ describe(@"CMWebService", ^{
             
             [service getValuesForKeys:nil
                    serverSideFunction:nil
-                  withUserCredentials:nil
+                  user:nil
                        successHandler:^(NSDictionary *results, NSDictionary *errors) {
                        } errorHandler:^(NSError *error) {
                        }
@@ -82,7 +82,7 @@ describe(@"CMWebService", ^{
             
             [service searchValuesFor:query
                   serverSideFunction:nil
-                 withUserCredentials:nil
+                 user:nil
                       successHandler:^(NSDictionary *results, NSDictionary *errors) {
                       } errorHandler:^(NSError *error) {
                       }
@@ -111,7 +111,7 @@ describe(@"CMWebService", ^{
             [[service.networkQueue should] receive:@selector(go)];
             
             [service getBinaryDataNamed:binaryKey
-                    withUserCredentials:nil
+                    user:nil
                          successHandler:^(NSData *data) {}
                            errorHandler:^(NSError *error) {}
              ];
@@ -139,7 +139,7 @@ describe(@"CMWebService", ^{
             
             [service getValuesForKeys:[NSArray arrayWithObjects:@"k1", @"k2", nil]
                    serverSideFunction:nil
-                  withUserCredentials:nil
+                  user:nil
                        successHandler:^(NSDictionary *results, NSDictionary *errors) {
                        } errorHandler:^(NSError *error) {
                        }
@@ -169,7 +169,7 @@ describe(@"CMWebService", ^{
             
             [service getValuesForKeys:[NSArray arrayWithObjects:@"k1", @"k2", nil]
                    serverSideFunction:function
-                  withUserCredentials:nil
+                  user:nil
                        successHandler:^(NSDictionary *results, NSDictionary *errors) {
                        } errorHandler:^(NSError *error) {
                        }
@@ -201,7 +201,7 @@ describe(@"CMWebService", ^{
             
             [service getValuesForKeys:nil
                    serverSideFunction:nil
-                  withUserCredentials:creds
+                  user:creds
                        successHandler:^(NSDictionary *results, NSDictionary *errors) {
                        } errorHandler:^(NSError *error) {
                        }
@@ -233,7 +233,7 @@ describe(@"CMWebService", ^{
             [[service.networkQueue should] receive:@selector(go)];
             
             [service getBinaryDataNamed:binaryKey
-                    withUserCredentials:creds
+                    user:creds
                          successHandler:^(NSData *data) {}
                            errorHandler:^(NSError *error) {}
              ];
@@ -264,7 +264,7 @@ describe(@"CMWebService", ^{
             
             [service getValuesForKeys:[NSArray arrayWithObjects:@"k1", @"k2", nil]
                    serverSideFunction:nil
-                  withUserCredentials:creds
+                  user:creds
                        successHandler:^(NSDictionary *results, NSDictionary *errors) {
                        } errorHandler:^(NSError *error) {
                        }
@@ -300,7 +300,7 @@ describe(@"CMWebService", ^{
             
             [service updateValuesFromDictionary:dataToPost 
                              serverSideFunction:nil
-                            withUserCredentials:nil
+                            user:nil
                                  successHandler:^(NSDictionary *results, NSDictionary *errors) {
                                  } errorHandler:^(NSError *error) {
                                  }
@@ -334,7 +334,7 @@ describe(@"CMWebService", ^{
             [service uploadBinaryData:data
                                 named:binaryKey
                            ofMimeType:@"application/cloudmine"
-                  withUserCredentials:nil
+                  user:nil
                        successHandler:^(CMFileUploadResult result) {
                        } errorHandler:^(NSError *error) {
                        }
@@ -371,7 +371,7 @@ describe(@"CMWebService", ^{
             
             [service updateValuesFromDictionary:dataToPost
                              serverSideFunction:nil
-                            withUserCredentials:creds
+                            user:creds
                                  successHandler:^(NSDictionary *results, NSDictionary *errors) {
                                  } errorHandler:^(NSError *error) {
                                  }
@@ -409,7 +409,7 @@ describe(@"CMWebService", ^{
         [service uploadBinaryData:data
                             named:binaryKey
                        ofMimeType:@"application/cloudmine"
-              withUserCredentials:creds
+              user:creds
                    successHandler:^(CMFileUploadResult result) {
                    } errorHandler:^(NSError *error) {
                    }
@@ -444,7 +444,7 @@ describe(@"CMWebService", ^{
             
             [service setValuesFromDictionary:dataToPost 
                           serverSideFunction:nil
-                         withUserCredentials:nil
+                         user:nil
                                  successHandler:^(NSDictionary *results, NSDictionary *errors) {
                                  } errorHandler:^(NSError *error) {
                                  }
@@ -481,7 +481,7 @@ describe(@"CMWebService", ^{
             
             [service setValuesFromDictionary:dataToPost
                           serverSideFunction:nil
-                            withUserCredentials:creds
+                            user:creds
                                  successHandler:^(NSDictionary *results, NSDictionary *errors) {
                                  } errorHandler:^(NSError *error) {
                                  }
@@ -511,7 +511,7 @@ describe(@"CMWebService", ^{
             [[service.networkQueue should] receive:@selector(go)];
             
             [service deleteValuesForKeys:nil
-                     withUserCredentials:nil
+                     user:nil
                        successHandler:^(NSDictionary *results, NSDictionary *errors) {
                        } errorHandler:^(NSError *error) {
                        }
@@ -539,7 +539,7 @@ describe(@"CMWebService", ^{
             [[service.networkQueue should] receive:@selector(go)];
             
             [service deleteValuesForKeys:[NSArray arrayWithObjects:@"k1", @"k2", nil]
-                     withUserCredentials:nil
+                     user:nil
                        successHandler:^(NSDictionary *results, NSDictionary *errors) {
                        } errorHandler:^(NSError *error) {
                        }
@@ -570,7 +570,7 @@ describe(@"CMWebService", ^{
             [[service.networkQueue should] receive:@selector(go)];
             
             [service deleteValuesForKeys:nil
-                  withUserCredentials:creds
+                  user:creds
                        successHandler:^(NSDictionary *results, NSDictionary *errors) {
                        } errorHandler:^(NSError *error) {
                        }
@@ -601,7 +601,7 @@ describe(@"CMWebService", ^{
             [[service.networkQueue should] receive:@selector(go)];
             
             [service deleteValuesForKeys:[NSArray arrayWithObjects:@"k1", @"k2", nil]
-                  withUserCredentials:creds
+                  user:creds
                        successHandler:^(NSDictionary *results, NSDictionary *errors) {
                        } errorHandler:^(NSError *error) {
                        }
