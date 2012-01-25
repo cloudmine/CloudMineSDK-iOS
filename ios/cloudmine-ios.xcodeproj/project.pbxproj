@@ -115,6 +115,9 @@
 		7AD9221C14CF47360032DDDE /* CMPagingDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD9221A14CF47350032DDDE /* CMPagingDescriptor.h */; };
 		7AD9221D14CF47360032DDDE /* CMPagingDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD9221B14CF47350032DDDE /* CMPagingDescriptor.m */; };
 		7AD9222014CF5B9B0032DDDE /* CMPagingDescriptorSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD9221F14CF5B9B0032DDDE /* CMPagingDescriptorSpec.m */; };
+		7AD9222314D06B9A0032DDDE /* CMStoreOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD9222114D06B9A0032DDDE /* CMStoreOptions.h */; };
+		7AD9222414D06B9A0032DDDE /* CMStoreOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD9222214D06B9A0032DDDE /* CMStoreOptions.m */; };
+		7AD9222614D06EB10032DDDE /* CMStoreOptionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD9222514D06EB10032DDDE /* CMStoreOptionsSpec.m */; };
 		7AF6685514719FC900E2A06D /* YAJLiOS in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AF6685414719FC800E2A06D /* YAJLiOS */; };
 /* End PBXBuildFile section */
 
@@ -236,6 +239,9 @@
 		7AD9221A14CF47350032DDDE /* CMPagingDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPagingDescriptor.h; sourceTree = "<group>"; };
 		7AD9221B14CF47350032DDDE /* CMPagingDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPagingDescriptor.m; sourceTree = "<group>"; };
 		7AD9221F14CF5B9B0032DDDE /* CMPagingDescriptorSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPagingDescriptorSpec.m; sourceTree = "<group>"; };
+		7AD9222114D06B9A0032DDDE /* CMStoreOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMStoreOptions.h; sourceTree = "<group>"; };
+		7AD9222214D06B9A0032DDDE /* CMStoreOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMStoreOptions.m; sourceTree = "<group>"; };
+		7AD9222514D06EB10032DDDE /* CMStoreOptionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMStoreOptionsSpec.m; sourceTree = "<group>"; };
 		7AF6685414719FC800E2A06D /* YAJLiOS */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = YAJLiOS; path = ios/Vendor/YAJL/YAJLiOS.framework/Versions/A/YAJLiOS; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -348,6 +354,8 @@
 			children = (
 				7A7E31C614C88F8A0091F1E3 /* CMStore.h */,
 				7A7E31C714C88F8A0091F1E3 /* CMStore.m */,
+				7AD9222114D06B9A0032DDDE /* CMStoreOptions.h */,
+				7AD9222214D06B9A0032DDDE /* CMStoreOptions.m */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -437,6 +445,7 @@
 				7A7E31C314C603780091F1E3 /* CMGeoPointTest.m */,
 				7A7E31CA14C88F970091F1E3 /* CMStoreSpec.m */,
 				7AD9221F14CF5B9B0032DDDE /* CMPagingDescriptorSpec.m */,
+				7AD9222514D06EB10032DDDE /* CMStoreOptionsSpec.m */,
 				7A0DB1B8147B0153007F482C /* Support */,
 				7AB4AB79145DC5D8006AEF67 /* Supporting Files */,
 			);
@@ -542,6 +551,7 @@
 				7A7E31C014C4D0920091F1E3 /* CMGeoPoint.h in Headers */,
 				7A7E31C814C88F8A0091F1E3 /* CMStore.h in Headers */,
 				7AD9221C14CF47360032DDDE /* CMPagingDescriptor.h in Headers */,
+				7AD9222314D06B9A0032DDDE /* CMStoreOptions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -694,6 +704,7 @@
 				7A7E31C114C4D0920091F1E3 /* CMGeoPoint.m in Sources */,
 				7A7E31C914C88F8A0091F1E3 /* CMStore.m in Sources */,
 				7AD9221D14CF47360032DDDE /* CMPagingDescriptor.m in Sources */,
+				7AD9222414D06B9A0032DDDE /* CMStoreOptions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -711,6 +722,7 @@
 				7A7E31C414C603780091F1E3 /* CMGeoPointTest.m in Sources */,
 				7A7E31CB14C88F980091F1E3 /* CMStoreSpec.m in Sources */,
 				7AD9222014CF5B9B0032DDDE /* CMPagingDescriptorSpec.m in Sources */,
+				7AD9222614D06EB10032DDDE /* CMStoreOptionsSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
