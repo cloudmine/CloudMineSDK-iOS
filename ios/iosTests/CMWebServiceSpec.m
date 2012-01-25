@@ -58,6 +58,35 @@ describe(@"CMWebService", ^{
              ];
         });
         
+        it(@"URLs with a search query at the app level correctly", ^{
+            NSString *query = @"[name = \"Marc\"]";
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/search?q=%@", appId, [query stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]]];
+            
+            id spy = [[CMBlockValidationMessageSpy alloc] init];
+            [spy addValidationBlock:^(NSInvocation *invocation) {
+                ASIHTTPRequest *request = nil;
+                [invocation getArgument:&request atIndex:2]; // only arg is the request
+                [[request.url should] equal:expectedUrl];
+                [[request.requestMethod should] equal:@"GET"];
+                [[[[request requestHeaders] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
+            } forSelector:@selector(addOperation:)];
+            
+            // Validate the request when it's pushed onto the network queue so
+            // we don't interfere with the construction and use of the request
+            // otherwise throughout the production code.
+            [service.networkQueue addMessageSpy:spy forMessagePattern:[KWMessagePattern messagePatternWithSelector:@selector(addOperation:)]];
+            
+            [[service.networkQueue should] receive:@selector(addOperation:)];
+            [[service.networkQueue should] receive:@selector(go)];
+            
+            [service searchValuesFor:query
+                  serverSideFunction:nil
+                      successHandler:^(NSDictionary *results, NSDictionary *errors) {
+                      } errorHandler:^(NSError *error) {
+                      }
+             ];
+        });
+        
         it(@"binary data URLs at the app level correctly", ^{
             NSString *binaryKey = @"filename";
             NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/binary/%@", appId, binaryKey]];

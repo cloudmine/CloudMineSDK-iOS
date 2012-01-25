@@ -18,14 +18,14 @@
 static __strong NSSet *_validHTTPVerbs = nil;
 
 @interface CMWebService (Private)
-- (NSURL *)constructTextUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys withServerSideFunction:(CMServerFunction *)function;
+- (NSURL *)constructTextUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys query:(NSString *)searchString withServerSideFunction:(CMServerFunction *)function;
 - (NSURL *)constructBinaryUrlAtUserLevel:(BOOL)atUserLevel withKey:(NSString *)key;
 - (NSURL *)constructDataUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys withServerSideFunction:(CMServerFunction *)function;
 - (ASIHTTPRequest *)constructHTTPRequestWithVerb:(NSString *)verb URL:(NSURL *)url apiKey:(NSString *)apiKey binaryData:(BOOL)isForBinaryData userCredentials:(CMUserCredentials *)userCredentials;
 - (void)executeRequest:(ASIHTTPRequest *)request successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler errorHandler:(void (^)(NSError *error))errorHandler;
 - (void)executeBinaryDataFetchRequest:(ASIHTTPRequest *)request successHandler:(void (^)(NSData *data))successHandler  errorHandler:(void (^)(NSError *error))errorHandler;
 - (void)executeBinaryDataUploadRequest:(ASIHTTPRequest *)request successHandler:(void (^)(CMFileUploadResult result))successHandler errorHandler:(void (^)(NSError *error))errorHandler;
-- (NSURL *)appendKeys:(NSArray *)keys andServerSideFunction:(CMServerFunction *)function toURL:(NSURL *)theUrl;
+- (NSURL *)appendKeys:(NSArray *)keys serverSideFunction:(CMServerFunction *)function query:(NSString *)queryString toURL:(NSURL *)theUrl;
 @end
 
 @implementation CMWebService
@@ -73,6 +73,32 @@ static __strong NSSet *_validHTTPVerbs = nil;
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"GET" 
                                                              URL:[self constructTextUrlAtUserLevel:(credentials != nil) 
                                                                                           withKeys:keys
+                                                                                             query:nil
+                                                                            withServerSideFunction:function]
+                                                          apiKey:_apiKey
+                                                      binaryData:NO
+                                                 userCredentials:credentials];
+    [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
+}
+
+#pragma mark - Search requests (non-binary data only)
+
+- (void)searchValuesFor:(NSString *)searchQuery
+     serverSideFunction:(CMServerFunction *)function
+         successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+           errorHandler:(void (^)(NSError *error))errorHandler {
+    [self searchValuesFor:searchQuery serverSideFunction:function withUserCredentials:nil successHandler:successHandler errorHandler:errorHandler];
+}
+
+- (void)searchValuesFor:(NSString *)searchQuery
+     serverSideFunction:(CMServerFunction *)function
+    withUserCredentials:(CMUserCredentials *)credentials
+         successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+           errorHandler:(void (^)(NSError *error))errorHandler {
+    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"GET" 
+                                                             URL:[self constructTextUrlAtUserLevel:(credentials != nil) 
+                                                                                          withKeys:nil
+                                                                                             query:searchQuery
                                                                             withServerSideFunction:function]
                                                           apiKey:_apiKey
                                                       binaryData:NO
@@ -118,6 +144,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST" 
                                                              URL:[self constructTextUrlAtUserLevel:(credentials != nil)
                                                                                           withKeys:nil
+                                                                                             query:nil
                                                                             withServerSideFunction:function]
                                                           apiKey:_apiKey
                                                       binaryData:NO
@@ -210,6 +237,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"PUT" 
                                                              URL:[self constructTextUrlAtUserLevel:(credentials != nil) 
                                                                                           withKeys:nil
+                                                                                             query:nil
                                                                             withServerSideFunction:function]
                                                           apiKey:_apiKey
                                                       binaryData:NO
@@ -279,7 +307,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
         successHandler:(void (^)(NSData *data))successHandler 
           errorHandler:(void (^)(NSError *error))errorHandler {
     
-    __unsafe_unretained ASIHTTPRequest *blockRequest = request; // Stop the retain cycle.
+    __weak ASIHTTPRequest *blockRequest = request; // Stop the retain cycle.
     
     [request setCompletionBlock:^{
         if (successHandler != nil) {
@@ -351,16 +379,27 @@ static __strong NSSet *_validHTTPVerbs = nil;
 #pragma mark - General URL construction
 
 - (NSURL *)constructTextUrlAtUserLevel:(BOOL)atUserLevel
-                              withKeys:(NSArray *)keys 
+                              withKeys:(NSArray *)keys
+                                 query:(NSString *)searchString
                 withServerSideFunction:(CMServerFunction *)function {
-    NSURL *url;
-    if (atUserLevel) {
-        url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/user/text", _appKey]];
+    
+    NSAssert(keys == nil || searchString == nil, @"When constructing CM URLs, 'keys' and 'searchString' are mutually exclusive");
+    
+    NSString *endpoint = nil;
+    if (searchString != nil) {
+        endpoint = @"search";
     } else {
-        url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/text", _appKey]];
+        endpoint = @"text";
     }
     
-    return [self appendKeys:keys andServerSideFunction:function toURL:url];
+    NSURL *url;
+    if (atUserLevel) {
+        url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/user/%@", _appKey, endpoint]];
+    } else {
+        url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/%@", _appKey, endpoint]];
+    }
+    
+    return [self appendKeys:keys serverSideFunction:function query:searchString toURL:url];
 }
 
 - (NSURL *)constructBinaryUrlAtUserLevel:(BOOL)atUserLevel
@@ -375,7 +414,6 @@ static __strong NSSet *_validHTTPVerbs = nil;
     return url;
 }
 
-
 - (NSURL *)constructDataUrlAtUserLevel:(BOOL)atUserLevel
                               withKeys:(NSArray *)keys
                 withServerSideFunction:(CMServerFunction *)function {
@@ -386,16 +424,25 @@ static __strong NSSet *_validHTTPVerbs = nil;
         url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/data", _appKey]];
     }
     
-    return [self appendKeys:keys andServerSideFunction:function toURL:url];
+    return [self appendKeys:keys serverSideFunction:function query:nil toURL:url];
 }
 
-- (NSURL *)appendKeys:(NSArray *)keys andServerSideFunction:(CMServerFunction *)function toURL:(NSURL *)theUrl {
+- (NSURL *)appendKeys:(NSArray *)keys 
+   serverSideFunction:(CMServerFunction *)function
+                query:(NSString *)searchString
+                toURL:(NSURL *)theUrl {
+    
+    NSAssert(keys == nil || searchString == nil, @"When constructing CM URLs, 'keys' and 'searchString' are mutually exclusive");
+    
     NSMutableArray *queryComponents = [NSMutableArray arrayWithCapacity:2];
     if (keys && [keys count] > 0) {
         [queryComponents addObject:[NSString stringWithFormat:@"keys=%@", [keys componentsJoinedByString:@","]]];
     }
     if (function) {
         [queryComponents addObject:[function queryStringRepresentation]];
+    }
+    if (searchString) {
+        [queryComponents addObject:[NSString stringWithFormat:@"q=%@", searchString]];
     }
     return [theUrl URLByAppendingQueryString:[queryComponents componentsJoinedByString:@"&"]];
 }

@@ -90,6 +90,17 @@ typedef enum {
           successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
             errorHandler:(void (^)(NSError *error))errorHandler;
 
+- (void)searchValuesFor:(NSString *)searchQuery
+     serverSideFunction:(CMServerFunction *)function
+         successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+           errorHandler:(void (^)(NSError *error))errorHandler;
+
+- (void)searchValuesFor:(NSString *)searchQuery
+     serverSideFunction:(CMServerFunction *)function
+    withUserCredentials:(CMUserCredentials *)credentials
+         successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
+           errorHandler:(void (^)(NSError *error))errorHandler;
+
 /**
  * Asynchronously retrieve a binary file for the named app-level key. On completion, the <tt>successHandler</tt> block 
  * will be called with the raw data from the server.
