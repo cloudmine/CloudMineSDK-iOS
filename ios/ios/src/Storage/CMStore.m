@@ -23,6 +23,7 @@
 - (void)_allObjects:(CMStoreObjectCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
 - (void)_allObjects:(CMStoreObjectCallback)callback ofType:(NSString *)type userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
 - (void)_searchObjects:(CMStoreObjectCallback)callback query:(NSString *)query userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
+- (void)cacheObjectsInMemory:(NSArray *)objects atUserLevel:(BOOL)userLevel;
 @end
 
 @implementation CMStore
@@ -74,12 +75,15 @@
     NSParameterAssert(callback);
     _CMAssertAPICredentialsInitialized;
 
+    __weak CMStore *blockSelf = self;
     [webService getValuesForKeys:nil
               serverSideFunction:options.serverSideFunction
                    pagingOptions:options.pagingDescriptor 
                             user:_CMUserOrNil
                   successHandler:^(NSDictionary *results, NSDictionary *errors) {
-                      callback([CMObjectDecoder decodeObjects:results]);
+                      NSArray *objects = [CMObjectDecoder decodeObjects:results];
+                      [blockSelf cacheObjectsInMemory:objects atUserLevel:userLevel];
+                      callback(objects);
                   } errorHandler:^(NSError *error) {
                       NSLog(@"Error occurred during request: %@", [error description]);
                       callback(nil);
@@ -127,15 +131,19 @@
     _CMAssertAPICredentialsInitialized;
     
     if (!query || [query length] == 0) {
+        NSLog(@"No query provided, so executing standard all-object retrieval");
         return [self _allObjects:callback userLevel:userLevel additionalOptions:options];
     }
     
+    __weak CMStore *blockSelf = self;
     [webService searchValuesFor:query
              serverSideFunction:options.serverSideFunction
                   pagingOptions:options.pagingDescriptor 
                            user:_CMUserOrNil
                  successHandler:^(NSDictionary *results, NSDictionary *errors) {
-                     callback([CMObjectDecoder decodeObjects:results]);
+                     NSArray *objects = [CMObjectDecoder decodeObjects:results];
+                     [blockSelf cacheObjectsInMemory:objects atUserLevel:userLevel];
+                     callback(objects);
                  } errorHandler:^(NSError *error) {
                      NSLog(@"Error occurred during request: %@", [error description]);
                      callback(nil);
@@ -143,5 +151,16 @@
      ];
 }
 
+#pragma mark - In-memory caching
+
+- (void)cacheObjectsInMemory:(NSArray *)objects atUserLevel:(BOOL)userLevel {
+    NSAssert(userLevel ? (user != nil) : true, @"Failed trying to cache remote objects in-memory for user when user is not configured (%@)", self);
+    
+    if (userLevel) {
+        [_cachedUserObjects addObjectsFromArray:objects];
+    } else {
+        [_cachedAppObjects addObjectsFromArray:objects];
+    }
+}
 
 @end
