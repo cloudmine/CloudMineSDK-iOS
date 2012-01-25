@@ -33,6 +33,35 @@ typedef enum {
 } CMFileUploadResult;
 
 /**
+ * Callback block signature for all operations on <tt>CMWebService</tt> that fetch objects
+ * from the CloudMine servers. These blocks return <tt>void</tt> and take a dictionary of results
+ * and a dictionary of errors as arguments. These map directly with the CloudMine API response format.
+ */
+typedef void (^CMWebServiceObjectFetchSuccessCallback)(NSDictionary *results, NSDictionary *errors);
+
+/**
+ * Callback block signature for <b>all</b> operations on <tt>CMStore</tt> that can fail. These are general
+ * errors that cause the entire call to fail, not key-specific errors (which are reported instead in 
+ * the <tt>errors</tt> dictionary in the <tt>CMWebServiceObjectFetchSuccessCallback</tt> callback block).
+ * The block returns <tt>void</tt> and takes an <tt>NSError</tt> describing the error as an argument.
+ */
+typedef void (^CMWebServiceFetchFailureCallback)(NSError *error);
+
+/**
+ * Callback block signature for all operations on <tt>CMWebService</tt> that upload binary files to
+ * the CloudMine servers. These blocks return <tt>void</tt> and take a <tt>CMFileUploadResult</tt> as an
+ * argument to indicate the final result of the upload operation.
+ */
+typedef void (^CMWebServiceFileUploadSuccessCallback)(CMFileUploadResult result);
+
+/**
+ * Callback block signature for all operations on <tt>CMWebService</tt> that download binary files from
+ * the CloudMine servers. These blocks return <tt>void</tt> and take an <tt>NSData</tt> instance that contains
+ * the raw data for the file.
+ */
+typedef void (^CMWebServiceFileFetchSuccessCallback)(NSData *data);
+
+/**
  * Base class for all classes concerned with the communication between the client device and the CloudMine 
  * web services.
  */
@@ -76,15 +105,15 @@ typedef enum {
       serverSideFunction:(CMServerFunction *)function
            pagingOptions:(CMPagingDescriptor *)paging
                     user:(CMUser *)user
-          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
-            errorHandler:(void (^)(NSError *error))errorHandler;
+          successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler 
+            errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
 - (void)searchValuesFor:(NSString *)searchQuery
      serverSideFunction:(CMServerFunction *)function
           pagingOptions:(CMPagingDescriptor *)paging
                    user:(CMUser *)user
-         successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
-           errorHandler:(void (^)(NSError *error))errorHandler;
+         successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler 
+           errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
 /**
  * Asynchronously retrieve a binary file for the named user-leve key. On completion, the <tt>successHandler</tt> block 
@@ -97,8 +126,8 @@ typedef enum {
  */
 - (void)getBinaryDataNamed:(NSString *)key
                       user:(CMUser *)user
-            successHandler:(void (^)(NSData *data))successHandler 
-              errorHandler:(void (^)(NSError *error))errorHandler;
+            successHandler:(CMWebServiceFileFetchSuccessCallback)successHandler 
+              errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
 /**
  * Asynchronously update one or more objects for the user-level keys included in <tt>data</tt>. On completion, the <tt>successHandler</tt>  
@@ -114,8 +143,8 @@ typedef enum {
 - (void)updateValuesFromDictionary:(NSDictionary *)data 
                 serverSideFunction:(CMServerFunction *)function
                               user:(CMUser *)user 
-                    successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
-                      errorHandler:(void (^)(NSError *error))errorHandler;
+                    successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler 
+                      errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
 /**
  * Asynchronously upload the raw binary data contained in <tt>data</tt> with an optional MIME type as a user-level object.
@@ -133,8 +162,8 @@ typedef enum {
                    named:(NSString *)key
               ofMimeType:(NSString *)mimeType
                     user:(CMUser *)user
-          successHandler:(void (^)(CMFileUploadResult result))successHandler 
-            errorHandler:(void (^)(NSError *error))errorHandler;
+          successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler 
+            errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
 /**
  * Asynchronously upload the raw binary data contained in the file stored at the path specified by <tt>path</tt> with an optional
@@ -156,8 +185,8 @@ typedef enum {
                    named:(NSString *)key
               ofMimeType:(NSString *)mimeType
                     user:(CMUser *)user
-          successHandler:(void (^)(CMFileUploadResult result))successHandler 
-            errorHandler:(void (^)(NSError *error))errorHandler;
+          successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler 
+            errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
 /**
  * Asynchronously create or replace one or more objects for the values of the user-level keys included in <tt>data</tt>. On completion, the <tt>successHandler</tt>  
@@ -177,8 +206,8 @@ typedef enum {
 - (void)setValuesFromDictionary:(NSDictionary *)data  
              serverSideFunction:(CMServerFunction *)function
                            user:(CMUser *)user 
-                 successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
-                   errorHandler:(void (^)(NSError *error))errorHandler;
+                 successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler 
+                   errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
 /**
  * Asynchronously delete objects for the named user-level keys. On completion, the <tt>successHandler</tt> block 
@@ -194,7 +223,7 @@ typedef enum {
  */
 - (void)deleteValuesForKeys:(NSArray *)keys 
                        user:(CMUser *)user 
-             successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
-               errorHandler:(void (^)(NSError *error))errorHandler;
+             successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler 
+               errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
 @end

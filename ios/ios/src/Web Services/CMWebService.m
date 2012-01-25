@@ -23,9 +23,9 @@ static __strong NSSet *_validHTTPVerbs = nil;
 - (NSURL *)constructBinaryUrlAtUserLevel:(BOOL)atUserLevel withKey:(NSString *)key;
 - (NSURL *)constructDataUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys withServerSideFunction:(CMServerFunction *)function;
 - (ASIHTTPRequest *)constructHTTPRequestWithVerb:(NSString *)verb URL:(NSURL *)url apiKey:(NSString *)apiKey binaryData:(BOOL)isForBinaryData user:(CMUser *)user;
-- (void)executeRequest:(ASIHTTPRequest *)request successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler errorHandler:(void (^)(NSError *error))errorHandler;
-- (void)executeBinaryDataFetchRequest:(ASIHTTPRequest *)request successHandler:(void (^)(NSData *data))successHandler  errorHandler:(void (^)(NSError *error))errorHandler;
-- (void)executeBinaryDataUploadRequest:(ASIHTTPRequest *)request successHandler:(void (^)(CMFileUploadResult result))successHandler errorHandler:(void (^)(NSError *error))errorHandler;
+- (void)executeRequest:(ASIHTTPRequest *)request successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
+- (void)executeBinaryDataFetchRequest:(ASIHTTPRequest *)request successHandler:(CMWebServiceFileFetchSuccessCallback)successHandler  errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
+- (void)executeBinaryDataUploadRequest:(ASIHTTPRequest *)request successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 - (NSURL *)appendKeys:(NSArray *)keys serverSideFunction:(CMServerFunction *)function query:(NSString *)queryString pagingOptions:(CMPagingDescriptor *)paging toURL:(NSURL *)theUrl;
 @end
 
@@ -63,8 +63,8 @@ static __strong NSSet *_validHTTPVerbs = nil;
       serverSideFunction:(CMServerFunction *)function
            pagingOptions:(CMPagingDescriptor *)paging
                     user:(CMUser *)user
-          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
-            errorHandler:(void (^)(NSError *error))errorHandler {
+          successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler 
+            errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"GET" 
                                                              URL:[self constructTextUrlAtUserLevel:(user != nil) 
                                                                                           withKeys:keys
@@ -83,8 +83,8 @@ static __strong NSSet *_validHTTPVerbs = nil;
      serverSideFunction:(CMServerFunction *)function
           pagingOptions:(CMPagingDescriptor *)paging
                    user:(CMUser *)user
-         successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
-           errorHandler:(void (^)(NSError *error))errorHandler {
+         successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler 
+           errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"GET" 
                                                              URL:[self constructTextUrlAtUserLevel:(user != nil) 
                                                                                           withKeys:nil
@@ -101,8 +101,8 @@ static __strong NSSet *_validHTTPVerbs = nil;
 
 - (void)getBinaryDataNamed:(NSString *)key
                       user:(CMUser *)user
-            successHandler:(void (^)(NSData *data))successHandler 
-              errorHandler:(void (^)(NSError *error))errorHandler {
+            successHandler:(CMWebServiceFileFetchSuccessCallback)successHandler 
+              errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"GET" 
                                                              URL:[self constructBinaryUrlAtUserLevel:(user != nil)
                                                                                              withKey:key]
@@ -117,8 +117,8 @@ static __strong NSSet *_validHTTPVerbs = nil;
 - (void)updateValuesFromDictionary:(NSDictionary *)data
                 serverSideFunction:(CMServerFunction *)function
                               user:(CMUser *)user 
-                    successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler
-                      errorHandler:(void (^)(NSError *error))errorHandler {
+                    successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
+                      errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST" 
                                                              URL:[self constructTextUrlAtUserLevel:(user != nil)
                                                                                           withKeys:nil
@@ -138,8 +138,8 @@ static __strong NSSet *_validHTTPVerbs = nil;
                    named:(NSString *)key
               ofMimeType:(NSString *)mimeType
                     user:(CMUser *)user
-          successHandler:(void (^)(CMFileUploadResult result))successHandler 
-            errorHandler:(void (^)(NSError *error))errorHandler {
+          successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler 
+            errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"PUT" 
                                                              URL:[self constructBinaryUrlAtUserLevel:(user != nil)
                                                                                              withKey:key]
@@ -157,8 +157,8 @@ static __strong NSSet *_validHTTPVerbs = nil;
                    named:(NSString *)key
               ofMimeType:(NSString *)mimeType
                     user:(CMUser *)user
-          successHandler:(void (^)(CMFileUploadResult result))successHandler 
-            errorHandler:(void (^)(NSError *error))errorHandler {
+          successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler 
+            errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"PUT" 
                                                              URL:[self constructBinaryUrlAtUserLevel:(user != nil)
                                                                                              withKey:key]
@@ -178,8 +178,8 @@ static __strong NSSet *_validHTTPVerbs = nil;
 - (void)setValuesFromDictionary:(NSDictionary *)data
              serverSideFunction:(CMServerFunction *)function
                            user:(CMUser *)user 
-                 successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler
-                   errorHandler:(void (^)(NSError *error))errorHandler {
+                 successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
+                   errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"PUT" 
                                                              URL:[self constructTextUrlAtUserLevel:(user != nil) 
                                                                                           withKeys:nil
@@ -197,8 +197,8 @@ static __strong NSSet *_validHTTPVerbs = nil;
 
 - (void)deleteValuesForKeys:(NSArray *)keys
                        user:(CMUser *)user
-             successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler
-               errorHandler:(void (^)(NSError *error))errorHandler {
+             successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
+               errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"DELETE" URL:[self constructDataUrlAtUserLevel:(user != nil) 
                                                                                                         withKeys:keys
                                                                                           withServerSideFunction:nil]
@@ -211,8 +211,8 @@ static __strong NSSet *_validHTTPVerbs = nil;
 #pragma - Request queueing and execution
 
 - (void)executeRequest:(ASIHTTPRequest *)request 
-        successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
-          errorHandler:(void (^)(NSError *error))errorHandler {
+        successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler 
+          errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
     
     __unsafe_unretained ASIHTTPRequest *blockRequest = request; // Stop the retain cycle.
     
@@ -245,8 +245,8 @@ static __strong NSSet *_validHTTPVerbs = nil;
 }
 
 - (void)executeBinaryDataFetchRequest:(ASIHTTPRequest *)request 
-        successHandler:(void (^)(NSData *data))successHandler 
-          errorHandler:(void (^)(NSError *error))errorHandler {
+        successHandler:(CMWebServiceFileFetchSuccessCallback)successHandler 
+          errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
     
     __weak ASIHTTPRequest *blockRequest = request; // Stop the retain cycle.
     
@@ -267,8 +267,8 @@ static __strong NSSet *_validHTTPVerbs = nil;
 }
 
 - (void)executeBinaryDataUploadRequest:(ASIHTTPRequest *)request 
-                       successHandler:(void (^)(CMFileUploadResult result))successHandler 
-                         errorHandler:(void (^)(NSError *error))errorHandler {
+                       successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler 
+                         errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
     
     __unsafe_unretained ASIHTTPRequest *blockRequest = request; // Stop the retain cycle.
     
