@@ -22,7 +22,7 @@ describe(@"CMServerFunction", ^{
     it(@"should serialize into a proper query string with only a function name", ^{
         NSString *expectedString = @"f=my_function";
         serverFunction = [CMServerFunction serverFunctionWithName:@"my_function"];
-        [[[serverFunction queryStringRepresentation] should] equal:expectedString];
+        [[[serverFunction stringRepresentation] should] equal:expectedString];
     });
     
     it(@"should serialize into a proper query string with a function name and additional parameters", ^{
@@ -31,7 +31,7 @@ describe(@"CMServerFunction", ^{
                                                            forKey:@"numbers"];
         serverFunction = [CMServerFunction serverFunctionWithName:@"my_function"
                                                   extraParameters:params];
-        [[[serverFunction queryStringRepresentation] should] equal:expectedString];
+        [[[serverFunction stringRepresentation] should] equal:expectedString];
     });
     
     it(@"should serialize into a proper query string with a function name, additional parameters, and returning only the result", ^{
@@ -41,7 +41,7 @@ describe(@"CMServerFunction", ^{
         serverFunction = [CMServerFunction serverFunctionWithName:@"my_function"
                                                   extraParameters:params
                                        responseContainsResultOnly:YES];
-        [[[serverFunction queryStringRepresentation] should] equal:expectedString];
+        [[[serverFunction stringRepresentation] should] equal:expectedString];
     });
     
     it(@"should serialize into a proper query string with a function name, additional parameters, returning only the result, asynchronously", ^{
@@ -52,7 +52,7 @@ describe(@"CMServerFunction", ^{
                                                   extraParameters:params
                                        responseContainsResultOnly:YES
                                             performAsynchronously:YES];
-        [[[serverFunction queryStringRepresentation] should] equal:expectedString];
+        [[[serverFunction stringRepresentation] should] equal:expectedString];
     });
 });
 

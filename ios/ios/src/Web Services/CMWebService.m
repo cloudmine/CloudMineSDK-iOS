@@ -439,7 +439,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
         [queryComponents addObject:[NSString stringWithFormat:@"keys=%@", [keys componentsJoinedByString:@","]]];
     }
     if (function) {
-        [queryComponents addObject:[function queryStringRepresentation]];
+        [queryComponents addObject:[function stringRepresentation]];
     }
     if (searchString) {
         [queryComponents addObject:[NSString stringWithFormat:@"q=%@", searchString]];
