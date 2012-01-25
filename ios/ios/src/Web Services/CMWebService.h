@@ -74,12 +74,14 @@ typedef enum {
  */
 - (void)getValuesForKeys:(NSArray *)keys  
       serverSideFunction:(CMServerFunction *)function
+           pagingOptions:(CMPagingDescriptor *)paging
                     user:(CMUser *)user
           successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
             errorHandler:(void (^)(NSError *error))errorHandler;
 
 - (void)searchValuesFor:(NSString *)searchQuery
      serverSideFunction:(CMServerFunction *)function
+          pagingOptions:(CMPagingDescriptor *)paging
                    user:(CMUser *)user
          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
            errorHandler:(void (^)(NSError *error))errorHandler;

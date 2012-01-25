@@ -19,14 +19,14 @@
 static __strong NSSet *_validHTTPVerbs = nil;
 
 @interface CMWebService (Private)
-- (NSURL *)constructTextUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys query:(NSString *)searchString withServerSideFunction:(CMServerFunction *)function;
+- (NSURL *)constructTextUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys query:(NSString *)searchString pagingOptions:(CMPagingDescriptor *)paging withServerSideFunction:(CMServerFunction *)function;
 - (NSURL *)constructBinaryUrlAtUserLevel:(BOOL)atUserLevel withKey:(NSString *)key;
 - (NSURL *)constructDataUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys withServerSideFunction:(CMServerFunction *)function;
 - (ASIHTTPRequest *)constructHTTPRequestWithVerb:(NSString *)verb URL:(NSURL *)url apiKey:(NSString *)apiKey binaryData:(BOOL)isForBinaryData user:(CMUser *)user;
 - (void)executeRequest:(ASIHTTPRequest *)request successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler errorHandler:(void (^)(NSError *error))errorHandler;
 - (void)executeBinaryDataFetchRequest:(ASIHTTPRequest *)request successHandler:(void (^)(NSData *data))successHandler  errorHandler:(void (^)(NSError *error))errorHandler;
 - (void)executeBinaryDataUploadRequest:(ASIHTTPRequest *)request successHandler:(void (^)(CMFileUploadResult result))successHandler errorHandler:(void (^)(NSError *error))errorHandler;
-- (NSURL *)appendKeys:(NSArray *)keys serverSideFunction:(CMServerFunction *)function query:(NSString *)queryString toURL:(NSURL *)theUrl;
+- (NSURL *)appendKeys:(NSArray *)keys serverSideFunction:(CMServerFunction *)function query:(NSString *)queryString pagingOptions:(CMPagingDescriptor *)paging toURL:(NSURL *)theUrl;
 @end
 
 @implementation CMWebService
@@ -61,6 +61,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
 
 - (void)getValuesForKeys:(NSArray *)keys 
       serverSideFunction:(CMServerFunction *)function
+           pagingOptions:(CMPagingDescriptor *)paging
                     user:(CMUser *)user
           successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
             errorHandler:(void (^)(NSError *error))errorHandler {
@@ -68,6 +69,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
                                                              URL:[self constructTextUrlAtUserLevel:(user != nil) 
                                                                                           withKeys:keys
                                                                                              query:nil
+                                                                                     pagingOptions:paging
                                                                             withServerSideFunction:function]
                                                           apiKey:_apiKey
                                                       binaryData:NO
@@ -79,6 +81,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
 
 - (void)searchValuesFor:(NSString *)searchQuery
      serverSideFunction:(CMServerFunction *)function
+          pagingOptions:(CMPagingDescriptor *)paging
                    user:(CMUser *)user
          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
            errorHandler:(void (^)(NSError *error))errorHandler {
@@ -86,6 +89,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
                                                              URL:[self constructTextUrlAtUserLevel:(user != nil) 
                                                                                           withKeys:nil
                                                                                              query:searchQuery
+                                                                                     pagingOptions:paging
                                                                             withServerSideFunction:function]
                                                           apiKey:_apiKey
                                                       binaryData:NO
@@ -119,6 +123,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
                                                              URL:[self constructTextUrlAtUserLevel:(user != nil)
                                                                                           withKeys:nil
                                                                                              query:nil
+                                                                                     pagingOptions:nil
                                                                             withServerSideFunction:function]
                                                           apiKey:_apiKey
                                                       binaryData:NO
@@ -179,6 +184,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
                                                              URL:[self constructTextUrlAtUserLevel:(user != nil) 
                                                                                           withKeys:nil
                                                                                              query:nil
+                                                                                     pagingOptions:nil 
                                                                             withServerSideFunction:function]
                                                           apiKey:_apiKey
                                                       binaryData:NO
@@ -316,6 +322,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
 - (NSURL *)constructTextUrlAtUserLevel:(BOOL)atUserLevel
                               withKeys:(NSArray *)keys
                                  query:(NSString *)searchString
+                         pagingOptions:(CMPagingDescriptor *)paging
                 withServerSideFunction:(CMServerFunction *)function {
     
     NSAssert(keys == nil || searchString == nil, @"When constructing CM URLs, 'keys' and 'searchString' are mutually exclusive");
@@ -334,7 +341,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
         url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/%@", _appKey, endpoint]];
     }
     
-    return [self appendKeys:keys serverSideFunction:function query:searchString toURL:url];
+    return [self appendKeys:keys serverSideFunction:function query:searchString pagingOptions:paging toURL:url];
 }
 
 - (NSURL *)constructBinaryUrlAtUserLevel:(BOOL)atUserLevel
@@ -359,12 +366,13 @@ static __strong NSSet *_validHTTPVerbs = nil;
         url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/data", _appKey]];
     }
     
-    return [self appendKeys:keys serverSideFunction:function query:nil toURL:url];
+    return [self appendKeys:keys serverSideFunction:function query:nil pagingOptions:nil toURL:url];
 }
 
 - (NSURL *)appendKeys:(NSArray *)keys 
    serverSideFunction:(CMServerFunction *)function
                 query:(NSString *)searchString
+        pagingOptions:(CMPagingDescriptor *)paging
                 toURL:(NSURL *)theUrl {
     
     NSAssert(keys == nil || searchString == nil, @"When constructing CM URLs, 'keys' and 'searchString' are mutually exclusive");
@@ -378,6 +386,9 @@ static __strong NSSet *_validHTTPVerbs = nil;
     }
     if (searchString) {
         [queryComponents addObject:[NSString stringWithFormat:@"q=%@", searchString]];
+    }
+    if (paging) {
+        [queryComponents addObject:[paging stringRepresentation]];
     }
     return [theUrl URLByAppendingQueryString:[queryComponents componentsJoinedByString:@"&"]];
 }
