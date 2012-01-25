@@ -69,4 +69,7 @@ typedef void (^CMStoreObjectCallback)(NSArray *objects);
 - (void)allObjects:(CMStoreObjectCallback)callback ofType:(NSString *)type additionalOptions:(CMStoreOptions *)options;
 - (void)allUserObjects:(CMStoreObjectCallback)callback ofType:(NSString *)type additionalOptions:(CMStoreOptions *)options;
 
+- (void)searchObjects:(CMStoreObjectCallback)callback query:(NSString *)query additionalOptions:(CMStoreOptions *)options;
+- (void)searchUserObjects:(CMStoreObjectCallback)callback query:(NSString *)query additionalOptions:(CMStoreOptions *)options;
+
 @end

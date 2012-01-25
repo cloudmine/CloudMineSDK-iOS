@@ -22,6 +22,7 @@
 @interface CMStore (Private)
 - (void)_allObjects:(CMStoreObjectCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
 - (void)_allObjects:(CMStoreObjectCallback)callback ofType:(NSString *)type userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
+- (void)_searchObjects:(CMStoreObjectCallback)callback query:(NSString *)query userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
 @end
 
 @implementation CMStore
@@ -86,7 +87,7 @@
      ];
 }
 
-#pragma mark Object querying
+#pragma mark Object querying by type
 
 - (void)allObjects:(CMStoreObjectCallback)callback ofType:(NSString *)type additionalOptions:(CMStoreOptions *)options {
     [self _allObjects:callback userLevel:NO additionalOptions:options];
@@ -102,8 +103,34 @@
     NSParameterAssert(callback);
     NSParameterAssert(type);
     _CMAssertAPICredentialsInitialized;
+    
+    [self _searchObjects:callback 
+                   query:[NSString stringWithFormat:@"[%@ = \"%@\"]", CMInternalTypeStorageKey, type]
+               userLevel:userLevel
+       additionalOptions:options];
+}
 
-    [webService searchValuesFor:[NSString stringWithFormat:@"[%@ = \"%@\"]", CMInternalTypeStorageKey, type]
+#pragma mark Object general querying
+
+- (void)searchObjects:(CMStoreObjectCallback)callback query:(NSString *)query additionalOptions:(CMStoreOptions *)options {
+    [self _searchObjects:callback query:query userLevel:NO additionalOptions:options];
+}
+
+- (void)searchUserObjects:(CMStoreObjectCallback)callback query:(NSString *)query additionalOptions:(CMStoreOptions *)options {
+    _CMAssertUserConfigured;
+    
+    [self _searchObjects:callback query:query userLevel:YES additionalOptions:options];
+}
+
+- (void)_searchObjects:(CMStoreObjectCallback)callback query:(NSString *)query userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options {
+    NSParameterAssert(callback);
+    _CMAssertAPICredentialsInitialized;
+    
+    if (!query || [query length] == 0) {
+        return [self _allObjects:callback userLevel:userLevel additionalOptions:options];
+    }
+    
+    [webService searchValuesFor:query
              serverSideFunction:options.serverSideFunction
                   pagingOptions:options.pagingDescriptor 
                            user:_CMUserOrNil
@@ -115,5 +142,6 @@
                  }
      ];
 }
+
 
 @end
