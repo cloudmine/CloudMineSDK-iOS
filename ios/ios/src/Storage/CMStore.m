@@ -36,8 +36,9 @@
     NSParameterAssert(callback);
     _CMAssertAPICredentialsInitialized;
     
-    [webService getValuesForKeys:nil 
+    [webService getValuesForKeys:nil
               serverSideFunction:nil
+             withUserCredentials:nil
                   successHandler:^(NSDictionary *results, NSDictionary *errors) {
                       callback([CMObjectDecoder decodeObjects:results]);
                   } errorHandler:^(NSError *error) {

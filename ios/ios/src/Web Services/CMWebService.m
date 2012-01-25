@@ -59,13 +59,6 @@ static __strong NSSet *_validHTTPVerbs = nil;
 #pragma mark - GET requests for non-binary data
 
 - (void)getValuesForKeys:(NSArray *)keys 
-      serverSideFunction:(CMServerFunction *)function 
-          successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
-            errorHandler:(void (^)(NSError *error))errorHandler {
-    [self getValuesForKeys:keys serverSideFunction:function withUserCredentials:nil successHandler:successHandler errorHandler:errorHandler];
-}
-
-- (void)getValuesForKeys:(NSArray *)keys 
       serverSideFunction:(CMServerFunction *)function
      withUserCredentials:(CMUser *)credentials
           successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
@@ -82,13 +75,6 @@ static __strong NSSet *_validHTTPVerbs = nil;
 }
 
 #pragma mark - Search requests (non-binary data only)
-
-- (void)searchValuesFor:(NSString *)searchQuery
-     serverSideFunction:(CMServerFunction *)function
-         successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
-           errorHandler:(void (^)(NSError *error))errorHandler {
-    [self searchValuesFor:searchQuery serverSideFunction:function withUserCredentials:nil successHandler:successHandler errorHandler:errorHandler];
-}
 
 - (void)searchValuesFor:(NSString *)searchQuery
      serverSideFunction:(CMServerFunction *)function
@@ -109,12 +95,6 @@ static __strong NSSet *_validHTTPVerbs = nil;
 #pragma mark - GET requests for binary data
 
 - (void)getBinaryDataNamed:(NSString *)key
-            successHandler:(void (^)(NSData *data))successHandler
-              errorHandler:(void (^)(NSError *error))errorHandler {
-    [self getBinaryDataNamed:key withUserCredentials:nil successHandler:successHandler errorHandler:errorHandler];
-}
-
-- (void)getBinaryDataNamed:(NSString *)key
        withUserCredentials:(CMUser *)credentials
             successHandler:(void (^)(NSData *data))successHandler 
               errorHandler:(void (^)(NSError *error))errorHandler {
@@ -128,13 +108,6 @@ static __strong NSSet *_validHTTPVerbs = nil;
 }
 
 #pragma mark - POST (update) requests for non-binary data
-
-- (void)updateValuesFromDictionary:(NSDictionary *)data 
-                serverSideFunction:(CMServerFunction *)function
-                    successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
-                      errorHandler:(void (^)(NSError *error))errorHandler {
-    [self updateValuesFromDictionary:data serverSideFunction:function withUserCredentials:nil successHandler:successHandler errorHandler:errorHandler];
-}
 
 - (void)updateValuesFromDictionary:(NSDictionary *)data
                 serverSideFunction:(CMServerFunction *)function
@@ -158,19 +131,6 @@ static __strong NSSet *_validHTTPVerbs = nil;
 - (void)uploadBinaryData:(NSData *)data
                    named:(NSString *)key
               ofMimeType:(NSString *)mimeType
-          successHandler:(void (^)(CMFileUploadResult result))successHandler 
-            errorHandler:(void (^)(NSError *error))errorHandler {
-    [self uploadBinaryData:data
-                     named:key
-                ofMimeType:mimeType 
-       withUserCredentials:nil 
-            successHandler:successHandler
-              errorHandler:errorHandler];
-}
-
-- (void)uploadBinaryData:(NSData *)data
-                   named:(NSString *)key
-              ofMimeType:(NSString *)mimeType
      withUserCredentials:(CMUser *)credentials
           successHandler:(void (^)(CMFileUploadResult result))successHandler 
             errorHandler:(void (^)(NSError *error))errorHandler {
@@ -185,19 +145,6 @@ static __strong NSSet *_validHTTPVerbs = nil;
     }
     [request setPostBody:[data mutableCopy]];
     [self executeBinaryDataUploadRequest:request successHandler:successHandler errorHandler:errorHandler];
-}
-
-- (void)uploadFileAtPath:(NSString *)path
-                   named:(NSString *)key
-              ofMimeType:(NSString *)mimeType
-          successHandler:(void (^)(CMFileUploadResult result))successHandler 
-            errorHandler:(void (^)(NSError *error))errorHandler {
-    [self uploadFileAtPath:path
-                     named:key
-                ofMimeType:mimeType
-       withUserCredentials:nil
-            successHandler:successHandler
-              errorHandler:errorHandler];
 }
 
 - (void)uploadFileAtPath:(NSString *)path
@@ -224,13 +171,6 @@ static __strong NSSet *_validHTTPVerbs = nil;
 
 - (void)setValuesFromDictionary:(NSDictionary *)data
              serverSideFunction:(CMServerFunction *)function
-                 successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
-                   errorHandler:(void (^)(NSError *error))errorHandler {
-    [self setValuesFromDictionary:data serverSideFunction:function withUserCredentials:nil successHandler:successHandler errorHandler:errorHandler];
-}
-
-- (void)setValuesFromDictionary:(NSDictionary *)data
-             serverSideFunction:(CMServerFunction *)function
             withUserCredentials:(CMUser *)credentials 
                  successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler
                    errorHandler:(void (^)(NSError *error))errorHandler {
@@ -247,12 +187,6 @@ static __strong NSSet *_validHTTPVerbs = nil;
 }
 
 #pragma mark - DELETE requests for data
-
-- (void)deleteValuesForKeys:(NSArray *)keys 
-             successHandler:(void (^)(NSDictionary *results, NSDictionary *errors))successHandler 
-               errorHandler:(void (^)(NSError *error))errorHandler {
-    [self deleteValuesForKeys:keys withUserCredentials:nil successHandler:successHandler errorHandler:errorHandler];
-}
 
 - (void)deleteValuesForKeys:(NSArray *)keys
         withUserCredentials:(CMUser *)credentials 
