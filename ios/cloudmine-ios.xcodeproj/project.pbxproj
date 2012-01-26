@@ -120,6 +120,7 @@
 		7AD9222614D06EB10032DDDE /* CMStoreOptionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD9222514D06EB10032DDDE /* CMStoreOptionsSpec.m */; };
 		7AD93BAC14D1C5DA00CC1CC9 /* CMFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD93BAA14D1C5DA00CC1CC9 /* CMFile.h */; };
 		7AD93BAD14D1C5DA00CC1CC9 /* CMFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD93BAB14D1C5DA00CC1CC9 /* CMFile.m */; };
+		7AD93BAF14D1CCFE00CC1CC9 /* CMFileSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD93BAE14D1CCFE00CC1CC9 /* CMFileSpec.m */; };
 		7AF6685514719FC900E2A06D /* YAJLiOS in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AF6685414719FC800E2A06D /* YAJLiOS */; };
 /* End PBXBuildFile section */
 
@@ -246,6 +247,7 @@
 		7AD9222514D06EB10032DDDE /* CMStoreOptionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMStoreOptionsSpec.m; sourceTree = "<group>"; };
 		7AD93BAA14D1C5DA00CC1CC9 /* CMFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMFile.h; sourceTree = "<group>"; };
 		7AD93BAB14D1C5DA00CC1CC9 /* CMFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMFile.m; sourceTree = "<group>"; };
+		7AD93BAE14D1CCFE00CC1CC9 /* CMFileSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMFileSpec.m; sourceTree = "<group>"; };
 		7AF6685414719FC800E2A06D /* YAJLiOS */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = YAJLiOS; path = ios/Vendor/YAJL/YAJLiOS.framework/Versions/A/YAJLiOS; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -450,6 +452,7 @@
 				7A7E31CA14C88F970091F1E3 /* CMStoreSpec.m */,
 				7AD9221F14CF5B9B0032DDDE /* CMPagingDescriptorSpec.m */,
 				7AD9222514D06EB10032DDDE /* CMStoreOptionsSpec.m */,
+				7AD93BAE14D1CCFE00CC1CC9 /* CMFileSpec.m */,
 				7A0DB1B8147B0153007F482C /* Support */,
 				7AB4AB79145DC5D8006AEF67 /* Supporting Files */,
 			);
@@ -731,6 +734,7 @@
 				7A7E31CB14C88F980091F1E3 /* CMStoreSpec.m in Sources */,
 				7AD9222014CF5B9B0032DDDE /* CMPagingDescriptorSpec.m in Sources */,
 				7AD9222614D06EB10032DDDE /* CMStoreOptionsSpec.m in Sources */,
+				7AD93BAF14D1CCFE00CC1CC9 /* CMFileSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
