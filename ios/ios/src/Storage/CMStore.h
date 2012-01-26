@@ -17,6 +17,8 @@
 #import "CMUser.h"
 #import "CMFile.h"
 
+@class CMObject;
+
 /**
  * Callback block signature for all operations on <tt>CMStore</tt> that fetch objects
  * from the CloudMine servers. These block should return <tt>void</tt> and take an
@@ -83,5 +85,8 @@ typedef void (^CMStoreFileCallback)(CMFile *file);
 
 - (void)fileWithName:(NSString *)name callback:(CMStoreFileCallback)callback;
 - (void)userFileWithName:(NSString *)name callback:(CMStoreFileCallback)callback;
+
+- (void)addObject:(CMObject *)theObject;
+- (void)removeObject:(CMObject *)theObject;
 
 @end

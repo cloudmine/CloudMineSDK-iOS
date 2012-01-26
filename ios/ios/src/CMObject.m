@@ -10,10 +10,12 @@
 #import "NSString+UUID.h"
 #import "CMObjectSerialization.h"
 #import "CMUser.h"
+#import "CMStore.h"
 
 @implementation CMObject
 @synthesize objectId;
 @synthesize user;
+@synthesize store;
 
 #pragma mark - Initializers
 
@@ -29,6 +31,7 @@
     if (self = [super init]) {
         objectId = theObjectId;
         user = theUser;
+        store = nil;
     }
     return self;
 }
@@ -41,6 +44,31 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:self.objectId forKey:CMInternalObjectIdKey];
+}
+
+#pragma mark - CMStore interactions
+
+- (void)save {
+    
+}
+
+- (BOOL)belongsToStore {
+    return (store != nil);
+}
+
+- (void)setStore:(CMStore *)theStore {
+    NSParameterAssert(theStore);
+    
+    @synchronized(self) {
+        if (store) {
+            // Remove this object from the current store.
+            [store removeObject:self];
+        }
+        
+        // Add this object to the new store and record that relationship.
+        [theStore addObject:self];
+        self.store = theStore;
+    }
 }
 
 #pragma mark - Accessors

@@ -10,6 +10,7 @@
 #import "CMSerializable.h"
 
 @class CMUser;
+@class CMStore;
 
 /**
  * Extend from this instead of <tt>NSObject</tt> for all model objects in your app that need to be backed
@@ -21,7 +22,24 @@
  */
 @interface CMObject : NSObject <CMSerializable>
 
-@property (nonatomic, strong) CMUser *user;
+/**
+ * The app user that owns this object. If this is <tt>nil</tt>, the object is app-level.
+ * <b>Changing this is thread-safe.</b>
+ *
+ * @see isUserLevel
+ */
+@property (atomic, strong) CMUser *user;
+
+/**
+ * The store that the object belongs to. It is possible for this to be <tt>nil</tt>, meaning that the object
+ * was created locally and hasn't been saved via a store yet.
+ * It is important to note that the object must belong to a store if you need to save it. You can easily
+ * add the object to a store and save it by using <tt>CMStore</tt>'s <tt>saveObject:</tt> method.
+ *
+ * If you manually change the store yourself, this object will automatically remove itself from the old
+ * store and add it to the new store. <b>This operation is thread-safe.</b>
+ */
+@property (nonatomic, weak) CMStore *store;
 
 /**
  * Initializes this app-level object by generating a UUID as the default value for <tt>objectId</tt>.
@@ -59,5 +77,23 @@
  * @return <tt>true</tt> if this object is owned by a particular user, <tt>false</tt> if app-level.
  */
 - (BOOL)isUserLevel;
+
+/**
+ * Note: The object must belong to a store if you need to save it. You can easily add the object to a store and
+ * save it by using <tt>CMStore</tt>'s <tt>saveObject:</tt> method.
+ *
+ * @see CMStore
+ * @return <tt>true</tt> if this object is belongs to any store.
+ */
+- (BOOL)belongsToStore;
+
+/**
+ * Saves this object to CloudMine using its current store.
+ * If this object does not belong to a store, you can easily add the object to a store and
+ * save it by using <tt>CMStore</tt>'s <tt>saveObject:</tt> method instead.
+ *
+ * @see CMStore
+ */
+- (void)save;
 
 @end

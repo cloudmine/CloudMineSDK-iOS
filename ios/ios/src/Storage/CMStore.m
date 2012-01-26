@@ -12,6 +12,7 @@
 #import "CMObjectEncoder.h"
 #import "CMObjectSerialization.h"
 #import "CMAPICredentials.h"
+#import "CMObject.h"
 
 #define _CMAssertAPICredentialsInitialized NSAssert([[CMAPICredentials sharedInstance] apiKey] != nil && [[[CMAPICredentials sharedInstance] apiKey] length] > 0 && [[CMAPICredentials sharedInstance] appKey] != nil && [[[CMAPICredentials sharedInstance] appKey] length] > 0, @"The CMAPICredentials singleton must be initialized before using a CloudMine Store")
 
@@ -55,12 +56,14 @@
 }
 
 - (void)setUser:(CMUser *)theUser {
-    if (_cachedUserObjects) {
-        [_cachedUserObjects removeAllObjects];
-    } else {
-        _cachedUserObjects = [[NSMutableSet alloc] init];
+    @synchronized(self) {
+        if (_cachedUserObjects) {
+            [_cachedUserObjects removeAllObjects];
+        } else {
+            _cachedUserObjects = [[NSMutableSet alloc] init];
+        }
+        user = theUser;
     }
-    user = theUser;
 }
 
 #pragma mark - Object retrieval
@@ -208,10 +211,32 @@
 - (void)cacheObjectsInMemory:(NSArray *)objects atUserLevel:(BOOL)userLevel {
     NSAssert(userLevel ? (user != nil) : true, @"Failed trying to cache remote objects in-memory for user when user is not configured (%@)", self);
     
-    if (userLevel) {
-        [_cachedUserObjects addObjectsFromArray:objects];
-    } else {
-        [_cachedAppObjects addObjectsFromArray:objects];
+    @synchronized(self) {
+        if (userLevel) {
+            [_cachedUserObjects addObjectsFromArray:objects];
+        } else {
+            [_cachedAppObjects addObjectsFromArray:objects];
+        }
+    }
+}
+
+- (void)addObject:(CMObject *)theObject {
+    @synchronized(self) {
+        if ([theObject isUserLevel]) {
+            [_cachedUserObjects addObject:theObject];
+        } else {
+            [_cachedAppObjects addObject:theObject];
+        }
+    }
+}
+
+- (void)removeObject:(CMObject *)theObject {
+    @synchronized(self) {
+        if ([_cachedAppObjects containsObject:theObject]) {
+            [_cachedAppObjects removeObject:theObject];
+        } else if([_cachedUserObjects containsObject:theObject]) {
+            [_cachedUserObjects removeObject:theObject];
+        }
     }
 }
 
