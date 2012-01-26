@@ -22,6 +22,7 @@
 @interface CMStore (Private)
 - (void)_allObjects:(CMStoreObjectCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
 - (void)_allObjects:(CMStoreObjectCallback)callback ofType:(NSString *)type userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
+- (void)_objectsWithKeys:(NSArray *)keys callback:(CMStoreObjectCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
 - (void)_searchObjects:(CMStoreObjectCallback)callback query:(NSString *)query userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
 - (void)cacheObjectsInMemory:(NSArray *)objects atUserLevel:(BOOL)userLevel;
 @end
@@ -71,12 +72,25 @@
     [self _allObjects:callback userLevel:YES additionalOptions:options];
 }
 
-- (void)_allObjects:(CMStoreObjectCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options {    
+- (void)_allObjects:(CMStoreObjectCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options {
+    [self _objectsWithKeys:nil callback:callback userLevel:userLevel additionalOptions:options];
+}
+
+- (void)objectsWithKeys:(NSArray *)keys callback:(CMStoreObjectCallback)callback additionalOptions:(CMStoreOptions *)options {
+    [self _objectsWithKeys:keys callback:callback userLevel:NO additionalOptions:options];
+}
+
+- (void)userObjectsWithKeys:(NSArray *)keys callback:(CMStoreObjectCallback)callback additionalOptions:(CMStoreOptions *)options {
+    _CMAssertUserConfigured;
+    
+    [self _objectsWithKeys:keys callback:callback userLevel:YES additionalOptions:options];
+}
+- (void)_objectsWithKeys:(NSArray *)keys callback:(CMStoreObjectCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options {
     NSParameterAssert(callback);
     _CMAssertAPICredentialsInitialized;
-
+    
     __weak CMStore *blockSelf = self;
-    [webService getValuesForKeys:nil
+    [webService getValuesForKeys:keys
               serverSideFunction:options.serverSideFunction
                    pagingOptions:options.pagingDescriptor 
                             user:_CMUserOrNil
@@ -114,7 +128,7 @@
        additionalOptions:options];
 }
 
-#pragma mark Object general querying
+#pragma mark General object querying
 
 - (void)searchObjects:(CMStoreObjectCallback)callback query:(NSString *)query additionalOptions:(CMStoreOptions *)options {
     [self _searchObjects:callback query:query userLevel:NO additionalOptions:options];
