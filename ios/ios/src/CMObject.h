@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "CMSerializable.h"
 
+@class CMUser;
+
 /**
  * Extend from this instead of <tt>NSObject</tt> for all model objects in your app that need to be backed
  * by remote storage on CloudMine. Be sure to implement <tt>initWithCoder:</tt> and <tt>encodeWithCoder:</tt>
@@ -19,12 +21,23 @@
  */
 @interface CMObject : NSObject <CMSerializable>
 
+@property (nonatomic, strong) CMUser *user;
+
 /**
- * Initializes this object by generating a UUID as the default value for <tt>objectId</tt>.
+ * Initializes this app-level object by generating a UUID as the default value for <tt>objectId</tt>.
  */
 - (id)init;
 
+/**
+ * Initializes this app-level object with the given object ID. Note that this MUST be unique throughout your app.
+ */
 - (id)initWithObjectId:(NSString *)theObjectId;
+
+/**
+ * Initializes this user-level object with the given object ID and <tt>CMUser</tt>. 
+ * Note that the object ID MUST be unique throughout your app.
+ */
+- (id)initWithObjectId:(NSString *)theObjectId user:(CMUser *)theUser;
 
 /**
  * Default behavior does nothing other than call <tt>[self init]</tt>. Override this in your subclasses
@@ -41,5 +54,10 @@
  * @see CMSerializable
  */
 - (void)encodeWithCoder:(NSCoder *)aCoder;
+
+/**
+ * @return <tt>true</tt> if this object is owned by a particular user, <tt>false</tt> if app-level.
+ */
+- (BOOL)isUserLevel;
 
 @end
