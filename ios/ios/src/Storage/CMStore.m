@@ -188,11 +188,11 @@
     
     [webService getBinaryDataNamed:name
                               user:_CMUserOrNil
-                    successHandler:^(NSData *data) {
+                    successHandler:^(NSData *data, NSString *mimeType) {
                         CMFile *file = [[CMFile alloc] initWithData:data
                                                               named:name
                                                     belongingToUser:userLevel ? user : nil
-                                                           mimeType:nil];
+                                                           mimeType:mimeType];
                         [file writeToCache];
                         callback(file);
                     } errorHandler:^(NSError *error) {

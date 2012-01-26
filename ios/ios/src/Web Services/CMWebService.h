@@ -57,9 +57,9 @@ typedef void (^CMWebServiceFileUploadSuccessCallback)(CMFileUploadResult result)
 /**
  * Callback block signature for all operations on <tt>CMWebService</tt> that download binary files from
  * the CloudMine servers. These blocks return <tt>void</tt> and take an <tt>NSData</tt> instance that contains
- * the raw data for the file.
+ * the raw data for the file as well as a string with the content type of the file returned from the server.
  */
-typedef void (^CMWebServiceFileFetchSuccessCallback)(NSData *data);
+typedef void (^CMWebServiceFileFetchSuccessCallback)(NSData *data, NSString *contentType);
 
 /**
  * Base class for all classes concerned with the communication between the client device and the CloudMine 

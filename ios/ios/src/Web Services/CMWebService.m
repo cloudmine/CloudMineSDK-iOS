@@ -252,7 +252,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
     
     [request setCompletionBlock:^{
         if (successHandler != nil) {
-            successHandler(blockRequest.responseData);
+            successHandler(blockRequest.responseData, [blockRequest.responseHeaders objectForKey:@"Content-Type"]);
         }
     }];
     

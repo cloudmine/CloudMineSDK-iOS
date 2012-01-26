@@ -114,7 +114,7 @@ describe(@"CMWebService", ^{
             
             [service getBinaryDataNamed:binaryKey
                     user:nil
-                         successHandler:^(NSData *data) {}
+                         successHandler:^(NSData *data, NSString *mimeType) {}
                            errorHandler:^(NSError *error) {}
              ];
         });
@@ -239,7 +239,7 @@ describe(@"CMWebService", ^{
             
             [service getBinaryDataNamed:binaryKey
                     user:creds
-                         successHandler:^(NSData *data) {}
+                         successHandler:^(NSData *data, NSString *mimeType) {}
                            errorHandler:^(NSError *error) {}
              ];
         });
