@@ -15,6 +15,7 @@
 #import "CMServerFunction.h"
 #import "CMPagingDescriptor.h"
 #import "CMUser.h"
+#import "CMFile.h"
 
 /**
  * Callback block signature for all operations on <tt>CMStore</tt> that fetch objects
@@ -23,7 +24,7 @@
  */
 typedef void (^CMStoreObjectCallback)(NSArray *objects);
 
-typedef void (^CMStoreFileCallback)(NSData *fileData);
+typedef void (^CMStoreFileCallback)(CMFile *file);
 
 /**
  * This is the high-level interface for interacting with remote objects stored on CloudMine.
@@ -45,6 +46,9 @@ typedef void (^CMStoreFileCallback)(NSData *fileData);
 
 /** The user to be used when accessing user-level objects. This is ignored for app-level objects. */
 @property (nonatomic, strong) CMUser *user;
+
+/** The last error that occured during a store-based operation. */
+@property (readonly, strong) NSError *lastError;
 
 /**
  * Convenience method to return a newly initialized CMStore instance.

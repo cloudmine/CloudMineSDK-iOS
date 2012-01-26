@@ -118,6 +118,8 @@
 		7AD9222314D06B9A0032DDDE /* CMStoreOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD9222114D06B9A0032DDDE /* CMStoreOptions.h */; };
 		7AD9222414D06B9A0032DDDE /* CMStoreOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD9222214D06B9A0032DDDE /* CMStoreOptions.m */; };
 		7AD9222614D06EB10032DDDE /* CMStoreOptionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD9222514D06EB10032DDDE /* CMStoreOptionsSpec.m */; };
+		7AD93BAC14D1C5DA00CC1CC9 /* CMFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD93BAA14D1C5DA00CC1CC9 /* CMFile.h */; };
+		7AD93BAD14D1C5DA00CC1CC9 /* CMFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD93BAB14D1C5DA00CC1CC9 /* CMFile.m */; };
 		7AF6685514719FC900E2A06D /* YAJLiOS in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AF6685414719FC800E2A06D /* YAJLiOS */; };
 /* End PBXBuildFile section */
 
@@ -242,6 +244,8 @@
 		7AD9222114D06B9A0032DDDE /* CMStoreOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMStoreOptions.h; sourceTree = "<group>"; };
 		7AD9222214D06B9A0032DDDE /* CMStoreOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMStoreOptions.m; sourceTree = "<group>"; };
 		7AD9222514D06EB10032DDDE /* CMStoreOptionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMStoreOptionsSpec.m; sourceTree = "<group>"; };
+		7AD93BAA14D1C5DA00CC1CC9 /* CMFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMFile.h; sourceTree = "<group>"; };
+		7AD93BAB14D1C5DA00CC1CC9 /* CMFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMFile.m; sourceTree = "<group>"; };
 		7AF6685414719FC800E2A06D /* YAJLiOS */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = YAJLiOS; path = ios/Vendor/YAJL/YAJLiOS.framework/Versions/A/YAJLiOS; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -477,6 +481,8 @@
 				7AD36F78146C643E00DD4734 /* CMObject.m */,
 				7A7E31BE14C4D0920091F1E3 /* CMGeoPoint.h */,
 				7A7E31BF14C4D0920091F1E3 /* CMGeoPoint.m */,
+				7AD93BAA14D1C5DA00CC1CC9 /* CMFile.h */,
+				7AD93BAB14D1C5DA00CC1CC9 /* CMFile.m */,
 				7AD36F8A146CB69000DD4734 /* Extensions */,
 				7AD36F7B146C64F300DD4734 /* Web Services */,
 				7A7E31C514C88F760091F1E3 /* Storage */,
@@ -552,6 +558,7 @@
 				7A7E31C814C88F8A0091F1E3 /* CMStore.h in Headers */,
 				7AD9221C14CF47360032DDDE /* CMPagingDescriptor.h in Headers */,
 				7AD9222314D06B9A0032DDDE /* CMStoreOptions.h in Headers */,
+				7AD93BAC14D1C5DA00CC1CC9 /* CMFile.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -705,6 +712,7 @@
 				7A7E31C914C88F8A0091F1E3 /* CMStore.m in Sources */,
 				7AD9221D14CF47360032DDDE /* CMPagingDescriptor.m in Sources */,
 				7AD9222414D06B9A0032DDDE /* CMStoreOptions.m in Sources */,
+				7AD93BAD14D1C5DA00CC1CC9 /* CMFile.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

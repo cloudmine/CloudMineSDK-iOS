@@ -31,6 +31,7 @@
 @implementation CMStore
 @synthesize webService;
 @synthesize user;
+@synthesize lastError;
 
 #pragma mark - Initializers
 
@@ -46,6 +47,7 @@
     if (self = [super init]) {
         self.webService = [[CMWebService alloc] init];
         self.user = theUser;
+        lastError = nil;
         _cachedAppObjects = [[NSMutableSet alloc] init];
         _cachedUserObjects = theUser ? [[NSMutableSet alloc] init] : nil;
     }
@@ -100,7 +102,8 @@
                       [blockSelf cacheObjectsInMemory:objects atUserLevel:userLevel];
                       callback(objects);
                   } errorHandler:^(NSError *error) {
-                      NSLog(@"Error occurred during request: %@", [error description]);
+                      NSLog(@"Error occurred during object request: %@", [error description]);
+                      lastError = error;
                       callback(nil);
                   }
      ];
@@ -160,7 +163,8 @@
                      [blockSelf cacheObjectsInMemory:objects atUserLevel:userLevel];
                      callback(objects);
                  } errorHandler:^(NSError *error) {
-                     NSLog(@"Error occurred during request: %@", [error description]);
+                     NSLog(@"Error occurred during object request: %@", [error description]);
+                     lastError = error;
                      callback(nil);
                  }
      ];
@@ -185,9 +189,15 @@
     [webService getBinaryDataNamed:name
                               user:_CMUserOrNil
                     successHandler:^(NSData *data) {
-                        
+                        CMFile *file = [[CMFile alloc] initWithData:data
+                                                              named:name
+                                                    belongingToUser:userLevel ? user : nil];
+                        [file writeToCache];
+                        callback(file);
                     } errorHandler:^(NSError *error) {
-                        
+                        NSLog(@"Error occurred during file request: %@", [error description]);
+                        lastError = error;
+                        callback(nil);
                     }
      ];
 }
