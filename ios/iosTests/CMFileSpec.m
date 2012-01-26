@@ -36,7 +36,10 @@ describe(@"CMFile", ^{
     
     context(@"given a user-level CMFile instance", ^{
         beforeEach(^{
-            file = [[CMFile alloc] initWithData:[NSMutableData randomDataWithLength:100] named:@"foofile" belongingToUser:[[CMUser alloc] initWithUserId:@"uid" andPassword:@"pw"]];
+            file = [[CMFile alloc] initWithData:[NSMutableData randomDataWithLength:100] 
+                                          named:@"foofile" 
+                                belongingToUser:[[CMUser alloc] initWithUserId:@"uid" andPassword:@"pw"]
+                                       mimeType:nil];
         });
         
         it(@"it should calculate the cache file location correctly", ^{

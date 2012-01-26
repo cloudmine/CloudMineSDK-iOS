@@ -20,9 +20,10 @@
 @property (nonatomic, strong) NSString *fileName;
 @property (nonatomic, readonly) NSURL *cacheLocation;
 @property (nonatomic, strong) CMUser *user;
+@property (nonatomic, strong) NSString *mimeType;
 
 - (id)initWithData:(NSData *)theFileData named:(NSString *)theName;
-- (id)initWithData:(NSData *)theFileData named:(NSString *)theName belongingToUser:(CMUser *)theUser;
+- (id)initWithData:(NSData *)theFileData named:(NSString *)theName belongingToUser:(CMUser *)theUser mimeType:(NSString *)theMimeType;
 
 - (BOOL)isUserLevel;
 - (BOOL)writeToLocation:(NSURL *)url options:(NSFileWrapperWritingOptions)options;

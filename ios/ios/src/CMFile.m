@@ -14,24 +14,27 @@ NSString * const _dataKey = @"fileData";
 NSString * const _userKey = @"user";
 NSString * const _nameKey = @"name";
 NSString * const _uuidKey = @"uuid";
+NSString * const _mimeTypeKey = @"mime";
 
 @implementation CMFile
 @synthesize fileData;
 @synthesize user;
 @synthesize fileName;
+@synthesize mimeType;
 
 #pragma mark - Initializers
 
 - (id)initWithData:(NSData *)theFileData named:(NSString *)theName {
-    return [self initWithData:theFileData named:theName belongingToUser:nil];
+    return [self initWithData:theFileData named:theName belongingToUser:nil mimeType:nil];
 }
 
-- (id)initWithData:(NSData *)theFileData named:(NSString *)theName belongingToUser:(CMUser *)theUser {
+- (id)initWithData:(NSData *)theFileData named:(NSString *)theName belongingToUser:(CMUser *)theUser mimeType:(NSString *)theMimeType {
     if (self = [super init]) {
         fileData = theFileData;
         user = theUser;
         cacheLocation = nil;
         fileName = theName;
+        mimeType = (theMimeType == nil ? @"application/octet-stream" : theMimeType);
         uuid = [NSString stringWithUUID];
     }
     return self;
@@ -40,7 +43,8 @@ NSString * const _uuidKey = @"uuid";
 - (id)initWithCoder:(NSCoder *)coder {
     self = [self initWithData:[coder decodeObjectForKey:_dataKey]
                         named:[coder decodeObjectForKey:_nameKey]
-              belongingToUser:[coder decodeObjectForKey:_userKey]];
+              belongingToUser:[coder decodeObjectForKey:_userKey]
+                     mimeType:[coder decodeObjectForKey:_mimeTypeKey]];
     uuid = [coder decodeObjectForKey:_uuidKey];
     return self;
 }
@@ -53,13 +57,14 @@ NSString * const _uuidKey = @"uuid";
 
 #pragma mark - Persisting to disk
 
-- (void)encodeWithCoder:(NSCoder *)aCoder {
-    [aCoder encodeObject:fileData forKey:_dataKey];
+- (void)encodeWithCoder:(NSCoder *)coder {
+    [coder encodeObject:fileData forKey:_dataKey];
     if (user) {
-        [aCoder encodeObject:user forKey:_userKey];
+        [coder encodeObject:user forKey:_userKey];
     }
-    [aCoder encodeObject:fileName forKey:_nameKey];
-    [aCoder encodeObject:uuid forKey:_uuidKey];
+    [coder encodeObject:fileName forKey:_nameKey];
+    [coder encodeObject:uuid forKey:_uuidKey];
+    [coder encodeObject:mimeType forKey:_mimeTypeKey];
 }
 
 - (BOOL)writeToLocation:(NSURL *)url options:(NSFileWrapperWritingOptions)options {

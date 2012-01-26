@@ -191,7 +191,8 @@
                     successHandler:^(NSData *data) {
                         CMFile *file = [[CMFile alloc] initWithData:data
                                                               named:name
-                                                    belongingToUser:userLevel ? user : nil];
+                                                    belongingToUser:userLevel ? user : nil
+                                                           mimeType:nil];
                         [file writeToCache];
                         callback(file);
                     } errorHandler:^(NSError *error) {
