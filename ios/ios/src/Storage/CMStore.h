@@ -23,6 +23,8 @@
  */
 typedef void (^CMStoreObjectCallback)(NSArray *objects);
 
+typedef void (^CMStoreFileCallback)(NSData *fileData);
+
 /**
  * This is the high-level interface for interacting with remote objects stored on CloudMine.
  * Note that all the methods here that involve network operations are asynchronous to avoid blocking
@@ -74,5 +76,8 @@ typedef void (^CMStoreObjectCallback)(NSArray *objects);
 
 - (void)searchObjects:(CMStoreObjectCallback)callback query:(NSString *)query additionalOptions:(CMStoreOptions *)options;
 - (void)searchUserObjects:(CMStoreObjectCallback)callback query:(NSString *)query additionalOptions:(CMStoreOptions *)options;
+
+- (void)fileWithName:(NSString *)name callback:(CMStoreFileCallback)callback;
+- (void)userFileWithName:(NSString *)name callback:(CMStoreFileCallback)callback;
 
 @end

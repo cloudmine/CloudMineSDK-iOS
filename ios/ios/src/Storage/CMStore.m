@@ -24,6 +24,7 @@
 - (void)_allObjects:(CMStoreObjectCallback)callback ofType:(NSString *)type userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
 - (void)_objectsWithKeys:(NSArray *)keys callback:(CMStoreObjectCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
 - (void)_searchObjects:(CMStoreObjectCallback)callback query:(NSString *)query userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
+- (void)_fileWithName:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreFileCallback)callback;
 - (void)cacheObjectsInMemory:(NSArray *)objects atUserLevel:(BOOL)userLevel;
 @end
 
@@ -162,6 +163,32 @@
                      NSLog(@"Error occurred during request: %@", [error description]);
                      callback(nil);
                  }
+     ];
+}
+
+#pragma mark - Binary file loading
+
+- (void)fileWithName:(NSString *)name callback:(CMStoreFileCallback)callback {
+    [self _fileWithName:name userLevel:NO callback:callback];
+}
+
+- (void)userFileWithName:(NSString *)name callback:(CMStoreFileCallback)callback {
+    _CMAssertUserConfigured;
+    
+    [self _fileWithName:name userLevel:YES callback:callback];
+}
+
+- (void)_fileWithName:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreFileCallback)callback {
+    NSParameterAssert(name);
+    NSParameterAssert(callback);
+    
+    [webService getBinaryDataNamed:name
+                              user:_CMUserOrNil
+                    successHandler:^(NSData *data) {
+                        
+                    } errorHandler:^(NSError *error) {
+                        
+                    }
      ];
 }
 
