@@ -19,4 +19,13 @@
     return self;
 }
 
+- (id)initWithCoder:(NSCoder *)coder {
+    return [self initWithUserId:[coder decodeObjectForKey:@"userId"] andPassword:[coder decodeObjectForKey:@"password"]];
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+    [coder encodeObject:self.userId forKey:@"userId"];
+    [coder encodeObject:self.password forKey:@"password"];
+}
+
 @end
