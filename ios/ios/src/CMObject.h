@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "CMSerializable.h"
+#import "CMStoreCallbacks.h"
 
 @class CMUser;
 @class CMStore;
@@ -21,14 +22,6 @@
  * This will also take care of generating a default <tt>objectId</tt> for you, in the form of a UUID.
  */
 @interface CMObject : NSObject <CMSerializable>
-
-/**
- * The app user that owns this object. If this is <tt>nil</tt>, the object is app-level.
- * <b>Changing this is thread-safe.</b>
- *
- * @see isUserLevel
- */
-@property (atomic, strong) CMUser *user;
 
 /**
  * The store that the object belongs to. It is possible for this to be <tt>nil</tt>, meaning that the object
@@ -74,11 +67,6 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder;
 
 /**
- * @return <tt>true</tt> if this object is owned by a particular user, <tt>false</tt> if app-level.
- */
-- (BOOL)isUserLevel;
-
-/**
  * Note: The object must belong to a store if you need to save it. You can easily add the object to a store and
  * save it by using <tt>CMStore</tt>'s <tt>saveObject:</tt> method.
  *
@@ -94,6 +82,6 @@
  *
  * @see CMStore
  */
-- (void)save;
+- (void)save:(CMStoreObjectUploadCallback)callback;
 
 @end

@@ -14,7 +14,6 @@
 
 @implementation CMObject
 @synthesize objectId;
-@synthesize user;
 @synthesize store;
 
 #pragma mark - Initializers
@@ -30,7 +29,6 @@
 - (id)initWithObjectId:(NSString *)theObjectId user:(CMUser *)theUser {
     if (self = [super init]) {
         objectId = theObjectId;
-        user = theUser;
         store = nil;
     }
     return self;
@@ -48,8 +46,9 @@
 
 #pragma mark - CMStore interactions
 
-- (void)save {
-    
+- (void)save:(CMStoreObjectUploadCallback)callback {
+    NSAssert([self belongsToStore], @"You cannot save an object (%@) that doesn't belong to a CMStore.", self);
+    [store saveObject:self callback:callback];
 }
 
 - (BOOL)belongsToStore {
@@ -72,10 +71,6 @@
 }
 
 #pragma mark - Accessors
-
-- (BOOL)isUserLevel {
-    return (user != nil);
-}
 
 - (NSString *)className {
     return NSStringFromClass([self class]);

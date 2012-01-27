@@ -8,25 +8,15 @@
 
 /** @file */
 
-#import <Foundation/Foundation.h>
-
 #import "CMWebService.h"
 #import "CMStoreOptions.h"
 #import "CMServerFunction.h"
 #import "CMPagingDescriptor.h"
 #import "CMUser.h"
 #import "CMFile.h"
+#import "CMStoreCallbacks.h"
 
 @class CMObject;
-
-/**
- * Callback block signature for all operations on <tt>CMStore</tt> that fetch objects
- * from the CloudMine servers. These block should return <tt>void</tt> and take an
- * <tt>NSArray</tt> of objects as an argument.
- */
-typedef void (^CMStoreObjectCallback)(NSArray *objects);
-
-typedef void (^CMStoreFileCallback)(CMFile *file);
 
 /**
  * This is the high-level interface for interacting with remote objects stored on CloudMine.
@@ -71,22 +61,26 @@ typedef void (^CMStoreFileCallback)(CMFile *file);
 
 - (id)initWithUser:(CMUser *)theUser;
 
-- (void)allObjects:(CMStoreObjectCallback)callback additionalOptions:(CMStoreOptions *)options;
-- (void)allUserObjects:(CMStoreObjectCallback)callback additionalOptions:(CMStoreOptions *)options;
+- (void)allObjects:(CMStoreObjectFetchCallback)callback additionalOptions:(CMStoreOptions *)options;
+- (void)allUserObjects:(CMStoreObjectFetchCallback)callback additionalOptions:(CMStoreOptions *)options;
 
-- (void)objectsWithKeys:(NSArray *)keys callback:(CMStoreObjectCallback)callback additionalOptions:(CMStoreOptions *)options;
-- (void)userObjectsWithKeys:(NSArray *)keys callback:(CMStoreObjectCallback)callback additionalOptions:(CMStoreOptions *)options;
+- (void)objectsWithKeys:(NSArray *)keys callback:(CMStoreObjectFetchCallback)callback additionalOptions:(CMStoreOptions *)options;
+- (void)userObjectsWithKeys:(NSArray *)keys callback:(CMStoreObjectFetchCallback)callback additionalOptions:(CMStoreOptions *)options;
 
-- (void)allObjects:(CMStoreObjectCallback)callback ofType:(NSString *)type additionalOptions:(CMStoreOptions *)options;
-- (void)allUserObjects:(CMStoreObjectCallback)callback ofType:(NSString *)type additionalOptions:(CMStoreOptions *)options;
+- (void)allObjects:(CMStoreObjectFetchCallback)callback ofType:(NSString *)type additionalOptions:(CMStoreOptions *)options;
+- (void)allUserObjects:(CMStoreObjectFetchCallback)callback ofType:(NSString *)type additionalOptions:(CMStoreOptions *)options;
 
-- (void)searchObjects:(CMStoreObjectCallback)callback query:(NSString *)query additionalOptions:(CMStoreOptions *)options;
-- (void)searchUserObjects:(CMStoreObjectCallback)callback query:(NSString *)query additionalOptions:(CMStoreOptions *)options;
+- (void)searchObjects:(CMStoreObjectFetchCallback)callback query:(NSString *)query additionalOptions:(CMStoreOptions *)options;
+- (void)searchUserObjects:(CMStoreObjectFetchCallback)callback query:(NSString *)query additionalOptions:(CMStoreOptions *)options;
 
 - (void)fileWithName:(NSString *)name callback:(CMStoreFileCallback)callback;
 - (void)userFileWithName:(NSString *)name callback:(CMStoreFileCallback)callback;
 
+- (void)saveObject:(CMObject *)theObject callback:(CMStoreObjectUploadCallback)callback;
+
 - (void)addObject:(CMObject *)theObject;
+- (void)addObjectBelongingToUser:(CMObject *)theObject;
 - (void)removeObject:(CMObject *)theObject;
+- (void)removeObjectBelongingToUser:(CMObject *)theObject;
 
 @end

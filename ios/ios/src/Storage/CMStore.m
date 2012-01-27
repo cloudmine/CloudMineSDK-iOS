@@ -21,10 +21,10 @@
 #define _CMUserOrNil (userLevel ? user : nil)
 
 @interface CMStore (Private)
-- (void)_allObjects:(CMStoreObjectCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
-- (void)_allObjects:(CMStoreObjectCallback)callback ofType:(NSString *)type userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
-- (void)_objectsWithKeys:(NSArray *)keys callback:(CMStoreObjectCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
-- (void)_searchObjects:(CMStoreObjectCallback)callback query:(NSString *)query userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
+- (void)_allObjects:(CMStoreObjectFetchCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
+- (void)_allObjects:(CMStoreObjectFetchCallback)callback ofType:(NSString *)type userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
+- (void)_objectsWithKeys:(NSArray *)keys callback:(CMStoreObjectFetchCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
+- (void)_searchObjects:(CMStoreObjectFetchCallback)callback query:(NSString *)query userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
 - (void)_fileWithName:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreFileCallback)callback;
 - (void)cacheObjectsInMemory:(NSArray *)objects atUserLevel:(BOOL)userLevel;
 @end
@@ -68,30 +68,30 @@
 
 #pragma mark - Object retrieval
 
-- (void)allObjects:(CMStoreObjectCallback)callback additionalOptions:(CMStoreOptions *)options {    
+- (void)allObjects:(CMStoreObjectFetchCallback)callback additionalOptions:(CMStoreOptions *)options {    
     [self _allObjects:callback userLevel:NO additionalOptions:options];
 }
 
-- (void)allUserObjects:(CMStoreObjectCallback)callback additionalOptions:(CMStoreOptions *)options {
+- (void)allUserObjects:(CMStoreObjectFetchCallback)callback additionalOptions:(CMStoreOptions *)options {
     _CMAssertUserConfigured;
     
     [self _allObjects:callback userLevel:YES additionalOptions:options];
 }
 
-- (void)_allObjects:(CMStoreObjectCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options {
+- (void)_allObjects:(CMStoreObjectFetchCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options {
     [self _objectsWithKeys:nil callback:callback userLevel:userLevel additionalOptions:options];
 }
 
-- (void)objectsWithKeys:(NSArray *)keys callback:(CMStoreObjectCallback)callback additionalOptions:(CMStoreOptions *)options {
+- (void)objectsWithKeys:(NSArray *)keys callback:(CMStoreObjectFetchCallback)callback additionalOptions:(CMStoreOptions *)options {
     [self _objectsWithKeys:keys callback:callback userLevel:NO additionalOptions:options];
 }
 
-- (void)userObjectsWithKeys:(NSArray *)keys callback:(CMStoreObjectCallback)callback additionalOptions:(CMStoreOptions *)options {
+- (void)userObjectsWithKeys:(NSArray *)keys callback:(CMStoreObjectFetchCallback)callback additionalOptions:(CMStoreOptions *)options {
     _CMAssertUserConfigured;
     
     [self _objectsWithKeys:keys callback:callback userLevel:YES additionalOptions:options];
 }
-- (void)_objectsWithKeys:(NSArray *)keys callback:(CMStoreObjectCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options {
+- (void)_objectsWithKeys:(NSArray *)keys callback:(CMStoreObjectFetchCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options {
     NSParameterAssert(callback);
     _CMAssertAPICredentialsInitialized;
     
@@ -114,17 +114,17 @@
 
 #pragma mark Object querying by type
 
-- (void)allObjects:(CMStoreObjectCallback)callback ofType:(NSString *)type additionalOptions:(CMStoreOptions *)options {
+- (void)allObjects:(CMStoreObjectFetchCallback)callback ofType:(NSString *)type additionalOptions:(CMStoreOptions *)options {
     [self _allObjects:callback userLevel:NO additionalOptions:options];
 }
 
-- (void)allUserObjects:(CMStoreObjectCallback)callback ofType:(NSString *)type additionalOptions:(CMStoreOptions *)options {
+- (void)allUserObjects:(CMStoreObjectFetchCallback)callback ofType:(NSString *)type additionalOptions:(CMStoreOptions *)options {
     _CMAssertUserConfigured;
     
     [self _allObjects:callback userLevel:YES additionalOptions:options];
 }
 
-- (void)_allObjects:(CMStoreObjectCallback)callback ofType:(NSString *)type userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options {
+- (void)_allObjects:(CMStoreObjectFetchCallback)callback ofType:(NSString *)type userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options {
     NSParameterAssert(callback);
     NSParameterAssert(type);
     _CMAssertAPICredentialsInitialized;
@@ -137,17 +137,17 @@
 
 #pragma mark General object querying
 
-- (void)searchObjects:(CMStoreObjectCallback)callback query:(NSString *)query additionalOptions:(CMStoreOptions *)options {
+- (void)searchObjects:(CMStoreObjectFetchCallback)callback query:(NSString *)query additionalOptions:(CMStoreOptions *)options {
     [self _searchObjects:callback query:query userLevel:NO additionalOptions:options];
 }
 
-- (void)searchUserObjects:(CMStoreObjectCallback)callback query:(NSString *)query additionalOptions:(CMStoreOptions *)options {
+- (void)searchUserObjects:(CMStoreObjectFetchCallback)callback query:(NSString *)query additionalOptions:(CMStoreOptions *)options {
     _CMAssertUserConfigured;
     
     [self _searchObjects:callback query:query userLevel:YES additionalOptions:options];
 }
 
-- (void)_searchObjects:(CMStoreObjectCallback)callback query:(NSString *)query userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options {
+- (void)_searchObjects:(CMStoreObjectFetchCallback)callback query:(NSString *)query userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options {
     NSParameterAssert(callback);
     _CMAssertAPICredentialsInitialized;
     
@@ -171,6 +171,13 @@
                      callback(nil);
                  }
      ];
+}
+
+#pragma mark - Object uploading
+
+- (void)saveObject:(CMObject *)theObject callback:(CMStoreObjectUploadCallback)callback {
+    NSParameterAssert(theObject);
+    _CMAssertAPICredentialsInitialized;
 }
 
 #pragma mark - Binary file loading
@@ -220,24 +227,29 @@
     }
 }
 
+- (void)addObjectBelongingToUser:(CMObject *)theObject {
+    NSAssert(user != nil, @"Attempted to add object (%@) to store (%@) belonging to user when user is not set.");
+    @synchronized(self) {
+        [_cachedUserObjects addObject:theObject];
+    }
+}
+
 - (void)addObject:(CMObject *)theObject {
     @synchronized(self) {
-        if ([theObject isUserLevel]) {
-            [_cachedUserObjects addObject:theObject];
-        } else {
-            [_cachedAppObjects addObject:theObject];
-        }
+        [_cachedAppObjects addObject:theObject];
     }
 }
 
 - (void)removeObject:(CMObject *)theObject {
     @synchronized(self) {
-        if ([_cachedAppObjects containsObject:theObject]) {
-            [_cachedAppObjects removeObject:theObject];
-        } else if([_cachedUserObjects containsObject:theObject]) {
-            [_cachedUserObjects removeObject:theObject];
-        }
+        [_cachedAppObjects removeObject:theObject];
     }
+}
+
+- (void)removeObjectBelongingToUser:(CMObject *)theObject {
+    @synchronized(self) {
+        [_cachedUserObjects removeObject:theObject];
+    }    
 }
 
 @end

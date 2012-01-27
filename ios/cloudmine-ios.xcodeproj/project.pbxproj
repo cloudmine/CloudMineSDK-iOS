@@ -112,6 +112,7 @@
 		7AD36F89146CAE0700DD4734 /* CMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD36F87146CAE0700DD4734 /* CMUser.m */; };
 		7AD36F8D146CB6A600DD4734 /* NSURL+QueryParameterAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD36F8B146CB6A600DD4734 /* NSURL+QueryParameterAdditions.h */; };
 		7AD36F8E146CB6A600DD4734 /* NSURL+QueryParameterAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD36F8C146CB6A600DD4734 /* NSURL+QueryParameterAdditions.m */; };
+		7AD7DA5814D221F600F771C7 /* CMStoreCallbacks.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD7DA5714D221F600F771C7 /* CMStoreCallbacks.h */; };
 		7AD9221C14CF47360032DDDE /* CMPagingDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD9221A14CF47350032DDDE /* CMPagingDescriptor.h */; };
 		7AD9221D14CF47360032DDDE /* CMPagingDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD9221B14CF47350032DDDE /* CMPagingDescriptor.m */; };
 		7AD9222014CF5B9B0032DDDE /* CMPagingDescriptorSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD9221F14CF5B9B0032DDDE /* CMPagingDescriptorSpec.m */; };
@@ -239,6 +240,7 @@
 		7AD36F87146CAE0700DD4734 /* CMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUser.m; sourceTree = "<group>"; };
 		7AD36F8B146CB6A600DD4734 /* NSURL+QueryParameterAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+QueryParameterAdditions.h"; sourceTree = "<group>"; };
 		7AD36F8C146CB6A600DD4734 /* NSURL+QueryParameterAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+QueryParameterAdditions.m"; sourceTree = "<group>"; };
+		7AD7DA5714D221F600F771C7 /* CMStoreCallbacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMStoreCallbacks.h; sourceTree = "<group>"; };
 		7AD9221A14CF47350032DDDE /* CMPagingDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPagingDescriptor.h; sourceTree = "<group>"; };
 		7AD9221B14CF47350032DDDE /* CMPagingDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPagingDescriptor.m; sourceTree = "<group>"; };
 		7AD9221F14CF5B9B0032DDDE /* CMPagingDescriptorSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPagingDescriptorSpec.m; sourceTree = "<group>"; };
@@ -362,6 +364,7 @@
 				7A7E31C714C88F8A0091F1E3 /* CMStore.m */,
 				7AD9222114D06B9A0032DDDE /* CMStoreOptions.h */,
 				7AD9222214D06B9A0032DDDE /* CMStoreOptions.m */,
+				7AD7DA5714D221F600F771C7 /* CMStoreCallbacks.h */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -562,6 +565,7 @@
 				7AD9221C14CF47360032DDDE /* CMPagingDescriptor.h in Headers */,
 				7AD9222314D06B9A0032DDDE /* CMStoreOptions.h in Headers */,
 				7AD93BAC14D1C5DA00CC1CC9 /* CMFile.h in Headers */,
+				7AD7DA5814D221F600F771C7 /* CMStoreCallbacks.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
