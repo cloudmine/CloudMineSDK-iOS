@@ -8,7 +8,7 @@
 
 #import "CMGeoPoint.h"
 
-NSString *const CMGeoPointClassName = @"geopoint";
+NSString * const CMGeoPointClassName = @"geopoint";
 
 @implementation CMGeoPoint
 
@@ -43,7 +43,7 @@ NSString *const CMGeoPointClassName = @"geopoint";
     [aCoder encodeDouble:self.longitude forKey:@"longitude"];
 }
 
-- (NSString *)className {
++ (NSString *)className {
     return CMGeoPointClassName;
 }
 

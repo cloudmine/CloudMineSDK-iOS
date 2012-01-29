@@ -72,8 +72,8 @@
 
 #pragma mark - Accessors
 
-- (NSString *)className {
-    return NSStringFromClass([self class]);
++ (NSString *)className {
+    return NSStringFromClass(self);
 }
 
 - (BOOL)isEqual:(id)object {

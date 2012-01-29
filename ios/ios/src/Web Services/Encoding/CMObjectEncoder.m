@@ -43,7 +43,7 @@
         CMObjectEncoder *objectEncoder = [[CMObjectEncoder alloc] init];
         [object encodeWithCoder:objectEncoder];
         NSMutableDictionary *encodedRepresentation = [NSMutableDictionary dictionaryWithDictionary:objectEncoder.encodedRepresentation];
-        [encodedRepresentation setObject:[object className] forKey:CMInternalTypeStorageKey];
+        [encodedRepresentation setObject:[[object class] className] forKey:CMInternalTypeStorageKey];
         [topLevelObjectsDictionary setObject:encodedRepresentation forKey:object.objectId];
     }
     
@@ -126,7 +126,7 @@
         CMObjectEncoder *newEncoder = [[CMObjectEncoder alloc] init];
         [objv encodeWithCoder:newEncoder];
         NSMutableDictionary *serializedRepresentation = [NSMutableDictionary dictionaryWithDictionary:newEncoder.encodedRepresentation];
-        [serializedRepresentation setObject:[objv className] forKey:CMInternalTypeStorageKey];
+        [serializedRepresentation setObject:[[objv class] className] forKey:CMInternalTypeStorageKey];
         return serializedRepresentation;
     } else {
         [[NSException exceptionWithName:@"CMInternalInconsistencyException"
@@ -149,7 +149,7 @@
 //        
 //        // Must encode the type of this object for decoding purposes.
 //        NSMutableDictionary *serializedRepresentation = [NSMutableDictionary dictionaryWithDictionary:newEncoder.encodedRepresentation];
-//        [serializedRepresentation setObject:[objv className] forKey:CMInternalTypeStorageKey];
+//        [serializedRepresentation setObject:[[objv class] className] forKey:CMInternalTypeStorageKey];
 //        return serializedRepresentation;
     }
 }
