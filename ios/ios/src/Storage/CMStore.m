@@ -292,7 +292,7 @@
 }
 
 - (void)addUserObject:(CMObject *)theObject {
-    NSAssert(user != nil, @"Attempted to add object (%@) to store (%@) belonging to user when user is not set.");
+    NSAssert(user != nil, @"Attempted to add object (%@) to store (%@) belonging to user when user is not set.", theObject, self);
     @synchronized(self) {
         [_cachedUserObjects setObject:theObject forKey:theObject.objectId];
     }

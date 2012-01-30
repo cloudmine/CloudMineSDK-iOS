@@ -20,6 +20,7 @@ describe(@"CMStore", ^{
     
     __block CMWebService *webService = nil;
     __block CMStore *store = nil;
+    __block CMUser *user = nil;
 
     beforeAll(^{
         [[CMAPICredentials sharedInstance] setApiKey:@"apikey"];
@@ -42,11 +43,85 @@ describe(@"CMStore", ^{
                 [[theValue([store objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipUndefinedLevel)];
             });
             
-            it(@"should be app-level when the object exists in the store", ^{
+            it(@"should be app-level when the object is added to the store at the app level", ^{
                 CMObject *obj = [[CMObject alloc] init];
                 [store addObject:obj];
                 [[theValue([store objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipAppLevel)];
                 [[obj.store should] equal:store];
+            });
+            
+            it(@"should raise an exception when a user-level object is added", ^{
+                CMObject *obj = [[CMObject alloc] init];
+                [[theBlock(^{
+                    [store addUserObject:obj];
+                }) should] raise];
+            });
+        });
+    });
+    
+    context(@"given a user-level store", ^{
+        beforeEach(^{
+            user = [[CMUser alloc] initWithUserId:@"userid" andPassword:@"password"];
+            store = [CMStore storeWithUser:user];
+            store.webService = webService;
+        });
+        
+        context(@"when computing object ownership level", ^{
+            it(@"should be an unknown level when the object doesn't exist in the store", ^{
+                CMObject *obj = [[CMObject alloc] init];
+                [[theValue([store objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipUndefinedLevel)];
+            });
+            
+            it(@"should be app-level when the object is added to the store at the app level", ^{
+                CMObject *obj = [[CMObject alloc] init];
+                [store addObject:obj];
+                [[theValue([store objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipAppLevel)];
+                [[obj.store should] equal:store];
+            });
+            
+            it(@"should be user-level when the object is added to the store at the user level", ^{
+                CMObject *obj = [[CMObject alloc] init];
+                [store addUserObject:obj];
+                [[theValue([store objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipUserLevel)];
+                [[obj.store should] equal:store];
+            });
+        });
+        
+        context(@"when changing user ownership of a store", ^{
+            it(@"should nullify store relationships with user-level objects stored under the previous user", ^{
+                NSMutableArray *userObjects = [NSMutableArray arrayWithCapacity:5];
+                NSMutableArray *appObjects = [NSMutableArray arrayWithCapacity:5];
+                for (int i=0; i<5; i++) {
+                    CMObject *userObject = [[CMObject alloc] init];
+                    CMObject *appObject = [[CMObject alloc] init];
+                    [userObjects addObject:userObject];
+                    [appObjects addObject:appObject];
+                    [store addUserObject:userObject];
+                    [store addObject:appObject];
+                }
+                
+                // Validate that all the objects have been configured properly.
+                [userObjects enumerateObjectsUsingBlock:^(CMObject *obj, NSUInteger idx, BOOL *stop) {
+                    [[obj.store should] equal:store];
+                    [[theValue([store objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipUserLevel)];
+                }];
+                [appObjects enumerateObjectsUsingBlock:^(CMObject *obj, NSUInteger idx, BOOL *stop) {
+                    [[obj.store should] equal:store];
+                    [[theValue([store objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipAppLevel)];
+                }];
+                
+                // Now change the store user and re-validate.
+                CMUser *theOtherUser = [[CMUser alloc] initWithUserId:@"somethingelse" andPassword:@"foobar"];
+                store.user = theOtherUser;
+                [userObjects enumerateObjectsUsingBlock:^(CMObject *obj, NSUInteger idx, BOOL *stop) {
+                    NSLog(@"addy of obj's store is %p", obj.store);
+                    [obj.store shouldBeNil];
+                    [[theValue([store objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipUndefinedLevel)];
+                }];
+                [appObjects enumerateObjectsUsingBlock:^(CMObject *obj, NSUInteger idx, BOOL *stop) {
+                    [[obj.store should] equal:store];
+                    [[theValue([store objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipAppLevel)];
+                }];
             });
         });
     });

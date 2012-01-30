@@ -54,9 +54,7 @@
 }
 
 - (void)setStore:(CMStore *)theStore {
-    NSParameterAssert(theStore);
-    
-    if ([store objectOwnershipLevel:self] == CMObjectOwnershipUndefinedLevel) {
+    if (store && [store objectOwnershipLevel:self] == CMObjectOwnershipUndefinedLevel) {
         @synchronized(self) {
             if (store) {
                 // Remove this object from the current store.
