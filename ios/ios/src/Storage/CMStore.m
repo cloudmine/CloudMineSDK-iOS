@@ -232,8 +232,7 @@
 - (void)_saveObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreUploadCallback)callback {
     NSParameterAssert(objects);
     _CMAssertAPICredentialsInitialized;
-    NSDictionary *objectDictionary = [CMObjectEncoder encodeObjects:objects];
-    [webService updateValuesFromDictionary:objectDictionary
+    [webService updateValuesFromDictionary:[CMObjectEncoder encodeObjects:objects]
                         serverSideFunction:nil
                                       user:_CMUserOrNil
                             successHandler:^(NSDictionary *results, NSDictionary *errors) {
