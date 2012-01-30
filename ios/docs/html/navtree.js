@@ -24,13 +24,13 @@ var NAVTREE =
     [ "Class Hierarchy", "hierarchy.html", [
       [ "CMAPICredentials", "interface_c_m_a_p_i_credentials.html", null ],
       [ "CMClassPropertyExtractor", "interface_c_m_class_property_extractor.html", null ],
-      [ "CMFile", "interface_c_m_file.html", null ],
       [ "CMObjectDecoder", "interface_c_m_object_decoder.html", null ],
       [ "CMObjectEncoder", "interface_c_m_object_encoder.html", [
         [ "CMJSONEncoder", "interface_c_m_j_s_o_n_encoder.html", null ]
       ] ],
       [ "CMPagingDescriptor", "interface_c_m_paging_descriptor.html", null ],
       [ "<CMSerializable>", "protocol_c_m_serializable-p.html", [
+        [ "CMFile", "interface_c_m_file.html", null ],
         [ "CMObject", "interface_c_m_object.html", [
           [ "CMGeoPoint", "interface_c_m_geo_point.html", null ]
         ] ]

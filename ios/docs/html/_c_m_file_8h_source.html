@@ -89,35 +89,36 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00007"></a>00007 <span class="comment">//</span>
 <a name="l00008"></a>00008 
 <a name="l00009"></a>00009 <span class="preprocessor">#import &lt;Foundation/Foundation.h&gt;</span>
-<a name="l00010"></a>00010 
-<a name="l00011"></a>00011 <span class="keyword">@class</span> <a class="code" href="interface_c_m_user.html">CMUser</a>;
-<a name="l00012"></a>00012 
-<a name="l00013"></a><a class="code" href="interface_c_m_file.html">00013</a> <span class="keyword">@interface </span><a class="code" href="interface_c_m_file.html">CMFile</a> : NSObject&lt;NSCoding&gt; {
-<a name="l00014"></a>00014 <span class="keyword">@private</span>
-<a name="l00015"></a>00015     NSString *uuid;
-<a name="l00016"></a>00016     NSURL *cacheLocation;
-<a name="l00017"></a>00017 }
-<a name="l00018"></a>00018 
-<a name="l00019"></a>00019 <span class="keyword">@property</span> (atomic, strong, readonly) NSData *fileData;
-<a name="l00020"></a>00020 <span class="keyword">@property</span> (nonatomic, strong) NSString *fileName;
-<a name="l00021"></a>00021 <span class="keyword">@property</span> (nonatomic, readonly) NSURL *cacheLocation;
-<a name="l00022"></a>00022 <span class="keyword">@property</span> (nonatomic, strong) <a class="code" href="interface_c_m_user.html">CMUser</a> *user;
-<a name="l00023"></a>00023 <span class="keyword">@property</span> (nonatomic, strong) NSString *mimeType;
-<a name="l00024"></a>00024 
-<a name="l00025"></a>00025 - (id)initWithData:(NSData *)theFileData named:(NSString *)theName;
-<a name="l00026"></a>00026 - (id)initWithData:(NSData *)theFileData named:(NSString *)theName belongingToUser:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)theUser mimeType:(NSString *)theMimeType;
-<a name="l00027"></a>00027 
-<a name="l00028"></a>00028 - (BOOL)isUserLevel;
-<a name="l00029"></a>00029 - (BOOL)writeToLocation:(NSURL *)url options:(NSFileWrapperWritingOptions)options;
-<a name="l00030"></a>00030 - (BOOL)writeToCache;
-<a name="l00031"></a>00031 
-<a name="l00032"></a>00032 <span class="keyword">@end</span>
+<a name="l00010"></a>00010 <span class="preprocessor">#import &quot;CMSerializable.h&quot;</span>
+<a name="l00011"></a>00011 
+<a name="l00012"></a>00012 <span class="keyword">@class</span> <a class="code" href="interface_c_m_user.html">CMUser</a>;
+<a name="l00013"></a>00013 
+<a name="l00014"></a><a class="code" href="interface_c_m_file.html">00014</a> <span class="keyword">@interface </span><a class="code" href="interface_c_m_file.html">CMFile</a> : NSObject &lt;<a class="code" href="protocol_c_m_serializable-p.html">CMSerializable</a>&gt; {
+<a name="l00015"></a>00015 <span class="keyword">@private</span>
+<a name="l00016"></a>00016     NSString *uuid;
+<a name="l00017"></a>00017     NSURL *cacheLocation;
+<a name="l00018"></a>00018 }
+<a name="l00019"></a>00019 
+<a name="l00020"></a>00020 <span class="keyword">@property</span> (atomic, strong, readonly) NSData *fileData;
+<a name="l00021"></a>00021 <span class="keyword">@property</span> (nonatomic, strong) NSString *fileName;
+<a name="l00022"></a>00022 <span class="keyword">@property</span> (nonatomic, readonly) NSURL *cacheLocation;
+<a name="l00023"></a>00023 <span class="keyword">@property</span> (nonatomic, strong) <a class="code" href="interface_c_m_user.html">CMUser</a> *user;
+<a name="l00024"></a>00024 <span class="keyword">@property</span> (nonatomic, strong) NSString *mimeType;
+<a name="l00025"></a>00025 
+<a name="l00026"></a>00026 - (id)initWithData:(NSData *)theFileData named:(NSString *)theName;
+<a name="l00027"></a>00027 - (id)initWithData:(NSData *)theFileData named:(NSString *)theName belongingToUser:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)theUser mimeType:(NSString *)theMimeType;
+<a name="l00028"></a>00028 
+<a name="l00029"></a>00029 - (BOOL)isUserLevel;
+<a name="l00030"></a>00030 - (BOOL)writeToLocation:(NSURL *)url options:(NSFileWrapperWritingOptions)options;
+<a name="l00031"></a>00031 - (BOOL)writeToCache;
+<a name="l00032"></a>00032 
+<a name="l00033"></a>00033 <span class="keyword">@end</span>
 </pre></div></div>
 </div>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><b>CMFile.h</b>      </li>
-      <li class="footer">Generated on Mon Jan 30 2012 10:30:47 for CloudMine iOS SDK by&#160;
+      <li class="footer">Generated on Mon Jan 30 2012 16:00:04 for CloudMine iOS SDK by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </li>
     </ul>
