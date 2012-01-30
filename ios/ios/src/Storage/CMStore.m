@@ -27,7 +27,7 @@
 - (void)_objectsWithKeys:(NSArray *)keys callback:(CMStoreObjectFetchCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
 - (void)_searchObjects:(CMStoreObjectFetchCallback)callback query:(NSString *)query userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
 - (void)_fileWithName:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreFileFetchCallback)callback;
-- (void)_saveObjects:(NSSet *)objects userLevel:(BOOL)userLevel callback:(CMStoreUploadCallback)callback;
+- (void)_saveObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreUploadCallback)callback;
 - (void)cacheObjectsInMemory:(NSArray *)objects atUserLevel:(BOOL)userLevel;
 @end
 
@@ -55,8 +55,8 @@
         self.webService = [[CMWebService alloc] init];
         self.user = theUser;
         lastError = nil;
-        _cachedAppObjects = [[NSMutableSet alloc] init];
-        _cachedUserObjects = theUser ? [[NSMutableSet alloc] init] : nil;
+        _cachedAppObjects = [[NSMutableDictionary alloc] init];
+        _cachedUserObjects = theUser ? [[NSMutableDictionary alloc] init] : nil;
     }
     return self;
 }
@@ -64,12 +64,12 @@
 - (void)setUser:(CMUser *)theUser {
     @synchronized(self) {
         if (_cachedUserObjects) {
-            [_cachedUserObjects enumerateObjectsUsingBlock:^(CMObject *obj, BOOL *stop) {
+            [_cachedUserObjects enumerateKeysAndObjectsUsingBlock:^(id key, CMObject *obj, BOOL *stop) {
                 obj.store = nil;
             }];
             [_cachedUserObjects removeAllObjects];
         } else {
-            _cachedUserObjects = [[NSMutableSet alloc] init];
+            _cachedUserObjects = [[NSMutableDictionary alloc] init];
         }
         user = theUser;
     }
@@ -201,11 +201,11 @@
 }
 
 - (void)saveAllAppObjects:(CMStoreUploadCallback)callback {
-    [self _saveObjects:_cachedAppObjects userLevel:NO callback:callback];
+    [self _saveObjects:[_cachedAppObjects allValues] userLevel:NO callback:callback];
 }
 
 - (void)saveAllUserObjects:(CMStoreUploadCallback)callback {
-    [self _saveObjects:_cachedUserObjects userLevel:YES callback:callback];
+    [self _saveObjects:[_cachedUserObjects allValues] userLevel:YES callback:callback];
 }
 
 - (void)saveUserObject:(CMObject *)theObject callback:(CMStoreUploadCallback)callback {
@@ -217,7 +217,7 @@
     [self _saveObjects:[NSSet setWithObject:theObject] userLevel:NO callback:callback];
 }
 
-- (void)_saveObjects:(NSSet *)objects userLevel:(BOOL)userLevel callback:(CMStoreUploadCallback)callback {
+- (void)_saveObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreUploadCallback)callback {
     NSParameterAssert(objects);
     _CMAssertAPICredentialsInitialized;
     NSDictionary *objectDictionary = [CMObjectEncoder encodeObjects:objects];
@@ -273,10 +273,9 @@
     NSAssert(userLevel ? (user != nil) : true, @"Failed trying to cache remote objects in-memory for user when user is not configured (%@)", self);
     
     @synchronized(self) {
-        if (userLevel) {
-            [_cachedUserObjects addObjectsFromArray:objects];
-        } else {
-            [_cachedAppObjects addObjectsFromArray:objects];
+        NSMutableDictionary *cache = userLevel ? _cachedUserObjects : _cachedAppObjects;
+        for (CMObject *obj in objects) {
+            [cache setObject:obj forKey:obj.objectId];
         }
     }
 }
@@ -284,25 +283,25 @@
 - (void)addUserObject:(CMObject *)theObject {
     NSAssert(user != nil, @"Attempted to add object (%@) to store (%@) belonging to user when user is not set.");
     @synchronized(self) {
-        [_cachedUserObjects addObject:theObject];
+        [_cachedUserObjects setObject:theObject forKey:theObject.objectId];
     }
 }
 
 - (void)addObject:(CMObject *)theObject {
     @synchronized(self) {
-        [_cachedAppObjects addObject:theObject];
+        [_cachedAppObjects setObject:theObject forKey:theObject.objectId];
     }
 }
 
 - (void)removeObject:(CMObject *)theObject {
     @synchronized(self) {
-        [_cachedAppObjects removeObject:theObject];
+        [_cachedAppObjects removeObjectForKey:theObject.objectId];
     }
 }
 
 - (void)removeUserObject:(CMObject *)theObject {
     @synchronized(self) {
-        [_cachedUserObjects removeObject:theObject];
+        [_cachedUserObjects removeObjectForKey:theObject.objectId];
     }    
 }
 

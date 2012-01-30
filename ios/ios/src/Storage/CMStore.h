@@ -29,8 +29,8 @@
  */
 @interface CMStore : NSObject {
 @private
-    NSMutableSet *_cachedAppObjects;
-    NSMutableSet *_cachedUserObjects;
+    NSMutableDictionary *_cachedAppObjects;
+    NSMutableDictionary *_cachedUserObjects;
 }
 
 /** The <tt>CMWebService</tt> instance that backs this store */
