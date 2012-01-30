@@ -18,6 +18,21 @@
 
 @class CMObject;
 
+/** Defines possible ownership levels of a CMObject. */
+typedef enum {
+    /** The ownership level could not be determined. This is usually because the object doesn't belong to a store. */
+    CMObjectOwnershipUndefinedLevel = -1,
+    
+    /** The object is app-level and is owned by no particular user. */
+    CMObjectOwnershipAppLevel = 0,
+    
+    /** 
+     * The object is owned by a particular user, specifically the user of the store where the object is held.
+     * @see CMStore#user
+     */
+    CMObjectOwnershipUserLevel
+} CMObjectOwnershipLevel;
+
 /**
  * This is the high-level interface for interacting with remote objects stored on CloudMine.
  * Note that all the methods here that involve network operations are asynchronous to avoid blocking
@@ -326,6 +341,23 @@
  * @see CMObject#store
  */
 - (void)removeObject:(CMObject *)theObject;
+
+/**
+ * Removes a user-level object to this store. The store must be configured with a user or else calling this method will throw an exception.
+ * Doing this also nullifies the object's <tt>store</tt> property.
+ * No persistence is performed as a result of calling this method. <b>This method is thread-safe</b>.
+ *
+ * @param theObject The object to remove.
+ *
+ * @see CMObject#store
+ */
 - (void)removeUserObject:(CMObject *)theObject;
+
+/**
+ * @param theObject
+ * @return The ownership level of the object given.
+ * @see CMObjectOwnershipLevel
+ */
+- (CMObjectOwnershipLevel)objectOwnershipLevel:(CMObject *)theObject;
 
 @end

@@ -75,6 +75,18 @@
     }
 }
 
+#pragma mark - Store state
+
+- (CMObjectOwnershipLevel)objectOwnershipLevel:(CMObject *)theObject {
+    if ([_cachedAppObjects objectForKey:theObject.objectId] != nil) {
+        return CMObjectOwnershipAppLevel;
+    } else if ([_cachedUserObjects objectForKey:theObject.objectId] != nil) {
+        return CMObjectOwnershipUserLevel;
+    } else {
+        return CMObjectOwnershipUndefinedLevel;
+    }
+}
+
 #pragma mark - Object retrieval
 
 - (void)allObjects:(CMStoreObjectFetchCallback)callback additionalOptions:(CMStoreOptions *)options {    

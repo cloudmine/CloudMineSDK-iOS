@@ -9,9 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "CMSerializable.h"
 #import "CMStoreCallbacks.h"
-
-@class CMUser;
-@class CMStore;
+#import "CMUser.h"
+#import "CMStore.h"
 
 /**
  * Extend from this instead of <tt>NSObject</tt> for all model objects in your app that need to be backed
@@ -33,6 +32,12 @@
  * store and add it to the new store. <b>This operation is thread-safe.</b>
  */
 @property (nonatomic, unsafe_unretained) CMStore *store;
+
+/**
+ * The ownership level of this object. This reflects whether the object is app-level, user-level, or unknown.
+ * @see CMObjectOwnershipLevel
+ */
+@property (nonatomic, readonly) CMObjectOwnershipLevel ownershipLevel;
 
 /**
  * Initializes this app-level object by generating a UUID as the default value for <tt>objectId</tt>.

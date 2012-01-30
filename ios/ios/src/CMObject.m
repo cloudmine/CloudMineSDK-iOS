@@ -9,8 +9,6 @@
 #import "CMObject.h"
 #import "NSString+UUID.h"
 #import "CMObjectSerialization.h"
-#import "CMUser.h"
-#import "CMStore.h"
 
 @implementation CMObject
 @synthesize objectId;
@@ -78,6 +76,14 @@
 
 - (BOOL)isEqual:(id)object {
     return [object isKindOfClass:[CMObject class]] && [self.objectId isEqualToString:[object objectId]];
+}
+
+- (CMObjectOwnershipLevel)ownershipLevel {
+    if (self.store != nil) {
+        return [self.store objectOwnershipLevel:self];
+    } else {
+        return CMObjectOwnershipUndefinedLevel;
+    }
 }
 
 @end
