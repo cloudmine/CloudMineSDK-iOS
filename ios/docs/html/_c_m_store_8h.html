@@ -78,43 +78,62 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
 <div class="title">ios/src/Storage/CMStore.h File Reference</div>  </div>
 </div>
 <div class="contents">
-<div class="textblock"><code>#import &lt;Foundation/Foundation.h&gt;</code><br/>
-<code>#import &quot;<a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>&quot;</code><br/>
+<div class="textblock"><code>#import &quot;<a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>&quot;</code><br/>
 <code>#import &quot;CMStoreOptions.h&quot;</code><br/>
 <code>#import &quot;CMServerFunction.h&quot;</code><br/>
 <code>#import &quot;CMPagingDescriptor.h&quot;</code><br/>
+<code>#import &quot;CMUser.h&quot;</code><br/>
+<code>#import &quot;CMFile.h&quot;</code><br/>
+<code>#import &quot;<a class="el" href="_c_m_store_callbacks_8h_source.html">CMStoreCallbacks.h</a>&quot;</code><br/>
 </div>
 <p><a href="_c_m_store_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_c_m_store.html">CMStore</a></td></tr>
-<tr><td colspan="2"><h2><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">typedef void(^&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_m_store_8h.html#a85242065ca866ffe404fd052f816e8bd">CMStoreObjectCallback</a> )(NSArray *objects)</td></tr>
+<tr><td colspan="2"><h2><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_m_store_8h.html#aca64414bfa2065bf238f4164a59a2e25">CMObjectOwnershipLevel</a> { <a class="el" href="_c_m_store_8h.html#aca64414bfa2065bf238f4164a59a2e25a0be24502c418fe7670a5889f008661a6">CMObjectOwnershipUndefinedLevel</a> =  -1, 
+<a class="el" href="_c_m_store_8h.html#aca64414bfa2065bf238f4164a59a2e25a9909005fa328be382d967d29f79131a9">CMObjectOwnershipAppLevel</a> =  0, 
+<a class="el" href="_c_m_store_8h.html#aca64414bfa2065bf238f4164a59a2e25a3d12f703395b84ce70fd125897d317ec">CMObjectOwnershipUserLevel</a>
+ }</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock">
 <p>Definition in file <a class="el" href="_c_m_store_8h_source.html">CMStore.h</a>.</p>
-</div><hr/><h2>Typedef Documentation</h2>
-<a class="anchor" id="a85242065ca866ffe404fd052f816e8bd"></a><!-- doxytag: member="CMStore.h::CMStoreObjectCallback" ref="a85242065ca866ffe404fd052f816e8bd" args=")(NSArray *objects)" -->
+</div><hr/><h2>Enumeration Type Documentation</h2>
+<a class="anchor" id="aca64414bfa2065bf238f4164a59a2e25"></a><!-- doxytag: member="CMStore.h::CMObjectOwnershipLevel" ref="aca64414bfa2065bf238f4164a59a2e25" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef void(^ <a class="el" href="_c_m_store_8h.html#a85242065ca866ffe404fd052f816e8bd">CMStoreObjectCallback</a>)(NSArray *objects)</td>
+          <td class="memname">enum <a class="el" href="_c_m_store_8h.html#aca64414bfa2065bf238f4164a59a2e25">CMObjectOwnershipLevel</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Callback block signature for all operations on <code><a class="el" href="interface_c_m_store.html">CMStore</a></code> that fetch objects from the CloudMine servers. These block should return <code>void</code> and take an <code>NSArray</code> of objects as an argument. </p>
+<p>Defines possible ownership levels of a <a class="el" href="interface_c_m_object.html">CMObject</a>. </p>
+<dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em><a class="anchor" id="aca64414bfa2065bf238f4164a59a2e25a0be24502c418fe7670a5889f008661a6"></a><!-- doxytag: member="CMObjectOwnershipUndefinedLevel" ref="aca64414bfa2065bf238f4164a59a2e25a0be24502c418fe7670a5889f008661a6" args="" -->CMObjectOwnershipUndefinedLevel</em>&nbsp;</td><td>
+<p>The ownership level could not be determined. This is usually because the object doesn't belong to a store. </p>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="aca64414bfa2065bf238f4164a59a2e25a9909005fa328be382d967d29f79131a9"></a><!-- doxytag: member="CMObjectOwnershipAppLevel" ref="aca64414bfa2065bf238f4164a59a2e25a9909005fa328be382d967d29f79131a9" args="" -->CMObjectOwnershipAppLevel</em>&nbsp;</td><td>
+<p>The object is app-level and is owned by no particular user. </p>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="aca64414bfa2065bf238f4164a59a2e25a3d12f703395b84ce70fd125897d317ec"></a><!-- doxytag: member="CMObjectOwnershipUserLevel" ref="aca64414bfa2065bf238f4164a59a2e25a3d12f703395b84ce70fd125897d317ec" args="" -->CMObjectOwnershipUserLevel</em>&nbsp;</td><td>
+<p>The object is owned by a particular user, specifically the user of the store where the object is held. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="interface_c_m_store.html#a40869eb6333f44b032490fdb9a8f82f0">CMStore::user</a> </dd></dl>
+</td></tr>
+</table>
+</dd>
+</dl>
 
-<p>Definition at line <a class="el" href="_c_m_store_8h_source.html#l00023">23</a> of file <a class="el" href="_c_m_store_8h_source.html">CMStore.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_store_8h_source.html#l00022">22</a> of file <a class="el" href="_c_m_store_8h_source.html">CMStore.h</a>.</p>
 
 </div>
 </div>
@@ -123,7 +142,7 @@ Typedefs</h2></td></tr>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="_c_m_store_8h.html">CMStore.h</a>      </li>
-      <li class="footer">Generated on Wed Jan 25 2012 14:46:43 for CloudMine iOS SDK by&#160;
+      <li class="footer">Generated on Mon Jan 30 2012 00:35:02 for CloudMine iOS SDK by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </li>
     </ul>

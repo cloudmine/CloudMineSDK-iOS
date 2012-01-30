@@ -100,7 +100,7 @@ Typedefs</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">typedef void(^&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_m_web_service_8h.html#a076d952d97b4f06a088781e866d2e1e3">CMWebServiceObjectFetchSuccessCallback</a> )(NSDictionary *results, NSDictionary *errors)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">typedef void(^&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a> )(NSError *error)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">typedef void(^&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_m_web_service_8h.html#afe35032cf3ae9352edf2a6fd0d78f126">CMWebServiceFileUploadSuccessCallback</a> )(<a class="el" href="_c_m_web_service_8h.html#a03bfabac838d96b38d11f2327a3188c7">CMFileUploadResult</a> result)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">typedef void(^&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_m_web_service_8h.html#a02878a81569f4a09b38e2b97288c60e9">CMWebServiceFileFetchSuccessCallback</a> )(NSData *data)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef void(^&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_m_web_service_8h.html#acc0ec01c996fb8fabd32c0d3c6c4bfad">CMWebServiceFileFetchSuccessCallback</a> )(NSData *data, NSString *contentType)</td></tr>
 <tr><td colspan="2"><h2><a name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_m_web_service_8h.html#a03bfabac838d96b38d11f2327a3188c7">CMFileUploadResult</a> { <a class="el" href="_c_m_web_service_8h.html#a03bfabac838d96b38d11f2327a3188c7a4f252a4d19cdba6f9f3d0457b7fa5052">CMFileCreated</a> =  0, 
@@ -144,17 +144,17 @@ Enumerations</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a02878a81569f4a09b38e2b97288c60e9"></a><!-- doxytag: member="CMWebService.h::CMWebServiceFileFetchSuccessCallback" ref="a02878a81569f4a09b38e2b97288c60e9" args=")(NSData *data)" -->
+<a class="anchor" id="acc0ec01c996fb8fabd32c0d3c6c4bfad"></a><!-- doxytag: member="CMWebService.h::CMWebServiceFileFetchSuccessCallback" ref="acc0ec01c996fb8fabd32c0d3c6c4bfad" args=")(NSData *data, NSString *contentType)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef void(^ <a class="el" href="_c_m_web_service_8h.html#a02878a81569f4a09b38e2b97288c60e9">CMWebServiceFileFetchSuccessCallback</a>)(NSData *data)</td>
+          <td class="memname">typedef void(^ <a class="el" href="_c_m_web_service_8h.html#acc0ec01c996fb8fabd32c0d3c6c4bfad">CMWebServiceFileFetchSuccessCallback</a>)(NSData *data, NSString *contentType)</td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Callback block signature for all operations on <code><a class="el" href="interface_c_m_web_service.html">CMWebService</a></code> that download binary files from the CloudMine servers. These blocks return <code>void</code> and take an <code>NSData</code> instance that contains the raw data for the file. </p>
+<p>Callback block signature for all operations on <code><a class="el" href="interface_c_m_web_service.html">CMWebService</a></code> that download binary files from the CloudMine servers. These blocks return <code>void</code> and take an <code>NSData</code> instance that contains the raw data for the file as well as a string with the content type of the file returned from the server. </p>
 
 <p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00062">62</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
 
@@ -223,7 +223,7 @@ Enumerations</h2></td></tr>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="_c_m_web_service_8h.html">CMWebService.h</a>      </li>
-      <li class="footer">Generated on Wed Jan 25 2012 14:46:43 for CloudMine iOS SDK by&#160;
+      <li class="footer">Generated on Mon Jan 30 2012 00:35:02 for CloudMine iOS SDK by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </li>
     </ul>

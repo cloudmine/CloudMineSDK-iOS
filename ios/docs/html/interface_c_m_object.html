@@ -79,7 +79,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div id="doc-content">
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a>  </div>
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#properties">Properties</a>  </div>
   <div class="headertitle">
 <div class="title">CMObject Class Reference</div>  </div>
 </div>
@@ -96,17 +97,42 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(id)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_object.html#a9a333abe636c2aaa411f71d1c714c945">init</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acc946857adb88b3df84c8409dffd06a2"></a><!-- doxytag: member="CMObject::initWithObjectId:" ref="acc946857adb88b3df84c8409dffd06a2" args="(NSString *theObjectId)" -->
-(id)&#160;</td><td class="memItemRight" valign="bottom">- <b>initWithObjectId:</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">(id)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_object.html#acc946857adb88b3df84c8409dffd06a2">initWithObjectId:</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">(id)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_object.html#a969987bbf2f78e7ac54b579ca1db1db8">initWithObjectId:user:</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(id)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_object.html#a1f06802da6db1e7a329f74a4bf61c7a2">initWithCoder:</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_object.html#a6c13f53a999141aa655e57700595fc38">encodeWithCoder:</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_object.html#ae40b12c88a8fd5dc0b23b794d8c24028">belongsToStore</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_object.html#aa7bb60cbf1bd34c6ceb551310861252b">save:</a></td></tr>
+<tr><td colspan="2"><h2><a name="properties"></a>
+Properties</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_c_m_store.html">CMStore</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_c_m_object.html#a076c2f007b57f127a4825ccf21621381">store</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="_c_m_store_8h.html#aca64414bfa2065bf238f4164a59a2e25">CMObjectOwnershipLevel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_c_m_object.html#a56eed5e40843bdeb26e3feac45844107">ownershipLevel</a></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Extend from this instead of <code>NSObject</code> for all model objects in your app that need to be backed by remote storage on CloudMine. Be sure to implement <code>initWithCoder:</code> and <code>encodeWithCoder:</code> in each of these model classes to define how to serialize and deserialize the object. This behavior follows the standard archiving/unarchiving conventions defined by Apple's <code>NSCoding</code> protocol.</p>
 <p>This will also take care of generating a default <code>objectId</code> for you, in the form of a UUID. </p>
 
-<p>Definition at line <a class="el" href="_c_m_object_8h_source.html#l00020">20</a> of file <a class="el" href="_c_m_object_8h_source.html">CMObject.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_object_8h_source.html#l00023">23</a> of file <a class="el" href="_c_m_object_8h_source.html">CMObject.h</a>.</p>
 </div><hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="ae40b12c88a8fd5dc0b23b794d8c24028"></a><!-- doxytag: member="CMObject::belongsToStore" ref="ae40b12c88a8fd5dc0b23b794d8c24028" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (BOOL) belongsToStore </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Note: The object must belong to a store if you need to save it. You can easily add the object to a store and save it by using <code><a class="el" href="interface_c_m_store.html">CMStore</a></code>'s <code>saveObject:</code> method.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="interface_c_m_store.html">CMStore</a> </dd></dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd><code>true</code> if this object is belongs to any store. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a6c13f53a999141aa655e57700595fc38"></a><!-- doxytag: member="CMObject::encodeWithCoder:" ref="a6c13f53a999141aa655e57700595fc38" args="(NSCoder *aCoder)" -->
 <div class="memitem">
 <div class="memproto">
@@ -139,7 +165,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Initializes this object by generating a UUID as the default value for <code>objectId</code>. </p>
+<p>Initializes this app-level object by generating a UUID as the default value for <code>objectId</code>. </p>
 
 </div>
 </div>
@@ -162,6 +188,106 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="acc946857adb88b3df84c8409dffd06a2"></a><!-- doxytag: member="CMObject::initWithObjectId:" ref="acc946857adb88b3df84c8409dffd06a2" args="(NSString *theObjectId)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (id) initWithObjectId: </td>
+          <td></td>
+          <td class="paramtype">(NSString *)&#160;</td>
+          <td class="paramname"><em>theObjectId</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Initializes this app-level object with the given object ID. Note that this MUST be unique throughout your app. </p>
+
+</div>
+</div>
+<a class="anchor" id="a969987bbf2f78e7ac54b579ca1db1db8"></a><!-- doxytag: member="CMObject::initWithObjectId:user:" ref="a969987bbf2f78e7ac54b579ca1db1db8" args="(NSString *theObjectId,[user] CMUser *theUser)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (id) initWithObjectId: </td>
+          <td></td>
+          <td class="paramtype">(NSString *)&#160;</td>
+          <td class="paramname"><em>theObjectId</em></td>
+        </tr>
+        <tr>
+          <td class="paramkey">user:</td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="interface_c_m_user.html">CMUser</a> *)&#160;</td>
+          <td class="paramname"><em>theUser</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Initializes this user-level object with the given object ID and <code><a class="el" href="interface_c_m_user.html">CMUser</a></code>. Note that the object ID MUST be unique throughout your app. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa7bb60cbf1bd34c6ceb551310861252b"></a><!-- doxytag: member="CMObject::save:" ref="aa7bb60cbf1bd34c6ceb551310861252b" args="(CMStoreUploadCallback callback)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) save: </td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="_c_m_store_callbacks_8h.html#a01a0ea0e6245dbeec873fbd079c53ac0">CMStoreUploadCallback</a>)&#160;</td>
+          <td class="paramname"><em>callback</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Saves this object to CloudMine using its current store. If this object does not belong to a store, you can easily add the object to a store and save it by using <code><a class="el" href="interface_c_m_store.html">CMStore</a></code>'s <code>saveObject:</code> method instead.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="interface_c_m_store.html">CMStore</a> </dd></dl>
+
+</div>
+</div>
+<hr/><h2>Property Documentation</h2>
+<a class="anchor" id="a56eed5e40843bdeb26e3feac45844107"></a><!-- doxytag: member="CMObject::ownershipLevel" ref="a56eed5e40843bdeb26e3feac45844107" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (<a class="el" href="_c_m_store_8h.html#aca64414bfa2065bf238f4164a59a2e25">CMObjectOwnershipLevel</a>) ownershipLevel<code> [read, assign]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>The ownership level of this object. This reflects whether the object is app-level, user-level, or unknown. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="_c_m_store_8h.html#aca64414bfa2065bf238f4164a59a2e25">CMObjectOwnershipLevel</a> </dd></dl>
+
+<p>Definition at line <a class="el" href="_c_m_object_8h_source.html#l00040">40</a> of file <a class="el" href="_c_m_object_8h_source.html">CMObject.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a076c2f007b57f127a4825ccf21621381"></a><!-- doxytag: member="CMObject::store" ref="a076c2f007b57f127a4825ccf21621381" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (<a class="el" href="interface_c_m_store.html">CMStore</a>*) store<code> [read, write, retain]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>The store that the object belongs to. It is possible for this to be <code>nil</code>, meaning that the object was created locally and hasn't been saved via a store yet. It is important to note that the object must belong to a store if you need to save it. You can easily add the object to a store and save it by using <code><a class="el" href="interface_c_m_store.html">CMStore</a></code>'s <code>saveObject:</code> method.</p>
+<p>If you manually change the store yourself, this object will automatically remove itself from the old store and add it to the new store. <b>This operation is thread-safe.</b> </p>
+
+<p>Definition at line <a class="el" href="_c_m_object_8h_source.html#l00034">34</a> of file <a class="el" href="_c_m_object_8h_source.html">CMObject.h</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>ios/src/<a class="el" href="_c_m_object_8h_source.html">CMObject.h</a></li>
 </ul>
@@ -170,7 +296,7 @@ Public Member Functions</h2></td></tr>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="interface_c_m_object.html">CMObject</a>      </li>
-      <li class="footer">Generated on Wed Jan 25 2012 14:46:43 for CloudMine iOS SDK by&#160;
+      <li class="footer">Generated on Mon Jan 30 2012 00:35:02 for CloudMine iOS SDK by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </li>
     </ul>
