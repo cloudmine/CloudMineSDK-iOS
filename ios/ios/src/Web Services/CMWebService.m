@@ -248,7 +248,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
         successHandler:(CMWebServiceFileFetchSuccessCallback)successHandler 
           errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
     
-    __weak ASIHTTPRequest *blockRequest = request; // Stop the retain cycle.
+    __unsafe_unretained ASIHTTPRequest *blockRequest = request; // Stop the retain cycle.
     
     [request setCompletionBlock:^{
         if (successHandler != nil) {

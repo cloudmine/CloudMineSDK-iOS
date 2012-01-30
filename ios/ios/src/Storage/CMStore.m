@@ -104,7 +104,7 @@
     NSParameterAssert(callback);
     _CMAssertAPICredentialsInitialized;
     
-    __weak CMStore *blockSelf = self;
+    __unsafe_unretained CMStore *blockSelf = self;
     [webService getValuesForKeys:keys
               serverSideFunction:options.serverSideFunction
                    pagingOptions:options.pagingDescriptor 
@@ -166,7 +166,7 @@
         return [self _allObjects:callback userLevel:userLevel additionalOptions:options];
     }
     
-    __weak CMStore *blockSelf = self;
+    __unsafe_unretained CMStore *blockSelf = self;
     [webService searchValuesFor:query
              serverSideFunction:options.serverSideFunction
                   pagingOptions:options.pagingDescriptor 
@@ -185,26 +185,26 @@
 
 #pragma mark - Object uploading
 
-- (void)syncAll:(CMStoreUploadCallback)callback {
+- (void)saveAll:(CMStoreUploadCallback)callback {
     __unsafe_unretained CMStore *selff = self;
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
     dispatch_async(queue, ^{
-        [selff syncAllAppObjects:callback];
+        [selff saveAllAppObjects:callback];
     });
     
     if (user) {
         dispatch_async(queue, ^{
-            [selff syncAllUserObjects:callback];
+            [selff saveAllUserObjects:callback];
         });
     }
 }
 
-- (void)syncAllAppObjects:(CMStoreUploadCallback)callback {
+- (void)saveAllAppObjects:(CMStoreUploadCallback)callback {
     [self _saveObjects:_cachedAppObjects userLevel:NO callback:callback];
 }
 
-- (void)syncAllUserObjects:(CMStoreUploadCallback)callback {
+- (void)saveAllUserObjects:(CMStoreUploadCallback)callback {
     [self _saveObjects:_cachedUserObjects userLevel:YES callback:callback];
 }
 

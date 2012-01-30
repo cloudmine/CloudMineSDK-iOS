@@ -32,7 +32,7 @@
  * If you manually change the store yourself, this object will automatically remove itself from the old
  * store and add it to the new store. <b>This operation is thread-safe.</b>
  */
-@property (nonatomic, weak) CMStore *store;
+@property (nonatomic, unsafe_unretained) CMStore *store;
 
 /**
  * Initializes this app-level object by generating a UUID as the default value for <tt>objectId</tt>.

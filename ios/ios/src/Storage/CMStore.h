@@ -234,16 +234,14 @@
 - (void)userFileWithName:(NSString *)name callback:(CMStoreFileFetchCallback)callback;
 
 /**
- * Synchronizes all the objects (user- and app-level) in the store with your app's CloudMine data store. User-level objects
+ * Saves all the objects (user- and app-level) in the store with your app's CloudMine data store. User-level objects
  * will only be sync'd if there is a user associated with this store.
- * This will cause all objects deleted from this store to be deleted remotely as well. Objects updated server-side will
- * be downloaded and merged locally.
  *
  * @param callback The callback to be triggered when all the objects are finished uploading.
  *
  * @see https://cloudmine.me/developer_zone#ref/json_update
  */
-- (void)syncAll:(CMStoreUploadCallback)callback;
+- (void)saveAll:(CMStoreUploadCallback)callback;
 
 /**
  * Saves all the app-level objects in the store to your app's CloudMine data store.
@@ -252,7 +250,7 @@
  *
  * @see https://cloudmine.me/developer_zone#ref/json_update
  */
-- (void)syncAllAppObjects:(CMStoreUploadCallback)callback;
+- (void)saveAllAppObjects:(CMStoreUploadCallback)callback;
 
 /**
  * Saves all the user-objects in the store to your app's CloudMine data store. The store must be configured 
@@ -265,7 +263,7 @@
  * @see https://cloudmine.me/developer_zone#ref/json_update
  * @see https://cloudmine.me/developer_zone#ref/account_overview
  */
-- (void)syncAllUserObjects:(CMStoreUploadCallback)callback;
+- (void)saveAllUserObjects:(CMStoreUploadCallback)callback;
 
 /**
  * Saves an individual object to your app's CloudMine data store at the app-level. If this object doesn't
