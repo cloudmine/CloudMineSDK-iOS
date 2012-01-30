@@ -18,6 +18,11 @@
 
 @class CMObject;
 
+/**
+ * Name of the notification that is sent out when an object is deleted.
+ */
+extern NSString * const CMStoreObjectDeletedNotification;
+
 /** Defines possible ownership levels of a CMObject. */
 typedef enum {
     /** The ownership level could not be determined. This is usually because the object doesn't belong to a store. */
@@ -41,6 +46,11 @@ typedef enum {
  *
  * All of the async methods in this class take a callback of type <tt>CMStoreObjectCallback</tt> that will
  * be called with all the object instances once they are finished downloading and inflating.
+ *
+ * You can subscribe to CMStores using <tt>NSNotificationCenter</tt> and listening for
+ * <tt>CMStoreObjectDeletedNotification</tt>. It will be triggered when any object managed by the store
+ * is deleted. The <tt>userInfo</tt> dictionary in the <tt>NSNotification</tt> object passed to your handler
+ * will contain a mapping of object IDs to the object instances that were deleted.
  */
 @interface CMStore : NSObject {
 @private

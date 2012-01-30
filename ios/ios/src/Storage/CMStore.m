@@ -21,6 +21,9 @@
 
 #define _CMUserOrNil (userLevel ? user : nil)
 
+// Notification strings
+NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotification";
+
 @interface CMStore (Private)
 - (void)_allObjects:(CMStoreObjectFetchCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
 - (void)_allObjects:(CMStoreObjectFetchCallback)callback ofType:(Class)klass userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
@@ -274,11 +277,13 @@
     
     // Remove the objects from the cache first.
     NSMutableDictionary *cache = userLevel ? _cachedUserObjects : _cachedAppObjects;
+    NSMutableDictionary *deletedObjects = [NSMutableDictionary dictionaryWithCapacity:objects.count];
     [objects enumerateObjectsUsingBlock:^(CMObject *obj, NSUInteger idx, BOOL *stop) {
+        [deletedObjects setObject:obj forKey:obj.objectId];
         [cache removeObjectForKey:obj.objectId];
     }];
     
-    NSArray *keys = [objects valueForKey:@"objectId"]; // essentially a map operation on objectId
+    NSArray *keys = [deletedObjects allKeys];
     [webService deleteValuesForKeys:keys
                                user:_CMUserOrNil
                      successHandler:^(NSDictionary *results, NSDictionary *errors) {
@@ -289,6 +294,10 @@
                          callback(NO);
                      }
      ];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:CMStoreObjectDeletedNotification
+                                                        object:self
+                                                      userInfo:deletedObjects];
 }
 
 #pragma mark Binary file loading
