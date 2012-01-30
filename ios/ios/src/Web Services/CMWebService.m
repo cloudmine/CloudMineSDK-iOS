@@ -199,9 +199,10 @@ static __strong NSSet *_validHTTPVerbs = nil;
                        user:(CMUser *)user
              successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
                errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
-    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"DELETE" URL:[self constructDataUrlAtUserLevel:(user != nil) 
+    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"DELETE" URL:[[self constructDataUrlAtUserLevel:(user != nil) 
                                                                                                         withKeys:keys
                                                                                           withServerSideFunction:nil]
+                                                                                URLByAppendingQueryString:@"all=true"]
                                                           apiKey:_apiKey
                                                       binaryData:NO
                                                             user:user];

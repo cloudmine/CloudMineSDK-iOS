@@ -31,3 +31,12 @@ typedef void (^CMStoreUploadCallback)(NSDictionary *uploadStatuses);
  * about the file that was downloaded.
  */
 typedef void (^CMStoreFileFetchCallback)(CMFile *file);
+
+/**
+ * Callback block signature for all operations on <tt>CMStore</tt> that delete objects or binary files.
+ * This block should return <tt>void</tt> and take a single boolean as an argument. It will be <tt>YES</tt> if
+ * the objects/files were deleted successfully, and <tt>NO</tt> otherwise.
+ *
+ * @see CMStore#deleteObject:callback:
+ */
+typedef void (^CMStoreDeleteCallback)(BOOL success);

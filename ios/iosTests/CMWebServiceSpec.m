@@ -497,7 +497,7 @@ describe(@"CMWebService", ^{
     
     context(@"should construct DELETE request", ^{
         it(@"JSON URLs at the app level correctly", ^{
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/data", appId]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/data?all=true", appId]];
             
             id spy = [[CMBlockValidationMessageSpy alloc] init];
             [spy addValidationBlock:^(NSInvocation *invocation) {
@@ -525,7 +525,7 @@ describe(@"CMWebService", ^{
         });
         
         it(@"JSON URLs at the app level with keys correctly", ^{
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/data?keys=k1,k2", appId]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/data?keys=k1,k2&all=true", appId]];
             
             id spy = [[CMBlockValidationMessageSpy alloc] init];
             [spy addValidationBlock:^(NSInvocation *invocation) {
@@ -553,7 +553,7 @@ describe(@"CMWebService", ^{
         });
         
         it(@"JSON URLs at the user level correctly", ^{
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/data", appId]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/data?all=true", appId]];
             CMUser *creds = [[CMUser alloc] initWithUserId:@"user" andPassword:@"pass"];
             
             id spy = [[CMBlockValidationMessageSpy alloc] init];
@@ -584,7 +584,7 @@ describe(@"CMWebService", ^{
         });
         
         it(@"JSON URLs at the user level with keys correctly", ^{
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/data?keys=k1,k2", appId]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/data?keys=k1,k2&all=true", appId]];
             CMUser *creds = [[CMUser alloc] initWithUserId:@"user" andPassword:@"pass"];
             
             id spy = [[CMBlockValidationMessageSpy alloc] init];

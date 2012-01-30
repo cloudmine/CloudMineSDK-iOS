@@ -28,6 +28,7 @@
 - (void)_searchObjects:(CMStoreObjectFetchCallback)callback query:(NSString *)query userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
 - (void)_fileWithName:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreFileFetchCallback)callback;
 - (void)_saveObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreUploadCallback)callback;
+- (void)_deleteObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreDeleteCallback)callback;
 - (void)cacheObjectsInMemory:(NSArray *)objects atUserLevel:(BOOL)userLevel;
 @end
 
@@ -195,7 +196,7 @@
      ];
 }
 
-#pragma mark - Object uploading
+#pragma mark Object uploading
 
 - (void)saveAll:(CMStoreUploadCallback)callback {
     __unsafe_unretained CMStore *selff = self;
@@ -245,7 +246,52 @@
      ];
 }
 
-#pragma mark - Binary file loading
+#pragma mark Object and file deletion
+
+- (void)deleteObject:(id<CMSerializable>)theObject callback:(CMStoreDeleteCallback)callback {
+    NSParameterAssert(theObject);
+    [self _deleteObjects:[NSArray arrayWithObject:theObject] userLevel:NO callback:callback];
+}
+
+- (void)deleteUserObject:(id<CMSerializable>)theObject callback:(CMStoreDeleteCallback)callback {
+    NSParameterAssert(theObject);
+    _CMAssertUserConfigured;
+    [self _deleteObjects:[NSArray arrayWithObject:theObject] userLevel:YES callback:callback];    
+}
+
+- (void)deleteObjects:(NSArray *)objects callback:(CMStoreDeleteCallback)callback {
+    [self _deleteObjects:objects userLevel:NO callback:callback];
+}
+
+- (void)deleteUserObjects:(NSArray *)objects callback:(CMStoreDeleteCallback)callback {
+    _CMAssertUserConfigured;
+    [self _deleteObjects:objects userLevel:YES callback:callback];
+}
+
+- (void)_deleteObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreDeleteCallback)callback {
+    NSParameterAssert(objects);
+    _CMAssertAPICredentialsInitialized;
+    
+    // Remove the objects from the cache first.
+    NSMutableDictionary *cache = userLevel ? _cachedUserObjects : _cachedAppObjects;
+    [objects enumerateObjectsUsingBlock:^(CMObject *obj, NSUInteger idx, BOOL *stop) {
+        [cache removeObjectForKey:obj.objectId];
+    }];
+    
+    NSArray *keys = [objects valueForKey:@"objectId"]; // essentially a map operation on objectId
+    [webService deleteValuesForKeys:keys
+                               user:_CMUserOrNil
+                     successHandler:^(NSDictionary *results, NSDictionary *errors) {
+                         callback(YES);
+                     } errorHandler:^(NSError *error) {
+                         NSLog(@"An error occurred when deleting objects with keys (%@): %@", keys, error);
+                         lastError = error;
+                         callback(NO);
+                     }
+     ];
+}
+
+#pragma mark Binary file loading
 
 - (void)fileWithName:(NSString *)name callback:(CMStoreFileFetchCallback)callback {
     [self _fileWithName:name userLevel:NO callback:callback];

@@ -309,6 +309,58 @@ typedef enum {
 - (void)saveUserObject:(CMObject *)theObject callback:(CMStoreUploadCallback)callback;
 
 /**
+ * Deletes the given app-level object from your app's CloudMine data store and removes the object from this store.
+ * This also triggers a notification of type <tt>CMStoreObjectDeletedNotification</tt> to subscribers of the store
+ * so you can do any other necessary cleanup throughout your app. This notification is triggered <b>before</b> the object
+ * is deleted from the server.
+ *
+ * @param theObject The object to delete and remove from the store.
+ *
+ * @see https://cloudmine.me/developer_zone#ref/json_delete
+ */
+- (void)deleteObject:(id<CMSerializable>)theObject callback:(CMStoreDeleteCallback)callback;
+
+/**
+ * Deletes the given user-level object from your app's CloudMine data store and removes the object from this store. The store must be configured 
+ * with a user or else calling this method will throw an exception.
+ * This also triggers a notification of type <tt>CMStoreObjectDeletedNotification</tt> to subscribers of the store
+ * so you can do any other necessary cleanup throughout your app. This notification is triggered <b>before</b> the object
+ * is deleted from the server.
+ *
+ * @param theObject The object to delete and remove from the store.
+ *
+ * @see https://cloudmine.me/developer_zone#ref/json_delete
+ * @see https://cloudmine.me/developer_zone#ref/account_overview
+ */
+- (void)deleteUserObject:(id<CMSerializable>)theObject callback:(CMStoreDeleteCallback)callback;
+
+/**
+ * Deletes all the given app-level objects from your app's CloudMine data store and removes the object from this store.
+ * This also triggers a notification of type <tt>CMStoreObjectDeletedNotification</tt> to subscribers of the store
+ * so you can do any other necessary cleanup throughout your app. This notification is triggered <b>before</b> the objects
+ * are deleted from the server.
+ *
+ * @param theObject The object to delete and remove from the store.
+ *
+ * @see https://cloudmine.me/developer_zone#ref/json_delete
+ */
+- (void)deleteObjects:(NSArray *)objects callback:(CMStoreDeleteCallback)callback;
+
+/**
+ * Deletes all the given user-level objects from your app's CloudMine data store and removes the object from this store. The store must be configured 
+ * with a user or else calling this method will throw an exception.
+ * This also triggers a notification of type <tt>CMStoreObjectDeletedNotification</tt> to subscribers of the store
+ * so you can do any other necessary cleanup throughout your app. This notification is triggered <b>before</b> the objects
+ * are deleted from the server.
+ *
+ * @param theObject The object to delete and remove from the store.
+ *
+ * @see https://cloudmine.me/developer_zone#ref/json_delete
+ * @see https://cloudmine.me/developer_zone#ref/account_overview
+ */
+- (void)deleteUserObjects:(NSArray *)objects callback:(CMStoreDeleteCallback)callback;
+
+/**
  * Adds an app-level object to this store. Doing this also sets the object's <tt>store</tt> property to this store.
  * No persistence is performed as a result of calling this method. <b>This method is thread-safe</b>.
  *
