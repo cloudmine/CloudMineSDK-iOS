@@ -39,11 +39,11 @@
 #pragma mark - Initializers
 
 + (CMStore *)store {
-    return [[self alloc] init];
+    return [[CMStore alloc] init];
 }
 
 + (CMStore *)storeWithUser:(CMUser *)theUser {
-    return [[self alloc] initWithUser:theUser];
+    return [[CMStore alloc] initWithUser:theUser];
 }
 
 - (id)init {
