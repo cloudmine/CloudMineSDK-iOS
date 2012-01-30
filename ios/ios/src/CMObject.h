@@ -82,6 +82,6 @@
  *
  * @see CMStore
  */
-- (void)save:(CMStoreObjectUploadCallback)callback;
+- (void)save:(CMStoreUploadCallback)callback;
 
 @end

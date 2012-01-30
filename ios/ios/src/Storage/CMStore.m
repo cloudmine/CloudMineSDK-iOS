@@ -7,6 +7,7 @@
 //
 
 #import "CMStore.h"
+#import <objc/runtime.h>
 
 #import "CMObjectDecoder.h"
 #import "CMObjectEncoder.h"
@@ -22,10 +23,11 @@
 
 @interface CMStore (Private)
 - (void)_allObjects:(CMStoreObjectFetchCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
-- (void)_allObjects:(CMStoreObjectFetchCallback)callback ofType:(NSString *)type userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
+- (void)_allObjects:(CMStoreObjectFetchCallback)callback ofType:(Class)klass userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
 - (void)_objectsWithKeys:(NSArray *)keys callback:(CMStoreObjectFetchCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
 - (void)_searchObjects:(CMStoreObjectFetchCallback)callback query:(NSString *)query userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
-- (void)_fileWithName:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreFileCallback)callback;
+- (void)_fileWithName:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreFileFetchCallback)callback;
+- (void)_saveObjects:(NSSet *)objects userLevel:(BOOL)userLevel callback:(CMStoreUploadCallback)callback;
 - (void)cacheObjectsInMemory:(NSArray *)objects atUserLevel:(BOOL)userLevel;
 @end
 
@@ -38,6 +40,10 @@
 
 + (CMStore *)store {
     return [[self alloc] init];
+}
+
++ (CMStore *)storeWithUser:(CMUser *)theUser {
+    return [[self alloc] initWithUser:theUser];
 }
 
 - (id)init {
@@ -58,6 +64,9 @@
 - (void)setUser:(CMUser *)theUser {
     @synchronized(self) {
         if (_cachedUserObjects) {
+            [_cachedUserObjects enumerateObjectsUsingBlock:^(CMObject *obj, BOOL *stop) {
+                obj.store = nil;
+            }];
             [_cachedUserObjects removeAllObjects];
         } else {
             _cachedUserObjects = [[NSMutableSet alloc] init];
@@ -103,34 +112,35 @@
                   successHandler:^(NSDictionary *results, NSDictionary *errors) {
                       NSArray *objects = [CMObjectDecoder decodeObjects:results];
                       [blockSelf cacheObjectsInMemory:objects atUserLevel:userLevel];
-                      callback(objects);
+                      callback(objects, errors);
                   } errorHandler:^(NSError *error) {
                       NSLog(@"Error occurred during object request: %@", [error description]);
                       lastError = error;
-                      callback(nil);
+                      callback(nil, nil);
                   }
      ];
 }
 
 #pragma mark Object querying by type
 
-- (void)allObjects:(CMStoreObjectFetchCallback)callback ofType:(NSString *)type additionalOptions:(CMStoreOptions *)options {
-    [self _allObjects:callback userLevel:NO additionalOptions:options];
+- (void)allObjects:(CMStoreObjectFetchCallback)callback ofType:(Class)klass additionalOptions:(CMStoreOptions *)options {
+    [self _allObjects:callback ofType:klass userLevel:NO additionalOptions:options];
 }
 
-- (void)allUserObjects:(CMStoreObjectFetchCallback)callback ofType:(NSString *)type additionalOptions:(CMStoreOptions *)options {
+- (void)allUserObjects:(CMStoreObjectFetchCallback)callback ofType:(Class)klass additionalOptions:(CMStoreOptions *)options {
     _CMAssertUserConfigured;
     
-    [self _allObjects:callback userLevel:YES additionalOptions:options];
+    [self _allObjects:callback ofType:klass userLevel:YES additionalOptions:options];
 }
 
-- (void)_allObjects:(CMStoreObjectFetchCallback)callback ofType:(NSString *)type userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options {
+- (void)_allObjects:(CMStoreObjectFetchCallback)callback ofType:(Class)klass userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options {
     NSParameterAssert(callback);
-    NSParameterAssert(type);
+    NSParameterAssert(klass);
+    NSAssert(class_respondsToSelector(klass, @selector(className)), @"You must pass a class (%@) that extends CMObject and responds to +className.", klass);
     _CMAssertAPICredentialsInitialized;
     
     [self _searchObjects:callback 
-                   query:[NSString stringWithFormat:@"[%@ = \"%@\"]", CMInternalTypeStorageKey, type]
+                   query:[NSString stringWithFormat:@"[%@ = \"%@\"]", CMInternalTypeStorageKey, [klass className]]
                userLevel:userLevel
        additionalOptions:options];
 }
@@ -164,35 +174,79 @@
                  successHandler:^(NSDictionary *results, NSDictionary *errors) {
                      NSArray *objects = [CMObjectDecoder decodeObjects:results];
                      [blockSelf cacheObjectsInMemory:objects atUserLevel:userLevel];
-                     callback(objects);
+                     callback(objects, errors);
                  } errorHandler:^(NSError *error) {
                      NSLog(@"Error occurred during object request: %@", [error description]);
                      lastError = error;
-                     callback(nil);
+                     callback(nil, nil);
                  }
      ];
 }
 
 #pragma mark - Object uploading
 
-- (void)saveObject:(CMObject *)theObject callback:(CMStoreObjectUploadCallback)callback {
-    NSParameterAssert(theObject);
+- (void)syncAll:(CMStoreUploadCallback)callback {
+    __unsafe_unretained CMStore *selff = self;
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    
+    dispatch_async(queue, ^{
+        [selff syncAllAppObjects:callback];
+    });
+    
+    if (user) {
+        dispatch_async(queue, ^{
+            [selff syncAllUserObjects:callback];
+        });
+    }
+}
+
+- (void)syncAllAppObjects:(CMStoreUploadCallback)callback {
+    [self _saveObjects:_cachedAppObjects userLevel:NO callback:callback];
+}
+
+- (void)syncAllUserObjects:(CMStoreUploadCallback)callback {
+    [self _saveObjects:_cachedUserObjects userLevel:YES callback:callback];
+}
+
+- (void)saveUserObject:(CMObject *)theObject callback:(CMStoreUploadCallback)callback {
+    _CMAssertUserConfigured;
+    [self _saveObjects:[NSSet setWithObject:theObject] userLevel:YES callback:callback];
+}
+
+- (void)saveObject:(CMObject *)theObject callback:(CMStoreUploadCallback)callback {
+    [self _saveObjects:[NSSet setWithObject:theObject] userLevel:NO callback:callback];
+}
+
+- (void)_saveObjects:(NSSet *)objects userLevel:(BOOL)userLevel callback:(CMStoreUploadCallback)callback {
+    NSParameterAssert(objects);
     _CMAssertAPICredentialsInitialized;
+    NSDictionary *objectDictionary = [CMObjectEncoder encodeObjects:objects];
+    [webService updateValuesFromDictionary:objectDictionary
+                        serverSideFunction:nil
+                                      user:_CMUserOrNil
+                            successHandler:^(NSDictionary *results, NSDictionary *errors) {
+                                callback(results);
+                            } errorHandler:^(NSError *error) {
+                                NSLog(@"Error occurred during object uploading: %@", [error description]);
+                                lastError = error;
+                                callback(nil);
+                            }
+     ];
 }
 
 #pragma mark - Binary file loading
 
-- (void)fileWithName:(NSString *)name callback:(CMStoreFileCallback)callback {
+- (void)fileWithName:(NSString *)name callback:(CMStoreFileFetchCallback)callback {
     [self _fileWithName:name userLevel:NO callback:callback];
 }
 
-- (void)userFileWithName:(NSString *)name callback:(CMStoreFileCallback)callback {
+- (void)userFileWithName:(NSString *)name callback:(CMStoreFileFetchCallback)callback {
     _CMAssertUserConfigured;
     
     [self _fileWithName:name userLevel:YES callback:callback];
 }
 
-- (void)_fileWithName:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreFileCallback)callback {
+- (void)_fileWithName:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreFileFetchCallback)callback {
     NSParameterAssert(name);
     NSParameterAssert(callback);
     
@@ -227,7 +281,7 @@
     }
 }
 
-- (void)addObjectBelongingToUser:(CMObject *)theObject {
+- (void)addUserObject:(CMObject *)theObject {
     NSAssert(user != nil, @"Attempted to add object (%@) to store (%@) belonging to user when user is not set.");
     @synchronized(self) {
         [_cachedUserObjects addObject:theObject];
@@ -246,7 +300,7 @@
     }
 }
 
-- (void)removeObjectBelongingToUser:(CMObject *)theObject {
+- (void)removeUserObject:(CMObject *)theObject {
     @synchronized(self) {
         [_cachedUserObjects removeObject:theObject];
     }    

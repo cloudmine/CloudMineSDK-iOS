@@ -12,11 +12,22 @@
 
 /**
  * Callback block signature for all operations on <tt>CMStore</tt> that fetch objects
- * from the CloudMine servers. These block should return <tt>void</tt> and take an
+ * from the CloudMine servers. This block should return <tt>void</tt> and take an
  * <tt>NSArray</tt> of objects as an argument.
  */
-typedef void (^CMStoreObjectFetchCallback)(NSArray *objects);
+typedef void (^CMStoreObjectFetchCallback)(NSArray *objects, NSDictionary *errors);
 
-typedef void (^CMStoreObjectUploadCallback)(NSDictionary *uploadStatuses, NSError *error);
+/**
+ * Callback block signature for all operations on <tt>CMStore</tt> that upload objects
+ * to the CloudMine servers. This block should return <tt>void</tt> and take one parameter, 
+ * a dictionary mapping object or file names to success status messages (such as "updated", "created", etc),
+ */
+typedef void (^CMStoreUploadCallback)(NSDictionary *uploadStatuses);
 
-typedef void (^CMStoreFileCallback)(CMFile *file);
+/**
+ * Callback block signature for all operations on <tt>CMStore</tt> that fetch binary files
+ * from the CloudMine servers. This block should return <tt>void</tt> and take a single
+ * <tt>CMFile</tt> as an argument. This will contain the data as well as a bit of metadata
+ * about the file that was downloaded.
+ */
+typedef void (^CMStoreFileFetchCallback)(CMFile *file);
