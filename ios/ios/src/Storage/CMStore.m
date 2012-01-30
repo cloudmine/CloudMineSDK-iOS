@@ -296,24 +296,28 @@
     @synchronized(self) {
         [_cachedUserObjects setObject:theObject forKey:theObject.objectId];
     }
+    theObject.store = self;
 }
 
 - (void)addObject:(CMObject *)theObject {
     @synchronized(self) {
         [_cachedAppObjects setObject:theObject forKey:theObject.objectId];
     }
+    theObject.store = self;
 }
 
 - (void)removeObject:(CMObject *)theObject {
     @synchronized(self) {
         [_cachedAppObjects removeObjectForKey:theObject.objectId];
     }
+    theObject.store = nil;
 }
 
 - (void)removeUserObject:(CMObject *)theObject {
     @synchronized(self) {
         [_cachedUserObjects removeObjectForKey:theObject.objectId];
-    }    
+    }
+    theObject.store = nil;
 }
 
 @end

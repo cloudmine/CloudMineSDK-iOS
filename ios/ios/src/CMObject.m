@@ -56,16 +56,18 @@
 - (void)setStore:(CMStore *)theStore {
     NSParameterAssert(theStore);
     
-    @synchronized(self) {
-        if (store) {
-            // Remove this object from the current store.
-            [store removeObject:self];
+    if ([store objectOwnershipLevel:self] == CMObjectOwnershipUndefinedLevel) {
+        @synchronized(self) {
+            if (store) {
+                // Remove this object from the current store.
+                [store removeObject:self];
+            }
+            
+            // Add this object to the new store and record that relationship.
+            [theStore addObject:self];
         }
-        
-        // Add this object to the new store and record that relationship.
-        [theStore addObject:self];
-        self.store = theStore;
     }
+    store = theStore;
 }
 
 #pragma mark - Accessors

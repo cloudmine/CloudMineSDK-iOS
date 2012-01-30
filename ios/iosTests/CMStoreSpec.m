@@ -14,16 +14,43 @@
 #import "CMAPICredentials.h"
 #import "CMBlockValidationMessageSpy.h"
 
-//SPEC_BEGIN(CMStoreSpec)
-//
-//describe(@"CMStore", ^{
-//    __block CMWebService *webService = nil;
-//    __block CMStore *store = nil;
-//    
-//    beforeAll(^{
-//        [[CMAPICredentials sharedInstance] setApiKey:@"apikey"];
-//        [[CMAPICredentials sharedInstance] setAppKey:@"appkey"];
-//    });
+SPEC_BEGIN(CMStoreSpec)
+
+describe(@"CMStore", ^{
+    
+    __block CMWebService *webService = nil;
+    __block CMStore *store = nil;
+
+    beforeAll(^{
+        [[CMAPICredentials sharedInstance] setApiKey:@"apikey"];
+        [[CMAPICredentials sharedInstance] setAppKey:@"appkey"];
+    });
+    
+    beforeEach(^{
+        webService = [CMWebService mock];
+    });
+
+    context(@"given an app-level store", ^{
+        beforeEach(^{
+            store = [CMStore store];
+            store.webService = webService;
+        });
+        
+        context(@"when computing object ownership level", ^{
+            it(@"should be an unknown level when the object doesn't exist in the store", ^{
+                CMObject *obj = [[CMObject alloc] init];
+                [[theValue([store objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipUndefinedLevel)];
+            });
+            
+            it(@"should be app-level when the object exists in the store", ^{
+                CMObject *obj = [[CMObject alloc] init];
+                [store addObject:obj];
+                [[theValue([store objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipAppLevel)];
+                [[obj.store should] equal:store];
+            });
+        });
+    });
+
 //    
 //    beforeEach(^{
 //        webService = [CMWebService mock];
@@ -107,6 +134,7 @@
 //            }); 
 //        });
 //    });
-//});
-//
-//SPEC_END
+
+});
+
+SPEC_END
