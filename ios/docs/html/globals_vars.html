@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>CloudMine iOS SDK: Member List</title>
+<title>CloudMine iOS SDK: File Members</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
@@ -35,8 +35,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
-      <li><a href="files.html"><span>Files</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li id="searchli">
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -57,10 +57,18 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
-      <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
-      <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
-      <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
+      <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li class="current"><a href="globals.html"><span>File&#160;Members</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow3" class="tabs2">
+    <ul class="tablist">
+      <li><a href="globals.html"><span>All</span></a></li>
+      <li class="current"><a href="globals_vars.html"><span>Variables</span></a></li>
+      <li><a href="globals_type.html"><span>Typedefs</span></a></li>
+      <li><a href="globals_enum.html"><span>Enumerations</span></a></li>
+      <li><a href="globals_eval.html"><span>Enumerator</span></a></li>
+      <li><a href="globals_defs.html"><span>Defines</span></a></li>
     </ul>
   </div>
 </div>
@@ -74,29 +82,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-  initNavTree('interface_c_m_web_service.html','');
+  initNavTree('globals.html','');
 </script>
 <div id="doc-content">
-<div class="header">
-  <div class="headertitle">
-<div class="title">CMWebService Member List</div>  </div>
-</div>
 <div class="contents">
-This is the complete list of members for <a class="el" href="interface_c_m_web_service.html">CMWebService</a>, including all inherited members.<table>
-  <tr bgcolor="#f0f0f0"><td></td><td><b>_apiKey</b> (defined in <a class="el" href="interface_c_m_web_service.html">CMWebService</a>)</td><td><a class="el" href="interface_c_m_web_service.html">CMWebService</a></td><td><code> [protected]</code></td></tr>
-  <tr bgcolor="#f0f0f0"><td></td><td><b>_appKey</b> (defined in <a class="el" href="interface_c_m_web_service.html">CMWebService</a>)</td><td><a class="el" href="interface_c_m_web_service.html">CMWebService</a></td><td><code> [protected]</code></td></tr>
-  <tr class="memlist"><td>-&#160;</td><td><a class="el" href="interface_c_m_web_service.html#aee7d5d1df0e582cebe1355f1c7aefe9d">deleteValuesForKeys:user:successHandler:errorHandler:</a></td><td><a class="el" href="interface_c_m_web_service.html">CMWebService</a></td><td></td></tr>
-  <tr class="memlist"><td>-&#160;</td><td><a class="el" href="interface_c_m_web_service.html#a8039c02c7e6532eb1a95956ed949d4e0">getBinaryDataNamed:user:successHandler:errorHandler:</a></td><td><a class="el" href="interface_c_m_web_service.html">CMWebService</a></td><td></td></tr>
-  <tr class="memlist"><td>-&#160;</td><td><a class="el" href="interface_c_m_web_service.html#a939a71b715cc2b5335b288d51042aac4">getValuesForKeys:serverSideFunction:pagingOptions:user:successHandler:errorHandler:</a></td><td><a class="el" href="interface_c_m_web_service.html">CMWebService</a></td><td></td></tr>
-  <tr class="memlist"><td>-&#160;</td><td><a class="el" href="interface_c_m_web_service.html#a984f8d00b330cdbe6aa274c9553bc652">init</a></td><td><a class="el" href="interface_c_m_web_service.html">CMWebService</a></td><td></td></tr>
-  <tr class="memlist"><td>-&#160;</td><td><a class="el" href="interface_c_m_web_service.html#ab8f26d01b7d17f9cbc7f10c2f1b916d4">initWithAPIKey:appKey:</a></td><td><a class="el" href="interface_c_m_web_service.html">CMWebService</a></td><td></td></tr>
-  <tr class="memlist"><td></td><td><a class="el" href="interface_c_m_web_service.html#a07aafe0a4b2668b2b6f75cee245d1434">networkQueue</a></td><td><a class="el" href="interface_c_m_web_service.html">CMWebService</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td>-&#160;</td><td><b>searchValuesFor:serverSideFunction:pagingOptions:user:successHandler:errorHandler:</b> (defined in <a class="el" href="interface_c_m_web_service.html">CMWebService</a>)</td><td><a class="el" href="interface_c_m_web_service.html">CMWebService</a></td><td></td></tr>
-  <tr class="memlist"><td>-&#160;</td><td><a class="el" href="interface_c_m_web_service.html#a8cfbc6636d69599d3e01ef0234f8d726">setValuesFromDictionary:serverSideFunction:user:successHandler:errorHandler:</a></td><td><a class="el" href="interface_c_m_web_service.html">CMWebService</a></td><td></td></tr>
-  <tr class="memlist"><td>-&#160;</td><td><a class="el" href="interface_c_m_web_service.html#a47e69f6c1a075247357b7dbcc90508d0">updateValuesFromDictionary:serverSideFunction:user:successHandler:errorHandler:</a></td><td><a class="el" href="interface_c_m_web_service.html">CMWebService</a></td><td></td></tr>
-  <tr class="memlist"><td>-&#160;</td><td><a class="el" href="interface_c_m_web_service.html#a82331504a9bc5cf7bfe052357686aed0">uploadBinaryData:named:ofMimeType:user:successHandler:errorHandler:</a></td><td><a class="el" href="interface_c_m_web_service.html">CMWebService</a></td><td></td></tr>
-  <tr class="memlist"><td>-&#160;</td><td><a class="el" href="interface_c_m_web_service.html#aad88c72a509418b65a1a1d336f0fcbd2">uploadFileAtPath:named:ofMimeType:user:successHandler:errorHandler:</a></td><td><a class="el" href="interface_c_m_web_service.html">CMWebService</a></td><td></td></tr>
-</table></div>
+&#160;<ul>
+<li>CMStoreObjectDeletedNotification
+: <a class="el" href="_c_m_store_8h.html#ae1dc3641b79831d9516226beaedc054f">CMStore.h</a>
+</li>
+</ul>
+</div>
 </div>
   <div id="nav-path" class="navpath">
     <ul>
