@@ -76,7 +76,7 @@
  * save it by using <tt>CMStore</tt>'s <tt>saveObject:</tt> method.
  *
  * @see CMStore
- * @return <tt>true</tt> if this object is belongs to any store.
+ * @return <tt>true</tt> if this object belongs to any store.
  */
 - (BOOL)belongsToStore;
 
