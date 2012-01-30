@@ -7,10 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CMSerializable.h"
 
 @class CMUser;
 
-@interface CMFile : NSObject<NSCoding> {
+@interface CMFile : NSObject <CMSerializable> {
 @private
     NSString *uuid;
     NSURL *cacheLocation;

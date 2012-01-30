@@ -55,6 +55,15 @@ NSString * const _mimeTypeKey = @"mime";
     return (user != nil);
 }
 
+- (NSString *)objectId {
+    return fileName;
+}
+
++ (NSString *)className {
+    [NSException raise:@"CMUnsupportedOperationException" format:@"Calling +className on CMFile is not valid."];
+    __builtin_unreachable();
+}
+
 #pragma mark - Persisting to disk
 
 - (void)encodeWithCoder:(NSCoder *)coder {

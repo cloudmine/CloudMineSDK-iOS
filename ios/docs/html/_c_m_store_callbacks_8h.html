@@ -90,11 +90,29 @@ Typedefs</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">typedef void(^&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_m_store_callbacks_8h.html#abb32ada5b380b9881bab5452f0e4873f">CMStoreObjectFetchCallback</a> )(NSArray *objects, NSDictionary *errors)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">typedef void(^&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_m_store_callbacks_8h.html#a01a0ea0e6245dbeec873fbd079c53ac0">CMStoreUploadCallback</a> )(NSDictionary *uploadStatuses)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">typedef void(^&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_m_store_callbacks_8h.html#a1d905a0fe52d028d81cc2d2e6f3941f8">CMStoreFileFetchCallback</a> )(<a class="el" href="interface_c_m_file.html">CMFile</a> *file)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef void(^&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_m_store_callbacks_8h.html#a28d6aa5acae656c82d5a864e3b8f8b23">CMStoreDeleteCallback</a> )(BOOL success)</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock">
 <p>Definition in file <a class="el" href="_c_m_store_callbacks_8h_source.html">CMStoreCallbacks.h</a>.</p>
 </div><hr/><h2>Typedef Documentation</h2>
+<a class="anchor" id="a28d6aa5acae656c82d5a864e3b8f8b23"></a><!-- doxytag: member="CMStoreCallbacks.h::CMStoreDeleteCallback" ref="a28d6aa5acae656c82d5a864e3b8f8b23" args=")(BOOL success)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(^ <a class="el" href="_c_m_store_callbacks_8h.html#a28d6aa5acae656c82d5a864e3b8f8b23">CMStoreDeleteCallback</a>)(BOOL success)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Callback block signature for all operations on <code><a class="el" href="interface_c_m_store.html">CMStore</a></code> that delete objects or binary files. This block should return <code>void</code> and take a single boolean as an argument. It will be <code>YES</code> if the objects/files were deleted successfully, and <code>NO</code> otherwise.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="interface_c_m_store.html#a66b8cea94eef817bff1110bbcdc95dfd">- deleteObject:callback: (CMStore)</a> </dd></dl>
+
+<p>Definition at line <a class="el" href="_c_m_store_callbacks_8h_source.html#l00042">42</a> of file <a class="el" href="_c_m_store_callbacks_8h_source.html">CMStoreCallbacks.h</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a1d905a0fe52d028d81cc2d2e6f3941f8"></a><!-- doxytag: member="CMStoreCallbacks.h::CMStoreFileFetchCallback" ref="a1d905a0fe52d028d81cc2d2e6f3941f8" args=")(CMFile *file)" -->
 <div class="memitem">
 <div class="memproto">
@@ -148,7 +166,7 @@ Typedefs</h2></td></tr>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="_c_m_store_callbacks_8h.html">CMStoreCallbacks.h</a>      </li>
-      <li class="footer">Generated on Mon Jan 30 2012 00:35:02 for CloudMine iOS SDK by&#160;
+      <li class="footer">Generated on Mon Jan 30 2012 10:30:47 for CloudMine iOS SDK by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </li>
     </ul>
