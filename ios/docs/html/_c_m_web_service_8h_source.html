@@ -91,112 +91,95 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00011"></a>00011 <span class="preprocessor">#import &lt;Foundation/Foundation.h&gt;</span>
 <a name="l00012"></a>00012 
 <a name="l00013"></a>00013 <span class="keyword">@class</span> ASINetworkQueue;
-<a name="l00014"></a>00014 <span class="keyword">@class</span> <a class="code" href="interface_c_m_user_credentials.html">CMUserCredentials</a>;
+<a name="l00014"></a>00014 <span class="keyword">@class</span> <a class="code" href="interface_c_m_user.html">CMUser</a>;
 <a name="l00015"></a>00015 <span class="keyword">@class</span> <a class="code" href="interface_c_m_server_function.html">CMServerFunction</a>;
-<a name="l00016"></a>00016 
-<a name="l00020"></a><a class="code" href="_c_m_web_service_8h.html#a223a09a15a9261d019c3bb8e10ccb77e">00020</a> <span class="preprocessor">#define CM_BASE_URL @&quot;https://api.cloudmine.me/v1&quot;</span>
-<a name="l00021"></a>00021 <span class="preprocessor"></span>
-<a name="l00025"></a><a class="code" href="_c_m_web_service_8h.html#a03bfabac838d96b38d11f2327a3188c7">00025</a> <span class="keyword">typedef</span> <span class="keyword">enum</span> {
-<a name="l00027"></a><a class="code" href="_c_m_web_service_8h.html#a03bfabac838d96b38d11f2327a3188c7a4f252a4d19cdba6f9f3d0457b7fa5052">00027</a>     <a class="code" href="_c_m_web_service_8h.html#a03bfabac838d96b38d11f2327a3188c7a4f252a4d19cdba6f9f3d0457b7fa5052">CMFileCreated</a> = 0,
-<a name="l00028"></a>00028     
-<a name="l00030"></a><a class="code" href="_c_m_web_service_8h.html#a03bfabac838d96b38d11f2327a3188c7a1ea849f3d8497384c246ee6b16412a06">00030</a>     <a class="code" href="_c_m_web_service_8h.html#a03bfabac838d96b38d11f2327a3188c7a1ea849f3d8497384c246ee6b16412a06">CMFileUpdated</a>
-<a name="l00031"></a>00031 } <a class="code" href="_c_m_web_service_8h.html#a03bfabac838d96b38d11f2327a3188c7">CMFileUploadResult</a>;
-<a name="l00032"></a>00032 
-<a name="l00037"></a><a class="code" href="interface_c_m_web_service.html">00037</a> <span class="keyword">@interface </span><a class="code" href="interface_c_m_web_service.html">CMWebService</a> : NSObject {
-<a name="l00038"></a>00038     NSString *_apiKey;
-<a name="l00039"></a>00039     NSString *_appKey;
-<a name="l00040"></a>00040 }
+<a name="l00016"></a>00016 <span class="keyword">@class</span> <a class="code" href="interface_c_m_paging_descriptor.html">CMPagingDescriptor</a>;
+<a name="l00017"></a>00017 
+<a name="l00021"></a><a class="code" href="_c_m_web_service_8h.html#a223a09a15a9261d019c3bb8e10ccb77e">00021</a> <span class="preprocessor">#define CM_BASE_URL @&quot;https://api.cloudmine.me/v1&quot;</span>
+<a name="l00022"></a>00022 <span class="preprocessor"></span>
+<a name="l00026"></a><a class="code" href="_c_m_web_service_8h.html#a03bfabac838d96b38d11f2327a3188c7">00026</a> <span class="keyword">typedef</span> <span class="keyword">enum</span> {
+<a name="l00028"></a><a class="code" href="_c_m_web_service_8h.html#a03bfabac838d96b38d11f2327a3188c7a4f252a4d19cdba6f9f3d0457b7fa5052">00028</a>     <a class="code" href="_c_m_web_service_8h.html#a03bfabac838d96b38d11f2327a3188c7a4f252a4d19cdba6f9f3d0457b7fa5052">CMFileCreated</a> = 0,
+<a name="l00029"></a>00029     
+<a name="l00031"></a><a class="code" href="_c_m_web_service_8h.html#a03bfabac838d96b38d11f2327a3188c7a1ea849f3d8497384c246ee6b16412a06">00031</a>     <a class="code" href="_c_m_web_service_8h.html#a03bfabac838d96b38d11f2327a3188c7a1ea849f3d8497384c246ee6b16412a06">CMFileUpdated</a>
+<a name="l00032"></a>00032     
+<a name="l00033"></a>00033 } <a class="code" href="_c_m_web_service_8h.html#a03bfabac838d96b38d11f2327a3188c7">CMFileUploadResult</a>;
+<a name="l00034"></a>00034 
+<a name="l00040"></a><a class="code" href="_c_m_web_service_8h.html#a076d952d97b4f06a088781e866d2e1e3">00040</a> <span class="keyword">typedef</span> void (^<a class="code" href="_c_m_web_service_8h.html#a076d952d97b4f06a088781e866d2e1e3">CMWebServiceObjectFetchSuccessCallback</a>)(NSDictionary *results, NSDictionary *errors);
 <a name="l00041"></a>00041 
-<a name="l00048"></a><a class="code" href="interface_c_m_web_service.html#a07aafe0a4b2668b2b6f75cee245d1434">00048</a> <span class="keyword">@property</span> (nonatomic, strong) ASINetworkQueue *networkQueue;
+<a name="l00048"></a><a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">00048</a> <span class="keyword">typedef</span> void (^<a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a>)(NSError *error);
 <a name="l00049"></a>00049 
-<a name="l00056"></a>00056 - (id)init;
-<a name="l00057"></a>00057 
-<a name="l00061"></a>00061 - (id)initWithAPIKey:(NSString *)apiKey appKey:(NSString *)appKey;
-<a name="l00062"></a>00062 
-<a name="l00072"></a>00072 - (void)getValuesForKeys:(NSArray *)keys 
-<a name="l00073"></a>00073       serverSideFunction:(<a class="code" href="interface_c_m_server_function.html">CMServerFunction</a> *)function
-<a name="l00074"></a>00074           successHandler:(<span class="keywordtype">void</span> (^)(NSDictionary *results, NSDictionary *errors))successHandler
-<a name="l00075"></a>00075             errorHandler:(<span class="keywordtype">void</span> (^)(NSError *error))errorHandler;
-<a name="l00076"></a>00076 
-<a name="l00087"></a>00087 - (void)getValuesForKeys:(NSArray *)keys  
-<a name="l00088"></a>00088       serverSideFunction:(<a class="code" href="interface_c_m_server_function.html">CMServerFunction</a> *)function
-<a name="l00089"></a>00089      withUserCredentials:(<a class="code" href="interface_c_m_user_credentials.html">CMUserCredentials</a> *)credentials
-<a name="l00090"></a>00090           successHandler:(<span class="keywordtype">void</span> (^)(NSDictionary *results, NSDictionary *errors))successHandler 
-<a name="l00091"></a>00091             errorHandler:(<span class="keywordtype">void</span> (^)(NSError *error))errorHandler;
-<a name="l00092"></a>00092 
-<a name="l00101"></a>00101 - (void)getBinaryDataNamed:(NSString *)key
-<a name="l00102"></a>00102             successHandler:(<span class="keywordtype">void</span> (^)(NSData *data))successHandler 
-<a name="l00103"></a>00103               errorHandler:(<span class="keywordtype">void</span> (^)(NSError *error))errorHandler;
-<a name="l00104"></a>00104 
-<a name="l00114"></a>00114 - (void)getBinaryDataNamed:(NSString *)key
-<a name="l00115"></a>00115        withUserCredentials:(<a class="code" href="interface_c_m_user_credentials.html">CMUserCredentials</a> *)credentials
-<a name="l00116"></a>00116             successHandler:(<span class="keywordtype">void</span> (^)(NSData *data))successHandler 
-<a name="l00117"></a>00117               errorHandler:(<span class="keywordtype">void</span> (^)(NSError *error))errorHandler;
-<a name="l00118"></a>00118 
-<a name="l00129"></a>00129 - (void)updateValuesFromDictionary:(NSDictionary *)data  
-<a name="l00130"></a>00130                 serverSideFunction:(<a class="code" href="interface_c_m_server_function.html">CMServerFunction</a> *)function
-<a name="l00131"></a>00131                     successHandler:(<span class="keywordtype">void</span> (^)(NSDictionary *results, NSDictionary *errors))successHandler 
-<a name="l00132"></a>00132                       errorHandler:(<span class="keywordtype">void</span> (^)(NSError *error))errorHandler;
-<a name="l00133"></a>00133 
-<a name="l00145"></a>00145 - (void)updateValuesFromDictionary:(NSDictionary *)data 
-<a name="l00146"></a>00146                 serverSideFunction:(<a class="code" href="interface_c_m_server_function.html">CMServerFunction</a> *)function
-<a name="l00147"></a>00147                withUserCredentials:(<a class="code" href="interface_c_m_user_credentials.html">CMUserCredentials</a> *)credentials 
-<a name="l00148"></a>00148                     successHandler:(<span class="keywordtype">void</span> (^)(NSDictionary *results, NSDictionary *errors))successHandler 
-<a name="l00149"></a>00149                       errorHandler:(<span class="keywordtype">void</span> (^)(NSError *error))errorHandler;
-<a name="l00150"></a>00150 
-<a name="l00162"></a>00162 - (void)uploadBinaryData:(NSData *)data
-<a name="l00163"></a>00163                    named:(NSString *)key
-<a name="l00164"></a>00164               ofMimeType:(NSString *)mimeType
-<a name="l00165"></a>00165           successHandler:(<span class="keywordtype">void</span> (^)(<a class="code" href="_c_m_web_service_8h.html#a03bfabac838d96b38d11f2327a3188c7">CMFileUploadResult</a> result))successHandler 
-<a name="l00166"></a>00166             errorHandler:(<span class="keywordtype">void</span> (^)(NSError *error))errorHandler;
+<a name="l00055"></a><a class="code" href="_c_m_web_service_8h.html#afe35032cf3ae9352edf2a6fd0d78f126">00055</a> <span class="keyword">typedef</span> void (^<a class="code" href="_c_m_web_service_8h.html#afe35032cf3ae9352edf2a6fd0d78f126">CMWebServiceFileUploadSuccessCallback</a>)(<a class="code" href="_c_m_web_service_8h.html#a03bfabac838d96b38d11f2327a3188c7">CMFileUploadResult</a> result);
+<a name="l00056"></a>00056 
+<a name="l00062"></a><a class="code" href="_c_m_web_service_8h.html#acc0ec01c996fb8fabd32c0d3c6c4bfad">00062</a> <span class="keyword">typedef</span> void (^<a class="code" href="_c_m_web_service_8h.html#acc0ec01c996fb8fabd32c0d3c6c4bfad">CMWebServiceFileFetchSuccessCallback</a>)(NSData *data, NSString *contentType);
+<a name="l00063"></a>00063 
+<a name="l00068"></a><a class="code" href="interface_c_m_web_service.html">00068</a> <span class="keyword">@interface </span><a class="code" href="interface_c_m_web_service.html">CMWebService</a> : NSObject {
+<a name="l00069"></a>00069     NSString *_apiKey;
+<a name="l00070"></a>00070     NSString *_appKey;
+<a name="l00071"></a>00071 }
+<a name="l00072"></a>00072 
+<a name="l00079"></a><a class="code" href="interface_c_m_web_service.html#a07aafe0a4b2668b2b6f75cee245d1434">00079</a> <span class="keyword">@property</span> (nonatomic, strong) ASINetworkQueue *networkQueue;
+<a name="l00080"></a>00080 
+<a name="l00087"></a>00087 - (id)init;
+<a name="l00088"></a>00088 
+<a name="l00092"></a>00092 - (id)initWithAPIKey:(NSString *)apiKey appKey:(NSString *)appKey;
+<a name="l00093"></a>00093 
+<a name="l00104"></a>00104 - (void)getValuesForKeys:(NSArray *)keys  
+<a name="l00105"></a>00105       serverSideFunction:(<a class="code" href="interface_c_m_server_function.html">CMServerFunction</a> *)function
+<a name="l00106"></a>00106            pagingOptions:(<a class="code" href="interface_c_m_paging_descriptor.html">CMPagingDescriptor</a> *)paging
+<a name="l00107"></a>00107                     user:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user
+<a name="l00108"></a>00108           successHandler:(<a class="code" href="_c_m_web_service_8h.html#a076d952d97b4f06a088781e866d2e1e3">CMWebServiceObjectFetchSuccessCallback</a>)successHandler 
+<a name="l00109"></a>00109             errorHandler:(<a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a>)errorHandler;
+<a name="l00110"></a>00110 
+<a name="l00111"></a>00111 - (void)searchValuesFor:(NSString *)searchQuery
+<a name="l00112"></a>00112      serverSideFunction:(<a class="code" href="interface_c_m_server_function.html">CMServerFunction</a> *)function
+<a name="l00113"></a>00113           pagingOptions:(<a class="code" href="interface_c_m_paging_descriptor.html">CMPagingDescriptor</a> *)paging
+<a name="l00114"></a>00114                    user:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user
+<a name="l00115"></a>00115          successHandler:(<a class="code" href="_c_m_web_service_8h.html#a076d952d97b4f06a088781e866d2e1e3">CMWebServiceObjectFetchSuccessCallback</a>)successHandler 
+<a name="l00116"></a>00116            errorHandler:(<a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a>)errorHandler;
+<a name="l00117"></a>00117 
+<a name="l00127"></a>00127 - (void)getBinaryDataNamed:(NSString *)key
+<a name="l00128"></a>00128                       user:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user
+<a name="l00129"></a>00129             successHandler:(<a class="code" href="_c_m_web_service_8h.html#acc0ec01c996fb8fabd32c0d3c6c4bfad">CMWebServiceFileFetchSuccessCallback</a>)successHandler 
+<a name="l00130"></a>00130               errorHandler:(<a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a>)errorHandler;
+<a name="l00131"></a>00131 
+<a name="l00143"></a>00143 - (void)updateValuesFromDictionary:(NSDictionary *)data 
+<a name="l00144"></a>00144                 serverSideFunction:(<a class="code" href="interface_c_m_server_function.html">CMServerFunction</a> *)function
+<a name="l00145"></a>00145                               user:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user 
+<a name="l00146"></a>00146                     successHandler:(<a class="code" href="_c_m_web_service_8h.html#a076d952d97b4f06a088781e866d2e1e3">CMWebServiceObjectFetchSuccessCallback</a>)successHandler 
+<a name="l00147"></a>00147                       errorHandler:(<a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a>)errorHandler;
+<a name="l00148"></a>00148 
+<a name="l00161"></a>00161 - (void)uploadBinaryData:(NSData *)data
+<a name="l00162"></a>00162                    named:(NSString *)key
+<a name="l00163"></a>00163               ofMimeType:(NSString *)mimeType
+<a name="l00164"></a>00164                     user:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user
+<a name="l00165"></a>00165           successHandler:(<a class="code" href="_c_m_web_service_8h.html#afe35032cf3ae9352edf2a6fd0d78f126">CMWebServiceFileUploadSuccessCallback</a>)successHandler 
+<a name="l00166"></a>00166             errorHandler:(<a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a>)errorHandler;
 <a name="l00167"></a>00167 
-<a name="l00180"></a>00180 - (void)uploadBinaryData:(NSData *)data
-<a name="l00181"></a>00181                    named:(NSString *)key
-<a name="l00182"></a>00182               ofMimeType:(NSString *)mimeType
-<a name="l00183"></a>00183      withUserCredentials:(<a class="code" href="interface_c_m_user_credentials.html">CMUserCredentials</a> *)credentials
-<a name="l00184"></a>00184           successHandler:(<span class="keywordtype">void</span> (^)(<a class="code" href="_c_m_web_service_8h.html#a03bfabac838d96b38d11f2327a3188c7">CMFileUploadResult</a> result))successHandler 
-<a name="l00185"></a>00185             errorHandler:(<span class="keywordtype">void</span> (^)(NSError *error))errorHandler;
-<a name="l00186"></a>00186 
-<a name="l00202"></a>00202 - (void)uploadFileAtPath:(NSString *)path
-<a name="l00203"></a>00203                    named:(NSString *)key
-<a name="l00204"></a>00204               ofMimeType:(NSString *)mimeType
-<a name="l00205"></a>00205           successHandler:(<span class="keywordtype">void</span> (^)(<a class="code" href="_c_m_web_service_8h.html#a03bfabac838d96b38d11f2327a3188c7">CMFileUploadResult</a> result))successHandler 
-<a name="l00206"></a>00206             errorHandler:(<span class="keywordtype">void</span> (^)(NSError *error))errorHandler;
-<a name="l00207"></a>00207 
-<a name="l00224"></a>00224 - (void)uploadFileAtPath:(NSString *)path
-<a name="l00225"></a>00225                    named:(NSString *)key
-<a name="l00226"></a>00226               ofMimeType:(NSString *)mimeType
-<a name="l00227"></a>00227      withUserCredentials:(<a class="code" href="interface_c_m_user_credentials.html">CMUserCredentials</a> *)credentials
-<a name="l00228"></a>00228           successHandler:(<span class="keywordtype">void</span> (^)(<a class="code" href="_c_m_web_service_8h.html#a03bfabac838d96b38d11f2327a3188c7">CMFileUploadResult</a> result))successHandler 
-<a name="l00229"></a>00229             errorHandler:(<span class="keywordtype">void</span> (^)(NSError *error))errorHandler;
-<a name="l00230"></a>00230 
-<a name="l00245"></a>00245 - (void)setValuesFromDictionary:(NSDictionary *)data  
-<a name="l00246"></a>00246              serverSideFunction:(<a class="code" href="interface_c_m_server_function.html">CMServerFunction</a> *)function
-<a name="l00247"></a>00247                  successHandler:(<span class="keywordtype">void</span> (^)(NSDictionary *results, NSDictionary *errors))successHandler 
-<a name="l00248"></a>00248                    errorHandler:(<span class="keywordtype">void</span> (^)(NSError *error))errorHandler;
-<a name="l00249"></a>00249 
-<a name="l00265"></a>00265 - (void)setValuesFromDictionary:(NSDictionary *)data  
-<a name="l00266"></a>00266              serverSideFunction:(<a class="code" href="interface_c_m_server_function.html">CMServerFunction</a> *)function
-<a name="l00267"></a>00267             withUserCredentials:(<a class="code" href="interface_c_m_user_credentials.html">CMUserCredentials</a> *)credentials 
-<a name="l00268"></a>00268                  successHandler:(<span class="keywordtype">void</span> (^)(NSDictionary *results, NSDictionary *errors))successHandler 
-<a name="l00269"></a>00269                    errorHandler:(<span class="keywordtype">void</span> (^)(NSError *error))errorHandler;
-<a name="l00270"></a>00270 
-<a name="l00282"></a>00282 - (void)deleteValuesForKeys:(NSArray *)keys 
-<a name="l00283"></a>00283              successHandler:(<span class="keywordtype">void</span> (^)(NSDictionary *results, NSDictionary *errors))successHandler 
-<a name="l00284"></a>00284                errorHandler:(<span class="keywordtype">void</span> (^)(NSError *error))errorHandler;
-<a name="l00285"></a>00285 
-<a name="l00298"></a>00298 - (void)deleteValuesForKeys:(NSArray *)keys 
-<a name="l00299"></a>00299         withUserCredentials:(<a class="code" href="interface_c_m_user_credentials.html">CMUserCredentials</a> *)credentials 
-<a name="l00300"></a>00300              successHandler:(<span class="keywordtype">void</span> (^)(NSDictionary *results, NSDictionary *errors))successHandler 
-<a name="l00301"></a>00301                errorHandler:(<span class="keywordtype">void</span> (^)(NSError *error))errorHandler;
-<a name="l00302"></a>00302 
-<a name="l00303"></a>00303 <span class="keyword">@end</span>
+<a name="l00184"></a>00184 - (void)uploadFileAtPath:(NSString *)path
+<a name="l00185"></a>00185                    named:(NSString *)key
+<a name="l00186"></a>00186               ofMimeType:(NSString *)mimeType
+<a name="l00187"></a>00187                     user:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user
+<a name="l00188"></a>00188           successHandler:(<a class="code" href="_c_m_web_service_8h.html#afe35032cf3ae9352edf2a6fd0d78f126">CMWebServiceFileUploadSuccessCallback</a>)successHandler 
+<a name="l00189"></a>00189             errorHandler:(<a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a>)errorHandler;
+<a name="l00190"></a>00190 
+<a name="l00206"></a>00206 - (void)setValuesFromDictionary:(NSDictionary *)data  
+<a name="l00207"></a>00207              serverSideFunction:(<a class="code" href="interface_c_m_server_function.html">CMServerFunction</a> *)function
+<a name="l00208"></a>00208                            user:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user 
+<a name="l00209"></a>00209                  successHandler:(<a class="code" href="_c_m_web_service_8h.html#a076d952d97b4f06a088781e866d2e1e3">CMWebServiceObjectFetchSuccessCallback</a>)successHandler 
+<a name="l00210"></a>00210                    errorHandler:(<a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a>)errorHandler;
+<a name="l00211"></a>00211 
+<a name="l00224"></a>00224 - (void)deleteValuesForKeys:(NSArray *)keys 
+<a name="l00225"></a>00225                        user:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user 
+<a name="l00226"></a>00226              successHandler:(<a class="code" href="_c_m_web_service_8h.html#a076d952d97b4f06a088781e866d2e1e3">CMWebServiceObjectFetchSuccessCallback</a>)successHandler 
+<a name="l00227"></a>00227                errorHandler:(<a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a>)errorHandler;
+<a name="l00228"></a>00228 
+<a name="l00229"></a>00229 <span class="keyword">@end</span>
 </pre></div></div>
 </div>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="_c_m_web_service_8h.html">CMWebService.h</a>      </li>
-      <li class="footer">Generated on Mon Jan 9 2012 13:43:47 for CloudMine iOS SDK by&#160;
+      <li class="footer">Generated on Mon Jan 30 2012 16:24:56 for CloudMine iOS SDK by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </li>
     </ul>
@@ -206,7 +189,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Properties</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">

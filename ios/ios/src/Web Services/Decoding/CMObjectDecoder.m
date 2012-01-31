@@ -103,10 +103,10 @@
 #pragma mark - Private encoding methods
 
 + (Class)typeFromDictionaryRepresentation:(NSDictionary *)representation {
-    NSString *className = [representation objectForKey:CM_INTERNAL_TYPE_STORAGE_KEY];
+    NSString *className = [representation objectForKey:CMInternalTypeStorageKey];
     Class klass = nil;
     
-    if ([className isEqualToString:CM_INTERNAL_HASH_CLASSNAME]) {
+    if ([className isEqualToString:CMInternalHashClassName]) {
         klass = [NSDictionary class];
     } else {
         klass = NSClassFromString(className);
@@ -141,9 +141,9 @@
     } else if ([objv isKindOfClass:[NSArray class]]) {
         return [self decodeAllInList:objv];
     } else if ([objv isKindOfClass:[NSDictionary class]]) {
-        if ([[objv objectForKey:CM_INTERNAL_TYPE_STORAGE_KEY] isEqualToString:CM_INTERNAL_HASH_CLASSNAME]) {
+        if ([[objv objectForKey:CMInternalTypeStorageKey] isEqualToString:CMInternalHashClassName]) {
             return [self decodeAllInDictionary:objv];
-        } else if ([[objv objectForKey:CM_INTERNAL_TYPE_STORAGE_KEY] isEqualToString:CMGeoPointClassName]) {
+        } else if ([[objv objectForKey:CMInternalTypeStorageKey] isEqualToString:CMGeoPointClassName]) {
             CMObjectDecoder *subObjectDecoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:objv];
             return [[CMGeoPoint alloc] initWithCoder:subObjectDecoder];
         }

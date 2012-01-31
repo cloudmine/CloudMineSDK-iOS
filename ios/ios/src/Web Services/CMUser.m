@@ -6,9 +6,9 @@
 //  See LICENSE file included with SDK for details.
 //
 
-#import "CMUserCredentials.h"
+#import "CMUser.h"
 
-@implementation CMUserCredentials
+@implementation CMUser
 @synthesize userId, password;
 
 - (id)initWithUserId:(NSString *)theUserId andPassword:(NSString *)thePassword {
@@ -17,6 +17,15 @@
         self.password = thePassword;
     }
     return self;
+}
+
+- (id)initWithCoder:(NSCoder *)coder {
+    return [self initWithUserId:[coder decodeObjectForKey:@"userId"] andPassword:[coder decodeObjectForKey:@"password"]];
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+    [coder encodeObject:self.userId forKey:@"userId"];
+    [coder encodeObject:self.password forKey:@"password"];
 }
 
 @end

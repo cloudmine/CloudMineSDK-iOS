@@ -11,7 +11,7 @@
 /**
  * Basic container class for a user's identifier and password.
  */
-@interface CMUserCredentials : NSObject
+@interface CMUser : NSObject<NSCoding>
 
 /**
  * The user's identifier (i.e. email address).

@@ -127,6 +127,6 @@
  *
  * @returns NSString The valid query string representation of all the options encapsulated in this object.
  */
-- (NSString *)queryStringRepresentation;
+- (NSString *)stringRepresentation;
 
 @end

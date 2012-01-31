@@ -66,7 +66,7 @@
 
 #pragma - Alternate representations
 
-- (NSString *)queryStringRepresentation {
+- (NSString *)stringRepresentation {
     NSMutableArray *querySegments = [NSMutableArray arrayWithCapacity:4];
     
     if (self.functionName && [self.functionName length] > 0) {

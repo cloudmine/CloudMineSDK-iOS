@@ -12,39 +12,78 @@
 
 @implementation CMObject
 @synthesize objectId;
+@synthesize store;
+
+#pragma mark - Initializers
 
 - (id)init {
     return [self initWithObjectId:[NSString stringWithUUID]];
 }
 
 - (id)initWithObjectId:(NSString *)theObjectId {
+    return [self initWithObjectId:theObjectId user:nil];
+}
+
+- (id)initWithObjectId:(NSString *)theObjectId user:(CMUser *)theUser {
     if (self = [super init]) {
         objectId = theObjectId;
+        store = nil;
     }
     return self;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
-    if (self = [super init]) {
-        objectId = [aDecoder decodeObjectForKey:CM_INTERNAL_OBJECTID_KEY];
-    }
-    return self;
+    return [self initWithObjectId:[aDecoder decodeObjectForKey:CMInternalObjectIdKey]];
 }
+
+#pragma mark - Serialization
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    [aCoder encodeObject:self.objectId forKey:CM_INTERNAL_OBJECTID_KEY];
+    [aCoder encodeObject:self.objectId forKey:CMInternalObjectIdKey];
 }
 
-- (NSString *)objectId {
-    return objectId;
+#pragma mark - CMStore interactions
+
+- (void)save:(CMStoreUploadCallback)callback {
+    NSAssert([self belongsToStore], @"You cannot save an object (%@) that doesn't belong to a CMStore.", self);
+    [store saveObject:self callback:callback];
 }
 
-- (NSString *)className {
-    return NSStringFromClass([self class]);
+- (BOOL)belongsToStore {
+    return (store != nil);
+}
+
+- (void)setStore:(CMStore *)theStore {
+    if (store && [store objectOwnershipLevel:self] == CMObjectOwnershipUndefinedLevel) {
+        @synchronized(self) {
+            if (store) {
+                // Remove this object from the current store.
+                [store removeObject:self];
+            }
+            
+            // Add this object to the new store and record that relationship.
+            [theStore addObject:self];
+        }
+    }
+    store = theStore;
+}
+
+#pragma mark - Accessors
+
++ (NSString *)className {
+    return NSStringFromClass(self);
 }
 
 - (BOOL)isEqual:(id)object {
-    return [self.objectId isEqualToString:[object objectId]];
+    return [object isKindOfClass:[CMObject class]] && [self.objectId isEqualToString:[object objectId]];
+}
+
+- (CMObjectOwnershipLevel)ownershipLevel {
+    if (self.store != nil) {
+        return [self.store objectOwnershipLevel:self];
+    } else {
+        return CMObjectOwnershipUndefinedLevel;
+    }
 }
 
 @end
