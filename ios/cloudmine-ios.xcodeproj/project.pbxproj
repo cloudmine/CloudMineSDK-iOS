@@ -65,6 +65,8 @@
 		7A308A3C14798F29008ADD3C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D9146C5B7400EF537A /* libz.dylib */; };
 		7A308A4414799134008ADD3C /* CMWebServiceSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A308A4314799134008ADD3C /* CMWebServiceSpec.m */; };
 		7A308A4C14799471008ADD3C /* libKiwi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A308A4B14799471008ADD3C /* libKiwi.a */; };
+		7A5C40A314D8981E00906689 /* CMDate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A5C40A114D8981E00906689 /* CMDate.h */; };
+		7A5C40A414D8981E00906689 /* CMDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A5C40A214D8981E00906689 /* CMDate.m */; };
 		7A6B800D14871BCA00D8B211 /* CMObjectDecoderSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6B800C14871BCA00D8B211 /* CMObjectDecoderSpec.m */; };
 		7A6B801114871E3700D8B211 /* CMGenericSerializableObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6B801014871E3700D8B211 /* CMGenericSerializableObject.m */; };
 		7A7E31C014C4D0920091F1E3 /* CMGeoPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A7E31BE14C4D0920091F1E3 /* CMGeoPoint.h */; };
@@ -198,6 +200,8 @@
 		7A0DB1BB147B016B007F482C /* CMBlockValidationMessageSpy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMBlockValidationMessageSpy.m; sourceTree = "<group>"; };
 		7A308A4314799134008ADD3C /* CMWebServiceSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMWebServiceSpec.m; sourceTree = "<group>"; };
 		7A308A4B14799471008ADD3C /* libKiwi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libKiwi.a; path = "kiwi/build/Release-iphoneos/libKiwi.a"; sourceTree = "<group>"; };
+		7A5C40A114D8981E00906689 /* CMDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMDate.h; sourceTree = "<group>"; };
+		7A5C40A214D8981E00906689 /* CMDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMDate.m; sourceTree = "<group>"; };
 		7A6B800C14871BCA00D8B211 /* CMObjectDecoderSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectDecoderSpec.m; sourceTree = "<group>"; };
 		7A6B800F14871E3700D8B211 /* CMGenericSerializableObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMGenericSerializableObject.h; sourceTree = "<group>"; };
 		7A6B801014871E3700D8B211 /* CMGenericSerializableObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMGenericSerializableObject.m; sourceTree = "<group>"; };
@@ -489,6 +493,8 @@
 				7A7E31BF14C4D0920091F1E3 /* CMGeoPoint.m */,
 				7AD93BAA14D1C5DA00CC1CC9 /* CMFile.h */,
 				7AD93BAB14D1C5DA00CC1CC9 /* CMFile.m */,
+				7A5C40A114D8981E00906689 /* CMDate.h */,
+				7A5C40A214D8981E00906689 /* CMDate.m */,
 				7AD36F8A146CB69000DD4734 /* Extensions */,
 				7AD36F7B146C64F300DD4734 /* Web Services */,
 				7A7E31C514C88F760091F1E3 /* Storage */,
@@ -566,6 +572,7 @@
 				7AD9222314D06B9A0032DDDE /* CMStoreOptions.h in Headers */,
 				7AD93BAC14D1C5DA00CC1CC9 /* CMFile.h in Headers */,
 				7AD7DA5814D221F600F771C7 /* CMStoreCallbacks.h in Headers */,
+				7A5C40A314D8981E00906689 /* CMDate.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -720,6 +727,7 @@
 				7AD9221D14CF47360032DDDE /* CMPagingDescriptor.m in Sources */,
 				7AD9222414D06B9A0032DDDE /* CMStoreOptions.m in Sources */,
 				7AD93BAD14D1C5DA00CC1CC9 /* CMFile.m in Sources */,
+				7A5C40A414D8981E00906689 /* CMDate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

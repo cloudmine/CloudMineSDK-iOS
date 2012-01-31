@@ -10,6 +10,7 @@
 #import "CMSerializable.h"
 #import "CMObjectSerialization.h"
 #import "CMGeoPoint.h"
+#import "CMDate.h"
 
 @interface CMObjectDecoder (Private)
 + (Class)typeFromDictionaryRepresentation:(NSDictionary *)representation;
@@ -146,6 +147,9 @@
         } else if ([[objv objectForKey:CMInternalTypeStorageKey] isEqualToString:CMGeoPointClassName]) {
             CMObjectDecoder *subObjectDecoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:objv];
             return [[CMGeoPoint alloc] initWithCoder:subObjectDecoder];
+        } else if ([[objv objectForKey:CMInternalTypeStorageKey] isEqualToString:CMDateClassName]) {
+            CMObjectDecoder *subObjectDecoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:objv];
+            return [[CMDate alloc] initWithCoder:subObjectDecoder];
         }
     }
     

@@ -10,6 +10,7 @@
 #import "CMSerializable.h"
 #import "CMObjectSerialization.h"
 #import "CMGeoPoint.h"
+#import "CMDate.h"
 
 @interface CMObjectEncoder (Private)
 - (NSArray *)encodeAllInList:(NSArray *)list;
@@ -116,13 +117,16 @@
     } else if ([objv isKindOfClass:[NSString class]] || [objv isKindOfClass:[NSNumber class]]) {
         // Strings and numbers are natively handled and need no further decomposition.
         return objv;
+    } else if ([objv isKindOfClass:[NSDate class]] && ![objv isKindOfClass:[CMDate class]]) {
+        // We can't serialize NSDates directly. They need to be converted first into a CMDate.
+        return [self serializeContentsOfObject:[[CMDate alloc] initWithDate:objv]];
     } else if ([objv isKindOfClass:[NSArray class]]) {
         return [self encodeAllInList:objv];
     } else if ([objv isKindOfClass:[NSSet class]]) {
         return [self encodeAllInList:[objv allObjects]];
     } else if ([objv isKindOfClass:[NSDictionary class]]) {
         return [self encodeAllInDictionary:objv];
-    } else if ([objv isKindOfClass:[CMGeoPoint class]]) {
+    } else if ([objv isKindOfClass:[CMGeoPoint class]] || [objv isKindOfClass:[CMDate class]]) {
         CMObjectEncoder *newEncoder = [[CMObjectEncoder alloc] init];
         [objv encodeWithCoder:newEncoder];
         NSMutableDictionary *serializedRepresentation = [NSMutableDictionary dictionaryWithDictionary:newEncoder.encodedRepresentation];

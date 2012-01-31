@@ -7,6 +7,7 @@
 //
 
 #import "CMObject.h"
+@class CMDate;
 
 @interface CMGenericSerializableObject : CMObject
 
@@ -16,6 +17,7 @@
 @property (nonatomic, assign) int simpleInt;
 @property (nonatomic, strong) NSArray *arrayOfBooleans;
 @property (nonatomic, strong) id<CMSerializable> nestedObject;
+@property (nonatomic, strong) CMDate *date;
 
 - (void)fillPropertiesWithDefaults;
 

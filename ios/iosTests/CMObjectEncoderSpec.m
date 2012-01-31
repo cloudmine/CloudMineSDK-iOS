@@ -14,6 +14,7 @@
 #import "CMGenericSerializableObject.h"
 #import "CMObjectSerialization.h"
 #import "CMGeoPoint.h"
+#import "CMDate.h"
 
 SPEC_BEGIN(CMObjectEncoderSpec)
 
@@ -44,6 +45,8 @@ describe(@"CMObjectEncoder", ^{
         [[theOnlyObject objectForKey:@"arrayOfBooleans"] shouldNotBeNil];
         [[[[theOnlyObject objectForKey:@"arrayOfBooleans"] should] have:5] items];
         [[[theOnlyObject objectForKey:@"nestedObject"] should] beKindOfClass:[NSDictionary class]];
+        [[[theOnlyObject objectForKey:@"date"] should] beKindOfClass:[NSDictionary class]];
+
         
         //TODO: Uncomment when server-side support for object relationships is done.
         
