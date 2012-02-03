@@ -11,7 +11,7 @@
 #import "CMFile.h"
 #import "CMGeoPoint.h"
 #import "CMObject.h"
-#import "CMObjectClassNameRegistry.m"
+#import "CMObjectClassNameRegistry.h"
 #import "CMObjectDecoder.h"
 #import "CMObjectEncoder.h"
 #import "CMObjectSerialization.h"
