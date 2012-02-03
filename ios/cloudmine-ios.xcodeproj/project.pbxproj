@@ -108,6 +108,7 @@
 		7AA79D8214DC23C700F3CA3B /* RTProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D7514DC23C700F3CA3B /* RTProtocol.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7AA79D8314DC23C700F3CA3B /* RTUnregisteredClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AA79D7614DC23C700F3CA3B /* RTUnregisteredClass.h */; };
 		7AA79D8414DC23C700F3CA3B /* RTUnregisteredClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D7714DC23C700F3CA3B /* RTUnregisteredClass.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7AA79D9514DC318500F3CA3B /* CMObjectClassNameRegistry.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AA79D6514DC216A00F3CA3B /* CMObjectClassNameRegistry.h */; };
 		7AABA2E31480513500FD52A0 /* CMSerializable.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AABA2E21480513500FD52A0 /* CMSerializable.h */; };
 		7AABA2E51480549A00FD52A0 /* CMObjectEncoderSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AABA2E41480549A00FD52A0 /* CMObjectEncoderSpec.m */; };
 		7AABA2E81480598300FD52A0 /* NSString+UUID.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AABA2E61480598300FD52A0 /* NSString+UUID.h */; };
@@ -164,6 +165,7 @@
 			dstPath = "${BUILD_DIR}/${CONFIGURATION}-iphoneuniversal/${PRODUCT_NAME}.framework/Versions/A/Headers/";
 			dstSubfolderSpec = 0;
 			files = (
+				7AA79D9514DC318500F3CA3B /* CMObjectClassNameRegistry.h in CopyFiles */,
 				7A5C40A614D8B11D00906689 /* CMFile.h in CopyFiles */,
 				7A5C40A714D8B11D00906689 /* CMDate.h in CopyFiles */,
 				7A5C40A814D8B11D00906689 /* CMPagingDescriptor.h in CopyFiles */,
@@ -244,7 +246,6 @@
 		7AA79D6514DC216A00F3CA3B /* CMObjectClassNameRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMObjectClassNameRegistry.h; sourceTree = "<group>"; };
 		7AA79D6614DC216A00F3CA3B /* CMObjectClassNameRegistry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectClassNameRegistry.m; sourceTree = "<group>"; };
 		7AA79D6A14DC23C700F3CA3B /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		7AA79D6B14DC23C700F3CA3B /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7AA79D6C14DC23C700F3CA3B /* MARTNSObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MARTNSObject.h; sourceTree = "<group>"; };
 		7AA79D6D14DC23C700F3CA3B /* MARTNSObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MARTNSObject.m; sourceTree = "<group>"; };
 		7AA79D6E14DC23C700F3CA3B /* RTIvar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTIvar.h; sourceTree = "<group>"; };
@@ -423,7 +424,6 @@
 			isa = PBXGroup;
 			children = (
 				7AA79D6A14DC23C700F3CA3B /* LICENSE */,
-				7AA79D6B14DC23C700F3CA3B /* main.m */,
 				7AA79D6C14DC23C700F3CA3B /* MARTNSObject.h */,
 				7AA79D6D14DC23C700F3CA3B /* MARTNSObject.m */,
 				7AA79D6E14DC23C700F3CA3B /* RTIvar.h */,
