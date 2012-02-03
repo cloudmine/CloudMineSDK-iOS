@@ -4,10 +4,12 @@ var NAVTREE =
     [ "Class List", "annotated.html", [
       [ "CMAPICredentials", "interface_c_m_a_p_i_credentials.html", null ],
       [ "CMClassPropertyExtractor", "interface_c_m_class_property_extractor.html", null ],
+      [ "CMDate", "interface_c_m_date.html", null ],
       [ "CMFile", "interface_c_m_file.html", null ],
       [ "CMGeoPoint", "interface_c_m_geo_point.html", null ],
       [ "CMJSONEncoder", "interface_c_m_j_s_o_n_encoder.html", null ],
       [ "CMObject", "interface_c_m_object.html", null ],
+      [ "CMObjectClassNameRegistry", "interface_c_m_object_class_name_registry.html", null ],
       [ "CMObjectDecoder", "interface_c_m_object_decoder.html", null ],
       [ "CMObjectEncoder", "interface_c_m_object_encoder.html", null ],
       [ "CMPagingDescriptor", "interface_c_m_paging_descriptor.html", null ],
@@ -24,12 +26,14 @@ var NAVTREE =
     [ "Class Hierarchy", "hierarchy.html", [
       [ "CMAPICredentials", "interface_c_m_a_p_i_credentials.html", null ],
       [ "CMClassPropertyExtractor", "interface_c_m_class_property_extractor.html", null ],
+      [ "CMObjectClassNameRegistry", "interface_c_m_object_class_name_registry.html", null ],
       [ "CMObjectDecoder", "interface_c_m_object_decoder.html", null ],
       [ "CMObjectEncoder", "interface_c_m_object_encoder.html", [
         [ "CMJSONEncoder", "interface_c_m_j_s_o_n_encoder.html", null ]
       ] ],
       [ "CMPagingDescriptor", "interface_c_m_paging_descriptor.html", null ],
       [ "<CMSerializable>", "protocol_c_m_serializable-p.html", [
+        [ "CMDate", "interface_c_m_date.html", null ],
         [ "CMFile", "interface_c_m_file.html", null ],
         [ "CMObject", "interface_c_m_object.html", [
           [ "CMGeoPoint", "interface_c_m_geo_point.html", null ]
@@ -45,9 +49,11 @@ var NAVTREE =
     ] ],
     [ "Class Members", "functions.html", null ],
     [ "File List", "files.html", [
+      [ "ios/src/CMDate.h", "_c_m_date_8h.html", null ],
       [ "ios/src/CMFile.h", null, null ],
       [ "ios/src/CMGeoPoint.h", null, null ],
       [ "ios/src/CMObject.h", null, null ],
+      [ "ios/src/CMObjectClassNameRegistry.h", null, null ],
       [ "ios/src/Extensions/NSString+UUID.h", null, null ],
       [ "ios/src/Extensions/NSURL+QueryParameterAdditions.h", null, null ],
       [ "ios/src/Introspection/CMClassPropertyExtractor.h", null, null ],

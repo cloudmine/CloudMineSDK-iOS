@@ -12,6 +12,7 @@
 #import "CMSerializable.h"
 #import "NSString+UUID.h"
 #import "CMGenericSerializableObject.h"
+#import "CMCrossPlatformGenericSerializableObject.h"
 #import "CMObjectSerialization.h"
 #import "CMGeoPoint.h"
 #import "CMDate.h"
@@ -60,6 +61,23 @@ describe(@"CMObjectEncoder", ^{
 //        [[[nestedObject objectForKey:@"simpleInt"] should] equal:theValue(999)];
 //        [[[nestedObject objectForKey:@"arrayOfBooleans"] should] equal:[NSNull null]];
 //        [[[nestedObject objectForKey:@"nestedObject"] should] equal:[NSNull null]];
+    });
+    
+    it(@"should encode an object with a custom class name correctly", ^{
+        NSString *uuid = [NSString stringWithUUID];
+        CMCrossPlatformGenericSerializableObject *object = [[CMCrossPlatformGenericSerializableObject alloc] initWithObjectId:uuid];
+        [object fillPropertiesWithDefaults];
+        
+        // Run the serialization.
+        NSDictionary *dictionaryOfData = [CMObjectEncoder encodeObjects:[NSSet setWithObject:object]];
+        
+        // Check the integrity data.
+        [dictionaryOfData shouldNotBeNil];
+        [[[dictionaryOfData should] have:1] items];
+        
+        [[dictionaryOfData should] haveValueForKey:uuid];
+        NSDictionary *theOnlyObject = [dictionaryOfData objectForKey:uuid];
+        [[[theOnlyObject objectForKey:CMInternalTypeStorageKey] should] equal:@"genericObject"];
     });
 });
 

@@ -13,6 +13,7 @@
 #import "CMSerializable.h"
 #import "NSString+UUID.h"
 #import "CMGenericSerializableObject.h"
+#import "CMCrossPlatformGenericSerializableObject.h"
 
 SPEC_BEGIN(CMObjectDecoderSpec)
 
@@ -51,6 +52,21 @@ describe(@"CMObjectDecoder", ^{
         [decodedObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             [[obj should] equal:[originalObjects objectAtIndex:idx]];
         }];
+    });
+    
+    it(@"should decode a single object with a custom class name correctly", ^{
+        // Create the original object and serialize it. This will serve as the input for the real test.
+        CMCrossPlatformGenericSerializableObject *originalObject = [[CMCrossPlatformGenericSerializableObject alloc] init];
+        [originalObject fillPropertiesWithDefaults];
+        NSDictionary *originalObjectDictionaryRepresentation = [CMObjectEncoder encodeObjects:[NSSet setWithObject:originalObject]];
+        
+        // Create everything needed to decode this representation now.
+        NSArray *decodedObjects = [CMObjectDecoder decodeObjects:originalObjectDictionaryRepresentation];
+        
+        // Test the symmetry.
+        [[[decodedObjects should] have:1] items];
+        [[[decodedObjects objectAtIndex:0] should] beKindOfClass:[CMCrossPlatformGenericSerializableObject class]];
+        [[[decodedObjects objectAtIndex:0] should] equal:originalObject];
     });
     
     it(@"should NOT be able to deserialize a dictionary when it's at the top-level", ^{

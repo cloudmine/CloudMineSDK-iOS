@@ -11,6 +11,7 @@
 #import "CMObjectSerialization.h"
 #import "CMGeoPoint.h"
 #import "CMDate.h"
+#import "CMObjectClassNameRegistry.h"
 
 @interface CMObjectDecoder (Private)
 + (Class)typeFromDictionaryRepresentation:(NSDictionary *)representation;
@@ -110,7 +111,15 @@
     if ([className isEqualToString:CMInternalHashClassName]) {
         klass = [NSDictionary class];
     } else {
-        klass = NSClassFromString(className);
+        // First try to look up a custom class name (i.e. a name given to a CMObject subclass by overriding +className).
+        klass = [[CMObjectClassNameRegistry sharedInstance] classForName:className];
+        
+        // If it's still nil, assume the name is not custom but instead is actually just the name of the class.
+        if (klass == nil) {
+            klass = NSClassFromString(className);
+        }
+        
+        // At this point we have no idea what the class is, so fail.
         NSAssert(klass, @"Class with name \"%@\" could not be loaded during remote object deserialization.", className);
     }
     
@@ -142,6 +151,10 @@
     } else if ([objv isKindOfClass:[NSArray class]]) {
         return [self decodeAllInList:objv];
     } else if ([objv isKindOfClass:[NSDictionary class]]) {
+        // For now we need to special-case CMGeoPoint and CMDate since we don't support nested objects other
+        // than dictionaries at this point. Once that support is added we can simply use the CMObjectClassNameRegistry
+        // to deserialize any class properly.
+        
         if ([[objv objectForKey:CMInternalTypeStorageKey] isEqualToString:CMInternalHashClassName]) {
             return [self decodeAllInDictionary:objv];
         } else if ([[objv objectForKey:CMInternalTypeStorageKey] isEqualToString:CMGeoPointClassName]) {
