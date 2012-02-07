@@ -49,6 +49,7 @@ var NAVTREE =
     ] ],
     [ "Class Members", "functions.html", null ],
     [ "File List", "files.html", [
+      [ "ios/src/CloudMine.h", null, null ],
       [ "ios/src/CMDate.h", "_c_m_date_8h.html", null ],
       [ "ios/src/CMFile.h", null, null ],
       [ "ios/src/CMGeoPoint.h", null, null ],
