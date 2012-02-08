@@ -152,7 +152,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (void)_allObjects:(CMStoreObjectFetchCallback)callback ofType:(Class)klass userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options {
     NSParameterAssert(callback);
     NSParameterAssert(klass);
-    NSAssert(class_respondsToSelector(klass, @selector(className)), @"You must pass a class (%@) that extends CMObject and responds to +className.", klass);
+    NSAssert([klass respondsToSelector:@selector(className)], @"You must pass a class (%@) that extends CMObject and responds to +className.", klass);
     _CMAssertAPICredentialsInitialized;
     
     [self _searchObjects:callback 
