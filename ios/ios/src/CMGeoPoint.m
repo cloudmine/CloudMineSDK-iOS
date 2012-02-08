@@ -7,6 +7,7 @@
 //
 
 #import "CMGeoPoint.h"
+#import "math+floats.h"
 
 NSString * const CMGeoPointClassName = @"geopoint";
 
@@ -53,7 +54,7 @@ NSString * const CMGeoPointClassName = @"geopoint";
     if (![object isKindOfClass:[self class]]) {
         return NO;
     } else {
-        return (self.latitude == [object latitude] && self.longitude == [object longitude]);
+        return (fequal(self.latitude, [object latitude]) && fequal(self.longitude, [object longitude]));
     }
 }
 

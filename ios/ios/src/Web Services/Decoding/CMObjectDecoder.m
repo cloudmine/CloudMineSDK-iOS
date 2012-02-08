@@ -143,7 +143,7 @@
 }
 
 - (id)deserializeContentsOfObject:(id)objv {
-    if ([objv isKindOfClass:[NSNull class]]) {
+    if (!objv || [objv isKindOfClass:[NSNull class]]) {
         return nil;
     } else if ([objv isKindOfClass:[NSString class]] || [objv isKindOfClass:[NSNumber class]]) {
         // Strings and numbers are natively handled and need no further decomposition.
