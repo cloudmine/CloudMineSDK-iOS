@@ -236,6 +236,8 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (void)_saveObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreUploadCallback)callback {
     NSParameterAssert(objects);
     _CMAssertAPICredentialsInitialized;
+    [self cacheObjectsInMemory:objects atUserLevel:userLevel];
+    
     [webService updateValuesFromDictionary:[CMObjectEncoder encodeObjects:objects]
                         serverSideFunction:nil
                                       user:_CMUserOrNil
