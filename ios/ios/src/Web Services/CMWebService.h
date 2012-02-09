@@ -18,7 +18,9 @@
 /**
  * Base URL for the current version of the CloudMine API.
  */
+#ifndef CM_BASE_URL
 #define CM_BASE_URL @"https://api.cloudmine.me/v1"
+#endif
 
 /**
  * @enum Enumeration of possible results from a file upload operation.
