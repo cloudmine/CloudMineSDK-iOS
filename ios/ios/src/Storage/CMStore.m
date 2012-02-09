@@ -341,9 +341,9 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     NSAssert(userLevel ? (user != nil) : true, @"Failed trying to cache remote objects in-memory for user when user is not configured (%@)", self);
     
     @synchronized(self) {
-        NSMutableDictionary *cache = userLevel ? _cachedUserObjects : _cachedAppObjects;
+        SEL *addMethod = userLevel ? @selector(addUserObject:) : @selector(addObject:);
         for (CMObject *obj in objects) {
-            [cache setObject:obj forKey:obj.objectId];
+            [self performSelector:addMethod withObject:obj];
         }
     }
 }
