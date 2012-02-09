@@ -214,26 +214,38 @@ static __strong NSSet *_validHTTPVerbs = nil;
 - (void)executeRequest:(ASIHTTPRequest *)request 
         successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler 
           errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
-    
+
     __unsafe_unretained ASIHTTPRequest *blockRequest = request; // Stop the retain cycle.
-    
+
     [request setCompletionBlock:^{
         NSDictionary *results = [blockRequest.responseString yajl_JSON];
-        NSDictionary *successes = nil;
-        NSDictionary *errors = nil;
-        if (results) {
-            successes = [results objectForKey:@"success"];
-            if (!successes) {
-                successes = [NSDictionary dictionary];
+
+        if (blockRequest.responseStatusCode == 400 || blockRequest.responseStatusCode == 500) {
+            NSString *message = [results objectForKey:@"error"];
+            NSError *err = [NSError errorWithDomain:@"CloudMine"
+                                               code:500
+                                           userInfo:[NSDictionary dictionaryWithObject:message
+                                                                                forKey:@"message"]];
+            if (errorHandler != nil) {
+                errorHandler(err);
             }
-            
-            errors = [results objectForKey:@"errors"];
-            if (!errors) {
-                errors = [NSDictionary dictionary];
+        } else {
+            NSDictionary *successes = nil;
+            NSDictionary *errors = nil;
+            if (results) {
+                successes = [results objectForKey:@"success"];
+                if (!successes) {
+                    successes = [NSDictionary dictionary];
+                }
+
+                errors = [results objectForKey:@"errors"];
+                if (!errors) {
+                    errors = [NSDictionary dictionary];
+                }
             }
-        }
-        if (successHandler != nil) {
-            successHandler(successes, errors);
+            if (successHandler != nil) {
+                successHandler(successes, errors);
+            }
         }
     }];
     
