@@ -125,8 +125,8 @@ typedef enum {
 /**
  * Downloads all app-level objects for your app's CloudMine object store.
  *
- * @param callback The callback to be triggered when all the objects are finished downloading.
  * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
+ * @param callback The callback to be triggered when all the objects are finished downloading.
  *
  * @see CMStoreOptions
  * @see https://cloudmine.me/developer_zone#ref/json_get
@@ -137,8 +137,8 @@ typedef enum {
  * Downloads all user-level objects for your app's CloudMine object store. The store must be configured 
  * with a user or else calling this method will throw an exception.
  *
- * @param callback The callback to be triggered when all the objects are finished downloading.
  * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
+ * @param callback The callback to be triggered when all the objects are finished downloading.
  *
  * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
  *
@@ -152,8 +152,8 @@ typedef enum {
  * Downloads app-level objects for your app's CloudMine object store with the given keys.
  *
  * @param keys The keys of the objects you wish to download. Specifying a key for an object that does not exist will <b>not</b> cause an error.
- * @param callback The callback to be triggered when all the objects are finished downloading.
  * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
+ * @param callback The callback to be triggered when all the objects are finished downloading.
  *
  * @see CMStoreOptions
  * @see https://cloudmine.me/developer_zone#ref/json_get
@@ -165,8 +165,8 @@ typedef enum {
  * with a user or else calling this method will throw an exception.
  *
  * @param keys The keys of the objects you wish to download. Specifying a key for an object that does not exist will <b>not</b> cause an error.
- * @param callback The callback to be triggered when all the objects are finished downloading.
  * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
+ * @param callback The callback to be triggered when all the objects are finished downloading.
  *
  * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
  *
@@ -180,8 +180,8 @@ typedef enum {
  * Downloads app-level objects of the given type from your app's CloudMine object store.
  *
  * @param klass The class of the objects you want to download. <tt>[klass className]</tt> is called to determine the remote type.
- * @param callback The callback to be triggered when all the objects are finished downloading.
- * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
+ * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt
+ * @param callback The callback to be triggered when all the objects are finished downloading.>.
  *
  * @throws NSException An exception will be raised if <tt>klass</tt> doesn't respond to <tt>className</tt>.
  *
@@ -196,8 +196,8 @@ typedef enum {
  * with a user or else calling this method will throw an exception.
  *
  * @param klass The class of the objects you want to download. <tt>[klass className]</tt> is called to determine the remote type.
- * @param callback The callback to be triggered when all the objects are finished downloading.
  * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
+ * @param callback The callback to be triggered when all the objects are finished downloading.
  *
  * @throws NSException An exception will be raised if this method is called when a user is not configured for this store OR if <tt>klass</tt> doesn't respond to <tt>className</tt>.
  *
@@ -210,9 +210,9 @@ typedef enum {
 /**
  * Performs a search across all app-level objects in your app's CloudMine object store.
  *
- * @param callback The callback to be triggered when all the objects are finished downloading.
  * @param query The search query to perform. This must conform to the syntax outlined in the CloudMine <a href="https://cloudmine.me/developer_zone#ref/query_syntax" target="_blank">documentation</a>.
  * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
+ * @param callback The callback to be triggered when all the objects are finished downloading.
  *
  * @see CMStoreOptions
  * @see https://cloudmine.me/developer_zone#ref/query_syntax
@@ -223,9 +223,9 @@ typedef enum {
  * Performs a search across all user-level objects in your app's CloudMine object store. The store must be configured 
  * with a user or else calling this method will throw an exception.
  *
- * @param callback The callback to be triggered when all the objects are finished downloading.
  * @param query The search query to perform. This must conform to the syntax outlined in the CloudMine <a href="https://cloudmine.me/developer_zone#ref/query_syntax" target="_blank">documentation</a>.
  * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
+ * @param callback The callback to be triggered when all the objects are finished downloading.
  *
  * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
  *
