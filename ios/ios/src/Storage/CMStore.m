@@ -93,11 +93,11 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 #pragma mark - Object retrieval
 
-- (void)allObjects:(CMStoreObjectFetchCallback)callback additionalOptions:(CMStoreOptions *)options {    
+- (void)allObjectsWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback {
     [self _allObjects:callback userLevel:NO additionalOptions:options];
 }
 
-- (void)allUserObjects:(CMStoreObjectFetchCallback)callback additionalOptions:(CMStoreOptions *)options {
+- (void)allUserObjectsWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback {
     _CMAssertUserConfigured;
     
     [self _allObjects:callback userLevel:YES additionalOptions:options];
@@ -107,11 +107,11 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     [self _objectsWithKeys:nil callback:callback userLevel:userLevel additionalOptions:options];
 }
 
-- (void)objectsWithKeys:(NSArray *)keys callback:(CMStoreObjectFetchCallback)callback additionalOptions:(CMStoreOptions *)options {
+- (void)objectsWithKeys:(NSArray *)keys additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback {
     [self _objectsWithKeys:keys callback:callback userLevel:NO additionalOptions:options];
 }
 
-- (void)userObjectsWithKeys:(NSArray *)keys callback:(CMStoreObjectFetchCallback)callback additionalOptions:(CMStoreOptions *)options {
+- (void)userObjectsWithKeys:(NSArray *)keys additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback {
     _CMAssertUserConfigured;
     
     [self _objectsWithKeys:keys callback:callback userLevel:YES additionalOptions:options];
@@ -139,11 +139,11 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 #pragma mark Object querying by type
 
-- (void)allObjects:(CMStoreObjectFetchCallback)callback ofType:(Class)klass additionalOptions:(CMStoreOptions *)options {
+- (void)allObjectsOfType:(Class)klass additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback {
     [self _allObjects:callback ofType:klass userLevel:NO additionalOptions:options];
 }
 
-- (void)allUserObjects:(CMStoreObjectFetchCallback)callback ofType:(Class)klass additionalOptions:(CMStoreOptions *)options {
+- (void)allUserObjectsOfType:(Class)klass additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback {
     _CMAssertUserConfigured;
     
     [self _allObjects:callback ofType:klass userLevel:YES additionalOptions:options];
@@ -163,11 +163,11 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 #pragma mark General object querying
 
-- (void)searchObjects:(CMStoreObjectFetchCallback)callback query:(NSString *)query additionalOptions:(CMStoreOptions *)options {
+- (void)searchObjects:(NSString *)query additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback {
     [self _searchObjects:callback query:query userLevel:NO additionalOptions:options];
 }
 
-- (void)searchUserObjects:(CMStoreObjectFetchCallback)callback query:(NSString *)query additionalOptions:(CMStoreOptions *)options {
+- (void)searchUserObjects:(NSString *)query additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback {
     _CMAssertUserConfigured;
     
     [self _searchObjects:callback query:query userLevel:YES additionalOptions:options];
@@ -341,7 +341,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     NSAssert(userLevel ? (user != nil) : true, @"Failed trying to cache remote objects in-memory for user when user is not configured (%@)", self);
     
     @synchronized(self) {
-        SEL *addMethod = userLevel ? @selector(addUserObject:) : @selector(addObject:);
+        SEL addMethod = userLevel ? @selector(addUserObject:) : @selector(addObject:);
         for (CMObject *obj in objects) {
             [self performSelector:addMethod withObject:obj];
         }

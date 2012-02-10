@@ -131,7 +131,7 @@ typedef enum {
  * @see CMStoreOptions
  * @see https://cloudmine.me/developer_zone#ref/json_get
  */
-- (void)allObjects:(CMStoreObjectFetchCallback)callback additionalOptions:(CMStoreOptions *)options;
+- (void)allObjectsWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
 
 /**
  * Downloads all user-level objects for your app's CloudMine object store. The store must be configured 
@@ -146,7 +146,7 @@ typedef enum {
  * @see https://cloudmine.me/developer_zone#ref/json_get
  * @see https://cloudmine.me/developer_zone#ref/account_overview
  */
-- (void)allUserObjects:(CMStoreObjectFetchCallback)callback additionalOptions:(CMStoreOptions *)options;
+- (void)allUserObjectsWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
 
 /**
  * Downloads app-level objects for your app's CloudMine object store with the given keys.
@@ -158,7 +158,7 @@ typedef enum {
  * @see CMStoreOptions
  * @see https://cloudmine.me/developer_zone#ref/json_get
  */
-- (void)objectsWithKeys:(NSArray *)keys callback:(CMStoreObjectFetchCallback)callback additionalOptions:(CMStoreOptions *)options;
+- (void)objectsWithKeys:(NSArray *)keys additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
 
 /**
  * Downloads user-level objects for your app's CloudMine object store with the given keys. The store must be configured 
@@ -174,7 +174,7 @@ typedef enum {
  * @see https://cloudmine.me/developer_zone#ref/json_get
  * @see https://cloudmine.me/developer_zone#ref/account_overview
  */
-- (void)userObjectsWithKeys:(NSArray *)keys callback:(CMStoreObjectFetchCallback)callback additionalOptions:(CMStoreOptions *)options;
+- (void)userObjectsWithKeys:(NSArray *)keys additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
 
 /**
  * Downloads app-level objects of the given type from your app's CloudMine object store.
@@ -189,7 +189,7 @@ typedef enum {
  * @see CMSerializable#className
  * @see https://cloudmine.me/developer_zone#ref/json_get
  */
-- (void)allObjects:(CMStoreObjectFetchCallback)callback ofType:(Class)klass additionalOptions:(CMStoreOptions *)options;
+- (void)allObjectsOfType:(Class)klass additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
 
 /**
  * Downloads user-level objects of the given type from your app's CloudMine object store. The store must be configured 
@@ -205,7 +205,7 @@ typedef enum {
  * @see CMSerializable#className
  * @see https://cloudmine.me/developer_zone#ref/account_overview
  */
-- (void)allUserObjects:(CMStoreObjectFetchCallback)callback ofType:(Class)klass additionalOptions:(CMStoreOptions *)options;
+- (void)allUserObjectsOfType:(Class)klass additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
 
 /**
  * Performs a search across all app-level objects in your app's CloudMine object store.
@@ -217,7 +217,7 @@ typedef enum {
  * @see CMStoreOptions
  * @see https://cloudmine.me/developer_zone#ref/query_syntax
  */
-- (void)searchObjects:(CMStoreObjectFetchCallback)callback query:(NSString *)query additionalOptions:(CMStoreOptions *)options;
+- (void)searchObjects:(NSString *)query additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
 
 /**
  * Performs a search across all user-level objects in your app's CloudMine object store. The store must be configured 
@@ -233,7 +233,7 @@ typedef enum {
  * @see https://cloudmine.me/developer_zone#ref/query_syntax
  * @see https://cloudmine.me/developer_zone#ref/account_overview
  */
-- (void)searchUserObjects:(CMStoreObjectFetchCallback)callback query:(NSString *)query additionalOptions:(CMStoreOptions *)options;
+- (void)searchUserObjects:(NSString *)query additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
 
 /**
  * Downloads an app-level binary file from your app's CloudMine data store.
