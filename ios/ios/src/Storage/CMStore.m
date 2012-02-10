@@ -278,11 +278,11 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     _CMAssertAPICredentialsInitialized;
     
     // Remove the objects from the cache first.
-    NSMutableDictionary *cache = userLevel ? _cachedUserObjects : _cachedAppObjects;
     NSMutableDictionary *deletedObjects = [NSMutableDictionary dictionaryWithCapacity:objects.count];
     [objects enumerateObjectsUsingBlock:^(CMObject *obj, NSUInteger idx, BOOL *stop) {
+        SEL delMethod = userLevel ? @selector(removeObject:) : @selector(removeUserObject:);
         [deletedObjects setObject:obj forKey:obj.objectId];
-        [cache removeObjectForKey:obj.objectId];
+        [self performSelector:delMethod withObject:obj];
     }];
     
     NSArray *keys = [deletedObjects allKeys];
