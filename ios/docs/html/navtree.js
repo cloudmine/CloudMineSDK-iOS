@@ -55,6 +55,7 @@ var NAVTREE =
       [ "ios/src/CMGeoPoint.h", null, null ],
       [ "ios/src/CMObject.h", null, null ],
       [ "ios/src/CMObjectClassNameRegistry.h", null, null ],
+      [ "ios/src/Extensions/math+floats.h", null, null ],
       [ "ios/src/Extensions/NSString+UUID.h", null, null ],
       [ "ios/src/Extensions/NSURL+QueryParameterAdditions.h", null, null ],
       [ "ios/src/Introspection/CMClassPropertyExtractor.h", null, null ],
