@@ -6,6 +6,7 @@
 //  See LICENSE file included with SDK for details.
 //
 
+#import <CoreLocation/CoreLocation.h>
 #include <math.h>
 #import "CMObject.h"
 
@@ -33,6 +34,17 @@ extern NSString *const CMGeoPointClassName;
  * @param theLongitude The longitude in <strong>radians</strong>.
  */
 - (id)initWithLatitudeInRadians:(double)theLatitude andLongitudeInRadians:(double)theLongitude;
+
+/**
+ * Initializes a new instance of this class given a <tt>CLLocation</tt> object most likely obtained from
+ * <tt>CLLocationManager</tt> or some other part of the CoreLocation framework.
+ *
+ * @param location The <tt>CLLocation</tt> instance describing the location.
+ *
+ * @see https://developer.apple.com/library/ios/#documentation/CoreLocation/Reference/CLLocation_Class/CLLocation/CLLocation.html
+ * @see https://developer.apple.com/library/ios/#documentation/UserExperience/Conceptual/LocationAwarenessPG/Introduction/Introduction.html
+ */
+- (id)initWithCLLocation:(CLLocation *)location;
 
 /**
  * The latitude in degrees.

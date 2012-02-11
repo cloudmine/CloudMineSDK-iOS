@@ -36,6 +36,11 @@ NSString * const CMGeoPointClassName = @"geopoint";
                      andLongitude:[aDecoder decodeDoubleForKey:@"longitude"]];
 }
 
+- (id)initWithCLLocation:(CLLocation *)location {
+    return [self initWithLatitude:location.coordinate.latitude
+                     andLongitude:location.coordinate.longitude];
+}
+
 #pragma mark - Serialization methods
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {

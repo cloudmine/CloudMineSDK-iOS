@@ -94,6 +94,7 @@
 		7A87315B14BB0AD0000D6DEA /* CMSerializable.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AABA2E21480513500FD52A0 /* CMSerializable.h */; };
 		7A87315C14BB0AD0000D6DEA /* CMObjectSerialization.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7A7EDBD9148EBE3800AB5B69 /* CMObjectSerialization.h */; };
 		7A87316614BB309F000D6DEA /* NSMutableData+RandomData.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A87316514BB309F000D6DEA /* NSMutableData+RandomData.m */; };
+		7A91E8D914E6EF85008B7941 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A91E8D814E6EF85008B7941 /* CoreLocation.framework */; };
 		7AA79D6314DC1FB900F3CA3B /* CMCrossPlatformGenericSerializableObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D6214DC1FB900F3CA3B /* CMCrossPlatformGenericSerializableObject.m */; };
 		7AA79D6714DC216A00F3CA3B /* CMObjectClassNameRegistry.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AA79D6514DC216A00F3CA3B /* CMObjectClassNameRegistry.h */; };
 		7AA79D6814DC216A00F3CA3B /* CMObjectClassNameRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D6614DC216A00F3CA3B /* CMObjectClassNameRegistry.m */; };
@@ -246,6 +247,7 @@
 		7A7EDBD9148EBE3800AB5B69 /* CMObjectSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMObjectSerialization.h; sourceTree = "<group>"; };
 		7A87316414BB309F000D6DEA /* NSMutableData+RandomData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableData+RandomData.h"; sourceTree = "<group>"; };
 		7A87316514BB309F000D6DEA /* NSMutableData+RandomData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableData+RandomData.m"; sourceTree = "<group>"; };
+		7A91E8D814E6EF85008B7941 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		7AA79D6114DC1FB900F3CA3B /* CMCrossPlatformGenericSerializableObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMCrossPlatformGenericSerializableObject.h; sourceTree = "<group>"; };
 		7AA79D6214DC1FB900F3CA3B /* CMCrossPlatformGenericSerializableObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMCrossPlatformGenericSerializableObject.m; sourceTree = "<group>"; };
 		7AA79D6514DC216A00F3CA3B /* CMObjectClassNameRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMObjectClassNameRegistry.h; sourceTree = "<group>"; };
@@ -312,6 +314,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A91E8D914E6EF85008B7941 /* CoreLocation.framework in Frameworks */,
 				7A0413DA146C5B7400EF537A /* libz.dylib in Frameworks */,
 				7AF6685514719FC900E2A06D /* YAJLiOS in Frameworks */,
 				7AD36F81146C656600DD4734 /* UIKit.framework in Frameworks */,
@@ -469,6 +472,7 @@
 		7AB4AB54145DC5D8006AEF67 = {
 			isa = PBXGroup;
 			children = (
+				7A91E8D814E6EF85008B7941 /* CoreLocation.framework */,
 				7AB4AB64145DC5D8006AEF67 /* ios */,
 				7AB4AB78145DC5D8006AEF67 /* iosTests */,
 				7AB4AB61145DC5D8006AEF67 /* Frameworks */,
