@@ -50,6 +50,15 @@ describe(@"CMStore", ^{
                 [[obj.store should] equal:store];
             });
             
+            it(@"should nullify the object's store reference when removed from the store", ^{
+                CMObject *obj = [[CMObject alloc] init];
+                [store addObject:obj];
+                
+                [store removeObject:obj];
+                [[theValue([store objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipUndefinedLevel)];
+                [obj.store shouldBeNil];
+            });
+            
             it(@"should raise an exception when a user-level object is added", ^{
                 CMObject *obj = [[CMObject alloc] init];
                 [[theBlock(^{
@@ -77,6 +86,15 @@ describe(@"CMStore", ^{
                 [store addObject:obj];
                 [[theValue([store objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipAppLevel)];
                 [[obj.store should] equal:store];
+            });
+            
+            it(@"should nullify the object's store reference when removed from the store", ^{
+                CMObject *obj = [[CMObject alloc] init];
+                [store addUserObject:obj];
+                
+                [store removeUserObject:obj];
+                [[theValue([store objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipUndefinedLevel)];
+                [obj.store shouldBeNil];
             });
             
             it(@"should be user-level when the object is added to the store at the user level", ^{

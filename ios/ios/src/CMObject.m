@@ -53,19 +53,11 @@
     return (store != nil);
 }
 
-- (void)setStore:(CMStore *)theStore {
+- (CMStore *)store {
     if (store && [store objectOwnershipLevel:self] == CMObjectOwnershipUndefinedLevel) {
-        @synchronized(self) {
-            if (store) {
-                // Remove this object from the current store.
-                [store removeObject:self];
-            }
-            
-            // Add this object to the new store and record that relationship.
-            [theStore addObject:self];
-        }
+        store = nil;
     }
-    store = theStore;
+    return store;
 }
 
 #pragma mark - Accessors
