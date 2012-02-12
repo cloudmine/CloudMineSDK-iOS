@@ -28,4 +28,12 @@
     [coder encodeObject:self.password forKey:@"password"];
 }
 
+- (BOOL)isEqual:(id)object {
+    if (![object isKindOfClass:[CMUser class]]) {
+        return NO;
+    }
+    
+    return ([[object userId] isEqualToString:userId] && [[object password] isEqualToString:password]);
+}
+
 @end
