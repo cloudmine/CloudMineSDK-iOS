@@ -264,8 +264,17 @@ static __strong NSSet *_validHTTPVerbs = nil;
     __unsafe_unretained ASIHTTPRequest *blockRequest = request; // Stop the retain cycle.
     
     [request setCompletionBlock:^{
-        if (successHandler != nil) {
-            successHandler(blockRequest.responseData, [blockRequest.responseHeaders objectForKey:@"Content-Type"]);
+        if (blockRequest.responseStatusCode == 200) {
+            if (successHandler != nil) {
+                successHandler(blockRequest.responseData, [blockRequest.responseHeaders objectForKey:@"Content-Type"]);
+            }
+        } else {
+            if (errorHandler != nil) {
+                NSError *err = [NSError errorWithDomain:@"CloudMine"
+                                                   code:blockRequest.responseStatusCode
+                                               userInfo:[NSDictionary dictionaryWithObject:blockRequest.responseStatusMessage forKey:@"message"]];
+                errorHandler(err);
+            }
         }
     }];
     
