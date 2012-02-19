@@ -14,6 +14,7 @@
 				7A87314F14BB0A0A000D6DEA /* Build Static Libs */,
 				7A87315014BB0A5F000D6DEA /* Build universal binary */,
 				7A87315114BB0AB0000D6DEA /* CopyFiles */,
+				7A58CC1D14F1B387003E864B /* CopyFiles */,
 			);
 			dependencies = (
 			);
@@ -65,6 +66,7 @@
 		7A308A3C14798F29008ADD3C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D9146C5B7400EF537A /* libz.dylib */; };
 		7A308A4414799134008ADD3C /* CMWebServiceSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A308A4314799134008ADD3C /* CMWebServiceSpec.m */; };
 		7A308A4C14799471008ADD3C /* libKiwi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A308A4B14799471008ADD3C /* libKiwi.a */; };
+		7A58CC1E14F1B393003E864B /* MimeTypes.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7A58CC1A14F1AFE7003E864B /* MimeTypes.plist */; };
 		7A5C40A314D8981E00906689 /* CMDate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A5C40A114D8981E00906689 /* CMDate.h */; };
 		7A5C40A414D8981E00906689 /* CMDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A5C40A214D8981E00906689 /* CMDate.m */; };
 		7A5C40A614D8B11D00906689 /* CMFile.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AD93BAA14D1C5DA00CC1CC9 /* CMFile.h */; };
@@ -163,6 +165,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		7A58CC1D14F1B387003E864B /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				7A58CC1E14F1B393003E864B /* MimeTypes.plist in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7A87315114BB0AB0000D6DEA /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -232,6 +244,7 @@
 		7A0DB1BB147B016B007F482C /* CMBlockValidationMessageSpy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMBlockValidationMessageSpy.m; sourceTree = "<group>"; };
 		7A308A4314799134008ADD3C /* CMWebServiceSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMWebServiceSpec.m; sourceTree = "<group>"; };
 		7A308A4B14799471008ADD3C /* libKiwi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libKiwi.a; path = "kiwi/build/Release-iphoneos/libKiwi.a"; sourceTree = "<group>"; };
+		7A58CC1A14F1AFE7003E864B /* MimeTypes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MimeTypes.plist; sourceTree = "<group>"; };
 		7A5C40A114D8981E00906689 /* CMDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMDate.h; sourceTree = "<group>"; };
 		7A5C40A214D8981E00906689 /* CMDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMDate.m; sourceTree = "<group>"; };
 		7A6B800C14871BCA00D8B211 /* CMObjectDecoderSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectDecoderSpec.m; sourceTree = "<group>"; };
@@ -521,6 +534,7 @@
 			isa = PBXGroup;
 			children = (
 				7AB4AB66145DC5D8006AEF67 /* cloudmine-ios-Prefix.pch */,
+				7A58CC1A14F1AFE7003E864B /* MimeTypes.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
