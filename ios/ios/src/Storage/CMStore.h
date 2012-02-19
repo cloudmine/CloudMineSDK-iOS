@@ -266,7 +266,7 @@ typedef enum {
  *
  * @see https://cloudmine.me/developer_zone#ref/json_update
  */
-- (void)saveAll:(CMStoreUploadCallback)callback;
+- (void)saveAll:(CMStoreObjectUploadCallback)callback;
 
 /**
  * Saves all the app-level objects in the store to your app's CloudMine data store.
@@ -275,7 +275,7 @@ typedef enum {
  *
  * @see https://cloudmine.me/developer_zone#ref/json_update
  */
-- (void)saveAllAppObjects:(CMStoreUploadCallback)callback;
+- (void)saveAllAppObjects:(CMStoreObjectUploadCallback)callback;
 
 /**
  * Saves all the user-objects in the store to your app's CloudMine data store. The store must be configured 
@@ -288,7 +288,7 @@ typedef enum {
  * @see https://cloudmine.me/developer_zone#ref/json_update
  * @see https://cloudmine.me/developer_zone#ref/account_overview
  */
-- (void)saveAllUserObjects:(CMStoreUploadCallback)callback;
+- (void)saveAllUserObjects:(CMStoreObjectUploadCallback)callback;
 
 /**
  * Saves an individual object to your app's CloudMine data store at the app-level. If this object doesn't
@@ -300,7 +300,7 @@ typedef enum {
  * @see CMObject#store
  * @see https://cloudmine.me/developer_zone#ref/json_update
  */
-- (void)saveObject:(CMObject *)theObject callback:(CMStoreUploadCallback)callback;
+- (void)saveObject:(CMObject *)theObject callback:(CMStoreObjectUploadCallback)callback;
 
 /**
  * Saves an individual object to your app's CloudMine data store at the user-level. The store must be configured 
@@ -316,7 +316,7 @@ typedef enum {
  * @see https://cloudmine.me/developer_zone#ref/json_update
  * @see https://cloudmine.me/developer_zone#ref/account_overview
  */
-- (void)saveUserObject:(CMObject *)theObject callback:(CMStoreUploadCallback)callback;
+- (void)saveUserObject:(CMObject *)theObject callback:(CMStoreObjectUploadCallback)callback;
 
 /**
  * Deletes the given app-level object from your app's CloudMine data store and removes the object from this store.
@@ -329,6 +329,12 @@ typedef enum {
  * @see https://cloudmine.me/developer_zone#ref/json_delete
  */
 - (void)deleteObject:(id<CMSerializable>)theObject callback:(CMStoreDeleteCallback)callback;
+
+- (void)saveFileAtURL:(NSURL *)url named:(NSString *)name callback:(CMStoreObjectUploadCallback)callback;
+- (void)saveUserFileAtURL:(NSURL *)url named:(NSString *)name callback:(CMStoreObjectUploadCallback)callback;
+
+- (void)saveFileWithData:(NSData *)data named:(NSString *)name callback:(CMStoreObjectUploadCallback)callback;
+- (void)saveUserFileWithData:(NSData *)data named:(NSString *)name callback:(CMStoreObjectUploadCallback)callback;
 
 /**
  * Deletes the given user-level object from your app's CloudMine data store and removes the object from this store. The store must be configured 

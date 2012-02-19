@@ -30,7 +30,9 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (void)_objectsWithKeys:(NSArray *)keys callback:(CMStoreObjectFetchCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
 - (void)_searchObjects:(CMStoreObjectFetchCallback)callback query:(NSString *)query userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
 - (void)_fileWithName:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreFileFetchCallback)callback;
-- (void)_saveObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreUploadCallback)callback;
+- (void)_saveObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreObjectUploadCallback)callback;
+- (void)_saveFileAtURL:(NSURL *)url named:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreObjectUploadCallback)callback;
+- (void)_saveFileWithData:(NSData *)data named:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreObjectUploadCallback)callback;
 - (void)_deleteObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreDeleteCallback)callback;
 - (void)cacheObjectsInMemory:(NSArray *)objects atUserLevel:(BOOL)userLevel;
 @end
@@ -201,7 +203,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 #pragma mark Object uploading
 
-- (void)saveAll:(CMStoreUploadCallback)callback {
+- (void)saveAll:(CMStoreObjectUploadCallback)callback {
     __unsafe_unretained CMStore *selff = self;
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
@@ -216,24 +218,24 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     }
 }
 
-- (void)saveAllAppObjects:(CMStoreUploadCallback)callback {
+- (void)saveAllAppObjects:(CMStoreObjectUploadCallback)callback {
     [self _saveObjects:[_cachedAppObjects allValues] userLevel:NO callback:callback];
 }
 
-- (void)saveAllUserObjects:(CMStoreUploadCallback)callback {
+- (void)saveAllUserObjects:(CMStoreObjectUploadCallback)callback {
     [self _saveObjects:[_cachedUserObjects allValues] userLevel:YES callback:callback];
 }
 
-- (void)saveUserObject:(CMObject *)theObject callback:(CMStoreUploadCallback)callback {
+- (void)saveUserObject:(CMObject *)theObject callback:(CMStoreObjectUploadCallback)callback {
     _CMAssertUserConfigured;
     [self _saveObjects:[NSSet setWithObject:theObject] userLevel:YES callback:callback];
 }
 
-- (void)saveObject:(CMObject *)theObject callback:(CMStoreUploadCallback)callback {
+- (void)saveObject:(CMObject *)theObject callback:(CMStoreObjectUploadCallback)callback {
     [self _saveObjects:[NSSet setWithObject:theObject] userLevel:NO callback:callback];
 }
 
-- (void)_saveObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreUploadCallback)callback {
+- (void)_saveObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreObjectUploadCallback)callback {
     NSParameterAssert(objects);
     _CMAssertAPICredentialsInitialized;
     [self cacheObjectsInMemory:objects atUserLevel:userLevel];
@@ -249,6 +251,64 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                                 callback(nil);
                             }
      ];
+}
+
+#pragma mark File uploading
+
+- (void)saveFileAtURL:(NSURL *)url named:(NSString *)name callback:(CMStoreFileUploadCallback)callback {
+    [self _saveFileAtURL:url named:name userLevel:NO callback:callback];
+}
+
+- (void)saveUserFileAtURL:(NSURL *)url named:(NSString *)name callback:(CMStoreFileUploadCallback)callback {
+    _CMAssertUserConfigured;
+    [self _saveFileAtURL:url named:name userLevel:YES callback:callback];
+}
+
+- (void)_saveFileAtURL:(NSURL *)url named:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreFileUploadCallback)callback {
+    NSParameterAssert(url);
+    NSParameterAssert(name);
+    _CMAssertAPICredentialsInitialized;
+    
+    [webService uploadFileAtPath:[url absoluteString]
+                           named:name 
+                      ofMimeType:nil
+                            user:_CMUserOrNil
+                  successHandler:^(CMFileUploadResult result) {
+                      callback(result);
+                  } errorHandler:^(NSError *error) {
+                      NSLog(@"Error ocurred during file uploading: %@", [error description]);
+                      lastError = error;
+                      callback(nil);
+                  }
+     ];
+}
+
+- (void)saveFileWithData:(NSData *)data named:(NSString *)name callback:(CMStoreFileUploadCallback)callback {
+    [self _saveFileWithData:data named:name userLevel:NO callback:callback];
+}
+
+- (void)saveUserFileWithData:(NSData *)data named:(NSString *)name callback:(CMStoreFileUploadCallback)callback {
+    _CMAssertUserConfigured;
+    [self _saveFileWithData:data named:name userLevel:YES callback:callback];
+}
+
+- (void)_saveFileWithData:(NSData *)data named:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreFileUploadCallback)callback {
+    NSParameterAssert(data);
+    NSParameterAssert(name);
+    _CMAssertAPICredentialsInitialized;
+    
+    [webService uploadBinaryData:data
+                           named:name
+                      ofMimeType:nil
+                            user:_CMUserOrNil
+                  successHandler:^(CMFileUploadResult result) {
+                      callback(result);
+                  } errorHandler:^(NSError *error) {
+                      NSLog(@"Error ocurred during in-memory file uploading: %@", [error description]);
+                      lastError = error;
+                      callback(nil);
+                  }
+     ]
 }
 
 #pragma mark Object and file deletion
