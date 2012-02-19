@@ -9,6 +9,7 @@
 /** @file */
 
 #import <Foundation/Foundation.h>
+#import "CMFileUploadResult.h"
 
 @class ASINetworkQueue;
 @class CMUser;
@@ -23,18 +24,6 @@
 #else
 #define CM_BASE_URL @"https://api.cloudmine.me/v1"
 #endif
-
-/**
- * @enum Enumeration of possible results from a file upload operation.
- */
-typedef enum {
-    /** File was created new on the server */
-    CMFileCreated = 0,
-    
-    /** File previously existed on server and was replaced with new content */
-    CMFileUpdated
-    
-} CMFileUploadResult;
 
 /**
  * Callback block signature for all operations on <tt>CMWebService</tt> that fetch objects

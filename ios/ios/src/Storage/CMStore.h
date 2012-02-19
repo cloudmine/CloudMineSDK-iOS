@@ -15,6 +15,7 @@
 #import "CMUser.h"
 #import "CMFile.h"
 #import "CMStoreCallbacks.h"
+#import "CMFileUploadResult.h"
 
 @class CMObject;
 
@@ -330,11 +331,11 @@ typedef enum {
  */
 - (void)deleteObject:(id<CMSerializable>)theObject callback:(CMStoreDeleteCallback)callback;
 
-- (void)saveFileAtURL:(NSURL *)url named:(NSString *)name callback:(CMStoreObjectUploadCallback)callback;
-- (void)saveUserFileAtURL:(NSURL *)url named:(NSString *)name callback:(CMStoreObjectUploadCallback)callback;
+- (void)saveFileAtURL:(NSURL *)url named:(NSString *)name callback:(CMStoreFileUploadCallback)callback;
+- (void)saveUserFileAtURL:(NSURL *)url named:(NSString *)name callback:(CMStoreFileUploadCallback)callback;
 
-- (void)saveFileWithData:(NSData *)data named:(NSString *)name callback:(CMStoreObjectUploadCallback)callback;
-- (void)saveUserFileWithData:(NSData *)data named:(NSString *)name callback:(CMStoreObjectUploadCallback)callback;
+- (void)saveFileWithData:(NSData *)data named:(NSString *)name callback:(CMStoreFileUploadCallback)callback;
+- (void)saveUserFileWithData:(NSData *)data named:(NSString *)name callback:(CMStoreFileUploadCallback)callback;
 
 /**
  * Deletes the given user-level object from your app's CloudMine data store and removes the object from this store. The store must be configured 

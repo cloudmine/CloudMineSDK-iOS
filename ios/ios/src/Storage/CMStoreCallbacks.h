@@ -8,6 +8,8 @@
 
 /** @file */
 
+#import "CMFileUploadResult.h"
+
 @class CMFile;
 
 /**

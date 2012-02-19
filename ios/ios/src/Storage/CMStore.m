@@ -31,8 +31,8 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (void)_searchObjects:(CMStoreObjectFetchCallback)callback query:(NSString *)query userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
 - (void)_fileWithName:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreFileFetchCallback)callback;
 - (void)_saveObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreObjectUploadCallback)callback;
-- (void)_saveFileAtURL:(NSURL *)url named:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreObjectUploadCallback)callback;
-- (void)_saveFileWithData:(NSData *)data named:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreObjectUploadCallback)callback;
+- (void)_saveFileAtURL:(NSURL *)url named:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreFileUploadCallback)callback;
+- (void)_saveFileWithData:(NSData *)data named:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreFileUploadCallback)callback;
 - (void)_deleteObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreDeleteCallback)callback;
 - (void)cacheObjectsInMemory:(NSArray *)objects atUserLevel:(BOOL)userLevel;
 @end
@@ -278,7 +278,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                   } errorHandler:^(NSError *error) {
                       NSLog(@"Error ocurred during file uploading: %@", [error description]);
                       lastError = error;
-                      callback(nil);
+                      callback(CMFileUploadFailed);
                   }
      ];
 }
@@ -306,9 +306,9 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                   } errorHandler:^(NSError *error) {
                       NSLog(@"Error ocurred during in-memory file uploading: %@", [error description]);
                       lastError = error;
-                      callback(nil);
+                      callback(CMFileUploadFailed);
                   }
-     ]
+     ];
 }
 
 #pragma mark Object and file deletion
