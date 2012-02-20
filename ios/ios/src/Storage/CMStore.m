@@ -14,6 +14,7 @@
 #import "CMObjectSerialization.h"
 #import "CMAPICredentials.h"
 #import "CMObject.h"
+#import "CMMimeType.h"
 
 #define _CMAssertAPICredentialsInitialized NSAssert([[CMAPICredentials sharedInstance] apiKey] != nil && [[[CMAPICredentials sharedInstance] apiKey] length] > 0 && [[CMAPICredentials sharedInstance] appKey] != nil && [[[CMAPICredentials sharedInstance] appKey] length] > 0, @"The CMAPICredentials singleton must be initialized before using a CloudMine Store")
 
@@ -33,6 +34,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (void)_saveObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreObjectUploadCallback)callback;
 - (void)_saveFileAtURL:(NSURL *)url named:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreFileUploadCallback)callback;
 - (void)_saveFileWithData:(NSData *)data named:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreFileUploadCallback)callback;
+- (NSString *)_mimeTypeForFileAtURL:(NSURL *)url withCustomName:(NSString *)name;
 - (void)_deleteObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreDeleteCallback)callback;
 - (void)cacheObjectsInMemory:(NSArray *)objects atUserLevel:(BOOL)userLevel;
 @end
@@ -269,9 +271,9 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     NSParameterAssert(name);
     _CMAssertAPICredentialsInitialized;
     
-    [webService uploadFileAtPath:[url absoluteString]
+    [webService uploadFileAtPath:[url path]
                            named:name 
-                      ofMimeType:nil
+                      ofMimeType:[self _mimeTypeForFileAtURL:url withCustomName:name]
                             user:_CMUserOrNil
                   successHandler:^(CMFileUploadResult result) {
                       callback(result);
@@ -299,7 +301,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     
     [webService uploadBinaryData:data
                            named:name
-                      ofMimeType:nil
+                      ofMimeType:[self _mimeTypeForFileAtURL:nil withCustomName:name]
                             user:_CMUserOrNil
                   successHandler:^(CMFileUploadResult result) {
                       callback(result);
@@ -309,6 +311,27 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                       callback(CMFileUploadFailed);
                   }
      ];
+}
+
+- (NSString *)_mimeTypeForFileAtURL:(NSURL *)url withCustomName:(NSString *)name {
+    NSString *mimeType = nil;
+    NSArray *components = nil;
+    
+    if (url != nil) {
+        components = [[url lastPathComponent] componentsSeparatedByString:@"."];
+        if ([components count] > 1) {
+            mimeType = [CMMimeType mimeTypeForExtension:[components objectAtIndex:1]];
+        }
+    }
+    
+    if (mimeType == nil && name != nil) {
+        components = [name componentsSeparatedByString:@"."];
+        if ([components count] > 1) {
+            mimeType = [CMMimeType mimeTypeForExtension:[components objectAtIndex:1]];
+        }
+    }
+    
+    return mimeType;
 }
 
 #pragma mark Object and file deletion
