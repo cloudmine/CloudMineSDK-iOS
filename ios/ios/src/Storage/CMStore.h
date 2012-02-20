@@ -390,6 +390,29 @@ typedef enum {
 - (void)saveUserFileWithData:(NSData *)data named:(NSString *)name callback:(CMStoreFileUploadCallback)callback;
 
 /**
+ * Deletes the given app-level file from your app's CloudMine data store.
+ *
+ * @param name The name of the file to delete.
+ * @param callback The callback to be triggered when the file has been deleted.
+ *
+ * @see https://cloudmine.me/developer_zone#ref/file_delete
+ */
+- (void)deleteFileNamed:(NSString *)name callback:(CMStoreDeleteCallback)callback;
+
+/**
+ * Deletes the given user-level file from your app's CloudMine data store. The store must be configured 
+ * with a user or else calling this method will throw an exception.
+ *
+ * @param name The name of the file to delete.
+ * @param callback The callback to be triggered when the file has been deleted.
+ *
+ * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
+ *
+ * @see https://cloudmine.me/developer_zone#ref/file_delete
+ */
+- (void)deleteUserFileNamed:(NSString *)name callback:(CMStoreDeleteCallback)callback;
+
+/**
  * Deletes the given user-level object from your app's CloudMine data store and removes the object from this store. The store must be configured 
  * with a user or else calling this method will throw an exception.
  * This also triggers a notification of type <tt>CMStoreObjectDeletedNotification</tt> to subscribers of the store

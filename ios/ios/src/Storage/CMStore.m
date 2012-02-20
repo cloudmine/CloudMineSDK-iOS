@@ -36,6 +36,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (void)_saveFileWithData:(NSData *)data named:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreFileUploadCallback)callback;
 - (NSString *)_mimeTypeForFileAtURL:(NSURL *)url withCustomName:(NSString *)name;
 - (void)_deleteObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreDeleteCallback)callback;
+- (void)_deleteFileNamed:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreDeleteCallback)callback;
 - (void)cacheObjectsInMemory:(NSArray *)objects atUserLevel:(BOOL)userLevel;
 @end
 
@@ -356,6 +357,31 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     [self _deleteObjects:objects userLevel:YES callback:callback];
 }
 
+- (void)deleteFileNamed:(NSString *)name callback:(CMStoreDeleteCallback)callback {
+    [self _deleteFileNamed:name userLevel:NO callback:callback];
+}
+
+- (void)deleteUserFileNamed:(NSString *)name callback:(CMStoreDeleteCallback)callback {
+    _CMAssertUserConfigured;
+    [self _deleteFileNamed:name userLevel:YES callback:callback];
+}
+
+- (void)_deleteFileNamed:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreDeleteCallback)callback {
+    NSParameterAssert(name);
+    _CMAssertAPICredentialsInitialized;
+    
+    [webService deleteValuesForKeys:[NSArray arrayWithObject:name]
+                               user:_CMUserOrNil
+                     successHandler:^(NSDictionary *results, NSDictionary *errors) {
+                         callback(YES);
+                     } errorHandler:^(NSError *error) {
+                         NSLog(@"An error occurred when deleting the file named \"@\": %@", name, [error description]);
+                         lastError = error;
+                         callback(NO);
+                     }
+     ];
+}
+
 - (void)_deleteObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreDeleteCallback)callback {
     NSParameterAssert(objects);
     _CMAssertAPICredentialsInitialized;
@@ -374,7 +400,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                      successHandler:^(NSDictionary *results, NSDictionary *errors) {
                          callback(YES);
                      } errorHandler:^(NSError *error) {
-                         NSLog(@"An error occurred when deleting objects with keys (%@): %@", keys, error);
+                         NSLog(@"An error occurred when deleting objects with keys (%@): %@", keys, [error description]);
                          lastError = error;
                          callback(NO);
                      }
