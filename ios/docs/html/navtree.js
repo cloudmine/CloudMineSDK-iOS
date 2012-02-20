@@ -8,6 +8,7 @@ var NAVTREE =
       [ "CMFile", "interface_c_m_file.html", null ],
       [ "CMGeoPoint", "interface_c_m_geo_point.html", null ],
       [ "CMJSONEncoder", "interface_c_m_j_s_o_n_encoder.html", null ],
+      [ "CMMimeType", "interface_c_m_mime_type.html", null ],
       [ "CMObject", "interface_c_m_object.html", null ],
       [ "CMObjectClassNameRegistry", "interface_c_m_object_class_name_registry.html", null ],
       [ "CMObjectDecoder", "interface_c_m_object_decoder.html", null ],
@@ -26,6 +27,7 @@ var NAVTREE =
     [ "Class Hierarchy", "hierarchy.html", [
       [ "CMAPICredentials", "interface_c_m_a_p_i_credentials.html", null ],
       [ "CMClassPropertyExtractor", "interface_c_m_class_property_extractor.html", null ],
+      [ "CMMimeType", "interface_c_m_mime_type.html", null ],
       [ "CMObjectClassNameRegistry", "interface_c_m_object_class_name_registry.html", null ],
       [ "CMObjectDecoder", "interface_c_m_object_decoder.html", null ],
       [ "CMObjectEncoder", "interface_c_m_object_encoder.html", [
@@ -53,6 +55,7 @@ var NAVTREE =
       [ "ios/src/CMDate.h", "_c_m_date_8h.html", null ],
       [ "ios/src/CMFile.h", null, null ],
       [ "ios/src/CMGeoPoint.h", null, null ],
+      [ "ios/src/CMMimeType.h", null, null ],
       [ "ios/src/CMObject.h", null, null ],
       [ "ios/src/CMObjectClassNameRegistry.h", null, null ],
       [ "ios/src/Extensions/math+floats.h", null, null ],
@@ -63,6 +66,7 @@ var NAVTREE =
       [ "ios/src/Storage/CMStoreCallbacks.h", "_c_m_store_callbacks_8h.html", null ],
       [ "ios/src/Storage/CMStoreOptions.h", null, null ],
       [ "ios/src/Web Services/CMAPICredentials.h", null, null ],
+      [ "ios/src/Web Services/CMFileUploadResult.h", "_c_m_file_upload_result_8h.html", null ],
       [ "ios/src/Web Services/CMObjectSerialization.h", null, null ],
       [ "ios/src/Web Services/CMPagingDescriptor.h", null, null ],
       [ "ios/src/Web Services/CMSerializable.h", null, null ],

@@ -82,14 +82,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">ios/src/Storage/CMStoreCallbacks.h File Reference</div>  </div>
 </div>
 <div class="contents">
-
+<div class="textblock"><code>#import &quot;<a class="el" href="_c_m_file_upload_result_8h_source.html">CMFileUploadResult.h</a>&quot;</code><br/>
+</div>
 <p><a href="_c_m_store_callbacks_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">typedef void(^&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_m_store_callbacks_8h.html#abb32ada5b380b9881bab5452f0e4873f">CMStoreObjectFetchCallback</a> )(NSArray *objects, NSDictionary *errors)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">typedef void(^&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_m_store_callbacks_8h.html#a01a0ea0e6245dbeec873fbd079c53ac0">CMStoreUploadCallback</a> )(NSDictionary *uploadStatuses)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef void(^&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_m_store_callbacks_8h.html#ab6d2fa948c661721a1dbf9b96b3a2e22">CMStoreObjectUploadCallback</a> )(NSDictionary *uploadStatuses)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">typedef void(^&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_m_store_callbacks_8h.html#a1d905a0fe52d028d81cc2d2e6f3941f8">CMStoreFileFetchCallback</a> )(<a class="el" href="interface_c_m_file.html">CMFile</a> *file)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef void(^&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_m_store_callbacks_8h.html#a6b5152ec3ee4214f25874f101743eac7">CMStoreFileUploadCallback</a> )(<a class="el" href="_c_m_file_upload_result_8h.html#a03bfabac838d96b38d11f2327a3188c7">CMFileUploadResult</a> uploadResult)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">typedef void(^&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_m_store_callbacks_8h.html#a28d6aa5acae656c82d5a864e3b8f8b23">CMStoreDeleteCallback</a> )(BOOL success)</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
@@ -109,7 +111,7 @@ Typedefs</h2></td></tr>
 <p>Callback block signature for all operations on <code><a class="el" href="interface_c_m_store.html">CMStore</a></code> that delete objects or binary files. This block should return <code>void</code> and take a single boolean as an argument. It will be <code>YES</code> if the objects/files were deleted successfully, and <code>NO</code> otherwise.</p>
 <dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="interface_c_m_store.html#a2c9f8c76df114650481ee128f02e3bf7">- deleteObject:callback: (CMStore)</a> </dd></dl>
 
-<p>Definition at line <a class="el" href="_c_m_store_callbacks_8h_source.html#l00042">42</a> of file <a class="el" href="_c_m_store_callbacks_8h_source.html">CMStoreCallbacks.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_store_callbacks_8h_source.html#l00053">53</a> of file <a class="el" href="_c_m_store_callbacks_8h_source.html">CMStoreCallbacks.h</a>.</p>
 
 </div>
 </div>
@@ -125,7 +127,23 @@ Typedefs</h2></td></tr>
 <div class="memdoc">
 <p>Callback block signature for all operations on <code><a class="el" href="interface_c_m_store.html">CMStore</a></code> that fetch binary files from the CloudMine servers. This block should return <code>void</code> and take a single <code><a class="el" href="interface_c_m_file.html">CMFile</a></code> as an argument. This will contain the data as well as a bit of metadata about the file that was downloaded. </p>
 
-<p>Definition at line <a class="el" href="_c_m_store_callbacks_8h_source.html#l00033">33</a> of file <a class="el" href="_c_m_store_callbacks_8h_source.html">CMStoreCallbacks.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_store_callbacks_8h_source.html#l00035">35</a> of file <a class="el" href="_c_m_store_callbacks_8h_source.html">CMStoreCallbacks.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6b5152ec3ee4214f25874f101743eac7"></a><!-- doxytag: member="CMStoreCallbacks.h::CMStoreFileUploadCallback" ref="a6b5152ec3ee4214f25874f101743eac7" args=")(CMFileUploadResult uploadResult)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(^ <a class="el" href="_c_m_store_callbacks_8h.html#a6b5152ec3ee4214f25874f101743eac7">CMStoreFileUploadCallback</a>)(<a class="el" href="_c_m_file_upload_result_8h.html#a03bfabac838d96b38d11f2327a3188c7">CMFileUploadResult</a> uploadResult)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Callback block signature for all operations on <code><a class="el" href="interface_c_m_store.html">CMStore</a></code> that upload binary files to the CloudMine servers. This block should return <code>void</code> and take a single <code>CMFileUploadResult</code> as an argument. This will the result of the upload (namely, whether the upload created a new file or updated an old one). </p>
+
+<p>Definition at line <a class="el" href="_c_m_store_callbacks_8h_source.html#l00043">43</a> of file <a class="el" href="_c_m_store_callbacks_8h_source.html">CMStoreCallbacks.h</a>.</p>
 
 </div>
 </div>
@@ -141,23 +159,23 @@ Typedefs</h2></td></tr>
 <div class="memdoc">
 <p>Callback block signature for all operations on <code><a class="el" href="interface_c_m_store.html">CMStore</a></code> that fetch objects from the CloudMine servers. This block should return <code>void</code> and take an <code>NSArray</code> of objects as an argument. </p>
 
-<p>Definition at line <a class="el" href="_c_m_store_callbacks_8h_source.html#l00018">18</a> of file <a class="el" href="_c_m_store_callbacks_8h_source.html">CMStoreCallbacks.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_store_callbacks_8h_source.html#l00020">20</a> of file <a class="el" href="_c_m_store_callbacks_8h_source.html">CMStoreCallbacks.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a01a0ea0e6245dbeec873fbd079c53ac0"></a><!-- doxytag: member="CMStoreCallbacks.h::CMStoreUploadCallback" ref="a01a0ea0e6245dbeec873fbd079c53ac0" args=")(NSDictionary *uploadStatuses)" -->
+<a class="anchor" id="ab6d2fa948c661721a1dbf9b96b3a2e22"></a><!-- doxytag: member="CMStoreCallbacks.h::CMStoreObjectUploadCallback" ref="ab6d2fa948c661721a1dbf9b96b3a2e22" args=")(NSDictionary *uploadStatuses)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef void(^ <a class="el" href="_c_m_store_callbacks_8h.html#a01a0ea0e6245dbeec873fbd079c53ac0">CMStoreUploadCallback</a>)(NSDictionary *uploadStatuses)</td>
+          <td class="memname">typedef void(^ <a class="el" href="_c_m_store_callbacks_8h.html#ab6d2fa948c661721a1dbf9b96b3a2e22">CMStoreObjectUploadCallback</a>)(NSDictionary *uploadStatuses)</td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <p>Callback block signature for all operations on <code><a class="el" href="interface_c_m_store.html">CMStore</a></code> that upload objects to the CloudMine servers. This block should return <code>void</code> and take one parameter, a dictionary mapping object or file names to success status messages (such as "updated", "created", etc), </p>
 
-<p>Definition at line <a class="el" href="_c_m_store_callbacks_8h_source.html#l00025">25</a> of file <a class="el" href="_c_m_store_callbacks_8h_source.html">CMStoreCallbacks.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_store_callbacks_8h_source.html#l00027">27</a> of file <a class="el" href="_c_m_store_callbacks_8h_source.html">CMStoreCallbacks.h</a>.</p>
 
 </div>
 </div>
@@ -166,7 +184,7 @@ Typedefs</h2></td></tr>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="_c_m_store_callbacks_8h.html">CMStoreCallbacks.h</a>      </li>
-      <li class="footer">Generated on Fri Feb 10 2012 12:33:57 for CloudMine iOS SDK by&#160;
+      <li class="footer">Generated on Sun Feb 19 2012 19:39:01 for CloudMine iOS SDK by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </li>
     </ul>

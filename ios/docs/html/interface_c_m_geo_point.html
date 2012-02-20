@@ -94,6 +94,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(id)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_geo_point.html#abfd3c514de7ffba9acec0c620d3ea0c0">initWithLatitude:andLongitude:</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(id)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_geo_point.html#a73f051f5fb5a63e0b585cd0dbe945556">initWithLatitudeInRadians:andLongitudeInRadians:</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">(id)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_geo_point.html#a7cae5f99c5857a47aa29db0bd42a549f">initWithCLLocation:</a></td></tr>
 <tr><td colspan="2"><h2><a name="properties"></a>
 Properties</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_c_m_geo_point.html#afc402687531fa01eca8d6746b009d417">latitude</a></td></tr>
@@ -101,8 +102,35 @@ Properties</h2></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock">
-<p>Definition at line <a class="el" href="_c_m_geo_point_8h_source.html#l00014">14</a> of file <a class="el" href="_c_m_geo_point_8h_source.html">CMGeoPoint.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_geo_point_8h_source.html#l00015">15</a> of file <a class="el" href="_c_m_geo_point_8h_source.html">CMGeoPoint.h</a>.</p>
 </div><hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a7cae5f99c5857a47aa29db0bd42a549f"></a><!-- doxytag: member="CMGeoPoint::initWithCLLocation:" ref="a7cae5f99c5857a47aa29db0bd42a549f" args="(CLLocation *location)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (id) initWithCLLocation: </td>
+          <td></td>
+          <td class="paramtype">(CLLocation *)&#160;</td>
+          <td class="paramname"><em>location</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Initializes a new instance of this class given a <code>CLLocation</code> object most likely obtained from <code>CLLocationManager</code> or some other part of the CoreLocation framework.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">location</td><td>The <code>CLLocation</code> instance describing the location.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a href="https://developer.apple.com/library/ios/#documentation/CoreLocation/Reference/CLLocation_Class/CLLocation/CLLocation.html">https://developer.apple.com/library/ios/#documentation/CoreLocation/Reference/CLLocation_Class/CLLocation/CLLocation.html</a> </dd>
+<dd>
+<a href="https://developer.apple.com/library/ios/#documentation/UserExperience/Conceptual/LocationAwarenessPG/Introduction/Introduction.html">https://developer.apple.com/library/ios/#documentation/UserExperience/Conceptual/LocationAwarenessPG/Introduction/Introduction.html</a> </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="abfd3c514de7ffba9acec0c620d3ea0c0"></a><!-- doxytag: member="CMGeoPoint::initWithLatitude:andLongitude:" ref="abfd3c514de7ffba9acec0c620d3ea0c0" args="(double theLatitude,[andLongitude] double theLongitude)" -->
 <div class="memitem">
 <div class="memproto">
@@ -187,7 +215,7 @@ Properties</h2></td></tr>
 <div class="memdoc">
 <p>The latitude in degrees. </p>
 
-<p>Definition at line <a class="el" href="_c_m_geo_point_8h_source.html#l00040">40</a> of file <a class="el" href="_c_m_geo_point_8h_source.html">CMGeoPoint.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_geo_point_8h_source.html#l00052">52</a> of file <a class="el" href="_c_m_geo_point_8h_source.html">CMGeoPoint.h</a>.</p>
 
 </div>
 </div>
@@ -203,7 +231,7 @@ Properties</h2></td></tr>
 <div class="memdoc">
 <p>The longitude in degrees. </p>
 
-<p>Definition at line <a class="el" href="_c_m_geo_point_8h_source.html#l00045">45</a> of file <a class="el" href="_c_m_geo_point_8h_source.html">CMGeoPoint.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_geo_point_8h_source.html#l00057">57</a> of file <a class="el" href="_c_m_geo_point_8h_source.html">CMGeoPoint.h</a>.</p>
 
 </div>
 </div>
@@ -215,7 +243,7 @@ Properties</h2></td></tr>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="interface_c_m_geo_point.html">CMGeoPoint</a>      </li>
-      <li class="footer">Generated on Fri Feb 10 2012 12:33:57 for CloudMine iOS SDK by&#160;
+      <li class="footer">Generated on Sun Feb 19 2012 19:39:01 for CloudMine iOS SDK by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </li>
     </ul>
