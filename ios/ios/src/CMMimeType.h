@@ -8,8 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ * Utility class for looking up MIME types for files based on the file's extension.
+ */
 @interface CMMimeType : NSObject
 
+/**
+ * @return The MIME type of the extension if found, <tt>nil</tt> otherwise.
+ */
 + (NSString *)mimeTypeForExtension:(NSString *)extension;
 
 @end

@@ -331,10 +331,62 @@ typedef enum {
  */
 - (void)deleteObject:(id<CMSerializable>)theObject callback:(CMStoreDeleteCallback)callback;
 
+/**
+ * Saves a file to your app's CloudMine data store at the app-level. This works by streaming the contents of the
+ * file directly from the filesystem, thus never loading the file into memory. You must give the file a name that is
+ * unique within your app's data store.
+ *
+ * @param url The absolute URL to the location of the file on the device.
+ * @param name The name to give the file on CloudMine. <b>This must be unique throughout all instances of your app.</b>
+ * @param callback The callback to be triggered when all the objects are finished uploading.
+ *
+ * @see https://cloudmine.me/developer_zone#ref/file_set
+ */
 - (void)saveFileAtURL:(NSURL *)url named:(NSString *)name callback:(CMStoreFileUploadCallback)callback;
+
+/**
+ * Saves a file to your app's CloudMine data store at the user-level. The store must be configured 
+ * with a user or else calling this method will throw an exception. This works by streaming the contents of the
+ * file directly from the filesystem, thus never loading the file into memory. You must give the file a name that is
+ * unique within your app's data store.
+ *
+ * @param url The absolute URL to the location of the file on the device.
+ * @param name The name to give the file on CloudMine. <b>This must be unique throughout all instances of your app.</b>
+ * @param callback The callback to be triggered when all the objects are finished uploading.
+ *
+ * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
+ *
+ * @see https://cloudmine.me/developer_zone#ref/file_set
+ * @see https://cloudmine.me/developer_zone#ref/account_overview
+ */
 - (void)saveUserFileAtURL:(NSURL *)url named:(NSString *)name callback:(CMStoreFileUploadCallback)callback;
 
+/**
+ * Saves a file to your app's CloudMine data store at the app-level. This uses the raw data of the file's contents
+ * contained in an <tt>NSData</tt> object. You must give the file a name that is unique within your app's data store.
+ *
+ * @param data The raw contents of the file.
+ * @param name The name to give the file on CloudMine. <b>This must be unique throughout all instances of your app.</b>
+ * @param callback The callback to be triggered when all the objects are finished uploading.
+ *
+ * @see https://cloudmine.me/developer_zone#ref/file_set
+ */
 - (void)saveFileWithData:(NSData *)data named:(NSString *)name callback:(CMStoreFileUploadCallback)callback;
+
+/**
+ * Saves a file to your app's CloudMine data store at the user-level. The store must be configured 
+ * with a user or else calling this method will throw an exception. This uses the raw data of the file's contents
+ * contained in an <tt>NSData</tt> object. You must give the file a name that is unique within your app's data store.
+ *
+ * @param data The raw contents of the file.
+ * @param name The name to give the file on CloudMine. <b>This must be unique throughout all instances of your app.</b>
+ * @param callback The callback to be triggered when all the objects are finished uploading.
+ *
+ * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
+ *
+ * @see https://cloudmine.me/developer_zone#ref/file_set
+ * @see https://cloudmine.me/developer_zone#ref/account_overview
+ */
 - (void)saveUserFileWithData:(NSData *)data named:(NSString *)name callback:(CMStoreFileUploadCallback)callback;
 
 /**
