@@ -46,7 +46,8 @@ typedef void (^CMStoreFileUploadCallback)(CMFileUploadResult uploadResult);
 /**
  * Callback block signature for all operations on <tt>CMStore</tt> that delete objects or binary files.
  * This block should return <tt>void</tt> and take a single boolean as an argument. It will be <tt>YES</tt> if
- * the objects/files were deleted successfully, and <tt>NO</tt> otherwise.
+ * the objects/files were deleted successfully, and <tt>NO</tt> otherwise. If files were not successfully deleted, check
+ * <tt>CMStore#lastError</tt> for details.
  *
  * @see CMStore#deleteObject:callback:
  */
