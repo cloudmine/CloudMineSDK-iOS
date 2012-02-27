@@ -269,6 +269,15 @@ typedef enum {
  */
 - (void)saveAll:(CMStoreObjectUploadCallback)callback;
 
+/**
+ * Saves all the objects (user- and app-level) in the store with your app's CloudMine data store. User-level objects
+ * will only be sync'd if there is a user associated with this store.
+ *
+ * @param options Use these options to specify a server-side function to call after persisting the objects. Only CMStoreOptions#serverSideFunction is used.
+ * @param callback The callback to be triggered when all the objects are finished uploading.
+ *
+ * @see https://cloudmine.me/developer_zone#ref/json_update
+ */
 - (void)saveAllWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
 
 /**
@@ -280,6 +289,14 @@ typedef enum {
  */
 - (void)saveAllAppObjects:(CMStoreObjectUploadCallback)callback;
 
+/**
+ * Saves all the app-level objects in the store to your app's CloudMine data store.
+ *
+ * @param options Use these options to specify a server-side function to call after persisting the objects. Only CMStoreOptions#serverSideFunction is used.
+ * @param callback The callback to be triggered when all the objects are finished uploading.
+ *
+ * @see https://cloudmine.me/developer_zone#ref/json_update
+ */
 - (void)saveAllAppObjectsWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
 
 /**
@@ -295,6 +312,18 @@ typedef enum {
  */
 - (void)saveAllUserObjects:(CMStoreObjectUploadCallback)callback;
 
+/**
+ * Saves all the user-objects in the store to your app's CloudMine data store. The store must be configured 
+ * with a user or else calling this method will throw an exception.
+ *
+ * @param options Use these options to specify a server-side function to call after persisting the objects. Only CMStoreOptions#serverSideFunction is used.
+ * @param callback The callback to be triggered when all the objects are finished uploading.
+ *
+ * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
+ *
+ * @see https://cloudmine.me/developer_zone#ref/json_update
+ * @see https://cloudmine.me/developer_zone#ref/account_overview
+ */
 - (void)saveAllUserObjectsWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
 
 /**
@@ -310,6 +339,18 @@ typedef enum {
  */
 - (void)saveObject:(CMObject *)theObject callback:(CMStoreObjectUploadCallback)callback;
 
+/**
+ * Saves an individual object to your app's CloudMine data store at the app-level. If this object doesn't
+ * already belong to this store, it will automatically be added as well. This has the additional effect of increasing
+ * the object's retain count by 1 as well as setting its <tt>store</tt> property to this store.
+ *
+ * @param theObject The object to save.
+ * @param options Use these options to specify a server-side function to call after persisting the objects. Only CMStoreOptions#serverSideFunction is used.
+ * @param callback The callback to be triggered when all the objects are finished uploading.
+ *
+ * @see CMObject#store
+ * @see https://cloudmine.me/developer_zone#ref/json_update
+ */
 - (void)saveObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
 
 /**
@@ -329,6 +370,22 @@ typedef enum {
  */
 - (void)saveUserObject:(CMObject *)theObject callback:(CMStoreObjectUploadCallback)callback;
 
+/**
+ * Saves an individual object to your app's CloudMine data store at the user-level. The store must be configured 
+ * with a user or else calling this method will throw an exception. If this object doesn't
+ * already belong to this store, it will automatically be added as well. This has the additional effect of increasing
+ * the object's retain count by 1 as well as setting its <tt>store</tt> property to this store.
+ *
+ * @param theObject The object to save.
+ * @param options Use these options to specify a server-side function to call after persisting the objects. Only CMStoreOptions#serverSideFunction is used.
+ * @param callback The callback to be triggered when all the objects are finished uploading.
+ *
+ * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
+ *
+ * @see CMObject#store
+ * @see https://cloudmine.me/developer_zone#ref/json_update
+ * @see https://cloudmine.me/developer_zone#ref/account_overview
+ */
 - (void)saveUserObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
 
 /**

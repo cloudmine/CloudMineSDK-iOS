@@ -106,10 +106,15 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_store.html#a7b5a5448725476218452a9a4e3e751b7">fileWithName:callback:</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_store.html#a87836a930ab867a846f2dfcec94e74e1">userFileWithName:callback:</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_store.html#af1f69ac2eded3e4bc6a475ebd2596cb7">saveAll:</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_store.html#a24f762591716d0fe3d02dd5ec364db05">saveAllWithOptions:callback:</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_store.html#a4ecb470b1da50638f8207b09e7d5ca75">saveAllAppObjects:</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_store.html#ae1edbb6c5ae2bedd2661dba542df8b1e">saveAllAppObjectsWithOptions:callback:</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_store.html#a1e97a9d262fdb1685d367c466f6cde63">saveAllUserObjects:</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_store.html#a7ede783579c4224e721ef2369eda7ba6">saveAllUserObjectsWithOptions:callback:</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_store.html#ad595467856f30da39948abc7c158d448">saveObject:callback:</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_store.html#aa2bc4bd809693fa5b5ddc889b051d301">saveObject:additionalOptions:callback:</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_store.html#ab8895c2c051248cea83186ee70bb1c6c">saveUserObject:callback:</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_store.html#a5a1aebc97fe260b957037ab504659ebb">saveUserObject:additionalOptions:callback:</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_store.html#a2c9f8c76df114650481ee128f02e3bf7">deleteObject:callback:</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_store.html#afdc99213fdbfcfecf1e3145085a20e32">saveFileAtURL:named:callback:</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_store.html#ad5cd0d396bc90f8ac68ac3d1a2b121a2">saveUserFileAtURL:named:callback:</a></td></tr>
@@ -234,22 +239,22 @@ Properties</h2></td></tr>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramname">klass</td><td>The class of the objects you want to download. <code>[klass className]</code> is called to determine the remote type. </td></tr>
-    <tr><td class="paramname">options</td><td>Additional options, such as paging and server-side post-processing functions, to apply. This can be <code>nil&lt;/tt </code></td></tr>
-    <tr><td class="paramname">callback</td><td><code>The callback to be triggered when all the objects are finished downloading.&gt;.</code></td></tr>
+    <tr><td class="paramname">options</td><td>Additional options, such as paging and server-side post-processing functions, to apply. This can be <code>nil</code> </td></tr>
+    <tr><td class="paramname">callback</td><td>The callback to be triggered when all the objects are finished downloading.&gt;.</td></tr>
   </table>
   </dd>
 </dl>
 <dl><dt><b>Exceptions:</b></dt><dd>
   <table class="exception">
-    <tr><td class="paramname">NSException</td><td><code>An exception will be raised if <code>klass</code> doesn't respond to <code>className</code>.</code></td></tr>
+    <tr><td class="paramname">NSException</td><td>An exception will be raised if <code>klass</code> doesn't respond to <code>className</code>.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="see"><dt><b>See also:</b></dt><dd><code> <a class="el" href="interface_c_m_store_options.html">CMStoreOptions</a> </code></dd>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="interface_c_m_store_options.html">CMStoreOptions</a> </dd>
 <dd>
-<code> <a class="el" href="protocol_c_m_serializable-p.html#a1fba26b689afa61b794bb4d333b7bc1b">+ className (CMSerializable-p)</a> </code></dd>
+<a class="el" href="protocol_c_m_serializable-p.html#a1fba26b689afa61b794bb4d333b7bc1b">+ className (CMSerializable-p)</a> </dd>
 <dd>
-<code> <a href="https://cloudmine.me/developer_zone#ref/json_get">https://cloudmine.me/developer_zone#ref/json_get</a> </code></dd></dl>
+<a href="https://cloudmine.me/developer_zone#ref/json_get">https://cloudmine.me/developer_zone#ref/json_get</a> </dd></dl>
 
 </div>
 </div>
@@ -488,7 +493,7 @@ Properties</h2></td></tr>
 <p>Deletes all the given app-level objects from your app's CloudMine data store and removes the object from this store. This also triggers a notification of type <code>CMStoreObjectDeletedNotification</code> to subscribers of the store so you can do any other necessary cleanup throughout your app. This notification is triggered <b>before</b> the objects are deleted from the server.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramname">theObject</td><td>The object to delete and remove from the store.</td></tr>
+    <tr><td class="paramname">objects</td><td>The objects to delete and remove from the store.</td></tr>
   </table>
   </dd>
 </dl>
@@ -602,7 +607,7 @@ Properties</h2></td></tr>
 <p>Deletes all the given user-level objects from your app's CloudMine data store and removes the object from this store. The store must be configured with a user or else calling this method will throw an exception. This also triggers a notification of type <code>CMStoreObjectDeletedNotification</code> to subscribers of the store so you can do any other necessary cleanup throughout your app. This notification is triggered <b>before</b> the objects are deleted from the server.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramname">theObject</td><td>The object to delete and remove from the store.</td></tr>
+    <tr><td class="paramname">objects</td><td>The objects to delete and remove from the store.</td></tr>
   </table>
   </dd>
 </dl>
@@ -683,7 +688,7 @@ Properties</h2></td></tr>
 <p>Constructor that configures this store with a user. Note that you must have already initialized the <code><a class="el" href="interface_c_m_a_p_i_credentials.html">CMAPICredentials</a></code> singleton with your app identifier and secret key.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramname">user</td><td>The user to configure the store with.</td></tr>
+    <tr><td class="paramname">theUser</td><td>The user to configure the store with.</td></tr>
   </table>
   </dd>
 </dl>
@@ -865,6 +870,42 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ae1edbb6c5ae2bedd2661dba542df8b1e"></a><!-- doxytag: member="CMStore::saveAllAppObjectsWithOptions:callback:" ref="ae1edbb6c5ae2bedd2661dba542df8b1e" args="(CMStoreOptions *options,[callback] CMStoreObjectUploadCallback callback)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) saveAllAppObjectsWithOptions: </td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="interface_c_m_store_options.html">CMStoreOptions</a> *)&#160;</td>
+          <td class="paramname"><em>options</em></td>
+        </tr>
+        <tr>
+          <td class="paramkey">callback:</td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="_c_m_store_callbacks_8h.html#ab6d2fa948c661721a1dbf9b96b3a2e22">CMStoreObjectUploadCallback</a>)&#160;</td>
+          <td class="paramname"><em>callback</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Saves all the app-level objects in the store to your app's CloudMine data store.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">options</td><td>Use these options to specify a server-side function to call after persisting the objects. Only <a class="el" href="interface_c_m_store_options.html#a924f3f661479f50e6888241bc23666d3">CMStoreOptions::serverSideFunction</a> is used. </td></tr>
+    <tr><td class="paramname">callback</td><td>The callback to be triggered when all the objects are finished uploading.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a href="https://cloudmine.me/developer_zone#ref/json_update">https://cloudmine.me/developer_zone#ref/json_update</a> </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a1e97a9d262fdb1685d367c466f6cde63"></a><!-- doxytag: member="CMStore::saveAllUserObjects:" ref="a1e97a9d262fdb1685d367c466f6cde63" args="(CMStoreObjectUploadCallback callback)" -->
 <div class="memitem">
 <div class="memproto">
@@ -895,6 +936,86 @@ Properties</h2></td></tr>
 <dl class="see"><dt><b>See also:</b></dt><dd><a href="https://cloudmine.me/developer_zone#ref/json_update">https://cloudmine.me/developer_zone#ref/json_update</a> </dd>
 <dd>
 <a href="https://cloudmine.me/developer_zone#ref/account_overview">https://cloudmine.me/developer_zone#ref/account_overview</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a7ede783579c4224e721ef2369eda7ba6"></a><!-- doxytag: member="CMStore::saveAllUserObjectsWithOptions:callback:" ref="a7ede783579c4224e721ef2369eda7ba6" args="(CMStoreOptions *options,[callback] CMStoreObjectUploadCallback callback)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) saveAllUserObjectsWithOptions: </td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="interface_c_m_store_options.html">CMStoreOptions</a> *)&#160;</td>
+          <td class="paramname"><em>options</em></td>
+        </tr>
+        <tr>
+          <td class="paramkey">callback:</td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="_c_m_store_callbacks_8h.html#ab6d2fa948c661721a1dbf9b96b3a2e22">CMStoreObjectUploadCallback</a>)&#160;</td>
+          <td class="paramname"><em>callback</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Saves all the user-objects in the store to your app's CloudMine data store. The store must be configured with a user or else calling this method will throw an exception.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">options</td><td>Use these options to specify a server-side function to call after persisting the objects. Only <a class="el" href="interface_c_m_store_options.html#a924f3f661479f50e6888241bc23666d3">CMStoreOptions::serverSideFunction</a> is used. </td></tr>
+    <tr><td class="paramname">callback</td><td>The callback to be triggered when all the objects are finished uploading.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl><dt><b>Exceptions:</b></dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">NSException</td><td>An exception will be raised if this method is called when a user is not configured for this store.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a href="https://cloudmine.me/developer_zone#ref/json_update">https://cloudmine.me/developer_zone#ref/json_update</a> </dd>
+<dd>
+<a href="https://cloudmine.me/developer_zone#ref/account_overview">https://cloudmine.me/developer_zone#ref/account_overview</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a24f762591716d0fe3d02dd5ec364db05"></a><!-- doxytag: member="CMStore::saveAllWithOptions:callback:" ref="a24f762591716d0fe3d02dd5ec364db05" args="(CMStoreOptions *options,[callback] CMStoreObjectUploadCallback callback)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) saveAllWithOptions: </td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="interface_c_m_store_options.html">CMStoreOptions</a> *)&#160;</td>
+          <td class="paramname"><em>options</em></td>
+        </tr>
+        <tr>
+          <td class="paramkey">callback:</td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="_c_m_store_callbacks_8h.html#ab6d2fa948c661721a1dbf9b96b3a2e22">CMStoreObjectUploadCallback</a>)&#160;</td>
+          <td class="paramname"><em>callback</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Saves all the objects (user- and app-level) in the store with your app's CloudMine data store. User-level objects will only be sync'd if there is a user associated with this store.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">options</td><td>Use these options to specify a server-side function to call after persisting the objects. Only <a class="el" href="interface_c_m_store_options.html#a924f3f661479f50e6888241bc23666d3">CMStoreOptions::serverSideFunction</a> is used. </td></tr>
+    <tr><td class="paramname">callback</td><td>The callback to be triggered when all the objects are finished uploading.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a href="https://cloudmine.me/developer_zone#ref/json_update">https://cloudmine.me/developer_zone#ref/json_update</a> </dd></dl>
 
 </div>
 </div>
@@ -984,6 +1105,51 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="aa2bc4bd809693fa5b5ddc889b051d301"></a><!-- doxytag: member="CMStore::saveObject:additionalOptions:callback:" ref="aa2bc4bd809693fa5b5ddc889b051d301" args="(CMObject *theObject,[additionalOptions] CMStoreOptions *options,[callback] CMStoreObjectUploadCallback callback)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) saveObject: </td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="interface_c_m_object.html">CMObject</a> *)&#160;</td>
+          <td class="paramname"><em>theObject</em></td>
+        </tr>
+        <tr>
+          <td class="paramkey">additionalOptions:</td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="interface_c_m_store_options.html">CMStoreOptions</a> *)&#160;</td>
+          <td class="paramname"><em>options</em></td>
+        </tr>
+        <tr>
+          <td class="paramkey">callback:</td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="_c_m_store_callbacks_8h.html#ab6d2fa948c661721a1dbf9b96b3a2e22">CMStoreObjectUploadCallback</a>)&#160;</td>
+          <td class="paramname"><em>callback</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Saves an individual object to your app's CloudMine data store at the app-level. If this object doesn't already belong to this store, it will automatically be added as well. This has the additional effect of increasing the object's retain count by 1 as well as setting its <code>store</code> property to this store.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">theObject</td><td>The object to save. </td></tr>
+    <tr><td class="paramname">options</td><td>Use these options to specify a server-side function to call after persisting the objects. Only <a class="el" href="interface_c_m_store_options.html#a924f3f661479f50e6888241bc23666d3">CMStoreOptions::serverSideFunction</a> is used. </td></tr>
+    <tr><td class="paramname">callback</td><td>The callback to be triggered when all the objects are finished uploading.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="interface_c_m_object.html#a076c2f007b57f127a4825ccf21621381">CMObject::store</a> </dd>
+<dd>
+<a href="https://cloudmine.me/developer_zone#ref/json_update">https://cloudmine.me/developer_zone#ref/json_update</a> </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="ad595467856f30da39948abc7c158d448"></a><!-- doxytag: member="CMStore::saveObject:callback:" ref="ad595467856f30da39948abc7c158d448" args="(CMObject *theObject,[callback] CMStoreObjectUploadCallback callback)" -->
 <div class="memitem">
 <div class="memproto">
@@ -1011,6 +1177,7 @@ Properties</h2></td></tr>
 <p>Saves an individual object to your app's CloudMine data store at the app-level. If this object doesn't already belong to this store, it will automatically be added as well. This has the additional effect of increasing the object's retain count by 1 as well as setting its <code>store</code> property to this store.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
+    <tr><td class="paramname">theObject</td><td>The object to save. </td></tr>
     <tr><td class="paramname">callback</td><td>The callback to be triggered when all the objects are finished uploading.</td></tr>
   </table>
   </dd>
@@ -1123,6 +1290,59 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a5a1aebc97fe260b957037ab504659ebb"></a><!-- doxytag: member="CMStore::saveUserObject:additionalOptions:callback:" ref="a5a1aebc97fe260b957037ab504659ebb" args="(CMObject *theObject,[additionalOptions] CMStoreOptions *options,[callback] CMStoreObjectUploadCallback callback)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) saveUserObject: </td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="interface_c_m_object.html">CMObject</a> *)&#160;</td>
+          <td class="paramname"><em>theObject</em></td>
+        </tr>
+        <tr>
+          <td class="paramkey">additionalOptions:</td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="interface_c_m_store_options.html">CMStoreOptions</a> *)&#160;</td>
+          <td class="paramname"><em>options</em></td>
+        </tr>
+        <tr>
+          <td class="paramkey">callback:</td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="_c_m_store_callbacks_8h.html#ab6d2fa948c661721a1dbf9b96b3a2e22">CMStoreObjectUploadCallback</a>)&#160;</td>
+          <td class="paramname"><em>callback</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Saves an individual object to your app's CloudMine data store at the user-level. The store must be configured with a user or else calling this method will throw an exception. If this object doesn't already belong to this store, it will automatically be added as well. This has the additional effect of increasing the object's retain count by 1 as well as setting its <code>store</code> property to this store.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">theObject</td><td>The object to save. </td></tr>
+    <tr><td class="paramname">options</td><td>Use these options to specify a server-side function to call after persisting the objects. Only <a class="el" href="interface_c_m_store_options.html#a924f3f661479f50e6888241bc23666d3">CMStoreOptions::serverSideFunction</a> is used. </td></tr>
+    <tr><td class="paramname">callback</td><td>The callback to be triggered when all the objects are finished uploading.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl><dt><b>Exceptions:</b></dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">NSException</td><td>An exception will be raised if this method is called when a user is not configured for this store.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="interface_c_m_object.html#a076c2f007b57f127a4825ccf21621381">CMObject::store</a> </dd>
+<dd>
+<a href="https://cloudmine.me/developer_zone#ref/json_update">https://cloudmine.me/developer_zone#ref/json_update</a> </dd>
+<dd>
+<a href="https://cloudmine.me/developer_zone#ref/account_overview">https://cloudmine.me/developer_zone#ref/account_overview</a> </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="ab8895c2c051248cea83186ee70bb1c6c"></a><!-- doxytag: member="CMStore::saveUserObject:callback:" ref="ab8895c2c051248cea83186ee70bb1c6c" args="(CMObject *theObject,[callback] CMStoreObjectUploadCallback callback)" -->
 <div class="memitem">
 <div class="memproto">
@@ -1150,6 +1370,7 @@ Properties</h2></td></tr>
 <p>Saves an individual object to your app's CloudMine data store at the user-level. The store must be configured with a user or else calling this method will throw an exception. If this object doesn't already belong to this store, it will automatically be added as well. This has the additional effect of increasing the object's retain count by 1 as well as setting its <code>store</code> property to this store.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
+    <tr><td class="paramname">theObject</td><td>The object to save. </td></tr>
     <tr><td class="paramname">callback</td><td>The callback to be triggered when all the objects are finished uploading.</td></tr>
   </table>
   </dd>
@@ -1301,7 +1522,7 @@ Properties</h2></td></tr>
 <p>Convenience method to return a newly initialized <a class="el" href="interface_c_m_store.html">CMStore</a> instance. Note that, like when using <code>initWithUser:</code>, you must have already initialized the <code><a class="el" href="interface_c_m_a_p_i_credentials.html">CMAPICredentials</a></code> singleton with your app identifier and secret key.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramname">user</td><td>The user to configure the store with.</td></tr>
+    <tr><td class="paramname">theUser</td><td>The user to configure the store with.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1467,7 +1688,7 @@ Properties</h2></td></tr>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="interface_c_m_store.html">CMStore</a>      </li>
-      <li class="footer">Generated on Sun Feb 19 2012 19:59:04 for CloudMine iOS SDK by&#160;
+      <li class="footer">Generated on Sun Feb 26 2012 23:36:22 for CloudMine iOS SDK by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </li>
     </ul>
