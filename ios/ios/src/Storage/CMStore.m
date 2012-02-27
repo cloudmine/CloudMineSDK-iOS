@@ -22,6 +22,8 @@
 
 #define _CMUserOrNil (userLevel ? user : nil)
 
+#define _CMTryMethod(obj, method) (obj ? [obj method] : nil)
+
 // Notification strings
 NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotification";
 
@@ -31,7 +33,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (void)_objectsWithKeys:(NSArray *)keys callback:(CMStoreObjectFetchCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
 - (void)_searchObjects:(CMStoreObjectFetchCallback)callback query:(NSString *)query userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
 - (void)_fileWithName:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreFileFetchCallback)callback;
-- (void)_saveObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreObjectUploadCallback)callback;
+- (void)_saveObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreObjectUploadCallback)callback additionalOptions:(CMStoreOptions *)options;
 - (void)_saveFileAtURL:(NSURL *)url named:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreFileUploadCallback)callback;
 - (void)_saveFileWithData:(NSData *)data named:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreFileUploadCallback)callback;
 - (NSString *)_mimeTypeForFileAtURL:(NSURL *)url withCustomName:(NSString *)name;
@@ -104,7 +106,6 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 - (void)allUserObjectsWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback {
     _CMAssertUserConfigured;
-    
     [self _allObjects:callback userLevel:YES additionalOptions:options];
 }
 
@@ -118,7 +119,6 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 - (void)userObjectsWithKeys:(NSArray *)keys additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback {
     _CMAssertUserConfigured;
-    
     [self _objectsWithKeys:keys callback:callback userLevel:YES additionalOptions:options];
 }
 - (void)_objectsWithKeys:(NSArray *)keys callback:(CMStoreObjectFetchCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options {
@@ -127,8 +127,8 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     
     __unsafe_unretained CMStore *blockSelf = self;
     [webService getValuesForKeys:keys
-              serverSideFunction:options.serverSideFunction
-                   pagingOptions:options.pagingDescriptor 
+              serverSideFunction:_CMTryMethod(options, serverSideFunction)
+                   pagingOptions:_CMTryMethod(options, pagingDescriptor)
                             user:_CMUserOrNil
                   successHandler:^(NSDictionary *results, NSDictionary *errors) {
                       NSArray *objects = [CMObjectDecoder decodeObjects:results];
@@ -189,8 +189,8 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     
     __unsafe_unretained CMStore *blockSelf = self;
     [webService searchValuesFor:query
-             serverSideFunction:options.serverSideFunction
-                  pagingOptions:options.pagingDescriptor 
+             serverSideFunction:_CMTryMethod(options, serverSideFunction)
+                  pagingOptions:_CMTryMethod(options, pagingDescriptor)
                            user:_CMUserOrNil
                  successHandler:^(NSDictionary *results, NSDictionary *errors) {
                      NSArray *objects = [CMObjectDecoder decodeObjects:results];
@@ -207,6 +207,10 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 #pragma mark Object uploading
 
 - (void)saveAll:(CMStoreObjectUploadCallback)callback {
+    [self saveAllWithOptions:nil callback:callback];
+}
+
+- (void)saveAllWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback {
     __unsafe_unretained CMStore *selff = self;
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
@@ -222,29 +226,45 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 }
 
 - (void)saveAllAppObjects:(CMStoreObjectUploadCallback)callback {
-    [self _saveObjects:[_cachedAppObjects allValues] userLevel:NO callback:callback];
+    [self saveAllAppObjectsWithOptions:nil callback:callback];
+}
+
+- (void)saveAllAppObjectsWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback {
+    [self _saveObjects:[_cachedAppObjects allValues] userLevel:NO callback:callback additionalOptions:options];
 }
 
 - (void)saveAllUserObjects:(CMStoreObjectUploadCallback)callback {
-    [self _saveObjects:[_cachedUserObjects allValues] userLevel:YES callback:callback];
+    [self saveAllUserObjectsWithOptions:nil callback:callback];
+}
+
+- (void)saveAllUserObjectsWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback {
+    [self _saveObjects:[_cachedUserObjects allValues] userLevel:YES callback:callback additionalOptions:options];
 }
 
 - (void)saveUserObject:(CMObject *)theObject callback:(CMStoreObjectUploadCallback)callback {
+    [self saveUserObject:theObject additionalOptions:nil callback:callback];
+}
+
+- (void)saveUserObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback {
     _CMAssertUserConfigured;
-    [self _saveObjects:[NSSet setWithObject:theObject] userLevel:YES callback:callback];
+    [self _saveObjects:[NSSet setWithObject:theObject] userLevel:YES callback:callback additionalOptions:options];
 }
 
 - (void)saveObject:(CMObject *)theObject callback:(CMStoreObjectUploadCallback)callback {
-    [self _saveObjects:[NSSet setWithObject:theObject] userLevel:NO callback:callback];
+    [self saveObject:theObject additionalOptions:nil callback:callback];
 }
 
-- (void)_saveObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreObjectUploadCallback)callback {
+- (void)saveObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback {
+    [self _saveObjects:[NSSet setWithObject:theObject] userLevel:NO callback:callback additionalOptions:options];
+}
+
+- (void)_saveObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreObjectUploadCallback)callback additionalOptions:(CMStoreOptions *)options {
     NSParameterAssert(objects);
     _CMAssertAPICredentialsInitialized;
     [self cacheObjectsInMemory:objects atUserLevel:userLevel];
     
     [webService updateValuesFromDictionary:[CMObjectEncoder encodeObjects:objects]
-                        serverSideFunction:nil
+                        serverSideFunction:_CMTryMethod(options, serverSideFunction)
                                       user:_CMUserOrNil
                             successHandler:^(NSDictionary *results, NSDictionary *errors) {
                                 callback(results);

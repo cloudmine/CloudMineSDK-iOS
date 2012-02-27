@@ -92,7 +92,7 @@ typedef enum {
  * Note that, like when using <tt>initWithUser:</tt>, you must have already initialized the
  * <tt>CMAPICredentials</tt> singleton with your app identifier and secret key.
  *
- * @param user The user to configure the store with.
+ * @param theUser The user to configure the store with.
  *
  * @see CMAPICredentials
  * @see CMUser
@@ -115,7 +115,7 @@ typedef enum {
  * Note that you must have already initialized the <tt>CMAPICredentials</tt> singleton
  * with your app identifier and secret key.
  *
- * @param user The user to configure the store with.
+ * @param theUser The user to configure the store with.
  *
  * @see CMAPICredentials
  * @see CMUser
@@ -181,7 +181,7 @@ typedef enum {
  * Downloads app-level objects of the given type from your app's CloudMine object store.
  *
  * @param klass The class of the objects you want to download. <tt>[klass className]</tt> is called to determine the remote type.
- * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt
+ * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>
  * @param callback The callback to be triggered when all the objects are finished downloading.>.
  *
  * @throws NSException An exception will be raised if <tt>klass</tt> doesn't respond to <tt>className</tt>.
@@ -269,6 +269,8 @@ typedef enum {
  */
 - (void)saveAll:(CMStoreObjectUploadCallback)callback;
 
+- (void)saveAllWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+
 /**
  * Saves all the app-level objects in the store to your app's CloudMine data store.
  *
@@ -277,6 +279,8 @@ typedef enum {
  * @see https://cloudmine.me/developer_zone#ref/json_update
  */
 - (void)saveAllAppObjects:(CMStoreObjectUploadCallback)callback;
+
+- (void)saveAllAppObjectsWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
 
 /**
  * Saves all the user-objects in the store to your app's CloudMine data store. The store must be configured 
@@ -291,11 +295,14 @@ typedef enum {
  */
 - (void)saveAllUserObjects:(CMStoreObjectUploadCallback)callback;
 
+- (void)saveAllUserObjectsWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+
 /**
  * Saves an individual object to your app's CloudMine data store at the app-level. If this object doesn't
  * already belong to this store, it will automatically be added as well. This has the additional effect of increasing
  * the object's retain count by 1 as well as setting its <tt>store</tt> property to this store.
  *
+ * @param theObject The object to save.
  * @param callback The callback to be triggered when all the objects are finished uploading.
  *
  * @see CMObject#store
@@ -303,12 +310,15 @@ typedef enum {
  */
 - (void)saveObject:(CMObject *)theObject callback:(CMStoreObjectUploadCallback)callback;
 
+- (void)saveObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+
 /**
  * Saves an individual object to your app's CloudMine data store at the user-level. The store must be configured 
  * with a user or else calling this method will throw an exception. If this object doesn't
  * already belong to this store, it will automatically be added as well. This has the additional effect of increasing
  * the object's retain count by 1 as well as setting its <tt>store</tt> property to this store.
  *
+ * @param theObject The object to save.
  * @param callback The callback to be triggered when all the objects are finished uploading.
  *
  * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
@@ -318,6 +328,8 @@ typedef enum {
  * @see https://cloudmine.me/developer_zone#ref/account_overview
  */
 - (void)saveUserObject:(CMObject *)theObject callback:(CMStoreObjectUploadCallback)callback;
+
+- (void)saveUserObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
 
 /**
  * Deletes the given app-level object from your app's CloudMine data store and removes the object from this store.
@@ -432,7 +444,7 @@ typedef enum {
  * so you can do any other necessary cleanup throughout your app. This notification is triggered <b>before</b> the objects
  * are deleted from the server.
  *
- * @param theObject The object to delete and remove from the store.
+ * @param objects The objects to delete and remove from the store.
  *
  * @see https://cloudmine.me/developer_zone#ref/json_delete
  */
@@ -445,7 +457,7 @@ typedef enum {
  * so you can do any other necessary cleanup throughout your app. This notification is triggered <b>before</b> the objects
  * are deleted from the server.
  *
- * @param theObject The object to delete and remove from the store.
+ * @param objects The objects to delete and remove from the store.
  *
  * @see https://cloudmine.me/developer_zone#ref/json_delete
  * @see https://cloudmine.me/developer_zone#ref/account_overview
