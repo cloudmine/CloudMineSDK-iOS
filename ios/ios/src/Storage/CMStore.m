@@ -215,12 +215,12 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
     dispatch_async(queue, ^{
-        [selff saveAllAppObjects:callback];
+        [selff saveAllAppObjectsWithOptions:options callback:callback];
     });
     
     if (user) {
         dispatch_async(queue, ^{
-            [selff saveAllUserObjects:callback];
+            [selff saveAllUserObjectsWithOptions:options callback:callback];
         });
     }
 }
