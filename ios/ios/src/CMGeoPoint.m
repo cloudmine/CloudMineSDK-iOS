@@ -7,6 +7,7 @@
 //
 
 #import "CMGeoPoint.h"
+#import "CMObjectSerialization.h"
 #import "math+floats.h"
 
 NSString * const CMGeoPointClassName = @"geopoint";
@@ -47,10 +48,7 @@ NSString * const CMGeoPointClassName = @"geopoint";
     [super encodeWithCoder:aCoder];
     [aCoder encodeDouble:self.latitude forKey:@"latitude"];
     [aCoder encodeDouble:self.longitude forKey:@"longitude"];
-}
-
-+ (NSString *)className {
-    return CMGeoPointClassName;
+    [aCoder encodeObject:CMGeoPointClassName forKey:CMInternalTypeStorageKey];
 }
 
 #pragma mark - Comparison

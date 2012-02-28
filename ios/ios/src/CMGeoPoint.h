@@ -10,7 +10,7 @@
 #include <math.h>
 #import "CMObject.h"
 
-extern NSString *const CMGeoPointClassName;
+extern NSString * const CMGeoPointClassName;
 
 @interface CMGeoPoint : CMObject {
     

@@ -44,7 +44,7 @@
         CMObjectEncoder *objectEncoder = [[CMObjectEncoder alloc] init];
         [object encodeWithCoder:objectEncoder];
         NSMutableDictionary *encodedRepresentation = [NSMutableDictionary dictionaryWithDictionary:objectEncoder.encodedRepresentation];
-        [encodedRepresentation setObject:[[object class] className] forKey:CMInternalTypeStorageKey];
+        [encodedRepresentation setObject:[[object class] className] forKey:CMInternalClassStorageKey];
         [topLevelObjectsDictionary setObject:encodedRepresentation forKey:object.objectId];
     }
     
@@ -107,7 +107,7 @@
     for (id key in dictionary) {
         [encodedDictionary setObject:[self serializeContentsOfObject:[dictionary objectForKey:key]] forKey:key];
     }
-    [encodedDictionary setObject:CMInternalHashClassName forKey:CMInternalTypeStorageKey]; // to differentiate between a custom object and a dictionary.
+    [encodedDictionary setObject:CMInternalHashClassName forKey:CMInternalClassStorageKey]; // to differentiate between a custom object and a dictionary.
     return encodedDictionary;
 }
 
@@ -130,7 +130,7 @@
         CMObjectEncoder *newEncoder = [[CMObjectEncoder alloc] init];
         [objv encodeWithCoder:newEncoder];
         NSMutableDictionary *serializedRepresentation = [NSMutableDictionary dictionaryWithDictionary:newEncoder.encodedRepresentation];
-        [serializedRepresentation setObject:[[objv class] className] forKey:CMInternalTypeStorageKey];
+        [serializedRepresentation setObject:[[objv class] className] forKey:CMInternalClassStorageKey];
         return serializedRepresentation;
     } else {
         [[NSException exceptionWithName:@"CMInternalInconsistencyException"
@@ -153,7 +153,7 @@
 //        
 //        // Must encode the type of this object for decoding purposes.
 //        NSMutableDictionary *serializedRepresentation = [NSMutableDictionary dictionaryWithDictionary:newEncoder.encodedRepresentation];
-//        [serializedRepresentation setObject:[[objv class] className] forKey:CMInternalTypeStorageKey];
+//        [serializedRepresentation setObject:[[objv class] className] forKey:CMInternalClassStorageKey];
 //        return serializedRepresentation;
     }
 }

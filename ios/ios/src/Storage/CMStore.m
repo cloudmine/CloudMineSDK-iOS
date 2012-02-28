@@ -161,7 +161,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     _CMAssertAPICredentialsInitialized;
     
     [self _searchObjects:callback 
-                   query:[NSString stringWithFormat:@"[%@ = \"%@\"]", CMInternalTypeStorageKey, [klass className]]
+                   query:[NSString stringWithFormat:@"[%@ = \"%@\"]", CMInternalClassStorageKey, [klass className]]
                userLevel:userLevel
        additionalOptions:options];
 }

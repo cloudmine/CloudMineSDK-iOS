@@ -109,7 +109,7 @@
 #pragma mark - Private encoding methods
 
 + (Class)typeFromDictionaryRepresentation:(NSDictionary *)representation {
-    NSString *className = [representation objectForKey:CMInternalTypeStorageKey];
+    NSString *className = [representation objectForKey:CMInternalClassStorageKey];
     Class klass = nil;
     
     if ([className isEqualToString:CMInternalHashClassName]) {
@@ -159,12 +159,14 @@
         // than dictionaries at this point. Once that support is added we can simply use the CMObjectClassNameRegistry
         // to deserialize any class properly.
         
-        if ([[objv objectForKey:CMInternalTypeStorageKey] isEqualToString:CMInternalHashClassName]) {
+        if ([[objv objectForKey:CMInternalClassStorageKey] isEqualToString:CMInternalHashClassName]) {
             return [self decodeAllInDictionary:objv];
         } else if ([[objv objectForKey:CMInternalTypeStorageKey] isEqualToString:CMGeoPointClassName]) {
+            // Note that this uses CMInternalTypeStorageKey instead of CMInternalClassStorageKey on purpose
+            // since the CM backend treats these objects as special unicorns (i.e. it has to know to geoindex them).
             CMObjectDecoder *subObjectDecoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:objv];
             return [[CMGeoPoint alloc] initWithCoder:subObjectDecoder];
-        } else if ([[objv objectForKey:CMInternalTypeStorageKey] isEqualToString:CMDateClassName]) {
+        } else if ([[objv objectForKey:CMInternalClassStorageKey] isEqualToString:CMDateClassName]) {
             CMObjectDecoder *subObjectDecoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:objv];
             return [[CMDate alloc] initWithCoder:subObjectDecoder];
         }

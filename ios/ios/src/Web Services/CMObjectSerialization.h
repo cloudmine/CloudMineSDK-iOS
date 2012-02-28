@@ -17,11 +17,19 @@
 #define CMInternalHashClassName @"map"
 
 /**
+ * The key to be used to store the special CloudMine type of an object when serializing it
+ * into a dictionary. Note that this does not correspond to the class of the object being serialized.
+ * It is used exclusively for objects treated as special for one reason or another by CloudMine. One
+ * example of this is the type "geopoint", which is geospatially indexed automatically by CloudMine.
+ */
+#define CMInternalTypeStorageKey @"__type__"
+
+/**
  * The key to be used to store the class name of an object when serializing it
  * into a dictionary. This will be used on deserialization to instantiate the
  * correct type of object.
  */
-#define CMInternalTypeStorageKey @"__type__"
+#define CMInternalClassStorageKey @"__class__"
 
 /**
  * The key to be used to store the id of the object being serialized. The value of this
