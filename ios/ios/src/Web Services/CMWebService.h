@@ -59,8 +59,8 @@ typedef void (^CMWebServiceFileFetchSuccessCallback)(NSData *data, NSString *con
  * web services.
  */
 @interface CMWebService : NSObject {
-    NSString *_apiKey;
-    NSString *_appKey;
+    NSString *_appSecret;
+    NSString *_appIdentifier;
 }
 
 /**
@@ -82,7 +82,7 @@ typedef void (^CMWebServiceFileFetchSuccessCallback)(NSData *data, NSString *con
 /**
  * Initializes an instance of a web service connector with the given API key and secret app key.
  */
-- (id)initWithAPIKey:(NSString *)apiKey appKey:(NSString *)appKey;
+- (id)initWithAppSecret:(NSString *)appSecret appIdentifier:(NSString *)appIdentifier;
 
 /**
  * Asynchronously retrieve objects for the named user-level keys. On completion, the <tt>successHandler</tt> block 

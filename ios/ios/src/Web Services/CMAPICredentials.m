@@ -9,7 +9,7 @@
 #import "CMAPICredentials.h"
 
 @implementation CMAPICredentials
-@synthesize apiKey, appKey;
+@synthesize appSecret, appIdentifier;
 
 + (id)sharedInstance {
     __strong static id _sharedInstance = nil;

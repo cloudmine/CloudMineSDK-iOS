@@ -25,7 +25,7 @@ describe(@"CMWebService", ^{
     __block CMWebService *service = nil;
     
     beforeEach(^{
-        service = [[CMWebService alloc] initWithAPIKey:appSecret appKey:appId];
+        service = [[CMWebService alloc] initWithAppSecret:appSecret appIdentifier:appId];
         service.networkQueue = [ASINetworkQueue mock];
     });
     

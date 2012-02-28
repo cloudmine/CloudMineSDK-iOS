@@ -23,8 +23,8 @@ describe(@"CMStore", ^{
     __block CMUser *user = nil;
 
     beforeAll(^{
-        [[CMAPICredentials sharedInstance] setApiKey:@"apikey"];
-        [[CMAPICredentials sharedInstance] setAppKey:@"appkey"];
+        [[CMAPICredentials sharedInstance] setAppSecret:@"appSecret"];
+        [[CMAPICredentials sharedInstance] setAppIdentifier:@"appIdentifier"];
     });
     
     beforeEach(^{

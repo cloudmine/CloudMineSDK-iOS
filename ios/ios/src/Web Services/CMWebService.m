@@ -22,7 +22,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
 - (NSURL *)constructTextUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys query:(NSString *)searchString pagingOptions:(CMPagingDescriptor *)paging withServerSideFunction:(CMServerFunction *)function;
 - (NSURL *)constructBinaryUrlAtUserLevel:(BOOL)atUserLevel withKey:(NSString *)key;
 - (NSURL *)constructDataUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys withServerSideFunction:(CMServerFunction *)function;
-- (ASIHTTPRequest *)constructHTTPRequestWithVerb:(NSString *)verb URL:(NSURL *)url apiKey:(NSString *)apiKey binaryData:(BOOL)isForBinaryData user:(CMUser *)user;
+- (ASIHTTPRequest *)constructHTTPRequestWithVerb:(NSString *)verb URL:(NSURL *)url appSecret:(NSString *)appSecret binaryData:(BOOL)isForBinaryData user:(CMUser *)user;
 - (void)executeRequest:(ASIHTTPRequest *)request successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 - (void)executeBinaryDataFetchRequest:(ASIHTTPRequest *)request successHandler:(CMWebServiceFileFetchSuccessCallback)successHandler  errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 - (void)executeBinaryDataUploadRequest:(ASIHTTPRequest *)request successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
@@ -36,14 +36,14 @@ static __strong NSSet *_validHTTPVerbs = nil;
 
 - (id)init {
     CMAPICredentials *credentials = [CMAPICredentials sharedInstance];
-    NSAssert([credentials apiKey] && [credentials appKey],
-             @"You must configure CMAPICredentials before using this method. If you don't want to use CMAPICredentials, you must call [CMWebService initWithAPIKey:appKey:] instead of this method.");
-    return [self initWithAPIKey:[credentials apiKey] appKey:[credentials appKey]];
+    NSAssert([credentials appSecret] && [credentials appIdentifier],
+             @"You must configure CMAPICredentials before using this method. If you don't want to use CMAPICredentials, you must call [CMWebService initWithAppSecret:appIdentifier:] instead of this method.");
+    return [self initWithAppSecret:[credentials appSecret] appIdentifier:[credentials appIdentifier]];
 }
 
-- (id)initWithAPIKey:(NSString *)apiKey appKey:(NSString *)appKey {
-    NSParameterAssert(apiKey);
-    NSParameterAssert(appKey);
+- (id)initWithAppSecret:(NSString *)appSecret appIdentifier:(NSString *)appIdentifier {
+    NSParameterAssert(appSecret);
+    NSParameterAssert(appIdentifier);
     
     if (!_validHTTPVerbs) {
         _validHTTPVerbs = [NSSet setWithObjects:@"GET", @"POST", @"PUT", @"DELETE", nil];
@@ -51,8 +51,8 @@ static __strong NSSet *_validHTTPVerbs = nil;
     
     if (self = [super init]) {
         self.networkQueue = [ASINetworkQueue queue];
-        _apiKey = apiKey;
-        _appKey = appKey;
+        _appSecret = appSecret;
+        _appIdentifier = appIdentifier;
     }
     return self;
 }
@@ -71,7 +71,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
                                                                                              query:nil
                                                                                      pagingOptions:paging
                                                                             withServerSideFunction:function]
-                                                          apiKey:_apiKey
+                                                          appSecret:_appSecret
                                                       binaryData:NO
                                                             user:user];
     [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
@@ -91,7 +91,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
                                                                                              query:searchQuery
                                                                                      pagingOptions:paging
                                                                             withServerSideFunction:function]
-                                                          apiKey:_apiKey
+                                                          appSecret:_appSecret
                                                       binaryData:NO
                                                             user:user];
     [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
@@ -106,7 +106,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"GET" 
                                                              URL:[self constructBinaryUrlAtUserLevel:(user != nil)
                                                                                              withKey:key]
-                                                          apiKey:_apiKey
+                                                          appSecret:_appSecret
                                                       binaryData:NO
                                                             user:user];
     [self executeBinaryDataFetchRequest:request successHandler:successHandler errorHandler:errorHandler];
@@ -125,7 +125,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
                                                                                              query:nil
                                                                                      pagingOptions:nil
                                                                             withServerSideFunction:function]
-                                                          apiKey:_apiKey
+                                                          appSecret:_appSecret
                                                       binaryData:NO
                                                             user:user];
     [request appendPostData:[[data yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
@@ -143,7 +143,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"PUT" 
                                                              URL:[self constructBinaryUrlAtUserLevel:(user != nil)
                                                                                              withKey:key]
-                                                          apiKey:_apiKey
+                                                          appSecret:_appSecret
                                                       binaryData:YES
                                                             user:user];
     if (mimeType && ![mimeType isEqualToString:@""]) {
@@ -162,7 +162,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"PUT" 
                                                              URL:[self constructBinaryUrlAtUserLevel:(user != nil)
                                                                                              withKey:key]
-                                                          apiKey:_apiKey
+                                                          appSecret:_appSecret
                                                       binaryData:YES
                                                             user:user];
     if (mimeType && ![mimeType isEqualToString:@""]) {
@@ -186,7 +186,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
                                                                                              query:nil
                                                                                      pagingOptions:nil 
                                                                             withServerSideFunction:function]
-                                                          apiKey:_apiKey
+                                                          appSecret:_appSecret
                                                       binaryData:NO
                                                             user:user];
     [request appendPostData:[[data yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
@@ -203,7 +203,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
                                                                                                         withKeys:keys
                                                                                           withServerSideFunction:nil]
                                                                                 URLByAppendingQueryString:@"all=true"]
-                                                          apiKey:_apiKey
+                                                          appSecret:_appSecret
                                                       binaryData:NO
                                                             user:user];
     [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
@@ -314,7 +314,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
 
 - (ASIHTTPRequest *)constructHTTPRequestWithVerb:(NSString *)verb 
                                              URL:(NSURL *)url
-                                          apiKey:(NSString *)apiKey
+                                          appSecret:(NSString *)appSecret
                                       binaryData:(BOOL)isForBinaryData
                                             user:(CMUser *)user {
     NSAssert([_validHTTPVerbs containsObject:verb], @"You must pass in a valid HTTP verb. Possible choices are: GET, POST, PUT, and DELETE");
@@ -327,7 +327,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
         request.shouldPresentCredentialsBeforeChallenge = YES;
         request.authenticationScheme = (NSString *)kCFHTTPAuthenticationSchemeBasic;
     }
-    [request addRequestHeader:@"X-CloudMine-ApiKey" value:apiKey];
+    [request addRequestHeader:@"X-CloudMine-ApiKey" value:appSecret];
     
     // TODO: This should be customizable to change between JSON, GZIP'd JSON, and MsgPack.
     
@@ -358,9 +358,9 @@ static __strong NSSet *_validHTTPVerbs = nil;
     
     NSURL *url;
     if (atUserLevel) {
-        url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/user/%@", _appKey, endpoint]];
+        url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/user/%@", _appIdentifier, endpoint]];
     } else {
-        url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/%@", _appKey, endpoint]];
+        url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/%@", _appIdentifier, endpoint]];
     }
     
     return [self appendKeys:keys serverSideFunction:function query:searchString pagingOptions:paging toURL:url];
@@ -370,9 +370,9 @@ static __strong NSSet *_validHTTPVerbs = nil;
                                 withKey:(NSString *)key {
     NSURL *url;
     if (atUserLevel) {
-        url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/user/binary/%@", _appKey, key]];
+        url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/user/binary/%@", _appIdentifier, key]];
     } else {
-        url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/binary/%@", _appKey, key]];
+        url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/binary/%@", _appIdentifier, key]];
     }
     
     return url;
@@ -383,9 +383,9 @@ static __strong NSSet *_validHTTPVerbs = nil;
                 withServerSideFunction:(CMServerFunction *)function {
     NSURL *url;
     if (atUserLevel) {
-        url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/user/data", _appKey]];
+        url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/user/data", _appIdentifier]];
     } else {
-        url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/data", _appKey]];
+        url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/data", _appIdentifier]];
     }
     
     return [self appendKeys:keys serverSideFunction:function query:nil pagingOptions:nil toURL:url];

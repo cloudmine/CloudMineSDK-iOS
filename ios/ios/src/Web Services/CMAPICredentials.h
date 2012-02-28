@@ -24,12 +24,12 @@
  * The API key from your dashboard.
  * @see https://cloudmine.me/dashboard
  */
-@property (strong) NSString *apiKey;
+@property (strong) NSString *appSecret;
 
 /**
  * The secret app key from your dashboard for this app.
  * @see https://cloudmine.me/dashboard
  */
-@property (strong) NSString *appKey;
+@property (strong) NSString *appIdentifier;
 
 @end
