@@ -99,8 +99,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_store.html#a0129298f1e9de520c117d4de9e6fe2a3">allUserObjectsWithOptions:callback:</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_store.html#ae0be960b64e4790842bb18509f3a26d2">objectsWithKeys:additionalOptions:callback:</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_store.html#af6bbaa617ad3893bcc76a146d3c9416d">userObjectsWithKeys:additionalOptions:callback:</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_store.html#a6b1164674791b9ca9c1bb282b57e7e79">allObjectsOfType:additionalOptions:callback:</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_store.html#ac6e6b20454e704d9b411393aeb56b36a">allUserObjectsOfType:additionalOptions:callback:</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_store.html#a979dd9830afdc9bb304929624e03cd1d">allObjectsOfClass:additionalOptions:callback:</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_store.html#a63648c87b1bc39575e71ee37f062d61f">allUserObjectsOfClass:additionalOptions:callback:</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_store.html#a3c6a53c41da688f318159d37c1757544">searchObjects:additionalOptions:callback:</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_store.html#a15ef9bfa7002a0650a329024a0432ce9">searchUserObjects:additionalOptions:callback:</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_store.html#a7b5a5448725476218452a9a4e3e751b7">fileWithName:callback:</a></td></tr>
@@ -205,12 +205,12 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a6b1164674791b9ca9c1bb282b57e7e79"></a><!-- doxytag: member="CMStore::allObjectsOfType:additionalOptions:callback:" ref="a6b1164674791b9ca9c1bb282b57e7e79" args="(Class klass,[additionalOptions] CMStoreOptions *options,[callback] CMStoreObjectFetchCallback callback)" -->
+<a class="anchor" id="a979dd9830afdc9bb304929624e03cd1d"></a><!-- doxytag: member="CMStore::allObjectsOfClass:additionalOptions:callback:" ref="a979dd9830afdc9bb304929624e03cd1d" args="(Class klass,[additionalOptions] CMStoreOptions *options,[callback] CMStoreObjectFetchCallback callback)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">- (void) allObjectsOfType: </td>
+          <td class="memname">- (void) allObjectsOfClass: </td>
           <td></td>
           <td class="paramtype">(Class)&#160;</td>
           <td class="paramname"><em>klass</em></td>
@@ -235,7 +235,7 @@ Properties</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Downloads app-level objects of the given type from your app's CloudMine object store.</p>
+<p>Downloads app-level objects of the given class from your app's CloudMine object store.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramname">klass</td><td>The class of the objects you want to download. <code>[klass className]</code> is called to determine the remote type. </td></tr>
@@ -296,12 +296,12 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ac6e6b20454e704d9b411393aeb56b36a"></a><!-- doxytag: member="CMStore::allUserObjectsOfType:additionalOptions:callback:" ref="ac6e6b20454e704d9b411393aeb56b36a" args="(Class klass,[additionalOptions] CMStoreOptions *options,[callback] CMStoreObjectFetchCallback callback)" -->
+<a class="anchor" id="a63648c87b1bc39575e71ee37f062d61f"></a><!-- doxytag: member="CMStore::allUserObjectsOfClass:additionalOptions:callback:" ref="a63648c87b1bc39575e71ee37f062d61f" args="(Class klass,[additionalOptions] CMStoreOptions *options,[callback] CMStoreObjectFetchCallback callback)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">- (void) allUserObjectsOfType: </td>
+          <td class="memname">- (void) allUserObjectsOfClass: </td>
           <td></td>
           <td class="paramtype">(Class)&#160;</td>
           <td class="paramname"><em>klass</em></td>
@@ -326,7 +326,7 @@ Properties</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Downloads user-level objects of the given type from your app's CloudMine object store. The store must be configured with a user or else calling this method will throw an exception.</p>
+<p>Downloads user-level objects of the given class from your app's CloudMine object store. The store must be configured with a user or else calling this method will throw an exception.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramname">klass</td><td>The class of the objects you want to download. <code>[klass className]</code> is called to determine the remote type. </td></tr>
@@ -1688,7 +1688,7 @@ Properties</h2></td></tr>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="interface_c_m_store.html">CMStore</a>      </li>
-      <li class="footer">Generated on Mon Feb 27 2012 22:17:49 for CloudMine iOS SDK by&#160;
+      <li class="footer">Generated on Wed Feb 29 2012 15:41:38 for CloudMine iOS SDK by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </li>
     </ul>
