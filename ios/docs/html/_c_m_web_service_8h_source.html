@@ -111,15 +111,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00055"></a><a class="code" href="_c_m_web_service_8h.html#acc0ec01c996fb8fabd32c0d3c6c4bfad">00055</a> <span class="keyword">typedef</span> void (^<a class="code" href="_c_m_web_service_8h.html#acc0ec01c996fb8fabd32c0d3c6c4bfad">CMWebServiceFileFetchSuccessCallback</a>)(NSData *data, NSString *contentType);
 <a name="l00056"></a>00056 
 <a name="l00061"></a><a class="code" href="interface_c_m_web_service.html">00061</a> <span class="keyword">@interface </span><a class="code" href="interface_c_m_web_service.html">CMWebService</a> : NSObject {
-<a name="l00062"></a>00062     NSString *_apiKey;
-<a name="l00063"></a>00063     NSString *_appKey;
+<a name="l00062"></a>00062     NSString *_appSecret;
+<a name="l00063"></a>00063     NSString *_appIdentifier;
 <a name="l00064"></a>00064 }
 <a name="l00065"></a>00065 
 <a name="l00072"></a><a class="code" href="interface_c_m_web_service.html#a07aafe0a4b2668b2b6f75cee245d1434">00072</a> <span class="keyword">@property</span> (nonatomic, strong) ASINetworkQueue *networkQueue;
 <a name="l00073"></a>00073 
 <a name="l00080"></a>00080 - (id)init;
 <a name="l00081"></a>00081 
-<a name="l00085"></a>00085 - (id)initWithAPIKey:(NSString *)apiKey appKey:(NSString *)appKey;
+<a name="l00085"></a>00085 - (id)initWithAppSecret:(NSString *)appSecret appIdentifier:(NSString *)appIdentifier;
 <a name="l00086"></a>00086 
 <a name="l00097"></a>00097 - (void)getValuesForKeys:(NSArray *)keys  
 <a name="l00098"></a>00098       serverSideFunction:(<a class="code" href="interface_c_m_server_function.html">CMServerFunction</a> *)function
@@ -177,7 +177,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="_c_m_web_service_8h.html">CMWebService.h</a>      </li>
-      <li class="footer">Generated on Sun Feb 26 2012 23:36:22 for CloudMine iOS SDK by&#160;
+      <li class="footer">Generated on Mon Feb 27 2012 22:17:49 for CloudMine iOS SDK by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </li>
     </ul>

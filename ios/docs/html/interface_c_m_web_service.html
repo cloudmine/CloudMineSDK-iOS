@@ -94,7 +94,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(id)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_web_service.html#a984f8d00b330cdbe6aa274c9553bc652">init</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">(id)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_web_service.html#ab8f26d01b7d17f9cbc7f10c2f1b916d4">initWithAPIKey:appKey:</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">(id)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_web_service.html#a6893a90670be0828f8c85a08dab06842">initWithAppSecret:appIdentifier:</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_web_service.html#a939a71b715cc2b5335b288d51042aac4">getValuesForKeys:serverSideFunction:pagingOptions:user:successHandler:errorHandler:</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac8ca84f232e6e606c89efc28d3ba01ae"></a><!-- doxytag: member="CMWebService::searchValuesFor:serverSideFunction:pagingOptions:user:successHandler:errorHandler:" ref="ac8ca84f232e6e606c89efc28d3ba01ae" args="(NSString *searchQuery,[serverSideFunction] CMServerFunction *function,[pagingOptions] CMPagingDescriptor *paging,[user] CMUser *user,[successHandler] CMWebServiceObjectFetchSuccessCallback successHandler,[errorHandler] CMWebServiceFetchFailureCallback errorHandler)" -->
 (void)&#160;</td><td class="memItemRight" valign="bottom">- <b>searchValuesFor:serverSideFunction:pagingOptions:user:successHandler:errorHandler:</b></td></tr>
@@ -106,10 +106,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_web_service.html#aee7d5d1df0e582cebe1355f1c7aefe9d">deleteValuesForKeys:user:successHandler:errorHandler:</a></td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6698c1662c4043d5ea5e15db7c5a3ea4"></a><!-- doxytag: member="CMWebService::_apiKey" ref="a6698c1662c4043d5ea5e15db7c5a3ea4" args="" -->
-NSString *&#160;</td><td class="memItemRight" valign="bottom"><b>_apiKey</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad09802d3bb6dcf38bc898d72225690b5"></a><!-- doxytag: member="CMWebService::_appKey" ref="ad09802d3bb6dcf38bc898d72225690b5" args="" -->
-NSString *&#160;</td><td class="memItemRight" valign="bottom"><b>_appKey</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2683ae6d27e270c8f1ed9f34fccbeef5"></a><!-- doxytag: member="CMWebService::_appSecret" ref="a2683ae6d27e270c8f1ed9f34fccbeef5" args="" -->
+NSString *&#160;</td><td class="memItemRight" valign="bottom"><b>_appSecret</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a748fd5ea7cf6646175c862ede74d2350"></a><!-- doxytag: member="CMWebService::_appIdentifier" ref="a748fd5ea7cf6646175c862ede74d2350" args="" -->
+NSString *&#160;</td><td class="memItemRight" valign="bottom"><b>_appIdentifier</b></td></tr>
 <tr><td colspan="2"><h2><a name="properties"></a>
 Properties</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">ASINetworkQueue *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_c_m_web_service.html#a07aafe0a4b2668b2b6f75cee245d1434">networkQueue</a></td></tr>
@@ -303,21 +303,21 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ab8f26d01b7d17f9cbc7f10c2f1b916d4"></a><!-- doxytag: member="CMWebService::initWithAPIKey:appKey:" ref="ab8f26d01b7d17f9cbc7f10c2f1b916d4" args="(NSString *apiKey,[appKey] NSString *appKey)" -->
+<a class="anchor" id="a6893a90670be0828f8c85a08dab06842"></a><!-- doxytag: member="CMWebService::initWithAppSecret:appIdentifier:" ref="a6893a90670be0828f8c85a08dab06842" args="(NSString *appSecret,[appIdentifier] NSString *appIdentifier)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">- (id) initWithAPIKey: </td>
+          <td class="memname">- (id) initWithAppSecret: </td>
           <td></td>
           <td class="paramtype">(NSString *)&#160;</td>
-          <td class="paramname"><em>apiKey</em></td>
+          <td class="paramname"><em>appSecret</em></td>
         </tr>
         <tr>
-          <td class="paramkey">appKey:</td>
+          <td class="paramkey">appIdentifier:</td>
           <td></td>
           <td class="paramtype">(NSString *)&#160;</td>
-          <td class="paramname"><em>appKey</em>&#160;</td>
+          <td class="paramname"><em>appIdentifier</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -598,7 +598,7 @@ Properties</h2></td></tr>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="interface_c_m_web_service.html">CMWebService</a>      </li>
-      <li class="footer">Generated on Sun Feb 26 2012 23:36:22 for CloudMine iOS SDK by&#160;
+      <li class="footer">Generated on Mon Feb 27 2012 22:17:49 for CloudMine iOS SDK by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </li>
     </ul>

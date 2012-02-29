@@ -21,13 +21,13 @@
 + (id)sharedInstance;
 
 /**
- * The API key from your dashboard.
+ * The Secret Key from your CloudMine dashboard.
  * @see https://cloudmine.me/dashboard
  */
 @property (strong) NSString *appSecret;
 
 /**
- * The secret app key from your dashboard for this app.
+ * The App Identifier from your CloudMine dashboard.
  * @see https://cloudmine.me/dashboard
  */
 @property (strong) NSString *appIdentifier;
