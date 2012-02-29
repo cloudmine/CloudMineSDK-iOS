@@ -178,7 +178,7 @@ typedef enum {
 - (void)userObjectsWithKeys:(NSArray *)keys additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
 
 /**
- * Downloads app-level objects of the given type from your app's CloudMine object store.
+ * Downloads app-level objects of the given class from your app's CloudMine object store.
  *
  * @param klass The class of the objects you want to download. <tt>[klass className]</tt> is called to determine the remote type.
  * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>
@@ -190,10 +190,10 @@ typedef enum {
  * @see CMSerializable#className
  * @see https://cloudmine.me/developer_zone#ref/json_get
  */
-- (void)allObjectsOfType:(Class)klass additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
+- (void)allObjectsOfClass:(Class)klass additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
 
 /**
- * Downloads user-level objects of the given type from your app's CloudMine object store. The store must be configured 
+ * Downloads user-level objects of the given class from your app's CloudMine object store. The store must be configured 
  * with a user or else calling this method will throw an exception.
  *
  * @param klass The class of the objects you want to download. <tt>[klass className]</tt> is called to determine the remote type.
@@ -206,7 +206,7 @@ typedef enum {
  * @see CMSerializable#className
  * @see https://cloudmine.me/developer_zone#ref/account_overview
  */
-- (void)allUserObjectsOfType:(Class)klass additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
+- (void)allUserObjectsOfClass:(Class)klass additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
 
 /**
  * Performs a search across all app-level objects in your app's CloudMine object store.

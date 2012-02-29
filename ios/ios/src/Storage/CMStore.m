@@ -29,7 +29,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 @interface CMStore (Private)
 - (void)_allObjects:(CMStoreObjectFetchCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
-- (void)_allObjects:(CMStoreObjectFetchCallback)callback ofType:(Class)klass userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
+- (void)_allObjects:(CMStoreObjectFetchCallback)callback ofClass:(Class)klass userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
 - (void)_objectsWithKeys:(NSArray *)keys callback:(CMStoreObjectFetchCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
 - (void)_searchObjects:(CMStoreObjectFetchCallback)callback query:(NSString *)query userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
 - (void)_fileWithName:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreFileFetchCallback)callback;
@@ -144,17 +144,17 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 #pragma mark Object querying by type
 
-- (void)allObjectsOfType:(Class)klass additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback {
-    [self _allObjects:callback ofType:klass userLevel:NO additionalOptions:options];
+- (void)allObjectsOfClass:(Class)klass additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback {
+    [self _allObjects:callback ofClass:klass userLevel:NO additionalOptions:options];
 }
 
-- (void)allUserObjectsOfType:(Class)klass additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback {
+- (void)allUserObjectsOfClass:(Class)klass additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback {
     _CMAssertUserConfigured;
     
-    [self _allObjects:callback ofType:klass userLevel:YES additionalOptions:options];
+    [self _allObjects:callback ofClass:klass userLevel:YES additionalOptions:options];
 }
 
-- (void)_allObjects:(CMStoreObjectFetchCallback)callback ofType:(Class)klass userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options {
+- (void)_allObjects:(CMStoreObjectFetchCallback)callback ofClass:(Class)klass userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options {
     NSParameterAssert(callback);
     NSParameterAssert(klass);
     NSAssert([klass respondsToSelector:@selector(className)], @"You must pass a class (%@) that extends CMObject and responds to +className.", klass);
