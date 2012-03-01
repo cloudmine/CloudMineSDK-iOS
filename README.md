@@ -13,6 +13,8 @@ Watch the introductory [screencast](http://cloudmine.me/developer_zone#ios/tutor
 
 Please see the [documentation overview](http://cloudmine.me/developer_zone#ios/overview) on our website for more details.
 
+If you wish to simply download the precompiled universal framework, you [may do so](https://github.com/cloudmine/cloudmine-ios/downloads).
+
 Building
 -----
 
