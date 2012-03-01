@@ -9,6 +9,6 @@ It has the following dependencies:
 * UIKit
 * libz
 
-Watch the introductory [screencast](http://localhost:3000/developer_zone#ios/tutorials) to see how to set up a new iOS project in XCode using the CloudMine framework, including how to specify all the dependencies.
+Watch the introductory [screencast](http://cloudmine.me/developer_zone#ios/tutorials) to see how to set up a new iOS project in XCode using the CloudMine framework, including how to specify all the dependencies.
 
 Please see the [documentation overview](http://cloudmine.me/developer_zone#ios/overview) on our website for more details.
