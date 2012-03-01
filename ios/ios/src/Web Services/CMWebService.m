@@ -18,11 +18,14 @@
 
 static __strong NSSet *_validHTTPVerbs = nil;
 
+typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger httpResponseCode);
+
 @interface CMWebService (Private)
 - (NSURL *)constructTextUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys query:(NSString *)searchString pagingOptions:(CMPagingDescriptor *)paging withServerSideFunction:(CMServerFunction *)function;
 - (NSURL *)constructBinaryUrlAtUserLevel:(BOOL)atUserLevel withKey:(NSString *)key;
 - (NSURL *)constructDataUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys withServerSideFunction:(CMServerFunction *)function;
 - (ASIHTTPRequest *)constructHTTPRequestWithVerb:(NSString *)verb URL:(NSURL *)url appSecret:(NSString *)appSecret binaryData:(BOOL)isForBinaryData user:(CMUser *)user;
+- (void)executeUserAccountRequest:(ASIHTTPRequest *)request codeMapper:(_CMWebServiceAccountResponseCodeMapper)codeMapper callback:(CMWebServiceUserAccountOperationCallback)callback;
 - (void)executeRequest:(ASIHTTPRequest *)request successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 - (void)executeBinaryDataFetchRequest:(ASIHTTPRequest *)request successHandler:(CMWebServiceFileFetchSuccessCallback)successHandler  errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 - (void)executeBinaryDataUploadRequest:(ASIHTTPRequest *)request successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
@@ -209,10 +212,78 @@ static __strong NSSet *_validHTTPVerbs = nil;
     [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
 }
 
+#pragma mark - User account management
+
+- (void)loginUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
+
+}
+
+- (void)logoutUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
+    
+}
+
+- (void)createAccountWithUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
+    NSURL *url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/account/create", _appIdentifier]];
+    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
+    request.username = user.userId;
+    request.password = user.password;
+
+    [self executeUserAccountRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode) {
+        switch (httpResponseCode) {
+            case 201:
+                return CMUserAccountLoginSucceeded;
+            case 409:
+                return CMUserAccountCreateFailedDuplicateAccount;
+            case 400:
+                return CMUserAccountCreateFailedInvalidRequest;
+            default:
+                return CMUserAccountUnknownResult;
+        }
+    }
+                           callback:callback];
+}
+
+- (void)changePasswordForUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
+    
+}
+
+- (void)resetForgottenPasswordForUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
+}
+
 #pragma - Request queueing and execution
 
-- (void)executeRequest:(ASIHTTPRequest *)request 
-        successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler 
+- (void)executeUserAccountRequest:(ASIHTTPRequest *)request
+                       codeMapper:(_CMWebServiceAccountResponseCodeMapper)codeMapper
+                         callback:(CMWebServiceUserAccountOperationCallback)callback {
+
+    __unsafe_unretained ASIHTTPRequest *blockRequest = request;
+
+    void (^responseBlock)() = ^{
+        CMUserAccountResult resultCode = codeMapper(blockRequest.responseStatusCode);
+        
+        if (resultCode == CMUserAccountUnknownResult) {
+            NSLog(@"Unexpected response received from server during user account creation. Code %d, body: %@.", blockRequest.responseStatusCode, blockRequest.responseString);
+        }
+        
+        NSArray *messages = nil;
+        if (blockRequest.responseString == nil || blockRequest.responseString.length == 0) {
+            messages = [[blockRequest.responseString yajl_JSON] objectForKey:@"errors"];
+        } else {
+            messages = [NSArray array];
+        }
+
+        callback(resultCode, messages);
+    };
+
+    [request setCompletionBlock:responseBlock];
+    [request setFailedBlock:responseBlock];
+
+    [self.networkQueue addOperation:request];
+    [self.networkQueue go];
+}
+
+- (void)executeRequest:(ASIHTTPRequest *)request
+        successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
           errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
 
     __unsafe_unretained ASIHTTPRequest *blockRequest = request; // Stop the retain cycle.
@@ -254,7 +325,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
     }];
     
     [self.networkQueue addOperation:request];
-    [self.networkQueue go]; 
+    [self.networkQueue go];
 }
 
 - (void)executeBinaryDataFetchRequest:(ASIHTTPRequest *)request 
@@ -308,28 +379,6 @@ static __strong NSSet *_validHTTPVerbs = nil;
     
     [self.networkQueue addOperation:request];
     [self.networkQueue go]; 
-}
-
-#pragma - User account management
-
-- (void)loginUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
-    
-}
-
-- (void)logoutUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
-    
-}
-
-- (void)createAccountWithUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
-    
-}
-
-- (void)changePasswordForUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
-    
-}
-
-- (void)resetForgottenPasswordForUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
-    
 }
 
 #pragma - Request construction

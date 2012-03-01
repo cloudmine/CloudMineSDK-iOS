@@ -630,6 +630,52 @@ describe(@"CMWebService", ^{
              ];    
         }); 
     });
+    
+    context(@"given a user account operation", ^{
+        it(@"constructs account creation URL correctly", ^{
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/create", appId]];
+            CMUser *user = [[CMUser alloc] initWithUserId:@"test@domain.com" andPassword:@"pass"];
+            
+            id spy = [[CMBlockValidationMessageSpy alloc] init];
+            [spy addValidationBlock:^(NSInvocation *invocation) {
+                ASIHTTPRequest *request = nil;
+                [invocation getArgument:&request atIndex:2]; // only arg is the request
+                [[request.url should] equal:expectedUrl];
+                [[request.requestMethod should] equal:@"POST"];
+                [[request.username should] equal:user.userId];
+                [[request.password should] equal:user.password];
+                [[[[request requestHeaders] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
+                [[[request requestHeaders] objectForKey:@"X-CloudMine-LoginToken"] shouldBeNil];
+            } forSelector:@selector(addOperation:)];
+            
+            // Validate the request when it's pushed onto the network queue so
+            // we don't interfere with the construction and use of the request
+            // otherwise throughout the production code.
+            [service.networkQueue addMessageSpy:spy forMessagePattern:[KWMessagePattern messagePatternWithSelector:@selector(addOperation:)]];
+            
+            [[service.networkQueue should] receive:@selector(addOperation:)];
+            [[service.networkQueue should] receive:@selector(go)];
+            
+            [service createAccountWithUser:user callback:^(CMUserAccountResult result, NSArray *messages) {
+            }];
+        });
+        
+        it(@"constructs password change URL correctly", ^{
+            
+        });
+        
+        it(@"constructs password reset URL correctly", ^{
+            
+        });
+        
+        it(@"constructs login URL correctly", ^{
+            
+        });
+        
+        it(@"constructs logout URL correctly", ^{
+            
+        });
+    });
 
 });
 

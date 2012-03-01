@@ -12,13 +12,14 @@
  * @enum Enumeration of possible results from any user account management operation (login, logout, etc).
  */
 typedef enum {
-    
+    CMUserAccountUnknownResult = -1,
     CMUserAccountLoginSucceeded = 0,
     CMUserAccountLogoutSucceeded,
     CMUserAccountPasswordChangeSucceeded,
     CMUserAccountPasswordResetEmailSent,
     
-    CMUserAccountCreateFailedInvalidEmail,
+    CMUserAccountCreateFailedInvalidRequest,
+    CMUserAccountCreateFailedDuplicateAccount,
     CMUserAccountLoginFailedIncorrectCredentials,
     CMUserAccountPasswordChangeFailedInvalidCredentials,
     CMUserAccountPasswordResetFailedUnknownAccount
@@ -26,7 +27,7 @@ typedef enum {
 } CMUserAccountResult;
 
 static inline BOOL CMUserAccountOperationSuccessful(CMUserAccountResult resultCode) {
-    return (resultCode <= 3);
+    return (resultCode >= 0 && resultCode <= 3);
 }
 
 static inline BOOL CMUserAccountOperationFailed(CMUserAccountResult resultCode) {
