@@ -11,7 +11,7 @@
 /**
  * Basic container class for a user's identifier and password.
  */
-@interface CMUser : NSObject<NSCoding>
+@interface CMUser : NSObject <NSCoding>
 
 /**
  * The user's identifier (i.e. email address).
@@ -22,6 +22,11 @@
  * The user's password.
  */
 @property (strong) NSString *password;
+
+/**
+ * The user's login token, as assigned after a successful login attempt.
+ */
+@property (strong) NSString *token;
 
 - (id)initWithUserId:(NSString *)userId andPassword:(NSString *)password;
 

@@ -65,6 +65,7 @@
 		7A308A3C14798F29008ADD3C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D9146C5B7400EF537A /* libz.dylib */; };
 		7A308A4414799134008ADD3C /* CMWebServiceSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A308A4314799134008ADD3C /* CMWebServiceSpec.m */; };
 		7A308A4C14799471008ADD3C /* libKiwi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A308A4B14799471008ADD3C /* libKiwi.a */; };
+		7A4A6F2914FFF08100B95D13 /* CMUserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A4A6F2814FFF08100B95D13 /* CMUserSpec.m */; };
 		7A58CC2114F1B544003E864B /* CMMimeType.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A58CC1F14F1B544003E864B /* CMMimeType.h */; };
 		7A58CC2214F1B544003E864B /* CMMimeType.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A58CC2014F1B544003E864B /* CMMimeType.m */; };
 		7A58CC2314F1B54E003E864B /* CMMimeType.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7A58CC1F14F1B544003E864B /* CMMimeType.h */; };
@@ -239,6 +240,7 @@
 		7A0DB1BB147B016B007F482C /* CMBlockValidationMessageSpy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMBlockValidationMessageSpy.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7A308A4314799134008ADD3C /* CMWebServiceSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMWebServiceSpec.m; sourceTree = "<group>"; };
 		7A308A4B14799471008ADD3C /* libKiwi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libKiwi.a; path = "kiwi/build/Release-iphoneos/libKiwi.a"; sourceTree = "<group>"; };
+		7A4A6F2814FFF08100B95D13 /* CMUserSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUserSpec.m; sourceTree = "<group>"; };
 		7A58CC1F14F1B544003E864B /* CMMimeType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMMimeType.h; sourceTree = "<group>"; };
 		7A58CC2014F1B544003E864B /* CMMimeType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMMimeType.m; sourceTree = "<group>"; };
 		7A5C40A114D8981E00906689 /* CMDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMDate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -547,6 +549,7 @@
 				7AD9221F14CF5B9B0032DDDE /* CMPagingDescriptorSpec.m */,
 				7AD9222514D06EB10032DDDE /* CMStoreOptionsSpec.m */,
 				7AD93BAE14D1CCFE00CC1CC9 /* CMFileSpec.m */,
+				7A4A6F2814FFF08100B95D13 /* CMUserSpec.m */,
 				7A0DB1B8147B0153007F482C /* Support */,
 				7AB4AB79145DC5D8006AEF67 /* Supporting Files */,
 			);
@@ -861,6 +864,7 @@
 				7AD9222614D06EB10032DDDE /* CMStoreOptionsSpec.m in Sources */,
 				7AD93BAF14D1CCFE00CC1CC9 /* CMFileSpec.m in Sources */,
 				7AA79D6314DC1FB900F3CA3B /* CMCrossPlatformGenericSerializableObject.m in Sources */,
+				7A4A6F2914FFF08100B95D13 /* CMUserSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
