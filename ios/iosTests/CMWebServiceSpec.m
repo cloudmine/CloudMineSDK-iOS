@@ -183,15 +183,16 @@ describe(@"CMWebService", ^{
         it(@"JSON URLs at the user level correctly", ^{
             NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/text", appId]];
             CMUser *creds = [[CMUser alloc] initWithUserId:@"user" andPassword:@"pass"];
+            creds.token = @"token";
             
             id spy = [[CMBlockValidationMessageSpy alloc] init];
             [spy addValidationBlock:^(NSInvocation *invocation) {
                 ASIHTTPRequest *request = nil;
                 [invocation getArgument:&request atIndex:2]; // only arg is the request
                 [[request.url should] equal:expectedUrl];
-                [[request.username should] equal:@"user"];
-                [[request.password should] equal:@"pass"];
-                [[request.requestMethod should] equal:@"GET"];
+                [request.username shouldBeNil];
+                [request.password shouldBeNil];
+                [[[[request requestHeaders] objectForKey:@"X-CloudMine-LoginToken"] should] equal:creds.token];
                 [[[[request requestHeaders] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
             } forSelector:@selector(addOperation:)];
             
@@ -205,7 +206,7 @@ describe(@"CMWebService", ^{
             
             [service getValuesForKeys:nil
                    serverSideFunction:nil
-                        pagingOptions:nil 
+                        pagingOptions:nil
                                  user:creds
                        successHandler:^(NSDictionary *results, NSDictionary *errors) {
                        } errorHandler:^(NSError *error) {
@@ -217,14 +218,16 @@ describe(@"CMWebService", ^{
             NSString *binaryKey = @"filename";
             NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/binary/%@", appId, binaryKey]];
             CMUser *creds = [[CMUser alloc] initWithUserId:@"user" andPassword:@"pass"];
+            creds.token = @"token";
             
             id spy = [[CMBlockValidationMessageSpy alloc] init];
             [spy addValidationBlock:^(NSInvocation *invocation) {
                 ASIHTTPRequest *request = nil;
                 [invocation getArgument:&request atIndex:2]; // only arg is the request
                 [[request.url should] equal:expectedUrl];
-                [[request.username should] equal:@"user"];
-                [[request.password should] equal:@"pass"];
+                [request.username shouldBeNil];
+                [request.password shouldBeNil];
+                [[[[request requestHeaders] objectForKey:@"X-CloudMine-LoginToken"] should] equal:creds.token];
                 [[request.requestMethod should] equal:@"GET"];
                 [[[[request requestHeaders] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
             } forSelector:@selector(addOperation:)];
@@ -247,14 +250,16 @@ describe(@"CMWebService", ^{
         it(@"JSON URLs at the user level with keys correctly", ^{
             NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/text?keys=k1,k2", appId]];
             CMUser *creds = [[CMUser alloc] initWithUserId:@"user" andPassword:@"pass"];
+            creds.token = @"token";
             
             id spy = [[CMBlockValidationMessageSpy alloc] init];
             [spy addValidationBlock:^(NSInvocation *invocation) {
                 ASIHTTPRequest *request = nil;
                 [invocation getArgument:&request atIndex:2]; // only arg is the request
                 [[request.url should] equal:expectedUrl];
-                [[request.username should] equal:@"user"];
-                [[request.password should] equal:@"pass"];
+                [request.username shouldBeNil];
+                [request.password shouldBeNil];
+                [[[[request requestHeaders] objectForKey:@"X-CloudMine-LoginToken"] should] equal:creds.token];
                 [[request.requestMethod should] equal:@"GET"];
                 [[[[request requestHeaders] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
             } forSelector:@selector(addOperation:)];
@@ -354,14 +359,16 @@ describe(@"CMWebService", ^{
             [dataToPost setObject:@"val2" forKey:@"key2"];
             [dataToPost setObject:[NSArray arrayWithObjects:@"arrVal1", @"arrVal2", nil] forKey:@"arrKey1"];
             CMUser *creds = [[CMUser alloc] initWithUserId:@"user" andPassword:@"pass"];
+            creds.token = @"token";
             
             id spy = [[CMBlockValidationMessageSpy alloc] init];
             [spy addValidationBlock:^(NSInvocation *invocation) {
                 ASIHTTPRequest *request = nil;
                 [invocation getArgument:&request atIndex:2]; // only arg is the request
                 [[request.url should] equal:expectedUrl];
-                [[request.username should] equal:@"user"];
-                [[request.password should] equal:@"pass"];
+                [request.username shouldBeNil];
+                [request.password shouldBeNil];
+                [[[[request requestHeaders] objectForKey:@"X-CloudMine-LoginToken"] should] equal:creds.token];
                 [[request.requestMethod should] equal:@"POST"];
                 [[[[request requestHeaders] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
                 [[[request.postBody yajl_JSON] should] equal:dataToPost];
@@ -389,6 +396,8 @@ describe(@"CMWebService", ^{
         NSString *binaryKey = @"filename";
         NSData *data = [NSMutableData randomDataWithLength:100];
         CMUser *creds = [[CMUser alloc] initWithUserId:@"user" andPassword:@"pass"];
+        creds.token = @"token";
+        
         NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/binary/%@", appId, binaryKey]];
         
         id spy = [[CMBlockValidationMessageSpy alloc] init];
@@ -400,8 +409,9 @@ describe(@"CMWebService", ^{
             [[[[request requestHeaders] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
             [[[[request requestHeaders] objectForKey:@"Content-Type"] should] equal:@"application/cloudmine"];
             [[request.postBody should] equal:data];
-            [[request.username should] equal:@"user"];
-            [[request.password should] equal:@"pass"];
+            [request.username shouldBeNil];
+            [request.password shouldBeNil];
+            [[[[request requestHeaders] objectForKey:@"X-CloudMine-LoginToken"] should] equal:creds.token];
         } forSelector:@selector(addOperation:)];
         
         // Validate the request when it's pushed onto the network queue so
@@ -464,14 +474,16 @@ describe(@"CMWebService", ^{
             [dataToPost setObject:@"val2" forKey:@"key2"];
             [dataToPost setObject:[NSArray arrayWithObjects:@"arrVal1", @"arrVal2", nil] forKey:@"arrKey1"];
             CMUser *creds = [[CMUser alloc] initWithUserId:@"user" andPassword:@"pass"];
+            creds.token = @"token";
             
             id spy = [[CMBlockValidationMessageSpy alloc] init];
             [spy addValidationBlock:^(NSInvocation *invocation) {
                 ASIHTTPRequest *request = nil;
                 [invocation getArgument:&request atIndex:2]; // only arg is the request
                 [[request.url should] equal:expectedUrl];
-                [[request.username should] equal:@"user"];
-                [[request.password should] equal:@"pass"];
+                [request.username shouldBeNil];
+                [request.password shouldBeNil];
+                [[[[request requestHeaders] objectForKey:@"X-CloudMine-LoginToken"] should] equal:creds.token];
                 [[request.requestMethod should] equal:@"PUT"];
                 [[[[request requestHeaders] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
                 [[[request.postBody yajl_JSON] should] equal:dataToPost];
@@ -555,14 +567,16 @@ describe(@"CMWebService", ^{
         it(@"JSON URLs at the user level correctly", ^{
             NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/data?all=true", appId]];
             CMUser *creds = [[CMUser alloc] initWithUserId:@"user" andPassword:@"pass"];
+            creds.token = @"token";
             
             id spy = [[CMBlockValidationMessageSpy alloc] init];
             [spy addValidationBlock:^(NSInvocation *invocation) {
                 ASIHTTPRequest *request = nil;
                 [invocation getArgument:&request atIndex:2]; // only arg is the request
                 [[request.url should] equal:expectedUrl];
-                [[request.username should] equal:@"user"];
-                [[request.password should] equal:@"pass"];
+                [request.username shouldBeNil];
+                [request.password shouldBeNil];
+                [[[[request requestHeaders] objectForKey:@"X-CloudMine-LoginToken"] should] equal:creds.token];
                 [[request.requestMethod should] equal:@"DELETE"];
                 [[[[request requestHeaders] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
             } forSelector:@selector(addOperation:)];
@@ -586,14 +600,16 @@ describe(@"CMWebService", ^{
         it(@"JSON URLs at the user level with keys correctly", ^{
             NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/data?keys=k1,k2&all=true", appId]];
             CMUser *creds = [[CMUser alloc] initWithUserId:@"user" andPassword:@"pass"];
+            creds.token = @"token";
             
             id spy = [[CMBlockValidationMessageSpy alloc] init];
             [spy addValidationBlock:^(NSInvocation *invocation) {
                 ASIHTTPRequest *request = nil;
                 [invocation getArgument:&request atIndex:2]; // only arg is the request
                 [[request.url should] equal:expectedUrl];
-                [[request.username should] equal:@"user"];
-                [[request.password should] equal:@"pass"];
+                [request.username shouldBeNil];
+                [request.password shouldBeNil];
+                [[[[request requestHeaders] objectForKey:@"X-CloudMine-LoginToken"] should] equal:creds.token];
                 [[request.requestMethod should] equal:@"DELETE"];
                 [[[[request requestHeaders] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
             } forSelector:@selector(addOperation:)];
