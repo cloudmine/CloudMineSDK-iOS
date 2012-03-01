@@ -310,6 +310,28 @@ static __strong NSSet *_validHTTPVerbs = nil;
     [self.networkQueue go]; 
 }
 
+#pragma - User account management
+
+- (void)loginUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
+    
+}
+
+- (void)logoutUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
+    
+}
+
+- (void)createAccountWithUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
+    
+}
+
+- (void)changePasswordForUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
+    
+}
+
+- (void)resetForgottenPasswordForUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
+    
+}
+
 #pragma - Request construction
 
 - (ASIHTTPRequest *)constructHTTPRequestWithVerb:(NSString *)verb 
@@ -322,8 +344,11 @@ static __strong NSSet *_validHTTPVerbs = nil;
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
     request.requestMethod = verb;
     if (user) {
-        request.username = user.userId;
-        request.password = user.password;
+        if (user.token == nil) {
+            [[NSException exceptionWithName:@"CMInternalInconsistencyException" reason:@"You cannot construct a user-level CloudMine request when the user isn't logged in." userInfo:nil] raise];
+            __builtin_unreachable();
+        }
+        [request addRequestHeader:@"X-CloudMine-LoginToken" value:user.token];
         request.shouldPresentCredentialsBeforeChallenge = YES;
         request.authenticationScheme = (NSString *)kCFHTTPAuthenticationSchemeBasic;
     }
@@ -336,6 +361,11 @@ static __strong NSSet *_validHTTPVerbs = nil;
         [request addRequestHeader:@"Content-type" value:@"application/json"];
         [request addRequestHeader:@"Accept" value:@"application/json"];
     }
+    
+    #ifdef DEBUG
+        NSLog(@"Constructed CloudMine URL: %@\nHeaders:%@", request.url, request.requestHeaders);
+    #endif
+    
     return request;
 }
 

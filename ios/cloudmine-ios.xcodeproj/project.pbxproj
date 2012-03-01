@@ -66,6 +66,7 @@
 		7A308A4414799134008ADD3C /* CMWebServiceSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A308A4314799134008ADD3C /* CMWebServiceSpec.m */; };
 		7A308A4C14799471008ADD3C /* libKiwi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A308A4B14799471008ADD3C /* libKiwi.a */; };
 		7A4A6F2914FFF08100B95D13 /* CMUserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A4A6F2814FFF08100B95D13 /* CMUserSpec.m */; };
+		7A4A6F2C14FFF3CF00B95D13 /* CMUserAccountResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A4A6F2B14FFF3CF00B95D13 /* CMUserAccountResult.h */; };
 		7A58CC2114F1B544003E864B /* CMMimeType.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A58CC1F14F1B544003E864B /* CMMimeType.h */; };
 		7A58CC2214F1B544003E864B /* CMMimeType.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A58CC2014F1B544003E864B /* CMMimeType.m */; };
 		7A58CC2314F1B54E003E864B /* CMMimeType.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7A58CC1F14F1B544003E864B /* CMMimeType.h */; };
@@ -241,6 +242,7 @@
 		7A308A4314799134008ADD3C /* CMWebServiceSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMWebServiceSpec.m; sourceTree = "<group>"; };
 		7A308A4B14799471008ADD3C /* libKiwi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libKiwi.a; path = "kiwi/build/Release-iphoneos/libKiwi.a"; sourceTree = "<group>"; };
 		7A4A6F2814FFF08100B95D13 /* CMUserSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUserSpec.m; sourceTree = "<group>"; };
+		7A4A6F2B14FFF3CF00B95D13 /* CMUserAccountResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMUserAccountResult.h; sourceTree = "<group>"; };
 		7A58CC1F14F1B544003E864B /* CMMimeType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMMimeType.h; sourceTree = "<group>"; };
 		7A58CC2014F1B544003E864B /* CMMimeType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMMimeType.m; sourceTree = "<group>"; };
 		7A5C40A114D8981E00906689 /* CMDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMDate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -603,6 +605,7 @@
 				7AABA2FA14818DCA00FD52A0 /* Decoding */,
 				7AABA2FD14818DCA00FD52A0 /* Encoding */,
 				7AE355D414F1B850006AF903 /* CMFileUploadResult.h */,
+				7A4A6F2B14FFF3CF00B95D13 /* CMUserAccountResult.h */,
 				7AD36F7C146C650500DD4734 /* CMWebService.h */,
 				7AD36F7D146C650500DD4734 /* CMWebService.m */,
 				7AD36F86146CAE0600DD4734 /* CMUser.h */,
@@ -681,6 +684,7 @@
 				7A70DE5914E33DA000EC137E /* math+floats.h in Headers */,
 				7A58CC2114F1B544003E864B /* CMMimeType.h in Headers */,
 				7AE355D514F1B850006AF903 /* CMFileUploadResult.h in Headers */,
+				7A4A6F2C14FFF3CF00B95D13 /* CMUserAccountResult.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

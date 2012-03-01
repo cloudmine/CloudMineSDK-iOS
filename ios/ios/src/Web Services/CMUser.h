@@ -7,27 +7,47 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CMUserAccountResult.h"
+
+typedef void (^CMUserOperationCallback)(CMUserAccountResult resultCode);
 
 /**
- * Basic container class for a user's identifier and password.
+ * Representation of an end-user in CloudMine. This class manages session state (i.e. tokens and all that).
  */
 @interface CMUser : NSObject <NSCoding>
 
 /**
  * The user's identifier (i.e. email address).
  */
-@property (strong) NSString *userId;
+@property (atomic, strong) NSString *userId;
 
 /**
  * The user's password.
  */
-@property (strong) NSString *password;
+@property (atomic, strong) NSString *password;
 
 /**
  * The user's login token, as assigned after a successful login attempt.
+ * When setting this propertly, CMUser#password will be set to <tt>nil</tt> for security reasons.
  */
-@property (strong) NSString *token;
+@property (atomic, strong) NSString *token;
 
+/**
+ * Initialize the user with an email address and password.
+ */
 - (id)initWithUserId:(NSString *)userId andPassword:(NSString *)password;
+
+/**
+ * @return <tt>YES</tt> if the user is logged in and <tt>NO</tt> otherwise. Being logged in
+ * is defined by having a session token set.
+ *
+ * @see CMUser#token
+ */
+- (BOOL)isLoggedIn;
+
+- (void)loginWithCallback:(CMUserOperationCallback)callback;
+- (void)logoutWithCallback:(CMUserOperationCallback)callback;
+- (void)changePasswordTo:(NSString *)newPassword callback:(CMUserOperationCallback)callback;
+- (void)resetPasswordWithCallback:(CMUserOperationCallback)callback;
 
 @end

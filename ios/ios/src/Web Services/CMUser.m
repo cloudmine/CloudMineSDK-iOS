@@ -7,11 +7,14 @@
 //
 
 #import "CMUser.h"
+#import "CMWebService.h"
 
 @implementation CMUser
 @synthesize userId;
 @synthesize password;
 @synthesize token;
+
+#pragma mark - Constructors
 
 - (id)initWithUserId:(NSString *)theUserId andPassword:(NSString *)thePassword {
     if (self = [super init]) {
@@ -27,6 +30,27 @@
         self.token = [coder decodeObjectForKey:@"token"];
     }
     return self;
+}
+
+#pragma mark - Serialization
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+    [coder encodeObject:self.token forKey:@"token"];
+}
+
+#pragma mark - Comparison
+
+- (BOOL)isEqual:(id)object {
+    if (![object isKindOfClass:[CMUser class]]) {
+        return NO;
+    }
+    return ([[object userId] isEqualToString:userId] && [[object password] isEqualToString:password]);
+}
+
+#pragma mark - State operations and accessors
+
+- (BOOL)isLoggedIn {
+    return (self.token != nil);
 }
 
 - (void)setToken:(NSString *)theToken {
@@ -46,15 +70,22 @@
     }
 }
 
-- (void)encodeWithCoder:(NSCoder *)coder {
-    [coder encodeObject:self.token forKey:@"token"];
+#pragma mark - Remote user account and session operations
+
+- (void)loginWithCallback:(CMUserOperationCallback)callback {
+    
 }
 
-- (BOOL)isEqual:(id)object {
-    if (![object isKindOfClass:[CMUser class]]) {
-        return NO;
-    }
-    return ([[object userId] isEqualToString:userId] && [[object password] isEqualToString:password]);
+- (void)logoutWithCallback:(CMUserOperationCallback)callback {
+    
+}
+
+- (void)changePasswordTo:(NSString *)newPassword callback:(CMUserOperationCallback)callback {
+    
+}
+
+- (void)resetPasswordWithCallback:(CMUserOperationCallback)callback {
+    
 }
 
 @end

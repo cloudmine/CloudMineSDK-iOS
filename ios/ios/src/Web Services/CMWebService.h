@@ -10,6 +10,7 @@
 
 #import <Foundation/Foundation.h>
 #import "CMFileUploadResult.h"
+#import "CMUserAccountResult.h"
 
 @class ASINetworkQueue;
 @class CMUser;
@@ -53,6 +54,8 @@ typedef void (^CMWebServiceFileUploadSuccessCallback)(CMFileUploadResult result)
  * the raw data for the file as well as a string with the content type of the file returned from the server.
  */
 typedef void (^CMWebServiceFileFetchSuccessCallback)(NSData *data, NSString *contentType);
+
+typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult result);
 
 /**
  * Base class for all classes concerned with the communication between the client device and the CloudMine 
@@ -218,5 +221,12 @@ typedef void (^CMWebServiceFileFetchSuccessCallback)(NSData *data, NSString *con
                        user:(CMUser *)user 
              successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler 
                errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
+
+
+- (void)loginUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
+- (void)logoutUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
+- (void)createAccountWithUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
+- (void)changePasswordForUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
+- (void)resetForgottenPasswordForUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
 
 @end
