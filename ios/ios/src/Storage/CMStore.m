@@ -19,26 +19,14 @@
 #define _CMAssertAPICredentialsInitialized NSAssert([[CMAPICredentials sharedInstance] appSecret] != nil && [[[CMAPICredentials sharedInstance] appSecret] length] > 0 && [[CMAPICredentials sharedInstance] appIdentifier] != nil && [[[CMAPICredentials sharedInstance] appIdentifier] length] > 0, @"The CMAPICredentials singleton must be initialized before using a CloudMine Store")
 
 #define _CMAssertUserConfigured NSAssert(user, @"You must set the CMUser for this store in order to query for a user's objects")
+
 #define _CMUserOrNil (userLevel ? user : nil)
+
 #define _CMTryMethod(obj, method) (obj ? [obj method] : nil)
 
 #pragma mark - Notification strings
 NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotification";
 
-#pragma mark - Threading
-
-NSCondition *_loggingInCondition;
-void WhileNotLoggingIn(CMUser *user, void (^protectedBlock)(void));
-void inline WhileNotLoggingIn(CMUser *user, void (^protectedBlock)(void)) {
-    if (user == nil) {
-        protectedBlock();
-    } else {
-        [_loggingInCondition lock];
-        while (!user.isLoggedIn) [_loggingInCondition wait];
-        protectedBlock();
-        [_loggingInCondition unlock];
-    }
-}
 
 #pragma mark -
 
@@ -58,7 +46,6 @@ void inline WhileNotLoggingIn(CMUser *user, void (^protectedBlock)(void)) {
 @end
 
 @implementation CMStore
-
 @synthesize webService;
 @synthesize user;
 @synthesize lastError;
@@ -84,9 +71,6 @@ void inline WhileNotLoggingIn(CMUser *user, void (^protectedBlock)(void)) {
         lastError = nil;
         _cachedAppObjects = [[NSMutableDictionary alloc] init];
         _cachedUserObjects = theUser ? [[NSMutableDictionary alloc] init] : nil;
-        
-        _loggingInCondition = [[NSCondition alloc] init];
-        _loggingInCondition.name = @"LoggingInCondition";
     }
     return self;
 }
@@ -143,24 +127,22 @@ void inline WhileNotLoggingIn(CMUser *user, void (^protectedBlock)(void)) {
 - (void)_objectsWithKeys:(NSArray *)keys callback:(CMStoreObjectFetchCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options {
     NSParameterAssert(callback);
     _CMAssertAPICredentialsInitialized;
-
+    
     __unsafe_unretained CMStore *blockSelf = self;
-    WhileNotLoggingIn(_CMUserOrNil, ^{
-        [webService getValuesForKeys:keys
-                  serverSideFunction:_CMTryMethod(options, serverSideFunction)
-                       pagingOptions:_CMTryMethod(options, pagingDescriptor)
-                                user:_CMUserOrNil
-                      successHandler:^(NSDictionary *results, NSDictionary *errors) {
-                          NSArray *objects = [CMObjectDecoder decodeObjects:results];
-                          [blockSelf cacheObjectsInMemory:objects atUserLevel:userLevel];
-                          callback(objects, errors);
-                      } errorHandler:^(NSError *error) {
-                          NSLog(@"Error occurred during object request: %@", [error description]);
-                          [blockSelf setValue:error forKey:@"lastError"];
-                          callback(nil, nil);
-                      }
-         ];
-    });
+    [webService getValuesForKeys:keys
+              serverSideFunction:_CMTryMethod(options, serverSideFunction)
+                   pagingOptions:_CMTryMethod(options, pagingDescriptor)
+                            user:_CMUserOrNil
+                  successHandler:^(NSDictionary *results, NSDictionary *errors) {
+                      NSArray *objects = [CMObjectDecoder decodeObjects:results];
+                      [blockSelf cacheObjectsInMemory:objects atUserLevel:userLevel];
+                      callback(objects, errors);
+                  } errorHandler:^(NSError *error) {
+                      NSLog(@"Error occurred during object request: %@", [error description]);
+                      lastError = error;
+                      callback(nil, nil);
+                  }
+     ];
 }
 
 #pragma mark Object querying by type
@@ -209,22 +191,20 @@ void inline WhileNotLoggingIn(CMUser *user, void (^protectedBlock)(void)) {
     }
     
     __unsafe_unretained CMStore *blockSelf = self;
-    WhileNotLoggingIn(_CMUserOrNil, ^{
-        [webService searchValuesFor:query
-                 serverSideFunction:_CMTryMethod(options, serverSideFunction)
-                      pagingOptions:_CMTryMethod(options, pagingDescriptor)
-                               user:_CMUserOrNil
-                     successHandler:^(NSDictionary *results, NSDictionary *errors) {
-                         NSArray *objects = [CMObjectDecoder decodeObjects:results];
-                         [blockSelf cacheObjectsInMemory:objects atUserLevel:userLevel];
-                         callback(objects, errors);
-                     } errorHandler:^(NSError *error) {
-                         NSLog(@"Error occurred during object request: %@", [error description]);
-                         [blockSelf setValue:error forKey:@"lastError"];
-                         callback(nil, nil);
-                     }
-         ];
-    });
+    [webService searchValuesFor:query
+             serverSideFunction:_CMTryMethod(options, serverSideFunction)
+                  pagingOptions:_CMTryMethod(options, pagingDescriptor)
+                           user:_CMUserOrNil
+                 successHandler:^(NSDictionary *results, NSDictionary *errors) {
+                     NSArray *objects = [CMObjectDecoder decodeObjects:results];
+                     [blockSelf cacheObjectsInMemory:objects atUserLevel:userLevel];
+                     callback(objects, errors);
+                 } errorHandler:^(NSError *error) {
+                     NSLog(@"Error occurred during object request: %@", [error description]);
+                     lastError = error;
+                     callback(nil, nil);
+                 }
+     ];
 }
 
 #pragma mark Object uploading
@@ -286,20 +266,17 @@ void inline WhileNotLoggingIn(CMUser *user, void (^protectedBlock)(void)) {
     _CMAssertAPICredentialsInitialized;
     [self cacheObjectsInMemory:objects atUserLevel:userLevel];
     
-    __unsafe_unretained CMStore *blockSelf = self;
-    WhileNotLoggingIn(_CMUserOrNil, ^{
-        [webService updateValuesFromDictionary:[CMObjectEncoder encodeObjects:objects]
-                            serverSideFunction:_CMTryMethod(options, serverSideFunction)
-                                          user:_CMUserOrNil
-                                successHandler:^(NSDictionary *results, NSDictionary *errors) {
-                                    callback(results);
-                                } errorHandler:^(NSError *error) {
-                                    NSLog(@"Error occurred during object uploading: %@", [error description]);
-                                    [blockSelf setValue:error forKey:@"lastError"];
-                                    callback(nil);
-                                }
-         ];
-    });
+    [webService updateValuesFromDictionary:[CMObjectEncoder encodeObjects:objects]
+                        serverSideFunction:_CMTryMethod(options, serverSideFunction)
+                                      user:_CMUserOrNil
+                            successHandler:^(NSDictionary *results, NSDictionary *errors) {
+                                callback(results);
+                            } errorHandler:^(NSError *error) {
+                                NSLog(@"Error occurred during object uploading: %@", [error description]);
+                                lastError = error;
+                                callback(nil);
+                            }
+     ];
 }
 
 #pragma mark File uploading
@@ -318,21 +295,18 @@ void inline WhileNotLoggingIn(CMUser *user, void (^protectedBlock)(void)) {
     NSParameterAssert(name);
     _CMAssertAPICredentialsInitialized;
     
-    __unsafe_unretained CMStore *blockSelf = self;
-    WhileNotLoggingIn(_CMUserOrNil, ^{
-        [webService uploadFileAtPath:[url path]
-                               named:name 
-                          ofMimeType:[self _mimeTypeForFileAtURL:url withCustomName:name]
-                                user:_CMUserOrNil
-                      successHandler:^(CMFileUploadResult result) {
-                          callback(result);
-                      } errorHandler:^(NSError *error) {
-                          NSLog(@"Error ocurred during file uploading: %@", [error description]);
-                          [blockSelf setValue:error forKey:@"lastError"];
-                          callback(CMFileUploadFailed);
-                      }
-         ];
-    });
+    [webService uploadFileAtPath:[url path]
+                           named:name 
+                      ofMimeType:[self _mimeTypeForFileAtURL:url withCustomName:name]
+                            user:_CMUserOrNil
+                  successHandler:^(CMFileUploadResult result) {
+                      callback(result);
+                  } errorHandler:^(NSError *error) {
+                      NSLog(@"Error ocurred during file uploading: %@", [error description]);
+                      lastError = error;
+                      callback(CMFileUploadFailed);
+                  }
+     ];
 }
 
 - (void)saveFileWithData:(NSData *)data named:(NSString *)name callback:(CMStoreFileUploadCallback)callback {
@@ -349,21 +323,18 @@ void inline WhileNotLoggingIn(CMUser *user, void (^protectedBlock)(void)) {
     NSParameterAssert(name);
     _CMAssertAPICredentialsInitialized;
     
-    __unsafe_unretained CMStore *blockSelf = self;
-    WhileNotLoggingIn(_CMUserOrNil, ^{
-        [webService uploadBinaryData:data
-                               named:name
-                          ofMimeType:[self _mimeTypeForFileAtURL:nil withCustomName:name]
-                                user:_CMUserOrNil
-                      successHandler:^(CMFileUploadResult result) {
-                          callback(result);
-                      } errorHandler:^(NSError *error) {
-                          NSLog(@"Error ocurred during in-memory file uploading: %@", [error description]);
-                          [blockSelf setValue:error forKey:@"lastError"];
-                          callback(CMFileUploadFailed);
-                      }
-         ];
-    });
+    [webService uploadBinaryData:data
+                           named:name
+                      ofMimeType:[self _mimeTypeForFileAtURL:nil withCustomName:name]
+                            user:_CMUserOrNil
+                  successHandler:^(CMFileUploadResult result) {
+                      callback(result);
+                  } errorHandler:^(NSError *error) {
+                      NSLog(@"Error ocurred during in-memory file uploading: %@", [error description]);
+                      lastError = error;
+                      callback(CMFileUploadFailed);
+                  }
+     ];
 }
 
 - (NSString *)_mimeTypeForFileAtURL:(NSURL *)url withCustomName:(NSString *)name {
@@ -422,19 +393,16 @@ void inline WhileNotLoggingIn(CMUser *user, void (^protectedBlock)(void)) {
     NSParameterAssert(name);
     _CMAssertAPICredentialsInitialized;
     
-    __unsafe_unretained CMStore *blockSelf = self;
-    WhileNotLoggingIn(_CMUserOrNil, ^{
-        [webService deleteValuesForKeys:[NSArray arrayWithObject:name]
-                                   user:_CMUserOrNil
-                         successHandler:^(NSDictionary *results, NSDictionary *errors) {
-                             callback(YES);
-                         } errorHandler:^(NSError *error) {
-                             NSLog(@"An error occurred when deleting the file named \"%@\": %@", name, [error description]);
-                             [blockSelf setValue:error forKey:@"lastError"];
-                             callback(NO);
-                         }
-         ];
-    });
+    [webService deleteValuesForKeys:[NSArray arrayWithObject:name]
+                               user:_CMUserOrNil
+                     successHandler:^(NSDictionary *results, NSDictionary *errors) {
+                         callback(YES);
+                     } errorHandler:^(NSError *error) {
+                         NSLog(@"An error occurred when deleting the file named \"%@\": %@", name, [error description]);
+                         lastError = error;
+                         callback(NO);
+                     }
+     ];
 }
 
 - (void)_deleteObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreDeleteCallback)callback {
@@ -449,20 +417,17 @@ void inline WhileNotLoggingIn(CMUser *user, void (^protectedBlock)(void)) {
         [self performSelector:delMethod withObject:obj];
     }];
     
-    __unsafe_unretained CMStore *blockSelf = self;
-    WhileNotLoggingIn(_CMUserOrNil, ^{
-        NSArray *keys = [deletedObjects allKeys];
-        [webService deleteValuesForKeys:keys
-                                   user:_CMUserOrNil
-                         successHandler:^(NSDictionary *results, NSDictionary *errors) {
-                             callback(YES);
-                         } errorHandler:^(NSError *error) {
-                             NSLog(@"An error occurred when deleting objects with keys (%@): %@", keys, [error description]);
-                             [blockSelf setValue:error forKey:@"lastError"];
-                             callback(NO);
-                         }
-         ];
-    });
+    NSArray *keys = [deletedObjects allKeys];
+    [webService deleteValuesForKeys:keys
+                               user:_CMUserOrNil
+                     successHandler:^(NSDictionary *results, NSDictionary *errors) {
+                         callback(YES);
+                     } errorHandler:^(NSError *error) {
+                         NSLog(@"An error occurred when deleting objects with keys (%@): %@", keys, [error description]);
+                         lastError = error;
+                         callback(NO);
+                     }
+     ];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:CMStoreObjectDeletedNotification
                                                         object:self
@@ -485,24 +450,21 @@ void inline WhileNotLoggingIn(CMUser *user, void (^protectedBlock)(void)) {
     NSParameterAssert(name);
     NSParameterAssert(callback);
     
-    __unsafe_unretained CMStore *blockSelf = self;
-    WhileNotLoggingIn(_CMUserOrNil, ^{
-        [webService getBinaryDataNamed:name
-                                  user:_CMUserOrNil
-                        successHandler:^(NSData *data, NSString *mimeType) {
-                            CMFile *file = [[CMFile alloc] initWithData:data
-                                                                  named:name
-                                                        belongingToUser:userLevel ? user : nil
-                                                               mimeType:mimeType];
-                            [file writeToCache];
-                            callback(file);
-                        } errorHandler:^(NSError *error) {
-                            NSLog(@"Error occurred during file request: %@", [error description]);
-                            [blockSelf setValue:error forKey:@"lastError"];
-                            callback(nil);
-                        }
-         ];
-    });
+    [webService getBinaryDataNamed:name
+                              user:_CMUserOrNil
+                    successHandler:^(NSData *data, NSString *mimeType) {
+                        CMFile *file = [[CMFile alloc] initWithData:data
+                                                              named:name
+                                                    belongingToUser:userLevel ? user : nil
+                                                           mimeType:mimeType];
+                        [file writeToCache];
+                        callback(file);
+                    } errorHandler:^(NSError *error) {
+                        NSLog(@"Error occurred during file request: %@", [error description]);
+                        lastError = error;
+                        callback(nil);
+                    }
+     ];
 }
 
 #pragma mark - In-memory caching
