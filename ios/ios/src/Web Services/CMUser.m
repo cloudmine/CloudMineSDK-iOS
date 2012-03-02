@@ -55,7 +55,7 @@
 #pragma mark - State operations and accessors
 
 - (BOOL)isLoggedIn {
-    return (self.token != nil);
+    return (self.token != nil && [self.tokenExpiration compare:[NSDate date]] == NSOrderedDescending /* if token comes after now */);
 }
 
 - (void)setToken:(NSString *)theToken {
