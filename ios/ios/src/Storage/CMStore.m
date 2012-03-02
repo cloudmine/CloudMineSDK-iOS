@@ -18,7 +18,7 @@
 
 #define _CMAssertAPICredentialsInitialized NSAssert([[CMAPICredentials sharedInstance] appSecret] != nil && [[[CMAPICredentials sharedInstance] appSecret] length] > 0 && [[CMAPICredentials sharedInstance] appIdentifier] != nil && [[[CMAPICredentials sharedInstance] appIdentifier] length] > 0, @"The CMAPICredentials singleton must be initialized before using a CloudMine Store")
 
-#define _CMAssertUserConfigured NSAssert(user, @"You must set the CMUser for this store in order to query for a user's objects")
+#define _CMAssertUserConfigured NSAssert(user && user.isLoggedIn, @"You must set the user of this store to a logged in CMUser before querying for user-level objects.")
 
 #define _CMUserOrNil (userLevel ? user : nil)
 
