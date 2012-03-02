@@ -16,6 +16,9 @@
 #import "CMPagingDescriptor.h"
 #import "NSURL+QueryParameterAdditions.h"
 
+#define CM_APIKEY_HEADER @"X-CloudMine-ApiKey"
+#define CM_SESSIONTOKEN_HEADER @"X-CloudMine-SessionToken"
+
 static __strong NSSet *_validHTTPVerbs = nil;
 
 typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger httpResponseCode);
@@ -232,10 +235,26 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 }
 
 - (void)logoutUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
+    NSAssert(user.isLoggedIn, @"Cannot logout a user that hasn't been logged in.");
     
+    NSURL *url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/account/login", _appIdentifier]];
+    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
+    [request addRequestHeader:CM_SESSIONTOKEN_HEADER value:user.token];
+    
+    [self executeUserAccountRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode) {
+        switch (httpResponseCode) {
+            case 200:
+                return CMUserAccountLoginSucceeded;
+            default:
+                return CMUserAccountUnknownResult;
+        }
+    }
+                           callback:callback];
 }
 
 - (void)createAccountWithUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
+    NSAssert(user.userId != nil && user.password != nil, @"Cannot create an account from a user that doesn't have an ID or password set.");
+    
     NSURL *url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/account/create", _appIdentifier]];
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
     
@@ -270,8 +289,10 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
                        codeMapper:(_CMWebServiceAccountResponseCodeMapper)codeMapper
                          callback:(CMWebServiceUserAccountOperationCallback)callback {
 
+    // TODO: Let this switch between MsgPack and GZIP'd JSON.
+    [request addRequestHeader:@"Content-type" value:@"application/json"];
+    
     __unsafe_unretained ASIHTTPRequest *blockRequest = request;
-
     void (^responseBlock)() = ^{
         CMUserAccountResult resultCode = codeMapper(blockRequest.responseStatusCode);
         
@@ -415,7 +436,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
         request.shouldPresentCredentialsBeforeChallenge = YES;
         request.authenticationScheme = (NSString *)kCFHTTPAuthenticationSchemeBasic;
     }
-    [request addRequestHeader:@"X-CloudMine-ApiKey" value:appSecret];
+    [request addRequestHeader:CM_APIKEY_HEADER value:appSecret];
     
     // TODO: This should be customizable to change between JSON, GZIP'd JSON, and MsgPack.
     

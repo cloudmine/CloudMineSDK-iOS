@@ -697,7 +697,32 @@ describe(@"CMWebService", ^{
         });
         
         it(@"constructs logout URL correctly", ^{
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/login", appId]];
+            CMUser *user = [[CMUser alloc] initWithUserId:@"test@domain.com" andPassword:@"pass"];
+            user.token = @"token";
             
+            id spy = [[CMBlockValidationMessageSpy alloc] init];
+            [spy addValidationBlock:^(NSInvocation *invocation) {
+                ASIHTTPRequest *request = nil;
+                [invocation getArgument:&request atIndex:2]; // only arg is the request
+                [[request.url should] equal:expectedUrl];
+                [[request.requestMethod should] equal:@"POST"];
+                [request.username shouldBeNil];
+                [request.password shouldBeNil];
+                [[[[request requestHeaders] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
+                [[[[request requestHeaders] objectForKey:@"X-CloudMine-SessionToken"] should] equal:user.token];
+            } forSelector:@selector(addOperation:)];
+            
+            // Validate the request when it's pushed onto the network queue so
+            // we don't interfere with the construction and use of the request
+            // otherwise throughout the production code.
+            [service.networkQueue addMessageSpy:spy forMessagePattern:[KWMessagePattern messagePatternWithSelector:@selector(addOperation:)]];
+            
+            [[service.networkQueue should] receive:@selector(addOperation:)];
+            [[service.networkQueue should] receive:@selector(go)];
+            
+            [service logoutUser:user callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
+            }];
         });
     });
 

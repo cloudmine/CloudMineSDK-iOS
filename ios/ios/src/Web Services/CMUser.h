@@ -33,17 +33,17 @@ typedef void (^CMUserOperationCallback)(CMUserAccountResult resultCode);
 @property (atomic, strong) NSString *token;
 
 /**
- * Initialize the user with an email address and password.
- */
-- (id)initWithUserId:(NSString *)userId andPassword:(NSString *)password;
-
-/**
- * @return <tt>YES</tt> if the user is logged in and <tt>NO</tt> otherwise. Being logged in
+ * <tt>YES</tt> if the user is logged in and <tt>NO</tt> otherwise. Being logged in
  * is defined by having a session token set.
  *
  * @see CMUser#token
  */
-- (BOOL)isLoggedIn;
+@property (readonly) BOOL isLoggedIn;
+
+/**
+ * Initialize the user with an email address and password.
+ */
+- (id)initWithUserId:(NSString *)userId andPassword:(NSString *)password;
 
 - (void)loginWithCallback:(CMUserOperationCallback)callback;
 - (void)logoutWithCallback:(CMUserOperationCallback)callback;

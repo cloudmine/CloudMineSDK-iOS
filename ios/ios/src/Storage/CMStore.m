@@ -28,7 +28,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 #pragma mark - Threading
 
 NSCondition *_loggingInCondition;
-
+void WhileNotLoggingIn(CMUser *user, void (^protectedBlock)(void));
 void inline WhileNotLoggingIn(CMUser *user, void (^protectedBlock)(void)) {
     if (user == nil) {
         protectedBlock();
