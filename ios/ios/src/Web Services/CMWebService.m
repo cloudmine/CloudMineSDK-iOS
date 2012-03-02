@@ -229,6 +229,8 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
         switch (httpResponseCode) {
             case 200:
                 return CMUserAccountLoginSucceeded;
+            case 401:
+                return CMUserAccountLoginFailedIncorrectCredentials;
             case 404:
                 return CMUserAccountOperationFailedUnknownAccount;
             default:

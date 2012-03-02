@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "CMUserAccountResult.h"
 
-typedef void (^CMUserOperationCallback)(CMUserAccountResult resultCode);
+typedef void (^CMUserOperationCallback)(CMUserAccountResult resultCode, NSArray *messages);
 
 /**
  * Representation of an end-user in CloudMine. This class manages session state (i.e. tokens and all that).
