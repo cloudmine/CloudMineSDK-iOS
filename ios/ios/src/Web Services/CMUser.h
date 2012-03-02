@@ -32,6 +32,8 @@ typedef void (^CMUserOperationCallback)(CMUserAccountResult resultCode, NSArray 
  */
 @property (atomic, strong) NSString *token;
 
+@property (atomic, strong) NSDate *tokenExpiration;
+
 /**
  * <tt>YES</tt> if the user is logged in and <tt>NO</tt> otherwise. Being logged in
  * is defined by having a session token set.
@@ -47,7 +49,7 @@ typedef void (^CMUserOperationCallback)(CMUserAccountResult resultCode, NSArray 
 
 - (void)loginWithCallback:(CMUserOperationCallback)callback;
 - (void)logoutWithCallback:(CMUserOperationCallback)callback;
-- (void)changePasswordTo:(NSString *)newPassword callback:(CMUserOperationCallback)callback;
-- (void)resetPasswordWithCallback:(CMUserOperationCallback)callback;
+- (void)changePasswordTo:(NSString *)newPassword from:(NSString *)oldPassword callback:(CMUserOperationCallback)callback;
+- (void)resetForgottenPasswordWithCallback:(CMUserOperationCallback)callback;
 
 @end

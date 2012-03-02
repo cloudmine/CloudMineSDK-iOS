@@ -9,10 +9,14 @@
 #import "CMUser.h"
 #import "CMWebService.h"
 
-@implementation CMUser
+@implementation CMUser {
+    CMWebService *_webService;
+}
+
 @synthesize userId;
 @synthesize password;
 @synthesize token;
+@synthesize tokenExpiration;
 
 #pragma mark - Constructors
 
@@ -21,6 +25,7 @@
         self.userId = theUserId;
         self.password = thePassword;
         self.token = nil;
+        _webService = [[CMWebService alloc] init];
     }
     return self;
 }
@@ -73,18 +78,30 @@
 #pragma mark - Remote user account and session operations
 
 - (void)loginWithCallback:(CMUserOperationCallback)callback {
-    
+    [_webService loginUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
+        NSArray *messages = [NSArray array];
+        
+        if (result == CMUserAccountLoginSucceeded) {
+            self.token = [responseBody objectForKey:@"session_token"];
+            
+            NSDateFormatter *df = [[NSDateFormatter alloc] init];
+            [df setLenient:YES];
+            self.tokenExpiration = [df dateFromString:[responseBody objectForKey:@"expires"]];
+        }
+        
+        callback(result, messages);
+    }];
 }
 
 - (void)logoutWithCallback:(CMUserOperationCallback)callback {
     
 }
 
-- (void)changePasswordTo:(NSString *)newPassword callback:(CMUserOperationCallback)callback {
+- (void)changePasswordTo:(NSString *)newPassword from:(NSString *)oldPassword callback:(CMUserOperationCallback)callback {
     
 }
 
-- (void)resetPasswordWithCallback:(CMUserOperationCallback)callback {
+- (void)resetForgottenPasswordWithCallback:(CMUserOperationCallback)callback {
     
 }
 
