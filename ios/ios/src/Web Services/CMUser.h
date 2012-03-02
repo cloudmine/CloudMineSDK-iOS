@@ -49,6 +49,8 @@ typedef void (^CMUserOperationCallback)(CMUserAccountResult resultCode, NSArray 
 
 - (void)loginWithCallback:(CMUserOperationCallback)callback;
 - (void)logoutWithCallback:(CMUserOperationCallback)callback;
+- (void)createAccountWithCallback:(CMUserOperationCallback)callback;
+- (void)createAccountAndLoginWithCallback:(CMUserOperationCallback)callback;
 - (void)changePasswordTo:(NSString *)newPassword from:(NSString *)oldPassword callback:(CMUserOperationCallback)callback;
 - (void)resetForgottenPasswordWithCallback:(CMUserOperationCallback)callback;
 
