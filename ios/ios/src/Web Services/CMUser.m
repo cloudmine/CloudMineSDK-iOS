@@ -62,7 +62,7 @@
     @synchronized(self) {
         if (theToken != nil) {
             token = theToken;
-            
+
             // Once a token is set, clear the password for security reasons.
             self.password = nil;
         }
@@ -82,22 +82,22 @@
 
     [_webService loginUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         NSArray *messages = [NSArray array];
-        
+
         if (result == CMUserAccountLoginSucceeded) {
             blockSelf.token = [responseBody objectForKey:@"session_token"];
-            
+
             NSDateFormatter *df = [[NSDateFormatter alloc] init];
             [df setLenient:YES];
             blockSelf.tokenExpiration = [df dateFromString:[responseBody objectForKey:@"expires"]];
         }
-        
+
         callback(result, messages);
     }];
 }
 
 - (void)logoutWithCallback:(CMUserOperationCallback)callback {
     __unsafe_unretained CMUser *blockSelf = self;
-    
+
     [_webService logoutUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         NSArray *messages = [NSArray array];
         if (result == CMUserAccountLogoutSucceeded) {
@@ -114,7 +114,7 @@
 - (void)createAccountWithCallback:(CMUserOperationCallback)callback {
     [_webService createAccountWithUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         NSArray *messages = [NSArray array];
-        
+
         if (result != CMUserAccountCreateSucceeded) {
             messages = [responseBody allValues];
         }
@@ -125,7 +125,7 @@
 
 - (void)createAccountAndLoginWithCallback:(CMUserOperationCallback)callback {
     __unsafe_unretained CMUser *blockSelf = self;
-    
+
     [self createAccountWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
         if (resultCode == CMUserAccountCreateFailedDuplicateAccount || resultCode == CMUserAccountCreateSucceeded) {
             [blockSelf loginWithCallback:callback];
@@ -136,11 +136,11 @@
 }
 
 - (void)changePasswordTo:(NSString *)newPassword from:(NSString *)oldPassword callback:(CMUserOperationCallback)callback {
-    
+
 }
 
 - (void)resetForgottenPasswordWithCallback:(CMUserOperationCallback)callback {
-    
+
 }
 
 @end

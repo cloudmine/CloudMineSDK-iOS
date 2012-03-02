@@ -50,11 +50,11 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 - (id)initWithAppSecret:(NSString *)appSecret appIdentifier:(NSString *)appIdentifier {
     NSParameterAssert(appSecret);
     NSParameterAssert(appIdentifier);
-    
+
     if (!_validHTTPVerbs) {
         _validHTTPVerbs = [NSSet setWithObjects:@"GET", @"POST", @"PUT", @"DELETE", nil];
     }
-    
+
     if (self = [super init]) {
         self.networkQueue = [ASINetworkQueue queue];
         _appSecret = appSecret;
@@ -65,14 +65,14 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 
 #pragma mark - GET requests for non-binary data
 
-- (void)getValuesForKeys:(NSArray *)keys 
+- (void)getValuesForKeys:(NSArray *)keys
       serverSideFunction:(CMServerFunction *)function
            pagingOptions:(CMPagingDescriptor *)paging
                     user:(CMUser *)user
-          successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler 
+          successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
             errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
-    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"GET" 
-                                                             URL:[self constructTextUrlAtUserLevel:(user != nil) 
+    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"GET"
+                                                             URL:[self constructTextUrlAtUserLevel:(user != nil)
                                                                                           withKeys:keys
                                                                                              query:nil
                                                                                      pagingOptions:paging
@@ -89,10 +89,10 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
      serverSideFunction:(CMServerFunction *)function
           pagingOptions:(CMPagingDescriptor *)paging
                    user:(CMUser *)user
-         successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler 
+         successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
            errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
-    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"GET" 
-                                                             URL:[self constructTextUrlAtUserLevel:(user != nil) 
+    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"GET"
+                                                             URL:[self constructTextUrlAtUserLevel:(user != nil)
                                                                                           withKeys:nil
                                                                                              query:searchQuery
                                                                                      pagingOptions:paging
@@ -107,9 +107,9 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 
 - (void)getBinaryDataNamed:(NSString *)key
                       user:(CMUser *)user
-            successHandler:(CMWebServiceFileFetchSuccessCallback)successHandler 
+            successHandler:(CMWebServiceFileFetchSuccessCallback)successHandler
               errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
-    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"GET" 
+    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"GET"
                                                              URL:[self constructBinaryUrlAtUserLevel:(user != nil)
                                                                                              withKey:key]
                                                           appSecret:_appSecret
@@ -122,10 +122,10 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 
 - (void)updateValuesFromDictionary:(NSDictionary *)data
                 serverSideFunction:(CMServerFunction *)function
-                              user:(CMUser *)user 
+                              user:(CMUser *)user
                     successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
                       errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
-    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST" 
+    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST"
                                                              URL:[self constructTextUrlAtUserLevel:(user != nil)
                                                                                           withKeys:nil
                                                                                              query:nil
@@ -144,9 +144,9 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
                    named:(NSString *)key
               ofMimeType:(NSString *)mimeType
                     user:(CMUser *)user
-          successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler 
+          successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler
             errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
-    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"PUT" 
+    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"PUT"
                                                              URL:[self constructBinaryUrlAtUserLevel:(user != nil)
                                                                                              withKey:key]
                                                           appSecret:_appSecret
@@ -163,9 +163,9 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
                    named:(NSString *)key
               ofMimeType:(NSString *)mimeType
                     user:(CMUser *)user
-          successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler 
+          successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler
             errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
-    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"PUT" 
+    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"PUT"
                                                              URL:[self constructBinaryUrlAtUserLevel:(user != nil)
                                                                                              withKey:key]
                                                           appSecret:_appSecret
@@ -183,14 +183,14 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 
 - (void)setValuesFromDictionary:(NSDictionary *)data
              serverSideFunction:(CMServerFunction *)function
-                           user:(CMUser *)user 
+                           user:(CMUser *)user
                  successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
                    errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
-    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"PUT" 
-                                                             URL:[self constructTextUrlAtUserLevel:(user != nil) 
+    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"PUT"
+                                                             URL:[self constructTextUrlAtUserLevel:(user != nil)
                                                                                           withKeys:nil
                                                                                              query:nil
-                                                                                     pagingOptions:nil 
+                                                                                     pagingOptions:nil
                                                                             withServerSideFunction:function]
                                                           appSecret:_appSecret
                                                       binaryData:NO
@@ -205,7 +205,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
                        user:(CMUser *)user
              successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
                errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
-    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"DELETE" URL:[[self constructDataUrlAtUserLevel:(user != nil) 
+    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"DELETE" URL:[[self constructDataUrlAtUserLevel:(user != nil)
                                                                                                         withKeys:keys
                                                                                           withServerSideFunction:nil]
                                                                                 URLByAppendingQueryString:@"all=true"]
@@ -219,7 +219,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 
 - (void)loginUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
     NSParameterAssert(user);
-    
+
     NSURL *url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/account/login", _appIdentifier]];
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
     request.username = user.userId;
@@ -243,11 +243,11 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 - (void)logoutUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
     NSParameterAssert(user);
     NSAssert(user.isLoggedIn, @"Cannot logout a user that hasn't been logged in.");
-    
+
     NSURL *url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/account/login", _appIdentifier]];
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
     [request addRequestHeader:CM_SESSIONTOKEN_HEADER value:user.token];
-    
+
     [self executeUserAccountRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode) {
         switch (httpResponseCode) {
             case 200:
@@ -264,10 +264,10 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 - (void)createAccountWithUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
     NSParameterAssert(user);
     NSAssert(user.userId != nil && user.password != nil, @"Cannot create an account from a user that doesn't have an ID or password set.");
-    
+
     NSURL *url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/account/create", _appIdentifier]];
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
-    
+
     // The username and password of this account are supplied in the request body.
     NSDictionary *payload = [NSDictionary dictionaryWithObjectsAndKeys:user.userId, @"email", user.password, @"password", nil];
     [request appendPostData:[[payload yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
@@ -288,12 +288,12 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 }
 
 - (void)changePasswordForUser:(CMUser *)user oldPassword:(NSString *)oldPassword newPassword:(NSString *)newPassword callback:(CMWebServiceUserAccountOperationCallback)callback {
-    
+
     NSParameterAssert(user);
     NSParameterAssert(oldPassword);
     NSParameterAssert(newPassword);
     NSAssert(user.userId, @"Cannot change the password of a user that doesn't have a user id set.");
-    
+
     NSURL *url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/account/password/change", _appIdentifier]];
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
 
@@ -303,7 +303,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     request.password = oldPassword;
     NSDictionary *payload = [NSDictionary dictionaryWithObject:newPassword forKey:@"password"];
     [request appendPostData:[[payload yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
-    
+
     [self executeUserAccountRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode) {
         switch (httpResponseCode) {
             case 200:
@@ -320,13 +320,13 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 - (void)resetForgottenPasswordForUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
     NSParameterAssert(user);
     NSAssert(user.userId, @"Cannot reset the password of a user that doesn't have a user id set.");
-    
+
     NSURL *url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/account/password/reset", _appIdentifier]];
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
-    
+
     NSDictionary *payload = [NSDictionary dictionaryWithObject:user.userId forKey:@"email"];
     [request appendPostData:[[payload yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
-    
+
     [self executeUserAccountRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode) {
         switch (httpResponseCode) {
             case 200:
@@ -348,15 +348,15 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 
     // TODO: Let this switch between MsgPack and GZIP'd JSON.
     [request addRequestHeader:@"Content-type" value:@"application/json"];
-    
+
     __unsafe_unretained ASIHTTPRequest *blockRequest = request;
     void (^responseBlock)() = ^{
         CMUserAccountResult resultCode = codeMapper(blockRequest.responseStatusCode);
-        
+
         if (resultCode == CMUserAccountUnknownResult) {
             NSLog(@"Unexpected response received from server during user account creation. Code %d, body: %@.", blockRequest.responseStatusCode, blockRequest.responseString);
         }
-        
+
         NSDictionary *responseBody = nil;
         if (blockRequest.responseString == nil || blockRequest.responseString.length == 0) {
             responseBody = [blockRequest.responseString yajl_JSON];
@@ -413,21 +413,21 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
             }
         }
     }];
-    
+
     [request setFailedBlock:^{
         errorHandler(blockRequest.error);
     }];
-    
+
     [self.networkQueue addOperation:request];
     [self.networkQueue go];
 }
 
-- (void)executeBinaryDataFetchRequest:(ASIHTTPRequest *)request 
-        successHandler:(CMWebServiceFileFetchSuccessCallback)successHandler 
+- (void)executeBinaryDataFetchRequest:(ASIHTTPRequest *)request
+        successHandler:(CMWebServiceFileFetchSuccessCallback)successHandler
           errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
-    
+
     __unsafe_unretained ASIHTTPRequest *blockRequest = request; // Stop the retain cycle.
-    
+
     [request setCompletionBlock:^{
         if (blockRequest.responseStatusCode == 200) {
             if (successHandler != nil) {
@@ -442,48 +442,48 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
             }
         }
     }];
-    
+
     [request setFailedBlock:^{
         if (errorHandler != nil) {
             errorHandler(blockRequest.error);
         }
     }];
-    
+
     [self.networkQueue addOperation:request];
-    [self.networkQueue go]; 
+    [self.networkQueue go];
 }
 
-- (void)executeBinaryDataUploadRequest:(ASIHTTPRequest *)request 
-                       successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler 
+- (void)executeBinaryDataUploadRequest:(ASIHTTPRequest *)request
+                       successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler
                          errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
-    
+
     __unsafe_unretained ASIHTTPRequest *blockRequest = request; // Stop the retain cycle.
-    
+
     [request setCompletionBlock:^{
         if (successHandler != nil) {
             successHandler(blockRequest.responseStatusCode == 201 ? CMFileCreated : CMFileUpdated);
         }
     }];
-    
+
     [request setFailedBlock:^{
         if (errorHandler != nil) {
             errorHandler(blockRequest.error);
         }
     }];
-    
+
     [self.networkQueue addOperation:request];
-    [self.networkQueue go]; 
+    [self.networkQueue go];
 }
 
 #pragma - Request construction
 
-- (ASIHTTPRequest *)constructHTTPRequestWithVerb:(NSString *)verb 
+- (ASIHTTPRequest *)constructHTTPRequestWithVerb:(NSString *)verb
                                              URL:(NSURL *)url
                                           appSecret:(NSString *)appSecret
                                       binaryData:(BOOL)isForBinaryData
                                             user:(CMUser *)user {
     NSAssert([_validHTTPVerbs containsObject:verb], @"You must pass in a valid HTTP verb. Possible choices are: GET, POST, PUT, and DELETE");
-    
+
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
     request.requestMethod = verb;
     if (user) {
@@ -496,19 +496,19 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
         request.authenticationScheme = (NSString *)kCFHTTPAuthenticationSchemeBasic;
     }
     [request addRequestHeader:CM_APIKEY_HEADER value:appSecret];
-    
+
     // TODO: This should be customizable to change between JSON, GZIP'd JSON, and MsgPack.
-    
+
     // Don't do this for binary data since that requires further intervention by the developer.
     if (!isForBinaryData) {
         [request addRequestHeader:@"Content-type" value:@"application/json"];
         [request addRequestHeader:@"Accept" value:@"application/json"];
     }
-    
+
     #ifdef DEBUG
         NSLog(@"Constructed CloudMine URL: %@\nHeaders:%@", request.url, request.requestHeaders);
     #endif
-    
+
     return request;
 }
 
@@ -519,23 +519,23 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
                                  query:(NSString *)searchString
                          pagingOptions:(CMPagingDescriptor *)paging
                 withServerSideFunction:(CMServerFunction *)function {
-    
+
     NSAssert(keys == nil || searchString == nil, @"When constructing CM URLs, 'keys' and 'searchString' are mutually exclusive");
-    
+
     NSString *endpoint = nil;
     if (searchString != nil) {
         endpoint = @"search";
     } else {
         endpoint = @"text";
     }
-    
+
     NSURL *url;
     if (atUserLevel) {
         url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/user/%@", _appIdentifier, endpoint]];
     } else {
         url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/%@", _appIdentifier, endpoint]];
     }
-    
+
     return [self appendKeys:keys serverSideFunction:function query:searchString pagingOptions:paging toURL:url];
 }
 
@@ -547,7 +547,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     } else {
         url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/binary/%@", _appIdentifier, key]];
     }
-    
+
     return url;
 }
 
@@ -560,18 +560,18 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     } else {
         url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/data", _appIdentifier]];
     }
-    
+
     return [self appendKeys:keys serverSideFunction:function query:nil pagingOptions:nil toURL:url];
 }
 
-- (NSURL *)appendKeys:(NSArray *)keys 
+- (NSURL *)appendKeys:(NSArray *)keys
    serverSideFunction:(CMServerFunction *)function
                 query:(NSString *)searchString
         pagingOptions:(CMPagingDescriptor *)paging
                 toURL:(NSURL *)theUrl {
-    
+
     NSAssert(keys == nil || searchString == nil, @"When constructing CM URLs, 'keys' and 'searchString' are mutually exclusive");
-    
+
     NSMutableArray *queryComponents = [NSMutableArray arrayWithCapacity:2];
     if (keys && [keys count] > 0) {
         [queryComponents addObject:[NSString stringWithFormat:@"keys=%@", [keys componentsJoinedByString:@","]]];
