@@ -226,7 +226,7 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
 - (void)loginUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
 - (void)logoutUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
 - (void)createAccountWithUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
-- (void)changePasswordForUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
+- (void)changePasswordForUser:(CMUser *)user oldPassword:(NSString *)oldPassword newPassword:(NSString *)newPassword callback:(CMWebServiceUserAccountOperationCallback)callback;
 - (void)resetForgottenPasswordForUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
 
 @end

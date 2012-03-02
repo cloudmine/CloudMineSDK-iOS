@@ -15,6 +15,7 @@ typedef enum {
     CMUserAccountUnknownResult = -1,
     CMUserAccountLoginSucceeded = 0,
     CMUserAccountLogoutSucceeded,
+    CMUserAccountCreateSucceeded,
     CMUserAccountPasswordChangeSucceeded,
     CMUserAccountPasswordResetEmailSent,
     
@@ -22,7 +23,7 @@ typedef enum {
     CMUserAccountCreateFailedDuplicateAccount,
     CMUserAccountLoginFailedIncorrectCredentials,
     CMUserAccountPasswordChangeFailedInvalidCredentials,
-    CMUserAccountPasswordResetFailedUnknownAccount
+    CMUserAccountOperationFailedUnknownAccount
     
 } CMUserAccountResult;
 

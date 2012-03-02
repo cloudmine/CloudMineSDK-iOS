@@ -646,6 +646,7 @@ describe(@"CMWebService", ^{
                 [request.password shouldBeNil];
                 [[[[request requestHeaders] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
                 [[[request requestHeaders] objectForKey:@"X-CloudMine-LoginToken"] shouldBeNil];
+                [[[request.postBody yajl_JSON] should] equal:[@"{\"email\": \"test@domain.com\", \"password\":\"pass\"}" yajl_JSON]];
             } forSelector:@selector(addOperation:)];
 
             // Validate the request when it's pushed onto the network queue so
@@ -661,11 +662,58 @@ describe(@"CMWebService", ^{
         });
         
         it(@"constructs password change URL correctly", ^{
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/password/change", appId]];
+            CMUser *user = [[CMUser alloc] initWithUserId:@"test@domain.com" andPassword:@"pass"];
+            user.token = @"token";
             
+            id spy = [[CMBlockValidationMessageSpy alloc] init];
+            [spy addValidationBlock:^(NSInvocation *invocation) {
+                ASIHTTPRequest *request = nil;
+                [invocation getArgument:&request atIndex:2]; // only arg is the request
+                [[request.url should] equal:expectedUrl];
+                [[request.requestMethod should] equal:@"POST"];
+                [[request.username should] equal:user.userId];
+                [[request.password should] equal:@"pass"];
+                
+                [[[[request requestHeaders] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
+                [[[request requestHeaders] objectForKey:@"X-CloudMine-SessionToken"] shouldBeNil];
+            } forSelector:@selector(addOperation:)];
+            
+            // Validate the request when it's pushed onto the network queue so
+            // we don't interfere with the construction and use of the request
+            // otherwise throughout the production code.
+            [service.networkQueue addMessageSpy:spy forMessagePattern:[KWMessagePattern messagePatternWithSelector:@selector(addOperation:)]];
+            
+            [[service.networkQueue should] receive:@selector(addOperation:)];
+            [[service.networkQueue should] receive:@selector(go)];
+            
+            [service changePasswordForUser:user oldPassword:@"pass" newPassword:@"newpass" callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
+            }];
         });
         
         it(@"constructs password reset URL correctly", ^{
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/password/reset", appId]];
+            CMUser *user = [[CMUser alloc] initWithUserId:@"test@domain.com" andPassword:nil];
             
+            id spy = [[CMBlockValidationMessageSpy alloc] init];
+            [spy addValidationBlock:^(NSInvocation *invocation) {
+                ASIHTTPRequest *request = nil;
+                [invocation getArgument:&request atIndex:2]; // only arg is the request
+                [[request.url should] equal:expectedUrl];
+                [[request.requestMethod should] equal:@"POST"];
+                [[[request.postBody yajl_JSON] should] equal:[@"{\"email\":\"test@domain.com\"}" yajl_JSON]];
+            } forSelector:@selector(addOperation:)];
+            
+            // Validate the request when it's pushed onto the network queue so
+            // we don't interfere with the construction and use of the request
+            // otherwise throughout the production code.
+            [service.networkQueue addMessageSpy:spy forMessagePattern:[KWMessagePattern messagePatternWithSelector:@selector(addOperation:)]];
+            
+            [[service.networkQueue should] receive:@selector(addOperation:)];
+            [[service.networkQueue should] receive:@selector(go)];
+            
+            [service resetForgottenPasswordForUser:user callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
+            }];
         });
         
         it(@"constructs login URL correctly", ^{

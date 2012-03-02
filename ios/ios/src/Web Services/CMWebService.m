@@ -218,6 +218,8 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 #pragma mark - User account management
 
 - (void)loginUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
+    NSParameterAssert(user);
+    
     NSURL *url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/account/login", _appIdentifier]];
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
     request.username = user.userId;
@@ -227,6 +229,8 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
         switch (httpResponseCode) {
             case 200:
                 return CMUserAccountLoginSucceeded;
+            case 404:
+                return CMUserAccountOperationFailedUnknownAccount;
             default:
                 return CMUserAccountUnknownResult;
         }
@@ -235,6 +239,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 }
 
 - (void)logoutUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
+    NSParameterAssert(user);
     NSAssert(user.isLoggedIn, @"Cannot logout a user that hasn't been logged in.");
     
     NSURL *url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/account/login", _appIdentifier]];
@@ -244,7 +249,9 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     [self executeUserAccountRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode) {
         switch (httpResponseCode) {
             case 200:
-                return CMUserAccountLoginSucceeded;
+                return CMUserAccountLogoutSucceeded;
+            case 404:
+                return CMUserAccountOperationFailedUnknownAccount;
             default:
                 return CMUserAccountUnknownResult;
         }
@@ -253,22 +260,24 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 }
 
 - (void)createAccountWithUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
+    NSParameterAssert(user);
     NSAssert(user.userId != nil && user.password != nil, @"Cannot create an account from a user that doesn't have an ID or password set.");
     
     NSURL *url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/account/create", _appIdentifier]];
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
     
+    // The username and password of this account are supplied in the request body.
     NSDictionary *payload = [NSDictionary dictionaryWithObjectsAndKeys:user.userId, @"email", user.password, @"password", nil];
-    request.postBody = [[[payload yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding] mutableCopy];
+    [request appendPostData:[[payload yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
 
     [self executeUserAccountRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode) {
         switch (httpResponseCode) {
             case 201:
-                return CMUserAccountLoginSucceeded;
-            case 409:
-                return CMUserAccountCreateFailedDuplicateAccount;
+                return CMUserAccountCreateSucceeded;
             case 400:
                 return CMUserAccountCreateFailedInvalidRequest;
+            case 409:
+                return CMUserAccountCreateFailedDuplicateAccount;
             default:
                 return CMUserAccountUnknownResult;
         }
@@ -276,11 +285,57 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
                            callback:callback];
 }
 
-- (void)changePasswordForUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
+- (void)changePasswordForUser:(CMUser *)user oldPassword:(NSString *)oldPassword newPassword:(NSString *)newPassword callback:(CMWebServiceUserAccountOperationCallback)callback {
     
+    NSParameterAssert(user);
+    NSParameterAssert(oldPassword);
+    NSParameterAssert(newPassword);
+    NSAssert(user.userId, @"Cannot change the password of a user that doesn't have a user id set.");
+    
+    NSURL *url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/account/password/change", _appIdentifier]];
+    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
+
+    // This API endpoint doesn't use a session token for security purposes. The user must supply their old password
+    // explicitly in addition to their new password.
+    request.username = user.userId;
+    request.password = oldPassword;
+    NSDictionary *payload = [NSDictionary dictionaryWithObject:newPassword forKey:@"password"];
+    [request appendPostData:[[payload yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [self executeUserAccountRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode) {
+        switch (httpResponseCode) {
+            case 200:
+                return CMUserAccountPasswordChangeSucceeded;
+            case 404:
+                return CMUserAccountOperationFailedUnknownAccount;
+            default:
+                return CMUserAccountUnknownResult;
+        }
+    }
+                           callback:callback];
 }
 
 - (void)resetForgottenPasswordForUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
+    NSParameterAssert(user);
+    NSAssert(user.userId, @"Cannot reset the password of a user that doesn't have a user id set.");
+    
+    NSURL *url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/account/password/reset", _appIdentifier]];
+    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
+    
+    NSDictionary *payload = [NSDictionary dictionaryWithObject:user.userId forKey:@"email"];
+    [request appendPostData:[[payload yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [self executeUserAccountRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode) {
+        switch (httpResponseCode) {
+            case 200:
+                return CMUserAccountPasswordResetEmailSent;
+            case 404:
+                return CMUserAccountOperationFailedUnknownAccount;
+            default:
+                return CMUserAccountUnknownResult;
+        }
+    }
+                           callback:callback];
 }
 
 #pragma - Request queueing and execution
@@ -307,7 +362,9 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
             responseBody = [NSDictionary dictionary];
         }
 
-        callback(resultCode, responseBody);
+        if (callback != nil) {
+            callback(resultCode, responseBody);
+        }
     };
 
     [request setCompletionBlock:responseBlock];
