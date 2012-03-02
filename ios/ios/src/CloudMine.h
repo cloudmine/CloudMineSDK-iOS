@@ -24,4 +24,5 @@
 #import "CMStoreCallbacks.h"
 #import "CMStoreOptions.h"
 #import "CMUser.h"
+#import "CMUserAccountResult.h"
 #import "CMWebService.h"

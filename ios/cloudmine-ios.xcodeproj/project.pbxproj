@@ -67,6 +67,7 @@
 		7A308A4C14799471008ADD3C /* libKiwi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A308A4B14799471008ADD3C /* libKiwi.a */; };
 		7A4A6F2914FFF08100B95D13 /* CMUserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A4A6F2814FFF08100B95D13 /* CMUserSpec.m */; };
 		7A4A6F2C14FFF3CF00B95D13 /* CMUserAccountResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A4A6F2B14FFF3CF00B95D13 /* CMUserAccountResult.h */; };
+		7A4A6FB91500474500B95D13 /* CMUserAccountResult.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7A4A6F2B14FFF3CF00B95D13 /* CMUserAccountResult.h */; };
 		7A58CC2114F1B544003E864B /* CMMimeType.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A58CC1F14F1B544003E864B /* CMMimeType.h */; };
 		7A58CC2214F1B544003E864B /* CMMimeType.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A58CC2014F1B544003E864B /* CMMimeType.m */; };
 		7A58CC2314F1B54E003E864B /* CMMimeType.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7A58CC1F14F1B544003E864B /* CMMimeType.h */; };
@@ -176,6 +177,7 @@
 			dstPath = "${BUILD_DIR}/${CONFIGURATION}-iphoneuniversal/${PRODUCT_NAME}.framework/Versions/A/Headers/";
 			dstSubfolderSpec = 0;
 			files = (
+				7A4A6FB91500474500B95D13 /* CMUserAccountResult.h in CopyFiles */,
 				7AE355D714F1B896006AF903 /* CMFileUploadResult.h in CopyFiles */,
 				7A58CC2314F1B54E003E864B /* CMMimeType.h in CopyFiles */,
 				7AA79DDD14DC5E4D00F3CA3B /* CloudMine.h in CopyFiles */,

@@ -215,7 +215,20 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 #pragma mark - User account management
 
 - (void)loginUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
+    NSURL *url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/account/login", _appIdentifier]];
+    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
+    request.username = user.userId;
+    request.password = user.password;
 
+    [self executeUserAccountRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode) {
+        switch (httpResponseCode) {
+            case 200:
+                return CMUserAccountLoginSucceeded;
+            default:
+                return CMUserAccountUnknownResult;
+        }
+    }
+                           callback:callback];
 }
 
 - (void)logoutUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
@@ -225,8 +238,9 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 - (void)createAccountWithUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
     NSURL *url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/account/create", _appIdentifier]];
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
-    request.username = user.userId;
-    request.password = user.password;
+    
+    NSDictionary *payload = [NSDictionary dictionaryWithObjectsAndKeys:user.userId, @"email", user.password, @"password", nil];
+    request.postBody = [[[payload yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding] mutableCopy];
 
     [self executeUserAccountRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode) {
         switch (httpResponseCode) {
@@ -265,14 +279,14 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
             NSLog(@"Unexpected response received from server during user account creation. Code %d, body: %@.", blockRequest.responseStatusCode, blockRequest.responseString);
         }
         
-        NSArray *messages = nil;
+        NSDictionary *responseBody = nil;
         if (blockRequest.responseString == nil || blockRequest.responseString.length == 0) {
-            messages = [[blockRequest.responseString yajl_JSON] objectForKey:@"errors"];
+            responseBody = [blockRequest.responseString yajl_JSON];
         } else {
-            messages = [NSArray array];
+            responseBody = [NSDictionary dictionary];
         }
 
-        callback(resultCode, messages);
+        callback(resultCode, responseBody);
     };
 
     [request setCompletionBlock:responseBlock];

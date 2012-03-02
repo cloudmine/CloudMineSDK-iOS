@@ -55,7 +55,7 @@ typedef void (^CMWebServiceFileUploadSuccessCallback)(CMFileUploadResult result)
  */
 typedef void (^CMWebServiceFileFetchSuccessCallback)(NSData *data, NSString *contentType);
 
-typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult result, NSArray *messages);
+typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult result, NSDictionary *responseBody);
 
 /**
  * Base class for all classes concerned with the communication between the client device and the CloudMine 
