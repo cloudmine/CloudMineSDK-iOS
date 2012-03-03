@@ -60,12 +60,10 @@
 
 - (void)setToken:(NSString *)theToken {
     @synchronized(self) {
-        if (theToken != nil) {
-            token = theToken;
+        token = theToken;
 
-            // Once a token is set, clear the password for security reasons.
-            self.password = nil;
-        }
+        // Once a token is set, clear the password for security reasons.
+        self.password = nil;
     }
 }
 
