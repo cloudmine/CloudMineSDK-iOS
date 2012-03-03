@@ -57,6 +57,8 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 
     if (self = [super init]) {
         self.networkQueue = [ASINetworkQueue queue];
+        self.networkQueue.shouldCancelAllRequestsOnFailure = NO;
+
         _appSecret = appSecret;
         _appIdentifier = appIdentifier;
     }
@@ -491,9 +493,10 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
             [[NSException exceptionWithName:@"CMInternalInconsistencyException" reason:@"You cannot construct a user-level CloudMine request when the user isn't logged in." userInfo:nil] raise];
             __builtin_unreachable();
         }
-        [request addRequestHeader:@"X-CloudMine-LoginToken" value:user.token];
+        [request addRequestHeader:CM_SESSIONTOKEN_HEADER value:user.token];
         request.shouldPresentCredentialsBeforeChallenge = YES;
         request.authenticationScheme = (NSString *)kCFHTTPAuthenticationSchemeBasic;
+        request.useSessionPersistence = NO;
     }
     [request addRequestHeader:CM_APIKEY_HEADER value:appSecret];
 
