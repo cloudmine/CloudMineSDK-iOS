@@ -88,6 +88,7 @@
 
             NSDateFormatter *df = [[NSDateFormatter alloc] init];
             [df setLenient:YES];
+            df.dateFormat = @"EEE',' dd MMM yyyy HH':'mm':'ss 'GMT'"; // RFC 1123 format
             blockSelf.tokenExpiration = [df dateFromString:[responseBody objectForKey:@"expires"]];
         }
 

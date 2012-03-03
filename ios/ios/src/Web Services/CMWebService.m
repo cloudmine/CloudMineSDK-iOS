@@ -359,11 +359,13 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
             NSLog(@"Unexpected response received from server during user account creation. Code %d, body: %@.", blockRequest.responseStatusCode, blockRequest.responseString);
         }
 
-        NSDictionary *responseBody = nil;
-        if (blockRequest.responseString == nil || blockRequest.responseString.length == 0) {
-            responseBody = [blockRequest.responseString yajl_JSON];
-        } else {
-            responseBody = [NSDictionary dictionary];
+        NSDictionary *responseBody = [NSDictionary dictionary];
+        if (blockRequest.responseString != nil) {
+            NSError *parseErr = nil;
+            NSDictionary *parsedResponseBody = [blockRequest.responseString yajl_JSON:&parseErr];
+            if (!parseErr && parsedResponseBody) {
+                responseBody = parsedResponseBody;
+            }
         }
 
         if (callback != nil) {
