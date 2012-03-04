@@ -22,9 +22,9 @@
 
 - (id)initWithUserId:(NSString *)theUserId andPassword:(NSString *)thePassword {
     if (self = [super init]) {
+        self.token = nil;
         self.userId = theUserId;
         self.password = thePassword;
-        self.token = nil;
         _webService = [[CMWebService alloc] init];
     }
     return self;
@@ -135,7 +135,25 @@
 }
 
 - (void)changePasswordTo:(NSString *)newPassword from:(NSString *)oldPassword callback:(CMUserOperationCallback)callback {
-
+    __unsafe_unretained CMUser *blockSelf = self;
+    
+    [_webService changePasswordForUser:self
+                           oldPassword:oldPassword
+                           newPassword:newPassword
+                              callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
+                                  if (result == CMUserAccountPasswordChangeSucceeded) {
+                                      blockSelf.password = newPassword;
+                                      
+                                      // Since the password change succeeded, the user needs to be logged back
+                                      // in again to get a new session token since the old one has been expired.
+                                      [blockSelf loginWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
+                                          callback(CMUserAccountPasswordChangeSucceeded, [NSArray array]);
+                                      }];
+                                  } else  {
+                                      callback(result, [NSArray array]);
+                                  }
+                              }
+     ];
 }
 
 - (void)resetForgottenPasswordWithCallback:(CMUserOperationCallback)callback {
