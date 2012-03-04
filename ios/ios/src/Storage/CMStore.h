@@ -28,11 +28,11 @@ extern NSString * const CMStoreObjectDeletedNotification;
 typedef enum {
     /** The ownership level could not be determined. This is usually because the object doesn't belong to a store. */
     CMObjectOwnershipUndefinedLevel = -1,
-    
+
     /** The object is app-level and is owned by no particular user. */
     CMObjectOwnershipAppLevel = 0,
-    
-    /** 
+
+    /**
      * The object is owned by a particular user, specifically the user of the store where the object is held.
      * @see CMStore#user
      */
@@ -42,7 +42,7 @@ typedef enum {
 /**
  * This is the high-level interface for interacting with remote objects stored on CloudMine.
  * Note that all the methods here that involve network operations are asynchronous to avoid blocking
- * your app's UI thread. Synchronous versions will come eventually for cases where you are managing a 
+ * your app's UI thread. Synchronous versions will come eventually for cases where you are managing a
  * number of threads and can guarantee that blocking network operations will execute on a background thread.
  *
  * All of the async methods in this class take a callback of type <tt>CMStoreObjectCallback</tt> that will
@@ -62,7 +62,7 @@ typedef enum {
 /** The <tt>CMWebService</tt> instance that backs this store */
 @property (nonatomic, strong) CMWebService *webService;
 
-/** 
+/**
  * The user to be used when accessing user-level objects. This is ignored for app-level objects.
  *
  * <b>Note:</b> Changing this from one user to another will cause all the cached objects associated with the first
@@ -135,7 +135,7 @@ typedef enum {
 - (void)allObjectsWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
 
 /**
- * Downloads all user-level objects for your app's CloudMine object store. The store must be configured 
+ * Downloads all user-level objects for your app's CloudMine object store. The store must be configured
  * with a user or else calling this method will throw an exception.
  *
  * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
@@ -162,7 +162,7 @@ typedef enum {
 - (void)objectsWithKeys:(NSArray *)keys additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
 
 /**
- * Downloads user-level objects for your app's CloudMine object store with the given keys. The store must be configured 
+ * Downloads user-level objects for your app's CloudMine object store with the given keys. The store must be configured
  * with a user or else calling this method will throw an exception.
  *
  * @param keys The keys of the objects you wish to download. Specifying a key for an object that does not exist will <b>not</b> cause an error.
@@ -193,7 +193,7 @@ typedef enum {
 - (void)allObjectsOfClass:(Class)klass additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
 
 /**
- * Downloads user-level objects of the given class from your app's CloudMine object store. The store must be configured 
+ * Downloads user-level objects of the given class from your app's CloudMine object store. The store must be configured
  * with a user or else calling this method will throw an exception.
  *
  * @param klass The class of the objects you want to download. <tt>[klass className]</tt> is called to determine the remote type.
@@ -221,7 +221,7 @@ typedef enum {
 - (void)searchObjects:(NSString *)query additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
 
 /**
- * Performs a search across all user-level objects in your app's CloudMine object store. The store must be configured 
+ * Performs a search across all user-level objects in your app's CloudMine object store. The store must be configured
  * with a user or else calling this method will throw an exception.
  *
  * @param query The search query to perform. This must conform to the syntax outlined in the CloudMine <a href="https://cloudmine.me/developer_zone#ref/query_syntax" target="_blank">documentation</a>.
@@ -247,7 +247,7 @@ typedef enum {
 - (void)fileWithName:(NSString *)name callback:(CMStoreFileFetchCallback)callback;
 
 /**
- * Downloads a user-level binary file from your app's CloudMine data store. The store must be configured 
+ * Downloads a user-level binary file from your app's CloudMine data store. The store must be configured
  * with a user or else calling this method will throw an exception.
  *
  * @param callback The callback to be triggered when the file is finished downloading.
@@ -300,7 +300,7 @@ typedef enum {
 - (void)saveAllAppObjectsWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
 
 /**
- * Saves all the user-objects in the store to your app's CloudMine data store. The store must be configured 
+ * Saves all the user-objects in the store to your app's CloudMine data store. The store must be configured
  * with a user or else calling this method will throw an exception.
  *
  * @param callback The callback to be triggered when all the objects are finished uploading.
@@ -313,7 +313,7 @@ typedef enum {
 - (void)saveAllUserObjects:(CMStoreObjectUploadCallback)callback;
 
 /**
- * Saves all the user-objects in the store to your app's CloudMine data store. The store must be configured 
+ * Saves all the user-objects in the store to your app's CloudMine data store. The store must be configured
  * with a user or else calling this method will throw an exception.
  *
  * @param options Use these options to specify a server-side function to call after persisting the objects. Only CMStoreOptions#serverSideFunction is used.
@@ -354,7 +354,7 @@ typedef enum {
 - (void)saveObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
 
 /**
- * Saves an individual object to your app's CloudMine data store at the user-level. The store must be configured 
+ * Saves an individual object to your app's CloudMine data store at the user-level. The store must be configured
  * with a user or else calling this method will throw an exception. If this object doesn't
  * already belong to this store, it will automatically be added as well. This has the additional effect of increasing
  * the object's retain count by 1 as well as setting its <tt>store</tt> property to this store.
@@ -371,7 +371,7 @@ typedef enum {
 - (void)saveUserObject:(CMObject *)theObject callback:(CMStoreObjectUploadCallback)callback;
 
 /**
- * Saves an individual object to your app's CloudMine data store at the user-level. The store must be configured 
+ * Saves an individual object to your app's CloudMine data store at the user-level. The store must be configured
  * with a user or else calling this method will throw an exception. If this object doesn't
  * already belong to this store, it will automatically be added as well. This has the additional effect of increasing
  * the object's retain count by 1 as well as setting its <tt>store</tt> property to this store.
@@ -414,7 +414,7 @@ typedef enum {
 - (void)saveFileAtURL:(NSURL *)url named:(NSString *)name callback:(CMStoreFileUploadCallback)callback;
 
 /**
- * Saves a file to your app's CloudMine data store at the user-level. The store must be configured 
+ * Saves a file to your app's CloudMine data store at the user-level. The store must be configured
  * with a user or else calling this method will throw an exception. This works by streaming the contents of the
  * file directly from the filesystem, thus never loading the file into memory. You must give the file a name that is
  * unique within your app's data store.
@@ -443,7 +443,7 @@ typedef enum {
 - (void)saveFileWithData:(NSData *)data named:(NSString *)name callback:(CMStoreFileUploadCallback)callback;
 
 /**
- * Saves a file to your app's CloudMine data store at the user-level. The store must be configured 
+ * Saves a file to your app's CloudMine data store at the user-level. The store must be configured
  * with a user or else calling this method will throw an exception. This uses the raw data of the file's contents
  * contained in an <tt>NSData</tt> object. You must give the file a name that is unique within your app's data store.
  *
@@ -469,7 +469,7 @@ typedef enum {
 - (void)deleteFileNamed:(NSString *)name callback:(CMStoreDeleteCallback)callback;
 
 /**
- * Deletes the given user-level file from your app's CloudMine data store. The store must be configured 
+ * Deletes the given user-level file from your app's CloudMine data store. The store must be configured
  * with a user or else calling this method will throw an exception.
  *
  * @param name The name of the file to delete.
@@ -482,7 +482,7 @@ typedef enum {
 - (void)deleteUserFileNamed:(NSString *)name callback:(CMStoreDeleteCallback)callback;
 
 /**
- * Deletes the given user-level object from your app's CloudMine data store and removes the object from this store. The store must be configured 
+ * Deletes the given user-level object from your app's CloudMine data store and removes the object from this store. The store must be configured
  * with a user or else calling this method will throw an exception.
  * This also triggers a notification of type <tt>CMStoreObjectDeletedNotification</tt> to subscribers of the store
  * so you can do any other necessary cleanup throughout your app. This notification is triggered <b>before</b> the object
@@ -508,7 +508,7 @@ typedef enum {
 - (void)deleteObjects:(NSArray *)objects callback:(CMStoreDeleteCallback)callback;
 
 /**
- * Deletes all the given user-level objects from your app's CloudMine data store and removes the object from this store. The store must be configured 
+ * Deletes all the given user-level objects from your app's CloudMine data store and removes the object from this store. The store must be configured
  * with a user or else calling this method will throw an exception.
  * This also triggers a notification of type <tt>CMStoreObjectDeletedNotification</tt> to subscribers of the store
  * so you can do any other necessary cleanup throughout your app. This notification is triggered <b>before</b> the objects
@@ -533,7 +533,7 @@ typedef enum {
 
 /**
  * Adds a user-level object to this store. Doing this also sets the object's <tt>store</tt> property to this store.
- * No persistence is performed as a result of calling this method. The store must be configured 
+ * No persistence is performed as a result of calling this method. The store must be configured
  * with a user or else calling this method will throw an exception. <b>This method is thread-safe</b>.
  *
  * @param theObject The object to add.

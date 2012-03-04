@@ -18,13 +18,13 @@ typedef enum {
     CMUserAccountCreateSucceeded,
     CMUserAccountPasswordChangeSucceeded,
     CMUserAccountPasswordResetEmailSent,
-    
+
     CMUserAccountCreateFailedInvalidRequest,
     CMUserAccountCreateFailedDuplicateAccount,
     CMUserAccountLoginFailedIncorrectCredentials,
     CMUserAccountPasswordChangeFailedInvalidCredentials,
     CMUserAccountOperationFailedUnknownAccount
-    
+
 } CMUserAccountResult;
 
 static inline BOOL CMUserAccountOperationSuccessful(CMUserAccountResult resultCode) {

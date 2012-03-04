@@ -11,7 +11,7 @@
  */
 
 /**
- * To distinguish between dictionary representation and an actual dictionary object 
+ * To distinguish between dictionary representation and an actual dictionary object
  * on the client side, this special classname is used to represent the latter.
  */
 #define CMInternalHashClassName @"map"

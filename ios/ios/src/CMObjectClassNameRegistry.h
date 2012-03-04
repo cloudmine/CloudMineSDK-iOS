@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 /**
- * The registry that tracks all the custom class names you've registered by overriding +className in 
+ * The registry that tracks all the custom class names you've registered by overriding +className in
  * your subclasses of <tt>CMObject</tt>. This is a singleton. <b>Do not call <tt>init</tt></b>. Instead use
  * <tt>+sharedInstance</tt> to get the instance of this class.
  *

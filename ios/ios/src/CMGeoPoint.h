@@ -13,7 +13,7 @@
 extern NSString * const CMGeoPointClassName;
 
 @interface CMGeoPoint : CMObject {
-    
+
 }
 
 /**

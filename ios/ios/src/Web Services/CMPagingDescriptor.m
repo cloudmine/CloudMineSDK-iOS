@@ -52,16 +52,16 @@ NSString * const CMPagingDescriptorCountKey = @"count";
 
 - (NSDictionary *)dictionaryRepresentation {
     return [NSDictionary dictionaryWithObjectsAndKeys:
-            
+
             [NSNumber numberWithUnsignedInteger:self.limit],
             CMPagingDescriptorLimitKey,
-            
+
             [NSNumber numberWithInteger:self.skip],
             CMPagingDescriptorSkipKey,
-            
+
             [NSNumber numberWithBool:self.includeCount],
             CMPagingDescriptorCountKey,
-            
+
             nil];
 }
 
@@ -69,7 +69,7 @@ NSString * const CMPagingDescriptorCountKey = @"count";
     NSString *limitString = [NSString stringWithFormat:@"%@=%i", CMPagingDescriptorLimitKey, limit];
     NSString *skipString = [NSString stringWithFormat:@"%@=%i", CMPagingDescriptorSkipKey, skip];
     NSString *countString = [NSString stringWithFormat:@"%@=%@", CMPagingDescriptorCountKey, includeCount ? @"true" : @"false"];
-    
+
     return [[NSArray arrayWithObjects:limitString, skipString, countString, nil] componentsJoinedByString:@"&"];
 }
 

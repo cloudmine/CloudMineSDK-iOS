@@ -33,7 +33,7 @@ NSString * const CMGeoPointClassName = @"geopoint";
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
-    return [self initWithLatitude:[aDecoder decodeDoubleForKey:@"latitude"] 
+    return [self initWithLatitude:[aDecoder decodeDoubleForKey:@"latitude"]
                      andLongitude:[aDecoder decodeDoubleForKey:@"longitude"]];
 }
 

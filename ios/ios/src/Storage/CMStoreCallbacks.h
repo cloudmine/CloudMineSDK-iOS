@@ -21,7 +21,7 @@ typedef void (^CMStoreObjectFetchCallback)(NSArray *objects, NSDictionary *error
 
 /**
  * Callback block signature for all operations on <tt>CMStore</tt> that upload objects
- * to the CloudMine servers. This block should return <tt>void</tt> and take one parameter, 
+ * to the CloudMine servers. This block should return <tt>void</tt> and take one parameter,
  * a dictionary mapping object or file names to success status messages (such as "updated", "created", etc),
  */
 typedef void (^CMStoreObjectUploadCallback)(NSDictionary *uploadStatuses);

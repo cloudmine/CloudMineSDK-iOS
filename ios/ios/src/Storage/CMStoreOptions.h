@@ -12,7 +12,7 @@
 @class CMServerFunction;
 
 /**
- * This object describes additional configuration you can pass to a <tt>CMStore</tt> to customize how it 
+ * This object describes additional configuration you can pass to a <tt>CMStore</tt> to customize how it
  * runs. See each property in this class for information on what is customizable.
  */
 @interface CMStoreOptions : NSObject

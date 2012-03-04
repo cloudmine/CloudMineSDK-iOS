@@ -136,14 +136,14 @@
 
 - (void)changePasswordTo:(NSString *)newPassword from:(NSString *)oldPassword callback:(CMUserOperationCallback)callback {
     __unsafe_unretained CMUser *blockSelf = self;
-    
+
     [_webService changePasswordForUser:self
                            oldPassword:oldPassword
                            newPassword:newPassword
                               callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
                                   if (result == CMUserAccountPasswordChangeSucceeded) {
                                       blockSelf.password = newPassword;
-                                      
+
                                       // Since the password change succeeded, the user needs to be logged back
                                       // in again to get a new session token since the old one has been expired.
                                       [blockSelf loginWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {

@@ -20,11 +20,11 @@ static NSDictionary *_mimeTypeExtensionMappings = nil;
     if (_mimeTypeExtensionMappings == nil) {
         [self loadMimeTypes];
     }
-    
+
     if (![[extension substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"."]) {
         extension = [NSString stringWithFormat:@".%@", extension];
     }
-    
+
     return [[_mimeTypeExtensionMappings objectForKey:extension] copy];
 }
 
@@ -94,7 +94,7 @@ static NSDictionary *_mimeTypeExtensionMappings = nil;
                                       @"audio/wav", @".wav",
                                       @"audio/wav", @".wave",
                                       @"audio/x-ms-wax", @".wax",
-                                      @"audio/x-ms-wma", @".wma", 
+                                      @"audio/x-ms-wma", @".wma",
                                       nil];
     }
 }

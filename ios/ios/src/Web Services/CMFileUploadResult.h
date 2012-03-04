@@ -14,11 +14,11 @@
 typedef enum {
     /** An error ocurred when uploading the file */
     CMFileUploadFailed = -1,
-    
+
     /** File was created new on the server */
     CMFileCreated = 0,
-    
+
     /** File previously existed on server and was replaced with new content */
     CMFileUpdated
-    
+
 } CMFileUploadResult;

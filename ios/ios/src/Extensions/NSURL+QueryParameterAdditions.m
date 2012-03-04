@@ -14,7 +14,7 @@
     if (![queryString length]) {
         return self;
     }
-    
+
     NSString *URLString = [[NSString alloc] initWithFormat:@"%@%@%@", [self absoluteString],
                            [self query] ? @"&" : @"?", queryString];
     return [NSURL URLWithString:[URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];

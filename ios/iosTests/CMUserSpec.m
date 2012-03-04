@@ -21,12 +21,12 @@ describe(@"CMUser", ^{
            [user.token shouldBeNil];
        });
    });
-    
+
     context(@"given a session token", ^{
         it(@"should no longer maintain a copy of the password", ^{
             CMUser *user = [[CMUser alloc] initWithUserId:@"someone@domain.com" andPassword:@"pass"];
             user.token = @"token";
-            
+
             [[user.userId should] equal:@"someone@domain.com"];
             [user.password shouldBeNil];
             [[user.token should] equal:@"token"];

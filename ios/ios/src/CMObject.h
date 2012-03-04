@@ -50,7 +50,7 @@
 - (id)initWithObjectId:(NSString *)theObjectId;
 
 /**
- * Initializes this user-level object with the given object ID and <tt>CMUser</tt>. 
+ * Initializes this user-level object with the given object ID and <tt>CMUser</tt>.
  * Note that the object ID MUST be unique throughout your app.
  */
 - (id)initWithObjectId:(NSString *)theObjectId user:(CMUser *)theUser;
@@ -64,7 +64,7 @@
 - (id)initWithCoder:(NSCoder *)aDecoder;
 
 /**
- * Default behavior does nothing. Override this in your subclasses to define logic 
+ * Default behavior does nothing. Override this in your subclasses to define logic
  * for serializing instances of each subclass for remote storage.
  *
  * @see CMSerializable

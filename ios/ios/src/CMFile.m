@@ -95,7 +95,7 @@ NSString * const _mimeTypeKey = @"mime";
         // Store user-level and app-level files in different locations.
         NSString *subdirectory = [self isUserLevel] ? @"cmUserFiles" : @"cmFiles";
         cacheDirUrl = [cacheDirUrl URLByAppendingPathComponent:subdirectory];
-        
+
         // Create the app-level or user-level subdirectory if it doesn't already exist.
         [[NSFileManager defaultManager] createDirectoryAtURL:cacheDirUrl
                                  withIntermediateDirectories:YES
@@ -104,7 +104,7 @@ NSString * const _mimeTypeKey = @"mime";
         NSString *cacheFileName = [NSString stringWithFormat:@"%@_%@", uuid, fileName];
         cacheLocation = [cacheDirUrl URLByAppendingPathComponent:cacheFileName];
     }
-    
+
     return cacheLocation;
 }
 

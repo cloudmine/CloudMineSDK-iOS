@@ -35,7 +35,7 @@ typedef void (^CMWebServiceObjectFetchSuccessCallback)(NSDictionary *results, NS
 
 /**
  * Callback block signature for <b>all</b> operations on <tt>CMStore</tt> that can fail. These are general
- * errors that cause the entire call to fail, not key-specific errors (which are reported instead in 
+ * errors that cause the entire call to fail, not key-specific errors (which are reported instead in
  * the <tt>errors</tt> dictionary in the <tt>CMWebServiceObjectFetchSuccessCallback</tt> callback block).
  * The block returns <tt>void</tt> and takes an <tt>NSError</tt> describing the error as an argument.
  */
@@ -58,7 +58,7 @@ typedef void (^CMWebServiceFileFetchSuccessCallback)(NSData *data, NSString *con
 typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult result, NSDictionary *responseBody);
 
 /**
- * Base class for all classes concerned with the communication between the client device and the CloudMine 
+ * Base class for all classes concerned with the communication between the client device and the CloudMine
  * web services.
  */
 @interface CMWebService : NSObject {
@@ -75,7 +75,7 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
 @property (nonatomic, strong) ASINetworkQueue *networkQueue;
 
 /**
- * Default initializer for the web service connector. You <strong>must</strong> have already configured the 
+ * Default initializer for the web service connector. You <strong>must</strong> have already configured the
  * <tt>CMUserCredentials</tt> singleton or an exception will be thrown.
  *
  * @throws NSInternalInconsistencyException <tt>CMUserCredentials</tt> has not been configured.
@@ -88,7 +88,7 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
 - (id)initWithAppSecret:(NSString *)appSecret appIdentifier:(NSString *)appIdentifier;
 
 /**
- * Asynchronously retrieve objects for the named user-level keys. On completion, the <tt>successHandler</tt> block 
+ * Asynchronously retrieve objects for the named user-level keys. On completion, the <tt>successHandler</tt> block
  * will be called with a dictionary of the objects retrieved as well as a dictionary of the key-related errors returned from the server.
  *
  * @param keys The keys to fetch.
@@ -97,22 +97,22 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
  * @param successHandler The block to be called when the objects have been populated.
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
  */
-- (void)getValuesForKeys:(NSArray *)keys  
+- (void)getValuesForKeys:(NSArray *)keys
       serverSideFunction:(CMServerFunction *)function
            pagingOptions:(CMPagingDescriptor *)paging
                     user:(CMUser *)user
-          successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler 
+          successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
             errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
 - (void)searchValuesFor:(NSString *)searchQuery
      serverSideFunction:(CMServerFunction *)function
           pagingOptions:(CMPagingDescriptor *)paging
                    user:(CMUser *)user
-         successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler 
+         successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
            errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
 /**
- * Asynchronously retrieve a binary file for the named user-leve key. On completion, the <tt>successHandler</tt> block 
+ * Asynchronously retrieve a binary file for the named user-leve key. On completion, the <tt>successHandler</tt> block
  * will be called with the raw data from the server.
  *
  * @param keys The key of the binary file to fetch.
@@ -122,11 +122,11 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
  */
 - (void)getBinaryDataNamed:(NSString *)key
                       user:(CMUser *)user
-            successHandler:(CMWebServiceFileFetchSuccessCallback)successHandler 
+            successHandler:(CMWebServiceFileFetchSuccessCallback)successHandler
               errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
 /**
- * Asynchronously update one or more objects for the user-level keys included in <tt>data</tt>. On completion, the <tt>successHandler</tt>  
+ * Asynchronously update one or more objects for the user-level keys included in <tt>data</tt>. On completion, the <tt>successHandler</tt>
  * block will be called with a dictionary of the keys of the objects that were created and updated as well as a dictionary of the
  * key-related errors returned from the server.
  *
@@ -136,15 +136,15 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
  * @param successHandler The block to be called when the objects have been populated.
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
  */
-- (void)updateValuesFromDictionary:(NSDictionary *)data 
+- (void)updateValuesFromDictionary:(NSDictionary *)data
                 serverSideFunction:(CMServerFunction *)function
-                              user:(CMUser *)user 
-                    successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler 
+                              user:(CMUser *)user
+                    successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
                       errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
 /**
  * Asynchronously upload the raw binary data contained in <tt>data</tt> with an optional MIME type as a user-level object.
- * On completion, the <tt>successHandler</tt> block will be called with a status code indicating 
+ * On completion, the <tt>successHandler</tt> block will be called with a status code indicating
  * whether a file with the given key previously existed on the server or had to be created new.
  *
  * @param data The raw binary data of the file to upload.
@@ -158,16 +158,16 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
                    named:(NSString *)key
               ofMimeType:(NSString *)mimeType
                     user:(CMUser *)user
-          successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler 
+          successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler
             errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
 /**
  * Asynchronously upload the raw binary data contained in the file stored at the path specified by <tt>path</tt> with an optional
- * MIME type as an user-level object. Unlike its cousin method <tt>uploadBinaryData:</tt>, this method streams the contents of 
+ * MIME type as an user-level object. Unlike its cousin method <tt>uploadBinaryData:</tt>, this method streams the contents of
  * the file directly from the filesystem without first loading it into RAM, making it perfect for uploading large files
  * on the filesystem efficiently.
- * 
- * On completion, the <tt>successHandler</tt> block will be called with a status code indicating 
+ *
+ * On completion, the <tt>successHandler</tt> block will be called with a status code indicating
  * whether a file with the given key previously existed on the server or had to be created new.
  *
  * @param path The path to the file to upload.
@@ -181,11 +181,11 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
                    named:(NSString *)key
               ofMimeType:(NSString *)mimeType
                     user:(CMUser *)user
-          successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler 
+          successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler
             errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
 /**
- * Asynchronously create or replace one or more objects for the values of the user-level keys included in <tt>data</tt>. On completion, the <tt>successHandler</tt>  
+ * Asynchronously create or replace one or more objects for the values of the user-level keys included in <tt>data</tt>. On completion, the <tt>successHandler</tt>
  * block will be called with a dictionary of the keys of the objects that were created and replaced as well as a dictionary of the
  * key-related errors returned from the server.
  *
@@ -199,14 +199,14 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
  * @param successHandler The block to be called when the objects have been populated.
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
  */
-- (void)setValuesFromDictionary:(NSDictionary *)data  
+- (void)setValuesFromDictionary:(NSDictionary *)data
              serverSideFunction:(CMServerFunction *)function
-                           user:(CMUser *)user 
-                 successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler 
+                           user:(CMUser *)user
+                 successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
                    errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
 /**
- * Asynchronously delete objects for the named user-level keys. On completion, the <tt>successHandler</tt> block 
+ * Asynchronously delete objects for the named user-level keys. On completion, the <tt>successHandler</tt> block
  * will be called.
  *
  * For the sake of consistency, <tt>results</tt> and <tt>errors</tt> will be sent to the callback like with all the other methods in this class,
@@ -217,9 +217,9 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
  * @param successHandler The block to be called when the objects have been populated.
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
  */
-- (void)deleteValuesForKeys:(NSArray *)keys 
-                       user:(CMUser *)user 
-             successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler 
+- (void)deleteValuesForKeys:(NSArray *)keys
+                       user:(CMUser *)user
+             successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
                errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
 

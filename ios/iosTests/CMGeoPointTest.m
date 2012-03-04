@@ -54,7 +54,7 @@ describe(@"CMGeoPoint", ^{
         [[theValue(point.latitude) should] equal:theValue(latitudeInDegrees)];
         [[theValue(point.longitude) should] equal:theValue(longitudeInDegrees)];
     });
-    
+
     it(@"should encode into a dictionary with latitude and longitude", ^{
         double lat = 47.33;
         double lon = -72.394;
@@ -64,16 +64,16 @@ describe(@"CMGeoPoint", ^{
         [[[serializedObject objectForKey:@"longitude"] should] equal:theValue(lon)];
         [[[serializedObject objectForKey:@"__type__"] should] equal:@"geopoint"];
     });
-    
+
     /**
-     * Note: This test relies on the proper functioning of <tt>CMObjectEncoder</tt> to 
+     * Note: This test relies on the proper functioning of <tt>CMObjectEncoder</tt> to
      * generate the original dictionary representation of the object and to test
      * the symmetry of the encode/decode methods.
      */
     it(@"should decode from a dictionary representation into an object correctly", ^{
         CMGeoTestingObject *obj = [[CMGeoTestingObject alloc] init];
         NSDictionary *encodedObj = [CMObjectEncoder encodeObjects:[NSSet setWithObject:obj]];
-        
+
         CMGeoPoint *point = [[[CMObjectDecoder decodeObjects:encodedObj] objectAtIndex:0] loc];
         [[theValue(point.latitude) should] equal:theValue(47.33)];
         [[theValue(point.longitude) should] equal: theValue(-72.394)];

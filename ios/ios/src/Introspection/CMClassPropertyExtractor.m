@@ -14,13 +14,13 @@
 
 @implementation CMClassPropertyExtractor
 
-+ (NSSet *)propertiesForClass:(Class)klass {    
++ (NSSet *)propertiesForClass:(Class)klass {
     if (klass == NULL) {
         return nil;
     }
-    
+
     NSMutableSet *results = [[NSMutableSet alloc] init];
-    
+
     unsigned int outCount, i;
     objc_property_t *properties = class_copyPropertyList(klass, &outCount);
     for (i = 0; i < outCount; i++) {
@@ -32,7 +32,7 @@
         }
     }
     free(properties);
-    
+
     return results;
 }
 

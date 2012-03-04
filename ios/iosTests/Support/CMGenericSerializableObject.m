@@ -22,7 +22,7 @@
                             [NSNumber numberWithBool:YES],
                             [NSNumber numberWithBool:NO], nil];
     self.date = [[CMDate alloc] initWithDate:[NSDate date]];
-    
+
     //TODO: Uncomment when server-side support for object relationships is done.
 
 //    self.nestedObject = [[[self class] alloc] init];
@@ -51,7 +51,7 @@
     [aCoder encodeInt:self.simpleInt forKey:@"simpleInt"];
     [aCoder encodeObject:self.arrayOfBooleans forKey:@"arrayOfBooleans"];
     [aCoder encodeObject:self.date forKey:@"date"];
-    
+
     //TODO: Uncomment when server-side support for object relationships is done.
     if (self.nestedObject)
         [aCoder encodeObject:self.nestedObject forKey:@"nestedObject"];
@@ -64,7 +64,7 @@
         self.simpleInt = [aDecoder decodeIntForKey:@"simpleInt"];
         self.arrayOfBooleans = [aDecoder decodeObjectForKey:@"arrayOfBooleans"];
         self.date = [aDecoder decodeObjectForKey:@"date"];
-        
+
         //TODO: Uncomment when server-side support for object relationships is done.
 //        self.nestedObject = [aDecoder decodeObjectForKey:@"nestedObject"];
     }
