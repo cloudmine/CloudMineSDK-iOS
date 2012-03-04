@@ -11,6 +11,7 @@
 
 #import "CMFile.h"
 #import "CMUser.h"
+#import "CMAPICredentials.h"
 
 SPEC_BEGIN(CMFileSpec)
 
@@ -36,10 +37,21 @@ describe(@"CMFile", ^{
 
     context(@"given a user-level CMFile instance", ^{
         beforeEach(^{
+            [[CMAPICredentials sharedInstance] setAppIdentifier:@"appid1234"];
+            [[CMAPICredentials sharedInstance] setAppSecret:@"appsecret1234"];
+            
+            CMUser *user = [[CMUser alloc] initWithUserId:@"uid" andPassword:@"pw"];
+            user.token = @"token";
+            user.tokenExpiration = [NSDate dateWithTimeIntervalSinceNow:9999];
             file = [[CMFile alloc] initWithData:[NSMutableData randomDataWithLength:100]
                                           named:@"foofile"
-                                belongingToUser:[[CMUser alloc] initWithUserId:@"uid" andPassword:@"pw"]
+                                belongingToUser:user
                                        mimeType:nil];
+        });
+        
+        afterAll(^{
+            [[CMAPICredentials sharedInstance] setAppIdentifier:nil];
+            [[CMAPICredentials sharedInstance] setAppSecret:nil];
         });
 
         it(@"it should calculate the cache file location correctly", ^{

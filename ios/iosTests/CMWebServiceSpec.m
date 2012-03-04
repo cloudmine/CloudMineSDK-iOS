@@ -192,7 +192,7 @@ describe(@"CMWebService", ^{
                 [[request.url should] equal:expectedUrl];
                 [request.username shouldBeNil];
                 [request.password shouldBeNil];
-                [[[[request requestHeaders] objectForKey:@"X-CloudMine-LoginToken"] should] equal:creds.token];
+                [[[[request requestHeaders] objectForKey:@"X-CloudMine-SessionToken"] should] equal:creds.token];
                 [[[[request requestHeaders] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
             } forSelector:@selector(addOperation:)];
 
@@ -227,7 +227,7 @@ describe(@"CMWebService", ^{
                 [[request.url should] equal:expectedUrl];
                 [request.username shouldBeNil];
                 [request.password shouldBeNil];
-                [[[[request requestHeaders] objectForKey:@"X-CloudMine-LoginToken"] should] equal:creds.token];
+                [[[[request requestHeaders] objectForKey:@"X-CloudMine-SessionToken"] should] equal:creds.token];
                 [[request.requestMethod should] equal:@"GET"];
                 [[[[request requestHeaders] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
             } forSelector:@selector(addOperation:)];
@@ -259,7 +259,7 @@ describe(@"CMWebService", ^{
                 [[request.url should] equal:expectedUrl];
                 [request.username shouldBeNil];
                 [request.password shouldBeNil];
-                [[[[request requestHeaders] objectForKey:@"X-CloudMine-LoginToken"] should] equal:creds.token];
+                [[[[request requestHeaders] objectForKey:@"X-CloudMine-SessionToken"] should] equal:creds.token];
                 [[request.requestMethod should] equal:@"GET"];
                 [[[[request requestHeaders] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
             } forSelector:@selector(addOperation:)];
@@ -368,7 +368,7 @@ describe(@"CMWebService", ^{
                 [[request.url should] equal:expectedUrl];
                 [request.username shouldBeNil];
                 [request.password shouldBeNil];
-                [[[[request requestHeaders] objectForKey:@"X-CloudMine-LoginToken"] should] equal:creds.token];
+                [[[[request requestHeaders] objectForKey:@"X-CloudMine-SessionToken"] should] equal:creds.token];
                 [[request.requestMethod should] equal:@"POST"];
                 [[[[request requestHeaders] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
                 [[[request.postBody yajl_JSON] should] equal:dataToPost];
@@ -411,7 +411,7 @@ describe(@"CMWebService", ^{
             [[request.postBody should] equal:data];
             [request.username shouldBeNil];
             [request.password shouldBeNil];
-            [[[[request requestHeaders] objectForKey:@"X-CloudMine-LoginToken"] should] equal:creds.token];
+            [[[[request requestHeaders] objectForKey:@"X-CloudMine-SessionToken"] should] equal:creds.token];
         } forSelector:@selector(addOperation:)];
 
         // Validate the request when it's pushed onto the network queue so
@@ -483,7 +483,7 @@ describe(@"CMWebService", ^{
                 [[request.url should] equal:expectedUrl];
                 [request.username shouldBeNil];
                 [request.password shouldBeNil];
-                [[[[request requestHeaders] objectForKey:@"X-CloudMine-LoginToken"] should] equal:creds.token];
+                [[[[request requestHeaders] objectForKey:@"X-CloudMine-SessionToken"] should] equal:creds.token];
                 [[request.requestMethod should] equal:@"PUT"];
                 [[[[request requestHeaders] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
                 [[[request.postBody yajl_JSON] should] equal:dataToPost];
@@ -576,7 +576,7 @@ describe(@"CMWebService", ^{
                 [[request.url should] equal:expectedUrl];
                 [request.username shouldBeNil];
                 [request.password shouldBeNil];
-                [[[[request requestHeaders] objectForKey:@"X-CloudMine-LoginToken"] should] equal:creds.token];
+                [[[[request requestHeaders] objectForKey:@"X-CloudMine-SessionToken"] should] equal:creds.token];
                 [[request.requestMethod should] equal:@"DELETE"];
                 [[[[request requestHeaders] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
             } forSelector:@selector(addOperation:)];
@@ -609,7 +609,7 @@ describe(@"CMWebService", ^{
                 [[request.url should] equal:expectedUrl];
                 [request.username shouldBeNil];
                 [request.password shouldBeNil];
-                [[[[request requestHeaders] objectForKey:@"X-CloudMine-LoginToken"] should] equal:creds.token];
+                [[[[request requestHeaders] objectForKey:@"X-CloudMine-SessionToken"] should] equal:creds.token];
                 [[request.requestMethod should] equal:@"DELETE"];
                 [[[[request requestHeaders] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
             } forSelector:@selector(addOperation:)];
@@ -645,7 +645,7 @@ describe(@"CMWebService", ^{
                 [request.username shouldBeNil];
                 [request.password shouldBeNil];
                 [[[[request requestHeaders] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
-                [[[request requestHeaders] objectForKey:@"X-CloudMine-LoginToken"] shouldBeNil];
+                [[[request requestHeaders] objectForKey:@"X-CloudMine-SessionToken"] shouldBeNil];
                 [[[request.postBody yajl_JSON] should] equal:[@"{\"email\": \"test@domain.com\", \"password\":\"pass\"}" yajl_JSON]];
             } forSelector:@selector(addOperation:)];
 
@@ -729,7 +729,7 @@ describe(@"CMWebService", ^{
                 [[request.username should] equal:user.userId];
                 [[request.password should] equal:user.password];
                 [[[[request requestHeaders] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
-                [[[request requestHeaders] objectForKey:@"X-CloudMine-LoginToken"] shouldBeNil];
+                [[[request requestHeaders] objectForKey:@"X-CloudMine-SessionToken"] shouldBeNil];
             } forSelector:@selector(addOperation:)];
 
             // Validate the request when it's pushed onto the network queue so
@@ -748,6 +748,7 @@ describe(@"CMWebService", ^{
             NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/login", appId]];
             CMUser *user = [[CMUser alloc] initWithUserId:@"test@domain.com" andPassword:@"pass"];
             user.token = @"token";
+            user.tokenExpiration = [NSDate dateWithTimeIntervalSinceNow:9999];
 
             id spy = [[CMBlockValidationMessageSpy alloc] init];
             [spy addValidationBlock:^(NSInvocation *invocation) {
