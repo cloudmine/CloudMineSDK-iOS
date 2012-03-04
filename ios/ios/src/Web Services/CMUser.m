@@ -157,7 +157,9 @@
 }
 
 - (void)resetForgottenPasswordWithCallback:(CMUserOperationCallback)callback {
-
+    [_webService resetForgottenPasswordForUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
+        callback(result, [NSArray array]);
+    }];
 }
 
 @end
