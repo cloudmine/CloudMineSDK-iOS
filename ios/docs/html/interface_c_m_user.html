@@ -92,18 +92,294 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a40e4ab0f15f843df2d9d03be03685762"></a><!-- doxytag: member="CMUser::initWithUserId:andPassword:" ref="a40e4ab0f15f843df2d9d03be03685762" args="(NSString *userId,[andPassword] NSString *password)" -->
-(id)&#160;</td><td class="memItemRight" valign="bottom">- <b>initWithUserId:andPassword:</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">(id)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_user.html#a40e4ab0f15f843df2d9d03be03685762">initWithUserId:andPassword:</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_user.html#a3051b10f7ec22fa1a7064ad8d97b1c73">loginWithCallback:</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_user.html#aadef7929e7f621df7d08c97b11195e97">logoutWithCallback:</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_user.html#a75cc2286b78639d55992ee35a5a98ad9">createAccountWithCallback:</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_user.html#adc2b15ea9176fb8756ab1492974c79d6">createAccountAndLoginWithCallback:</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_user.html#a99b30d2883f01db177619893155308ad">changePasswordTo:from:callback:</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_user.html#a7d923bd10ddc116d5f39c9b64899ec1e">resetForgottenPasswordWithCallback:</a></td></tr>
 <tr><td colspan="2"><h2><a name="properties"></a>
 Properties</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">NSString *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_c_m_user.html#aae1ccbb80ad2e0627ea3c0154fe8b822">userId</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">NSString *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_c_m_user.html#ac2491f631569e280b4114df4252bb507">password</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">NSString *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_c_m_user.html#ae2dc1c3d94fdc3bdddce1d18ca2b783d">token</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">NSDate *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_c_m_user.html#a63988bb36f7095fa8cc570fff5d77fc3">tokenExpiration</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">BOOL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_c_m_user.html#a71d8b0ea64535a5b3099da6771b4b160">isLoggedIn</a></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
-<div class="textblock"><p>Basic container class for a user's identifier and password. </p>
+<div class="textblock"><p>Representation of an end-user in CloudMine. This class manages session state (i.e. tokens and all that). </p>
 
-<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00014">14</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
-</div><hr/><h2>Property Documentation</h2>
+<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00027">27</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
+</div><hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a99b30d2883f01db177619893155308ad"></a><!-- doxytag: member="CMUser::changePasswordTo:from:callback:" ref="a99b30d2883f01db177619893155308ad" args="(NSString *newPassword,[from] NSString *oldPassword,[callback] CMUserOperationCallback callback)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) changePasswordTo: </td>
+          <td></td>
+          <td class="paramtype">(NSString *)&#160;</td>
+          <td class="paramname"><em>newPassword</em></td>
+        </tr>
+        <tr>
+          <td class="paramkey">from:</td>
+          <td></td>
+          <td class="paramtype">(NSString *)&#160;</td>
+          <td class="paramname"><em>oldPassword</em></td>
+        </tr>
+        <tr>
+          <td class="paramkey">callback:</td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="_c_m_user_8h.html#a103162e6c8dfb13dea703dc3d31664a8">CMUserOperationCallback</a>)&#160;</td>
+          <td class="paramname"><em>callback</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Asynchronously change the password for this user. For security purposes, you must have the user enter his or her old password and new password in order to perform this operation. This operation will succeed regardless of whether the user's <code><a class="el" href="interface_c_m_user.html">CMUser</a></code> instance is logged in or not. On completion, the <code>callback</code> block will be called with the result of the operation and any messages returned by the server contained in an array. See the CloudMine documentation online for the possible contents of this array.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="interface_c_m_user.html#a7d923bd10ddc116d5f39c9b64899ec1e">- resetForgottenPasswordWithCallback:</a> instead if if the user has forgotten his or her <a class="el" href="interface_c_m_user.html#ac2491f631569e280b4114df4252bb507">password</a></dd></dl>
+<p>Possible result codes:</p>
+<ul>
+<li><code>CMUserAccountPasswordChangeSucceeded</code></li>
+<li><code>CMUserAccountPasswordChangeFailedInvalidCredentials</code></li>
+<li><code>CMUserAccountOperationFailedUnknownAccount</code></li>
+</ul>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">callback</td><td>The block that will be called on completion of the operation.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138ee">CMUserAccountResult</a> </dd>
+<dd>
+<a href="https://cloudmine.me/developer_zone#ref/password_change">https://cloudmine.me/developer_zone#ref/password_change</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="adc2b15ea9176fb8756ab1492974c79d6"></a><!-- doxytag: member="CMUser::createAccountAndLoginWithCallback:" ref="adc2b15ea9176fb8756ab1492974c79d6" args="(CMUserOperationCallback callback)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) createAccountAndLoginWithCallback: </td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="_c_m_user_8h.html#a103162e6c8dfb13dea703dc3d31664a8">CMUserOperationCallback</a>)&#160;</td>
+          <td class="paramname"><em>callback</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>A convenient method to create an account for the user if it doesn't already exist, and then log the user in if the account was successfully created or already existed. On completion, the <code>callback</code> block will be called with the result of the operation and any messages returned by the server contained in an array. See the CloudMine documentation online for the possible contents of this array.</p>
+<p>Possible result codes:</p>
+<ul>
+<li><code>CMUserAccountLoginSucceeded</code></li>
+<li><code>CMUserAccountLoginFailedIncorrectCredentials</code> (if the account already exists and the supplied credentials are incorrect)</li>
+</ul>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">callback</td><td>The block that will be called on completion of the operation. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a75cc2286b78639d55992ee35a5a98ad9"></a><!-- doxytag: member="CMUser::createAccountWithCallback:" ref="a75cc2286b78639d55992ee35a5a98ad9" args="(CMUserOperationCallback callback)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) createAccountWithCallback: </td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="_c_m_user_8h.html#a103162e6c8dfb13dea703dc3d31664a8">CMUserOperationCallback</a>)&#160;</td>
+          <td class="paramname"><em>callback</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Asynchronously create a new account for the user on CloudMine. This must be done once for each user before they can login. On completion, the <code>callback</code> block will be called with the result of the operation and any messages returned by the server contained in an array. See the CloudMine documentation online for the possible contents of this array.</p>
+<p>Note that this method simply creates the user account; it does not log the user in. </p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="interface_c_m_user.html#adc2b15ea9176fb8756ab1492974c79d6">- createAccountAndLoginWithCallback:</a> for a convenience method that creates and logs the user in at the same time.</dd></dl>
+<p>Possible result codes:</p>
+<ul>
+<li><code>CMUserAccountCreateSucceeded</code></li>
+<li><code>CMUserAccountCreateFailedInvalidRequest</code></li>
+<li><code>CMUserAccountCreateFailedDuplicateAccount</code></li>
+</ul>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">callback</td><td>The block that will be called on completion of the operation.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138ee">CMUserAccountResult</a> </dd>
+<dd>
+<a href="https://cloudmine.me/developer_zone#ref/account_create">https://cloudmine.me/developer_zone#ref/account_create</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a40e4ab0f15f843df2d9d03be03685762"></a><!-- doxytag: member="CMUser::initWithUserId:andPassword:" ref="a40e4ab0f15f843df2d9d03be03685762" args="(NSString *userId,[andPassword] NSString *password)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (id) initWithUserId: </td>
+          <td></td>
+          <td class="paramtype">(NSString *)&#160;</td>
+          <td class="paramname"><em>userId</em></td>
+        </tr>
+        <tr>
+          <td class="paramkey">andPassword:</td>
+          <td></td>
+          <td class="paramtype">(NSString *)&#160;</td>
+          <td class="paramname"><em>password</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Initialize the user with an email address and password. </p>
+
+</div>
+</div>
+<a class="anchor" id="a3051b10f7ec22fa1a7064ad8d97b1c73"></a><!-- doxytag: member="CMUser::loginWithCallback:" ref="a3051b10f7ec22fa1a7064ad8d97b1c73" args="(CMUserOperationCallback callback)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) loginWithCallback: </td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="_c_m_user_8h.html#a103162e6c8dfb13dea703dc3d31664a8">CMUserOperationCallback</a>)&#160;</td>
+          <td class="paramname"><em>callback</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Asynchronously login the user and create a new session. On completion, the <code>callback</code> block will be called with the result of the operation and any messages returned by the server contained in an array. See the CloudMine documentation online for the possible contents of this array.</p>
+<p>Upon successful login, the <a class="el" href="interface_c_m_user.html#ae2dc1c3d94fdc3bdddce1d18ca2b783d">CMUser::token</a> property will be set to the user's new session token and the <a class="el" href="interface_c_m_user.html#ac2491f631569e280b4114df4252bb507">CMUser::password</a> field will be cleared for security reasons. The <a class="el" href="interface_c_m_user.html#a63988bb36f7095fa8cc570fff5d77fc3">CMUser::tokenExpiration</a> property will also be set with the expiration date and time of the session token. These properties will be set <b>before</b> the callback block is invoked.</p>
+<p>Possible result codes:</p>
+<ul>
+<li><code>CMUserAccountLoginSucceeded</code></li>
+<li><code>CMUserAccountLoginFailedIncorrectCredentials</code></li>
+<li><code>CMUserAccountOperationFailedUnknownAccount</code></li>
+</ul>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">callback</td><td>The block that will be called on completion of the operation.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138ee">CMUserAccountResult</a> </dd>
+<dd>
+<a class="el" href="interface_c_m_user.html#a71d8b0ea64535a5b3099da6771b4b160">isLoggedIn</a> </dd>
+<dd>
+<a href="https://cloudmine.me/developer_zone#ref/account_login">https://cloudmine.me/developer_zone#ref/account_login</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aadef7929e7f621df7d08c97b11195e97"></a><!-- doxytag: member="CMUser::logoutWithCallback:" ref="aadef7929e7f621df7d08c97b11195e97" args="(CMUserOperationCallback callback)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) logoutWithCallback: </td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="_c_m_user_8h.html#a103162e6c8dfb13dea703dc3d31664a8">CMUserOperationCallback</a>)&#160;</td>
+          <td class="paramname"><em>callback</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Asynchronously logout the user and clear their session and session token. On completion, the <code>callback</code> block will be called with the result of the operation and any messages returned by the server contained in an array. See the CloudMine documentation online for the possible contents of this array.</p>
+<p>Upon successful logout, the <a class="el" href="interface_c_m_user.html#ae2dc1c3d94fdc3bdddce1d18ca2b783d">CMUser::token</a> and <a class="el" href="interface_c_m_user.html#a63988bb36f7095fa8cc570fff5d77fc3">CMUser::tokenExpiration</a> properties will be set to <code>nil</code>. This will occur <b>before</b> the callback block is invoked.</p>
+<p>Possible result codes:</p>
+<ul>
+<li><code>CMUserAccountLogoutSucceeded</code></li>
+<li><code>CMUserAccountOperationFailedUnknownAccount</code></li>
+</ul>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">callback</td><td>The block that will be called on completion of the operation.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138ee">CMUserAccountResult</a> </dd>
+<dd>
+<a class="el" href="interface_c_m_user.html#a71d8b0ea64535a5b3099da6771b4b160">isLoggedIn</a> </dd>
+<dd>
+<a href="https://cloudmine.me/developer_zone#ref/account_logout">https://cloudmine.me/developer_zone#ref/account_logout</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a7d923bd10ddc116d5f39c9b64899ec1e"></a><!-- doxytag: member="CMUser::resetForgottenPasswordWithCallback:" ref="a7d923bd10ddc116d5f39c9b64899ec1e" args="(CMUserOperationCallback callback)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) resetForgottenPasswordWithCallback: </td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="_c_m_user_8h.html#a103162e6c8dfb13dea703dc3d31664a8">CMUserOperationCallback</a>)&#160;</td>
+          <td class="paramname"><em>callback</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Asynchronously reset the password for this user. This method is used to reset a user's password if he or she forgot it. This method of course does not require the user to be logged in in order to function. On completion, the <code>callback</code> block will be called with the result of the operation and any messages returned by the server contained in an array. See the CloudMine documentation online for the possible contents of this array.</p>
+<p>This method causes an email to be sent to the user with a link that allows them to reset their password from their browser. Upon creating a new password, the user will be able to login with it via your app immediately.</p>
+<p>Possible result codes:</p>
+<ul>
+<li><code>CMUserAccountPasswordResetEmailSent</code></li>
+<li><code>CMUserAccountOperationFailedUnknownAccount</code></li>
+</ul>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">newPassword</td><td>The new password to use. </td></tr>
+    <tr><td class="paramname">oldPassword</td><td>The user's old password. </td></tr>
+    <tr><td class="paramname">callback</td><td>The block that will be called on completion of the operation.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138ee">CMUserAccountResult</a> </dd>
+<dd>
+<a href="https://cloudmine.me/developer_zone#ref/password_reset">https://cloudmine.me/developer_zone#ref/password_reset</a> </dd></dl>
+
+</div>
+</div>
+<hr/><h2>Property Documentation</h2>
+<a class="anchor" id="a71d8b0ea64535a5b3099da6771b4b160"></a><!-- doxytag: member="CMUser::isLoggedIn" ref="a71d8b0ea64535a5b3099da6771b4b160" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (BOOL) isLoggedIn<code> [read, assign]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p><code>YES</code> if the user is logged in and <code>NO</code> otherwise. Being logged in is defined by having a session token set and having a token expiration date in the future.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="interface_c_m_user.html#ae2dc1c3d94fdc3bdddce1d18ca2b783d">CMUser::token</a> </dd>
+<dd>
+<a class="el" href="interface_c_m_user.html#a63988bb36f7095fa8cc570fff5d77fc3">CMUser::tokenExpiration</a> </dd></dl>
+
+<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00057">57</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="ac2491f631569e280b4114df4252bb507"></a><!-- doxytag: member="CMUser::password" ref="ac2491f631569e280b4114df4252bb507" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -114,9 +390,41 @@ Properties</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>The user's password. </p>
+<p>The user's plaintext password. </p>
 
-<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00024">24</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00037">37</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae2dc1c3d94fdc3bdddce1d18ca2b783d"></a><!-- doxytag: member="CMUser::token" ref="ae2dc1c3d94fdc3bdddce1d18ca2b783d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (NSString*) token<code> [read, write, assign]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>The user's session token, as assigned after a successful login operation. When setting this property, <a class="el" href="interface_c_m_user.html#ac2491f631569e280b4114df4252bb507">CMUser::password</a> will be set to <code>nil</code> for security reasons. </p>
+
+<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00043">43</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a63988bb36f7095fa8cc570fff5d77fc3"></a><!-- doxytag: member="CMUser::tokenExpiration" ref="a63988bb36f7095fa8cc570fff5d77fc3" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (NSDate*) tokenExpiration<code> [read, write, assign]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>The date and time at which the session token is no longer valid. </p>
+
+<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00048">48</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
 
 </div>
 </div>
@@ -132,7 +440,7 @@ Properties</h2></td></tr>
 <div class="memdoc">
 <p>The user's identifier (i.e. email address). </p>
 
-<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00019">19</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00032">32</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
 
 </div>
 </div>
@@ -144,7 +452,7 @@ Properties</h2></td></tr>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="interface_c_m_user.html">CMUser</a>      </li>
-      <li class="footer">Generated on Wed Feb 29 2012 15:41:38 for CloudMine iOS SDK by&#160;
+      <li class="footer">Generated on Sun Mar 4 2012 20:16:30 for CloudMine iOS SDK by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </li>
     </ul>

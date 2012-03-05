@@ -104,6 +104,11 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_web_service.html#aad88c72a509418b65a1a1d336f0fcbd2">uploadFileAtPath:named:ofMimeType:user:successHandler:errorHandler:</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_web_service.html#a8cfbc6636d69599d3e01ef0234f8d726">setValuesFromDictionary:serverSideFunction:user:successHandler:errorHandler:</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_web_service.html#aee7d5d1df0e582cebe1355f1c7aefe9d">deleteValuesForKeys:user:successHandler:errorHandler:</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_web_service.html#ab00f58df417b7239e284ff07d76b5e67">loginUser:callback:</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_web_service.html#ab2b470a6e96d9faf9a0ecb145e0b2fed">logoutUser:callback:</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_web_service.html#a41f9dd0714144cfe0b1ccc0e591e45e4">createAccountWithUser:callback:</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_web_service.html#acd3925c1db193cb08f58c55bb2b678aa">changePasswordForUser:oldPassword:newPassword:callback:</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_web_service.html#a6d0e4f4519c9a6ec38160c338af2bf5f">resetForgottenPasswordForUser:callback:</a></td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2683ae6d27e270c8f1ed9f34fccbeef5"></a><!-- doxytag: member="CMWebService::_appSecret" ref="a2683ae6d27e270c8f1ed9f34fccbeef5" args="" -->
@@ -117,8 +122,111 @@ Properties</h2></td></tr>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Base class for all classes concerned with the communication between the client device and the CloudMine web services. </p>
 
-<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00061">61</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00070">70</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
 </div><hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="acd3925c1db193cb08f58c55bb2b678aa"></a><!-- doxytag: member="CMWebService::changePasswordForUser:oldPassword:newPassword:callback:" ref="acd3925c1db193cb08f58c55bb2b678aa" args="(CMUser *user,[oldPassword] NSString *oldPassword,[newPassword] NSString *newPassword,[callback] CMWebServiceUserAccountOperationCallback callback)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) changePasswordForUser: </td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="interface_c_m_user.html">CMUser</a> *)&#160;</td>
+          <td class="paramname"><em>user</em></td>
+        </tr>
+        <tr>
+          <td class="paramkey">oldPassword:</td>
+          <td></td>
+          <td class="paramtype">(NSString *)&#160;</td>
+          <td class="paramname"><em>oldPassword</em></td>
+        </tr>
+        <tr>
+          <td class="paramkey">newPassword:</td>
+          <td></td>
+          <td class="paramtype">(NSString *)&#160;</td>
+          <td class="paramname"><em>newPassword</em></td>
+        </tr>
+        <tr>
+          <td class="paramkey">callback:</td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="_c_m_web_service_8h.html#adeb3b39bba6f7c9c458b03dd0ee76d75">CMWebServiceUserAccountOperationCallback</a>)&#160;</td>
+          <td class="paramname"><em>callback</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Asynchronously change the password for the given user. For security purposes, you must have the user enter his or her old password and new password in order to perform this operation. This operation will succeed regardless of whether the user's <code><a class="el" href="interface_c_m_user.html">CMUser</a></code> instance is logged in or not. On completion, the <code>callback</code> block will be called with the result of the operation and the body of the response represented by an <code>NSDictonary</code>. See the CloudMine documentation online for the possible contents of this dictionary.</p>
+<p>If the user has forgotten his or her password, use <code>resetForgottenPasswordForUser:callback:</code> instead of this method.</p>
+<p>Possible result codes:</p>
+<ul>
+<li><code>CMUserAccountPasswordChangeSucceeded</code></li>
+<li><code>CMUserAccountPasswordChangeFailedInvalidCredentials</code></li>
+<li><code>CMUserAccountOperationFailedUnknownAccount</code></li>
+</ul>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">user</td><td>The user whose password is being changed. </td></tr>
+    <tr><td class="paramname">newPassword</td><td>The new password to use. </td></tr>
+    <tr><td class="paramname">oldPassword</td><td>The user's old password. </td></tr>
+    <tr><td class="paramname">callback</td><td>The block that will be called on completion of the operation.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138ee">CMUserAccountResult</a> </dd>
+<dd>
+<a href="https://cloudmine.me/developer_zone#ref/password_change">https://cloudmine.me/developer_zone#ref/password_change</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a41f9dd0714144cfe0b1ccc0e591e45e4"></a><!-- doxytag: member="CMWebService::createAccountWithUser:callback:" ref="a41f9dd0714144cfe0b1ccc0e591e45e4" args="(CMUser *user,[callback] CMWebServiceUserAccountOperationCallback callback)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) createAccountWithUser: </td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="interface_c_m_user.html">CMUser</a> *)&#160;</td>
+          <td class="paramname"><em>user</em></td>
+        </tr>
+        <tr>
+          <td class="paramkey">callback:</td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="_c_m_web_service_8h.html#adeb3b39bba6f7c9c458b03dd0ee76d75">CMWebServiceUserAccountOperationCallback</a>)&#160;</td>
+          <td class="paramname"><em>callback</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Asynchronously create a new account for the user on CloudMine. This must be done once for each user before they can login. On completion, the <code>callback</code> block will be called with the result of the operation and the body of the response represented by an <code>NSDictonary</code>. See the CloudMine documentation online for the possible contents of this dictionary.</p>
+<p>Possible result codes:</p>
+<ul>
+<li><code>CMUserAccountCreateSucceeded</code></li>
+<li><code>CMUserAccountCreateFailedInvalidRequest</code></li>
+<li><code>CMUserAccountCreateFailedDuplicateAccount</code></li>
+</ul>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">user</td><td>The user who needs an account created. </td></tr>
+    <tr><td class="paramname">callback</td><td>The block that will be called on completion of the operation.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138ee">CMUserAccountResult</a> </dd>
+<dd>
+<a href="https://cloudmine.me/developer_zone#ref/account_create">https://cloudmine.me/developer_zone#ref/account_create</a> </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="aee7d5d1df0e582cebe1355f1c7aefe9d"></a><!-- doxytag: member="CMWebService::deleteValuesForKeys:user:successHandler:errorHandler:" ref="aee7d5d1df0e582cebe1355f1c7aefe9d" args="(NSArray *keys,[user] CMUser *user,[successHandler] CMWebServiceObjectFetchSuccessCallback successHandler,[errorHandler] CMWebServiceFetchFailureCallback errorHandler)" -->
 <div class="memitem">
 <div class="memproto">
@@ -331,6 +439,137 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ab00f58df417b7239e284ff07d76b5e67"></a><!-- doxytag: member="CMWebService::loginUser:callback:" ref="ab00f58df417b7239e284ff07d76b5e67" args="(CMUser *user,[callback] CMWebServiceUserAccountOperationCallback callback)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) loginUser: </td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="interface_c_m_user.html">CMUser</a> *)&#160;</td>
+          <td class="paramname"><em>user</em></td>
+        </tr>
+        <tr>
+          <td class="paramkey">callback:</td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="_c_m_web_service_8h.html#adeb3b39bba6f7c9c458b03dd0ee76d75">CMWebServiceUserAccountOperationCallback</a>)&#160;</td>
+          <td class="paramname"><em>callback</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Asynchronously login a user and create a new session. On completion, the <code>callback</code> block will be called with the result of the operation and the body of the response represented by an <code>NSDictonary</code>. See the CloudMine documentation online for the possible contents of this dictionary.</p>
+<p>Possible result codes:</p>
+<ul>
+<li><code>CMUserAccountLoginSucceeded</code></li>
+<li><code>CMUserAccountLoginFailedIncorrectCredentials</code></li>
+<li><code>CMUserAccountOperationFailedUnknownAccount</code></li>
+</ul>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">user</td><td>The user to log in. </td></tr>
+    <tr><td class="paramname">callback</td><td>The block that will be called on completion of the operation.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138ee">CMUserAccountResult</a> </dd>
+<dd>
+<a href="https://cloudmine.me/developer_zone#ref/account_login">https://cloudmine.me/developer_zone#ref/account_login</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ab2b470a6e96d9faf9a0ecb145e0b2fed"></a><!-- doxytag: member="CMWebService::logoutUser:callback:" ref="ab2b470a6e96d9faf9a0ecb145e0b2fed" args="(CMUser *user,[callback] CMWebServiceUserAccountOperationCallback callback)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) logoutUser: </td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="interface_c_m_user.html">CMUser</a> *)&#160;</td>
+          <td class="paramname"><em>user</em></td>
+        </tr>
+        <tr>
+          <td class="paramkey">callback:</td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="_c_m_web_service_8h.html#adeb3b39bba6f7c9c458b03dd0ee76d75">CMWebServiceUserAccountOperationCallback</a>)&#160;</td>
+          <td class="paramname"><em>callback</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Asynchronously logout a user and clear their session and session token. On completion, the <code>callback</code> block will be called with the result of the operation and the body of the response represented by an <code>NSDictonary</code>. See the CloudMine documentation online for the possible contents of this dictionary.</p>
+<p>Possible result codes:</p>
+<ul>
+<li><code>CMUserAccountLogoutSucceeded</code></li>
+<li><code>CMUserAccountOperationFailedUnknownAccount</code></li>
+</ul>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">user</td><td>The user to log out. </td></tr>
+    <tr><td class="paramname">callback</td><td>The block that will be called on completion of the operation.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138ee">CMUserAccountResult</a> </dd>
+<dd>
+<a href="https://cloudmine.me/developer_zone#ref/account_logout">https://cloudmine.me/developer_zone#ref/account_logout</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a6d0e4f4519c9a6ec38160c338af2bf5f"></a><!-- doxytag: member="CMWebService::resetForgottenPasswordForUser:callback:" ref="a6d0e4f4519c9a6ec38160c338af2bf5f" args="(CMUser *user,[callback] CMWebServiceUserAccountOperationCallback callback)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) resetForgottenPasswordForUser: </td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="interface_c_m_user.html">CMUser</a> *)&#160;</td>
+          <td class="paramname"><em>user</em></td>
+        </tr>
+        <tr>
+          <td class="paramkey">callback:</td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="_c_m_web_service_8h.html#adeb3b39bba6f7c9c458b03dd0ee76d75">CMWebServiceUserAccountOperationCallback</a>)&#160;</td>
+          <td class="paramname"><em>callback</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Asynchronously reset the password for the given user. This method is used to reset a user's password if he or she forgot it. This method of course does not require the user to be logged in in order to function. On completion, the <code>callback</code> block will be called with the result of the operation and the body of the response represented by an <code>NSDictonary</code>. See the CloudMine documentation online for the possible contents of this dictionary.</p>
+<p>This method causes an email to be sent to the user with a link that allows them to reset their password from their browser. Upon creating a new password, the user will be able to login with it via your app immediately.</p>
+<p>Possible result codes:</p>
+<ul>
+<li><code>CMUserAccountPasswordResetEmailSent</code></li>
+<li><code>CMUserAccountOperationFailedUnknownAccount</code></li>
+</ul>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">user</td><td>The user who needs their password reset. </td></tr>
+    <tr><td class="paramname">callback</td><td>The block that will be called on completion of the operation.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138ee">CMUserAccountResult</a> </dd>
+<dd>
+<a href="https://cloudmine.me/developer_zone#ref/password_reset">https://cloudmine.me/developer_zone#ref/password_reset</a> </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a8cfbc6636d69599d3e01ef0234f8d726"></a><!-- doxytag: member="CMWebService::setValuesFromDictionary:serverSideFunction:user:successHandler:errorHandler:" ref="a8cfbc6636d69599d3e01ef0234f8d726" args="(NSDictionary *data,[serverSideFunction] CMServerFunction *function,[user] CMUser *user,[successHandler] CMWebServiceObjectFetchSuccessCallback successHandler,[errorHandler] CMWebServiceFetchFailureCallback errorHandler)" -->
 <div class="memitem">
 <div class="memproto">
@@ -375,7 +614,7 @@ Properties</h2></td></tr>
 <div class="memdoc">
 <p>Asynchronously create or replace one or more objects for the values of the user-level keys included in <code>data</code>. On completion, the <code>successHandler</code> block will be called with a dictionary of the keys of the objects that were created and replaced as well as a dictionary of the key-related errors returned from the server.</p>
 <p>Note that if the key already exists server-side, this method will fully replace its value. For updating via merge, see the <code>updateValuesFromDictionary</code> methods.</p>
-<dl class="see"><dt><b>See also:</b></dt><dd>updateValuesFromDictionary:user:successHandler:errorHandler:</dd></dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="interface_c_m_web_service.html#a47e69f6c1a075247357b7dbcc90508d0">- updateValuesFromDictionary:serverSideFunction:user:successHandler:errorHandler:</a></dd></dl>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramname">data</td><td>A dictionary mapping top-level keys to the values to be used to update the object. </td></tr>
@@ -586,7 +825,7 @@ Properties</h2></td></tr>
 <p>The message queue used to send messages to the CloudMine web services.</p>
 <p>One of these exists for each instance of <code><a class="el" href="interface_c_m_web_service.html">CMWebService</a></code>, allowing you to parallelize network communication. </p>
 
-<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00072">72</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00081">81</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
 
 </div>
 </div>
@@ -598,7 +837,7 @@ Properties</h2></td></tr>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="interface_c_m_web_service.html">CMWebService</a>      </li>
-      <li class="footer">Generated on Wed Feb 29 2012 15:41:38 for CloudMine iOS SDK by&#160;
+      <li class="footer">Generated on Sun Mar 4 2012 20:16:30 for CloudMine iOS SDK by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </li>
     </ul>

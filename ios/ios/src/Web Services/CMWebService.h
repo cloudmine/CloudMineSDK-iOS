@@ -55,6 +55,12 @@ typedef void (^CMWebServiceFileUploadSuccessCallback)(CMFileUploadResult result)
  */
 typedef void (^CMWebServiceFileFetchSuccessCallback)(NSData *data, NSString *contentType);
 
+/**
+ * Callback block signature for all operations on <tt>CMWebService</tt> and <tt>CMUser</tt> that involve the management
+ * of user accounts and user sessions. These blocks return <tt>void</tt> and take a <tt>CMUserAccountResult</tt> code
+ * that represents the result of the operation as well as an <tt>NSDictionary</tt> containing the dictionary representation
+ * of the response body from the server.
+ */
 typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult result, NSDictionary *responseBody);
 
 /**
@@ -191,7 +197,7 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
  *
  * Note that if the key already exists server-side, this method will fully replace its value. For updating via merge, see the <tt>updateValuesFromDictionary</tt> methods.
  *
- * @see updateValuesFromDictionary:user:successHandler:errorHandler:
+ * @see updateValuesFromDictionary:serverSideFunction:user:successHandler:errorHandler:
  *
  * @param data A dictionary mapping top-level keys to the values to be used to update the object.
  * @param function The server-side code snippet and related options to execute with this request, or nil if none.
@@ -222,11 +228,103 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
              successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
                errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
-
+/**
+ * Asynchronously login a user and create a new session. On completion, the <tt>callback</tt> block will be called with
+ * the result of the operation and the body of the response represented by an <tt>NSDictonary</tt>. See the CloudMine
+ * documentation online for the possible contents of this dictionary.
+ *
+ * Possible result codes:
+ * - <tt>CMUserAccountLoginSucceeded</tt>
+ * - <tt>CMUserAccountLoginFailedIncorrectCredentials</tt>
+ * - <tt>CMUserAccountOperationFailedUnknownAccount</tt>
+ *
+ * @param user The user to log in.
+ * @param callback The block that will be called on completion of the operation.
+ *
+ * @see CMUserAccountResult
+ * @see https://cloudmine.me/developer_zone#ref/account_login
+ */
 - (void)loginUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
+
+/**
+ * Asynchronously logout a user and clear their session and session token. On completion, the <tt>callback</tt>
+ * block will be called with the result of the operation and the body of the response represented by an <tt>NSDictonary</tt>.
+ * See the CloudMine documentation online for the possible contents of this dictionary.
+ *
+ * Possible result codes:
+ * - <tt>CMUserAccountLogoutSucceeded</tt>
+ * - <tt>CMUserAccountOperationFailedUnknownAccount</tt>
+ *
+ * @param user The user to log out.
+ * @param callback The block that will be called on completion of the operation.
+ *
+ * @see CMUserAccountResult
+ * @see https://cloudmine.me/developer_zone#ref/account_logout
+ */
 - (void)logoutUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
+
+/**
+ * Asynchronously create a new account for the user on CloudMine. This must be done once for each user before they can login.
+ * On completion, the <tt>callback</tt> block will be called with the result 
+ * of the operation and the body of the response represented by an <tt>NSDictonary</tt>.
+ * See the CloudMine documentation online for the possible contents of this dictionary.
+ *
+ * Possible result codes:
+ * - <tt>CMUserAccountCreateSucceeded</tt>
+ * - <tt>CMUserAccountCreateFailedInvalidRequest</tt>
+ * - <tt>CMUserAccountCreateFailedDuplicateAccount</tt>
+ *
+ * @param user The user who needs an account created.
+ * @param callback The block that will be called on completion of the operation.
+ *
+ * @see CMUserAccountResult
+ * @see https://cloudmine.me/developer_zone#ref/account_create
+ */
 - (void)createAccountWithUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
+
+/**
+ * Asynchronously change the password for the given user. For security purposes, you must have the user enter his or her
+ * old password and new password in order to perform this operation. This operation will succeed regardless of whether
+ * the user's <tt>CMUser</tt> instance is logged in or not.
+ * On completion, the <tt>callback</tt> block will be called with the result  of the operation and the body of the
+ * response represented by an <tt>NSDictonary</tt>. See the CloudMine documentation online for the possible contents of this dictionary.
+ *
+ * If the user has forgotten his or her password, use <tt>resetForgottenPasswordForUser:callback:</tt> instead of this method.
+ *
+ * Possible result codes:
+ * - <tt>CMUserAccountPasswordChangeSucceeded</tt>
+ * - <tt>CMUserAccountPasswordChangeFailedInvalidCredentials</tt>
+ * - <tt>CMUserAccountOperationFailedUnknownAccount</tt>
+ *
+ * @param user The user whose password is being changed.
+ * @param newPassword The new password to use.
+ * @param oldPassword The user's old password.
+ * @param callback The block that will be called on completion of the operation.
+ *
+ * @see CMUserAccountResult
+ * @see https://cloudmine.me/developer_zone#ref/password_change
+ */
 - (void)changePasswordForUser:(CMUser *)user oldPassword:(NSString *)oldPassword newPassword:(NSString *)newPassword callback:(CMWebServiceUserAccountOperationCallback)callback;
+
+/**
+ * Asynchronously reset the password for the given user. This method is used to reset a user's password if
+ * he or she forgot it. This method of course does not require the user to be logged in in order to function.
+ * On completion, the <tt>callback</tt> block will be called with the result  of the operation and the body of the
+ * response represented by an <tt>NSDictonary</tt>. See the CloudMine documentation online for the possible contents of this dictionary.
+ *
+ * This method causes an email to be sent to the user with a link that allows them to reset their password from their browser.
+ * Upon creating a new password, the user will be able to login with it via your app immediately.
+ *
+ * Possible result codes:
+ * - <tt>CMUserAccountPasswordResetEmailSent</tt>
+ * - <tt>CMUserAccountOperationFailedUnknownAccount</tt>
+ *
+ * @param user The user who needs their password reset.
+ * @param callback The block that will be called on completion of the operation.
+ *
+ * @see CMUserAccountResult
+ * @see https://cloudmine.me/developer_zone#ref/password_reset
+ */
 - (void)resetForgottenPasswordForUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
 
 @end

@@ -3,7 +3,6 @@ var NAVTREE =
   [ "CloudMine iOS SDK", "index.html", [
     [ "Class List", "annotated.html", [
       [ "CMAPICredentials", "interface_c_m_a_p_i_credentials.html", null ],
-      [ "CMClassPropertyExtractor", "interface_c_m_class_property_extractor.html", null ],
       [ "CMDate", "interface_c_m_date.html", null ],
       [ "CMFile", "interface_c_m_file.html", null ],
       [ "CMGeoPoint", "interface_c_m_geo_point.html", null ],
@@ -26,7 +25,6 @@ var NAVTREE =
     [ "Class Index", "classes.html", null ],
     [ "Class Hierarchy", "hierarchy.html", [
       [ "CMAPICredentials", "interface_c_m_a_p_i_credentials.html", null ],
-      [ "CMClassPropertyExtractor", "interface_c_m_class_property_extractor.html", null ],
       [ "CMMimeType", "interface_c_m_mime_type.html", null ],
       [ "CMObjectClassNameRegistry", "interface_c_m_object_class_name_registry.html", null ],
       [ "CMObjectDecoder", "interface_c_m_object_decoder.html", null ],
@@ -61,7 +59,6 @@ var NAVTREE =
       [ "ios/src/Extensions/math+floats.h", null, null ],
       [ "ios/src/Extensions/NSString+UUID.h", null, null ],
       [ "ios/src/Extensions/NSURL+QueryParameterAdditions.h", null, null ],
-      [ "ios/src/Introspection/CMClassPropertyExtractor.h", null, null ],
       [ "ios/src/Storage/CMStore.h", "_c_m_store_8h.html", null ],
       [ "ios/src/Storage/CMStoreCallbacks.h", "_c_m_store_callbacks_8h.html", null ],
       [ "ios/src/Storage/CMStoreOptions.h", null, null ],
@@ -71,7 +68,8 @@ var NAVTREE =
       [ "ios/src/Web Services/CMPagingDescriptor.h", null, null ],
       [ "ios/src/Web Services/CMSerializable.h", null, null ],
       [ "ios/src/Web Services/CMServerFunction.h", null, null ],
-      [ "ios/src/Web Services/CMUser.h", null, null ],
+      [ "ios/src/Web Services/CMUser.h", "_c_m_user_8h.html", null ],
+      [ "ios/src/Web Services/CMUserAccountResult.h", "_c_m_user_account_result_8h.html", null ],
       [ "ios/src/Web Services/CMWebService.h", "_c_m_web_service_8h.html", null ],
       [ "ios/src/Web Services/Decoding/CMObjectDecoder.h", null, null ],
       [ "ios/src/Web Services/Encoding/CMJSONEncoder.h", null, null ],
