@@ -150,6 +150,8 @@ typedef void (^CMUserOperationCallback)(CMUserAccountResult resultCode, NSArray 
  * - <tt>CMUserAccountPasswordChangeFailedInvalidCredentials</tt>
  * - <tt>CMUserAccountOperationFailedUnknownAccount</tt>
  *
+ * @param newPassword The new password to use.
+ * @param oldPassword The user's old password.
  * @param callback The block that will be called on completion of the operation.
  *
  * @see CMUserAccountResult
@@ -170,8 +172,6 @@ typedef void (^CMUserOperationCallback)(CMUserAccountResult resultCode, NSArray 
  * - <tt>CMUserAccountPasswordResetEmailSent</tt>
  * - <tt>CMUserAccountOperationFailedUnknownAccount</tt>
  *
- * @param newPassword The new password to use.
- * @param oldPassword The user's old password.
  * @param callback The block that will be called on completion of the operation.
  *
  * @see CMUserAccountResult
