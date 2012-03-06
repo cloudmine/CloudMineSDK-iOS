@@ -79,11 +79,11 @@ Important</h2>
 <p>This framework uses <a href="https://developer.apple.com/library/ios/#releasenotes/ObjectiveC/RN-TransitioningToARC/Introduction/Introduction.html" target="_blank">ARC</a> (Automatic Reference Counting) and is thus compatible only with XCode 4.1 or higher and iOS 4 or higher.</p>
 <h2><a class="anchor" id="intro"></a>
 Introduction</h2>
-<p>The native iOS library allows you to interact with your CloudMine remote data store, create and manage user accounts, as well as execute your custom server-side code snippets all in a clean object-oriented fashion and without having to manage connection pools or assemble URLs.</p>
+<p>The native iOS library allows you to interact with your CloudMine remote data store, create and manage user accounts, and execute your custom server-side code snippets in a clean, object-oriented fashion, without having to manage connection pools or assemble URLs.</p>
 <p>Before getting started, you must first use the <b><a href="interface_c_m_a_p_i_credentials.html">CMAPICredentials</a></b> singleton to configure your app's identifier and secret from your <a href="https://cloudmine.me/dashboard" target="_blank">CloudMine Dashboard</a>.</p>
-<p>The most important classes to know are <a href="interface_c_m_store.html"><b>CMStore</b></a> and <a href="interface_c_m_user.html"><b>CMUser</b></a>. <b><a class="el" href="interface_c_m_store.html">CMStore</a></b> is like a box for all your app's <a href="http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller#Concepts" target="_blank">models</a>. All your store and retrieve operations are coordinated through it. <b><a class="el" href="interface_c_m_user.html">CMUser</a></b> represents an account for a user of your app. See the <a href="interface_c_m_user.html">framework reference</a> for more details on users, security, and session tokens.</p>
+<p>The most important classes to know are <a href="interface_c_m_store.html"><b>CMStore</b></a> and <a href="interface_c_m_user.html"><b>CMUser</b></a>. <b><a class="el" href="interface_c_m_store.html">CMStore</a></b> is like a box for all your app's <a href="http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller#Concepts" target="_blank">models</a>. All of your storage and retrieval operations are coordinated through it. <a class="el" href="interface_c_m_user.html">CMUser</a> represents an account for a user of your app. See the <a href="interface_c_m_user.html">framework reference</a> for more details on users, security, and session tokens.</p>
 <p>Each of your model classes that you want to be managed by a <a class="el" href="interface_c_m_store.html">CMStore</a> <em>must</em> either extend <b><a href="interface_c_m_object.html">CMObject</a></b> or implement <b><a href="protocol_c_m_serializable-p.html">CMSerializable</a></b>. The former provides an easier-to-use turnkey implementation, and is recommended over implementing the latter yourself. You must also implement <code><a href="https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Protocols/NSCoding_Protocol/Reference/Reference.html" target="_blank">initWithCoder:</a></code> and <code><a href="https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Protocols/NSCoding_Protocol/Reference/Reference.html" target="_blank">encodeWithCoder:</a></code> in all <b><a class="el" href="interface_c_m_object.html">CMObject</a></b> subclasses so the framework knows how to serialize your objects.</p>
-<p>If you need to store geospatial information with any of your objects, use an instance of the provided <b><a href="interface_c_m_geo_point.html">CMGeoPoint</a></b> class.</p>
+<p>If you need to store geospatial information within any of your objects, use an instance of the provided <b><a href="interface_c_m_geo_point.html">CMGeoPoint</a></b> class.</p>
 <p>All operations that involve a remote call are performed asynchronously. This means that you don't need to worry about blocking the UI thread when interacting with CloudMine. Each one of these methods takes one or more callback <a href="https://developer.apple.com/library/ios/#documentation/cocoa/Conceptual/Blocks/Articles/00_Introduction.html" target="_blank">blocks</a> as the last parameter(s) that will be executed when the operation completes.</p>
 <p>The framework has the following external framework dependencies, which you must setup in your app's XCode project:</p>
 <ul>
@@ -94,12 +94,12 @@ Introduction</h2>
 <li>UIKit</li>
 <li>libz</li>
 </ul>
-<p>The <a href="https://cloudmine.me/developer_zone#ios/tutorials" target="_blank">video walkthrough</a> below shows you exactly how to do this. </p>
+<p>The <a href="https://cloudmine.me/developer_zone#ios/tutorials" target="_blank">video walkthrough</a> below shows you how to do this. </p>
 </div></div>
 </div>
   <div id="nav-path" class="navpath">
     <ul>
-      <li class="footer">Generated on Tue Mar 6 2012 12:55:02 for CloudMine iOS SDK by&#160;
+      <li class="footer">Generated on Tue Mar 6 2012 13:33:14 for CloudMine iOS SDK by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </li>
     </ul>
