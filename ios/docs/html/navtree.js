@@ -1,6 +1,7 @@
 var NAVTREE =
 [
   [ "CloudMine iOS SDK", "index.html", [
+    [ "Main Page", "index.html", null ],
     [ "Class List", "annotated.html", [
       [ "CMAPICredentials", "interface_c_m_a_p_i_credentials.html", null ],
       [ "CMDate", "interface_c_m_date.html", null ],
@@ -49,7 +50,7 @@ var NAVTREE =
     ] ],
     [ "Class Members", "functions.html", null ],
     [ "File List", "files.html", [
-      [ "ios/src/CloudMine.h", null, null ],
+      [ "ios/src/CloudMine.h", "_cloud_mine_8h.html", null ],
       [ "ios/src/CMDate.h", "_c_m_date_8h.html", null ],
       [ "ios/src/CMFile.h", null, null ],
       [ "ios/src/CMGeoPoint.h", null, null ],
