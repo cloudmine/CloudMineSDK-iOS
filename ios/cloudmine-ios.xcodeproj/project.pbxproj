@@ -157,6 +157,11 @@
 		7AD93BAF14D1CCFE00CC1CC9 /* CMFileSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD93BAE14D1CCFE00CC1CC9 /* CMFileSpec.m */; };
 		7AE355D514F1B850006AF903 /* CMFileUploadResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AE355D414F1B850006AF903 /* CMFileUploadResult.h */; };
 		7AE355D714F1B896006AF903 /* CMFileUploadResult.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AE355D414F1B850006AF903 /* CMFileUploadResult.h */; };
+		7AF02D541507B36D005F03FD /* SPDepends.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AF02D4C1507B36D005F03FD /* SPDepends.h */; };
+		7AF02D561507B36D005F03FD /* SPFunctional.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AF02D4E1507B36D005F03FD /* SPFunctional.h */; };
+		7AF02D581507B36D005F03FD /* SPKVONotificationCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AF02D501507B36D005F03FD /* SPKVONotificationCenter.h */; };
+		7AF02D5A1507B36D005F03FD /* SPLowVerbosity.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AF02D521507B36D005F03FD /* SPLowVerbosity.h */; };
+		7AF02D5B1507B36D005F03FD /* SPLowVerbosity.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF02D531507B36D005F03FD /* SPLowVerbosity.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7AF6685514719FC900E2A06D /* YAJLiOS in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AF6685414719FC800E2A06D /* YAJLiOS */; };
 /* End PBXBuildFile section */
 
@@ -322,6 +327,14 @@
 		7AD93BAB14D1C5DA00CC1CC9 /* CMFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMFile.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7AD93BAE14D1CCFE00CC1CC9 /* CMFileSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMFileSpec.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7AE355D414F1B850006AF903 /* CMFileUploadResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMFileUploadResult.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		7AF02D4C1507B36D005F03FD /* SPDepends.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPDepends.h; path = SPSuccinct/src/SPDepends.h; sourceTree = "<group>"; };
+		7AF02D4D1507B36D005F03FD /* SPDepends.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPDepends.m; path = SPSuccinct/src/SPDepends.m; sourceTree = "<group>"; };
+		7AF02D4E1507B36D005F03FD /* SPFunctional.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPFunctional.h; path = SPSuccinct/src/SPFunctional.h; sourceTree = "<group>"; };
+		7AF02D4F1507B36D005F03FD /* SPFunctional.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPFunctional.m; path = SPSuccinct/src/SPFunctional.m; sourceTree = "<group>"; };
+		7AF02D501507B36D005F03FD /* SPKVONotificationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPKVONotificationCenter.h; path = SPSuccinct/src/SPKVONotificationCenter.h; sourceTree = "<group>"; };
+		7AF02D511507B36D005F03FD /* SPKVONotificationCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPKVONotificationCenter.m; path = SPSuccinct/src/SPKVONotificationCenter.m; sourceTree = "<group>"; };
+		7AF02D521507B36D005F03FD /* SPLowVerbosity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPLowVerbosity.h; path = SPSuccinct/src/SPLowVerbosity.h; sourceTree = "<group>"; };
+		7AF02D531507B36D005F03FD /* SPLowVerbosity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPLowVerbosity.m; path = SPSuccinct/src/SPLowVerbosity.m; sourceTree = "<group>"; };
 		7AF6685414719FC800E2A06D /* YAJLiOS */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = YAJLiOS; path = ios/Vendor/YAJL/YAJLiOS.framework/Versions/A/YAJLiOS; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -365,6 +378,7 @@
 		7A04139F146C5B3A00EF537A /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				7AF02D4B1507B35B005F03FD /* SPSuccinct */,
 				7AA79D6914DC23C700F3CA3B /* MAObjCRuntime */,
 				7AD36F72146C623B00DD4734 /* YAJL */,
 				7A0413A0146C5B3A00EF537A /* ASIHTTPRequest */,
@@ -636,6 +650,21 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		7AF02D4B1507B35B005F03FD /* SPSuccinct */ = {
+			isa = PBXGroup;
+			children = (
+				7AF02D4C1507B36D005F03FD /* SPDepends.h */,
+				7AF02D4D1507B36D005F03FD /* SPDepends.m */,
+				7AF02D4E1507B36D005F03FD /* SPFunctional.h */,
+				7AF02D4F1507B36D005F03FD /* SPFunctional.m */,
+				7AF02D501507B36D005F03FD /* SPKVONotificationCenter.h */,
+				7AF02D511507B36D005F03FD /* SPKVONotificationCenter.m */,
+				7AF02D521507B36D005F03FD /* SPLowVerbosity.h */,
+				7AF02D531507B36D005F03FD /* SPLowVerbosity.m */,
+			);
+			name = SPSuccinct;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -687,6 +716,10 @@
 				7A58CC2114F1B544003E864B /* CMMimeType.h in Headers */,
 				7AE355D514F1B850006AF903 /* CMFileUploadResult.h in Headers */,
 				7A4A6F2C14FFF3CF00B95D13 /* CMUserAccountResult.h in Headers */,
+				7AF02D541507B36D005F03FD /* SPDepends.h in Headers */,
+				7AF02D561507B36D005F03FD /* SPFunctional.h in Headers */,
+				7AF02D581507B36D005F03FD /* SPKVONotificationCenter.h in Headers */,
+				7AF02D5A1507B36D005F03FD /* SPLowVerbosity.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -850,6 +883,7 @@
 				7AA79D8214DC23C700F3CA3B /* RTProtocol.m in Sources */,
 				7AA79D8414DC23C700F3CA3B /* RTUnregisteredClass.m in Sources */,
 				7A58CC2214F1B544003E864B /* CMMimeType.m in Sources */,
+				7AF02D5B1507B36D005F03FD /* SPLowVerbosity.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
