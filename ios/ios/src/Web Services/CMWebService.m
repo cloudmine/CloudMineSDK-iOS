@@ -8,6 +8,7 @@
 
 #import "ASIHTTPRequest.h"
 #import "ASINetworkQueue.h"
+#import "SPLowVerbosity.h"
 
 #import "CMWebService.h"
 #import "CMAPICredentials.h"
@@ -52,7 +53,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     NSParameterAssert(appIdentifier);
 
     if (!_validHTTPVerbs) {
-        _validHTTPVerbs = [NSSet setWithObjects:@"GET", @"POST", @"PUT", @"DELETE", nil];
+        _validHTTPVerbs = $set(@"GET", @"POST", @"PUT", @"DELETE");
     }
 
     if (self = [super init]) {
@@ -271,7 +272,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
 
     // The username and password of this account are supplied in the request body.
-    NSDictionary *payload = [NSDictionary dictionaryWithObjectsAndKeys:user.userId, @"email", user.password, @"password", nil];
+    NSDictionary *payload = $dict(@"email", user.userId, @"password", user.password);
     [request appendPostData:[[payload yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
 
     [self executeUserAccountRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode) {
@@ -303,7 +304,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     // explicitly in addition to their new password.
     request.username = user.userId;
     request.password = oldPassword;
-    NSDictionary *payload = [NSDictionary dictionaryWithObject:newPassword forKey:@"password"];
+    NSDictionary *payload = $dict(@"password", newPassword);
     [request appendPostData:[[payload yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
 
     [self executeUserAccountRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode) {
@@ -328,7 +329,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     NSURL *url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/account/password/reset", _appIdentifier]];
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
 
-    NSDictionary *payload = [NSDictionary dictionaryWithObject:user.userId forKey:@"email"];
+    NSDictionary *payload = $dict(@"email", user.userId);
     [request appendPostData:[[payload yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
 
     [self executeUserAccountRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode) {
@@ -393,10 +394,8 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 
         if (blockRequest.responseStatusCode == 400 || blockRequest.responseStatusCode == 500) {
             NSString *message = [results objectForKey:@"error"];
-            NSError *err = [NSError errorWithDomain:@"CloudMine"
-                                               code:500
-                                           userInfo:[NSDictionary dictionaryWithObject:message
-                                                                                forKey:@"message"]];
+            NSError *err = $makeErr(@"CloudMine", 500, message);
+
             if (errorHandler != nil) {
                 errorHandler(err);
             }
@@ -421,7 +420,9 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     }];
 
     [request setFailedBlock:^{
-        errorHandler(blockRequest.error);
+        if (errorHandler != nil) {
+            errorHandler(blockRequest.error);
+        }
     }];
 
     [self.networkQueue addOperation:request];
@@ -441,9 +442,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
             }
         } else {
             if (errorHandler != nil) {
-                NSError *err = [NSError errorWithDomain:@"CloudMine"
-                                                   code:blockRequest.responseStatusCode
-                                               userInfo:[NSDictionary dictionaryWithObject:blockRequest.responseStatusMessage forKey:@"message"]];
+                NSError *err = $makeErr(@"CloudMine", blockRequest.responseStatusCode, blockRequest.responseStatusMessage);
                 errorHandler(err);
             }
         }

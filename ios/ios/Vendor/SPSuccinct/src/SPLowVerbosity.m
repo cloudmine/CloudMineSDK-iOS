@@ -6,7 +6,7 @@ NSString *$urlencode(NSString *unencoded) {
 														kCFAllocatorDefault, 
 														(CFStringRef)unencoded, 
 														NULL, 
-														(CFStringRef)@";/?:@&=+$,", 
+														NULL, 
 														kCFStringEncodingUTF8
 														) autorelease];
 }

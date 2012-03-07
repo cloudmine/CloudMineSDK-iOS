@@ -9,6 +9,7 @@
 
 #define $num(val) [NSNumber numberWithInt:val]
 #define $numf(val) [NSNumber numberWithDouble:val]
+#define $numb(val) [NSNumber numberWithBool:val]
 #define $sprintf(...) [NSString stringWithFormat:__VA_ARGS__]
 #define $nsutf(cstr) [NSString stringWithUTF8String:cstr]
 

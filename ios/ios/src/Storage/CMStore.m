@@ -8,6 +8,7 @@
 
 #import "CMStore.h"
 #import <objc/runtime.h>
+#import "SPLowVerbosity.h"
 
 #import "CMObjectDecoder.h"
 #import "CMObjectEncoder.h"
@@ -164,7 +165,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     _CMAssertAPICredentialsInitialized;
 
     [self _searchObjects:callback
-                   query:[NSString stringWithFormat:@"[%@ = \"%@\"]", CMInternalClassStorageKey, [klass className]]
+                   query:$sprintf(@"[%@ = \"%@\"]", CMInternalClassStorageKey, [klass className])
                userLevel:userLevel
        additionalOptions:options];
 }
@@ -250,7 +251,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 - (void)saveUserObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback {
     _CMAssertUserConfigured;
-    [self _saveObjects:[NSSet setWithObject:theObject] userLevel:YES callback:callback additionalOptions:options];
+    [self _saveObjects:$set(theObject) userLevel:YES callback:callback additionalOptions:options];
 }
 
 - (void)saveObject:(CMObject *)theObject callback:(CMStoreObjectUploadCallback)callback {
@@ -258,7 +259,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 }
 
 - (void)saveObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback {
-    [self _saveObjects:[NSSet setWithObject:theObject] userLevel:NO callback:callback additionalOptions:options];
+    [self _saveObjects:$set(theObject) userLevel:NO callback:callback additionalOptions:options];
 }
 
 - (void)_saveObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreObjectUploadCallback)callback additionalOptions:(CMStoreOptions *)options {
@@ -362,13 +363,13 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 - (void)deleteObject:(id<CMSerializable>)theObject callback:(CMStoreDeleteCallback)callback {
     NSParameterAssert(theObject);
-    [self _deleteObjects:[NSArray arrayWithObject:theObject] userLevel:NO callback:callback];
+    [self _deleteObjects:$array(theObject) userLevel:NO callback:callback];
 }
 
 - (void)deleteUserObject:(id<CMSerializable>)theObject callback:(CMStoreDeleteCallback)callback {
     NSParameterAssert(theObject);
     _CMAssertUserConfigured;
-    [self _deleteObjects:[NSArray arrayWithObject:theObject] userLevel:YES callback:callback];
+    [self _deleteObjects:$array(theObject) userLevel:YES callback:callback];
 }
 
 - (void)deleteObjects:(NSArray *)objects callback:(CMStoreDeleteCallback)callback {
@@ -393,7 +394,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     NSParameterAssert(name);
     _CMAssertAPICredentialsInitialized;
 
-    [webService deleteValuesForKeys:[NSArray arrayWithObject:name]
+    [webService deleteValuesForKeys:$array(name)
                                user:_CMUserOrNil
                      successHandler:^(NSDictionary *results, NSDictionary *errors) {
                          callback(YES);

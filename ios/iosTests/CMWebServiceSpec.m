@@ -62,7 +62,7 @@ describe(@"CMWebService", ^{
 
         it(@"URLs with a search query at the app level correctly", ^{
             NSString *query = @"[name = \"Marc\"]";
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/search?q=%@", appId, [query stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/search?q=%@", appId, [query stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
 
             id spy = [[CMBlockValidationMessageSpy alloc] init];
             [spy addValidationBlock:^(NSInvocation *invocation) {

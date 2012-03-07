@@ -6,8 +6,9 @@
 //  See LICENSE file included with SDK for details.
 //
 
-#import "CMStoreOptions.h"
+#import "SPLowVerbosity.h"
 
+#import "CMStoreOptions.h"
 #import "CMPagingDescriptor.h"
 #import "CMServerFunction.h"
 
@@ -37,7 +38,7 @@
 
 - (NSString *)stringRepresentation {
     if (pagingDescriptor && serverSideFunction) {
-        return [NSString stringWithFormat:@"%@&%@", [pagingDescriptor stringRepresentation], [serverSideFunction stringRepresentation]];
+        return $sprintf(@"%@&%@", [pagingDescriptor stringRepresentation], [serverSideFunction stringRepresentation]);
     } else if (pagingDescriptor) {
         return [pagingDescriptor stringRepresentation];
     } else {
