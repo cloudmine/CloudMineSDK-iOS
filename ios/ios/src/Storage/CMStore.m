@@ -28,7 +28,6 @@
 #pragma mark - Notification strings
 NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotification";
 
-
 #pragma mark -
 
 @interface CMStore (Private)

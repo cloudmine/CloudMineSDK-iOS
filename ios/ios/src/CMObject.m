@@ -21,10 +21,6 @@
 }
 
 - (id)initWithObjectId:(NSString *)theObjectId {
-    return [self initWithObjectId:theObjectId user:nil];
-}
-
-- (id)initWithObjectId:(NSString *)theObjectId user:(CMUser *)theUser {
     if (self = [super init]) {
         objectId = theObjectId;
         store = nil;
