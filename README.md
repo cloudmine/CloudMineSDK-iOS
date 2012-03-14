@@ -9,6 +9,8 @@ It has the following dependencies:
 * UIKit
 * libz
 
+You must also set the `-all_load` and `-ObjC` flags in the **Other Linker Flags** section of your app's build settings.
+
 Watch the introductory [screencast](http://cloudmine.me/developer_zone#ios/tutorials) to see how to set up a new iOS project in XCode using the CloudMine framework, including how to specify all the dependencies.
 
 Please see the [documentation overview](http://cloudmine.me/developer_zone#ios/overview) on our website for more details.
