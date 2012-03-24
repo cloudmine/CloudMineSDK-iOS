@@ -6,6 +6,8 @@
 //  See LICENSE file included with SDK for details.
 //
 
+#import "SPLowVerbosity.h"
+
 /**
  * Constants and enums used across the various encoding and decoding classes.
  */
@@ -36,3 +38,8 @@
  * becomes the key of the object's representation in dictionary form.
  */
 #define CMInternalObjectIdKey @"__id__"
+
+/**
+ * A set of all the object keys used internally by this framework for (de)serialization purposes.
+ */
+#define CMInternalKeys $set(CMInternalTypeStorageKey, CMInternalClassStorageKey, CMInternalObjectIdKey)

@@ -141,7 +141,9 @@
 - (NSDictionary *)decodeAllInDictionary:(NSDictionary *)dictionary {
     NSMutableDictionary *decodedDictionary = [NSMutableDictionary dictionaryWithCapacity:[dictionary count]];
     for (id key in dictionary) {
-        [decodedDictionary setObject:[self deserializeContentsOfObject:[dictionary objectForKey:key]] forKey:key];
+        if (![CMInternalKeys containsObject:key]) {
+            [decodedDictionary setObject:[self deserializeContentsOfObject:[dictionary objectForKey:key]] forKey:key];
+        }
     }
     return decodedDictionary;
 }
