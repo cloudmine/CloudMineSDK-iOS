@@ -100,6 +100,7 @@
 		7AB4AB74145DC5D8006AEF67 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB62145DC5D8006AEF67 /* Foundation.framework */; };
 		7AB4AB77145DC5D8006AEF67 /* libcloudmine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB5F145DC5D8006AEF67 /* libcloudmine.a */; };
 		7AB4AB7D145DC5D8006AEF67 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7AB4AB7B145DC5D8006AEF67 /* InfoPlist.strings */; };
+		7AB8BAFA1521066F00860081 /* SPLowVerbosity.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AF02D521507B36D005F03FD /* SPLowVerbosity.h */; };
 		7AD36F7A146C643E00DD4734 /* CMObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD36F78146C643E00DD4734 /* CMObject.m */; };
 		7AD36F7F146C650500DD4734 /* CMWebService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD36F7D146C650500DD4734 /* CMWebService.m */; };
 		7AD36F81146C656600DD4734 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AD36F80146C656600DD4734 /* UIKit.framework */; };
@@ -134,6 +135,7 @@
 			dstPath = "${BUILD_DIR}/${CONFIGURATION}-iphoneuniversal/${PRODUCT_NAME}.framework/Versions/A/Headers/";
 			dstSubfolderSpec = 0;
 			files = (
+				7AB8BAFA1521066F00860081 /* SPLowVerbosity.h in CopyFiles */,
 				7A934E78150E8CC200A2CAD6 /* CMObjectSerialization.h in CopyFiles */,
 				7A4A6FB91500474500B95D13 /* CMUserAccountResult.h in CopyFiles */,
 				7AE355D714F1B896006AF903 /* CMFileUploadResult.h in CopyFiles */,
