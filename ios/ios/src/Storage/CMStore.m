@@ -38,7 +38,9 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (void)_fileWithName:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreFileFetchCallback)callback;
 - (void)_saveObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreObjectUploadCallback)callback additionalOptions:(CMStoreOptions *)options;
 - (void)_saveFileAtURL:(NSURL *)url named:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreFileUploadCallback)callback;
+- (void)_saveFileAtURL:(NSURL *)url userLevel:(BOOL)userLevel callback:(CMStoreFileUploadWithKeyCallback)callback;
 - (void)_saveFileWithData:(NSData *)data named:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreFileUploadCallback)callback;
+- (void)_saveFileWithData:(NSData *)data userLevel:(BOOL)userLevel callback:(CMStoreFileUploadWithKeyCallback)callback;
 - (NSString *)_mimeTypeForFileAtURL:(NSURL *)url withCustomName:(NSString *)name;
 - (void)_deleteObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreDeleteCallback)callback;
 - (void)_deleteFileNamed:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreDeleteCallback)callback;
@@ -285,9 +287,18 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     [self _saveFileAtURL:url named:name userLevel:NO callback:callback];
 }
 
+- (void)saveFileAtURL:(NSURL *)url callback:(CMStoreFileUploadWithKeyCallback)callback {
+    [self _saveFileAtURL:url userLevel:NO callback:callback];
+}
+
 - (void)saveUserFileAtURL:(NSURL *)url named:(NSString *)name callback:(CMStoreFileUploadCallback)callback {
     _CMAssertUserConfigured;
     [self _saveFileAtURL:url named:name userLevel:YES callback:callback];
+}
+
+- (void)saveUserFileAtURL:(NSURL *)url callback:(CMStoreFileUploadWithKeyCallback)callback {
+    _CMAssertUserConfigured;
+    [self _saveFileAtURL:url userLevel:YES callback:callback];
 }
 
 - (void)_saveFileAtURL:(NSURL *)url named:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreFileUploadCallback)callback {
@@ -309,13 +320,39 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
      ];
 }
 
+- (void)_saveFileAtURL:(NSURL *)url userLevel:(BOOL)userLevel callback:(CMStoreFileUploadWithKeyCallback)callback {
+    NSParameterAssert(url);
+    _CMAssertAPICredentialsInitialized;
+    
+    [webService uploadFileAtPath:[url path]
+                      ofMimeType:[self _mimeTypeForFileAtURL:url withCustomName:nil]
+                            user:_CMUserOrNil
+                  successHandler:^(CMFileUploadResult result, NSString *fileKey) {
+                      callback(result, fileKey);
+                  } errorHandler:^(NSError *error) {
+                      NSLog(@"Error ocurred during file uploading: %@", [error description]);
+                      lastError = error;
+                      callback(CMFileUploadFailed, nil);
+                  }
+     ];
+}
+
 - (void)saveFileWithData:(NSData *)data named:(NSString *)name callback:(CMStoreFileUploadCallback)callback {
     [self _saveFileWithData:data named:name userLevel:NO callback:callback];
+}
+
+- (void)saveFileWithData:(NSData *)data callback:(CMStoreFileUploadWithKeyCallback)callback {
+    [self _saveFileWithData:data userLevel:NO callback:callback];
 }
 
 - (void)saveUserFileWithData:(NSData *)data named:(NSString *)name callback:(CMStoreFileUploadCallback)callback {
     _CMAssertUserConfigured;
     [self _saveFileWithData:data named:name userLevel:YES callback:callback];
+}
+
+- (void)saveUserFileWithData:(NSData *)data callback:(CMStoreFileUploadWithKeyCallback)callback {
+    _CMAssertUserConfigured;
+    [self _saveFileWithData:data userLevel:YES callback:callback];
 }
 
 - (void)_saveFileWithData:(NSData *)data named:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreFileUploadCallback)callback {
@@ -333,6 +370,23 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                       NSLog(@"Error ocurred during in-memory file uploading: %@", [error description]);
                       lastError = error;
                       callback(CMFileUploadFailed);
+                  }
+     ];
+}
+
+- (void)_saveFileWithData:(NSData *)data userLevel:(BOOL)userLevel callback:(CMStoreFileUploadWithKeyCallback)callback {
+    NSParameterAssert(data);
+    _CMAssertAPICredentialsInitialized;
+    
+    [webService uploadBinaryData:data
+                      ofMimeType:[self _mimeTypeForFileAtURL:nil withCustomName:nil]
+                            user:_CMUserOrNil
+                  successHandler:^(CMFileUploadResult result, NSString* fileKey) {
+                      callback(result, fileKey);
+                  } errorHandler:^(NSError *error) {
+                      NSLog(@"Error ocurred during in-memory file uploading: %@", [error description]);
+                      lastError = error;
+                      callback(CMFileUploadFailed, nil);
                   }
      ];
 }

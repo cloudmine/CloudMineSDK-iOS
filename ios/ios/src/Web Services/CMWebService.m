@@ -26,6 +26,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 
 @interface CMWebService (Private)
 - (NSURL *)constructTextUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys query:(NSString *)searchString pagingOptions:(CMPagingDescriptor *)paging withServerSideFunction:(CMServerFunction *)function;
+- (NSURL *)constructBinaryUrlAtUserLevel:(BOOL)atUserLevel;
 - (NSURL *)constructBinaryUrlAtUserLevel:(BOOL)atUserLevel withKey:(NSString *)key;
 - (NSURL *)constructDataUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys withServerSideFunction:(CMServerFunction *)function;
 - (ASIHTTPRequest *)constructHTTPRequestWithVerb:(NSString *)verb URL:(NSURL *)url appSecret:(NSString *)appSecret binaryData:(BOOL)isForBinaryData user:(CMUser *)user;
@@ -162,6 +163,23 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     [self executeBinaryDataUploadRequest:request successHandler:successHandler errorHandler:errorHandler];
 }
 
+- (void)uploadBinaryData:(NSData *)data
+              ofMimeType:(NSString *)mimeType
+                    user:(CMUser *)user
+          successHandler:(CMWebServiceFileUploadSuccessWithKeyCallback)successHandler
+            errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
+    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"PUT"
+                                                             URL:[self constructBinaryUrlAtUserLevel:(user != nil)]
+                                                       appSecret:_appSecret
+                                                      binaryData:YES
+                                                            user:user];
+    if (mimeType && ![mimeType isEqualToString:@""]) {
+        [request addRequestHeader:@"Content-Type" value:mimeType];
+    }
+    [request setPostBody:[data mutableCopy]];
+    [self executeBinaryDataUploadWithKeyRequest:request successHandler:successHandler errorHandler:errorHandler];
+}
+
 - (void)uploadFileAtPath:(NSString *)path
                    named:(NSString *)key
               ofMimeType:(NSString *)mimeType
@@ -171,7 +189,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"PUT"
                                                              URL:[self constructBinaryUrlAtUserLevel:(user != nil)
                                                                                              withKey:key]
-                                                          appSecret:_appSecret
+                                                       appSecret:_appSecret
                                                       binaryData:YES
                                                             user:user];
     if (mimeType && ![mimeType isEqualToString:@""]) {
@@ -180,6 +198,24 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     [request setShouldStreamPostDataFromDisk:YES];
     [request setPostBodyFilePath:path];
     [self executeBinaryDataUploadRequest:request successHandler:successHandler errorHandler:errorHandler];
+}
+
+- (void)uploadFileAtPath:(NSString *)path
+              ofMimeType:(NSString *)mimeType
+                    user:(CMUser *)user
+          successHandler:(CMWebServiceFileUploadSuccessWithKeyCallback)successHandler
+            errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
+    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"PUT"
+                                                             URL:[self constructBinaryUrlAtUserLevel:(user != nil)]
+                                                          appSecret:_appSecret
+                                                      binaryData:YES
+                                                            user:user];
+    if (mimeType && ![mimeType isEqualToString:@""]) {
+        [request addRequestHeader:@"Content-Type" value:mimeType];
+    }
+    [request setShouldStreamPostDataFromDisk:YES];
+    [request setPostBodyFilePath:path];
+    [self executeBinaryDataUploadWithKeyRequest:request successHandler:successHandler errorHandler:errorHandler];
 }
 
 #pragma mark - PUT (replace) requests for non-binary data
@@ -480,6 +516,31 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     [self.networkQueue go];
 }
 
+- (void)executeBinaryDataUploadWithKeyRequest:(ASIHTTPRequest *)request
+                        successHandler:(CMWebServiceFileUploadSuccessWithKeyCallback)successHandler
+                          errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
+    
+    __unsafe_unretained ASIHTTPRequest *blockRequest = request; // Stop the retain cycle.
+    
+    [request setCompletionBlock:^{
+        if (successHandler != nil) {
+            NSDictionary *results = [blockRequest.responseString yajl_JSON];
+            NSString *fileKey = [results objectForKey:@"key"];
+            
+            successHandler(blockRequest.responseStatusCode == 201 ? CMFileCreated : CMFileUpdated, fileKey);
+        }
+    }];
+    
+    [request setFailedBlock:^{
+        if (errorHandler != nil) {
+            errorHandler(blockRequest.error);
+        }
+    }];
+    
+    [self.networkQueue addOperation:request];
+    [self.networkQueue go];
+}
+
 #pragma - Request construction
 
 - (ASIHTTPRequest *)constructHTTPRequestWithVerb:(NSString *)verb
@@ -543,6 +604,17 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     }
 
     return [self appendKeys:keys serverSideFunction:function query:searchString pagingOptions:paging toURL:url];
+}
+
+- (NSURL *)constructBinaryUrlAtUserLevel:(BOOL)atUserLevel {
+    NSURL *url;
+    if (atUserLevel) {
+        url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/user/binary", _appIdentifier]];
+    } else {
+        url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/binary", _appIdentifier]];
+    }
+    
+    return url;
 }
 
 - (NSURL *)constructBinaryUrlAtUserLevel:(BOOL)atUserLevel

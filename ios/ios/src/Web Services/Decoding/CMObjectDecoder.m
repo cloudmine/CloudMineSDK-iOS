@@ -1,5 +1,5 @@
 //
-//  CMJSONDecoder.m
+//  CMObjectDecoder.m
 //  cloudmine-ios
 //
 //  Copyright (c) 2012 CloudMine, LLC. All rights reserved.
@@ -37,6 +37,11 @@
                 [[NSException exceptionWithName:@"CMInternalInconsistencyException" reason:[NSString stringWithFormat:@"Can only deserialize top-level objects that inherit from CMObject. Got %@.", NSStringFromClass([decodedObject class])] userInfo:nil] raise];
                 return nil;
             }
+            
+            if(!decodedObject.objectId) {
+                [decodedObject setObjectId:key];
+            }
+            
             [decodedObjects addObject:decodedObject];
         } else {
             NSLog(@"Failed to deserialize and inflate object with dictionary representation:\n%@", objectRepresentation);
@@ -122,9 +127,10 @@
         if (klass == nil) {
             klass = NSClassFromString(className);
         }
-
-        // At this point we have no idea what the class is, so fail.
-        NSAssert(klass, @"Class with name \"%@\" could not be loaded during remote object deserialization.", className);
+        
+        if (klass == nil) {
+            klass = [CMObject class];
+        }
     }
 
     return klass;
