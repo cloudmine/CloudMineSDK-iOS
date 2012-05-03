@@ -406,7 +406,6 @@ typedef enum {
  * which will be passed into the given callback.
  *
  * @param url The absolute URL to the location of the file on the device.
- * @param name The name to give the file on CloudMine. <b>This must be unique throughout all instances of your app.</b>
  * @param callback The callback to be triggered when all the objects are finished uploading.
  *
  * @see https://cloudmine.me/developer_zone#ref/file_set
@@ -433,7 +432,6 @@ typedef enum {
  * which will be passed into the given callback.
  *
  * @param url The absolute URL to the location of the file on the device.
- * @param name The name to give the file on CloudMine. <b>This must be unique throughout all instances of your app.</b>
  * @param callback The callback to be triggered when all the objects are finished uploading.
  *
  * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
@@ -465,7 +463,6 @@ typedef enum {
  * contained in an <tt>NSData</tt> object. The server will generate a name for this file, which will be passed into the given callback.
  *
  * @param data The raw contents of the file.
- * @param name The name to give the file on CloudMine. <b>This must be unique throughout all instances of your app.</b>
  * @param callback The callback to be triggered when all the objects are finished uploading.
  *
  * @see https://cloudmine.me/developer_zone#ref/file_set
@@ -491,7 +488,6 @@ typedef enum {
  * the given callback.
  *
  * @param data The raw contents of the file.
- * @param name The name to give the file on CloudMine. <b>This must be unique throughout all instances of your app.</b>
  * @param callback The callback to be triggered when all the objects are finished uploading.
  *
  * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
