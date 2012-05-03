@@ -38,9 +38,9 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (void)_fileWithName:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreFileFetchCallback)callback;
 - (void)_saveObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreObjectUploadCallback)callback additionalOptions:(CMStoreOptions *)options;
 - (void)_saveFileAtURL:(NSURL *)url named:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreFileUploadCallback)callback;
-- (void)_saveFileAtURL:(NSURL *)url userLevel:(BOOL)userLevel callback:(CMStoreFileUploadWithKeyCallback)callback;
+- (void)_saveFileAtURL:(NSURL *)url userLevel:(BOOL)userLevel callback:(CMStoreFileUploadWithGeneratedKeyCallback)callback;
 - (void)_saveFileWithData:(NSData *)data named:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreFileUploadCallback)callback;
-- (void)_saveFileWithData:(NSData *)data userLevel:(BOOL)userLevel callback:(CMStoreFileUploadWithKeyCallback)callback;
+- (void)_saveFileWithData:(NSData *)data userLevel:(BOOL)userLevel callback:(CMStoreFileUploadWithGeneratedKeyCallback)callback;
 - (NSString *)_mimeTypeForFileAtURL:(NSURL *)url withCustomName:(NSString *)name;
 - (void)_deleteObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreDeleteCallback)callback;
 - (void)_deleteFileNamed:(NSString *)name userLevel:(BOOL)userLevel callback:(CMStoreDeleteCallback)callback;
@@ -287,7 +287,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     [self _saveFileAtURL:url named:name userLevel:NO callback:callback];
 }
 
-- (void)saveFileAtURL:(NSURL *)url callback:(CMStoreFileUploadWithKeyCallback)callback {
+- (void)saveFileAtURL:(NSURL *)url callback:(CMStoreFileUploadWithGeneratedKeyCallback)callback {
     [self _saveFileAtURL:url userLevel:NO callback:callback];
 }
 
@@ -296,7 +296,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     [self _saveFileAtURL:url named:name userLevel:YES callback:callback];
 }
 
-- (void)saveUserFileAtURL:(NSURL *)url callback:(CMStoreFileUploadWithKeyCallback)callback {
+- (void)saveUserFileAtURL:(NSURL *)url callback:(CMStoreFileUploadWithGeneratedKeyCallback)callback {
     _CMAssertUserConfigured;
     [self _saveFileAtURL:url userLevel:YES callback:callback];
 }
@@ -320,7 +320,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
      ];
 }
 
-- (void)_saveFileAtURL:(NSURL *)url userLevel:(BOOL)userLevel callback:(CMStoreFileUploadWithKeyCallback)callback {
+- (void)_saveFileAtURL:(NSURL *)url userLevel:(BOOL)userLevel callback:(CMStoreFileUploadWithGeneratedKeyCallback)callback {
     NSParameterAssert(url);
     _CMAssertAPICredentialsInitialized;
     
@@ -341,7 +341,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     [self _saveFileWithData:data named:name userLevel:NO callback:callback];
 }
 
-- (void)saveFileWithData:(NSData *)data callback:(CMStoreFileUploadWithKeyCallback)callback {
+- (void)saveFileWithData:(NSData *)data callback:(CMStoreFileUploadWithGeneratedKeyCallback)callback {
     [self _saveFileWithData:data userLevel:NO callback:callback];
 }
 
@@ -350,7 +350,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     [self _saveFileWithData:data named:name userLevel:YES callback:callback];
 }
 
-- (void)saveUserFileWithData:(NSData *)data callback:(CMStoreFileUploadWithKeyCallback)callback {
+- (void)saveUserFileWithData:(NSData *)data callback:(CMStoreFileUploadWithGeneratedKeyCallback)callback {
     _CMAssertUserConfigured;
     [self _saveFileWithData:data userLevel:YES callback:callback];
 }
@@ -374,7 +374,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
      ];
 }
 
-- (void)_saveFileWithData:(NSData *)data userLevel:(BOOL)userLevel callback:(CMStoreFileUploadWithKeyCallback)callback {
+- (void)_saveFileWithData:(NSData *)data userLevel:(BOOL)userLevel callback:(CMStoreFileUploadWithGeneratedKeyCallback)callback {
     NSParameterAssert(data);
     _CMAssertAPICredentialsInitialized;
     

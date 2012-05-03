@@ -166,7 +166,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 - (void)uploadBinaryData:(NSData *)data
               ofMimeType:(NSString *)mimeType
                     user:(CMUser *)user
-          successHandler:(CMWebServiceFileUploadSuccessWithKeyCallback)successHandler
+          successHandler:(CMWebServiceFileUploadSuccessWithGeneratedKeyCallback)successHandler
             errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"PUT"
                                                              URL:[self constructBinaryUrlAtUserLevel:(user != nil)]
@@ -177,7 +177,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
         [request addRequestHeader:@"Content-Type" value:mimeType];
     }
     [request setPostBody:[data mutableCopy]];
-    [self executeBinaryDataUploadWithKeyRequest:request successHandler:successHandler errorHandler:errorHandler];
+    [self executeBinaryDataUploadWithGeneratedKeyRequest:request successHandler:successHandler errorHandler:errorHandler];
 }
 
 - (void)uploadFileAtPath:(NSString *)path
@@ -203,7 +203,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 - (void)uploadFileAtPath:(NSString *)path
               ofMimeType:(NSString *)mimeType
                     user:(CMUser *)user
-          successHandler:(CMWebServiceFileUploadSuccessWithKeyCallback)successHandler
+          successHandler:(CMWebServiceFileUploadSuccessWithGeneratedKeyCallback)successHandler
             errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"PUT"
                                                              URL:[self constructBinaryUrlAtUserLevel:(user != nil)]
@@ -215,7 +215,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     }
     [request setShouldStreamPostDataFromDisk:YES];
     [request setPostBodyFilePath:path];
-    [self executeBinaryDataUploadWithKeyRequest:request successHandler:successHandler errorHandler:errorHandler];
+    [self executeBinaryDataUploadWithGeneratedKeyRequest:request successHandler:successHandler errorHandler:errorHandler];
 }
 
 #pragma mark - PUT (replace) requests for non-binary data
@@ -516,8 +516,8 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     [self.networkQueue go];
 }
 
-- (void)executeBinaryDataUploadWithKeyRequest:(ASIHTTPRequest *)request
-                        successHandler:(CMWebServiceFileUploadSuccessWithKeyCallback)successHandler
+- (void)executeBinaryDataUploadWithGeneratedKeyRequest:(ASIHTTPRequest *)request
+                        successHandler:(CMWebServiceFileUploadSuccessWithGeneratedKeyCallback)successHandler
                           errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
     
     __unsafe_unretained ASIHTTPRequest *blockRequest = request; // Stop the retain cycle.

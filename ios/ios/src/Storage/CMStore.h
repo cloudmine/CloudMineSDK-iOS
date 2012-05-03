@@ -411,7 +411,7 @@ typedef enum {
  *
  * @see https://cloudmine.me/developer_zone#ref/file_set
  */
-- (void)saveFileAtURL:(NSURL *)url callback:(CMStoreFileUploadWithKeyCallback)callback;
+- (void)saveFileAtURL:(NSURL *)url callback:(CMStoreFileUploadWithGeneratedKeyCallback)callback;
 
 /**
  * Saves a file to your app's CloudMine data store at the app-level. This works by streaming the contents of the
@@ -441,7 +441,7 @@ typedef enum {
  * @see https://cloudmine.me/developer_zone#ref/file_set
  * @see https://cloudmine.me/developer_zone#ref/account_overview
  */
-- (void)saveUserFileAtURL:(NSURL *)url callback:(CMStoreFileUploadWithKeyCallback)callback;
+- (void)saveUserFileAtURL:(NSURL *)url callback:(CMStoreFileUploadWithGeneratedKeyCallback)callback;
 
 /**
  * Saves a file to your app's CloudMine data store at the user-level. The store must be configured
@@ -470,7 +470,7 @@ typedef enum {
  *
  * @see https://cloudmine.me/developer_zone#ref/file_set
  */
-- (void)saveFileWithData:(NSData *)data callback:(CMStoreFileUploadWithKeyCallback)callback;
+- (void)saveFileWithData:(NSData *)data callback:(CMStoreFileUploadWithGeneratedKeyCallback)callback;
 
 /**
  * Saves a file to your app's CloudMine data store at the app-level. This uses the raw data of the file's contents
@@ -499,7 +499,7 @@ typedef enum {
  * @see https://cloudmine.me/developer_zone#ref/file_set
  * @see https://cloudmine.me/developer_zone#ref/account_overview
  */
-- (void)saveUserFileWithData:(NSData *)data callback:(CMStoreFileUploadWithKeyCallback)callback;
+- (void)saveUserFileWithData:(NSData *)data callback:(CMStoreFileUploadWithGeneratedKeyCallback)callback;
 
 /**
  * Saves a file to your app's CloudMine data store at the user-level. The store must be configured

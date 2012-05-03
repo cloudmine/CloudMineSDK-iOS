@@ -54,7 +54,7 @@ typedef void (^CMWebServiceFileUploadSuccessCallback)(CMFileUploadResult result)
  * taking a <tt>CMFileUploadResult</tt> and an <tt>NSString</tt> as arguments to indicate the final result of 
  * the upload operation and the file key that was generated.
  */
-typedef void (^CMWebServiceFileUploadSuccessWithKeyCallback)(CMFileUploadResult result, NSString *fileKey);
+typedef void (^CMWebServiceFileUploadSuccessWithGeneratedKeyCallback)(CMFileUploadResult result, NSString *fileKey);
 
 /**
  * Callback block signature for all operations on <tt>CMWebService</tt> that download binary files from
@@ -189,7 +189,7 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
 - (void)uploadBinaryData:(NSData *)data
               ofMimeType:(NSString *)mimeType
                     user:(CMUser *)user
-          successHandler:(CMWebServiceFileUploadSuccessWithKeyCallback)successHandler
+          successHandler:(CMWebServiceFileUploadSuccessWithGeneratedKeyCallback)successHandler
             errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
 /**
@@ -233,7 +233,7 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
 - (void)uploadFileAtPath:(NSString *)path
               ofMimeType:(NSString *)mimeType
                     user:(CMUser *)user
-          successHandler:(CMWebServiceFileUploadSuccessWithKeyCallback)successHandler
+          successHandler:(CMWebServiceFileUploadSuccessWithGeneratedKeyCallback)successHandler
             errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
 /**

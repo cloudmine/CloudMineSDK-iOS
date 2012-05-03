@@ -48,7 +48,7 @@ typedef void (^CMStoreFileUploadCallback)(CMFileUploadResult uploadResult);
  * <tt>CMFileUploadResult</tt> as an argument. This will the result of the upload (namely, whether
  * the upload created a new file or updated an old one).
  */
-typedef void (^CMStoreFileUploadWithKeyCallback)(CMFileUploadResult uploadResult, NSString *fileKey);
+typedef void (^CMStoreFileUploadWithGeneratedKeyCallback)(CMFileUploadResult uploadResult, NSString *fileKey);
 
 
 /**
