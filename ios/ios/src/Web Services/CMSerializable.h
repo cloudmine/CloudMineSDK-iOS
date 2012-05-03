@@ -14,7 +14,7 @@
  * Every object must have a form of unique identifier. Implement this
  * in the classes that implement this protocol to provide that identifier.
  */
-@property (atomic, strong) NSString *objectId;
+@property (atomic, readonly, strong) NSString *objectId;
 
 /**
  * The name of this class. This method must be overriden and implemented
