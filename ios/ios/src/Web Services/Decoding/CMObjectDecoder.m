@@ -38,10 +38,6 @@
                 return nil;
             }
             
-            if(!decodedObject.objectId) {
-                [decodedObject setObjectId:key];
-            }
-            
             [decodedObjects addObject:decodedObject];
         } else {
             NSLog(@"Failed to deserialize and inflate object with dictionary representation:\n%@", objectRepresentation);
@@ -128,9 +124,7 @@
             klass = NSClassFromString(className);
         }
         
-        if (klass == nil) {
-            klass = [CMObject class];
-        }
+        NSAssert(klass, @"Class with name \"%@\" could not be loaded during remote object deserialization.", className);
     }
 
     return klass;
