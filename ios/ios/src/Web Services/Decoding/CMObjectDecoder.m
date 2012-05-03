@@ -124,6 +124,7 @@
             klass = NSClassFromString(className);
         }
         
+        // At this point we have no idea what the class is, so fail.
         NSAssert(klass, @"Class with name \"%@\" could not be loaded during remote object deserialization.", className);
     }
 
