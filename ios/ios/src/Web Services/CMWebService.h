@@ -177,8 +177,8 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
 
 /**
  * Asynchronously upload the raw binary data contained in <tt>data</tt> with an optional MIME type as a user-level object.
- * On completion, the <tt>successHandler</tt> block will be called with a status code indicating
- * whether a file with the given key previously existed on the server or had to be created new.
+ * On completion, the <tt>successHandler</tt> block will be called with a status code indicating the result of the upload operation,
+ * as well as the name the server generated for the new file.
  *
  * @param data The raw binary data of the file to upload.
  * @param mimeType The MIME type of this file. When later fetched, this MIME type will be used in the Content-Type header. If <tt>nil</tt>, defaults to <tt>application/octet-stream</tt>.
@@ -221,8 +221,8 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
  * the file directly from the filesystem without first loading it into RAM, making it perfect for uploading large files
  * on the filesystem efficiently.
  *
- * On completion, the <tt>successHandler</tt> block will be called with a status code indicating
- * whether a file with the given key previously existed on the server or had to be created new.
+ * On completion, the <tt>successHandler</tt> block will be called with a status code indicating whether the upload was successful or not,
+ * as well as the name the server generated for the new file.
  *
  * @param path The path to the file to upload.
  * @param mimeType The MIME type of this file. When later fetched, this MIME type will be used in the Content-Type header. If <tt>nil</tt>, defaults to <tt>application/octet-stream</tt>.
