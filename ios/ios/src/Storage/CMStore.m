@@ -133,14 +133,14 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
               serverSideFunction:_CMTryMethod(options, serverSideFunction)
                    pagingOptions:_CMTryMethod(options, pagingDescriptor)
                             user:_CMUserOrNil
-                  successHandler:^(NSDictionary *results, NSDictionary *errors) {
+                  successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta) {
                       NSArray *objects = [CMObjectDecoder decodeObjects:results];
                       [blockSelf cacheObjectsInMemory:objects atUserLevel:userLevel];
-                      callback(objects, errors);
+                      callback(objects, errors, meta);
                   } errorHandler:^(NSError *error) {
                       NSLog(@"Error occurred during object request: %@", [error description]);
                       lastError = error;
-                      callback(nil, nil);
+                      callback(nil, nil, nil);
                   }
      ];
 }
@@ -195,14 +195,14 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
              serverSideFunction:_CMTryMethod(options, serverSideFunction)
                   pagingOptions:_CMTryMethod(options, pagingDescriptor)
                            user:_CMUserOrNil
-                 successHandler:^(NSDictionary *results, NSDictionary *errors) {
+                 successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta) {
                      NSArray *objects = [CMObjectDecoder decodeObjects:results];
                      [blockSelf cacheObjectsInMemory:objects atUserLevel:userLevel];
-                     callback(objects, errors);
+                     callback(objects, errors, meta);
                  } errorHandler:^(NSError *error) {
                      NSLog(@"Error occurred during object request: %@", [error description]);
                      lastError = error;
-                     callback(nil, nil);
+                     callback(nil, nil, nil);
                  }
      ];
 }
@@ -269,7 +269,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     [webService updateValuesFromDictionary:[CMObjectEncoder encodeObjects:objects]
                         serverSideFunction:_CMTryMethod(options, serverSideFunction)
                                       user:_CMUserOrNil
-                            successHandler:^(NSDictionary *results, NSDictionary *errors) {
+                            successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta) {
                                 callback(results);
                             } errorHandler:^(NSError *error) {
                                 NSLog(@"Error occurred during object uploading: %@", [error description]);
@@ -395,7 +395,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
     [webService deleteValuesForKeys:$array(name)
                                user:_CMUserOrNil
-                     successHandler:^(NSDictionary *results, NSDictionary *errors) {
+                     successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta) {
                          callback(YES);
                      } errorHandler:^(NSError *error) {
                          NSLog(@"An error occurred when deleting the file named \"%@\": %@", name, [error description]);
@@ -420,7 +420,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     NSArray *keys = [deletedObjects allKeys];
     [webService deleteValuesForKeys:keys
                                user:_CMUserOrNil
-                     successHandler:^(NSDictionary *results, NSDictionary *errors) {
+                     successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta) {
                          callback(YES);
                      } errorHandler:^(NSError *error) {
                          NSLog(@"An error occurred when deleting objects with keys (%@): %@", keys, [error description]);

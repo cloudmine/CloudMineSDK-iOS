@@ -17,7 +17,7 @@
  * from the CloudMine servers. This block should return <tt>void</tt> and take an
  * <tt>NSArray</tt> of objects as an argument.
  */
-typedef void (^CMStoreObjectFetchCallback)(NSArray *objects, NSDictionary *errors);
+typedef void (^CMStoreObjectFetchCallback)(NSArray *objects, NSDictionary *errors, NSDictionary *meta);
 
 /**
  * Callback block signature for all operations on <tt>CMStore</tt> that upload objects

@@ -31,7 +31,7 @@
  * from the CloudMine servers. These blocks return <tt>void</tt> and take a dictionary of results
  * and a dictionary of errors as arguments. These map directly with the CloudMine API response format.
  */
-typedef void (^CMWebServiceObjectFetchSuccessCallback)(NSDictionary *results, NSDictionary *errors);
+typedef void (^CMWebServiceObjectFetchSuccessCallback)(NSDictionary *results, NSDictionary *errors, NSDictionary *meta);
 
 /**
  * Callback block signature for <b>all</b> operations on <tt>CMStore</tt> that can fail. These are general

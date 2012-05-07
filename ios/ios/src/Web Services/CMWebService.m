@@ -402,6 +402,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
         } else {
             NSDictionary *successes = nil;
             NSDictionary *errors = nil;
+            NSDictionary *meta = nil;
             if (results) {
                 successes = [results objectForKey:@"success"];
                 if (!successes) {
@@ -412,9 +413,14 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
                 if (!errors) {
                     errors = [NSDictionary dictionary];
                 }
+                
+                meta = [results objectForKey:@"meta"];
+                if(!meta) {
+                    meta = [NSDictionary dictionary];
+                }
             }
             if (successHandler != nil) {
-                successHandler(successes, errors);
+                successHandler(successes, errors, meta);
             }
         }
     }];

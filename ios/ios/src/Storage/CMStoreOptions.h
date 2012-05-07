@@ -34,9 +34,19 @@
  */
 @property (nonatomic, strong) CMServerFunction *serverSideFunction;
 
+/**
+ * Extra parameters that should be passed into the query.
+ */
+@property (nonatomic, strong) BOOL includeDistance;
+
+/**
+ * 
+
 - (id)initWithPagingDescriptor:(CMPagingDescriptor *)thePagingDescriptor;
 - (id)initWithServerSideFunction:(CMServerFunction *)theServerFunction;
 - (id)initWithPagingDescriptor:(CMPagingDescriptor *)thePagingDescriptor andServerSideFunction:(CMServerFunction *)theServerFunction;
+- (id)initWithPagingDescriptor:(CMPagingDescriptor *)thePagingDescriptor andServerSideFunction:(CMServerFunction *)theServerFunction andQueryParameters:(NSDictionary *)queryParams;
+- (void)addQueryParameterWithKey:(NSString*)key andValue:(id)value;
 
 /**
  * Converts all the set properties into a query string format that can be appended to a URL.
