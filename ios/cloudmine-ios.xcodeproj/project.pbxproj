@@ -23,6 +23,16 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		6516E8D9155AEC7200B84ED9 /* CMDeleteResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 6516E8D0155AEC7200B84ED9 /* CMDeleteResponse.m */; };
+		6516E8DA155AEC7200B84ED9 /* CMFileFetchResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 6516E8D2155AEC7200B84ED9 /* CMFileFetchResponse.m */; };
+		6516E8DB155AEC7200B84ED9 /* CMFileUploadResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 6516E8D4155AEC7200B84ED9 /* CMFileUploadResponse.m */; };
+		6516E8DC155AEC7200B84ED9 /* CMObjectFetchResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 6516E8D6155AEC7200B84ED9 /* CMObjectFetchResponse.m */; };
+		6516E8DD155AEC7200B84ED9 /* CMObjectUploadResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 6516E8D8155AEC7200B84ED9 /* CMObjectUploadResponse.m */; };
+		6516E8E1155AEE2200B84ED9 /* CMResponseMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 6516E8E0155AEE2200B84ED9 /* CMResponseMetadata.m */; };
+		6516E8E4155AEE6900B84ED9 /* CMSnippetResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 6516E8E3155AEE6900B84ED9 /* CMSnippetResult.m */; };
+		6516E8E7155AEEE500B84ED9 /* CMStoreResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 6516E8E6155AEEE500B84ED9 /* CMStoreResponse.m */; };
+		65C9D0E11559C56A0064A2F2 /* CMWebServiceResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C9D0E01559C56A0064A2F2 /* CMWebServiceResponse.m */; };
+		65C9D0E51559C8B20064A2F2 /* CMStoreResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C9D0E41559C8B20064A2F2 /* CMStoreResponse.m */; };
 		7A0413BB146C5B3A00EF537A /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0413A2146C5B3A00EF537A /* ASIAuthenticationDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7A0413BE146C5B3A00EF537A /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0413A5146C5B3A00EF537A /* ASIDataCompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7A0413C0146C5B3A00EF537A /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0413A7146C5B3A00EF537A /* ASIDataDecompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -166,6 +176,26 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6516E8CF155AEC7200B84ED9 /* CMDeleteResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMDeleteResponse.h; sourceTree = "<group>"; };
+		6516E8D0155AEC7200B84ED9 /* CMDeleteResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMDeleteResponse.m; sourceTree = "<group>"; };
+		6516E8D1155AEC7200B84ED9 /* CMFileFetchResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMFileFetchResponse.h; sourceTree = "<group>"; };
+		6516E8D2155AEC7200B84ED9 /* CMFileFetchResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMFileFetchResponse.m; sourceTree = "<group>"; };
+		6516E8D3155AEC7200B84ED9 /* CMFileUploadResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMFileUploadResponse.h; sourceTree = "<group>"; };
+		6516E8D4155AEC7200B84ED9 /* CMFileUploadResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMFileUploadResponse.m; sourceTree = "<group>"; };
+		6516E8D5155AEC7200B84ED9 /* CMObjectFetchResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMObjectFetchResponse.h; sourceTree = "<group>"; };
+		6516E8D6155AEC7200B84ED9 /* CMObjectFetchResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectFetchResponse.m; sourceTree = "<group>"; };
+		6516E8D7155AEC7200B84ED9 /* CMObjectUploadResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMObjectUploadResponse.h; sourceTree = "<group>"; };
+		6516E8D8155AEC7200B84ED9 /* CMObjectUploadResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectUploadResponse.m; sourceTree = "<group>"; };
+		6516E8DF155AEE2200B84ED9 /* CMResponseMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMResponseMetadata.h; sourceTree = "<group>"; };
+		6516E8E0155AEE2200B84ED9 /* CMResponseMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMResponseMetadata.m; sourceTree = "<group>"; };
+		6516E8E2155AEE6900B84ED9 /* CMSnippetResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMSnippetResult.h; sourceTree = "<group>"; };
+		6516E8E3155AEE6900B84ED9 /* CMSnippetResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMSnippetResult.m; sourceTree = "<group>"; };
+		6516E8E5155AEEE500B84ED9 /* CMStoreResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMStoreResponse.h; sourceTree = "<group>"; };
+		6516E8E6155AEEE500B84ED9 /* CMStoreResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMStoreResponse.m; sourceTree = "<group>"; };
+		65C9D0DF1559C56A0064A2F2 /* CMWebServiceResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMWebServiceResponse.h; sourceTree = "<group>"; };
+		65C9D0E01559C56A0064A2F2 /* CMWebServiceResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMWebServiceResponse.m; sourceTree = "<group>"; };
+		65C9D0E31559C8B20064A2F2 /* CMStoreResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMStoreResponse.h; sourceTree = "<group>"; };
+		65C9D0E41559C8B20064A2F2 /* CMStoreResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMStoreResponse.m; sourceTree = "<group>"; };
 		7A0413A1146C5B3A00EF537A /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		7A0413A2146C5B3A00EF537A /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		7A0413A3146C5B3A00EF537A /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICacheDelegate.h; sourceTree = "<group>"; };
@@ -329,6 +359,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6516E8CE155AEC7200B84ED9 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				6516E8CF155AEC7200B84ED9 /* CMDeleteResponse.h */,
+				6516E8D0155AEC7200B84ED9 /* CMDeleteResponse.m */,
+				6516E8D1155AEC7200B84ED9 /* CMFileFetchResponse.h */,
+				6516E8D2155AEC7200B84ED9 /* CMFileFetchResponse.m */,
+				6516E8D3155AEC7200B84ED9 /* CMFileUploadResponse.h */,
+				6516E8D4155AEC7200B84ED9 /* CMFileUploadResponse.m */,
+				6516E8D5155AEC7200B84ED9 /* CMObjectFetchResponse.h */,
+				6516E8D6155AEC7200B84ED9 /* CMObjectFetchResponse.m */,
+				6516E8D7155AEC7200B84ED9 /* CMObjectUploadResponse.h */,
+				6516E8D8155AEC7200B84ED9 /* CMObjectUploadResponse.m */,
+				6516E8DF155AEE2200B84ED9 /* CMResponseMetadata.h */,
+				6516E8E0155AEE2200B84ED9 /* CMResponseMetadata.m */,
+				6516E8E2155AEE6900B84ED9 /* CMSnippetResult.h */,
+				6516E8E3155AEE6900B84ED9 /* CMSnippetResult.m */,
+				6516E8E5155AEEE500B84ED9 /* CMStoreResponse.h */,
+				6516E8E6155AEEE500B84ED9 /* CMStoreResponse.m */,
+			);
+			name = Response;
+			path = "../../../../../../../cloudmine-ios/ios/ios/src/Storage/Response";
+			sourceTree = "<group>";
+		};
 		7A04139F146C5B3A00EF537A /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
@@ -404,11 +458,14 @@
 		7A7E31C514C88F760091F1E3 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
+				6516E8CE155AEC7200B84ED9 /* Response */,
 				7A7E31C614C88F8A0091F1E3 /* CMStore.h */,
 				7A7E31C714C88F8A0091F1E3 /* CMStore.m */,
 				7AD9222114D06B9A0032DDDE /* CMStoreOptions.h */,
 				7AD9222214D06B9A0032DDDE /* CMStoreOptions.m */,
 				7AD7DA5714D221F600F771C7 /* CMStoreCallbacks.h */,
+				65C9D0E31559C8B20064A2F2 /* CMStoreResponse.h */,
+				65C9D0E41559C8B20064A2F2 /* CMStoreResponse.m */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -588,6 +645,8 @@
 				7A7EDBD9148EBE3800AB5B69 /* CMObjectSerialization.h */,
 				7AD9221A14CF47350032DDDE /* CMPagingDescriptor.h */,
 				7AD9221B14CF47350032DDDE /* CMPagingDescriptor.m */,
+				65C9D0DF1559C56A0064A2F2 /* CMWebServiceResponse.h */,
+				65C9D0E01559C56A0064A2F2 /* CMWebServiceResponse.m */,
 			);
 			path = "Web Services";
 			sourceTree = "<group>";
@@ -779,6 +838,16 @@
 				7AA79D8414DC23C700F3CA3B /* RTUnregisteredClass.m in Sources */,
 				7A58CC2214F1B544003E864B /* CMMimeType.m in Sources */,
 				7AF02D5B1507B36D005F03FD /* SPLowVerbosity.m in Sources */,
+				65C9D0E11559C56A0064A2F2 /* CMWebServiceResponse.m in Sources */,
+				65C9D0E51559C8B20064A2F2 /* CMStoreResponse.m in Sources */,
+				6516E8D9155AEC7200B84ED9 /* CMDeleteResponse.m in Sources */,
+				6516E8DA155AEC7200B84ED9 /* CMFileFetchResponse.m in Sources */,
+				6516E8DB155AEC7200B84ED9 /* CMFileUploadResponse.m in Sources */,
+				6516E8DC155AEC7200B84ED9 /* CMObjectFetchResponse.m in Sources */,
+				6516E8DD155AEC7200B84ED9 /* CMObjectUploadResponse.m in Sources */,
+				6516E8E1155AEE2200B84ED9 /* CMResponseMetadata.m in Sources */,
+				6516E8E4155AEE6900B84ED9 /* CMSnippetResult.m in Sources */,
+				6516E8E7155AEEE500B84ED9 /* CMStoreResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
