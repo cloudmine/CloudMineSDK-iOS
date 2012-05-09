@@ -9,6 +9,11 @@
 /** @file */
 
 #import "CMFileUploadResult.h"
+#import "CMObjectFetchResponse.h"
+#import "CMObjectUploadResponse.h"
+#import "CMFileFetchResponse.h"
+#import "CMFileUploadResponse.h"
+#import "CMDeleteResponse.h"
 
 @class CMFile;
 

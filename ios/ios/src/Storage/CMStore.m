@@ -16,6 +16,11 @@
 #import "CMAPICredentials.h"
 #import "CMObject.h"
 #import "CMMimeType.h"
+#import "CMObjectFetchResponse.h"
+#import "CMObjectUploadResponse.h"
+#import "CMFileFetchResponse.h"
+#import "CMFileUploadResponse.h"
+#import "CMDeleteResponse.h"
 
 #define _CMAssertAPICredentialsInitialized NSAssert([[CMAPICredentials sharedInstance] appSecret] != nil && [[[CMAPICredentials sharedInstance] appSecret] length] > 0 && [[CMAPICredentials sharedInstance] appIdentifier] != nil && [[[CMAPICredentials sharedInstance] appIdentifier] length] > 0, @"The CMAPICredentials singleton must be initialized before using a CloudMine Store")
 
@@ -133,14 +138,16 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
               serverSideFunction:_CMTryMethod(options, serverSideFunction)
                    pagingOptions:_CMTryMethod(options, pagingDescriptor)
                             user:_CMUserOrNil
+                 extraParameters:nil
                   successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta) {
                       NSArray *objects = [CMObjectDecoder decodeObjects:results];
                       [blockSelf cacheObjectsInMemory:objects atUserLevel:userLevel];
-                      callback(objects, errors, meta);
+                      CMObjectFetchResponse *response = [[CMObjectFetchResponse alloc] initWithObjects:objects errors:errors];
+                      callback(response);
                   } errorHandler:^(NSError *error) {
                       NSLog(@"Error occurred during object request: %@", [error description]);
                       lastError = error;
-                      callback(nil, nil, nil);
+                      callback(nil);
                   }
      ];
 }
@@ -195,14 +202,16 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
              serverSideFunction:_CMTryMethod(options, serverSideFunction)
                   pagingOptions:_CMTryMethod(options, pagingDescriptor)
                            user:_CMUserOrNil
+                extraParameters:nil
                  successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta) {
                      NSArray *objects = [CMObjectDecoder decodeObjects:results];
                      [blockSelf cacheObjectsInMemory:objects atUserLevel:userLevel];
-                     callback(objects, errors, meta);
+                     CMObjectFetchResponse *response = [[CMObjectFetchResponse alloc] initWithObjects:objects errors:errors];
+                     callback(response);
                  } errorHandler:^(NSError *error) {
                      NSLog(@"Error occurred during object request: %@", [error description]);
                      lastError = error;
-                     callback(nil, nil, nil);
+                     callback(nil);
                  }
      ];
 }
@@ -269,8 +278,10 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     [webService updateValuesFromDictionary:[CMObjectEncoder encodeObjects:objects]
                         serverSideFunction:_CMTryMethod(options, serverSideFunction)
                                       user:_CMUserOrNil
+                           extraParameters:nil
                             successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta) {
-                                callback(results);
+                                CMObjectUploadResponse *response = [[CMObjectUploadResponse alloc] initWithUploadStatuses:results];
+                                callback(response);
                             } errorHandler:^(NSError *error) {
                                 NSLog(@"Error occurred during object uploading: %@", [error description]);
                                 lastError = error;
@@ -299,12 +310,14 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                            named:name
                       ofMimeType:[self _mimeTypeForFileAtURL:url withCustomName:name]
                             user:_CMUserOrNil
+                 extraParameters:nil
                   successHandler:^(CMFileUploadResult result) {
-                      callback(result);
+                      CMFileUploadResponse *response = [[CMFileUploadResponse alloc] initWithResult:result key:@""];
+                      callback(response);
                   } errorHandler:^(NSError *error) {
                       NSLog(@"Error ocurred during file uploading: %@", [error description]);
                       lastError = error;
-                      callback(CMFileUploadFailed);
+                      callback(nil);
                   }
      ];
 }
@@ -327,12 +340,14 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                            named:name
                       ofMimeType:[self _mimeTypeForFileAtURL:nil withCustomName:name]
                             user:_CMUserOrNil
+                 extraParameters:nil
                   successHandler:^(CMFileUploadResult result) {
-                      callback(result);
+                      CMFileUploadResponse *response = [[CMFileUploadResponse alloc] initWithResult:result key:@""];
+                      callback(response);
                   } errorHandler:^(NSError *error) {
                       NSLog(@"Error ocurred during in-memory file uploading: %@", [error description]);
                       lastError = error;
-                      callback(CMFileUploadFailed);
+                      callback(nil);
                   }
      ];
 }
@@ -395,12 +410,14 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
     [webService deleteValuesForKeys:$array(name)
                                user:_CMUserOrNil
+                    extraParameters:nil
                      successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta) {
-                         callback(YES);
+                         CMDeleteResponse *response = [[CMDeleteResponse alloc] initWithSuccess:results errors:errors];
+                         callback(results);
                      } errorHandler:^(NSError *error) {
                          NSLog(@"An error occurred when deleting the file named \"%@\": %@", name, [error description]);
                          lastError = error;
-                         callback(NO);
+                         callback(nil);
                      }
      ];
 }
@@ -420,12 +437,14 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     NSArray *keys = [deletedObjects allKeys];
     [webService deleteValuesForKeys:keys
                                user:_CMUserOrNil
+                    extraParameters:nil
                      successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta) {
-                         callback(YES);
+                         CMDeleteResponse *response = [[CMDeleteResponse alloc] initWithSuccess:results errors:errors];
+                         callback(response);
                      } errorHandler:^(NSError *error) {
                          NSLog(@"An error occurred when deleting objects with keys (%@): %@", keys, [error description]);
                          lastError = error;
-                         callback(NO);
+                         callback(nil);
                      }
      ];
 
@@ -452,13 +471,15 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
     [webService getBinaryDataNamed:name
                               user:_CMUserOrNil
+                   extraParameters:nil
                     successHandler:^(NSData *data, NSString *mimeType) {
                         CMFile *file = [[CMFile alloc] initWithData:data
                                                               named:name
                                                     belongingToUser:userLevel ? user : nil
                                                            mimeType:mimeType];
                         [file writeToCache];
-                        callback(file);
+                        CMFileFetchResponse *response = [[CMFileFetchResponse alloc] initWithFile:file];
+                        callback(response);
                     } errorHandler:^(NSError *error) {
                         NSLog(@"Error occurred during file request: %@", [error description]);
                         lastError = error;

@@ -17,6 +17,12 @@
 #import "CMStoreCallbacks.h"
 #import "CMFileUploadResult.h"
 
+#import "CMObjectFetchResponse.h"
+#import "CMObjectUploadResponse.h"
+#import "CMFileFetchResponse.h"
+#import "CMFileUploadResult.h"
+#import "CMDeleteResponse.h"
+
 @class CMObject;
 
 /**

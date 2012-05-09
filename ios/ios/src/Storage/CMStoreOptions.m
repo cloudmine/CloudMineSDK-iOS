@@ -15,7 +15,6 @@
 @implementation CMStoreOptions
 @synthesize pagingDescriptor;
 @synthesize serverSideFunction;
-@synthesize queryParameters;
 
 #pragma mark - Initializers
 
@@ -28,14 +27,9 @@
 }
 
 - (id)initWithPagingDescriptor:(CMPagingDescriptor *)thePagingDescriptor andServerSideFunction:(CMServerFunction *)theServerFunction {
-    return [self initWithPagingDescriptor:thePagingDescriptor andServerSideFunction:theServerFunction andQueryParameters:nil];
-}
-
-- (id)initWithPagingDescriptor:(CMPagingDescriptor *)thePagingDescriptor andServerSideFunction:(CMServerFunction *)theServerFunction andQueryParameters:(NSDictionary *)queryParams {
     if (self = [super init]) {
         self.pagingDescriptor = thePagingDescriptor;
         self.serverSideFunction = theServerFunction;
-        self.queryParameters = queryParams;
     }
     return self;
 }

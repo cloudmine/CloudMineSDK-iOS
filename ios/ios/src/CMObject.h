@@ -40,11 +40,6 @@
 @property (nonatomic, readonly) CMObjectOwnershipLevel ownershipLevel;
 
 /**
- *
- */
-@property (nonatomic, strong) NSDictionary *metadata;
-
-/**
  * Initializes this app-level object by generating a UUID as the default value for <tt>objectId</tt>.
  */
 - (id)init;
