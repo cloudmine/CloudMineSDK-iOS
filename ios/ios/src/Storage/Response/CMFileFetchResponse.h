@@ -7,7 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CMStoreResponse.h"
+#import "CMFile.h"
 
-@interface CMFileFetchResponse : NSObject
+@interface CMFileFetchResponse : CMStoreResponse
+
+@property (strong, atomic) CMFile *file;
+
+- (id)initWithFile:(CMFile *)file;
 
 @end

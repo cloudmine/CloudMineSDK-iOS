@@ -413,7 +413,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                     extraParameters:nil
                      successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta) {
                          CMDeleteResponse *response = [[CMDeleteResponse alloc] initWithSuccess:results errors:errors];
-                         callback(results);
+                         callback(response);
                      } errorHandler:^(NSError *error) {
                          NSLog(@"An error occurred when deleting the file named \"%@\": %@", name, [error description]);
                          lastError = error;

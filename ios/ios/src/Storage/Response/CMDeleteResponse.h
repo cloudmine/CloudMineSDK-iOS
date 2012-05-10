@@ -7,7 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CMStoreResponse.h"
 
-@interface CMDeleteResponse : NSObject
+@interface CMDeleteResponse : CMStoreResponse
+
+@property (strong, atomic) NSDictionary *success;
+@property (strong, atomic) NSDictionary *errors;
+
+- (id)initWithSuccess:(NSDictionary *)success errors:(NSDictionary *)errors;
+- (id)initWithSuccess:(NSDictionary *)success errors:(NSDictionary *)errors snippetResult:(CMSnippetResult *)snippetResult;
+- (id)initWithSuccess:(NSDictionary *)success errors:(NSDictionary *)errors snippetResult:(CMSnippetResult *)snippetResult responseMetadata:(CMResponseMetadata *)metadata;
 
 @end

@@ -10,4 +10,14 @@
 
 @implementation CMFileFetchResponse
 
+@synthesize file;
+
+- (id)initWithFile:(CMFile *)theFile {
+    if(self = [super init]) {
+        self.file = theFile;
+    }
+    
+    return self;
+}
+
 @end
