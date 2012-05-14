@@ -15,6 +15,8 @@
 @implementation CMStoreOptions
 @synthesize pagingDescriptor;
 @synthesize serverSideFunction;
+@synthesize includeDistance;
+@synthesize distanceUnits;
 
 #pragma mark - Initializers
 

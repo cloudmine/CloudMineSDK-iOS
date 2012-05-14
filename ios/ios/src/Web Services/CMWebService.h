@@ -107,7 +107,7 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
       serverSideFunction:(CMServerFunction *)function
            pagingOptions:(CMPagingDescriptor *)paging
                     user:(CMUser *)user
-         extraParameters:(NSDictionary*)params
+         extraParameters:(NSDictionary *)params
           successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
             errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
@@ -131,6 +131,7 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
 - (void)getBinaryDataNamed:(NSString *)key
                       user:(CMUser *)user
            extraParameters:(NSDictionary*)params
+        serverSideFunction:(CMServerFunction *)function
             successHandler:(CMWebServiceFileFetchSuccessCallback)successHandler
               errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
@@ -169,6 +170,7 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
               ofMimeType:(NSString *)mimeType
                     user:(CMUser *)user
          extraParameters:(NSDictionary*)params
+      serverSideFunction:(CMServerFunction *)function
           successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler
             errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
@@ -193,6 +195,7 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
               ofMimeType:(NSString *)mimeType
                     user:(CMUser *)user
          extraParameters:(NSDictionary*)params
+      serverSideFunction:(CMServerFunction *)function
           successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler
             errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
