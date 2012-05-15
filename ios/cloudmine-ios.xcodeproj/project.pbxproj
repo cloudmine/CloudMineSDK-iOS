@@ -63,6 +63,7 @@
 		7A5C40AA14D8B11D00906689 /* CMStoreCallbacks.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AD7DA5714D221F600F771C7 /* CMStoreCallbacks.h */; };
 		7A6B800D14871BCA00D8B211 /* CMObjectDecoderSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6B800C14871BCA00D8B211 /* CMObjectDecoderSpec.m */; };
 		7A6B801114871E3700D8B211 /* CMGenericSerializableObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6B801014871E3700D8B211 /* CMGenericSerializableObject.m */; };
+		7A766209156307DF009840EE /* CMSortDescriptorSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A766208156307DF009840EE /* CMSortDescriptorSpec.m */; };
 		7A7E31C114C4D0920091F1E3 /* CMGeoPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A7E31BF14C4D0920091F1E3 /* CMGeoPoint.m */; };
 		7A7E31C414C603780091F1E3 /* CMGeoPointTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A7E31C314C603780091F1E3 /* CMGeoPointTest.m */; };
 		7A7E31C914C88F8A0091F1E3 /* CMStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A7E31C714C88F8A0091F1E3 /* CMStore.m */; };
@@ -213,6 +214,7 @@
 		7A6B800F14871E3700D8B211 /* CMGenericSerializableObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMGenericSerializableObject.h; sourceTree = "<group>"; };
 		7A6B801014871E3700D8B211 /* CMGenericSerializableObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMGenericSerializableObject.m; sourceTree = "<group>"; };
 		7A70DE5814E33DA000EC137E /* math+floats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "math+floats.h"; sourceTree = "<group>"; };
+		7A766208156307DF009840EE /* CMSortDescriptorSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMSortDescriptorSpec.m; sourceTree = "<group>"; };
 		7A7E31BE14C4D0920091F1E3 /* CMGeoPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMGeoPoint.h; sourceTree = "<group>"; };
 		7A7E31BF14C4D0920091F1E3 /* CMGeoPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMGeoPoint.m; sourceTree = "<group>"; };
 		7A7E31C314C603780091F1E3 /* CMGeoPointTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMGeoPointTest.m; sourceTree = "<group>"; };
@@ -525,6 +527,7 @@
 				7AD9222514D06EB10032DDDE /* CMStoreOptionsSpec.m */,
 				7AD93BAE14D1CCFE00CC1CC9 /* CMFileSpec.m */,
 				7A4A6F2814FFF08100B95D13 /* CMUserSpec.m */,
+				7A766208156307DF009840EE /* CMSortDescriptorSpec.m */,
 				7A0DB1B8147B0153007F482C /* Support */,
 				7AB4AB79145DC5D8006AEF67 /* Supporting Files */,
 			);
@@ -806,6 +809,7 @@
 				7AD93BAF14D1CCFE00CC1CC9 /* CMFileSpec.m in Sources */,
 				7AA79D6314DC1FB900F3CA3B /* CMCrossPlatformGenericSerializableObject.m in Sources */,
 				7A4A6F2914FFF08100B95D13 /* CMUserSpec.m in Sources */,
+				7A766209156307DF009840EE /* CMSortDescriptorSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

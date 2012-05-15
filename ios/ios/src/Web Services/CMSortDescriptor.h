@@ -8,8 +8,23 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString * const CMSortAscending;
+extern NSString * const CMSortDescending;
+#define CMSortDefault CMSortDescending
+
 @interface CMSortDescriptor : NSObject
 
-- (id)initWithFieldsAndDirections:(NSString *)fieldsAndDirections, ... NS_REQUIRES_NIL_TERMINATION;
++ (id)emptyDescriptor;
+
+- (id)initWithFieldsAndDirections:(NSString *)fieldsAndDirections, ...  NS_REQUIRES_NIL_TERMINATION;
+
+- (NSString *)directionOfField:(NSString *)fieldName;
+- (NSUInteger)count;
+
+- (void)sortByField:(NSString *)fieldName;
+- (void)sortByField:(NSString *)fieldName direction:(NSString *)direction;
+- (void)stopSortingByField:(NSString *)fieldName;
+
+- (NSString *)stringRepresentation;
 
 @end

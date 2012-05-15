@@ -8,8 +8,17 @@
 
 #import "CMSortDescriptor.h"
 
+NSString * const CMSortAscending = @"asc";
+NSString * const CMSortDescending = @"desc";
+
 @implementation CMSortDescriptor {
     NSMutableDictionary *fieldToDirectionMapping;
+}
+
+#pragma mark - Constructors
+
++ (id)emptyDescriptor {
+    return [[[self class] alloc] init];
 }
 
 - (id)init {
@@ -21,7 +30,7 @@
 
 - (id)initWithFieldsAndDirections:(NSString *)fieldsAndDirections, ... {
     
-    if ([self init) {
+    if ([self init]) {
         va_list args;
         va_start(args, fieldsAndDirections);
         
@@ -36,9 +45,46 @@
             }
         }
         
+        if (fieldName != nil) {
+            // If we get here, there were an odd number of parameters specified. This is programmer error.
+            [[NSException exceptionWithName:@"NSInternalInconsistencyException"
+                                     reason:@"There must be an even number of arguments to initWithFieldsAndDirections:. You have a mismatched pair."
+                                   userInfo:nil] 
+             raise];
+            __builtin_unreachable();
+        }
+        
         va_end(args);
     }
     return self;
+}
+
+#pragma mark - Mutators
+
+- (void)sortByField:(NSString *)fieldName {
+    [self sortByField:fieldName direction:CMSortDefault];
+}
+
+- (void)sortByField:(NSString *)fieldName direction:(NSString *)direction {
+    [fieldToDirectionMapping setObject:direction forKey:fieldName];
+}
+
+- (void)stopSortingByField:(NSString *)fieldName {
+    [fieldToDirectionMapping removeObjectForKey:fieldName];
+}
+
+#pragma mark - Accessors
+
+- (NSString *)directionOfField:(NSString *)fieldName {
+    return [fieldToDirectionMapping objectForKey:fieldName];
+}
+
+- (NSUInteger)count {
+    return [fieldToDirectionMapping count];
+}
+
+- (NSString *)stringRepresentation {
+    
 }
 
 @end
