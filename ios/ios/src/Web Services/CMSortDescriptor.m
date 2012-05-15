@@ -65,7 +65,11 @@ NSString * const CMSortDescending = @"desc";
     [self sortByField:fieldName direction:CMSortDefault];
 }
 
-- (void)sortByField:(NSString *)fieldName direction:(NSString *)direction {
+- (void)sortByField:(NSString *)fieldName direction:(id)direction {
+    if (!direction) {
+        direction = [NSNull null];
+    }
+
     [fieldToDirectionMapping setObject:direction forKey:fieldName];
 }
 
@@ -84,7 +88,17 @@ NSString * const CMSortDescending = @"desc";
 }
 
 - (NSString *)stringRepresentation {
+    NSMutableArray *pairs = [NSMutableArray array];
 
+    [fieldToDirectionMapping enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        NSString *descString = $sprintf(@"sort=%@", key);
+        if (![obj isEqual:[NSNull null]]) {
+            descString = [descString stringByAppendingFormat:@":%@", obj];
+        }
+        [pairs addObject:descString];
+    }];
+
+    return [pairs componentsJoinedByString:@"&"];
 }
 
 @end

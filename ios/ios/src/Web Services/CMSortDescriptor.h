@@ -6,11 +6,11 @@
 //  See LICENSE file included with SDK for details.
 //
 
-#import <Foundation/Foundation.h>
+#import "SPLowVerbosity.h"
 
 extern NSString * const CMSortAscending;
 extern NSString * const CMSortDescending;
-#define CMSortDefault CMSortDescending
+#define CMSortDefault nil
 
 @interface CMSortDescriptor : NSObject
 
