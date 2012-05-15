@@ -16,6 +16,7 @@
 @class CMUser;
 @class CMServerFunction;
 @class CMPagingDescriptor;
+@class CMSortDescriptor;
 
 /**
  * Base URL for the current version of the CloudMine API.
@@ -106,6 +107,7 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
 - (void)getValuesForKeys:(NSArray *)keys
       serverSideFunction:(CMServerFunction *)function
            pagingOptions:(CMPagingDescriptor *)paging
+          sortingOptions:(CMSortDescriptor *)sorting
                     user:(CMUser *)user
           successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
             errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;

@@ -15,6 +15,7 @@
 #import "CMUser.h"
 #import "CMServerFunction.h"
 #import "CMPagingDescriptor.h"
+#import "CMSortDescriptor.h"
 #import "NSURL+QueryParameterAdditions.h"
 
 #define CM_APIKEY_HEADER @"X-CloudMine-ApiKey"
