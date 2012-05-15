@@ -10,4 +10,6 @@
 
 @interface CMSortDescriptor : NSObject
 
+- (id)initWithFieldsAndDirections:(NSString *)fieldsAndDirections, ... NS_REQUIRES_NIL_TERMINATION;
+
 @end
