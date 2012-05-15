@@ -266,7 +266,7 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
 
 /**
  * Asynchronously create a new account for the user on CloudMine. This must be done once for each user before they can login.
- * On completion, the <tt>callback</tt> block will be called with the result 
+ * On completion, the <tt>callback</tt> block will be called with the result
  * of the operation and the body of the response represented by an <tt>NSDictonary</tt>.
  * See the CloudMine documentation online for the possible contents of this dictionary.
  *
