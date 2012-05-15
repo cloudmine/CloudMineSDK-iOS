@@ -132,7 +132,6 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     [webService getValuesForKeys:keys
               serverSideFunction:_CMTryMethod(options, serverSideFunction)
                    pagingOptions:_CMTryMethod(options, pagingDescriptor)
-                  sortingOptions:nil
                             user:_CMUserOrNil
                   successHandler:^(NSDictionary *results, NSDictionary *errors) {
                       NSArray *objects = [CMObjectDecoder decodeObjects:results];
