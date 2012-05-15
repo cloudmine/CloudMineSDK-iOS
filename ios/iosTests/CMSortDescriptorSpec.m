@@ -25,18 +25,15 @@ describe(@"CMSortDescriptor", ^{
         __block CMSortDescriptor *desc = nil;
         
         beforeEach(^{
-            desc = [[CMSortDescriptor alloc] init];
+            desc = [[CMSortDescriptor alloc] initWithFieldsAndDirections:@"field1", CMSortAscending, nil];
         });
         
         it(@"should store a field and direction pair for later retrieval", ^{
-            [desc sortByField:@"field1" direction:CMSortAscending];
             [[[desc directionOfField:@"field1"] should] equal:CMSortAscending];
-            
             [[theValue([desc count]) should] equal:theValue(1)];
         });
         
         it(@"should properly remove a field", ^{
-            [desc sortByField:@"field1" direction:CMSortAscending];
             [desc sortByField:@"field2" direction:CMSortAscending];
             [[[desc directionOfField:@"field1"] should] equal:CMSortAscending];
             [[[desc directionOfField:@"field2"] should] equal:CMSortAscending];

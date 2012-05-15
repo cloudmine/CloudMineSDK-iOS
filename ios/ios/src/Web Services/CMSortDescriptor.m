@@ -29,11 +29,11 @@ NSString * const CMSortDescending = @"desc";
 }
 
 - (id)initWithFieldsAndDirections:(NSString *)fieldsAndDirections, ... {
-    
+
     if ([self init]) {
         va_list args;
         va_start(args, fieldsAndDirections);
-        
+
         NSString *fieldName = nil;
         for (NSString *fieldOrDirection = fieldsAndDirections; fieldOrDirection != nil; fieldOrDirection = va_arg(args, NSString*))
         {
@@ -44,16 +44,16 @@ NSString * const CMSortDescending = @"desc";
                 fieldName = nil;
             }
         }
-        
+
         if (fieldName != nil) {
             // If we get here, there were an odd number of parameters specified. This is programmer error.
             [[NSException exceptionWithName:@"NSInternalInconsistencyException"
                                      reason:@"There must be an even number of arguments to initWithFieldsAndDirections:. You have a mismatched pair."
-                                   userInfo:nil] 
+                                   userInfo:nil]
              raise];
             __builtin_unreachable();
         }
-        
+
         va_end(args);
     }
     return self;
@@ -84,7 +84,7 @@ NSString * const CMSortDescending = @"desc";
 }
 
 - (NSString *)stringRepresentation {
-    
+
 }
 
 @end
