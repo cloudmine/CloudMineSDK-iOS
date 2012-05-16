@@ -10,7 +10,7 @@
 
 extern NSString * const CMSortAscending;
 extern NSString * const CMSortDescending;
-#define CMSortDefault nil
+#define CMSortDefault [NSNull null]
 
 @interface CMSortDescriptor : NSObject
 
@@ -22,7 +22,7 @@ extern NSString * const CMSortDescending;
 - (NSUInteger)count;
 
 - (void)sortByField:(NSString *)fieldName;
-- (void)sortByField:(NSString *)fieldName direction:(NSString *)direction;
+- (void)sortByField:(id)fieldName direction:(id)direction;
 - (void)stopSortingByField:(NSString *)fieldName;
 
 - (NSString *)stringRepresentation;
