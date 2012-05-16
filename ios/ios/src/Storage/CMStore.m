@@ -143,7 +143,8 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                   successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta) {
                       NSArray *objects = [CMObjectDecoder decodeObjects:results];
                       [blockSelf cacheObjectsInMemory:objects atUserLevel:userLevel];
-                      CMObjectFetchResponse *response = [[CMObjectFetchResponse alloc] initWithObjects:objects errors:errors];
+                      CMResponseMetadata *metadata = [[CMResponseMetadata alloc] initWithMetadata:meta];
+                      CMObjectFetchResponse *response = [[CMObjectFetchResponse alloc] initWithObjects:objects errors:errors snippetResult:nil responseMetadata:metadata];
                       callback(response);
                   } errorHandler:^(NSError *error) {
                       NSLog(@"Error occurred during object request: %@", [error description]);
@@ -206,8 +207,9 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                 extraParameters:[self _buildExtraParametersFromOptions:options]
                  successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta) {
                      NSArray *objects = [CMObjectDecoder decodeObjects:results];
+                     CMResponseMetadata *metadata = [[CMResponseMetadata alloc] initWithMetadata:meta];
                      [blockSelf cacheObjectsInMemory:objects atUserLevel:userLevel];
-                     CMObjectFetchResponse *response = [[CMObjectFetchResponse alloc] initWithObjects:objects errors:errors];
+                     CMObjectFetchResponse *response = [[CMObjectFetchResponse alloc] initWithObjects:objects errors:errors snippetResult:nil responseMetadata:metadata];
                      callback(response);
                  } errorHandler:^(NSError *error) {
                      NSLog(@"Error occurred during object request: %@", [error description]);
@@ -281,7 +283,8 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                                       user:_CMUserOrNil
                            extraParameters:[self _buildExtraParametersFromOptions:options]
                             successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta) {
-                                CMObjectUploadResponse *response = [[CMObjectUploadResponse alloc] initWithUploadStatuses:results];
+                                CMResponseMetadata *metadata = [[CMResponseMetadata alloc] initWithMetadata:meta];
+                                CMObjectUploadResponse *response = [[CMObjectUploadResponse alloc] initWithUploadStatuses:results snippetResult:nil responseMetadata:metadata];
                                 callback(response);
                             } errorHandler:^(NSError *error) {
                                 NSLog(@"Error occurred during object uploading: %@", [error description]);
@@ -546,7 +549,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:2];
     if(options.includeDistance) {
-        [params setObject:@"true" forKey:@"includeDistance"];
+        [params setObject:@"true" forKey:@"distance"];
     }
     if(options.distanceUnits) {
         [params setObject:options.distanceUnits forKey:@"units"];

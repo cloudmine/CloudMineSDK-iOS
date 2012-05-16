@@ -35,7 +35,7 @@
 @property (nonatomic, strong) CMServerFunction *serverSideFunction;
 
 @property (nonatomic) BOOL includeDistance;
-@property (nonatomic) NSString *distanceUnits;
+@property (nonatomic, strong) NSString *distanceUnits;
 
 /**
  * 

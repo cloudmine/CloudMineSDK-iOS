@@ -627,7 +627,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     }
     if (params) {
         for(id key in params) {
-            [queryComponents addObject:[NSString stringWithFormat:@"%s=%s", key, [params objectForKey:key]]];
+            [queryComponents addObject:[NSString stringWithFormat:@"%@=%@", key, [params objectForKey:key]]];
         }
     }
     return [theUrl URLByAppendingQueryString:[queryComponents componentsJoinedByString:@"&"]];

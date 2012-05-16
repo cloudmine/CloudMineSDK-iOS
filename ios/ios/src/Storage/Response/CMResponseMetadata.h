@@ -8,10 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+@class CMObject;
+
 @interface CMResponseMetadata : NSObject
 
 @property (strong, atomic) NSDictionary *metadata;
 
-//- (NSDictionary *)metadataForObject:(CMObject *)object withKey:(NSString *)key;
+- (id)initWithMetadata:(NSDictionary *)data;
+- (NSDictionary *)metadataForObject:(CMObject *)object forKey:(NSString *)key;
 
 @end
