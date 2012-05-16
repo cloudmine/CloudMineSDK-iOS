@@ -79,6 +79,7 @@
 		7A87315A14BB0AD0000D6DEA /* CMServerFunction.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7A04E869147D8435006E00AB /* CMServerFunction.h */; };
 		7A87315B14BB0AD0000D6DEA /* CMSerializable.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AABA2E21480513500FD52A0 /* CMSerializable.h */; };
 		7A87316614BB309F000D6DEA /* NSMutableData+RandomData.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A87316514BB309F000D6DEA /* NSMutableData+RandomData.m */; };
+		7A87A3351563FF2700D788E2 /* CMSortDescriptor.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AE284891562C3C8003E8A8F /* CMSortDescriptor.h */; };
 		7A91E8D914E6EF85008B7941 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A91E8D814E6EF85008B7941 /* CoreLocation.framework */; };
 		7A934E78150E8CC200A2CAD6 /* CMObjectSerialization.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7A7EDBD9148EBE3800AB5B69 /* CMObjectSerialization.h */; };
 		7AA79D6314DC1FB900F3CA3B /* CMCrossPlatformGenericSerializableObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D6214DC1FB900F3CA3B /* CMCrossPlatformGenericSerializableObject.m */; };
@@ -137,6 +138,7 @@
 			dstPath = "${BUILD_DIR}/${CONFIGURATION}-iphoneuniversal/${PRODUCT_NAME}.framework/Versions/A/Headers/";
 			dstSubfolderSpec = 0;
 			files = (
+				7A87A3351563FF2700D788E2 /* CMSortDescriptor.h in CopyFiles */,
 				7AB8BAFA1521066F00860081 /* SPLowVerbosity.h in CopyFiles */,
 				7A934E78150E8CC200A2CAD6 /* CMObjectSerialization.h in CopyFiles */,
 				7A4A6FB91500474500B95D13 /* CMUserAccountResult.h in CopyFiles */,
