@@ -52,6 +52,7 @@
 #import "CMPagingDescriptor.h"
 #import "CMSerializable.h"
 #import "CMServerFunction.h"
+#import "CMSortDescriptor.h"
 #import "CMStore.h"
 #import "CMStoreCallbacks.h"
 #import "CMStoreOptions.h"
