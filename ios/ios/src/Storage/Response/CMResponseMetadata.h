@@ -12,4 +12,6 @@
 
 @property (strong, atomic) NSDictionary *metadata;
 
+//- (NSDictionary *)metadataForObject:(CMObject *)object withKey:(NSString *)key;
+
 @end

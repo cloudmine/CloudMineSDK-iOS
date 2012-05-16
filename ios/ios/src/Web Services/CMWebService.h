@@ -129,9 +129,9 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
  * @param errorHandler The block to be called if the request failed.
  */
 - (void)getBinaryDataNamed:(NSString *)key
+        serverSideFunction:(CMServerFunction *)function
                       user:(CMUser *)user
            extraParameters:(NSDictionary*)params
-        serverSideFunction:(CMServerFunction *)function
             successHandler:(CMWebServiceFileFetchSuccessCallback)successHandler
               errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
@@ -166,11 +166,11 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
  * @param errorHandler The block to be called if the request failed.
  */
 - (void)uploadBinaryData:(NSData *)data
+      serverSideFunction:(CMServerFunction *)function
                    named:(NSString *)key
               ofMimeType:(NSString *)mimeType
                     user:(CMUser *)user
          extraParameters:(NSDictionary*)params
-      serverSideFunction:(CMServerFunction *)function
           successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler
             errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
@@ -191,11 +191,11 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
  * @param errorHandler The block to be called if the request failed.
  */
 - (void)uploadFileAtPath:(NSString *)path
+      serverSideFunction:(CMServerFunction *)function
                    named:(NSString *)key
               ofMimeType:(NSString *)mimeType
                     user:(CMUser *)user
          extraParameters:(NSDictionary*)params
-      serverSideFunction:(CMServerFunction *)function
           successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler
             errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
@@ -234,6 +234,7 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
  */
 - (void)deleteValuesForKeys:(NSArray *)keys
+         serverSideFunction:(CMServerFunction *)function
                        user:(CMUser *)user
             extraParameters:(NSDictionary*)params
              successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler

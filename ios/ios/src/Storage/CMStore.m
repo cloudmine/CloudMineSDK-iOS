@@ -308,11 +308,11 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     _CMAssertAPICredentialsInitialized;
 
     [webService uploadFileAtPath:[url path]
+              serverSideFunction:_CMTryMethod(options, serverSideFunction)
                            named:name
                       ofMimeType:[self _mimeTypeForFileAtURL:url withCustomName:name]
                             user:_CMUserOrNil
                  extraParameters:[self _buildExtraParametersFromOptions:options]
-              serverSideFunction:options.serverSideFunction
                   successHandler:^(CMFileUploadResult result) {
                       CMFileUploadResponse *response = [[CMFileUploadResponse alloc] initWithResult:result key:@""];
                       callback(response);
@@ -339,11 +339,11 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     _CMAssertAPICredentialsInitialized;
 
     [webService uploadBinaryData:data
+              serverSideFunction:_CMTryMethod(options, serverSideFunction)
                            named:name
                       ofMimeType:[self _mimeTypeForFileAtURL:nil withCustomName:name]
                             user:_CMUserOrNil
                  extraParameters:[self _buildExtraParametersFromOptions:options]
-              serverSideFunction:options.serverSideFunction
                   successHandler:^(CMFileUploadResult result) {
                       CMFileUploadResponse *response = [[CMFileUploadResponse alloc] initWithResult:result key:@""];
                       callback(response);
@@ -412,6 +412,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     _CMAssertAPICredentialsInitialized;
 
     [webService deleteValuesForKeys:$array(name)
+                 serverSideFunction:_CMTryMethod(options, serverSideFunction)
                                user:_CMUserOrNil
                     extraParameters:[self _buildExtraParametersFromOptions:options]
                      successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta) {
@@ -439,6 +440,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
     NSArray *keys = [deletedObjects allKeys];
     [webService deleteValuesForKeys:keys
+                 serverSideFunction:_CMTryMethod(options, serverSideFunction)
                                user:_CMUserOrNil
                     extraParameters:[self _buildExtraParametersFromOptions:options]
                      successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta) {
@@ -473,9 +475,9 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     NSParameterAssert(callback);
 
     [webService getBinaryDataNamed:name
+                serverSideFunction:_CMTryMethod(options, serverSideFunction)
                               user:_CMUserOrNil
                    extraParameters:[self _buildExtraParametersFromOptions:options]
-                serverSideFunction:options.serverSideFunction
                     successHandler:^(NSData *data, NSString *mimeType) {
                         CMFile *file = [[CMFile alloc] initWithData:data
                                                               named:name
