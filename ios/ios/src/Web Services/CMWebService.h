@@ -107,6 +107,7 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
 - (void)getValuesForKeys:(NSArray *)keys
       serverSideFunction:(CMServerFunction *)function
            pagingOptions:(CMPagingDescriptor *)paging
+          sortingOptions:(CMSortDescriptor *)sorting
                     user:(CMUser *)user
           successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
             errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
@@ -114,6 +115,7 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
 - (void)searchValuesFor:(NSString *)searchQuery
      serverSideFunction:(CMServerFunction *)function
           pagingOptions:(CMPagingDescriptor *)paging
+         sortingOptions:(CMSortDescriptor *)sorting
                    user:(CMUser *)user
          successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
            errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;

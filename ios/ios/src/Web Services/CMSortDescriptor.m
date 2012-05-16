@@ -29,7 +29,6 @@ NSString * const CMSortDescending = @"desc";
 }
 
 - (id)initWithFieldsAndDirections:(NSString *)fieldsAndDirections, ... {
-
     if ([self init]) {
         va_list args;
         va_start(args, fieldsAndDirections);

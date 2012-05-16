@@ -11,6 +11,7 @@
 #import "CMStoreOptions.h"
 #import "CMPagingDescriptor.h"
 #import "CMServerFunction.h"
+#import "CMSortDescriptor.h"
 
 SPEC_BEGIN(CMStoreOptionsSpec)
 
@@ -19,6 +20,18 @@ describe(@"CMStoreOptions", ^{
     __block CMStoreOptions *options = nil;
     __block CMPagingDescriptor *paging = nil;
     __block CMServerFunction *func = nil;
+    __block CMSortDescriptor *sorting = nil;
+    
+    context(@"given only a sort descriptor", ^{
+        beforeEach(^{
+            sorting = [[CMSortDescriptor alloc] initWithFieldsAndDirections:@"field1", CMSortAscending, nil];
+            options = [[CMStoreOptions alloc] initWithSortDescriptor:sorting];
+        });
+
+        it(@"should render it properly as a query string", ^{
+            [[[options stringRepresentation] should] equal:[sorting stringRepresentation]];
+        });
+    });
 
     context(@"given paging options and no server-side function", ^{
         beforeEach(^{
@@ -45,19 +58,21 @@ describe(@"CMStoreOptions", ^{
         });
     });
 
-    context(@"given both a server-side function and paging options", ^{
+    context(@"given a server-side function, paging options, and a sort descriptor", ^{
         beforeEach(^{
             NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:@"bar", @"foo",
                                     @"bye", @"hi", nil];
             func = [[CMServerFunction alloc] initWithFunctionName:@"myFunc"
                                                   extraParameters:params responseContainsResultOnly:NO performAsynchronously:NO];
             paging = [[CMPagingDescriptor alloc] initWithLimit:100 skip:10 includeCount:YES];
+            sorting = [[CMSortDescriptor alloc] initWithFieldsAndDirections:@"field1", CMSortAscending, @"field2", CMSortDescending, nil];
             options = [[CMStoreOptions alloc] initWithPagingDescriptor:paging
+                                                        sortDescriptor:sorting
                                                  andServerSideFunction:func];
         });
 
         it(@"should render them as a query string properly", ^{
-            NSString *expectedString = [NSString stringWithFormat:@"%@&%@", [paging stringRepresentation], [func stringRepresentation]];
+            NSString *expectedString = [NSString stringWithFormat:@"%@&%@&%@", [paging stringRepresentation], [sorting stringRepresentation], [func stringRepresentation]];
             [[[options stringRepresentation] should] equal:expectedString];
         });
 

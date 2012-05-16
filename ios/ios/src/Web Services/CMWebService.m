@@ -26,7 +26,7 @@ static __strong NSSet *_validHTTPVerbs = nil;
 typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger httpResponseCode);
 
 @interface CMWebService (Private)
-- (NSURL *)constructTextUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys query:(NSString *)searchString pagingOptions:(CMPagingDescriptor *)paging withServerSideFunction:(CMServerFunction *)function;
+- (NSURL *)constructTextUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys query:(NSString *)searchString pagingOptions:(CMPagingDescriptor *)paging sortingOptions:(CMSortDescriptor *)sorting withServerSideFunction:(CMServerFunction *)function;
 - (NSURL *)constructBinaryUrlAtUserLevel:(BOOL)atUserLevel withKey:(NSString *)key;
 - (NSURL *)constructDataUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys withServerSideFunction:(CMServerFunction *)function;
 - (ASIHTTPRequest *)constructHTTPRequestWithVerb:(NSString *)verb URL:(NSURL *)url appSecret:(NSString *)appSecret binaryData:(BOOL)isForBinaryData user:(CMUser *)user;
@@ -34,7 +34,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 - (void)executeRequest:(ASIHTTPRequest *)request successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 - (void)executeBinaryDataFetchRequest:(ASIHTTPRequest *)request successHandler:(CMWebServiceFileFetchSuccessCallback)successHandler  errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 - (void)executeBinaryDataUploadRequest:(ASIHTTPRequest *)request successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
-- (NSURL *)appendKeys:(NSArray *)keys serverSideFunction:(CMServerFunction *)function query:(NSString *)queryString pagingOptions:(CMPagingDescriptor *)paging toURL:(NSURL *)theUrl;
+- (NSURL *)appendKeys:(NSArray *)keys serverSideFunction:(CMServerFunction *)function query:(NSString *)queryString pagingOptions:(CMPagingDescriptor *)paging sortingOptions:(CMSortDescriptor *)sorting toURL:(NSURL *)theUrl;
 @end
 
 @implementation CMWebService
@@ -72,6 +72,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 - (void)getValuesForKeys:(NSArray *)keys
       serverSideFunction:(CMServerFunction *)function
            pagingOptions:(CMPagingDescriptor *)paging
+          sortingOptions:(CMSortDescriptor *)sorting
                     user:(CMUser *)user
           successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
             errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
@@ -80,6 +81,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
                                                                                           withKeys:keys
                                                                                              query:nil
                                                                                      pagingOptions:paging
+                                                                                    sortingOptions:sorting
                                                                             withServerSideFunction:function]
                                                           appSecret:_appSecret
                                                       binaryData:NO
@@ -92,6 +94,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 - (void)searchValuesFor:(NSString *)searchQuery
      serverSideFunction:(CMServerFunction *)function
           pagingOptions:(CMPagingDescriptor *)paging
+         sortingOptions:(CMSortDescriptor *)sorting
                    user:(CMUser *)user
          successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
            errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
@@ -100,6 +103,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
                                                                                           withKeys:nil
                                                                                              query:searchQuery
                                                                                      pagingOptions:paging
+                                                                                    sortingOptions:sorting
                                                                             withServerSideFunction:function]
                                                           appSecret:_appSecret
                                                       binaryData:NO
@@ -134,6 +138,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
                                                                                           withKeys:nil
                                                                                              query:nil
                                                                                      pagingOptions:nil
+                                                                                    sortingOptions:nil
                                                                             withServerSideFunction:function]
                                                           appSecret:_appSecret
                                                       binaryData:NO
@@ -195,6 +200,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
                                                                                           withKeys:nil
                                                                                              query:nil
                                                                                      pagingOptions:nil
+                                                                                    sortingOptions:nil
                                                                             withServerSideFunction:function]
                                                           appSecret:_appSecret
                                                       binaryData:NO
@@ -525,6 +531,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
                               withKeys:(NSArray *)keys
                                  query:(NSString *)searchString
                          pagingOptions:(CMPagingDescriptor *)paging
+                        sortingOptions:(CMSortDescriptor *)sorting
                 withServerSideFunction:(CMServerFunction *)function {
 
     NSAssert(keys == nil || searchString == nil, @"When constructing CM URLs, 'keys' and 'searchString' are mutually exclusive");
@@ -543,7 +550,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
         url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/%@", _appIdentifier, endpoint]];
     }
 
-    return [self appendKeys:keys serverSideFunction:function query:searchString pagingOptions:paging toURL:url];
+    return [self appendKeys:keys serverSideFunction:function query:searchString pagingOptions:paging sortingOptions:sorting toURL:url];
 }
 
 - (NSURL *)constructBinaryUrlAtUserLevel:(BOOL)atUserLevel
@@ -568,13 +575,14 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
         url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/data", _appIdentifier]];
     }
 
-    return [self appendKeys:keys serverSideFunction:function query:nil pagingOptions:nil toURL:url];
+    return [self appendKeys:keys serverSideFunction:function query:nil pagingOptions:nil sortingOptions:nil toURL:url];
 }
 
 - (NSURL *)appendKeys:(NSArray *)keys
    serverSideFunction:(CMServerFunction *)function
                 query:(NSString *)searchString
         pagingOptions:(CMPagingDescriptor *)paging
+       sortingOptions:(CMSortDescriptor *)sorting
                 toURL:(NSURL *)theUrl {
 
     NSAssert(keys == nil || searchString == nil, @"When constructing CM URLs, 'keys' and 'searchString' are mutually exclusive");
@@ -591,6 +599,9 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     }
     if (paging) {
         [queryComponents addObject:[paging stringRepresentation]];
+    }
+    if (sorting) {
+        [queryComponents addObject:[sorting stringRepresentation]];
     }
     return [theUrl URLByAppendingQueryString:[queryComponents componentsJoinedByString:@"&"]];
 }
