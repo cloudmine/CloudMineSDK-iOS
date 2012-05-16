@@ -10,4 +10,6 @@
 
 @implementation CMSnippetResult
 
+@synthesize result;
+
 @end
