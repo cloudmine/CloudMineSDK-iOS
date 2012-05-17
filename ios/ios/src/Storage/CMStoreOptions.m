@@ -45,10 +45,10 @@ NSString * const CMDistanceUnitsKey = @"units";
 
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:2];
     if(self.includeDistance) {
-        [params setObject:@"true" forKey:@"distance"];
+        [params setObject:@"true" forKey:CMIncludeDistanceKey];
     }
     if(self.distanceUnits) {
-        [params setObject:self.distanceUnits forKey:@"units"];
+        [params setObject:self.distanceUnits forKey:CMDistanceUnitsKey];
     }
     
     return params;
