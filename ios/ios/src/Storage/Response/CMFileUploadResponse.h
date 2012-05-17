@@ -12,7 +12,13 @@
 
 @interface CMFileUploadResponse : CMStoreResponse
 
+/**
+ * A result indicating whether or not the upload operation was successful.
+ */
 @property CMFileUploadResult result;
+/**
+ * The key of the newly created file.
+ */
 @property (strong, atomic) NSString *key;
 
 - (id)initWithResult:(CMFileUploadResult)result key:(NSString *)key;

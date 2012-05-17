@@ -115,7 +115,7 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
      serverSideFunction:(CMServerFunction *)function
           pagingOptions:(CMPagingDescriptor *)paging
                    user:(CMUser *)user
-        extraParameters:(NSDictionary*)params
+        extraParameters:(NSDictionary *)params
          successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
            errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
@@ -131,7 +131,7 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
 - (void)getBinaryDataNamed:(NSString *)key
         serverSideFunction:(CMServerFunction *)function
                       user:(CMUser *)user
-           extraParameters:(NSDictionary*)params
+           extraParameters:(NSDictionary *)params
             successHandler:(CMWebServiceFileFetchSuccessCallback)successHandler
               errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
@@ -149,7 +149,7 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
 - (void)updateValuesFromDictionary:(NSDictionary *)data
                 serverSideFunction:(CMServerFunction *)function
                               user:(CMUser *)user
-                   extraParameters:(NSDictionary*)params
+                   extraParameters:(NSDictionary *)params
                     successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
                       errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
@@ -170,7 +170,7 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
                    named:(NSString *)key
               ofMimeType:(NSString *)mimeType
                     user:(CMUser *)user
-         extraParameters:(NSDictionary*)params
+         extraParameters:(NSDictionary *)params
           successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler
             errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
@@ -195,7 +195,7 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
                    named:(NSString *)key
               ofMimeType:(NSString *)mimeType
                     user:(CMUser *)user
-         extraParameters:(NSDictionary*)params
+         extraParameters:(NSDictionary *)params
           successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler
             errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
@@ -217,7 +217,7 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
 - (void)setValuesFromDictionary:(NSDictionary *)data
              serverSideFunction:(CMServerFunction *)function
                            user:(CMUser *)user
-                extraParameters:(NSDictionary*)params
+                extraParameters:(NSDictionary *)params
                  successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
                    errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
@@ -236,7 +236,7 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
 - (void)deleteValuesForKeys:(NSArray *)keys
          serverSideFunction:(CMServerFunction *)function
                        user:(CMUser *)user
-            extraParameters:(NSDictionary*)params
+            extraParameters:(NSDictionary *)params
              successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
                errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 

@@ -10,7 +10,9 @@
 #import "CMStoreResponse.h"
 
 @interface CMObjectUploadResponse : CMStoreResponse
-
+/**
+ * Dictionary keyed on object id that indicates the result of uploading each new object.
+ */
 @property (strong, atomic) NSDictionary *uploadStatuses;
 
 - (id)initWithUploadStatuses:(NSDictionary *)uploadStatuses;

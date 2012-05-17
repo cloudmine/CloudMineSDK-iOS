@@ -11,7 +11,13 @@
 
 @interface CMObjectFetchResponse : CMStoreResponse
 
+/**
+ * The objects returned by the CloudMine API. These will all inherit from CMSerializable.
+ */
 @property (strong, atomic) NSArray *objects;
+/**
+ * Errors returned from the API.
+ */
 @property (strong, atomic) NSDictionary *errors;
 
 - (id)initWithObjects:(NSArray *)objects errors:(NSDictionary *)errors;

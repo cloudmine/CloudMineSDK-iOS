@@ -12,7 +12,10 @@
 
 @interface CMFileFetchResponse : CMStoreResponse
 
-@property (strong, atomic) CMFile *file;
+/**
+ * The file that was fetched.
+ */
+@property (strong, nonatomic) CMFile *file;
 
 - (id)initWithFile:(CMFile *)file;
 
