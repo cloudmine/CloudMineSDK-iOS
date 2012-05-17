@@ -348,7 +348,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                             user:_CMUserOrNil
                  extraParameters:_CMTryMethod(options, buildExtraParameters)
                   successHandler:^(CMFileUploadResult result) {
-                      CMFileUploadResponse *response = [[CMFileUploadResponse alloc] initWithResult:result key:@""];
+                      CMFileUploadResponse *response = [[CMFileUploadResponse alloc] initWithResult:result key:name];
                       callback(response);
                   } errorHandler:^(NSError *error) {
                       NSLog(@"Error ocurred during in-memory file uploading: %@", [error description]);

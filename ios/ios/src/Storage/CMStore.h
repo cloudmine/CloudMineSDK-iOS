@@ -246,6 +246,7 @@ typedef enum {
  * Downloads an app-level binary file from your app's CloudMine data store.
  *
  * @param callback The callback to be triggered when the file is finished downloading.
+ * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
  * @param name The unique name of the file to download.
  *
  * @see https://cloudmine.me/developer_zone#ref/file_overview
@@ -257,6 +258,7 @@ typedef enum {
  * with a user or else calling this method will throw an exception.
  *
  * @param callback The callback to be triggered when the file is finished downloading.
+ * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
  * @param name The unique name of the file to download.
  *
  * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
@@ -401,6 +403,8 @@ typedef enum {
  * is deleted from the server.
  *
  * @param theObject The object to delete and remove from the store.
+ * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
+ * @param callback The callback to be triggered after the object has been deleted.
  *
  * @see https://cloudmine.me/developer_zone#ref/json_delete
  */
@@ -413,6 +417,7 @@ typedef enum {
  *
  * @param url The absolute URL to the location of the file on the device.
  * @param name The name to give the file on CloudMine. <b>This must be unique throughout all instances of your app.</b>
+ * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
  * @param callback The callback to be triggered when all the objects are finished uploading.
  *
  * @see https://cloudmine.me/developer_zone#ref/file_set
@@ -427,6 +432,7 @@ typedef enum {
  *
  * @param url The absolute URL to the location of the file on the device.
  * @param name The name to give the file on CloudMine. <b>This must be unique throughout all instances of your app.</b>
+ * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
  * @param callback The callback to be triggered when all the objects are finished uploading.
  *
  * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
@@ -442,6 +448,7 @@ typedef enum {
  *
  * @param data The raw contents of the file.
  * @param name The name to give the file on CloudMine. <b>This must be unique throughout all instances of your app.</b>
+ * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
  * @param callback The callback to be triggered when all the objects are finished uploading.
  *
  * @see https://cloudmine.me/developer_zone#ref/file_set
@@ -455,6 +462,7 @@ typedef enum {
  *
  * @param data The raw contents of the file.
  * @param name The name to give the file on CloudMine. <b>This must be unique throughout all instances of your app.</b>
+ * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
  * @param callback The callback to be triggered when all the objects are finished uploading.
  *
  * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
@@ -468,6 +476,7 @@ typedef enum {
  * Deletes the given app-level file from your app's CloudMine data store.
  *
  * @param name The name of the file to delete.
+ * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
  * @param callback The callback to be triggered when the file has been deleted.
  *
  * @see https://cloudmine.me/developer_zone#ref/file_delete
@@ -479,6 +488,7 @@ typedef enum {
  * with a user or else calling this method will throw an exception.
  *
  * @param name The name of the file to delete.
+ * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
  * @param callback The callback to be triggered when the file has been deleted.
  *
  * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
@@ -495,6 +505,8 @@ typedef enum {
  * is deleted from the server.
  *
  * @param theObject The object to delete and remove from the store.
+ * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
+ * @param callback The callback to be triggered when the object has been deleted.
  *
  * @see https://cloudmine.me/developer_zone#ref/json_delete
  * @see https://cloudmine.me/developer_zone#ref/account_overview
@@ -508,6 +520,8 @@ typedef enum {
  * are deleted from the server.
  *
  * @param objects The objects to delete and remove from the store.
+ * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
+ * @param callback The callback to be triggered when the objects have been deleted.
  *
  * @see https://cloudmine.me/developer_zone#ref/json_delete
  */
@@ -521,6 +535,8 @@ typedef enum {
  * are deleted from the server.
  *
  * @param objects The objects to delete and remove from the store.
+ * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
+ * @param callback The callback to be triggered when the objects has been deleted.
  *
  * @see https://cloudmine.me/developer_zone#ref/json_delete
  * @see https://cloudmine.me/developer_zone#ref/account_overview
