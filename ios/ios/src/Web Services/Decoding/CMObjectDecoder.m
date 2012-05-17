@@ -7,6 +7,7 @@
 //
 
 #import "CMObjectDecoder.h"
+#import "CMDefaultObject.h"
 #import "CMSerializable.h"
 #import "CMObjectSerialization.h"
 #import "CMGeoPoint.h"
@@ -29,14 +30,20 @@
 
     for (NSString *key in serializedObjects) {
         NSDictionary *objectRepresentation = [serializedObjects objectForKey:key];
+        NSString *theKey = [objectRepresentation objectForKey:CMInternalObjectIdKey];
+        NSLog(@"Got a key: %@", theKey);
+        if (![objectRepresentation objectForKey:CMInternalObjectIdKey]) {
+            NSLog(@"Couldn't get key, adding it manually");
+            NSMutableDictionary *objectRepresentationWithId = [NSMutableDictionary dictionary];
+            [objectRepresentationWithId addEntriesFromDictionary:objectRepresentation];
+            [objectRepresentationWithId setObject:key forKey:CMInternalObjectIdKey];
+            objectRepresentation = objectRepresentationWithId;
+        }
+        
         CMObjectDecoder *decoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:objectRepresentation];
         id<CMSerializable> decodedObject = [[[CMObjectDecoder typeFromDictionaryRepresentation:objectRepresentation] alloc] initWithCoder:decoder];
 
         if (decodedObject) {
-            if(![decodedObject isKindOfClass:[CMObject class]]) {
-                [[NSException exceptionWithName:@"CMInternalInconsistencyException" reason:[NSString stringWithFormat:@"Can only deserialize top-level objects that inherit from CMObject. Got %@.", NSStringFromClass([decodedObject class])] userInfo:nil] raise];
-                return nil;
-            }
             [decodedObjects addObject:decodedObject];
         } else {
             NSLog(@"Failed to deserialize and inflate object with dictionary representation:\n%@", objectRepresentation);
@@ -123,8 +130,9 @@
             klass = NSClassFromString(className);
         }
 
-        // At this point we have no idea what the class is, so fail.
-        NSAssert(klass, @"Class with name \"%@\" could not be loaded during remote object deserialization.", className);
+        // At this point we have no idea what the class is, so default to NSDictionary.
+//        NSAssert(klass, @"Class with name \"%@\" could not be loaded during remote object deserialization.", className);
+        klass = [CMDefaultObject class];
     }
 
     return klass;

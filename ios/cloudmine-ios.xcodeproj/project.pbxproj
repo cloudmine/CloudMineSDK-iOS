@@ -23,6 +23,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		65ECBD8B15643DD6003BAF28 /* CMDefaultObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECBD8A15643DD6003BAF28 /* CMDefaultObject.m */; };
 		7A0413BB146C5B3A00EF537A /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0413A2146C5B3A00EF537A /* ASIAuthenticationDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7A0413BE146C5B3A00EF537A /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0413A5146C5B3A00EF537A /* ASIDataCompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7A0413C0146C5B3A00EF537A /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0413A7146C5B3A00EF537A /* ASIDataDecompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -166,6 +167,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		65ECBD8915643DD6003BAF28 /* CMDefaultObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMDefaultObject.h; sourceTree = "<group>"; };
+		65ECBD8A15643DD6003BAF28 /* CMDefaultObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMDefaultObject.m; sourceTree = "<group>"; };
 		7A0413A1146C5B3A00EF537A /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		7A0413A2146C5B3A00EF537A /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		7A0413A3146C5B3A00EF537A /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICacheDelegate.h; sourceTree = "<group>"; };
@@ -565,6 +568,8 @@
 				7AD36F8A146CB69000DD4734 /* Extensions */,
 				7AD36F7B146C64F300DD4734 /* Web Services */,
 				7A7E31C514C88F760091F1E3 /* Storage */,
+				65ECBD8915643DD6003BAF28 /* CMDefaultObject.h */,
+				65ECBD8A15643DD6003BAF28 /* CMDefaultObject.m */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -779,6 +784,7 @@
 				7AA79D8414DC23C700F3CA3B /* RTUnregisteredClass.m in Sources */,
 				7A58CC2214F1B544003E864B /* CMMimeType.m in Sources */,
 				7AF02D5B1507B36D005F03FD /* SPLowVerbosity.m in Sources */,
+				65ECBD8B15643DD6003BAF28 /* CMDefaultObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
