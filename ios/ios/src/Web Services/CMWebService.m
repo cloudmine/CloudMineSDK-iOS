@@ -426,7 +426,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
             NSDictionary *successes = nil;
             NSDictionary *errors = nil;
             NSDictionary *meta = nil;
-            NSDictionary *snippetResult = nil;
+            id snippetResult = nil;
             if (results) {
                 successes = [results objectForKey:@"success"];
                 if (!successes) {
@@ -502,9 +502,14 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     [request setCompletionBlock:^{
         NSDictionary *results = [blockRequest.responseString yajl_JSON];
 
-        NSDictionary *snippetResult = nil;
-        if(!snippetResult) {
-            snippetResult = [NSDictionary dictionary];
+        id snippetResult = nil;
+
+        if(results) {
+            snippetResult = [results objectForKey:@"result"];
+            
+            if(!snippetResult) {
+                snippetResult = [NSDictionary dictionary];
+            }
         }
         if (successHandler != nil) {
             successHandler(blockRequest.responseStatusCode == 201 ? CMFileCreated : CMFileUpdated, snippetResult);

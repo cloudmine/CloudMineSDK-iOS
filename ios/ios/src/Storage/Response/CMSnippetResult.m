@@ -12,7 +12,7 @@
 
 @synthesize data;
 
--(id)initWithData:(NSDictionary *)theData {
+-(id)initWithData:(id)theData {
     if(self = [super init]) {
         data = theData;
     }

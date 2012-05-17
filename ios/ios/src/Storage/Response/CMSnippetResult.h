@@ -10,8 +10,8 @@
 
 @interface CMSnippetResult : NSObject
 
-@property (strong, nonatomic) NSDictionary * data;
+@property (strong, nonatomic) id data;
 
--(id)initWithData:(NSDictionary *)theData;
+-(id)initWithData:(id)theData;
 
 @end
