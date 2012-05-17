@@ -10,6 +10,14 @@
 
 @implementation CMSnippetResult
 
-@synthesize result;
+@synthesize data;
+
+-(id)initWithData:(NSDictionary *)theData {
+    if(self = [super init]) {
+        data = theData;
+    }
+    
+    return self;
+}
 
 @end

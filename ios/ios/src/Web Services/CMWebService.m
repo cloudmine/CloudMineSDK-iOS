@@ -426,6 +426,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
             NSDictionary *successes = nil;
             NSDictionary *errors = nil;
             NSDictionary *meta = nil;
+            NSDictionary *snippetResult = nil;
             if (results) {
                 successes = [results objectForKey:@"success"];
                 if (!successes) {
@@ -437,13 +438,18 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
                     errors = [NSDictionary dictionary];
                 }
                 
+                snippetResult = [results objectForKey:@"result"];
+                if(!snippetResult) {
+                    snippetResult = [NSDictionary dictionary];
+                }
+                
                 meta = [results objectForKey:@"meta"];
                 if(!meta) {
                     meta = [NSDictionary dictionary];
                 }
             }
             if (successHandler != nil) {
-                successHandler(successes, errors, meta);
+                successHandler(successes, errors, meta, snippetResult);
             }
         }
     }];
@@ -494,8 +500,14 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     __unsafe_unretained ASIHTTPRequest *blockRequest = request; // Stop the retain cycle.
 
     [request setCompletionBlock:^{
+        NSDictionary *results = [blockRequest.responseString yajl_JSON];
+
+        NSDictionary *snippetResult = nil;
+        if(!snippetResult) {
+            snippetResult = [NSDictionary dictionary];
+        }
         if (successHandler != nil) {
-            successHandler(blockRequest.responseStatusCode == 201 ? CMFileCreated : CMFileUpdated);
+            successHandler(blockRequest.responseStatusCode == 201 ? CMFileCreated : CMFileUpdated, snippetResult);
         }
     }];
 

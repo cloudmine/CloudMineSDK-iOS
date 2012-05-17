@@ -140,11 +140,12 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                    pagingOptions:_CMTryMethod(options, pagingDescriptor)
                             user:_CMUserOrNil
                  extraParameters:_CMTryMethod(options, buildExtraParameters)
-                  successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta) {
+                  successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult) {
                       NSArray *objects = [CMObjectDecoder decodeObjects:results];
                       [blockSelf cacheObjectsInMemory:objects atUserLevel:userLevel];
                       CMResponseMetadata *metadata = [[CMResponseMetadata alloc] initWithMetadata:meta];
-                      CMObjectFetchResponse *response = [[CMObjectFetchResponse alloc] initWithObjects:objects errors:errors snippetResult:nil responseMetadata:metadata];
+                      CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
+                      CMObjectFetchResponse *response = [[CMObjectFetchResponse alloc] initWithObjects:objects errors:errors snippetResult:result responseMetadata:metadata];
                       callback(response);
                   } errorHandler:^(NSError *error) {
                       NSLog(@"Error occurred during object request: %@", [error description]);
@@ -205,11 +206,12 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                   pagingOptions:_CMTryMethod(options, pagingDescriptor)
                            user:_CMUserOrNil
                 extraParameters:_CMTryMethod(options, buildExtraParameters)
-                 successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta) {
+                 successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult) {
                      NSArray *objects = [CMObjectDecoder decodeObjects:results];
                      CMResponseMetadata *metadata = [[CMResponseMetadata alloc] initWithMetadata:meta];
+                     CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
                      [blockSelf cacheObjectsInMemory:objects atUserLevel:userLevel];
-                     CMObjectFetchResponse *response = [[CMObjectFetchResponse alloc] initWithObjects:objects errors:errors snippetResult:nil responseMetadata:metadata];
+                     CMObjectFetchResponse *response = [[CMObjectFetchResponse alloc] initWithObjects:objects errors:errors snippetResult:result responseMetadata:metadata];
                      callback(response);
                  } errorHandler:^(NSError *error) {
                      NSLog(@"Error occurred during object request: %@", [error description]);
@@ -282,9 +284,10 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                         serverSideFunction:_CMTryMethod(options, serverSideFunction)
                                       user:_CMUserOrNil
                            extraParameters:_CMTryMethod(options, buildExtraParameters)
-                            successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta) {
+                            successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult) {
                                 CMResponseMetadata *metadata = [[CMResponseMetadata alloc] initWithMetadata:meta];
-                                CMObjectUploadResponse *response = [[CMObjectUploadResponse alloc] initWithUploadStatuses:results snippetResult:nil responseMetadata:metadata];
+                                CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
+                                CMObjectUploadResponse *response = [[CMObjectUploadResponse alloc] initWithUploadStatuses:results snippetResult:result responseMetadata:metadata];
                                 callback(response);
                             } errorHandler:^(NSError *error) {
                                 NSLog(@"Error occurred during object uploading: %@", [error description]);
@@ -316,8 +319,9 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                       ofMimeType:[self _mimeTypeForFileAtURL:url withCustomName:name]
                             user:_CMUserOrNil
                  extraParameters:_CMTryMethod(options, buildExtraParameters)
-                  successHandler:^(CMFileUploadResult result) {
-                      CMFileUploadResponse *response = [[CMFileUploadResponse alloc] initWithResult:result key:@""];
+                  successHandler:^(CMFileUploadResult result, NSDictionary *snippetResult) {
+                      CMSnippetResult *sResult = [[CMSnippetResult alloc] initWithData:snippetResult];
+                      CMFileUploadResponse *response = [[CMFileUploadResponse alloc] initWithResult:result key:name snippetResult:sResult];
                       callback(response);
                   } errorHandler:^(NSError *error) {
                       NSLog(@"Error ocurred during file uploading: %@", [error description]);
@@ -347,8 +351,9 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                       ofMimeType:[self _mimeTypeForFileAtURL:nil withCustomName:name]
                             user:_CMUserOrNil
                  extraParameters:_CMTryMethod(options, buildExtraParameters)
-                  successHandler:^(CMFileUploadResult result) {
-                      CMFileUploadResponse *response = [[CMFileUploadResponse alloc] initWithResult:result key:name];
+                  successHandler:^(CMFileUploadResult result, NSDictionary *snippetResult) {
+                      CMSnippetResult *sResult = [[CMSnippetResult alloc] initWithData:snippetResult];
+                      CMFileUploadResponse *response = [[CMFileUploadResponse alloc] initWithResult:result key:name snippetResult:sResult];
                       callback(response);
                   } errorHandler:^(NSError *error) {
                       NSLog(@"Error ocurred during in-memory file uploading: %@", [error description]);
@@ -418,8 +423,9 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                  serverSideFunction:_CMTryMethod(options, serverSideFunction)
                                user:_CMUserOrNil
                     extraParameters:_CMTryMethod(options, buildExtraParameters)
-                     successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta) {
-                         CMDeleteResponse *response = [[CMDeleteResponse alloc] initWithSuccess:results errors:errors];
+                     successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult) {
+                         CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
+                         CMDeleteResponse *response = [[CMDeleteResponse alloc] initWithSuccess:results errors:errors snippetResult:result];
                          callback(response);
                      } errorHandler:^(NSError *error) {
                          NSLog(@"An error occurred when deleting the file named \"%@\": %@", name, [error description]);
@@ -446,8 +452,9 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                  serverSideFunction:_CMTryMethod(options, serverSideFunction)
                                user:_CMUserOrNil
                     extraParameters:_CMTryMethod(options, buildExtraParameters)
-                     successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta) {
-                         CMDeleteResponse *response = [[CMDeleteResponse alloc] initWithSuccess:results errors:errors];
+                     successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult) {
+                         CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
+                         CMDeleteResponse *response = [[CMDeleteResponse alloc] initWithSuccess:results errors:errors snippetResult:result];
                          callback(response);
                      } errorHandler:^(NSError *error) {
                          NSLog(@"An error occurred when deleting objects with keys (%@): %@", keys, [error description]);
