@@ -139,7 +139,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
               serverSideFunction:_CMTryMethod(options, serverSideFunction)
                    pagingOptions:_CMTryMethod(options, pagingDescriptor)
                             user:_CMUserOrNil
-                 extraParameters:[self _buildExtraParametersFromOptions:options]
+                 extraParameters:_CMTryMethod(options, buildExtraParameters)
                   successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta) {
                       NSArray *objects = [CMObjectDecoder decodeObjects:results];
                       [blockSelf cacheObjectsInMemory:objects atUserLevel:userLevel];
@@ -204,7 +204,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
              serverSideFunction:_CMTryMethod(options, serverSideFunction)
                   pagingOptions:_CMTryMethod(options, pagingDescriptor)
                            user:_CMUserOrNil
-                extraParameters:[self _buildExtraParametersFromOptions:options]
+                extraParameters:_CMTryMethod(options, buildExtraParameters)
                  successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta) {
                      NSArray *objects = [CMObjectDecoder decodeObjects:results];
                      CMResponseMetadata *metadata = [[CMResponseMetadata alloc] initWithMetadata:meta];
@@ -281,7 +281,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     [webService updateValuesFromDictionary:[CMObjectEncoder encodeObjects:objects]
                         serverSideFunction:_CMTryMethod(options, serverSideFunction)
                                       user:_CMUserOrNil
-                           extraParameters:[self _buildExtraParametersFromOptions:options]
+                           extraParameters:_CMTryMethod(options, buildExtraParameters)
                             successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta) {
                                 CMResponseMetadata *metadata = [[CMResponseMetadata alloc] initWithMetadata:meta];
                                 CMObjectUploadResponse *response = [[CMObjectUploadResponse alloc] initWithUploadStatuses:results snippetResult:nil responseMetadata:metadata];
@@ -315,7 +315,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                            named:name
                       ofMimeType:[self _mimeTypeForFileAtURL:url withCustomName:name]
                             user:_CMUserOrNil
-                 extraParameters:[self _buildExtraParametersFromOptions:options]
+                 extraParameters:_CMTryMethod(options, buildExtraParameters)
                   successHandler:^(CMFileUploadResult result) {
                       CMFileUploadResponse *response = [[CMFileUploadResponse alloc] initWithResult:result key:@""];
                       callback(response);
@@ -346,7 +346,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                            named:name
                       ofMimeType:[self _mimeTypeForFileAtURL:nil withCustomName:name]
                             user:_CMUserOrNil
-                 extraParameters:[self _buildExtraParametersFromOptions:options]
+                 extraParameters:_CMTryMethod(options, buildExtraParameters)
                   successHandler:^(CMFileUploadResult result) {
                       CMFileUploadResponse *response = [[CMFileUploadResponse alloc] initWithResult:result key:@""];
                       callback(response);
@@ -417,7 +417,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     [webService deleteValuesForKeys:$array(name)
                  serverSideFunction:_CMTryMethod(options, serverSideFunction)
                                user:_CMUserOrNil
-                    extraParameters:[self _buildExtraParametersFromOptions:options]
+                    extraParameters:_CMTryMethod(options, buildExtraParameters)
                      successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta) {
                          CMDeleteResponse *response = [[CMDeleteResponse alloc] initWithSuccess:results errors:errors];
                          callback(response);
@@ -445,7 +445,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     [webService deleteValuesForKeys:keys
                  serverSideFunction:_CMTryMethod(options, serverSideFunction)
                                user:_CMUserOrNil
-                    extraParameters:[self _buildExtraParametersFromOptions:options]
+                    extraParameters:_CMTryMethod(options, buildExtraParameters)
                      successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta) {
                          CMDeleteResponse *response = [[CMDeleteResponse alloc] initWithSuccess:results errors:errors];
                          callback(response);
@@ -480,7 +480,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     [webService getBinaryDataNamed:name
                 serverSideFunction:_CMTryMethod(options, serverSideFunction)
                               user:_CMUserOrNil
-                   extraParameters:[self _buildExtraParametersFromOptions:options]
+                   extraParameters:_CMTryMethod(options, buildExtraParameters)
                     successHandler:^(NSData *data, NSString *mimeType) {
                         CMFile *file = [[CMFile alloc] initWithData:data
                                                               named:name
@@ -541,21 +541,5 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 #pragma mark - Helper functions
 
-- (NSDictionary *)_buildExtraParametersFromOptions:(CMStoreOptions *)options {
-    
-    if(!options) {
-        return nil;
-    }
-    
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:2];
-    if(options.includeDistance) {
-        [params setObject:@"true" forKey:@"distance"];
-    }
-    if(options.distanceUnits) {
-        [params setObject:options.distanceUnits forKey:@"units"];
-    }
-    
-    return params;
-}
 
 @end

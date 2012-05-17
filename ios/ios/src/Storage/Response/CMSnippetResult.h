@@ -10,6 +10,6 @@
 
 @interface CMSnippetResult : NSObject
 
-@property (strong, nonatomic) id *result;
+@property (strong, nonatomic) id result;
 
 @end

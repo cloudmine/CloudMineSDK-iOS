@@ -39,7 +39,8 @@
 		6514D15E155C5A970073675B /* CMResponseMetadata.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6514D156155C5A970073675B /* CMResponseMetadata.h */; };
 		6514D15F155C5A970073675B /* CMSnippetResult.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6514D157155C5A970073675B /* CMSnippetResult.h */; };
 		6514D160155C5A970073675B /* CMStoreResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6514D158155C5A970073675B /* CMStoreResponse.h */; };
-		65C9D0E11559C56A0064A2F2 /* CMWebServiceResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C9D0E01559C56A0064A2F2 /* CMWebServiceResponse.m */; };
+		65ECBD9815657817003BAF28 /* CMDistance.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECBD9715657817003BAF28 /* CMDistance.m */; };
+		65ECBD99156585F4003BAF28 /* CMDistance.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65ECBD9615657817003BAF28 /* CMDistance.h */; };
 		7A0413BB146C5B3A00EF537A /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0413A2146C5B3A00EF537A /* ASIAuthenticationDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7A0413BE146C5B3A00EF537A /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0413A5146C5B3A00EF537A /* ASIDataCompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7A0413C0146C5B3A00EF537A /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0413A7146C5B3A00EF537A /* ASIDataDecompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -152,6 +153,7 @@
 			dstPath = "${BUILD_DIR}/${CONFIGURATION}-iphoneuniversal/${PRODUCT_NAME}.framework/Versions/A/Headers/";
 			dstSubfolderSpec = 0;
 			files = (
+				65ECBD99156585F4003BAF28 /* CMDistance.h in CopyFiles */,
 				6514D159155C5A970073675B /* CMDeleteResponse.h in CopyFiles */,
 				6514D15A155C5A970073675B /* CMFileFetchResponse.h in CopyFiles */,
 				6514D15B155C5A970073675B /* CMFileUploadResponse.h in CopyFiles */,
@@ -215,8 +217,8 @@
 		6514D156155C5A970073675B /* CMResponseMetadata.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CMResponseMetadata.h; path = ios/src/Storage/Response/CMResponseMetadata.h; sourceTree = "<group>"; };
 		6514D157155C5A970073675B /* CMSnippetResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CMSnippetResult.h; path = ios/src/Storage/Response/CMSnippetResult.h; sourceTree = "<group>"; };
 		6514D158155C5A970073675B /* CMStoreResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CMStoreResponse.h; path = ios/src/Storage/Response/CMStoreResponse.h; sourceTree = "<group>"; };
-		65C9D0DF1559C56A0064A2F2 /* CMWebServiceResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMWebServiceResponse.h; sourceTree = "<group>"; };
-		65C9D0E01559C56A0064A2F2 /* CMWebServiceResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMWebServiceResponse.m; sourceTree = "<group>"; };
+		65ECBD9615657817003BAF28 /* CMDistance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMDistance.h; path = Response/Metadata/CMDistance.h; sourceTree = "<group>"; };
+		65ECBD9715657817003BAF28 /* CMDistance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMDistance.m; path = Response/Metadata/CMDistance.m; sourceTree = "<group>"; };
 		7A0413A1146C5B3A00EF537A /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		7A0413A2146C5B3A00EF537A /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		7A0413A3146C5B3A00EF537A /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICacheDelegate.h; sourceTree = "<group>"; };
@@ -383,6 +385,7 @@
 		6514D150155C5A600073675B /* Response */ = {
 			isa = PBXGroup;
 			children = (
+				65ECBD95156577FF003BAF28 /* Metadata */,
 				6514D138155C5A540073675B /* CMDeleteResponse.h */,
 				6514D139155C5A540073675B /* CMDeleteResponse.m */,
 				6514D13A155C5A540073675B /* CMFileFetchResponse.h */,
@@ -401,6 +404,15 @@
 				6514D147155C5A540073675B /* CMStoreResponse.m */,
 			);
 			name = Response;
+			sourceTree = "<group>";
+		};
+		65ECBD95156577FF003BAF28 /* Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				65ECBD9615657817003BAF28 /* CMDistance.h */,
+				65ECBD9715657817003BAF28 /* CMDistance.m */,
+			);
+			name = Metadata;
 			sourceTree = "<group>";
 		};
 		7A04139F146C5B3A00EF537A /* Vendor */ = {
@@ -671,8 +683,6 @@
 				7A7EDBD9148EBE3800AB5B69 /* CMObjectSerialization.h */,
 				7AD9221A14CF47350032DDDE /* CMPagingDescriptor.h */,
 				7AD9221B14CF47350032DDDE /* CMPagingDescriptor.m */,
-				65C9D0DF1559C56A0064A2F2 /* CMWebServiceResponse.h */,
-				65C9D0E01559C56A0064A2F2 /* CMWebServiceResponse.m */,
 			);
 			path = "Web Services";
 			sourceTree = "<group>";
@@ -864,7 +874,6 @@
 				7AA79D8414DC23C700F3CA3B /* RTUnregisteredClass.m in Sources */,
 				7A58CC2214F1B544003E864B /* CMMimeType.m in Sources */,
 				7AF02D5B1507B36D005F03FD /* SPLowVerbosity.m in Sources */,
-				65C9D0E11559C56A0064A2F2 /* CMWebServiceResponse.m in Sources */,
 				6514D148155C5A540073675B /* CMDeleteResponse.m in Sources */,
 				6514D149155C5A540073675B /* CMFileFetchResponse.m in Sources */,
 				6514D14A155C5A540073675B /* CMFileUploadResponse.m in Sources */,
@@ -873,6 +882,7 @@
 				6514D14D155C5A540073675B /* CMResponseMetadata.m in Sources */,
 				6514D14E155C5A540073675B /* CMSnippetResult.m in Sources */,
 				6514D14F155C5A540073675B /* CMStoreResponse.m in Sources */,
+				65ECBD9815657817003BAF28 /* CMDistance.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

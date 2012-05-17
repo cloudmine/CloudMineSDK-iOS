@@ -11,7 +11,13 @@
 
 @interface CMDeleteResponse : CMStoreResponse
 
+/**
+ * Dictionary keyed on object id, indicating that the deletion was successful.
+ */
 @property (strong, atomic) NSDictionary *success;
+/**
+ * Dictionary keyed on object id, indicting which objects had errors.
+ */
 @property (strong, atomic) NSDictionary *errors;
 
 - (id)initWithSuccess:(NSDictionary *)success errors:(NSDictionary *)errors;

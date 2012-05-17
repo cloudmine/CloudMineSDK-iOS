@@ -8,6 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString * const CMDistanceUnitsKm;
+extern NSString * const CMDistanceUnitsMi;
+extern NSString * const CMDistanceUnitsM;
+extern NSString * const CMDistanceUnitsFt;
+
+extern NSString * const CMIncludeDistanceKey;
+extern NSString * const CMDistanceUnitsKey;
+
 @class CMPagingDescriptor;
 @class CMServerFunction;
 
@@ -43,6 +51,11 @@
 - (id)initWithPagingDescriptor:(CMPagingDescriptor *)thePagingDescriptor;
 - (id)initWithServerSideFunction:(CMServerFunction *)theServerFunction;
 - (id)initWithPagingDescriptor:(CMPagingDescriptor *)thePagingDescriptor andServerSideFunction:(CMServerFunction *)theServerFunction;
+
+/**
+ * Creates a key => value dictionary of extra parameters to be added to the query URL.
+ */
+- (NSDictionary *)buildExtraParameters;
 
 /**
  * Converts all the set properties into a query string format that can be appended to a URL.
