@@ -11,9 +11,7 @@
 #import "CMStoreOptions.h"
 #import "CMPagingDescriptor.h"
 #import "CMServerFunction.h"
-
-NSString * const CMIncludeDistanceKey = @"distance";
-NSString * const CMDistanceUnitsKey = @"units";
+#import "CMDistance.h"
 
 @implementation CMStoreOptions
 @synthesize pagingDescriptor;

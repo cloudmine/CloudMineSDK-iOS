@@ -8,14 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString * const CMDistanceUnitsKm;
-extern NSString * const CMDistanceUnitsMi;
-extern NSString * const CMDistanceUnitsM;
-extern NSString * const CMDistanceUnitsFt;
-
-extern NSString * const CMIncludeDistanceKey;
-extern NSString * const CMDistanceUnitsKey;
-
 @class CMPagingDescriptor;
 @class CMServerFunction;
 

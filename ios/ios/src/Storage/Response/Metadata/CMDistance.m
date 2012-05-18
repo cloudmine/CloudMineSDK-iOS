@@ -8,6 +8,14 @@
 
 #import "CMDistance.h"
 
+NSString * const CMIncludeDistanceKey = @"distance";
+NSString * const CMDistanceUnitsKey = @"units";
+
+NSString * const CMDistanceUnitsKm = @"km";
+NSString * const CMDistanceUnitsMi = @"mi";
+NSString * const CMDistanceUnitsM = @"m";
+NSString * const CMDistanceUnitsFt = @"ft";
+
 @implementation CMDistance
 
 @synthesize distance;
@@ -21,6 +29,5 @@
     
     return self;
 }
-
 
 @end
