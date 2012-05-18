@@ -31,17 +31,16 @@
     for (NSString *key in serializedObjects) {
         NSDictionary *objectRepresentation = [serializedObjects objectForKey:key];
         NSString *theKey = [objectRepresentation objectForKey:CMInternalObjectIdKey];
-        NSLog(@"Got a key: %@", theKey);
-        if (![objectRepresentation objectForKey:CMInternalObjectIdKey]) {
-            NSLog(@"Couldn't get key, adding it manually");
-            NSMutableDictionary *objectRepresentationWithId = [NSMutableDictionary dictionary];
-            [objectRepresentationWithId addEntriesFromDictionary:objectRepresentation];
-            [objectRepresentationWithId setObject:key forKey:CMInternalObjectIdKey];
-            objectRepresentation = objectRepresentationWithId;
-        }
         
-        CMObjectDecoder *decoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:objectRepresentation];
-        id<CMSerializable> decodedObject = [[[CMObjectDecoder typeFromDictionaryRepresentation:objectRepresentation] alloc] initWithCoder:decoder];
+        Class klass = [CMObjectDecoder typeFromDictionaryRepresentation:objectRepresentation];
+        
+        id<CMSerializable> decodedObject = nil;
+        if (klass == [CMDefaultObject class]) {
+            decodedObject = [[CMDefaultObject alloc] initWithFields:objectRepresentation objectId:key];
+        } else {
+            CMObjectDecoder *decoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:objectRepresentation];
+            decodedObject = [[klass alloc] initWithCoder:decoder];
+        }
 
         if (decodedObject) {
             [decodedObjects addObject:decodedObject];
@@ -130,9 +129,10 @@
             klass = NSClassFromString(className);
         }
 
-        // At this point we have no idea what the class is, so default to NSDictionary.
-//        NSAssert(klass, @"Class with name \"%@\" could not be loaded during remote object deserialization.", className);
-        klass = [CMDefaultObject class];
+        // At this point we have no idea what the class is, so default to CMDefaultObject.
+        if (klass == nil) {
+            klass = [CMDefaultObject class];
+        }
     }
 
     return klass;

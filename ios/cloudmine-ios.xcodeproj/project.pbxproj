@@ -24,6 +24,7 @@
 
 /* Begin PBXBuildFile section */
 		65ECBD8B15643DD6003BAF28 /* CMDefaultObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECBD8A15643DD6003BAF28 /* CMDefaultObject.m */; };
+		65ECBDA11566D353003BAF28 /* CMDefaultObject.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65ECBD8915643DD6003BAF28 /* CMDefaultObject.h */; };
 		7A0413BB146C5B3A00EF537A /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0413A2146C5B3A00EF537A /* ASIAuthenticationDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7A0413BE146C5B3A00EF537A /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0413A5146C5B3A00EF537A /* ASIDataCompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7A0413C0146C5B3A00EF537A /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0413A7146C5B3A00EF537A /* ASIDataDecompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -136,6 +137,7 @@
 			dstPath = "${BUILD_DIR}/${CONFIGURATION}-iphoneuniversal/${PRODUCT_NAME}.framework/Versions/A/Headers/";
 			dstSubfolderSpec = 0;
 			files = (
+				65ECBDA11566D353003BAF28 /* CMDefaultObject.h in CopyFiles */,
 				7AB8BAFA1521066F00860081 /* SPLowVerbosity.h in CopyFiles */,
 				7A934E78150E8CC200A2CAD6 /* CMObjectSerialization.h in CopyFiles */,
 				7A4A6FB91500474500B95D13 /* CMUserAccountResult.h in CopyFiles */,

@@ -13,11 +13,9 @@
 
 @synthesize fields;
 
-- initWithCoder:(NSCoder *)coder {
-    NSDictionary *dict = [[NSDictionary alloc] initWithCoder:coder];
-    
-    if (self = [super initWithObjectId:[dict objectForKey:CMInternalObjectIdKey]]) {
-        self.fields = dict;
+- (id)initWithFields:(NSDictionary *)theFields objectId:(NSString *)objId {
+    if (self = [super initWithObjectId:objId]) {
+        self.fields = theFields;
     }
     
     return self;
