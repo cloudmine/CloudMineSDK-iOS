@@ -1,5 +1,5 @@
 //
-//  CMDefaultObject.h
+//  CMUntypedObject.h
 //  cloudmine-ios
 //
 //  Copyright (c) 2012 CloudMine, LLC. All rights reserved.
@@ -14,7 +14,7 @@
  * objects through the REST API or other means and not adding __class__ attributes. This class does
  * not attempt to deserialize object fields; it just leaves them as an accessible NSDictionary.
  */
-@interface CMDefaultObject : CMObject
+@interface CMUntypedObject : CMObject
 
 /**
  * This dictionary stores all the fields contained in this object.

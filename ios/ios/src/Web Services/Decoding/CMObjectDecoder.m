@@ -7,7 +7,7 @@
 //
 
 #import "CMObjectDecoder.h"
-#import "CMDefaultObject.h"
+#import "CMUntypedObject.h"
 #import "CMSerializable.h"
 #import "CMObjectSerialization.h"
 #import "CMGeoPoint.h"
@@ -34,8 +34,8 @@
         Class klass = [CMObjectDecoder typeFromDictionaryRepresentation:objectRepresentation];
         
         id<CMSerializable> decodedObject = nil;
-        if (klass == [CMDefaultObject class]) {
-            decodedObject = [[CMDefaultObject alloc] initWithFields:objectRepresentation objectId:key];
+        if (klass == [CMUntypedObject class]) {
+            decodedObject = [[CMUntypedObject alloc] initWithFields:objectRepresentation objectId:key];
         } else {
             CMObjectDecoder *decoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:objectRepresentation];
             decodedObject = [[klass alloc] initWithCoder:decoder];
@@ -134,9 +134,9 @@
             klass = NSClassFromString(className);
         }
 
-        // At this point we have no idea what the class is, so default to CMDefaultObject.
+        // At this point we have no idea what the class is, so default to CMUntypedObject.
         if (klass == nil) {
-            klass = [CMDefaultObject class];
+            klass = [CMUntypedObject class];
         }
     }
 
