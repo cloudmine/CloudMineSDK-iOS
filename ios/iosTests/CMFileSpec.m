@@ -39,7 +39,7 @@ describe(@"CMFile", ^{
         beforeEach(^{
             [[CMAPICredentials sharedInstance] setAppIdentifier:@"appid1234"];
             [[CMAPICredentials sharedInstance] setAppSecret:@"appsecret1234"];
-            
+
             CMUser *user = [[CMUser alloc] initWithUserId:@"uid" andPassword:@"pw"];
             user.token = @"token";
             user.tokenExpiration = [NSDate dateWithTimeIntervalSinceNow:9999];
@@ -48,7 +48,7 @@ describe(@"CMFile", ^{
                                 belongingToUser:user
                                        mimeType:nil];
         });
-        
+
         afterAll(^{
             [[CMAPICredentials sharedInstance] setAppIdentifier:nil];
             [[CMAPICredentials sharedInstance] setAppSecret:nil];

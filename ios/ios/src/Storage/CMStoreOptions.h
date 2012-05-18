@@ -10,6 +10,7 @@
 
 @class CMPagingDescriptor;
 @class CMServerFunction;
+@class CMSortDescriptor;
 
 /**
  * This object describes additional configuration you can pass to a <tt>CMStore</tt> to customize how it
@@ -25,6 +26,13 @@
 @property (nonatomic, strong) CMPagingDescriptor *pagingDescriptor;
 
 /**
+ * Options for specifying one or more fields to sort the resulting objects by.
+ *
+ * @see CMSortDescriptor
+ */
+@property (nonatomic, strong) CMSortDescriptor *sortDescriptor;
+
+/**
  * Options for specifying a function you've defined on your CloudMine dashboard to be run as a post-processing step
  * server-side before the objects are sent back to this store.
  *
@@ -36,7 +44,8 @@
 
 - (id)initWithPagingDescriptor:(CMPagingDescriptor *)thePagingDescriptor;
 - (id)initWithServerSideFunction:(CMServerFunction *)theServerFunction;
-- (id)initWithPagingDescriptor:(CMPagingDescriptor *)thePagingDescriptor andServerSideFunction:(CMServerFunction *)theServerFunction;
+- (id)initWithSortDescriptor:(CMSortDescriptor *)theSortDescriptor;
+- (id)initWithPagingDescriptor:(CMPagingDescriptor *)thePagingDescriptor sortDescriptor:(CMSortDescriptor *)theSortDescriptor andServerSideFunction:(CMServerFunction *)theServerFunction;
 
 /**
  * Converts all the set properties into a query string format that can be appended to a URL.

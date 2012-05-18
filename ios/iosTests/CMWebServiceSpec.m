@@ -53,6 +53,7 @@ describe(@"CMWebService", ^{
             [service getValuesForKeys:nil
                    serverSideFunction:nil
                         pagingOptions:nil
+                        sortingOptions:nil
                                  user:nil
                        successHandler:^(NSDictionary *results, NSDictionary *errors) {
                        } errorHandler:^(NSError *error) {
@@ -84,6 +85,7 @@ describe(@"CMWebService", ^{
             [service searchValuesFor:query
                   serverSideFunction:nil
                        pagingOptions:nil
+                      sortingOptions:nil
                                 user:nil
                       successHandler:^(NSDictionary *results, NSDictionary *errors) {
                       } errorHandler:^(NSError *error) {
@@ -142,6 +144,7 @@ describe(@"CMWebService", ^{
             [service getValuesForKeys:[NSArray arrayWithObjects:@"k1", @"k2", nil]
                    serverSideFunction:nil
                         pagingOptions:nil
+                       sortingOptions:nil
                                  user:nil
                        successHandler:^(NSDictionary *results, NSDictionary *errors) {
                        } errorHandler:^(NSError *error) {
@@ -173,6 +176,7 @@ describe(@"CMWebService", ^{
             [service getValuesForKeys:[NSArray arrayWithObjects:@"k1", @"k2", nil]
                    serverSideFunction:function
                         pagingOptions:nil
+                       sortingOptions:nil
                                  user:nil
                        successHandler:^(NSDictionary *results, NSDictionary *errors) {
                        } errorHandler:^(NSError *error) {
@@ -207,6 +211,7 @@ describe(@"CMWebService", ^{
             [service getValuesForKeys:nil
                    serverSideFunction:nil
                         pagingOptions:nil
+                       sortingOptions:nil
                                  user:creds
                        successHandler:^(NSDictionary *results, NSDictionary *errors) {
                        } errorHandler:^(NSError *error) {
@@ -275,6 +280,7 @@ describe(@"CMWebService", ^{
             [service getValuesForKeys:[NSArray arrayWithObjects:@"k1", @"k2", nil]
                    serverSideFunction:nil
                         pagingOptions:nil
+                       sortingOptions:nil
                                  user:creds
                        successHandler:^(NSDictionary *results, NSDictionary *errors) {
                        } errorHandler:^(NSError *error) {
