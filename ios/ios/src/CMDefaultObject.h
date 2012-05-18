@@ -2,8 +2,8 @@
 //  CMDefaultObject.h
 //  cloudmine-ios
 //
-//  Created by Derek Mansen on 5/16/12.
 //  Copyright (c) 2012 CloudMine, LLC. All rights reserved.
+//  See LICENSE file included with SDK for details.
 //
 
 #import "CMObject.h"
