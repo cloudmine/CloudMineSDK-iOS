@@ -14,11 +14,11 @@
 /**
  * Dictionary keyed on object id, indicating that the deletion was successful.
  */
-@property (strong, atomic) NSDictionary *success;
+@property (strong, nonatomic) NSDictionary *success;
 /**
  * Dictionary keyed on object id, indicting which objects had errors.
  */
-@property (strong, atomic) NSDictionary *errors;
+@property (strong, nonatomic) NSDictionary *errors;
 
 - (id)initWithSuccess:(NSDictionary *)success errors:(NSDictionary *)errors;
 - (id)initWithSuccess:(NSDictionary *)success errors:(NSDictionary *)errors snippetResult:(CMSnippetResult *)snippetResult;

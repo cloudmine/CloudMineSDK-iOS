@@ -19,7 +19,7 @@
 /**
  * The key of the newly created file.
  */
-@property (strong, atomic) NSString *key;
+@property (strong, nonatomic) NSString *key;
 
 - (id)initWithResult:(CMFileUploadResult)result key:(NSString *)key;
 - (id)initWithResult:(CMFileUploadResult)result key:(NSString *)key snippetResult:(CMSnippetResult *)snippetResult;

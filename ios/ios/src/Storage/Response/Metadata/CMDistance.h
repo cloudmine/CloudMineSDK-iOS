@@ -10,7 +10,7 @@
 
 @interface CMDistance : NSObject
 
-@property (nonatomic, readonly) NSString * units;
+@property (strong, nonatomic, readonly) NSString * units;
 @property (nonatomic, readonly) double distance;
 
 - initWithDistance:(double)theDistance andUnits:(NSString *)theUnits;

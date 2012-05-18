@@ -12,8 +12,8 @@
 
 @interface CMStoreResponse : NSObject
 
-@property (strong, atomic) CMResponseMetadata *metadata;
-@property (strong, atomic) CMSnippetResult *snippetResult;
+@property (strong, nonatomic) CMResponseMetadata *metadata;
+@property (strong, nonatomic) CMSnippetResult *snippetResult;
 
 - (id)initWithMetadata:(CMResponseMetadata *)metadata snippetResult:(CMSnippetResult *)snippetResult;
 

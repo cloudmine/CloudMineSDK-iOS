@@ -13,7 +13,7 @@
 /**
  * Dictionary keyed on object id that indicates the result of uploading each new object.
  */
-@property (strong, atomic) NSDictionary *uploadStatuses;
+@property (strong, nonatomic) NSDictionary *uploadStatuses;
 
 - (id)initWithUploadStatuses:(NSDictionary *)uploadStatuses;
 - (id)initWithUploadStatuses:(NSDictionary *)uploadStatuses snippetResult:(CMSnippetResult *)snippetResult;

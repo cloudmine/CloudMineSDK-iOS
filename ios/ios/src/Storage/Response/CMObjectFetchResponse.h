@@ -14,11 +14,11 @@
 /**
  * The objects returned by the CloudMine API. These will all inherit from CMSerializable.
  */
-@property (strong, atomic) NSArray *objects;
+@property (strong, nonatomic) NSArray *objects;
 /**
  * Errors returned from the API.
  */
-@property (strong, atomic) NSDictionary *errors;
+@property (strong, nonatomic) NSDictionary *errors;
 
 - (id)initWithObjects:(NSArray *)objects errors:(NSDictionary *)errors;
 - (id)initWithObjects:(NSArray *)objects errors:(NSDictionary *)errors snippetResult:(CMSnippetResult *)snippetResult;
