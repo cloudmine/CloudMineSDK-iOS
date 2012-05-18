@@ -10,6 +10,9 @@
 #import "CMSnippetResult.h"
 #import "CMResponseMetadata.h"
 
+/**
+ * Superclass for all CloudMine API responses sent by the CMStore. Contains metadata and a snippet result.
+ */
 @interface CMStoreResponse : NSObject
 
 @property (strong, nonatomic) CMResponseMetadata *metadata;

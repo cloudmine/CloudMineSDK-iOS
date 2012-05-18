@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "CMStoreResponse.h"
 
+/**
+ * Response object returned after an object upload request.
+ */
 @interface CMObjectUploadResponse : CMStoreResponse
 /**
  * Dictionary keyed on object id that indicates the result of uploading each new object.

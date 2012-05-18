@@ -13,6 +13,10 @@
 
 extern NSString * const CMMetadataTypeGeo;
 
+/**
+ * Container object for metadata returned from the CloudMine API. Corresponds to the
+ * top-level "meta" property in the returned JSON.
+ */
 @interface CMResponseMetadata : NSObject
 
 - (id)initWithMetadata:(NSDictionary *)data;

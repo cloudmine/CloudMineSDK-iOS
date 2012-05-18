@@ -10,6 +10,9 @@
 #import "CMStoreResponse.h"
 #import "CMFileUploadResult.h"
 
+/**
+ * Response object returned after a file upload request.
+ */
 @interface CMFileUploadResponse : CMStoreResponse
 
 /**

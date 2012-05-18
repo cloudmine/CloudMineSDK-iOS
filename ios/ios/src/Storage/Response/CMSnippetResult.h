@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ * Container for data returned by a server-side code snippet.
+ */
 @interface CMSnippetResult : NSObject
 
 @property (strong, nonatomic) id data;

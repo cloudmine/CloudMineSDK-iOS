@@ -10,6 +10,9 @@
 #import "CMStoreResponse.h"
 #import "CMFile.h"
 
+/**
+ * Response object returned after a file fetch request.
+ */
 @interface CMFileFetchResponse : CMStoreResponse
 
 /**

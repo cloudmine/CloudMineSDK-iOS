@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "CMStoreResponse.h"
 
+/**
+ * Response object returned after an object fetch request.
+ */
 @interface CMObjectFetchResponse : CMStoreResponse
 
 /**
