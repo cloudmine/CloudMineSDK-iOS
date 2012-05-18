@@ -22,7 +22,14 @@ extern NSString * const CMDistanceUnitsKey;
  */
 @interface CMDistance : NSObject
 
+/**
+ * Units of distance, valid values are "km", "mi", "ft", and "m".
+ */
 @property (strong, nonatomic, readonly) NSString * units;
+
+/**
+ * Distance of this object from the given point.
+ */
 @property (nonatomic, readonly) double distance;
 
 - initWithDistance:(double)theDistance andUnits:(NSString *)theUnits;
