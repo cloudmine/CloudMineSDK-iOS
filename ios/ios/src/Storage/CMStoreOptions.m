@@ -11,10 +11,13 @@
 #import "CMStoreOptions.h"
 #import "CMPagingDescriptor.h"
 #import "CMServerFunction.h"
+#import "CMDistance.h"
 
 @implementation CMStoreOptions
 @synthesize pagingDescriptor;
 @synthesize serverSideFunction;
+@synthesize includeDistance;
+@synthesize distanceUnits;
 
 #pragma mark - Initializers
 
@@ -36,7 +39,22 @@
 
 #pragma mark - Consumable representations
 
+- (NSDictionary *)buildExtraParameters {
+
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:2];
+    if(self.includeDistance) {
+        [params setObject:@"true" forKey:CMIncludeDistanceKey];
+    }
+    if(self.distanceUnits) {
+        [params setObject:self.distanceUnits forKey:CMDistanceUnitsKey];
+    }
+    
+    return params;
+}
+
 - (NSString *)stringRepresentation {
+    
+    
     if (pagingDescriptor && serverSideFunction) {
         return $sprintf(@"%@&%@", [pagingDescriptor stringRepresentation], [serverSideFunction stringRepresentation]);
     } else if (pagingDescriptor) {
