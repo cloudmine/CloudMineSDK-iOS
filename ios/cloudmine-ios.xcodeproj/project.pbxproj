@@ -23,6 +23,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		65ECBDA51566F504003BAF28 /* CMUntypedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ECBDA41566F503003BAF28 /* CMUntypedObject.m */; };
+		65ECBDA61566F50E003BAF28 /* CMUntypedObject.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65ECBDA31566F503003BAF28 /* CMUntypedObject.h */; };
 		7A0413BB146C5B3A00EF537A /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0413A2146C5B3A00EF537A /* ASIAuthenticationDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7A0413BE146C5B3A00EF537A /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0413A5146C5B3A00EF537A /* ASIDataCompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7A0413C0146C5B3A00EF537A /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0413A7146C5B3A00EF537A /* ASIDataDecompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -135,6 +137,7 @@
 			dstPath = "${BUILD_DIR}/${CONFIGURATION}-iphoneuniversal/${PRODUCT_NAME}.framework/Versions/A/Headers/";
 			dstSubfolderSpec = 0;
 			files = (
+				65ECBDA61566F50E003BAF28 /* CMUntypedObject.h in CopyFiles */,
 				7AB8BAFA1521066F00860081 /* SPLowVerbosity.h in CopyFiles */,
 				7A934E78150E8CC200A2CAD6 /* CMObjectSerialization.h in CopyFiles */,
 				7A4A6FB91500474500B95D13 /* CMUserAccountResult.h in CopyFiles */,
@@ -166,6 +169,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		65ECBDA31566F503003BAF28 /* CMUntypedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMUntypedObject.h; sourceTree = "<group>"; };
+		65ECBDA41566F503003BAF28 /* CMUntypedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUntypedObject.m; sourceTree = "<group>"; };
 		7A0413A1146C5B3A00EF537A /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		7A0413A2146C5B3A00EF537A /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		7A0413A3146C5B3A00EF537A /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICacheDelegate.h; sourceTree = "<group>"; };
@@ -549,6 +554,8 @@
 		7AD36F76146C642900DD4734 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				65ECBDA31566F503003BAF28 /* CMUntypedObject.h */,
+				65ECBDA41566F503003BAF28 /* CMUntypedObject.m */,
 				7AA79DDA14DC5E4000F3CA3B /* CloudMine.h */,
 				7AA79D6514DC216A00F3CA3B /* CMObjectClassNameRegistry.h */,
 				7AA79D6614DC216A00F3CA3B /* CMObjectClassNameRegistry.m */,
@@ -779,6 +786,7 @@
 				7AA79D8414DC23C700F3CA3B /* RTUnregisteredClass.m in Sources */,
 				7A58CC2214F1B544003E864B /* CMMimeType.m in Sources */,
 				7AF02D5B1507B36D005F03FD /* SPLowVerbosity.m in Sources */,
+				65ECBDA51566F504003BAF28 /* CMUntypedObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

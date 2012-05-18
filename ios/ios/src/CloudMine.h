@@ -40,6 +40,7 @@
 
 #import "CMAPICredentials.h"
 #import "CMDate.h"
+#import "CMUntypedObject.h"
 #import "CMFile.h"
 #import "CMFileUploadResult.h"
 #import "CMGeoPoint.h"
