@@ -417,7 +417,7 @@ typedef enum {
  *
  * @param url The absolute URL to the location of the file on the device.
  * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
- * @param callback The callback to be triggered when all the objects are finished uploading.
+ * @param callback The callback to be triggered when the file is finished uploading.
  *
  * @see https://cloudmine.me/developer_zone#ref/file_set
  */
@@ -431,7 +431,7 @@ typedef enum {
  * @param url The absolute URL to the location of the file on the device.
  * @param name The name to give the file on CloudMine. <b>This must be unique throughout all instances of your app.</b>
  * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
- * @param callback The callback to be triggered when all the objects are finished uploading.
+ * @param callback The callback to be triggered when the file is finished uploading.
  *
  * @see https://cloudmine.me/developer_zone#ref/file_set
  */
@@ -445,7 +445,7 @@ typedef enum {
  *
  * @param url The absolute URL to the location of the file on the device.
  * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
- * @param callback The callback to be triggered when all the objects are finished uploading.
+ * @param callback The callback to be triggered when the file is finished uploading.
  *
  * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
  *
@@ -463,7 +463,7 @@ typedef enum {
  * @param url The absolute URL to the location of the file on the device.
  * @param name The name to give the file on CloudMine. <b>This must be unique throughout all instances of your app.</b>
  * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
- * @param callback The callback to be triggered when all the objects are finished uploading.
+ * @param callback The callback to be triggered when the file is finished uploading.
  *
  * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
  *
@@ -478,7 +478,7 @@ typedef enum {
  *
  * @param data The raw contents of the file.
  * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
- * @param callback The callback to be triggered when all the objects are finished uploading.
+ * @param callback The callback to be triggered when the file is finished uploading.
  *
  * @see https://cloudmine.me/developer_zone#ref/file_set
  */
@@ -491,7 +491,7 @@ typedef enum {
  * @param data The raw contents of the file.
  * @param name The name to give the file on CloudMine. <b>This must be unique throughout all instances of your app.</b>
  * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
- * @param callback The callback to be triggered when all the objects are finished uploading.
+ * @param callback The callback to be triggered when the file is finished uploading.
  *
  * @see https://cloudmine.me/developer_zone#ref/file_set
  */
@@ -505,7 +505,7 @@ typedef enum {
  *
  * @param data The raw contents of the file.
  * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
- * @param callback The callback to be triggered when all the objects are finished uploading.
+ * @param callback The callback to be triggered when the file is finished uploading.
  *
  * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
  *
@@ -522,7 +522,7 @@ typedef enum {
  * @param data The raw contents of the file.
  * @param name The name to give the file on CloudMine. <b>This must be unique throughout all instances of your app.</b>
  * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
- * @param callback The callback to be triggered when all the objects are finished uploading.
+ * @param callback The callback to be triggered when the file is finished uploading.
  *
  * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
  *

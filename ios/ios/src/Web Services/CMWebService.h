@@ -45,8 +45,8 @@ typedef void (^CMWebServiceFetchFailureCallback)(NSError *error);
 
 /**
  * Callback block signature for all operations on <tt>CMWebService</tt> that upload binary files to
- * the CloudMine servers. These blocks return <tt>void</tt> and take a <tt>CMFileUploadResult</tt> and a dynamic
- * snippet result as arguments to indicate the final result of the upload operation.
+ * the CloudMine servers. These blocks return <tt>void</tt> and take a <tt>CMFileUploadResult</tt>, the key
+ * of the new file, and a dynamic snippet result as arguments to indicate the final result of the upload operation.
  */
 typedef void (^CMWebServiceFileUploadSuccessCallback)(CMFileUploadResult result, NSString *fileKey, id snippetResult);
 
