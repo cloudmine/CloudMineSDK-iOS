@@ -23,6 +23,24 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		65199EC2156A7D9500267EC6 /* CMDeleteResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 65199EB0156A7D9500267EC6 /* CMDeleteResponse.m */; };
+		65199EC3156A7D9500267EC6 /* CMFileFetchResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 65199EB2156A7D9500267EC6 /* CMFileFetchResponse.m */; };
+		65199EC4156A7D9500267EC6 /* CMFileUploadResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 65199EB4156A7D9500267EC6 /* CMFileUploadResponse.m */; };
+		65199EC5156A7D9500267EC6 /* CMObjectFetchResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 65199EB6156A7D9500267EC6 /* CMObjectFetchResponse.m */; };
+		65199EC6156A7D9500267EC6 /* CMObjectUploadResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 65199EB8156A7D9500267EC6 /* CMObjectUploadResponse.m */; };
+		65199EC7156A7D9500267EC6 /* CMResponseMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 65199EBA156A7D9500267EC6 /* CMResponseMetadata.m */; };
+		65199EC8156A7D9500267EC6 /* CMSnippetResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 65199EBC156A7D9500267EC6 /* CMSnippetResult.m */; };
+		65199EC9156A7D9500267EC6 /* CMStoreResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 65199EBE156A7D9500267EC6 /* CMStoreResponse.m */; };
+		65199ECA156A7D9500267EC6 /* CMDistance.m in Sources */ = {isa = PBXBuildFile; fileRef = 65199EC1156A7D9500267EC6 /* CMDistance.m */; };
+		65199ECD156A847A00267EC6 /* CMDeleteResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65199EAF156A7D9500267EC6 /* CMDeleteResponse.h */; };
+		65199ECE156A847A00267EC6 /* CMFileFetchResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65199EB1156A7D9500267EC6 /* CMFileFetchResponse.h */; };
+		65199ECF156A847A00267EC6 /* CMFileUploadResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65199EB3156A7D9500267EC6 /* CMFileUploadResponse.h */; };
+		65199ED0156A847A00267EC6 /* CMObjectFetchResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65199EB5156A7D9500267EC6 /* CMObjectFetchResponse.h */; };
+		65199ED1156A847A00267EC6 /* CMObjectUploadResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65199EB7156A7D9500267EC6 /* CMObjectUploadResponse.h */; };
+		65199ED2156A847A00267EC6 /* CMResponseMetadata.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65199EB9156A7D9500267EC6 /* CMResponseMetadata.h */; };
+		65199ED3156A847A00267EC6 /* CMSnippetResult.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65199EBB156A7D9500267EC6 /* CMSnippetResult.h */; };
+		65199ED4156A847A00267EC6 /* CMStoreResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65199EBD156A7D9500267EC6 /* CMStoreResponse.h */; };
+		65199ED5156A84D600267EC6 /* CMDistance.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65199EC0156A7D9500267EC6 /* CMDistance.h */; };
 		7A0413BB146C5B3A00EF537A /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0413A2146C5B3A00EF537A /* ASIAuthenticationDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7A0413BE146C5B3A00EF537A /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0413A5146C5B3A00EF537A /* ASIDataCompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7A0413C0146C5B3A00EF537A /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0413A7146C5B3A00EF537A /* ASIDataDecompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -138,6 +156,15 @@
 			dstPath = "${BUILD_DIR}/${CONFIGURATION}-iphoneuniversal/${PRODUCT_NAME}.framework/Versions/A/Headers/";
 			dstSubfolderSpec = 0;
 			files = (
+				65199ED5156A84D600267EC6 /* CMDistance.h in CopyFiles */,
+				65199ECD156A847A00267EC6 /* CMDeleteResponse.h in CopyFiles */,
+				65199ECE156A847A00267EC6 /* CMFileFetchResponse.h in CopyFiles */,
+				65199ECF156A847A00267EC6 /* CMFileUploadResponse.h in CopyFiles */,
+				65199ED0156A847A00267EC6 /* CMObjectFetchResponse.h in CopyFiles */,
+				65199ED1156A847A00267EC6 /* CMObjectUploadResponse.h in CopyFiles */,
+				65199ED2156A847A00267EC6 /* CMResponseMetadata.h in CopyFiles */,
+				65199ED3156A847A00267EC6 /* CMSnippetResult.h in CopyFiles */,
+				65199ED4156A847A00267EC6 /* CMStoreResponse.h in CopyFiles */,
 				7A87A3351563FF2700D788E2 /* CMSortDescriptor.h in CopyFiles */,
 				7AB8BAFA1521066F00860081 /* SPLowVerbosity.h in CopyFiles */,
 				7A934E78150E8CC200A2CAD6 /* CMObjectSerialization.h in CopyFiles */,
@@ -170,6 +197,24 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		65199EAF156A7D9500267EC6 /* CMDeleteResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMDeleteResponse.h; path = Response/CMDeleteResponse.h; sourceTree = "<group>"; };
+		65199EB0156A7D9500267EC6 /* CMDeleteResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMDeleteResponse.m; path = Response/CMDeleteResponse.m; sourceTree = "<group>"; };
+		65199EB1156A7D9500267EC6 /* CMFileFetchResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMFileFetchResponse.h; path = Response/CMFileFetchResponse.h; sourceTree = "<group>"; };
+		65199EB2156A7D9500267EC6 /* CMFileFetchResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMFileFetchResponse.m; path = Response/CMFileFetchResponse.m; sourceTree = "<group>"; };
+		65199EB3156A7D9500267EC6 /* CMFileUploadResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMFileUploadResponse.h; path = Response/CMFileUploadResponse.h; sourceTree = "<group>"; };
+		65199EB4156A7D9500267EC6 /* CMFileUploadResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMFileUploadResponse.m; path = Response/CMFileUploadResponse.m; sourceTree = "<group>"; };
+		65199EB5156A7D9500267EC6 /* CMObjectFetchResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMObjectFetchResponse.h; path = Response/CMObjectFetchResponse.h; sourceTree = "<group>"; };
+		65199EB6156A7D9500267EC6 /* CMObjectFetchResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMObjectFetchResponse.m; path = Response/CMObjectFetchResponse.m; sourceTree = "<group>"; };
+		65199EB7156A7D9500267EC6 /* CMObjectUploadResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMObjectUploadResponse.h; path = Response/CMObjectUploadResponse.h; sourceTree = "<group>"; };
+		65199EB8156A7D9500267EC6 /* CMObjectUploadResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMObjectUploadResponse.m; path = Response/CMObjectUploadResponse.m; sourceTree = "<group>"; };
+		65199EB9156A7D9500267EC6 /* CMResponseMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMResponseMetadata.h; path = Response/CMResponseMetadata.h; sourceTree = "<group>"; };
+		65199EBA156A7D9500267EC6 /* CMResponseMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMResponseMetadata.m; path = Response/CMResponseMetadata.m; sourceTree = "<group>"; };
+		65199EBB156A7D9500267EC6 /* CMSnippetResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMSnippetResult.h; path = Response/CMSnippetResult.h; sourceTree = "<group>"; };
+		65199EBC156A7D9500267EC6 /* CMSnippetResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMSnippetResult.m; path = Response/CMSnippetResult.m; sourceTree = "<group>"; };
+		65199EBD156A7D9500267EC6 /* CMStoreResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMStoreResponse.h; path = Response/CMStoreResponse.h; sourceTree = "<group>"; };
+		65199EBE156A7D9500267EC6 /* CMStoreResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMStoreResponse.m; path = Response/CMStoreResponse.m; sourceTree = "<group>"; };
+		65199EC0156A7D9500267EC6 /* CMDistance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMDistance.h; sourceTree = "<group>"; };
+		65199EC1156A7D9500267EC6 /* CMDistance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMDistance.m; sourceTree = "<group>"; };
 		7A0413A1146C5B3A00EF537A /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		7A0413A2146C5B3A00EF537A /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		7A0413A3146C5B3A00EF537A /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICacheDelegate.h; sourceTree = "<group>"; };
@@ -336,6 +381,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		65199EBF156A7D9500267EC6 /* Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				65199EC0156A7D9500267EC6 /* CMDistance.h */,
+				65199EC1156A7D9500267EC6 /* CMDistance.m */,
+			);
+			name = Metadata;
+			path = ios/src/Storage/Response/Metadata;
+			sourceTree = "<group>";
+		};
+		65199ECC156A7DB000267EC6 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				65199EAF156A7D9500267EC6 /* CMDeleteResponse.h */,
+				65199EB0156A7D9500267EC6 /* CMDeleteResponse.m */,
+				65199EB1156A7D9500267EC6 /* CMFileFetchResponse.h */,
+				65199EB2156A7D9500267EC6 /* CMFileFetchResponse.m */,
+				65199EB3156A7D9500267EC6 /* CMFileUploadResponse.h */,
+				65199EB4156A7D9500267EC6 /* CMFileUploadResponse.m */,
+				65199EB5156A7D9500267EC6 /* CMObjectFetchResponse.h */,
+				65199EB6156A7D9500267EC6 /* CMObjectFetchResponse.m */,
+				65199EB7156A7D9500267EC6 /* CMObjectUploadResponse.h */,
+				65199EB8156A7D9500267EC6 /* CMObjectUploadResponse.m */,
+				65199EB9156A7D9500267EC6 /* CMResponseMetadata.h */,
+				65199EBA156A7D9500267EC6 /* CMResponseMetadata.m */,
+				65199EBB156A7D9500267EC6 /* CMSnippetResult.h */,
+				65199EBC156A7D9500267EC6 /* CMSnippetResult.m */,
+				65199EBD156A7D9500267EC6 /* CMStoreResponse.h */,
+				65199EBE156A7D9500267EC6 /* CMStoreResponse.m */,
+			);
+			name = Response;
+			sourceTree = "<group>";
+		};
 		7A04139F146C5B3A00EF537A /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
@@ -411,6 +489,7 @@
 		7A7E31C514C88F760091F1E3 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
+				65199ECC156A7DB000267EC6 /* Response */,
 				7A7E31C614C88F8A0091F1E3 /* CMStore.h */,
 				7A7E31C714C88F8A0091F1E3 /* CMStore.m */,
 				7AD9222114D06B9A0032DDDE /* CMStoreOptions.h */,
@@ -463,6 +542,7 @@
 		7AB4AB54145DC5D8006AEF67 = {
 			isa = PBXGroup;
 			children = (
+				65199EBF156A7D9500267EC6 /* Metadata */,
 				7AB4AB64145DC5D8006AEF67 /* ios */,
 				7AB4AB78145DC5D8006AEF67 /* iosTests */,
 				7AB4AB61145DC5D8006AEF67 /* Frameworks */,
@@ -790,6 +870,15 @@
 				7A58CC2214F1B544003E864B /* CMMimeType.m in Sources */,
 				7AF02D5B1507B36D005F03FD /* SPLowVerbosity.m in Sources */,
 				7AE2848B1562C3C8003E8A8F /* CMSortDescriptor.m in Sources */,
+				65199EC2156A7D9500267EC6 /* CMDeleteResponse.m in Sources */,
+				65199EC3156A7D9500267EC6 /* CMFileFetchResponse.m in Sources */,
+				65199EC4156A7D9500267EC6 /* CMFileUploadResponse.m in Sources */,
+				65199EC5156A7D9500267EC6 /* CMObjectFetchResponse.m in Sources */,
+				65199EC6156A7D9500267EC6 /* CMObjectUploadResponse.m in Sources */,
+				65199EC7156A7D9500267EC6 /* CMResponseMetadata.m in Sources */,
+				65199EC8156A7D9500267EC6 /* CMSnippetResult.m in Sources */,
+				65199EC9156A7D9500267EC6 /* CMStoreResponse.m in Sources */,
+				65199ECA156A7D9500267EC6 /* CMDistance.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

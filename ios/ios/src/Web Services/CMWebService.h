@@ -29,10 +29,11 @@
 
 /**
  * Callback block signature for all operations on <tt>CMWebService</tt> that fetch objects
- * from the CloudMine servers. These blocks return <tt>void</tt> and take a dictionary of results
- * and a dictionary of errors as arguments. These map directly with the CloudMine API response format.
+ * from the CloudMine servers. These blocks return <tt>void</tt> and take a dictionary of results,
+ * a dictionary of errors, a dictionary of metadata, and a dynamic snippet result as arguments. 
+ * These map directly with the CloudMine API response format.
  */
-typedef void (^CMWebServiceObjectFetchSuccessCallback)(NSDictionary *results, NSDictionary *errors);
+typedef void (^CMWebServiceObjectFetchSuccessCallback)(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult);
 
 /**
  * Callback block signature for <b>all</b> operations on <tt>CMStore</tt> that can fail. These are general
@@ -44,10 +45,10 @@ typedef void (^CMWebServiceFetchFailureCallback)(NSError *error);
 
 /**
  * Callback block signature for all operations on <tt>CMWebService</tt> that upload binary files to
- * the CloudMine servers. These blocks return <tt>void</tt> and take a <tt>CMFileUploadResult</tt> as an
- * argument to indicate the final result of the upload operation.
+ * the CloudMine servers. These blocks return <tt>void</tt> and take a <tt>CMFileUploadResult</tt> and a dynamic
+ * snippet result as arguments to indicate the final result of the upload operation.
  */
-typedef void (^CMWebServiceFileUploadSuccessCallback)(CMFileUploadResult result);
+typedef void (^CMWebServiceFileUploadSuccessCallback)(CMFileUploadResult result, id snippetResult);
 
 /**
  * Callback block signature for all operations on <tt>CMWebService</tt> that download binary files from
@@ -109,6 +110,7 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
            pagingOptions:(CMPagingDescriptor *)paging
           sortingOptions:(CMSortDescriptor *)sorting
                     user:(CMUser *)user
+         extraParameters:(NSDictionary *)params
           successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
             errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
@@ -117,6 +119,7 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
           pagingOptions:(CMPagingDescriptor *)paging
          sortingOptions:(CMSortDescriptor *)sorting
                    user:(CMUser *)user
+        extraParameters:(NSDictionary *)params
          successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
            errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
@@ -130,7 +133,9 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
  * @param errorHandler The block to be called if the request failed.
  */
 - (void)getBinaryDataNamed:(NSString *)key
+        serverSideFunction:(CMServerFunction *)function
                       user:(CMUser *)user
+           extraParameters:(NSDictionary *)params
             successHandler:(CMWebServiceFileFetchSuccessCallback)successHandler
               errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
@@ -148,6 +153,7 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
 - (void)updateValuesFromDictionary:(NSDictionary *)data
                 serverSideFunction:(CMServerFunction *)function
                               user:(CMUser *)user
+                   extraParameters:(NSDictionary *)params
                     successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
                       errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
@@ -164,9 +170,11 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
  * @param errorHandler The block to be called if the request failed.
  */
 - (void)uploadBinaryData:(NSData *)data
+      serverSideFunction:(CMServerFunction *)function
                    named:(NSString *)key
               ofMimeType:(NSString *)mimeType
                     user:(CMUser *)user
+         extraParameters:(NSDictionary *)params
           successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler
             errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
@@ -187,9 +195,11 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
  * @param errorHandler The block to be called if the request failed.
  */
 - (void)uploadFileAtPath:(NSString *)path
+      serverSideFunction:(CMServerFunction *)function
                    named:(NSString *)key
               ofMimeType:(NSString *)mimeType
                     user:(CMUser *)user
+         extraParameters:(NSDictionary *)params
           successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler
             errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
@@ -211,6 +221,7 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
 - (void)setValuesFromDictionary:(NSDictionary *)data
              serverSideFunction:(CMServerFunction *)function
                            user:(CMUser *)user
+                extraParameters:(NSDictionary *)params
                  successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
                    errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
@@ -227,7 +238,9 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
  */
 - (void)deleteValuesForKeys:(NSArray *)keys
+         serverSideFunction:(CMServerFunction *)function
                        user:(CMUser *)user
+            extraParameters:(NSDictionary *)params
              successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
                errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
