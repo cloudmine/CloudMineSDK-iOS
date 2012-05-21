@@ -7,6 +7,7 @@
 //
 
 #import "CMObjectDecoder.h"
+#import "CMUntypedObject.h"
 #import "CMSerializable.h"
 #import "CMObjectSerialization.h"
 #import "CMGeoPoint.h"
@@ -29,15 +30,24 @@
 
     for (NSString *key in serializedObjects) {
         NSDictionary *objectRepresentation = [serializedObjects objectForKey:key];
-        CMObjectDecoder *decoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:objectRepresentation];
-        id<CMSerializable> decodedObject = [[[CMObjectDecoder typeFromDictionaryRepresentation:objectRepresentation] alloc] initWithCoder:decoder];
+        
+        Class klass = [CMObjectDecoder typeFromDictionaryRepresentation:objectRepresentation];
+        
+        id<CMSerializable> decodedObject = nil;
+        if (klass == [CMUntypedObject class]) {
+            decodedObject = [[CMUntypedObject alloc] initWithFields:objectRepresentation objectId:key];
+        } else {
+            CMObjectDecoder *decoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:objectRepresentation];
+            decodedObject = [[klass alloc] initWithCoder:decoder];
+        }
 
         if (decodedObject) {
             if(![decodedObject isKindOfClass:[CMObject class]]) {
                 [[NSException exceptionWithName:@"CMInternalInconsistencyException" reason:[NSString stringWithFormat:@"Can only deserialize top-level objects that inherit from CMObject. Got %@.", NSStringFromClass([decodedObject class])] userInfo:nil] raise];
+
                 return nil;
             }
-            
+
             [decodedObjects addObject:decodedObject];
         } else {
             NSLog(@"Failed to deserialize and inflate object with dictionary representation:\n%@", objectRepresentation);
@@ -123,9 +133,11 @@
         if (klass == nil) {
             klass = NSClassFromString(className);
         }
-        
-        // At this point we have no idea what the class is, so fail.
-        NSAssert(klass, @"Class with name \"%@\" could not be loaded during remote object deserialization.", className);
+
+        // At this point we have no idea what the class is, so default to CMUntypedObject.
+        if (klass == nil) {
+            klass = [CMUntypedObject class];
+        }
     }
 
     return klass;

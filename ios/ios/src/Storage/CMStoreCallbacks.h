@@ -9,6 +9,11 @@
 /** @file */
 
 #import "CMFileUploadResult.h"
+#import "CMObjectFetchResponse.h"
+#import "CMObjectUploadResponse.h"
+#import "CMFileFetchResponse.h"
+#import "CMFileUploadResponse.h"
+#import "CMDeleteResponse.h"
 
 @class CMFile;
 
@@ -17,14 +22,14 @@
  * from the CloudMine servers. This block should return <tt>void</tt> and take an
  * <tt>NSArray</tt> of objects as an argument.
  */
-typedef void (^CMStoreObjectFetchCallback)(NSArray *objects, NSDictionary *errors);
+typedef void (^CMStoreObjectFetchCallback)(CMObjectFetchResponse *response);
 
 /**
  * Callback block signature for all operations on <tt>CMStore</tt> that upload objects
  * to the CloudMine servers. This block should return <tt>void</tt> and take one parameter,
  * a dictionary mapping object or file names to success status messages (such as "updated", "created", etc),
  */
-typedef void (^CMStoreObjectUploadCallback)(NSDictionary *uploadStatuses);
+typedef void (^CMStoreObjectUploadCallback)(CMObjectUploadResponse *response);
 
 /**
  * Callback block signature for all operations on <tt>CMStore</tt> that fetch binary files
@@ -32,7 +37,7 @@ typedef void (^CMStoreObjectUploadCallback)(NSDictionary *uploadStatuses);
  * <tt>CMFile</tt> as an argument. This will contain the data as well as a bit of metadata
  * about the file that was downloaded.
  */
-typedef void (^CMStoreFileFetchCallback)(CMFile *file);
+typedef void (^CMStoreFileFetchCallback)(CMFileFetchResponse *response);
 
 /**
  * Callback block signature for operations on <tt>CMStore</tt> that upload binary files
@@ -40,7 +45,7 @@ typedef void (^CMStoreFileFetchCallback)(CMFile *file);
  * <tt>CMFileUploadResult</tt> as an argument. This represents the result of the upload (namely, whether
  * the upload created a new file or updated an old one).
  */
-typedef void (^CMStoreFileUploadCallback)(CMFileUploadResult uploadResult);
+typedef void (^CMStoreFileUploadCallback)(CMFileUploadResponse *response);
 
 /**
  * Callback block signature for all operations on <tt>CMStore</tt> that upload binary files
@@ -59,4 +64,4 @@ typedef void (^CMStoreFileUploadWithGeneratedKeyCallback)(CMFileUploadResult upl
  *
  * @see CMStore#deleteObject:callback:
  */
-typedef void (^CMStoreDeleteCallback)(BOOL success);
+typedef void (^CMStoreDeleteCallback)(CMDeleteResponse *response);
