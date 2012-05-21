@@ -195,7 +195,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
                                                                                              withKey:key
                                                                               withServerSideFunction:function
                                                                                      extraParameters:params]
-                                                          appSecret:_appSecret
+                                                       appSecret:_appSecret
                                                       binaryData:YES
                                                             user:user];
     if (mimeType && ![mimeType isEqualToString:@""]) {
@@ -510,6 +510,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
         NSDictionary *results = [blockRequest.responseString yajl_JSON];
 
         id snippetResult = nil;
+        NSString *key = [results objectForKey:@"key"];
 
         if(results) {
             snippetResult = [results objectForKey:@"result"];
@@ -519,7 +520,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
             }
         }
         if (successHandler != nil) {
-            successHandler(blockRequest.responseStatusCode == 201 ? CMFileCreated : CMFileUpdated, snippetResult);
+            successHandler(blockRequest.responseStatusCode == 201 ? CMFileCreated : CMFileUpdated, key, snippetResult);
         }
     }];
 
@@ -606,12 +607,16 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
                          extraParameters:(NSDictionary *)params {
     NSURL *url;
     if (atUserLevel) {
-        url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/user/binary/%@", _appIdentifier, key]];
+        url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/user/binary", _appIdentifier]];
     } else {
-        url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/binary/%@", _appIdentifier, key]];
+        url = [NSURL URLWithString:[CM_BASE_URL stringByAppendingFormat:@"/app/%@/binary", _appIdentifier]];
+    }
+    
+    if (key) {
+        url = [url URLByAppendingPathComponent:key];
     }
 
-    return [self appendKeys:[NSArray arrayWithObject:key] query:nil serverSideFunction:function pagingOptions:nil sortingOptions:nil toURL:url extraParameters:params];
+    return [self appendKeys:nil query:nil serverSideFunction:function pagingOptions:nil sortingOptions:nil toURL:url extraParameters:params];
 }
 
 - (NSURL *)constructDataUrlAtUserLevel:(BOOL)atUserLevel

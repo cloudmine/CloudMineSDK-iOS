@@ -1,5 +1,5 @@
 //
-//  CMJSONDecoder.m
+//  CMObjectDecoder.m
 //  cloudmine-ios
 //
 //  Copyright (c) 2012 CloudMine, LLC. All rights reserved.

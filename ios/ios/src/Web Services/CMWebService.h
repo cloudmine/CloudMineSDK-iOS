@@ -45,10 +45,10 @@ typedef void (^CMWebServiceFetchFailureCallback)(NSError *error);
 
 /**
  * Callback block signature for all operations on <tt>CMWebService</tt> that upload binary files to
- * the CloudMine servers. These blocks return <tt>void</tt> and take a <tt>CMFileUploadResult</tt> and a dynamic
- * snippet result as arguments to indicate the final result of the upload operation.
+ * the CloudMine servers. These blocks return <tt>void</tt> and take a <tt>CMFileUploadResult</tt>, the key
+ * of the new file, and a dynamic snippet result as arguments to indicate the final result of the upload operation.
  */
-typedef void (^CMWebServiceFileUploadSuccessCallback)(CMFileUploadResult result, id snippetResult);
+typedef void (^CMWebServiceFileUploadSuccessCallback)(CMFileUploadResult result, NSString *fileKey, id snippetResult);
 
 /**
  * Callback block signature for all operations on <tt>CMWebService</tt> that download binary files from
@@ -163,7 +163,7 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
  * whether a file with the given key previously existed on the server or had to be created new.
  *
  * @param data The raw binary data of the file to upload.
- * @param key The unique name of this file.
+ * @param key The unique name of this file. If this is nil, a key will be generated on the server.
  * @param mimeType The MIME type of this file. When later fetched, this MIME type will be used in the Content-Type header. If <tt>nil</tt>, defaults to <tt>application/octet-stream</tt>.
  * @param user The user whose data to write. If nil, writes as app-level objects.
  * @param successHandler The block to be called when the file has finished uploading. The <tt>result</tt> parameter indicates whether the file was new to the server or not.

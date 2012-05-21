@@ -43,7 +43,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (void)_fileWithName:(NSString *)name userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileFetchCallback)callback;
 - (void)_saveObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreObjectUploadCallback)callback additionalOptions:(CMStoreOptions *)options;
 - (void)_saveFileAtURL:(NSURL *)url named:(NSString *)name userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
-- (void)_saveFileWithData:(NSData *)data named:(NSString *)name userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options  callback:(CMStoreFileUploadCallback)callback;
+- (void)_saveFileWithData:(NSData *)data named:(NSString *)name userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
 - (NSString *)_mimeTypeForFileAtURL:(NSURL *)url withCustomName:(NSString *)name;
 - (void)_deleteObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreDeleteCallback)callback;
 - (void)_deleteFileNamed:(NSString *)name userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback;
@@ -301,8 +301,17 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 #pragma mark File uploading
 
+- (void)saveFileAtURL:(NSURL *)url additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback {
+    [self _saveFileAtURL:url named:nil userLevel:NO additionalOptions:options callback:callback];
+}
+
 - (void)saveFileAtURL:(NSURL *)url named:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback {
     [self _saveFileAtURL:url named:name userLevel:NO additionalOptions:options callback:callback];
+}
+
+- (void)saveUserFileAtURL:(NSURL *)url additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback {
+    _CMAssertUserConfigured;
+    [self _saveFileAtURL:url named:nil userLevel:YES additionalOptions:options callback:callback];
 }
 
 - (void)saveUserFileAtURL:(NSURL *)url named:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback {
@@ -312,18 +321,17 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 - (void)_saveFileAtURL:(NSURL *)url named:(NSString *)name userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback {
     NSParameterAssert(url);
-    NSParameterAssert(name);
     _CMAssertAPICredentialsInitialized;
-
+    
     [webService uploadFileAtPath:[url path]
               serverSideFunction:_CMTryMethod(options, serverSideFunction)
                            named:name
                       ofMimeType:[self _mimeTypeForFileAtURL:url withCustomName:name]
                             user:_CMUserOrNil
                  extraParameters:_CMTryMethod(options, buildExtraParameters)
-                  successHandler:^(CMFileUploadResult result, NSDictionary *snippetResult) {
+                  successHandler:^(CMFileUploadResult result, NSString *fileKey, id snippetResult) {
                       CMSnippetResult *sResult = [[CMSnippetResult alloc] initWithData:snippetResult];
-                      CMFileUploadResponse *response = [[CMFileUploadResponse alloc] initWithResult:result key:name snippetResult:sResult];
+                      CMFileUploadResponse *response = [[CMFileUploadResponse alloc] initWithResult:result key:fileKey snippetResult:sResult];
                       callback(response);
                   } errorHandler:^(NSError *error) {
                       NSLog(@"Error ocurred during file uploading: %@", [error description]);
@@ -333,8 +341,17 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
      ];
 }
 
+- (void)saveFileWithData:(NSData *)data additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback {
+    [self _saveFileWithData:data named:nil userLevel:NO additionalOptions:options callback:callback];
+}
+
 - (void)saveFileWithData:(NSData *)data named:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback {
     [self _saveFileWithData:data named:name userLevel:NO additionalOptions:options callback:callback];
+}
+
+- (void)saveUserFileWithData:(NSData *)data additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback {
+    _CMAssertUserConfigured;
+    [self _saveFileWithData:data named:nil userLevel:YES additionalOptions:options callback:callback];
 }
 
 - (void)saveUserFileWithData:(NSData *)data named:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback {
@@ -344,7 +361,6 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 - (void)_saveFileWithData:(NSData *)data named:(NSString *)name userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback {
     NSParameterAssert(data);
-    NSParameterAssert(name);
     _CMAssertAPICredentialsInitialized;
 
     [webService uploadBinaryData:data
@@ -353,9 +369,9 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                       ofMimeType:[self _mimeTypeForFileAtURL:nil withCustomName:name]
                             user:_CMUserOrNil
                  extraParameters:_CMTryMethod(options, buildExtraParameters)
-                  successHandler:^(CMFileUploadResult result, NSDictionary *snippetResult) {
+                  successHandler:^(CMFileUploadResult result, NSString *fileKey, id snippetResult) {
                       CMSnippetResult *sResult = [[CMSnippetResult alloc] initWithData:snippetResult];
-                      CMFileUploadResponse *response = [[CMFileUploadResponse alloc] initWithResult:result key:name snippetResult:sResult];
+                      CMFileUploadResponse *response = [[CMFileUploadResponse alloc] initWithResult:result key:fileKey snippetResult:sResult];
                       callback(response);
                   } errorHandler:^(NSError *error) {
                       NSLog(@"Error ocurred during in-memory file uploading: %@", [error description]);

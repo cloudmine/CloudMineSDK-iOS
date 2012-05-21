@@ -40,13 +40,12 @@ typedef void (^CMStoreObjectUploadCallback)(CMObjectUploadResponse *response);
 typedef void (^CMStoreFileFetchCallback)(CMFileFetchResponse *response);
 
 /**
- * Callback block signature for all operations on <tt>CMStore</tt> that upload binary files
- * to the CloudMine servers. This block should return <tt>void</tt> and take a single
- * <tt>CMFileUploadResult</tt> as an argument. This will the result of the upload (namely, whether
- * the upload created a new file or updated an old one).
+ * Callback block signature for operations on <tt>CMStore</tt> that upload binary files
+ * to the CloudMine servers with a given name. This block should return <tt>void</tt> and take a single
+ * <tt>CMFileUploadResult</tt> as an argument. This represents the result of the upload (namely, whether
+ * the upload created a new file or updated an old one), and the name of the new file.
  */
 typedef void (^CMStoreFileUploadCallback)(CMFileUploadResponse *response);
-
 
 /**
  * Callback block signature for all operations on <tt>CMStore</tt> that delete objects or binary files.
