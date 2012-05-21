@@ -40,6 +40,8 @@
 
 #import "CMAPICredentials.h"
 #import "CMDate.h"
+#import "CMDistance.h"
+#import "CMUntypedObject.h"
 #import "CMFile.h"
 #import "CMFileUploadResult.h"
 #import "CMGeoPoint.h"
@@ -59,3 +61,9 @@
 #import "CMUser.h"
 #import "CMUserAccountResult.h"
 #import "CMWebService.h"
+
+#import "CMObjectFetchResponse.h"
+#import "CMObjectUploadResponse.h"
+#import "CMFileFetchResponse.h"
+#import "CMFileUploadResult.h"
+#import "CMDeleteResponse.h"

@@ -41,6 +41,8 @@
 		65199ED3156A847A00267EC6 /* CMSnippetResult.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65199EBB156A7D9500267EC6 /* CMSnippetResult.h */; };
 		65199ED4156A847A00267EC6 /* CMStoreResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65199EBD156A7D9500267EC6 /* CMStoreResponse.h */; };
 		65199ED5156A84D600267EC6 /* CMDistance.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65199EC0156A7D9500267EC6 /* CMDistance.h */; };
+		658BBA3D156ABB29004F065B /* CMUntypedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 658BBA3C156ABB29004F065B /* CMUntypedObject.m */; };
+		658BBA43156ABE22004F065B /* CMUntypedObject.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 658BBA3B156ABB29004F065B /* CMUntypedObject.h */; };
 		7A0413BB146C5B3A00EF537A /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0413A2146C5B3A00EF537A /* ASIAuthenticationDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7A0413BE146C5B3A00EF537A /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0413A5146C5B3A00EF537A /* ASIDataCompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7A0413C0146C5B3A00EF537A /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0413A7146C5B3A00EF537A /* ASIDataDecompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -156,6 +158,7 @@
 			dstPath = "${BUILD_DIR}/${CONFIGURATION}-iphoneuniversal/${PRODUCT_NAME}.framework/Versions/A/Headers/";
 			dstSubfolderSpec = 0;
 			files = (
+				658BBA43156ABE22004F065B /* CMUntypedObject.h in CopyFiles */,
 				65199ED5156A84D600267EC6 /* CMDistance.h in CopyFiles */,
 				65199ECD156A847A00267EC6 /* CMDeleteResponse.h in CopyFiles */,
 				65199ECE156A847A00267EC6 /* CMFileFetchResponse.h in CopyFiles */,
@@ -215,6 +218,8 @@
 		65199EBE156A7D9500267EC6 /* CMStoreResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMStoreResponse.m; path = Response/CMStoreResponse.m; sourceTree = "<group>"; };
 		65199EC0156A7D9500267EC6 /* CMDistance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMDistance.h; sourceTree = "<group>"; };
 		65199EC1156A7D9500267EC6 /* CMDistance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMDistance.m; sourceTree = "<group>"; };
+		658BBA3B156ABB29004F065B /* CMUntypedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMUntypedObject.h; sourceTree = "<group>"; };
+		658BBA3C156ABB29004F065B /* CMUntypedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUntypedObject.m; sourceTree = "<group>"; };
 		7A0413A1146C5B3A00EF537A /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		7A0413A2146C5B3A00EF537A /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		7A0413A3146C5B3A00EF537A /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICacheDelegate.h; sourceTree = "<group>"; };
@@ -637,6 +642,8 @@
 		7AD36F76146C642900DD4734 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				658BBA3B156ABB29004F065B /* CMUntypedObject.h */,
+				658BBA3C156ABB29004F065B /* CMUntypedObject.m */,
 				7AA79DDA14DC5E4000F3CA3B /* CloudMine.h */,
 				7AA79D6514DC216A00F3CA3B /* CMObjectClassNameRegistry.h */,
 				7AA79D6614DC216A00F3CA3B /* CMObjectClassNameRegistry.m */,
@@ -879,6 +886,7 @@
 				65199EC8156A7D9500267EC6 /* CMSnippetResult.m in Sources */,
 				65199EC9156A7D9500267EC6 /* CMStoreResponse.m in Sources */,
 				65199ECA156A7D9500267EC6 /* CMDistance.m in Sources */,
+				658BBA3D156ABB29004F065B /* CMUntypedObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
