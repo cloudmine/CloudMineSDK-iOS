@@ -92,6 +92,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
             _cachedUserObjects = [[NSMutableDictionary alloc] init];
         }
         user = theUser;
+        [user setValue:self.webService forKey:@"webService"];
     }
 }
 

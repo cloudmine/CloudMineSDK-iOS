@@ -9,14 +9,17 @@
 #import "CMUser.h"
 #import "CMWebService.h"
 
-@implementation CMUser {
-    CMWebService *_webService;
-}
+@interface CMUser ()
+@property CMWebService *webService;
+@end
+
+@implementation CMUser
 
 @synthesize userId;
 @synthesize password;
 @synthesize token;
 @synthesize tokenExpiration;
+@synthesize webService;
 
 #pragma mark - Constructors
 
@@ -25,7 +28,7 @@
         self.token = nil;
         self.userId = theUserId;
         self.password = thePassword;
-        _webService = [[CMWebService alloc] init];
+        webService = [[CMWebService alloc] init];
     }
     return self;
 }
@@ -78,7 +81,7 @@
 - (void)loginWithCallback:(CMUserOperationCallback)callback {
     __unsafe_unretained CMUser *blockSelf = self;
 
-    [_webService loginUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
+    [webService loginUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         NSArray *messages = [NSArray array];
 
         if (result == CMUserAccountLoginSucceeded) {
@@ -97,7 +100,7 @@
 - (void)logoutWithCallback:(CMUserOperationCallback)callback {
     __unsafe_unretained CMUser *blockSelf = self;
 
-    [_webService logoutUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
+    [webService logoutUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         NSArray *messages = [NSArray array];
         if (result == CMUserAccountLogoutSucceeded) {
             blockSelf.token = nil;
@@ -111,7 +114,7 @@
 }
 
 - (void)createAccountWithCallback:(CMUserOperationCallback)callback {
-    [_webService createAccountWithUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
+    [webService createAccountWithUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         NSArray *messages = [NSArray array];
 
         if (result != CMUserAccountCreateSucceeded) {
@@ -137,7 +140,7 @@
 - (void)changePasswordTo:(NSString *)newPassword from:(NSString *)oldPassword callback:(CMUserOperationCallback)callback {
     __unsafe_unretained CMUser *blockSelf = self;
 
-    [_webService changePasswordForUser:self
+    [webService changePasswordForUser:self
                            oldPassword:oldPassword
                            newPassword:newPassword
                               callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
@@ -157,7 +160,7 @@
 }
 
 - (void)resetForgottenPasswordWithCallback:(CMUserOperationCallback)callback {
-    [_webService resetForgottenPasswordForUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
+    [webService resetForgottenPasswordForUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         callback(result, [NSArray array]);
     }];
 }
