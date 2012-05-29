@@ -17,6 +17,12 @@
 #import "CMStoreCallbacks.h"
 #import "CMFileUploadResult.h"
 
+#import "CMObjectFetchResponse.h"
+#import "CMObjectUploadResponse.h"
+#import "CMFileFetchResponse.h"
+#import "CMFileUploadResult.h"
+#import "CMDeleteResponse.h"
+
 @class CMObject;
 
 /**
@@ -240,24 +246,26 @@ typedef enum {
  * Downloads an app-level binary file from your app's CloudMine data store.
  *
  * @param callback The callback to be triggered when the file is finished downloading.
+ * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
  * @param name The unique name of the file to download.
  *
  * @see https://cloudmine.me/developer_zone#ref/file_overview
  */
-- (void)fileWithName:(NSString *)name callback:(CMStoreFileFetchCallback)callback;
+- (void)fileWithName:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileFetchCallback)callback;
 
 /**
  * Downloads a user-level binary file from your app's CloudMine data store. The store must be configured
  * with a user or else calling this method will throw an exception.
  *
  * @param callback The callback to be triggered when the file is finished downloading.
+ * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
  * @param name The unique name of the file to download.
  *
  * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
  *
  * @see https://cloudmine.me/developer_zone#ref/file_overview
  */
-- (void)userFileWithName:(NSString *)name callback:(CMStoreFileFetchCallback)callback;
+- (void)userFileWithName:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileFetchCallback)callback;
 
 /**
  * Saves all the objects (user- and app-level) in the store with your app's CloudMine data store. User-level objects
@@ -395,10 +403,25 @@ typedef enum {
  * is deleted from the server.
  *
  * @param theObject The object to delete and remove from the store.
+ * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
+ * @param callback The callback to be triggered after the object has been deleted.
  *
  * @see https://cloudmine.me/developer_zone#ref/json_delete
  */
-- (void)deleteObject:(id<CMSerializable>)theObject callback:(CMStoreDeleteCallback)callback;
+- (void)deleteObject:(id<CMSerializable>)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback;
+
+/**
+ * Saves a file to your app's CloudMine data store at the app-level. This works by streaming the contents of the
+ * file directly from the filesystem, thus never loading the file into memory. The server will generate a name for this file,
+ * which will be passed into the given callback.
+ *
+ * @param url The absolute URL to the location of the file on the device.
+ * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
+ * @param callback The callback to be triggered when the file is finished uploading.
+ *
+ * @see https://cloudmine.me/developer_zone#ref/file_set
+ */
+- (void)saveFileAtURL:(NSURL *)url additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
 
 /**
  * Saves a file to your app's CloudMine data store at the app-level. This works by streaming the contents of the
@@ -407,11 +430,29 @@ typedef enum {
  *
  * @param url The absolute URL to the location of the file on the device.
  * @param name The name to give the file on CloudMine. <b>This must be unique throughout all instances of your app.</b>
- * @param callback The callback to be triggered when all the objects are finished uploading.
+ * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
+ * @param callback The callback to be triggered when the file is finished uploading.
  *
  * @see https://cloudmine.me/developer_zone#ref/file_set
  */
-- (void)saveFileAtURL:(NSURL *)url named:(NSString *)name callback:(CMStoreFileUploadCallback)callback;
+- (void)saveFileAtURL:(NSURL *)url named:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
+
+/**
+ * Saves a file to your app's CloudMine data store at the user-level. The store must be configured
+ * with a user or else calling this method will throw an exception. This works by streaming the contents of the
+ * file directly from the filesystem, thus never loading the file into memory. The server will generate a name for this file,
+ * which will be passed into the given callback.
+ *
+ * @param url The absolute URL to the location of the file on the device.
+ * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
+ * @param callback The callback to be triggered when the file is finished uploading.
+ *
+ * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
+ *
+ * @see https://cloudmine.me/developer_zone#ref/file_set
+ * @see https://cloudmine.me/developer_zone#ref/account_overview
+ */
+- (void)saveUserFileAtURL:(NSURL *)url additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
 
 /**
  * Saves a file to your app's CloudMine data store at the user-level. The store must be configured
@@ -421,14 +462,27 @@ typedef enum {
  *
  * @param url The absolute URL to the location of the file on the device.
  * @param name The name to give the file on CloudMine. <b>This must be unique throughout all instances of your app.</b>
- * @param callback The callback to be triggered when all the objects are finished uploading.
+ * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
+ * @param callback The callback to be triggered when the file is finished uploading.
  *
  * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
  *
  * @see https://cloudmine.me/developer_zone#ref/file_set
  * @see https://cloudmine.me/developer_zone#ref/account_overview
  */
-- (void)saveUserFileAtURL:(NSURL *)url named:(NSString *)name callback:(CMStoreFileUploadCallback)callback;
+- (void)saveUserFileAtURL:(NSURL *)url named:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
+
+/**
+ * Saves a file to your app's CloudMine data store at the app-level. This uses the raw data of the file's contents
+ * contained in an <tt>NSData</tt> object. The server will generate a name for this file, which will be passed into the given callback.
+ *
+ * @param data The raw contents of the file.
+ * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
+ * @param callback The callback to be triggered when the file is finished uploading.
+ *
+ * @see https://cloudmine.me/developer_zone#ref/file_set
+ */
+- (void)saveFileWithData:(NSData *)data additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
 
 /**
  * Saves a file to your app's CloudMine data store at the app-level. This uses the raw data of the file's contents
@@ -436,11 +490,29 @@ typedef enum {
  *
  * @param data The raw contents of the file.
  * @param name The name to give the file on CloudMine. <b>This must be unique throughout all instances of your app.</b>
- * @param callback The callback to be triggered when all the objects are finished uploading.
+ * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
+ * @param callback The callback to be triggered when the file is finished uploading.
  *
  * @see https://cloudmine.me/developer_zone#ref/file_set
  */
-- (void)saveFileWithData:(NSData *)data named:(NSString *)name callback:(CMStoreFileUploadCallback)callback;
+- (void)saveFileWithData:(NSData *)data named:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
+
+/**
+ * Saves a file to your app's CloudMine data store at the user-level. The store must be configured
+ * with a user or else calling this method will throw an exception. This uses the raw data of the file's contents
+ * contained in an <tt>NSData</tt> object. The server will generate a name for this file, which will be passed into 
+ * the given callback.
+ *
+ * @param data The raw contents of the file.
+ * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
+ * @param callback The callback to be triggered when the file is finished uploading.
+ *
+ * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
+ *
+ * @see https://cloudmine.me/developer_zone#ref/file_set
+ * @see https://cloudmine.me/developer_zone#ref/account_overview
+ */
+- (void)saveUserFileWithData:(NSData *)data additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
 
 /**
  * Saves a file to your app's CloudMine data store at the user-level. The store must be configured
@@ -449,37 +521,40 @@ typedef enum {
  *
  * @param data The raw contents of the file.
  * @param name The name to give the file on CloudMine. <b>This must be unique throughout all instances of your app.</b>
- * @param callback The callback to be triggered when all the objects are finished uploading.
+ * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
+ * @param callback The callback to be triggered when the file is finished uploading.
  *
  * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
  *
  * @see https://cloudmine.me/developer_zone#ref/file_set
  * @see https://cloudmine.me/developer_zone#ref/account_overview
  */
-- (void)saveUserFileWithData:(NSData *)data named:(NSString *)name callback:(CMStoreFileUploadCallback)callback;
+- (void)saveUserFileWithData:(NSData *)data named:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
 
 /**
  * Deletes the given app-level file from your app's CloudMine data store.
  *
  * @param name The name of the file to delete.
+ * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
  * @param callback The callback to be triggered when the file has been deleted.
  *
  * @see https://cloudmine.me/developer_zone#ref/file_delete
  */
-- (void)deleteFileNamed:(NSString *)name callback:(CMStoreDeleteCallback)callback;
+- (void)deleteFileNamed:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback;
 
 /**
  * Deletes the given user-level file from your app's CloudMine data store. The store must be configured
  * with a user or else calling this method will throw an exception.
  *
  * @param name The name of the file to delete.
+ * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
  * @param callback The callback to be triggered when the file has been deleted.
  *
  * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
  *
  * @see https://cloudmine.me/developer_zone#ref/file_delete
  */
-- (void)deleteUserFileNamed:(NSString *)name callback:(CMStoreDeleteCallback)callback;
+- (void)deleteUserFileNamed:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback;
 
 /**
  * Deletes the given user-level object from your app's CloudMine data store and removes the object from this store. The store must be configured
@@ -489,11 +564,13 @@ typedef enum {
  * is deleted from the server.
  *
  * @param theObject The object to delete and remove from the store.
+ * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
+ * @param callback The callback to be triggered when the object has been deleted.
  *
  * @see https://cloudmine.me/developer_zone#ref/json_delete
  * @see https://cloudmine.me/developer_zone#ref/account_overview
  */
-- (void)deleteUserObject:(id<CMSerializable>)theObject callback:(CMStoreDeleteCallback)callback;
+- (void)deleteUserObject:(id<CMSerializable>)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback;
 
 /**
  * Deletes all the given app-level objects from your app's CloudMine data store and removes the object from this store.
@@ -502,10 +579,12 @@ typedef enum {
  * are deleted from the server.
  *
  * @param objects The objects to delete and remove from the store.
+ * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
+ * @param callback The callback to be triggered when the objects have been deleted.
  *
  * @see https://cloudmine.me/developer_zone#ref/json_delete
  */
-- (void)deleteObjects:(NSArray *)objects callback:(CMStoreDeleteCallback)callback;
+- (void)deleteObjects:(NSArray *)objects additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback;
 
 /**
  * Deletes all the given user-level objects from your app's CloudMine data store and removes the object from this store. The store must be configured
@@ -515,11 +594,13 @@ typedef enum {
  * are deleted from the server.
  *
  * @param objects The objects to delete and remove from the store.
+ * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
+ * @param callback The callback to be triggered when the objects has been deleted.
  *
  * @see https://cloudmine.me/developer_zone#ref/json_delete
  * @see https://cloudmine.me/developer_zone#ref/account_overview
  */
-- (void)deleteUserObjects:(NSArray *)objects callback:(CMStoreDeleteCallback)callback;
+- (void)deleteUserObjects:(NSArray *)objects additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback;
 
 /**
  * Adds an app-level object to this store. Doing this also sets the object's <tt>store</tt> property to this store.

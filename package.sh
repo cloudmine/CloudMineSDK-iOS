@@ -7,7 +7,7 @@ echo "Removing old build directory..."
 rm -rf "./ios/build"
 
 echo "Re-building release framework..."
-env --unset=CC xcodebuild -scheme "CloudMine Universal Framework" -configuration Release -workspace cm-ios.xcworkspace
+env CC='' xcodebuild -scheme "CloudMine Universal Framework" -configuration Release -workspace cm-ios.xcworkspace
 
 echo "Beginning documentation generation..."
 cd ./ios
