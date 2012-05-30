@@ -55,7 +55,8 @@ describe(@"CMWebService", ^{
                         pagingOptions:nil
                         sortingOptions:nil
                                  user:nil
-                       successHandler:^(NSDictionary *results, NSDictionary *errors) {
+                      extraParameters:nil
+                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult) {
                        } errorHandler:^(NSError *error) {
                        }
              ];
@@ -87,7 +88,8 @@ describe(@"CMWebService", ^{
                        pagingOptions:nil
                       sortingOptions:nil
                                 user:nil
-                      successHandler:^(NSDictionary *results, NSDictionary *errors) {
+                     extraParameters:nil
+                      successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult) {
                       } errorHandler:^(NSError *error) {
                       }
              ];
@@ -115,9 +117,12 @@ describe(@"CMWebService", ^{
             [[service.networkQueue should] receive:@selector(go)];
 
             [service getBinaryDataNamed:binaryKey
-                    user:nil
-                         successHandler:^(NSData *data, NSString *mimeType) {}
-                           errorHandler:^(NSError *error) {}
+                     serverSideFunction:nil
+                                   user:nil
+                        extraParameters:nil
+                         successHandler:^(NSData *data, NSString *contentType) {
+                         } errorHandler:^(NSError *error) {
+                         }
              ];
         });
 
@@ -146,7 +151,8 @@ describe(@"CMWebService", ^{
                         pagingOptions:nil
                        sortingOptions:nil
                                  user:nil
-                       successHandler:^(NSDictionary *results, NSDictionary *errors) {
+                      extraParameters:nil
+                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult) {
                        } errorHandler:^(NSError *error) {
                        }
              ];
@@ -178,7 +184,8 @@ describe(@"CMWebService", ^{
                         pagingOptions:nil
                        sortingOptions:nil
                                  user:nil
-                       successHandler:^(NSDictionary *results, NSDictionary *errors) {
+                      extraParameters:nil
+                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult) {
                        } errorHandler:^(NSError *error) {
                        }
              ];
@@ -213,7 +220,8 @@ describe(@"CMWebService", ^{
                         pagingOptions:nil
                        sortingOptions:nil
                                  user:creds
-                       successHandler:^(NSDictionary *results, NSDictionary *errors) {
+                      extraParameters:nil
+                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult) {
                        } errorHandler:^(NSError *error) {
                        }
              ];
@@ -246,9 +254,12 @@ describe(@"CMWebService", ^{
             [[service.networkQueue should] receive:@selector(go)];
 
             [service getBinaryDataNamed:binaryKey
-                    user:creds
-                         successHandler:^(NSData *data, NSString *mimeType) {}
-                           errorHandler:^(NSError *error) {}
+                     serverSideFunction:nil
+                                   user:creds
+                        extraParameters:nil
+                         successHandler:^(NSData *data, NSString *contentType) {
+                         } errorHandler:^(NSError *error) { 
+                         }
              ];
         });
 
@@ -282,7 +293,8 @@ describe(@"CMWebService", ^{
                         pagingOptions:nil
                        sortingOptions:nil
                                  user:creds
-                       successHandler:^(NSDictionary *results, NSDictionary *errors) {
+                      extraParameters:nil
+                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult) {
                        } errorHandler:^(NSError *error) {
                        }
              ];
@@ -317,8 +329,9 @@ describe(@"CMWebService", ^{
 
             [service updateValuesFromDictionary:dataToPost
                              serverSideFunction:nil
-                            user:nil
-                                 successHandler:^(NSDictionary *results, NSDictionary *errors) {
+                                           user:nil
+                                extraParameters:nil
+                                 successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult) {
                                  } errorHandler:^(NSError *error) {
                                  }
              ];
@@ -349,12 +362,15 @@ describe(@"CMWebService", ^{
             [[service.networkQueue should] receive:@selector(go)];
 
             [service uploadBinaryData:data
+                   serverSideFunction:nil
                                 named:binaryKey
                            ofMimeType:@"application/cloudmine"
-                  user:nil
-                       successHandler:^(CMFileUploadResult result) {
-                       } errorHandler:^(NSError *error) {
+                                 user:nil
+                      extraParameters:nil
+                       successHandler:^(CMFileUploadResult result, NSString *fileKey, id snippetResult) {
                        }
+                         errorHandler:^(NSError *error) {
+                         }
              ];
         });
 
@@ -390,8 +406,9 @@ describe(@"CMWebService", ^{
 
             [service updateValuesFromDictionary:dataToPost
                              serverSideFunction:nil
-                            user:creds
-                                 successHandler:^(NSDictionary *results, NSDictionary *errors) {
+                                           user:creds
+                                extraParameters:nil
+                                 successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult) {
                                  } errorHandler:^(NSError *error) {
                                  }
              ];
@@ -429,10 +446,12 @@ describe(@"CMWebService", ^{
         [[service.networkQueue should] receive:@selector(go)];
 
         [service uploadBinaryData:data
+               serverSideFunction:nil
                             named:binaryKey
                        ofMimeType:@"application/cloudmine"
-              user:creds
-                   successHandler:^(CMFileUploadResult result) {
+                             user:creds
+                  extraParameters:nil
+                   successHandler:^(CMFileUploadResult result, NSString *fileKey, id snippetResult) {
                    } errorHandler:^(NSError *error) {
                    }
          ];
@@ -466,8 +485,9 @@ describe(@"CMWebService", ^{
 
             [service setValuesFromDictionary:dataToPost
                           serverSideFunction:nil
-                         user:nil
-                                 successHandler:^(NSDictionary *results, NSDictionary *errors) {
+                                        user:nil
+                             extraParameters:nil
+                              successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult) {
                                  } errorHandler:^(NSError *error) {
                                  }
              ];
@@ -505,10 +525,11 @@ describe(@"CMWebService", ^{
 
             [service setValuesFromDictionary:dataToPost
                           serverSideFunction:nil
-                            user:creds
-                                 successHandler:^(NSDictionary *results, NSDictionary *errors) {
-                                 } errorHandler:^(NSError *error) {
-                                 }
+                                        user:creds
+                             extraParameters:nil
+                              successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult) {
+                              } errorHandler:^(NSError *error) {
+                              }
              ];
         });
     });
@@ -535,10 +556,12 @@ describe(@"CMWebService", ^{
             [[service.networkQueue should] receive:@selector(go)];
 
             [service deleteValuesForKeys:nil
-                     user:nil
-                       successHandler:^(NSDictionary *results, NSDictionary *errors) {
-                       } errorHandler:^(NSError *error) {
-                       }
+                      serverSideFunction:nil
+                                    user:nil
+                         extraParameters:nil
+                          successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult) {
+                          } errorHandler:^(NSError *error) {
+                          }
              ];
         });
 
@@ -563,10 +586,12 @@ describe(@"CMWebService", ^{
             [[service.networkQueue should] receive:@selector(go)];
 
             [service deleteValuesForKeys:[NSArray arrayWithObjects:@"k1", @"k2", nil]
-                     user:nil
-                       successHandler:^(NSDictionary *results, NSDictionary *errors) {
-                       } errorHandler:^(NSError *error) {
-                       }
+                      serverSideFunction:nil
+                                    user:nil
+                         extraParameters:nil
+                          successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult) {
+                          } errorHandler:^(NSError *error) {
+                          }
              ];
         });
 
@@ -596,10 +621,12 @@ describe(@"CMWebService", ^{
             [[service.networkQueue should] receive:@selector(go)];
 
             [service deleteValuesForKeys:nil
-                  user:creds
-                       successHandler:^(NSDictionary *results, NSDictionary *errors) {
-                       } errorHandler:^(NSError *error) {
-                       }
+                      serverSideFunction:nil
+                                    user:creds
+                         extraParameters:nil
+                          successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult) {
+                          } errorHandler:^(NSError *error) {
+                          }
              ];
         });
 
@@ -629,8 +656,10 @@ describe(@"CMWebService", ^{
             [[service.networkQueue should] receive:@selector(go)];
 
             [service deleteValuesForKeys:[NSArray arrayWithObjects:@"k1", @"k2", nil]
-                  user:creds
-                       successHandler:^(NSDictionary *results, NSDictionary *errors) {
+                      serverSideFunction:nil
+                                    user:creds
+                         extraParameters:nil
+                          successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult) {
                        } errorHandler:^(NSError *error) {
                        }
              ];
