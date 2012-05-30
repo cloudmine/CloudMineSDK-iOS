@@ -51,6 +51,9 @@ typedef enum {
  * your app's UI thread. Synchronous versions will come eventually for cases where you are managing a
  * number of threads and can guarantee that blocking network operations will execute on a background thread.
  *
+ * Most apps will only need one store to store and retrieve remote objects. You can use <tt>CMStore#defaultStore</tt>
+ * to access this store. It is fully managed for you by the CloudMine SDK.
+ *
  * All of the async methods in this class take a callback of type <tt>CMStoreObjectCallback</tt> that will
  * be called with all the object instances once they are finished downloading and inflating.
  *
@@ -71,6 +74,7 @@ typedef enum {
 /**
  * The user to be used when accessing user-level objects. This is ignored for app-level objects.
  *
+ * @discussion
  * <b>Note:</b> Changing this from one user to another will cause all the cached objects associated with the first
  * user to be removed. This won't have any affect on the objects if you have retained references to them elsewhere,
  * but it will have the effect of nullifying the <tt>store</tt> reference in all those objects. This is because since
@@ -83,6 +87,24 @@ typedef enum {
 
 /** The last error that occured during a store-based operation. */
 @property (readonly, strong) NSError *lastError;
+
+/**
+ * The default store for this app.
+ *
+ * @discussion
+ * <b>Most apps need only a single store.</b> Use this method to access a shared store
+ * that you can safely use across your app for storing and retrieving all your model objects.
+ * If for some reason you need more than one store in your app, you can use <tt>CMStore</tt>'s
+ * constructors as usual.
+ *
+ * You must have already initialized the <tt>CMAPICredentials</tt> singleton
+ * with your app identifier and secret key.
+ *
+ * @return CMStore
+ *
+ * @see CMAPICredentials
+ */
++ (CMStore *)defaultStore;
 
 /**
  * Convenience method to return a newly initialized CMStore instance.
@@ -500,7 +522,7 @@ typedef enum {
 /**
  * Saves a file to your app's CloudMine data store at the user-level. The store must be configured
  * with a user or else calling this method will throw an exception. This uses the raw data of the file's contents
- * contained in an <tt>NSData</tt> object. The server will generate a name for this file, which will be passed into 
+ * contained in an <tt>NSData</tt> object. The server will generate a name for this file, which will be passed into
  * the given callback.
  *
  * @param data The raw contents of the file.

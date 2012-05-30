@@ -23,14 +23,12 @@
 #import "CMDeleteResponse.h"
 
 #define _CMAssertAPICredentialsInitialized NSAssert([[CMAPICredentials sharedInstance] appSecret] != nil && [[[CMAPICredentials sharedInstance] appSecret] length] > 0 && [[CMAPICredentials sharedInstance] appIdentifier] != nil && [[[CMAPICredentials sharedInstance] appIdentifier] length] > 0, @"The CMAPICredentials singleton must be initialized before using a CloudMine Store")
-
 #define _CMAssertUserConfigured NSAssert(user && user.isLoggedIn, @"You must set the user of this store to a logged in CMUser before querying for user-level objects.")
-
 #define _CMUserOrNil (userLevel ? user : nil)
-
 #define _CMTryMethod(obj, method) (obj ? [obj method] : nil)
 
 #pragma mark - Notification strings
+
 NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotification";
 
 #pragma mark -
@@ -55,6 +53,19 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 @synthesize webService;
 @synthesize user;
 @synthesize lastError;
+
+#pragma mark - Shared store
+
++ (CMStore *)defaultStore {
+    static CMStore *_defaultStore;
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _defaultStore = [[CMStore alloc] init];
+    });
+
+    return _defaultStore;
+}
 
 #pragma mark - Initializers
 
@@ -206,7 +217,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     [webService searchValuesFor:query
              serverSideFunction:_CMTryMethod(options, serverSideFunction)
                   pagingOptions:_CMTryMethod(options, pagingDescriptor)
-                  sortingOptions:_CMTryMethod(options, sortDescriptor)
+                 sortingOptions:_CMTryMethod(options, sortDescriptor)
                            user:_CMUserOrNil
                 extraParameters:_CMTryMethod(options, buildExtraParameters)
                  successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult) {
@@ -323,7 +334,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (void)_saveFileAtURL:(NSURL *)url named:(NSString *)name userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback {
     NSParameterAssert(url);
     _CMAssertAPICredentialsInitialized;
-    
+
     [webService uploadFileAtPath:[url path]
               serverSideFunction:_CMTryMethod(options, serverSideFunction)
                            named:name
