@@ -29,7 +29,13 @@
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
-    return [self initWithObjectId:[aDecoder decodeObjectForKey:CMInternalObjectIdKey]];
+    id deserializedObjectId = [aDecoder decodeObjectForKey:CMInternalObjectIdKey];
+
+    if (![deserializedObjectId isKindOfClass:[NSString class]]) {
+        deserializedObjectId = [deserializedObjectId stringValue];
+    }
+
+    return [self initWithObjectId:deserializedObjectId];
 }
 
 #pragma mark - Serialization

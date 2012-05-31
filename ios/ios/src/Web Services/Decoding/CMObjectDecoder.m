@@ -28,14 +28,19 @@
 + (NSArray *)decodeObjects:(NSDictionary *)serializedObjects {
     NSMutableArray *decodedObjects = [NSMutableArray arrayWithCapacity:[serializedObjects count]];
 
-    for (NSString *key in serializedObjects) {
+    for (id key in serializedObjects) {
         NSDictionary *objectRepresentation = [serializedObjects objectForKey:key];
 
         Class klass = [CMObjectDecoder typeFromDictionaryRepresentation:objectRepresentation];
 
+        id stringifiedKey = key;
+        if (![stringifiedKey isKindOfClass:[NSString class]]) {
+            stringifiedKey = [stringifiedKey stringValue];
+        }
+
         id<CMSerializable> decodedObject = nil;
         if (klass == [CMUntypedObject class]) {
-            decodedObject = [[CMUntypedObject alloc] initWithFields:objectRepresentation objectId:key];
+            decodedObject = [[CMUntypedObject alloc] initWithFields:objectRepresentation objectId:stringifiedKey];
         } else {
             CMObjectDecoder *decoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:objectRepresentation];
             decodedObject = [[klass alloc] initWithCoder:decoder];
