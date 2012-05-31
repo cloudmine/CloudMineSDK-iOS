@@ -30,9 +30,9 @@
 
     for (NSString *key in serializedObjects) {
         NSDictionary *objectRepresentation = [serializedObjects objectForKey:key];
-        
+
         Class klass = [CMObjectDecoder typeFromDictionaryRepresentation:objectRepresentation];
-        
+
         id<CMSerializable> decodedObject = nil;
         if (klass == [CMUntypedObject class]) {
             decodedObject = [[CMUntypedObject alloc] initWithFields:objectRepresentation objectId:key];
@@ -74,43 +74,72 @@
     if (![self containsValueForKey:key]) {
         return NO;
     }
-    return [[_dictionaryRepresentation valueForKey:key] boolValue];
+
+    id val = [_dictionaryRepresentation valueForKey:key];
+    if (val != nil && val != [NSNull null]) {
+        return [[_dictionaryRepresentation valueForKey:key] boolValue];
+    }
+    return NO;
 }
 
 - (double)decodeDoubleForKey:(NSString *)key {
     if (![self containsValueForKey:key]) {
         return (double)0.0;
     }
-    return [[_dictionaryRepresentation valueForKey:key] doubleValue];
+
+    id val = [_dictionaryRepresentation valueForKey:key];
+    if (val != nil && val != [NSNull null]) {
+        return [[_dictionaryRepresentation valueForKey:key] doubleValue];
+    }
+    return (double)0.0;
 }
 
 - (float)decodeFloatForKey:(NSString *)key {
     if (![self containsValueForKey:key]) {
         return 0.0f;
     }
-    return [[_dictionaryRepresentation valueForKey:key] floatValue];
+
+    id val = [_dictionaryRepresentation valueForKey:key];
+    if (val != nil && val != [NSNull null]) {
+        return [[_dictionaryRepresentation valueForKey:key] floatValue];
+    }
+    return 0.0f;
 }
 
 - (int)decodeIntForKey:(NSString *)key {
     if (![self containsValueForKey:key]) {
         return 0;
     }
-    return [[_dictionaryRepresentation valueForKey:key] intValue];
+
+    id val = [_dictionaryRepresentation valueForKey:key];
+    if (val != nil && val != [NSNull null]) {
+        return [[_dictionaryRepresentation valueForKey:key] intValue];
+    }
+    return 0;
 }
 
 - (NSInteger)decodeIntegerForKey:(NSString *)key {
     if (![self containsValueForKey:key]) {
         return (NSInteger)0;
     }
-    return [[_dictionaryRepresentation valueForKey:key] integerValue];
+
+    id val = [_dictionaryRepresentation valueForKey:key];
+    if (val != nil && val != [NSNull null]) {
+        return [[_dictionaryRepresentation valueForKey:key] integerValue];
+    }
+    return 0;
 }
 
 - (int32_t)decodeInt32ForKey:(NSString *)key {
     if (![self containsValueForKey:key]) {
         return (int32_t)0;
     }
-    return (int32_t)[[_dictionaryRepresentation valueForKey:key] intValue];
 
+    id val = [_dictionaryRepresentation valueForKey:key];
+    if (val != nil && val != [NSNull null]) {
+        return [[_dictionaryRepresentation valueForKey:key] intValue];
+    }
+    return (int32_t)0;
 }
 
 - (id)decodeObjectForKey:(NSString *)key {
