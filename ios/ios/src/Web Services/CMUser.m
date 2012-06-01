@@ -36,6 +36,7 @@
 - (id)initWithCoder:(NSCoder *)coder {
     if (self = [super init]) {
         self.token = [coder decodeObjectForKey:@"token"];
+        self.tokenExpiration = [coder decodeObjectForKey:@"tokenExpiration"];
     }
     return self;
 }
@@ -44,6 +45,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)coder {
     [coder encodeObject:self.token forKey:@"token"];
+    [coder encodeObject:self.tokenExpiration forKey:@"tokenExpiration"];
 }
 
 #pragma mark - Comparison
@@ -52,7 +54,12 @@
     if (![object isKindOfClass:[CMUser class]]) {
         return NO;
     }
-    return ([[object userId] isEqualToString:userId] && [[object password] isEqualToString:password]);
+
+    if (userId) {
+        return ([[object userId] isEqualToString:userId] && [[object password] isEqualToString:password]);
+    } else {
+        return ([[object token] isEqualToString:token]);
+    }
 }
 
 #pragma mark - State operations and accessors
