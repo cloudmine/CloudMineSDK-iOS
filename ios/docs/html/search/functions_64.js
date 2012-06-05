@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['defaultstore',['defaultStore',['../interface_c_m_store.html#a285fbfea6e1d95baba4046d815f83fd4',1,'CMStore']]],
   ['deletefilenamed_3aadditionaloptions_3acallback_3a',['deleteFileNamed:additionalOptions:callback:',['../interface_c_m_store.html#adf78733608a2b28b33808a8fcaa6c4ea',1,'CMStore']]],
   ['deleteobject_3aadditionaloptions_3acallback_3a',['deleteObject:additionalOptions:callback:',['../interface_c_m_store.html#a114e6e96ba3d9a1c09e35ed8b0746530',1,'CMStore']]],
   ['deleteobjects_3aadditionaloptions_3acallback_3a',['deleteObjects:additionalOptions:callback:',['../interface_c_m_store.html#a84ae4acef9746a62e6af1decd2bca449',1,'CMStore']]],

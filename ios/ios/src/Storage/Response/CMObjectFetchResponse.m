@@ -12,6 +12,7 @@
 
 @synthesize objects;
 @synthesize errors;
+@synthesize count;
 
 - (id)initWithObjects:(NSArray *)theObjects errors:(NSDictionary *)theErrors {
     return [self initWithObjects:theObjects errors:theErrors snippetResult:nil responseMetadata:nil];

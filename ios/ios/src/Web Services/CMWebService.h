@@ -33,7 +33,7 @@
  * a dictionary of errors, a dictionary of metadata, and a dynamic snippet result as arguments. 
  * These map directly with the CloudMine API response format.
  */
-typedef void (^CMWebServiceObjectFetchSuccessCallback)(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult);
+typedef void (^CMWebServiceObjectFetchSuccessCallback)(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count);
 
 /**
  * Callback block signature for <b>all</b> operations on <tt>CMStore</tt> that can fail. These are general

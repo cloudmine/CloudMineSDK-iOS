@@ -71,8 +71,9 @@ var searchData=
   ['cmwebservicefetchfailurecallback',['CMWebServiceFetchFailureCallback',['../_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386',1,'CMWebService.h']]],
   ['cmwebservicefilefetchsuccesscallback',['CMWebServiceFileFetchSuccessCallback',['../_c_m_web_service_8h.html#acc0ec01c996fb8fabd32c0d3c6c4bfad',1,'CMWebService.h']]],
   ['cmwebservicefileuploadsuccesscallback',['CMWebServiceFileUploadSuccessCallback',['../_c_m_web_service_8h.html#aaea8470f76c0d440d79df8713f15cbff',1,'CMWebService.h']]],
-  ['cmwebserviceobjectfetchsuccesscallback',['CMWebServiceObjectFetchSuccessCallback',['../_c_m_web_service_8h.html#a9cf54bc8beba8d6ba774ea4ef1ff0b4a',1,'CMWebService.h']]],
+  ['cmwebserviceobjectfetchsuccesscallback',['CMWebServiceObjectFetchSuccessCallback',['../_c_m_web_service_8h.html#a7fd3b4b28b64b78b991297a91b26e17f',1,'CMWebService.h']]],
   ['cmwebserviceuseraccountoperationcallback',['CMWebServiceUserAccountOperationCallback',['../_c_m_web_service_8h.html#adeb3b39bba6f7c9c458b03dd0ee76d75',1,'CMWebService.h']]],
+  ['count',['count',['../interface_c_m_object_fetch_response.html#a63f18dfaf91d3d2db6fa1c684e9c11f8',1,'CMObjectFetchResponse']]],
   ['createaccountandloginwithcallback_3a',['createAccountAndLoginWithCallback:',['../interface_c_m_user.html#adc2b15ea9176fb8756ab1492974c79d6',1,'CMUser']]],
   ['createaccountwithcallback_3a',['createAccountWithCallback:',['../interface_c_m_user.html#a75cc2286b78639d55992ee35a5a98ad9',1,'CMUser']]],
   ['createaccountwithuser_3acallback_3a',['createAccountWithUser:callback:',['../interface_c_m_web_service.html#a41f9dd0714144cfe0b1ccc0e591e45e4',1,'CMWebService']]]

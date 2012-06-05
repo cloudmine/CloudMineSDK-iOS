@@ -438,6 +438,8 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
             NSDictionary *successes = nil;
             NSDictionary *errors = nil;
             NSDictionary *meta = nil;
+            NSNumber *count = nil;
+            
             id snippetResult = nil;
             if (results) {
                 successes = [results objectForKey:@"success"];
@@ -459,9 +461,11 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
                 if(!meta) {
                     meta = [NSDictionary dictionary];
                 }
+                
+                count = [results objectForKey:@"count"];
             }
             if (successHandler != nil) {
-                successHandler(successes, errors, meta, snippetResult);
+                successHandler(successes, errors, meta, snippetResult, count);
             }
         }
     }];

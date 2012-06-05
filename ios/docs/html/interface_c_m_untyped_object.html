@@ -30,6 +30,8 @@
  <tbody>
  <tr style="height: 56px;">
   
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  
   
   <td style="padding-left: 0.5em;">
    <div id="projectname">CloudMine iOS SDK
@@ -132,7 +134,7 @@ Properties</h2></td></tr>
 <tr class="memitem:ad20af2406f27a0f33c09b16d9ee0ce4a"><td class="memItemLeft" align="right" valign="top">NSDictionary *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_c_m_untyped_object.html#ad20af2406f27a0f33c09b16d9ee0ce4a">fields</a></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
-<div class="textblock"><p>This is a subclass of <a class="el" href="interface_c_m_object.html">CMObject</a> that has no type information. It is used when the framework is unable to determine which class an object should be deserialized into. This could happen if your application is creating objects through the REST API (or some other means) and not adding <b>class</b> attributes. This class does not attempt to deserialize object fields; it just leaves them as an accessible NSDictionary. </p>
+<div class="textblock"><p>This is a subclass of <a class="el" href="interface_c_m_object.html">CMObject</a> that has no type information. It is used when the framework is unable to determine which class an object should be deserialized into. This could happen if your application is creating objects through the REST API (or some other means) and not adding <code>__class__</code> attributes. This class does not attempt to deserialize object fields; it just leaves them as an accessible NSDictionary. </p>
 
 <p>Definition at line <a class="el" href="_c_m_untyped_object_8h_source.html#l00018">18</a> of file <a class="el" href="_c_m_untyped_object_8h_source.html">CMUntypedObject.h</a>.</p>
 </div><hr/><h2>Property Documentation</h2>
@@ -153,7 +155,7 @@ Properties</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>ios/src/<a class="el" href="_c_m_untyped_object_8h_source.html">CMUntypedObject.h</a></li>
+<li>src/<a class="el" href="_c_m_untyped_object_8h_source.html">CMUntypedObject.h</a></li>
 </ul>
 </div><!-- contents -->
 </div>
@@ -161,7 +163,7 @@ Properties</h2></td></tr>
     <ul>
       <li class="navelem"><a class="el" href="interface_c_m_untyped_object.html">CMUntypedObject</a>      </li>
 
-    <li class="footer">Generated on Tue May 22 2012 10:50:22 for CloudMine iOS SDK by
+    <li class="footer">Generated on Tue Jun 5 2012 16:51:30 for CloudMine iOS SDK by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.0 </li>
    </ul>

@@ -6,6 +6,7 @@ var interface_c_m_store =
     [ "allObjectsWithOptions:callback:", "interface_c_m_store.html#a41ed9518281289364feafc4e4cdf5750", null ],
     [ "allUserObjectsOfClass:additionalOptions:callback:", "interface_c_m_store.html#a63648c87b1bc39575e71ee37f062d61f", null ],
     [ "allUserObjectsWithOptions:callback:", "interface_c_m_store.html#a0129298f1e9de520c117d4de9e6fe2a3", null ],
+    [ "defaultStore", "interface_c_m_store.html#a285fbfea6e1d95baba4046d815f83fd4", null ],
     [ "deleteFileNamed:additionalOptions:callback:", "interface_c_m_store.html#adf78733608a2b28b33808a8fcaa6c4ea", null ],
     [ "deleteObject:additionalOptions:callback:", "interface_c_m_store.html#a114e6e96ba3d9a1c09e35ed8b0746530", null ],
     [ "deleteObjects:additionalOptions:callback:", "interface_c_m_store.html#a84ae4acef9746a62e6af1decd2bca449", null ],
