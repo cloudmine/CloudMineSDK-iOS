@@ -393,7 +393,7 @@
 				65199EC1156A7D9500267EC6 /* CMDistance.m */,
 			);
 			name = Metadata;
-			path = ios/src/Storage/Response/Metadata;
+			path = Storage/Response/Metadata;
 			sourceTree = "<group>";
 		};
 		65199ECC156A7DB000267EC6 /* Response */ = {
@@ -547,7 +547,6 @@
 		7AB4AB54145DC5D8006AEF67 = {
 			isa = PBXGroup;
 			children = (
-				65199EBF156A7D9500267EC6 /* Metadata */,
 				7AB4AB64145DC5D8006AEF67 /* ios */,
 				7AB4AB78145DC5D8006AEF67 /* iosTests */,
 				7AB4AB61145DC5D8006AEF67 /* Frameworks */,
@@ -657,6 +656,7 @@
 				7A5C40A214D8981E00906689 /* CMDate.m */,
 				7A58CC1F14F1B544003E864B /* CMMimeType.h */,
 				7A58CC2014F1B544003E864B /* CMMimeType.m */,
+				65199EBF156A7D9500267EC6 /* Metadata */,
 				7AD36F8A146CB69000DD4734 /* Extensions */,
 				7AD36F7B146C64F300DD4734 /* Web Services */,
 				7A7E31C514C88F760091F1E3 /* Storage */,
