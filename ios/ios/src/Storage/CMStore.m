@@ -153,12 +153,13 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                   sortingOptions:_CMTryMethod(options, sortDescriptor)
                             user:_CMUserOrNil
                  extraParameters:_CMTryMethod(options, buildExtraParameters)
-                  successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult) {
+                  successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult, NSNumber *count) {
                       NSArray *objects = [CMObjectDecoder decodeObjects:results];
                       [blockSelf cacheObjectsInMemory:objects atUserLevel:userLevel];
                       CMResponseMetadata *metadata = [[CMResponseMetadata alloc] initWithMetadata:meta];
                       CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
                       CMObjectFetchResponse *response = [[CMObjectFetchResponse alloc] initWithObjects:objects errors:errors snippetResult:result responseMetadata:metadata];
+                      response.count = count ? [count intValue] : [objects count];
                       callback(response);
                   } errorHandler:^(NSError *error) {
                       NSLog(@"Error occurred during object request: %@", [error description]);
@@ -220,12 +221,13 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                  sortingOptions:_CMTryMethod(options, sortDescriptor)
                            user:_CMUserOrNil
                 extraParameters:_CMTryMethod(options, buildExtraParameters)
-                 successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult) {
+                 successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult, NSNumber *count) {
                      NSArray *objects = [CMObjectDecoder decodeObjects:results];
                      CMResponseMetadata *metadata = [[CMResponseMetadata alloc] initWithMetadata:meta];
                      CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
                      [blockSelf cacheObjectsInMemory:objects atUserLevel:userLevel];
                      CMObjectFetchResponse *response = [[CMObjectFetchResponse alloc] initWithObjects:objects errors:errors snippetResult:result responseMetadata:metadata];
+                     response.count = count ? [count intValue] : [objects count];
                      callback(response);
                  } errorHandler:^(NSError *error) {
                      NSLog(@"Error occurred during object request: %@", [error description]);
@@ -298,7 +300,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                         serverSideFunction:_CMTryMethod(options, serverSideFunction)
                                       user:_CMUserOrNil
                            extraParameters:_CMTryMethod(options, buildExtraParameters)
-                            successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult) {
+                            successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult, NSNumber *count) {
                                 CMResponseMetadata *metadata = [[CMResponseMetadata alloc] initWithMetadata:meta];
                                 CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
                                 CMObjectUploadResponse *response = [[CMObjectUploadResponse alloc] initWithUploadStatuses:results snippetResult:result responseMetadata:metadata];
@@ -453,7 +455,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                  serverSideFunction:_CMTryMethod(options, serverSideFunction)
                                user:_CMUserOrNil
                     extraParameters:_CMTryMethod(options, buildExtraParameters)
-                     successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult) {
+                     successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult, NSNumber *count) {
                          CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
                          CMDeleteResponse *response = [[CMDeleteResponse alloc] initWithSuccess:results errors:errors snippetResult:result];
                          callback(response);
@@ -482,7 +484,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                  serverSideFunction:_CMTryMethod(options, serverSideFunction)
                                user:_CMUserOrNil
                     extraParameters:_CMTryMethod(options, buildExtraParameters)
-                     successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult) {
+                     successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult, NSNumber *count) {
                          CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
                          CMDeleteResponse *response = [[CMDeleteResponse alloc] initWithSuccess:results errors:errors snippetResult:result];
                          callback(response);
