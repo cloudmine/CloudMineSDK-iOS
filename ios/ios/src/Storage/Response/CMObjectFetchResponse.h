@@ -23,6 +23,11 @@
  */
 @property (strong, nonatomic) NSDictionary *errors;
 
+/**
+ * Count of objects returned.
+ */
+@property (nonatomic) int count;
+
 - (id)initWithObjects:(NSArray *)objects errors:(NSDictionary *)errors;
 - (id)initWithObjects:(NSArray *)objects errors:(NSDictionary *)errors snippetResult:(CMSnippetResult *)snippetResult;
 - (id)initWithObjects:(NSArray *)objects errors:(NSDictionary *)errors snippetResult:(CMSnippetResult *)snippetResult responseMetadata:(CMResponseMetadata *)metadata;
