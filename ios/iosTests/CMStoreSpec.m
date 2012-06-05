@@ -142,6 +142,13 @@ describe(@"CMStore", ^{
                 }];
             });
         });
+        
+        context(@"when using the default store", ^{
+            it(@"should always be the same store instance", ^{
+                CMStore *defaultStore = [CMStore defaultStore];
+                [[defaultStore should] equal:[CMStore defaultStore]];
+            });
+        });
     });
 
 //
