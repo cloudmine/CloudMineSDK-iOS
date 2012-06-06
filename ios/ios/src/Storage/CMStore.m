@@ -163,11 +163,15 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                       CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
                       CMObjectFetchResponse *response = [[CMObjectFetchResponse alloc] initWithObjects:objects errors:errors snippetResult:result responseMetadata:metadata];
                       response.count = count ? [count intValue] : [objects count];
-                      callback(response);
+                      if (callback) {
+                          callback(response);
+                      }
                   } errorHandler:^(NSError *error) {
                       NSLog(@"*** Error occurred during object request: %@", [error description]);
                       lastError = error;
-                      callback(nil);
+                      if (callback) {
+                          callback(nil);
+                      }
                   }
      ];
 }
@@ -234,11 +238,15 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                      [blockSelf cacheObjectsInMemory:objects atUserLevel:userLevel];
                      CMObjectFetchResponse *response = [[CMObjectFetchResponse alloc] initWithObjects:objects errors:errors snippetResult:result responseMetadata:metadata];
                      response.count = count ? [count intValue] : [objects count];
-                     callback(response);
+                     if (callback) {
+                         callback(response);
+                     }
                  } errorHandler:^(NSError *error) {
                      NSLog(@"*** Error occurred during object request: %@", [error description]);
                      lastError = error;
-                     callback(nil);
+                     if (callback) {
+                         callback(nil);
+                     }
                  }
      ];
 }
@@ -314,11 +322,15 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                                 CMResponseMetadata *metadata = [[CMResponseMetadata alloc] initWithMetadata:meta];
                                 CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
                                 CMObjectUploadResponse *response = [[CMObjectUploadResponse alloc] initWithUploadStatuses:results snippetResult:result responseMetadata:metadata];
-                                callback(response);
+                                if (callback) {
+                                    callback(response);
+                                }
                             } errorHandler:^(NSError *error) {
                                 NSLog(@"*** Error occurred during object uploading: %@", [error description]);
                                 lastError = error;
-                                callback(nil);
+                                if (callback) {
+                                    callback(nil);
+                                }
                             }
      ];
 }
@@ -360,11 +372,15 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                   successHandler:^(CMFileUploadResult result, NSString *fileKey, id snippetResult) {
                       CMSnippetResult *sResult = [[CMSnippetResult alloc] initWithData:snippetResult];
                       CMFileUploadResponse *response = [[CMFileUploadResponse alloc] initWithResult:result key:fileKey snippetResult:sResult];
-                      callback(response);
+                      if (callback) {
+                          callback(response);
+                      }
                   } errorHandler:^(NSError *error) {
                       NSLog(@"*** Error ocurred during file uploading: %@", [error description]);
                       lastError = error;
-                      callback(nil);
+                      if (callback) {
+                          callback(nil);
+                      }
                   }
      ];
 }
@@ -404,11 +420,15 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                   successHandler:^(CMFileUploadResult result, NSString *fileKey, id snippetResult) {
                       CMSnippetResult *sResult = [[CMSnippetResult alloc] initWithData:snippetResult];
                       CMFileUploadResponse *response = [[CMFileUploadResponse alloc] initWithResult:result key:fileKey snippetResult:sResult];
-                      callback(response);
+                      if (callback) {
+                          callback(response);
+                      }
                   } errorHandler:^(NSError *error) {
                       NSLog(@"*** Error ocurred during in-memory file uploading: %@", [error description]);
                       lastError = error;
-                      callback(nil);
+                      if (callback) {
+                          callback(nil);
+                      }
                   }
      ];
 }
@@ -482,11 +502,15 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                      successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult, NSNumber *count) {
                          CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
                          CMDeleteResponse *response = [[CMDeleteResponse alloc] initWithSuccess:results errors:errors snippetResult:result];
-                         callback(response);
+                         if (callback) {
+                             callback(response);
+                         }
                      } errorHandler:^(NSError *error) {
                          NSLog(@"*** An error occurred when deleting the file named \"%@\": %@", name, [error description]);
                          lastError = error;
-                         callback(nil);
+                         if (callback) {
+                             callback(nil);
+                         }
                      }
      ];
 }
@@ -511,11 +535,15 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                      successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult, NSNumber *count) {
                          CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
                          CMDeleteResponse *response = [[CMDeleteResponse alloc] initWithSuccess:results errors:errors snippetResult:result];
-                         callback(response);
+                         if (callback) {
+                             callback(response);
+                         }
                      } errorHandler:^(NSError *error) {
                          NSLog(@"*** An error occurred when deleting objects with keys (%@): %@", keys, [error description]);
                          lastError = error;
-                         callback(nil);
+                         if (callback) {
+                             callback(nil);
+                         }
                      }
      ];
 
@@ -552,11 +580,15 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                                                            mimeType:mimeType];
                         [file writeToCache];
                         CMFileFetchResponse *response = [[CMFileFetchResponse alloc] initWithFile:file];
-                        callback(response);
+                        if (callback) {
+                            callback(response);
+                        }
                     } errorHandler:^(NSError *error) {
                         NSLog(@"*** Error occurred during file request: %@", [error description]);
                         lastError = error;
-                        callback(nil);
+                        if (callback) {
+                            callback(nil);
+                        }
                     }
      ];
 }
@@ -611,11 +643,13 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
         [user loginWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
             if (CMUserAccountOperationFailed(resultCode)) {
                 NSLog(@"*** Failed to login user during store operation");
-                lastError = $makeErr(@"CloudMineUserLoginErrorDomain", 0, $dict(@"user", user, @"resultCode", resultCode));
+                lastError = $makeErr(@"CloudMineUserLoginErrorDomain", 0, $dict(@"user", user, @"resultCode", $num(resultCode)));
             } else {
                 callback();
             }
         }];
+    } else {
+        callback();
     }
 }
 
