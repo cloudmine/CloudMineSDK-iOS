@@ -128,7 +128,9 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 - (void)allUserObjectsWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback {
     _CMAssertUserConfigured;
-    [self _allObjects:callback userLevel:YES additionalOptions:options];
+    [self _ensureUserLoggedInWithCallback:^{
+        [self _allObjects:callback userLevel:YES additionalOptions:options];
+    }];
 }
 
 - (void)_allObjects:(CMStoreObjectFetchCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options {
