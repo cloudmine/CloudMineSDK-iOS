@@ -47,7 +47,6 @@
 #pragma mark - CMStore interactions
 
 - (void)save:(CMStoreObjectUploadCallback)callback {
-    NSAssert([self belongsToStore], @"You cannot save an object (%@) that doesn't belong to a CMStore.", self);
     [store saveObject:self callback:callback];
 }
 

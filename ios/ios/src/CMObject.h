@@ -68,6 +68,9 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder;
 
 /**
+ * @deprecated
+ * This method will always return <tt>YES</tt>. If no store has been explicitly assigned, the default store will be used.
+ *
  * Note: The object must belong to a store if you need to save it. You can easily add the object to a store and
  * save it by using <tt>CMStore</tt>'s <tt>saveObject:</tt> method.
  *
@@ -78,10 +81,9 @@
 
 /**
  * Saves this object to CloudMine using its current store.
- * If this object does not belong to a store, you can easily add the object to a store and
- * save it by using <tt>CMStore</tt>'s <tt>saveObject:</tt> method instead.
+ * If this object does not belong to a store, the default store will be used.
  *
- * @see CMStore
+ * @see CMStore#defaultStore
  */
 - (void)save:(CMStoreObjectUploadCallback)callback;
 
