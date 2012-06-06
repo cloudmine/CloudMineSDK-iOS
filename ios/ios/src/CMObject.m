@@ -23,7 +23,7 @@
 - (id)initWithObjectId:(NSString *)theObjectId {
     if (self = [super init]) {
         objectId = theObjectId;
-        store = nil;
+        store = [CMStore defaultStore];
     }
     return self;
 }
