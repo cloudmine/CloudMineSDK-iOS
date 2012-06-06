@@ -56,7 +56,7 @@ describe(@"CMWebService", ^{
                         sortingOptions:nil
                                  user:nil
                       extraParameters:nil
-                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult) {
+                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
                        } errorHandler:^(NSError *error) {
                        }
              ];
@@ -89,7 +89,7 @@ describe(@"CMWebService", ^{
                       sortingOptions:nil
                                 user:nil
                      extraParameters:nil
-                      successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult) {
+                      successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
                       } errorHandler:^(NSError *error) {
                       }
              ];
@@ -152,7 +152,7 @@ describe(@"CMWebService", ^{
                        sortingOptions:nil
                                  user:nil
                       extraParameters:nil
-                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult) {
+                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
                        } errorHandler:^(NSError *error) {
                        }
              ];
@@ -185,7 +185,7 @@ describe(@"CMWebService", ^{
                        sortingOptions:nil
                                  user:nil
                       extraParameters:nil
-                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult) {
+                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
                        } errorHandler:^(NSError *error) {
                        }
              ];
@@ -221,7 +221,7 @@ describe(@"CMWebService", ^{
                        sortingOptions:nil
                                  user:creds
                       extraParameters:nil
-                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult) {
+                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
                        } errorHandler:^(NSError *error) {
                        }
              ];
@@ -258,7 +258,7 @@ describe(@"CMWebService", ^{
                                    user:creds
                         extraParameters:nil
                          successHandler:^(NSData *data, NSString *contentType) {
-                         } errorHandler:^(NSError *error) { 
+                         } errorHandler:^(NSError *error) {
                          }
              ];
         });
@@ -294,7 +294,7 @@ describe(@"CMWebService", ^{
                        sortingOptions:nil
                                  user:creds
                       extraParameters:nil
-                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult) {
+                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
                        } errorHandler:^(NSError *error) {
                        }
              ];
@@ -331,7 +331,7 @@ describe(@"CMWebService", ^{
                              serverSideFunction:nil
                                            user:nil
                                 extraParameters:nil
-                                 successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult) {
+                                 successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
                                  } errorHandler:^(NSError *error) {
                                  }
              ];
@@ -408,7 +408,7 @@ describe(@"CMWebService", ^{
                              serverSideFunction:nil
                                            user:creds
                                 extraParameters:nil
-                                 successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult) {
+                                 successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
                                  } errorHandler:^(NSError *error) {
                                  }
              ];
@@ -487,9 +487,9 @@ describe(@"CMWebService", ^{
                           serverSideFunction:nil
                                         user:nil
                              extraParameters:nil
-                              successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult) {
-                                 } errorHandler:^(NSError *error) {
-                                 }
+                              successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
+                              } errorHandler:^(NSError *error) {
+                              }
              ];
         });
 
@@ -527,7 +527,7 @@ describe(@"CMWebService", ^{
                           serverSideFunction:nil
                                         user:creds
                              extraParameters:nil
-                              successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult) {
+                              successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
                               } errorHandler:^(NSError *error) {
                               }
              ];
@@ -559,7 +559,7 @@ describe(@"CMWebService", ^{
                       serverSideFunction:nil
                                     user:nil
                          extraParameters:nil
-                          successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult) {
+                          successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
                           } errorHandler:^(NSError *error) {
                           }
              ];
@@ -589,7 +589,7 @@ describe(@"CMWebService", ^{
                       serverSideFunction:nil
                                     user:nil
                          extraParameters:nil
-                          successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult) {
+                          successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
                           } errorHandler:^(NSError *error) {
                           }
              ];
@@ -624,7 +624,7 @@ describe(@"CMWebService", ^{
                       serverSideFunction:nil
                                     user:creds
                          extraParameters:nil
-                          successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult) {
+                          successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
                           } errorHandler:^(NSError *error) {
                           }
              ];
@@ -659,7 +659,7 @@ describe(@"CMWebService", ^{
                       serverSideFunction:nil
                                     user:creds
                          extraParameters:nil
-                          successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult) {
+                          successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
                        } errorHandler:^(NSError *error) {
                        }
              ];

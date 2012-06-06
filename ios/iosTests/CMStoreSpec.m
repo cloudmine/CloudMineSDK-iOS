@@ -105,6 +105,34 @@ describe(@"CMStore", ^{
             });
         });
 
+        context(@"when performing a remote operation", ^{
+            it(@"should log the user in if they aren't already logged in before saving an object", ^{
+                CMObject *obj = [[CMObject alloc] init];
+                [[user should] receive:@selector(isLoggedIn)];
+                [[user should] receive:@selector(loginWithCallback:)];
+                [store saveUserObject:obj callback:nil];
+            });
+
+            it(@"should log the user in if they aren't already logged in before deleting an object", ^{
+                CMObject *obj = [[CMObject alloc] init];
+                [[user should] receive:@selector(isLoggedIn)];
+                [[user should] receive:@selector(loginWithCallback:)];
+                [store deleteUserObject:obj additionalOptions:nil callback:nil];
+            });
+
+            it(@"should log the user in if they aren't already logged in before searching for objects", ^{
+                [[user should] receive:@selector(isLoggedIn)];
+                [[user should] receive:@selector(loginWithCallback:)];
+                [store searchUserObjects:@"" additionalOptions:nil callback:nil];
+            });
+
+            it(@"should log the user in if they aren't already logged in before getting objects by key", ^{
+                [[user should] receive:@selector(isLoggedIn)];
+                [[user should] receive:@selector(loginWithCallback:)];
+                [store allUserObjectsWithOptions:nil callback:nil];
+            });
+        });
+
         context(@"when changing user ownership of a store", ^{
             it(@"should nullify store relationships with user-level objects stored under the previous user", ^{
                 NSMutableArray *userObjects = [NSMutableArray arrayWithCapacity:5];
@@ -142,7 +170,7 @@ describe(@"CMStore", ^{
                 }];
             });
         });
-        
+
         context(@"when using the default store", ^{
             it(@"should always be the same store instance", ^{
                 CMStore *defaultStore = [CMStore defaultStore];
