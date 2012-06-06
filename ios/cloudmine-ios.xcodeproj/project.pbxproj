@@ -117,6 +117,7 @@
 		7AABA30114818DCA00FD52A0 /* CMObjectDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AABA2FC14818DCA00FD52A0 /* CMObjectDecoder.m */; };
 		7AABA30314818DCA00FD52A0 /* CMObjectEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AABA2FF14818DCA00FD52A0 /* CMObjectEncoder.m */; };
 		7AABA30714818E2A00FD52A0 /* CMJSONEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AABA30514818E2A00FD52A0 /* CMJSONEncoder.m */; };
+		7AAFB49B158017450066B4A4 /* CMMimeTypeSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AAFB49A158017450066B4A4 /* CMMimeTypeSpec.m */; };
 		7AB4AB63145DC5D8006AEF67 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB62145DC5D8006AEF67 /* Foundation.framework */; };
 		7AB4AB71145DC5D8006AEF67 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB70145DC5D8006AEF67 /* SenTestingKit.framework */; };
 		7AB4AB74145DC5D8006AEF67 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB62145DC5D8006AEF67 /* Foundation.framework */; };
@@ -305,6 +306,7 @@
 		7AABA2FF14818DCA00FD52A0 /* CMObjectEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectEncoder.m; sourceTree = "<group>"; };
 		7AABA30414818E2A00FD52A0 /* CMJSONEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMJSONEncoder.h; sourceTree = "<group>"; };
 		7AABA30514818E2A00FD52A0 /* CMJSONEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMJSONEncoder.m; sourceTree = "<group>"; };
+		7AAFB49A158017450066B4A4 /* CMMimeTypeSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMMimeTypeSpec.m; sourceTree = "<group>"; };
 		7AB4AB5F145DC5D8006AEF67 /* libcloudmine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcloudmine.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AB4AB62145DC5D8006AEF67 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7AB4AB66145DC5D8006AEF67 /* cloudmine-ios-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cloudmine-ios-Prefix.pch"; sourceTree = "<group>"; };
@@ -611,6 +613,7 @@
 				7A7E31CA14C88F970091F1E3 /* CMStoreSpec.m */,
 				7AD9221F14CF5B9B0032DDDE /* CMPagingDescriptorSpec.m */,
 				7AD9222514D06EB10032DDDE /* CMStoreOptionsSpec.m */,
+				7AAFB49A158017450066B4A4 /* CMMimeTypeSpec.m */,
 				7AD93BAE14D1CCFE00CC1CC9 /* CMFileSpec.m */,
 				7A4A6F2814FFF08100B95D13 /* CMUserSpec.m */,
 				7A766208156307DF009840EE /* CMSortDescriptorSpec.m */,
@@ -909,6 +912,7 @@
 				7AA79D6314DC1FB900F3CA3B /* CMCrossPlatformGenericSerializableObject.m in Sources */,
 				7A4A6F2914FFF08100B95D13 /* CMUserSpec.m in Sources */,
 				7A766209156307DF009840EE /* CMSortDescriptorSpec.m in Sources */,
+				7AAFB49B158017450066B4A4 /* CMMimeTypeSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
