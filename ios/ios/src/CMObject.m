@@ -47,10 +47,21 @@
 #pragma mark - CMStore interactions
 
 - (void)save:(CMStoreObjectUploadCallback)callback {
-    [store saveObject:self callback:callback];
+    switch ([store objectOwnershipLevel:self]) {
+        case CMObjectOwnershipAppLevel:
+            [store saveObject:self callback:callback];
+            break;
+        case CMObjectOwnershipUserLevel:
+            [store saveUserObject:self callback:callback];
+            break;
+        default:
+            NSLog(@"*** Could not save object (%@) because no store was set. This should never happen!", self);
+            break;
+    }
 }
 
 - (BOOL)belongsToStore {
+    NSLog(@"-[CMObject belongsToStore] has been deprecated with the introduction of the default store. An object will always belong to a store.");
     return (store != nil);
 }
 
