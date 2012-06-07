@@ -27,7 +27,11 @@ static NSDictionary *_mimeTypeExtensionMappings = nil;
         extension = [NSString stringWithFormat:@".%@", extension];
     }
 
-    return [[_mimeTypeExtensionMappings objectForKey:extension] copy];
+    NSString *mimeType = [[_mimeTypeExtensionMappings objectForKey:extension] copy];
+    if (!mimeType) {
+        mimeType = @"application/octet-stream";
+    }
+    return mimeType;
 }
 
 + (void)loadMimeTypes {
