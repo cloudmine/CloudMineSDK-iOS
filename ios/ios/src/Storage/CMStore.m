@@ -574,14 +574,20 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     @synchronized(self) {
         [_cachedAppObjects removeObjectForKey:theObject.objectId];
     }
-    theObject.store = nil;
+
+    if (theObject.store) {
+        theObject.store = nil;
+    }
 }
 
 - (void)removeUserObject:(CMObject *)theObject {
     @synchronized(self) {
         [_cachedUserObjects removeObjectForKey:theObject.objectId];
     }
-    theObject.store = nil;
+
+    if (theObject.store) {
+        theObject.store = nil;
+    }
 }
 
 #pragma mark - Helper functions

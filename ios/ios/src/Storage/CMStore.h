@@ -42,7 +42,7 @@ typedef enum {
      * The object is owned by a particular user, specifically the user of the store where the object is held.
      * @see CMStore#user
      */
-    CMObjectOwnershipUserLevel
+    CMObjectOwnershipUserLevel = 1
 } CMObjectOwnershipLevel;
 
 /**

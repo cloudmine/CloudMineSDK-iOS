@@ -23,7 +23,7 @@
 - (id)initWithObjectId:(NSString *)theObjectId {
     if (self = [super init]) {
         objectId = theObjectId;
-        store = [CMStore defaultStore];
+        store = nil;
     }
     return self;
 }
@@ -74,30 +74,55 @@
 
 - (BOOL)belongsToStore {
     NSLog(@"-[CMObject belongsToStore] has been deprecated with the introduction of the default store. An object will always belong to a store.");
-    return (store != nil);
+    return YES;
 }
 
 - (CMStore *)store {
-    if (store && [store objectOwnershipLevel:self] == CMObjectOwnershipUndefinedLevel) {
-        store = nil;
+    if (!store) {
+        return [CMStore defaultStore];
     }
     return store;
 }
 
 - (void)setStore:(CMStore *)newStore {
     @synchronized(self) {
-        if (newStore != store) {
+        if(!newStore) {
+            store = nil;
+            return;
+        } else if(!store) {
+            switch ([newStore objectOwnershipLevel:self]) {
+                case CMObjectOwnershipAppLevel:
+                    store = newStore;
+                    [store addObject:self];
+                    break;
+                case CMObjectOwnershipUserLevel:
+                    store = newStore;
+                    [store addUserObject:self];
+                    break;
+                default:
+                    store = newStore;
+                    [store addObject:self];
+                    break;
+            }
+
+            return;
+        } else if (newStore != store) {
             switch ([store objectOwnershipLevel:self]) {
                 case CMObjectOwnershipAppLevel:
                     [store removeObject:self];
+                    store = newStore;
+                    [newStore addObject:self];
                     break;
                 case CMObjectOwnershipUserLevel:
                     [store removeUserObject:self];
+                    store = newStore;
+                    [newStore addUserObject:self];
                     break;
                 default:
+                    store = newStore;
+                    [store addObject:self];
                     break;
             }
-            store = newStore;
         }
     }
 }
