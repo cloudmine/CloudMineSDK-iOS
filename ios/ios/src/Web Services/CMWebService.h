@@ -8,7 +8,7 @@
 
 /** @file */
 
-#import <Foundation/Foundation.h>
+#import <YAJLiOS/YAJL.h>
 #import "CMFileUploadResult.h"
 #import "CMUserAccountResult.h"
 

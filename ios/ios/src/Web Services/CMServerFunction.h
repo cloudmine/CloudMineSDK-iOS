@@ -6,7 +6,7 @@
 //  See LICENSE file included with SDK for details.
 //
 
-#import <Foundation/Foundation.h>
+#import <YAJLiOS/YAJL.h>
 
 /**
  * Encapsulates a call to a server-side function. The call is triggered by being attached to
