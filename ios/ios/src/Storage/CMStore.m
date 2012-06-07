@@ -554,14 +554,20 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     @synchronized(self) {
         [_cachedUserObjects setObject:theObject forKey:theObject.objectId];
     }
-    theObject.store = self;
+
+    if (theObject.store != self) {
+        theObject.store = self;
+    }
 }
 
 - (void)addObject:(CMObject *)theObject {
     @synchronized(self) {
         [_cachedAppObjects setObject:theObject forKey:theObject.objectId];
     }
-    theObject.store = self;
+
+    if (theObject.store != self) {
+        theObject.store = self;
+    }
 }
 
 - (void)removeObject:(CMObject *)theObject {

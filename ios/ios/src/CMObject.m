@@ -84,6 +84,24 @@
     return store;
 }
 
+- (void)setStore:(CMStore *)newStore {
+    @synchronized(self) {
+        if (newStore != store) {
+            switch ([store objectOwnershipLevel:self]) {
+                case CMObjectOwnershipAppLevel:
+                    [store removeObject:self];
+                    break;
+                case CMObjectOwnershipUserLevel:
+                    [store removeUserObject:self];
+                    break;
+                default:
+                    break;
+            }
+            store = newStore;
+        }
+    }
+}
+
 #pragma mark - Accessors
 
 + (NSString *)className {
