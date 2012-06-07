@@ -47,6 +47,10 @@
 #pragma mark - CMStore interactions
 
 - (void)save:(CMStoreObjectUploadCallback)callback {
+    if ([store objectOwnershipLevel:self] == CMObjectOwnershipUndefinedLevel) {
+        [store addObject:self];
+    }
+
     switch ([store objectOwnershipLevel:self]) {
         case CMObjectOwnershipAppLevel:
             [store saveObject:self callback:callback];
@@ -55,9 +59,17 @@
             [store saveUserObject:self callback:callback];
             break;
         default:
-            NSLog(@"*** Could not save object (%@) because no store was set. This should never happen!", self);
+            NSLog(@"*** Error: Could not save object (%@) because no store was set. This should never happen!", self);
             break;
     }
+}
+
+- (void)saveWithUser:(CMUser *)user callback:(CMStoreObjectUploadCallback)callback {
+    NSAssert([store objectOwnershipLevel:self] == CMObjectOwnershipAppLevel, @"*** Error: Object %@ is already at the app-level. You cannot also save it to the user level. Make a copy of it with a new objectId to do this.", self);
+    if ([store objectOwnershipLevel:self] == CMObjectOwnershipUndefinedLevel) {
+        [store addUserObject:self];
+    }
+    [self save:callback];
 }
 
 - (BOOL)belongsToStore {

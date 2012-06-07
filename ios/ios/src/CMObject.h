@@ -87,4 +87,6 @@
  */
 - (void)save:(CMStoreObjectUploadCallback)callback;
 
+- (void)saveWithUser:(CMUser *)user callback:(CMStoreObjectUploadCallback)callback;
+
 @end
