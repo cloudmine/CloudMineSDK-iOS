@@ -37,11 +37,6 @@
 
 #pragma - Methods overridden to throw exceptions
 
-- (id)initWithUser:(CMUser *)theUser {
-    [[NSException exceptionWithName:@"CMInvalidStoreException" reason:@"Use +defaultStore instead. The -initWithUser: method isn't valid." userInfo:nil] raise];
-    __builtin_unreachable();
-}
-
 - (void)allObjectsWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback {
     THROW_NULLSTORE_EXCEPTION
 }

@@ -9,6 +9,7 @@
 #import "Kiwi.h"
 
 #import "CMStore.h"
+#import "CMNullStore.h"
 #import "CMWebService.h"
 #import "CMGenericSerializableObject.h"
 #import "CMAPICredentials.h"
@@ -43,7 +44,7 @@ describe(@"CMStore", ^{
             
             [store removeObject:obj];
             [[theValue([store objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipUndefinedLevel)];
-            [obj.store shouldBeNil];
+            [[obj.store should] equal:[CMNullStore nullStore]];
         });
 
         context(@"when computing object ownership level", ^{
@@ -81,7 +82,7 @@ describe(@"CMStore", ^{
             
             [store removeUserObject:obj];
             [[theValue([store objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipUndefinedLevel)];
-            [obj.store shouldBeNil];
+            [[obj.store should] equal:[CMNullStore nullStore]];
         });
 
         context(@"when computing object ownership level", ^{
@@ -132,8 +133,7 @@ describe(@"CMStore", ^{
                 CMUser *theOtherUser = [[CMUser alloc] initWithUserId:@"somethingelse" andPassword:@"foobar"];
                 store.user = theOtherUser;
                 [userObjects enumerateObjectsUsingBlock:^(CMObject *obj, NSUInteger idx, BOOL *stop) {
-                    NSLog(@"addy of obj's store is %p", obj.store);
-                    [obj.store shouldBeNil];
+                    [[obj.store should] equal:[CMNullStore nullStore]];
                     [[theValue([store objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipUndefinedLevel)];
                 }];
                 [appObjects enumerateObjectsUsingBlock:^(CMObject *obj, NSUInteger idx, BOOL *stop) {

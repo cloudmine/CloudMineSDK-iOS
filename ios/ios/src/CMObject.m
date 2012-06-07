@@ -6,6 +6,7 @@
 //  See LICENSE file included with SDK for details.
 //
 
+#import "CMNullStore.h"
 #import "CMObject.h"
 #import "NSString+UUID.h"
 #import "CMObjectSerialization.h"
@@ -87,7 +88,9 @@
 - (void)setStore:(CMStore *)newStore {
     @synchronized(self) {
         if(!newStore) {
-            store = nil;
+            // An object without a store is kind of in a weird state. So represent this
+            // with a null store that throws exceptions whenever anything is called on it.
+            store = [CMNullStore nullStore];
             return;
         } else if(!store) {
             switch ([newStore objectOwnershipLevel:self]) {
