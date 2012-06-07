@@ -23,7 +23,7 @@
 #import "CMDeleteResponse.h"
 
 #define _CMAssertAPICredentialsInitialized NSAssert([[CMAPICredentials sharedInstance] appSecret] != nil && [[[CMAPICredentials sharedInstance] appSecret] length] > 0 && [[CMAPICredentials sharedInstance] appIdentifier] != nil && [[[CMAPICredentials sharedInstance] appIdentifier] length] > 0, @"The CMAPICredentials singleton must be initialized before using a CloudMine Store")
-#define _CMAssertUserConfigured NSAssert(user && user.isLoggedIn, @"You must set the user of this store to a logged in CMUser before querying for user-level objects.")
+#define _CMAssertUserConfigured NSAssert(user, @"You must set the user of this store to a CMUser before querying for user-level objects.")
 #define _CMUserOrNil (userLevel ? user : nil)
 #define _CMTryMethod(obj, method) (obj ? [obj method] : nil)
 
@@ -45,6 +45,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (NSString *)_mimeTypeForFileAtURL:(NSURL *)url withCustomName:(NSString *)name;
 - (void)_deleteObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreDeleteCallback)callback;
 - (void)_deleteFileNamed:(NSString *)name userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback;
+- (void)_ensureUserLoggedInWithCallback:(void (^)(void))callback;
 - (NSDictionary *)_buildExtraParametersFromOptions:(CMStoreOptions *)options;
 - (void)cacheObjectsInMemory:(NSArray *)objects atUserLevel:(BOOL)userLevel;
 @end
@@ -127,7 +128,9 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 - (void)allUserObjectsWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback {
     _CMAssertUserConfigured;
-    [self _allObjects:callback userLevel:YES additionalOptions:options];
+    [self _ensureUserLoggedInWithCallback:^{
+        [self _allObjects:callback userLevel:YES additionalOptions:options];
+    }];
 }
 
 - (void)_allObjects:(CMStoreObjectFetchCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options {
@@ -140,10 +143,11 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 - (void)userObjectsWithKeys:(NSArray *)keys additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback {
     _CMAssertUserConfigured;
-    [self _objectsWithKeys:keys callback:callback userLevel:YES additionalOptions:options];
+    [self _ensureUserLoggedInWithCallback:^{
+        [self _objectsWithKeys:keys callback:callback userLevel:YES additionalOptions:options];
+    }];
 }
 - (void)_objectsWithKeys:(NSArray *)keys callback:(CMStoreObjectFetchCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options {
-    NSParameterAssert(callback);
     _CMAssertAPICredentialsInitialized;
 
     __unsafe_unretained CMStore *blockSelf = self;
@@ -160,11 +164,15 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                       CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
                       CMObjectFetchResponse *response = [[CMObjectFetchResponse alloc] initWithObjects:objects errors:errors snippetResult:result responseMetadata:metadata];
                       response.count = count ? [count intValue] : [objects count];
-                      callback(response);
+                      if (callback) {
+                          callback(response);
+                      }
                   } errorHandler:^(NSError *error) {
-                      NSLog(@"Error occurred during object request: %@", [error description]);
+                      NSLog(@"*** Error occurred during object request: %@", [error description]);
                       lastError = error;
-                      callback(nil);
+                      if (callback) {
+                          callback(nil);
+                      }
                   }
      ];
 }
@@ -178,11 +186,12 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (void)allUserObjectsOfClass:(Class)klass additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback {
     _CMAssertUserConfigured;
 
-    [self _allObjects:callback ofClass:klass userLevel:YES additionalOptions:options];
+    [self _ensureUserLoggedInWithCallback:^{
+        [self _allObjects:callback ofClass:klass userLevel:YES additionalOptions:options];
+    }];
 }
 
 - (void)_allObjects:(CMStoreObjectFetchCallback)callback ofClass:(Class)klass userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options {
-    NSParameterAssert(callback);
     NSParameterAssert(klass);
     NSAssert([klass respondsToSelector:@selector(className)], @"You must pass a class (%@) that extends CMObject and responds to +className.", klass);
     _CMAssertAPICredentialsInitialized;
@@ -201,16 +210,16 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 - (void)searchUserObjects:(NSString *)query additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback {
     _CMAssertUserConfigured;
-
-    [self _searchObjects:callback query:query userLevel:YES additionalOptions:options];
+    [self _ensureUserLoggedInWithCallback:^{
+        [self _searchObjects:callback query:query userLevel:YES additionalOptions:options];
+    }];
 }
 
 - (void)_searchObjects:(CMStoreObjectFetchCallback)callback query:(NSString *)query userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options {
-    NSParameterAssert(callback);
     _CMAssertAPICredentialsInitialized;
 
     if (!query || [query length] == 0) {
-        NSLog(@"No query provided, so executing standard all-object retrieval");
+        NSLog(@"*** No query provided, so executing standard all-object retrieval");
         return [self _allObjects:callback userLevel:userLevel additionalOptions:options];
     }
 
@@ -228,11 +237,15 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                      [blockSelf cacheObjectsInMemory:objects atUserLevel:userLevel];
                      CMObjectFetchResponse *response = [[CMObjectFetchResponse alloc] initWithObjects:objects errors:errors snippetResult:result responseMetadata:metadata];
                      response.count = count ? [count intValue] : [objects count];
-                     callback(response);
+                     if (callback) {
+                         callback(response);
+                     }
                  } errorHandler:^(NSError *error) {
-                     NSLog(@"Error occurred during object request: %@", [error description]);
+                     NSLog(@"*** Error occurred during object request: %@", [error description]);
                      lastError = error;
-                     callback(nil);
+                     if (callback) {
+                         callback(nil);
+                     }
                  }
      ];
 }
@@ -271,7 +284,9 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 }
 
 - (void)saveAllUserObjectsWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback {
-    [self _saveObjects:[_cachedUserObjects allValues] userLevel:YES callback:callback additionalOptions:options];
+    [self _ensureUserLoggedInWithCallback:^{
+        [self _saveObjects:[_cachedUserObjects allValues] userLevel:YES callback:callback additionalOptions:options];
+    }];
 }
 
 - (void)saveUserObject:(CMObject *)theObject callback:(CMStoreObjectUploadCallback)callback {
@@ -280,7 +295,9 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 - (void)saveUserObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback {
     _CMAssertUserConfigured;
-    [self _saveObjects:$set(theObject) userLevel:YES callback:callback additionalOptions:options];
+    [self _ensureUserLoggedInWithCallback:^{
+        [self _saveObjects:$set(theObject) userLevel:YES callback:callback additionalOptions:options];
+    }];
 }
 
 - (void)saveObject:(CMObject *)theObject callback:(CMStoreObjectUploadCallback)callback {
@@ -304,11 +321,15 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                                 CMResponseMetadata *metadata = [[CMResponseMetadata alloc] initWithMetadata:meta];
                                 CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
                                 CMObjectUploadResponse *response = [[CMObjectUploadResponse alloc] initWithUploadStatuses:results snippetResult:result responseMetadata:metadata];
-                                callback(response);
+                                if (callback) {
+                                    callback(response);
+                                }
                             } errorHandler:^(NSError *error) {
-                                NSLog(@"Error occurred during object uploading: %@", [error description]);
+                                NSLog(@"*** Error occurred during object uploading: %@", [error description]);
                                 lastError = error;
-                                callback(nil);
+                                if (callback) {
+                                    callback(nil);
+                                }
                             }
      ];
 }
@@ -325,12 +346,16 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 - (void)saveUserFileAtURL:(NSURL *)url additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback {
     _CMAssertUserConfigured;
-    [self _saveFileAtURL:url named:nil userLevel:YES additionalOptions:options callback:callback];
+    [self _ensureUserLoggedInWithCallback:^{
+        [self _saveFileAtURL:url named:nil userLevel:YES additionalOptions:options callback:callback];
+    }];
 }
 
 - (void)saveUserFileAtURL:(NSURL *)url named:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback {
     _CMAssertUserConfigured;
-    [self _saveFileAtURL:url named:name userLevel:YES additionalOptions:options callback:callback];
+    [self _ensureUserLoggedInWithCallback:^{
+        [self _saveFileAtURL:url named:name userLevel:YES additionalOptions:options callback:callback];
+    }];
 }
 
 - (void)_saveFileAtURL:(NSURL *)url named:(NSString *)name userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback {
@@ -346,11 +371,15 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                   successHandler:^(CMFileUploadResult result, NSString *fileKey, id snippetResult) {
                       CMSnippetResult *sResult = [[CMSnippetResult alloc] initWithData:snippetResult];
                       CMFileUploadResponse *response = [[CMFileUploadResponse alloc] initWithResult:result key:fileKey snippetResult:sResult];
-                      callback(response);
+                      if (callback) {
+                          callback(response);
+                      }
                   } errorHandler:^(NSError *error) {
-                      NSLog(@"Error ocurred during file uploading: %@", [error description]);
+                      NSLog(@"*** Error ocurred during file uploading: %@", [error description]);
                       lastError = error;
-                      callback(nil);
+                      if (callback) {
+                          callback(nil);
+                      }
                   }
      ];
 }
@@ -365,12 +394,16 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 - (void)saveUserFileWithData:(NSData *)data additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback {
     _CMAssertUserConfigured;
-    [self _saveFileWithData:data named:nil userLevel:YES additionalOptions:options callback:callback];
+    [self _ensureUserLoggedInWithCallback:^{
+        [self _saveFileWithData:data named:nil userLevel:YES additionalOptions:options callback:callback];
+    }];
 }
 
 - (void)saveUserFileWithData:(NSData *)data named:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback {
     _CMAssertUserConfigured;
-    [self _saveFileWithData:data named:name userLevel:YES additionalOptions:options callback:callback];
+    [self _ensureUserLoggedInWithCallback:^{
+        [self _saveFileWithData:data named:name userLevel:YES additionalOptions:options callback:callback];
+    }];
 }
 
 - (void)_saveFileWithData:(NSData *)data named:(NSString *)name userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback {
@@ -386,11 +419,15 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                   successHandler:^(CMFileUploadResult result, NSString *fileKey, id snippetResult) {
                       CMSnippetResult *sResult = [[CMSnippetResult alloc] initWithData:snippetResult];
                       CMFileUploadResponse *response = [[CMFileUploadResponse alloc] initWithResult:result key:fileKey snippetResult:sResult];
-                      callback(response);
+                      if (callback) {
+                          callback(response);
+                      }
                   } errorHandler:^(NSError *error) {
-                      NSLog(@"Error ocurred during in-memory file uploading: %@", [error description]);
+                      NSLog(@"*** Error ocurred during in-memory file uploading: %@", [error description]);
                       lastError = error;
-                      callback(nil);
+                      if (callback) {
+                          callback(nil);
+                      }
                   }
      ];
 }
@@ -426,7 +463,9 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (void)deleteUserObject:(id<CMSerializable>)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback {
     NSParameterAssert(theObject);
     _CMAssertUserConfigured;
-    [self _deleteObjects:$array(theObject) additionalOptions:options userLevel:YES callback:callback];
+    [self _ensureUserLoggedInWithCallback:^{
+        [self _deleteObjects:$array(theObject) additionalOptions:options userLevel:YES callback:callback];
+    }];
 }
 
 - (void)deleteObjects:(NSArray *)objects additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback {
@@ -435,7 +474,9 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 - (void)deleteUserObjects:(NSArray *)objects additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback {
     _CMAssertUserConfigured;
-    [self _deleteObjects:objects additionalOptions:options userLevel:YES callback:callback];
+    [self _ensureUserLoggedInWithCallback:^{
+        [self _deleteObjects:objects additionalOptions:options userLevel:YES callback:callback];
+    }];
 }
 
 - (void)deleteFileNamed:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback {
@@ -444,7 +485,9 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 - (void)deleteUserFileNamed:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback {
     _CMAssertUserConfigured;
-    [self _deleteFileNamed:name additionalOptions:options userLevel:YES callback:callback];
+    [self _ensureUserLoggedInWithCallback:^{
+        [self _deleteFileNamed:name additionalOptions:options userLevel:YES callback:callback];
+    }];
 }
 
 - (void)_deleteFileNamed:(NSString *)name additionalOptions:(CMStoreOptions *)options userLevel:(BOOL)userLevel callback:(CMStoreDeleteCallback)callback {
@@ -458,11 +501,15 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                      successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult, NSNumber *count) {
                          CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
                          CMDeleteResponse *response = [[CMDeleteResponse alloc] initWithSuccess:results errors:errors snippetResult:result];
-                         callback(response);
+                         if (callback) {
+                             callback(response);
+                         }
                      } errorHandler:^(NSError *error) {
-                         NSLog(@"An error occurred when deleting the file named \"%@\": %@", name, [error description]);
+                         NSLog(@"*** An error occurred when deleting the file named \"%@\": %@", name, [error description]);
                          lastError = error;
-                         callback(nil);
+                         if (callback) {
+                             callback(nil);
+                         }
                      }
      ];
 }
@@ -487,11 +534,15 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                      successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult, NSNumber *count) {
                          CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
                          CMDeleteResponse *response = [[CMDeleteResponse alloc] initWithSuccess:results errors:errors snippetResult:result];
-                         callback(response);
+                         if (callback) {
+                             callback(response);
+                         }
                      } errorHandler:^(NSError *error) {
-                         NSLog(@"An error occurred when deleting objects with keys (%@): %@", keys, [error description]);
+                         NSLog(@"*** An error occurred when deleting objects with keys (%@): %@", keys, [error description]);
                          lastError = error;
-                         callback(nil);
+                         if (callback) {
+                             callback(nil);
+                         }
                      }
      ];
 
@@ -508,14 +559,13 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 - (void)userFileWithName:(NSString *)name additionalOptions:options callback:(CMStoreFileFetchCallback)callback {
     _CMAssertUserConfigured;
-
-    [self _fileWithName:name userLevel:YES additionalOptions:options callback:callback];
+    [self _ensureUserLoggedInWithCallback:^{
+        [self _fileWithName:name userLevel:YES additionalOptions:options callback:callback];
+    }];
 }
 
 - (void)_fileWithName:(NSString *)name userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileFetchCallback)callback {
     NSParameterAssert(name);
-    NSParameterAssert(callback);
-
     [webService getBinaryDataNamed:name
                 serverSideFunction:_CMTryMethod(options, serverSideFunction)
                               user:_CMUserOrNil
@@ -527,11 +577,15 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                                                            mimeType:mimeType];
                         [file writeToCache];
                         CMFileFetchResponse *response = [[CMFileFetchResponse alloc] initWithFile:file];
-                        callback(response);
+                        if (callback) {
+                            callback(response);
+                        }
                     } errorHandler:^(NSError *error) {
-                        NSLog(@"Error occurred during file request: %@", [error description]);
+                        NSLog(@"*** Error occurred during file request: %@", [error description]);
                         lastError = error;
-                        callback(nil);
+                        if (callback) {
+                            callback(nil);
+                        }
                     }
      ];
 }
@@ -580,5 +634,20 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 #pragma mark - Helper functions
 
+- (void)_ensureUserLoggedInWithCallback:(void (^)(void))callback {
+    NSAssert(user != nil, @"*** Attemping to log user in when user is not set on store. This is from an internal function and should never happen unless you are doing bad things!");
+    if (!user.isLoggedIn) {
+        [user loginWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
+            if (CMUserAccountOperationFailed(resultCode)) {
+                NSLog(@"*** Failed to login user during store operation");
+                lastError = $makeErr(@"CloudMineUserLoginErrorDomain", 0, $dict(@"user", user, @"resultCode", $num(resultCode)));
+            } else {
+                callback();
+            }
+        }];
+    } else {
+        callback();
+    }
+}
 
 @end
