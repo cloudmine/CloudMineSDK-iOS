@@ -11,6 +11,7 @@
 #import "CMGeoPoint.h"
 #import "CMObjectEncoder.h"
 #import "CMObjectDecoder.h"
+#import "CMAPICredentials.h"
 
 @interface CMGeoTestingObject : CMObject
 @property (strong) NSString *name;
@@ -45,6 +46,11 @@
 SPEC_BEGIN(CMGeoPointSpec)
 
 describe(@"CMGeoPoint", ^{
+    beforeAll(^{
+        [[CMAPICredentials sharedInstance] setAppSecret:@"appSecret"];
+        [[CMAPICredentials sharedInstance] setAppIdentifier:@"appIdentifier"];
+    });
+    
     it(@"should convert radians to degrees before storage if initialized with radians", ^{
         double latitudeInRadians = M_PI;
         double longitudeInRadians = M_PI_2;
