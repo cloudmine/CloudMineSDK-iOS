@@ -12,6 +12,7 @@
 #import "CMNullStore.h"
 #import "CMObject.h"
 #import "CMAPICredentials.h"
+#import "CMUser.h"
 
 SPEC_BEGIN(CMObjectSpec)
 
@@ -32,6 +33,31 @@ describe(@"CMObject", ^{
             [[theValue([[CMStore defaultStore] objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipUndefinedLevel)];
             [[theValue([newStore objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipAppLevel)];
             [[obj.store should] equal:newStore];
+        });
+
+        it(@"should save at the app level when save is called directly on the object", ^{
+        });
+    });
+
+    context(@"given an object that belongs to a user-level store", ^{
+
+        __block CMObject *obj;
+        __block CMStore *store;
+
+        beforeEach(^{
+            obj = [[CMObject alloc] init];
+            store = [CMStore defaultStore];
+            store.webService = [CMWebService nullMock];
+        });
+
+        it(@"should save at the user level when save is called directly on the object", ^{
+        });
+
+        it(@"should throw an exception if the object is subsequently saved with a user", ^{
+            CMUser *user = [[CMUser alloc] initWithUserId:@"test@test.com" andPassword:@"pass"];
+            [obj save:nil];
+            [[theValue([obj ownershipLevel]) should] equal:theValue(CMObjectOwnershipAppLevel)];
+            [[theBlock(^{ [obj saveWithUser:user callback:nil]; }) should] raise];
         });
     });
 

@@ -48,16 +48,16 @@
 #pragma mark - CMStore interactions
 
 - (void)save:(CMStoreObjectUploadCallback)callback {
-    if ([store objectOwnershipLevel:self] == CMObjectOwnershipUndefinedLevel) {
-        [store addObject:self];
+    if ([self.store objectOwnershipLevel:self] == CMObjectOwnershipUndefinedLevel) {
+        [self.store addObject:self];
     }
 
-    switch ([store objectOwnershipLevel:self]) {
+    switch ([self.store objectOwnershipLevel:self]) {
         case CMObjectOwnershipAppLevel:
-            [store saveObject:self callback:callback];
+            [self.store saveObject:self callback:callback];
             break;
         case CMObjectOwnershipUserLevel:
-            [store saveUserObject:self callback:callback];
+            [self.store saveUserObject:self callback:callback];
             break;
         default:
             NSLog(@"*** Error: Could not save object (%@) because no store was set. This should never happen!", self);
@@ -66,9 +66,9 @@
 }
 
 - (void)saveWithUser:(CMUser *)user callback:(CMStoreObjectUploadCallback)callback {
-    NSAssert([store objectOwnershipLevel:self] == CMObjectOwnershipAppLevel, @"*** Error: Object %@ is already at the app-level. You cannot also save it to the user level. Make a copy of it with a new objectId to do this.", self);
-    if ([store objectOwnershipLevel:self] == CMObjectOwnershipUndefinedLevel) {
-        [store addUserObject:self];
+    NSAssert([self.store objectOwnershipLevel:self] == CMObjectOwnershipUserLevel, @"*** Error: Object %@ is already at the app-level. You cannot also save it to the user level. Make a copy of it with a new objectId to do this.", self);
+    if ([self.store objectOwnershipLevel:self] == CMObjectOwnershipUndefinedLevel) {
+        [self.store addUserObject:self];
     }
     [self save:callback];
 }
@@ -141,7 +141,7 @@
 }
 
 - (CMObjectOwnershipLevel)ownershipLevel {
-    if (self.store != nil) {
+    if (self.store != nil && self.store != [CMNullStore nullStore]) {
         return [self.store objectOwnershipLevel:self];
     } else {
         return CMObjectOwnershipUndefinedLevel;
