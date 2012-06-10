@@ -10,6 +10,7 @@
 
 #import "CMStore.h"
 #import "CMNullStore.h"
+#import "CMNullStore.h"
 #import "CMWebService.h"
 #import "CMGenericSerializableObject.h"
 #import "CMAPICredentials.h"
@@ -37,11 +38,11 @@ describe(@"CMStore", ^{
             store = [CMStore store];
             store.webService = webService;
         });
-        
+
         it(@"should nullify the object's store reference when removed from the store", ^{
             CMObject *obj = [[CMObject alloc] init];
             [store addObject:obj];
-            
+
             [store removeObject:obj];
             [[theValue([store objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipUndefinedLevel)];
             [[obj.store should] equal:[CMNullStore nullStore]];
@@ -75,11 +76,11 @@ describe(@"CMStore", ^{
             store = [CMStore storeWithUser:user];
             store.webService = webService;
         });
-        
+
         it(@"should nullify the object's store reference when removed from the store", ^{
             CMObject *obj = [[CMObject alloc] init];
             [store addUserObject:obj];
-            
+
             [store removeUserObject:obj];
             [[theValue([store objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipUndefinedLevel)];
             [[obj.store should] equal:[CMNullStore nullStore]];
@@ -143,10 +144,12 @@ describe(@"CMStore", ^{
             });
         });
 
-        context(@"when using the default store", ^{
-            it(@"should always be the same store instance", ^{
-                CMStore *defaultStore = [CMStore defaultStore];
-                [[defaultStore should] equal:[CMStore defaultStore]];
+        context(@"when removing any object from a store", ^{
+            it(@"should cause the object's store to be CMNullStore", ^{
+                CMObject *obj = [[CMObject alloc] init];
+                [[obj.store should] equal:[CMStore defaultStore]];
+                [[CMStore defaultStore] removeObject:obj];
+                [[obj.store should] equal:[CMNullStore nullStore]];
             });
         });
     });

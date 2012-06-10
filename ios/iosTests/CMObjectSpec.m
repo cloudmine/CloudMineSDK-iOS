@@ -9,6 +9,7 @@
 #import "Kiwi.h"
 
 #import "CMStore.h"
+#import "CMNullStore.h"
 #import "CMObject.h"
 #import "CMAPICredentials.h"
 
@@ -31,6 +32,15 @@ describe(@"CMObject", ^{
             [[theValue([[CMStore defaultStore] objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipUndefinedLevel)];
             [[theValue([newStore objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipAppLevel)];
             [[obj.store should] equal:newStore];
+        });
+    });
+
+    context(@"given an object that belongs to any store", ^{
+        it(@"should set its store to the CMNullStore singleton when the store is set to nil", ^{
+            CMObject *obj = [[CMObject alloc] init];
+            [[obj.store should] equal:[CMStore defaultStore]];
+            obj.store = nil;
+            [[obj.store should] equal:[CMNullStore nullStore]];
         });
     });
 });
