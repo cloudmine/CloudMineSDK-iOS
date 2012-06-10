@@ -92,7 +92,7 @@
             // with a null store that throws exceptions whenever anything is called on it.
             store = [CMNullStore nullStore];
             return;
-        } else if(!store) {
+        } else if(!store || store == [CMNullStore nullStore]) {
             switch ([newStore objectOwnershipLevel:self]) {
                 case CMObjectOwnershipAppLevel:
                     store = newStore;
