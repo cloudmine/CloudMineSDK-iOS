@@ -17,16 +17,24 @@
 SPEC_BEGIN(CMObjectSpec)
 
 describe(@"CMObject", ^{
+    __block CMObject *obj;
+    __block CMStore *store;
+
     beforeAll(^{
         [[CMAPICredentials sharedInstance] setAppSecret:@"appSecret"];
         [[CMAPICredentials sharedInstance] setAppIdentifier:@"appIdentifier"];
     });
 
+    beforeEach(^{
+        obj = [[CMObject alloc] init];
+        store = [CMStore defaultStore];
+        store.webService = [CMWebService nullMock];
+    });
+
     context(@"given an object that belongs to an app-level store", ^{
         it(@"should add itself to the new store and remove itself from the old one when a new store is assigned", ^{
-            CMObject *obj = [[CMObject alloc] init];
             CMStore *newStore = [CMStore store];
-            [[obj.store should] equal:[CMStore defaultStore]];
+            [[obj.store should] equal:store];
 
             obj.store = newStore;
 
@@ -36,21 +44,22 @@ describe(@"CMObject", ^{
         });
 
         it(@"should save at the app level when save is called directly on the object", ^{
+            [obj save:nil];
+            [[theValue([obj ownershipLevel]) should] equal:theValue(CMObjectOwnershipAppLevel)];
         });
     });
 
     context(@"given an object that belongs to a user-level store", ^{
-
-        __block CMObject *obj;
-        __block CMStore *store;
-
-        beforeEach(^{
-            obj = [[CMObject alloc] init];
-            store = [CMStore defaultStore];
-            store.webService = [CMWebService nullMock];
-        });
-
         it(@"should save at the user level when save is called directly on the object", ^{
+            CMUser *user = [[CMUser alloc] init];
+            user.token = @"1234";
+            user.tokenExpiration = [NSDate dateWithTimeIntervalSinceNow:1000.0]; // set it to the future
+
+            store.user = user;
+            [store addUserObject:obj];
+
+            [obj save:nil];
+            [[theValue(obj.ownershipLevel) should] equal:theValue(CMObjectOwnershipUserLevel)];
         });
 
         it(@"should throw an exception if the object is subsequently saved with a user", ^{
@@ -58,6 +67,22 @@ describe(@"CMObject", ^{
             [obj save:nil];
             [[theValue([obj ownershipLevel]) should] equal:theValue(CMObjectOwnershipAppLevel)];
             [[theBlock(^{ [obj saveWithUser:user callback:nil]; }) should] raise];
+        });
+    });
+    
+    context(@"given an object that doesn't belong to a store yet", ^{
+        it(@"should save to the app-level when save: is called on the object", ^{
+            [obj save:nil];
+            [[theValue(obj.ownershipLevel) should] equal:theValue(CMObjectOwnershipAppLevel)];
+        });
+        
+        it(@"should save to the user-level when saveWithUser: is called on the object", ^{
+            CMUser *user = [[CMUser alloc] init];
+            user.token = @"1234";
+            user.tokenExpiration = [NSDate dateWithTimeIntervalSinceNow:1000.0]; // set it to the future
+
+            [obj saveWithUser:user callback:nil];
+            [[theValue(obj.ownershipLevel) should] equal:theValue(CMObjectOwnershipUserLevel)];
         });
     });
 
