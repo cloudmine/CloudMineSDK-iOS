@@ -176,9 +176,9 @@ void KWInterceptedForwardInvocation(id anObject, SEL aSelector, NSInvocation* an
 
     Class interceptClass = object_getClass(anObject);
     Class originalClass = class_getSuperclass(interceptClass);
-    anObject->isa = originalClass;
+    object_setClass(anObject, originalClass);
     [anInvocation invoke];
-    anObject->isa = interceptClass;
+    object_setClass(anObject, interceptClass);
 }
 
 void KWInterceptedDealloc(id anObject, SEL aSelector) {
@@ -188,7 +188,7 @@ void KWInterceptedDealloc(id anObject, SEL aSelector) {
 
     Class interceptClass = object_getClass(anObject);
     Class originalClass = class_getSuperclass(interceptClass);
-    anObject->isa = originalClass;
+    object_setClass(anObject, originalClass);
     [anObject dealloc];
 }
 

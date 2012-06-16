@@ -63,7 +63,7 @@ NSString * const CMPagingDescriptorCountKey = @"count";
     NSString *skipString = $sprintf(@"%@=%i", CMPagingDescriptorSkipKey, skip);
     NSString *countString = $sprintf(@"%@=%@", CMPagingDescriptorCountKey, includeCount ? @"true" : @"false");
 
-    return [$array(limitString, skipString, countString) componentsJoinedByString:@"&"];
+    return [@[limitString, skipString, countString] componentsJoinedByString:@"&"];
 }
 
 @end
