@@ -17,7 +17,6 @@
 #import "CMPagingDescriptor.h"
 #import "CMSortDescriptor.h"
 #import "NSURL+QueryParameterAdditions.h"
-#import "CloudMineVersion.h"
 
 #define CM_APIKEY_HEADER @"X-CloudMine-ApiKey"
 #define CM_SESSIONTOKEN_HEADER @"X-CloudMine-SessionToken"

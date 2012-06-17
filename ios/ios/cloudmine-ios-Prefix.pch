@@ -1,6 +1,5 @@
-//
-// Prefix header for all source files of the 'ios' target in the 'ios' project
-//
+
+#define CM_VERSION @"1.0"
 
 #ifdef __OBJC__
     #import <Foundation/Foundation.h>

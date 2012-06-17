@@ -128,7 +128,6 @@
 		7AE355D714F1B896006AF903 /* CMFileUploadResult.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AE355D414F1B850006AF903 /* CMFileUploadResult.h */; };
 		7AF02D5B1507B36D005F03FD /* SPLowVerbosity.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF02D531507B36D005F03FD /* SPLowVerbosity.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7AF6685514719FC900E2A06D /* YAJLiOS in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AF6685414719FC800E2A06D /* YAJLiOS */; };
-		7AFDFE34158E938200388D6E /* CloudMineVersion.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AFDFE33158E935F00388D6E /* CloudMineVersion.h */; };
 		7AFDFE42158E959B00388D6E /* CMDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE37158E959B00388D6E /* CMDate.m */; };
 		7AFDFE43158E959B00388D6E /* CMFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE39158E959B00388D6E /* CMFile.m */; };
 		7AFDFE44158E959B00388D6E /* CMGeoPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE3B158E959B00388D6E /* CMGeoPoint.m */; };
@@ -154,7 +153,6 @@
 			dstPath = "${BUILD_DIR}/${CONFIGURATION}-iphoneuniversal/${PRODUCT_NAME}.framework/Versions/A/Headers/";
 			dstSubfolderSpec = 0;
 			files = (
-				7AFDFE34158E938200388D6E /* CloudMineVersion.h in CopyFiles */,
 				65199ED5156A84D600267EC6 /* CMDistance.h in CopyFiles */,
 				65199ECD156A847A00267EC6 /* CMDeleteResponse.h in CopyFiles */,
 				65199ECE156A847A00267EC6 /* CMFileFetchResponse.h in CopyFiles */,
@@ -327,7 +325,6 @@
 		7AF02D521507B36D005F03FD /* SPLowVerbosity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPLowVerbosity.h; path = SPSuccinct/src/SPLowVerbosity.h; sourceTree = "<group>"; };
 		7AF02D531507B36D005F03FD /* SPLowVerbosity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPLowVerbosity.m; path = SPSuccinct/src/SPLowVerbosity.m; sourceTree = "<group>"; };
 		7AF6685414719FC800E2A06D /* YAJLiOS */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = YAJLiOS; path = ios/Vendor/YAJL/YAJLiOS.framework/Versions/A/YAJLiOS; sourceTree = "<group>"; };
-		7AFDFE33158E935F00388D6E /* CloudMineVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudMineVersion.h; sourceTree = "<group>"; };
 		7AFDFE36158E959B00388D6E /* CMDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMDate.h; sourceTree = "<group>"; };
 		7AFDFE37158E959B00388D6E /* CMDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMDate.m; sourceTree = "<group>"; };
 		7AFDFE38158E959B00388D6E /* CMFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMFile.h; sourceTree = "<group>"; };
@@ -636,7 +633,6 @@
 			isa = PBXGroup;
 			children = (
 				7AA79DDA14DC5E4000F3CA3B /* CloudMine.h */,
-				7AFDFE33158E935F00388D6E /* CloudMineVersion.h */,
 				7A58CC1F14F1B544003E864B /* CMMimeType.h */,
 				7A58CC2014F1B544003E864B /* CMMimeType.m */,
 				7AFDFE35158E953200388D6E /* Persisted Objects */,
