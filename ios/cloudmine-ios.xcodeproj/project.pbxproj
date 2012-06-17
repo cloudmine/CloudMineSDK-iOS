@@ -41,8 +41,6 @@
 		65199ED3156A847A00267EC6 /* CMSnippetResult.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65199EBB156A7D9500267EC6 /* CMSnippetResult.h */; };
 		65199ED4156A847A00267EC6 /* CMStoreResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65199EBD156A7D9500267EC6 /* CMStoreResponse.h */; };
 		65199ED5156A84D600267EC6 /* CMDistance.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65199EC0156A7D9500267EC6 /* CMDistance.h */; };
-		658BBA3D156ABB29004F065B /* CMUntypedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 658BBA3C156ABB29004F065B /* CMUntypedObject.m */; };
-		658BBA43156ABE22004F065B /* CMUntypedObject.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 658BBA3B156ABB29004F065B /* CMUntypedObject.h */; };
 		7A0413BB146C5B3A00EF537A /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0413A2146C5B3A00EF537A /* ASIAuthenticationDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7A0413BE146C5B3A00EF537A /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0413A5146C5B3A00EF537A /* ASIDataCompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7A0413C0146C5B3A00EF537A /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0413A7146C5B3A00EF537A /* ASIDataDecompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -60,7 +58,6 @@
 		7A04E86C147D8435006E00AB /* CMServerFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A04E86A147D8435006E00AB /* CMServerFunction.m */; };
 		7A04E86F147D90F5006E00AB /* CMServerFunctionSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A04E86E147D90F5006E00AB /* CMServerFunctionSpec.m */; };
 		7A0DB1BC147B016B007F482C /* CMBlockValidationMessageSpy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0DB1BB147B016B007F482C /* CMBlockValidationMessageSpy.m */; };
-		7A262E0A14C8F8B0006A03BA /* CMGeoPoint.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7A7E31BE14C4D0920091F1E3 /* CMGeoPoint.h */; };
 		7A262E0B14C8F8B0006A03BA /* NSURL+QueryParameterAdditions.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AD36F8B146CB6A600DD4734 /* NSURL+QueryParameterAdditions.h */; };
 		7A262E0C14C8F8B0006A03BA /* CMStore.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7A7E31C614C88F8A0091F1E3 /* CMStore.h */; };
 		7A308A3714798EFD008ADD3C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AD36F80146C656600DD4734 /* UIKit.framework */; };
@@ -75,20 +72,15 @@
 		7A4A6FB91500474500B95D13 /* CMUserAccountResult.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7A4A6F2B14FFF3CF00B95D13 /* CMUserAccountResult.h */; };
 		7A58CC2214F1B544003E864B /* CMMimeType.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A58CC2014F1B544003E864B /* CMMimeType.m */; };
 		7A58CC2314F1B54E003E864B /* CMMimeType.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7A58CC1F14F1B544003E864B /* CMMimeType.h */; };
-		7A5C40A414D8981E00906689 /* CMDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A5C40A214D8981E00906689 /* CMDate.m */; };
-		7A5C40A614D8B11D00906689 /* CMFile.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AD93BAA14D1C5DA00CC1CC9 /* CMFile.h */; };
-		7A5C40A714D8B11D00906689 /* CMDate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7A5C40A114D8981E00906689 /* CMDate.h */; };
 		7A5C40A814D8B11D00906689 /* CMPagingDescriptor.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AD9221A14CF47350032DDDE /* CMPagingDescriptor.h */; };
 		7A5C40A914D8B11D00906689 /* CMStoreOptions.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AD9222114D06B9A0032DDDE /* CMStoreOptions.h */; };
 		7A5C40AA14D8B11D00906689 /* CMStoreCallbacks.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AD7DA5714D221F600F771C7 /* CMStoreCallbacks.h */; };
 		7A6B800D14871BCA00D8B211 /* CMObjectDecoderSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6B800C14871BCA00D8B211 /* CMObjectDecoderSpec.m */; };
 		7A6B801114871E3700D8B211 /* CMGenericSerializableObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6B801014871E3700D8B211 /* CMGenericSerializableObject.m */; };
 		7A766209156307DF009840EE /* CMSortDescriptorSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A766208156307DF009840EE /* CMSortDescriptorSpec.m */; };
-		7A7E31C114C4D0920091F1E3 /* CMGeoPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A7E31BF14C4D0920091F1E3 /* CMGeoPoint.m */; };
 		7A7E31C414C603780091F1E3 /* CMGeoPointTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A7E31C314C603780091F1E3 /* CMGeoPointTest.m */; };
 		7A7E31C914C88F8A0091F1E3 /* CMStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A7E31C714C88F8A0091F1E3 /* CMStore.m */; };
 		7A7E31CB14C88F980091F1E3 /* CMStoreSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A7E31CA14C88F970091F1E3 /* CMStoreSpec.m */; };
-		7A87315214BB0AD0000D6DEA /* CMObject.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AD36F77146C643E00DD4734 /* CMObject.h */; };
 		7A87315314BB0AD0000D6DEA /* NSString+UUID.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AABA2E61480598300FD52A0 /* NSString+UUID.h */; };
 		7A87315414BB0AD0000D6DEA /* CMObjectDecoder.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AABA2FB14818DCA00FD52A0 /* CMObjectDecoder.h */; };
 		7A87315514BB0AD0000D6DEA /* CMObjectEncoder.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AABA2FE14818DCA00FD52A0 /* CMObjectEncoder.h */; };
@@ -103,14 +95,12 @@
 		7A91E8D914E6EF85008B7941 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A91E8D814E6EF85008B7941 /* CoreLocation.framework */; };
 		7A934E78150E8CC200A2CAD6 /* CMObjectSerialization.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7A7EDBD9148EBE3800AB5B69 /* CMObjectSerialization.h */; };
 		7AA79D6314DC1FB900F3CA3B /* CMCrossPlatformGenericSerializableObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D6214DC1FB900F3CA3B /* CMCrossPlatformGenericSerializableObject.m */; };
-		7AA79D6814DC216A00F3CA3B /* CMObjectClassNameRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D6614DC216A00F3CA3B /* CMObjectClassNameRegistry.m */; };
 		7AA79D7A14DC23C700F3CA3B /* MARTNSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D6D14DC23C700F3CA3B /* MARTNSObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7AA79D7C14DC23C700F3CA3B /* RTIvar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D6F14DC23C700F3CA3B /* RTIvar.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7AA79D7E14DC23C700F3CA3B /* RTMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D7114DC23C700F3CA3B /* RTMethod.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7AA79D8014DC23C700F3CA3B /* RTProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D7314DC23C700F3CA3B /* RTProperty.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7AA79D8214DC23C700F3CA3B /* RTProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D7514DC23C700F3CA3B /* RTProtocol.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7AA79D8414DC23C700F3CA3B /* RTUnregisteredClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D7714DC23C700F3CA3B /* RTUnregisteredClass.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		7AA79D9514DC318500F3CA3B /* CMObjectClassNameRegistry.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AA79D6514DC216A00F3CA3B /* CMObjectClassNameRegistry.h */; };
 		7AA79DDD14DC5E4D00F3CA3B /* CloudMine.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AA79DDA14DC5E4000F3CA3B /* CloudMine.h */; };
 		7AABA2E51480549A00FD52A0 /* CMObjectEncoderSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AABA2E41480549A00FD52A0 /* CMObjectEncoderSpec.m */; };
 		7AABA2E91480598300FD52A0 /* NSString+UUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AABA2E71480598300FD52A0 /* NSString+UUID.m */; };
@@ -124,7 +114,6 @@
 		7AB4AB77145DC5D8006AEF67 /* libcloudmine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB5F145DC5D8006AEF67 /* libcloudmine.a */; };
 		7AB4AB7D145DC5D8006AEF67 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7AB4AB7B145DC5D8006AEF67 /* InfoPlist.strings */; };
 		7AB8BAFA1521066F00860081 /* SPLowVerbosity.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AF02D521507B36D005F03FD /* SPLowVerbosity.h */; };
-		7AD36F7A146C643E00DD4734 /* CMObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD36F78146C643E00DD4734 /* CMObject.m */; };
 		7AD36F7F146C650500DD4734 /* CMWebService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD36F7D146C650500DD4734 /* CMWebService.m */; };
 		7AD36F81146C656600DD4734 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AD36F80146C656600DD4734 /* UIKit.framework */; };
 		7AD36F85146CA4AC00DD4734 /* CMAPICredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD36F83146CA4AC00DD4734 /* CMAPICredentials.m */; };
@@ -134,13 +123,18 @@
 		7AD9222014CF5B9B0032DDDE /* CMPagingDescriptorSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD9221F14CF5B9B0032DDDE /* CMPagingDescriptorSpec.m */; };
 		7AD9222414D06B9A0032DDDE /* CMStoreOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD9222214D06B9A0032DDDE /* CMStoreOptions.m */; };
 		7AD9222614D06EB10032DDDE /* CMStoreOptionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD9222514D06EB10032DDDE /* CMStoreOptionsSpec.m */; };
-		7AD93BAD14D1C5DA00CC1CC9 /* CMFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD93BAB14D1C5DA00CC1CC9 /* CMFile.m */; };
 		7AD93BAF14D1CCFE00CC1CC9 /* CMFileSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD93BAE14D1CCFE00CC1CC9 /* CMFileSpec.m */; };
 		7AE2848B1562C3C8003E8A8F /* CMSortDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE2848A1562C3C8003E8A8F /* CMSortDescriptor.m */; };
 		7AE355D714F1B896006AF903 /* CMFileUploadResult.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AE355D414F1B850006AF903 /* CMFileUploadResult.h */; };
 		7AF02D5B1507B36D005F03FD /* SPLowVerbosity.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF02D531507B36D005F03FD /* SPLowVerbosity.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7AF6685514719FC900E2A06D /* YAJLiOS in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AF6685414719FC800E2A06D /* YAJLiOS */; };
 		7AFDFE34158E938200388D6E /* CloudMineVersion.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AFDFE33158E935F00388D6E /* CloudMineVersion.h */; };
+		7AFDFE42158E959B00388D6E /* CMDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE37158E959B00388D6E /* CMDate.m */; };
+		7AFDFE43158E959B00388D6E /* CMFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE39158E959B00388D6E /* CMFile.m */; };
+		7AFDFE44158E959B00388D6E /* CMGeoPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE3B158E959B00388D6E /* CMGeoPoint.m */; };
+		7AFDFE45158E959B00388D6E /* CMObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE3D158E959B00388D6E /* CMObject.m */; };
+		7AFDFE46158E959B00388D6E /* CMObjectClassNameRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE3F158E959B00388D6E /* CMObjectClassNameRegistry.m */; };
+		7AFDFE47158E959B00388D6E /* CMUntypedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE41158E959B00388D6E /* CMUntypedObject.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -161,7 +155,6 @@
 			dstSubfolderSpec = 0;
 			files = (
 				7AFDFE34158E938200388D6E /* CloudMineVersion.h in CopyFiles */,
-				658BBA43156ABE22004F065B /* CMUntypedObject.h in CopyFiles */,
 				65199ED5156A84D600267EC6 /* CMDistance.h in CopyFiles */,
 				65199ECD156A847A00267EC6 /* CMDeleteResponse.h in CopyFiles */,
 				65199ECE156A847A00267EC6 /* CMFileFetchResponse.h in CopyFiles */,
@@ -178,16 +171,11 @@
 				7AE355D714F1B896006AF903 /* CMFileUploadResult.h in CopyFiles */,
 				7A58CC2314F1B54E003E864B /* CMMimeType.h in CopyFiles */,
 				7AA79DDD14DC5E4D00F3CA3B /* CloudMine.h in CopyFiles */,
-				7AA79D9514DC318500F3CA3B /* CMObjectClassNameRegistry.h in CopyFiles */,
-				7A5C40A614D8B11D00906689 /* CMFile.h in CopyFiles */,
-				7A5C40A714D8B11D00906689 /* CMDate.h in CopyFiles */,
 				7A5C40A814D8B11D00906689 /* CMPagingDescriptor.h in CopyFiles */,
 				7A5C40A914D8B11D00906689 /* CMStoreOptions.h in CopyFiles */,
 				7A5C40AA14D8B11D00906689 /* CMStoreCallbacks.h in CopyFiles */,
-				7A262E0A14C8F8B0006A03BA /* CMGeoPoint.h in CopyFiles */,
 				7A262E0B14C8F8B0006A03BA /* NSURL+QueryParameterAdditions.h in CopyFiles */,
 				7A262E0C14C8F8B0006A03BA /* CMStore.h in CopyFiles */,
-				7A87315214BB0AD0000D6DEA /* CMObject.h in CopyFiles */,
 				7A87315314BB0AD0000D6DEA /* NSString+UUID.h in CopyFiles */,
 				7A87315414BB0AD0000D6DEA /* CMObjectDecoder.h in CopyFiles */,
 				7A87315514BB0AD0000D6DEA /* CMObjectEncoder.h in CopyFiles */,
@@ -221,8 +209,6 @@
 		65199EBE156A7D9500267EC6 /* CMStoreResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMStoreResponse.m; path = Response/CMStoreResponse.m; sourceTree = "<group>"; };
 		65199EC0156A7D9500267EC6 /* CMDistance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMDistance.h; sourceTree = "<group>"; };
 		65199EC1156A7D9500267EC6 /* CMDistance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMDistance.m; sourceTree = "<group>"; };
-		658BBA3B156ABB29004F065B /* CMUntypedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMUntypedObject.h; sourceTree = "<group>"; };
-		658BBA3C156ABB29004F065B /* CMUntypedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUntypedObject.m; sourceTree = "<group>"; };
 		7A0413A1146C5B3A00EF537A /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		7A0413A2146C5B3A00EF537A /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		7A0413A3146C5B3A00EF537A /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICacheDelegate.h; sourceTree = "<group>"; };
@@ -263,15 +249,11 @@
 		7A4A6F2B14FFF3CF00B95D13 /* CMUserAccountResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMUserAccountResult.h; sourceTree = "<group>"; };
 		7A58CC1F14F1B544003E864B /* CMMimeType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMMimeType.h; sourceTree = "<group>"; };
 		7A58CC2014F1B544003E864B /* CMMimeType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMMimeType.m; sourceTree = "<group>"; };
-		7A5C40A114D8981E00906689 /* CMDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMDate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		7A5C40A214D8981E00906689 /* CMDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMDate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7A6B800C14871BCA00D8B211 /* CMObjectDecoderSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectDecoderSpec.m; sourceTree = "<group>"; };
 		7A6B800F14871E3700D8B211 /* CMGenericSerializableObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMGenericSerializableObject.h; sourceTree = "<group>"; };
 		7A6B801014871E3700D8B211 /* CMGenericSerializableObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMGenericSerializableObject.m; sourceTree = "<group>"; };
 		7A70DE5814E33DA000EC137E /* math+floats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "math+floats.h"; sourceTree = "<group>"; };
 		7A766208156307DF009840EE /* CMSortDescriptorSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMSortDescriptorSpec.m; sourceTree = "<group>"; };
-		7A7E31BE14C4D0920091F1E3 /* CMGeoPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMGeoPoint.h; sourceTree = "<group>"; };
-		7A7E31BF14C4D0920091F1E3 /* CMGeoPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMGeoPoint.m; sourceTree = "<group>"; };
 		7A7E31C314C603780091F1E3 /* CMGeoPointTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMGeoPointTest.m; sourceTree = "<group>"; };
 		7A7E31C614C88F8A0091F1E3 /* CMStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMStore.h; sourceTree = "<group>"; };
 		7A7E31C714C88F8A0091F1E3 /* CMStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMStore.m; sourceTree = "<group>"; };
@@ -282,8 +264,6 @@
 		7A91E8D814E6EF85008B7941 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		7AA79D6114DC1FB900F3CA3B /* CMCrossPlatformGenericSerializableObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMCrossPlatformGenericSerializableObject.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		7AA79D6214DC1FB900F3CA3B /* CMCrossPlatformGenericSerializableObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMCrossPlatformGenericSerializableObject.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		7AA79D6514DC216A00F3CA3B /* CMObjectClassNameRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMObjectClassNameRegistry.h; sourceTree = "<group>"; };
-		7AA79D6614DC216A00F3CA3B /* CMObjectClassNameRegistry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectClassNameRegistry.m; sourceTree = "<group>"; };
 		7AA79D6A14DC23C700F3CA3B /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		7AA79D6C14DC23C700F3CA3B /* MARTNSObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MARTNSObject.h; sourceTree = "<group>"; };
 		7AA79D6D14DC23C700F3CA3B /* MARTNSObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MARTNSObject.m; sourceTree = "<group>"; };
@@ -318,8 +298,6 @@
 		7AB4AB7C145DC5D8006AEF67 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7AD36F73146C623B00DD4734 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		7AD36F74146C623B00DD4734 /* YAJLiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YAJLiOS.framework; sourceTree = "<group>"; };
-		7AD36F77146C643E00DD4734 /* CMObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMObject.h; sourceTree = "<group>"; };
-		7AD36F78146C643E00DD4734 /* CMObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObject.m; sourceTree = "<group>"; };
 		7AD36F7C146C650500DD4734 /* CMWebService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMWebService.h; sourceTree = "<group>"; };
 		7AD36F7D146C650500DD4734 /* CMWebService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMWebService.m; sourceTree = "<group>"; };
 		7AD36F80146C656600DD4734 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -336,8 +314,6 @@
 		7AD9222114D06B9A0032DDDE /* CMStoreOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMStoreOptions.h; sourceTree = "<group>"; };
 		7AD9222214D06B9A0032DDDE /* CMStoreOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMStoreOptions.m; sourceTree = "<group>"; };
 		7AD9222514D06EB10032DDDE /* CMStoreOptionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMStoreOptionsSpec.m; sourceTree = "<group>"; };
-		7AD93BAA14D1C5DA00CC1CC9 /* CMFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMFile.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		7AD93BAB14D1C5DA00CC1CC9 /* CMFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMFile.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7AD93BAE14D1CCFE00CC1CC9 /* CMFileSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMFileSpec.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7AE284891562C3C8003E8A8F /* CMSortDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMSortDescriptor.h; sourceTree = "<group>"; };
 		7AE2848A1562C3C8003E8A8F /* CMSortDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMSortDescriptor.m; sourceTree = "<group>"; };
@@ -352,6 +328,18 @@
 		7AF02D531507B36D005F03FD /* SPLowVerbosity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPLowVerbosity.m; path = SPSuccinct/src/SPLowVerbosity.m; sourceTree = "<group>"; };
 		7AF6685414719FC800E2A06D /* YAJLiOS */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = YAJLiOS; path = ios/Vendor/YAJL/YAJLiOS.framework/Versions/A/YAJLiOS; sourceTree = "<group>"; };
 		7AFDFE33158E935F00388D6E /* CloudMineVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudMineVersion.h; sourceTree = "<group>"; };
+		7AFDFE36158E959B00388D6E /* CMDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMDate.h; sourceTree = "<group>"; };
+		7AFDFE37158E959B00388D6E /* CMDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMDate.m; sourceTree = "<group>"; };
+		7AFDFE38158E959B00388D6E /* CMFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMFile.h; sourceTree = "<group>"; };
+		7AFDFE39158E959B00388D6E /* CMFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMFile.m; sourceTree = "<group>"; };
+		7AFDFE3A158E959B00388D6E /* CMGeoPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMGeoPoint.h; sourceTree = "<group>"; };
+		7AFDFE3B158E959B00388D6E /* CMGeoPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMGeoPoint.m; sourceTree = "<group>"; };
+		7AFDFE3C158E959B00388D6E /* CMObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMObject.h; sourceTree = "<group>"; };
+		7AFDFE3D158E959B00388D6E /* CMObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObject.m; sourceTree = "<group>"; };
+		7AFDFE3E158E959B00388D6E /* CMObjectClassNameRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMObjectClassNameRegistry.h; sourceTree = "<group>"; };
+		7AFDFE3F158E959B00388D6E /* CMObjectClassNameRegistry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectClassNameRegistry.m; sourceTree = "<group>"; };
+		7AFDFE40158E959B00388D6E /* CMUntypedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMUntypedObject.h; sourceTree = "<group>"; };
+		7AFDFE41158E959B00388D6E /* CMUntypedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUntypedObject.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -647,22 +635,11 @@
 		7AD36F76146C642900DD4734 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				658BBA3B156ABB29004F065B /* CMUntypedObject.h */,
-				658BBA3C156ABB29004F065B /* CMUntypedObject.m */,
 				7AA79DDA14DC5E4000F3CA3B /* CloudMine.h */,
 				7AFDFE33158E935F00388D6E /* CloudMineVersion.h */,
-				7AA79D6514DC216A00F3CA3B /* CMObjectClassNameRegistry.h */,
-				7AA79D6614DC216A00F3CA3B /* CMObjectClassNameRegistry.m */,
-				7AD36F77146C643E00DD4734 /* CMObject.h */,
-				7AD36F78146C643E00DD4734 /* CMObject.m */,
-				7A7E31BE14C4D0920091F1E3 /* CMGeoPoint.h */,
-				7A7E31BF14C4D0920091F1E3 /* CMGeoPoint.m */,
-				7AD93BAA14D1C5DA00CC1CC9 /* CMFile.h */,
-				7AD93BAB14D1C5DA00CC1CC9 /* CMFile.m */,
-				7A5C40A114D8981E00906689 /* CMDate.h */,
-				7A5C40A214D8981E00906689 /* CMDate.m */,
 				7A58CC1F14F1B544003E864B /* CMMimeType.h */,
 				7A58CC2014F1B544003E864B /* CMMimeType.m */,
+				7AFDFE35158E953200388D6E /* Persisted Objects */,
 				65199EBF156A7D9500267EC6 /* Metadata */,
 				7AD36F8A146CB69000DD4734 /* Extensions */,
 				7AD36F7B146C64F300DD4734 /* Web Services */,
@@ -721,6 +698,25 @@
 				7AF02D531507B36D005F03FD /* SPLowVerbosity.m */,
 			);
 			name = SPSuccinct;
+			sourceTree = "<group>";
+		};
+		7AFDFE35158E953200388D6E /* Persisted Objects */ = {
+			isa = PBXGroup;
+			children = (
+				7AFDFE36158E959B00388D6E /* CMDate.h */,
+				7AFDFE37158E959B00388D6E /* CMDate.m */,
+				7AFDFE38158E959B00388D6E /* CMFile.h */,
+				7AFDFE39158E959B00388D6E /* CMFile.m */,
+				7AFDFE3A158E959B00388D6E /* CMGeoPoint.h */,
+				7AFDFE3B158E959B00388D6E /* CMGeoPoint.m */,
+				7AFDFE3C158E959B00388D6E /* CMObject.h */,
+				7AFDFE3D158E959B00388D6E /* CMObject.m */,
+				7AFDFE3E158E959B00388D6E /* CMObjectClassNameRegistry.h */,
+				7AFDFE3F158E959B00388D6E /* CMObjectClassNameRegistry.m */,
+				7AFDFE40158E959B00388D6E /* CMUntypedObject.h */,
+				7AFDFE41158E959B00388D6E /* CMUntypedObject.m */,
+			);
+			path = "Persisted Objects";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -858,7 +854,6 @@
 				7A0413CA146C5B3A00EF537A /* ASIInputStream.m in Sources */,
 				7A0413CC146C5B3A00EF537A /* ASINetworkQueue.m in Sources */,
 				7A0413CF146C5B3A00EF537A /* Reachability.m in Sources */,
-				7AD36F7A146C643E00DD4734 /* CMObject.m in Sources */,
 				7AD36F7F146C650500DD4734 /* CMWebService.m in Sources */,
 				7AD36F85146CA4AC00DD4734 /* CMAPICredentials.m in Sources */,
 				7AD36F89146CAE0700DD4734 /* CMUser.m in Sources */,
@@ -868,13 +863,9 @@
 				7AABA30114818DCA00FD52A0 /* CMObjectDecoder.m in Sources */,
 				7AABA30314818DCA00FD52A0 /* CMObjectEncoder.m in Sources */,
 				7AABA30714818E2A00FD52A0 /* CMJSONEncoder.m in Sources */,
-				7A7E31C114C4D0920091F1E3 /* CMGeoPoint.m in Sources */,
 				7A7E31C914C88F8A0091F1E3 /* CMStore.m in Sources */,
 				7AD9221D14CF47360032DDDE /* CMPagingDescriptor.m in Sources */,
 				7AD9222414D06B9A0032DDDE /* CMStoreOptions.m in Sources */,
-				7AD93BAD14D1C5DA00CC1CC9 /* CMFile.m in Sources */,
-				7A5C40A414D8981E00906689 /* CMDate.m in Sources */,
-				7AA79D6814DC216A00F3CA3B /* CMObjectClassNameRegistry.m in Sources */,
 				7AA79D7A14DC23C700F3CA3B /* MARTNSObject.m in Sources */,
 				7AA79D7C14DC23C700F3CA3B /* RTIvar.m in Sources */,
 				7AA79D7E14DC23C700F3CA3B /* RTMethod.m in Sources */,
@@ -893,7 +884,12 @@
 				65199EC8156A7D9500267EC6 /* CMSnippetResult.m in Sources */,
 				65199EC9156A7D9500267EC6 /* CMStoreResponse.m in Sources */,
 				65199ECA156A7D9500267EC6 /* CMDistance.m in Sources */,
-				658BBA3D156ABB29004F065B /* CMUntypedObject.m in Sources */,
+				7AFDFE42158E959B00388D6E /* CMDate.m in Sources */,
+				7AFDFE43158E959B00388D6E /* CMFile.m in Sources */,
+				7AFDFE44158E959B00388D6E /* CMGeoPoint.m in Sources */,
+				7AFDFE45158E959B00388D6E /* CMObject.m in Sources */,
+				7AFDFE46158E959B00388D6E /* CMObjectClassNameRegistry.m in Sources */,
+				7AFDFE47158E959B00388D6E /* CMUntypedObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
