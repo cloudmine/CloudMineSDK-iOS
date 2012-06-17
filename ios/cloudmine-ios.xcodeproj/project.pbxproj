@@ -140,6 +140,7 @@
 		7AE355D714F1B896006AF903 /* CMFileUploadResult.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AE355D414F1B850006AF903 /* CMFileUploadResult.h */; };
 		7AF02D5B1507B36D005F03FD /* SPLowVerbosity.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF02D531507B36D005F03FD /* SPLowVerbosity.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7AF6685514719FC900E2A06D /* YAJLiOS in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AF6685414719FC800E2A06D /* YAJLiOS */; };
+		7AFDFE34158E938200388D6E /* CloudMineVersion.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AFDFE33158E935F00388D6E /* CloudMineVersion.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -159,6 +160,7 @@
 			dstPath = "${BUILD_DIR}/${CONFIGURATION}-iphoneuniversal/${PRODUCT_NAME}.framework/Versions/A/Headers/";
 			dstSubfolderSpec = 0;
 			files = (
+				7AFDFE34158E938200388D6E /* CloudMineVersion.h in CopyFiles */,
 				658BBA43156ABE22004F065B /* CMUntypedObject.h in CopyFiles */,
 				65199ED5156A84D600267EC6 /* CMDistance.h in CopyFiles */,
 				65199ECD156A847A00267EC6 /* CMDeleteResponse.h in CopyFiles */,
@@ -349,6 +351,7 @@
 		7AF02D521507B36D005F03FD /* SPLowVerbosity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPLowVerbosity.h; path = SPSuccinct/src/SPLowVerbosity.h; sourceTree = "<group>"; };
 		7AF02D531507B36D005F03FD /* SPLowVerbosity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPLowVerbosity.m; path = SPSuccinct/src/SPLowVerbosity.m; sourceTree = "<group>"; };
 		7AF6685414719FC800E2A06D /* YAJLiOS */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = YAJLiOS; path = ios/Vendor/YAJL/YAJLiOS.framework/Versions/A/YAJLiOS; sourceTree = "<group>"; };
+		7AFDFE33158E935F00388D6E /* CloudMineVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudMineVersion.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -647,6 +650,7 @@
 				658BBA3B156ABB29004F065B /* CMUntypedObject.h */,
 				658BBA3C156ABB29004F065B /* CMUntypedObject.m */,
 				7AA79DDA14DC5E4000F3CA3B /* CloudMine.h */,
+				7AFDFE33158E935F00388D6E /* CloudMineVersion.h */,
 				7AA79D6514DC216A00F3CA3B /* CMObjectClassNameRegistry.h */,
 				7AA79D6614DC216A00F3CA3B /* CMObjectClassNameRegistry.m */,
 				7AD36F77146C643E00DD4734 /* CMObject.h */,

@@ -17,6 +17,7 @@
 #import "CMPagingDescriptor.h"
 #import "CMSortDescriptor.h"
 #import "NSURL+QueryParameterAdditions.h"
+#import "CloudMineVersion.h"
 
 #define CM_APIKEY_HEADER @"X-CloudMine-ApiKey"
 #define CM_SESSIONTOKEN_HEADER @"X-CloudMine-SessionToken"
@@ -573,6 +574,9 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
         [request addRequestHeader:@"Content-type" value:@"application/json"];
         [request addRequestHeader:@"Accept" value:@"application/json"];
     }
+    
+    // Add user agent and user tracking headers
+    [request addRequestHeader:@"X-CloudMine-Agent" value:[NSString stringWithFormat:@"iOS %@", CM_VERSION]];
 
     #ifdef DEBUG
         NSLog(@"Constructed CloudMine URL: %@\nHeaders:%@", request.url, request.requestHeaders);
