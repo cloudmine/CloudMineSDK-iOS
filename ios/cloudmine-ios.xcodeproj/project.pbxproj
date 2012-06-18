@@ -134,6 +134,8 @@
 		7AFDFE45158E959B00388D6E /* CMObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE3D158E959B00388D6E /* CMObject.m */; };
 		7AFDFE46158E959B00388D6E /* CMObjectClassNameRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE3F158E959B00388D6E /* CMObjectClassNameRegistry.m */; };
 		7AFDFE47158E959B00388D6E /* CMUntypedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE41158E959B00388D6E /* CMUntypedObject.m */; };
+		7AFDFE4A158E965400388D6E /* CMActiveUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE49158E965400388D6E /* CMActiveUser.m */; };
+		7AFDFE4C158E9EB400388D6E /* CMActiveUserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE4B158E9EB400388D6E /* CMActiveUserSpec.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -337,6 +339,9 @@
 		7AFDFE3F158E959B00388D6E /* CMObjectClassNameRegistry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectClassNameRegistry.m; sourceTree = "<group>"; };
 		7AFDFE40158E959B00388D6E /* CMUntypedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMUntypedObject.h; sourceTree = "<group>"; };
 		7AFDFE41158E959B00388D6E /* CMUntypedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUntypedObject.m; sourceTree = "<group>"; };
+		7AFDFE48158E965400388D6E /* CMActiveUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMActiveUser.h; sourceTree = "<group>"; };
+		7AFDFE49158E965400388D6E /* CMActiveUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMActiveUser.m; sourceTree = "<group>"; };
+		7AFDFE4B158E9EB400388D6E /* CMActiveUserSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMActiveUserSpec.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -593,6 +598,7 @@
 		7AB4AB78145DC5D8006AEF67 /* iosTests */ = {
 			isa = PBXGroup;
 			children = (
+				7AFDFE4B158E9EB400388D6E /* CMActiveUserSpec.m */,
 				7A308A4314799134008ADD3C /* CMWebServiceSpec.m */,
 				7A04E86E147D90F5006E00AB /* CMServerFunctionSpec.m */,
 				7AABA2E41480549A00FD52A0 /* CMObjectEncoderSpec.m */,
@@ -649,6 +655,8 @@
 			children = (
 				7AABA2FA14818DCA00FD52A0 /* Decoding */,
 				7AABA2FD14818DCA00FD52A0 /* Encoding */,
+				7AFDFE48158E965400388D6E /* CMActiveUser.h */,
+				7AFDFE49158E965400388D6E /* CMActiveUser.m */,
 				7AE355D414F1B850006AF903 /* CMFileUploadResult.h */,
 				7A4A6F2B14FFF3CF00B95D13 /* CMUserAccountResult.h */,
 				7AD36F7C146C650500DD4734 /* CMWebService.h */,
@@ -886,6 +894,7 @@
 				7AFDFE45158E959B00388D6E /* CMObject.m in Sources */,
 				7AFDFE46158E959B00388D6E /* CMObjectClassNameRegistry.m in Sources */,
 				7AFDFE47158E959B00388D6E /* CMUntypedObject.m in Sources */,
+				7AFDFE4A158E965400388D6E /* CMActiveUser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -909,6 +918,7 @@
 				7A4A6F2914FFF08100B95D13 /* CMUserSpec.m in Sources */,
 				7A766209156307DF009840EE /* CMSortDescriptorSpec.m in Sources */,
 				7AAFB49B158017450066B4A4 /* CMMimeTypeSpec.m in Sources */,
+				7AFDFE4C158E9EB400388D6E /* CMActiveUserSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
