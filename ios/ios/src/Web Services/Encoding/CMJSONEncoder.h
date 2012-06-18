@@ -6,8 +6,6 @@
 //  See LICENSE file included with SDK for details.
 //
 
-#import <YAJLiOS/YAJL.h>
-
 #import "CMObjectEncoder.h"
 
 /**

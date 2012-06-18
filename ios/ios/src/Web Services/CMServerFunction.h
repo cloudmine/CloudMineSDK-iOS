@@ -6,8 +6,6 @@
 //  See LICENSE file included with SDK for details.
 //
 
-#import <YAJLiOS/YAJL.h>
-
 /**
  * Encapsulates a call to a server-side function. The call is triggered by being attached to
  * a regular HTTP call (GET, POST, or PUT) to the CM web services.
