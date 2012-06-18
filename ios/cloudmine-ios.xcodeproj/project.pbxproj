@@ -126,6 +126,7 @@
 		7AD93BAF14D1CCFE00CC1CC9 /* CMFileSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD93BAE14D1CCFE00CC1CC9 /* CMFileSpec.m */; };
 		7AE2848B1562C3C8003E8A8F /* CMSortDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE2848A1562C3C8003E8A8F /* CMSortDescriptor.m */; };
 		7AE355D714F1B896006AF903 /* CMFileUploadResult.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AE355D414F1B850006AF903 /* CMFileUploadResult.h */; };
+		7AEF7B4B158EB60000BE47B3 /* CMActiveUser.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AFDFE48158E965400388D6E /* CMActiveUser.h */; };
 		7AF02D5B1507B36D005F03FD /* SPLowVerbosity.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF02D531507B36D005F03FD /* SPLowVerbosity.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7AF6685514719FC900E2A06D /* YAJLiOS in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AF6685414719FC800E2A06D /* YAJLiOS */; };
 		7AFDFE42158E959B00388D6E /* CMDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE37158E959B00388D6E /* CMDate.m */; };
@@ -155,6 +156,7 @@
 			dstPath = "${BUILD_DIR}/${CONFIGURATION}-iphoneuniversal/${PRODUCT_NAME}.framework/Versions/A/Headers/";
 			dstSubfolderSpec = 0;
 			files = (
+				7AEF7B4B158EB60000BE47B3 /* CMActiveUser.h in CopyFiles */,
 				65199ED5156A84D600267EC6 /* CMDistance.h in CopyFiles */,
 				65199ECD156A847A00267EC6 /* CMDeleteResponse.h in CopyFiles */,
 				65199ECE156A847A00267EC6 /* CMFileFetchResponse.h in CopyFiles */,
