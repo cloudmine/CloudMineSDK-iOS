@@ -6,6 +6,8 @@
 //  See LICENSE file included with SDK for details.
 //
 
+#import <YAJLiOS/YAJL.h>
+
 #import "ASIHTTPRequest.h"
 #import "ASINetworkQueue.h"
 #import "SPLowVerbosity.h"
