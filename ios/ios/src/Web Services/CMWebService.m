@@ -576,7 +576,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     }
     
     // Add user agent and user tracking headers
-    [request addRequestHeader:@"X-CloudMine-Agent" value:[NSString stringWithFormat:@"iOS/%@", CM_VERSION]];
+    [request addRequestHeader:@"X-CloudMine-Agent" value:[NSString stringWithFormat:@"CM-iOS/%@", CM_VERSION]];
     [request addRequestHeader:@"X-CloudMine-UT" value:[[CMActiveUser currentActiveUser] identifier]];
 
     #ifdef DEBUG
