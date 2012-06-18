@@ -38,7 +38,7 @@
 }
 
 - (id)init {
-    return [self initWithUUID:[[NSString stringWithUUID] stringByReplacingOccurrencesOfString:@"-" withString:@""]];
+    return [self initWithUUID:[[[NSString stringWithUUID] stringByReplacingOccurrencesOfString:@"-" withString:@""] lowercaseString]];
 }
 
 #pragma mark - Serialization
