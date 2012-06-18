@@ -18,6 +18,7 @@
 #import "CMWebService.h"
 #import "CMUser.h"
 #import "CMServerFunction.h"
+#import "CMAPICredentials.h"
 
 SPEC_BEGIN(CMWebServiceSpec)
 
@@ -26,8 +27,13 @@ describe(@"CMWebService", ^{
     __block NSString *appSecret = @"appSecret123";
     __block CMWebService *service = nil;
 
+    beforeAll(^{
+        [[CMAPICredentials sharedInstance] setAppIdentifier:appId];
+        [[CMAPICredentials sharedInstance] setAppSecret:appSecret];
+    });
+    
     beforeEach(^{
-        service = [[CMWebService alloc] initWithAppSecret:appSecret appIdentifier:appId];
+        service = [[CMWebService alloc] init];
         service.networkQueue = [ASINetworkQueue mock];
     });
 

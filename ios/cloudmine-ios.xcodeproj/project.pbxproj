@@ -57,6 +57,8 @@
 		7A0413DA146C5B7400EF537A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D9146C5B7400EF537A /* libz.dylib */; };
 		7A04E86C147D8435006E00AB /* CMServerFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A04E86A147D8435006E00AB /* CMServerFunction.m */; };
 		7A04E86F147D90F5006E00AB /* CMServerFunctionSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A04E86E147D90F5006E00AB /* CMServerFunctionSpec.m */; };
+		7A0D7CD41581097200C7C476 /* CMObjectSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0D7CD31581097200C7C476 /* CMObjectSpec.m */; };
+		7A0D7CFC1581479000C7C476 /* CMNullStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0D7CFB1581479000C7C476 /* CMNullStore.m */; };
 		7A0DB1BC147B016B007F482C /* CMBlockValidationMessageSpy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0DB1BB147B016B007F482C /* CMBlockValidationMessageSpy.m */; };
 		7A262E0B14C8F8B0006A03BA /* NSURL+QueryParameterAdditions.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AD36F8B146CB6A600DD4734 /* NSURL+QueryParameterAdditions.h */; };
 		7A262E0C14C8F8B0006A03BA /* CMStore.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7A7E31C614C88F8A0091F1E3 /* CMStore.h */; };
@@ -255,6 +257,9 @@
 		7A04E86A147D8435006E00AB /* CMServerFunction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMServerFunction.m; sourceTree = "<group>"; };
 		7A04E86E147D90F5006E00AB /* CMServerFunctionSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMServerFunctionSpec.m; sourceTree = "<group>"; };
 		7A0A2F0714BB039800F9D024 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		7A0D7CD31581097200C7C476 /* CMObjectSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectSpec.m; sourceTree = "<group>"; };
+		7A0D7CFA1581479000C7C476 /* CMNullStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMNullStore.h; sourceTree = "<group>"; };
+		7A0D7CFB1581479000C7C476 /* CMNullStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMNullStore.m; sourceTree = "<group>"; };
 		7A0DB1BA147B016B007F482C /* CMBlockValidationMessageSpy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMBlockValidationMessageSpy.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		7A0DB1BB147B016B007F482C /* CMBlockValidationMessageSpy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMBlockValidationMessageSpy.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7A308A4314799134008ADD3C /* CMWebServiceSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMWebServiceSpec.m; sourceTree = "<group>"; };
@@ -509,6 +514,8 @@
 				7AD9222114D06B9A0032DDDE /* CMStoreOptions.h */,
 				7AD9222214D06B9A0032DDDE /* CMStoreOptions.m */,
 				7AD7DA5714D221F600F771C7 /* CMStoreCallbacks.h */,
+				7A0D7CFA1581479000C7C476 /* CMNullStore.h */,
+				7A0D7CFB1581479000C7C476 /* CMNullStore.m */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -623,6 +630,7 @@
 				7AD9222514D06EB10032DDDE /* CMStoreOptionsSpec.m */,
 				7AAFB49A158017450066B4A4 /* CMMimeTypeSpec.m */,
 				7AD93BAE14D1CCFE00CC1CC9 /* CMFileSpec.m */,
+				7A0D7CD31581097200C7C476 /* CMObjectSpec.m */,
 				7A4A6F2814FFF08100B95D13 /* CMUserSpec.m */,
 				7A766208156307DF009840EE /* CMSortDescriptorSpec.m */,
 				7A0DB1B8147B0153007F482C /* Support */,
@@ -908,6 +916,7 @@
 				7AFDFE45158E959B00388D6E /* CMObject.m in Sources */,
 				7AFDFE46158E959B00388D6E /* CMObjectClassNameRegistry.m in Sources */,
 				7AFDFE47158E959B00388D6E /* CMUntypedObject.m in Sources */,
+				7A0D7CFC1581479000C7C476 /* CMNullStore.m in Sources */,
 				7AFDFE4A158E965400388D6E /* CMActiveUser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -931,6 +940,7 @@
 				7AA79D6314DC1FB900F3CA3B /* CMCrossPlatformGenericSerializableObject.m in Sources */,
 				7A4A6F2914FFF08100B95D13 /* CMUserSpec.m in Sources */,
 				7A766209156307DF009840EE /* CMSortDescriptorSpec.m in Sources */,
+				7A0D7CD41581097200C7C476 /* CMObjectSpec.m in Sources */,
 				7AAFB49B158017450066B4A4 /* CMMimeTypeSpec.m in Sources */,
 				7AFDFE4C158E9EB400388D6E /* CMActiveUserSpec.m in Sources */,
 			);
@@ -997,6 +1007,7 @@
 					"\"$(SRCROOT)/ios/Vendor\"/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-all_load";
 				SDKROOT = iphoneos;
 				WARNING_CFLAGS = "-Wno-arc-performSelector-leaks";
@@ -1021,6 +1032,7 @@
 					"\"$(SRCROOT)/ios/Vendor\"/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-all_load";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
