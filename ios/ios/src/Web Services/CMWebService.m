@@ -722,15 +722,14 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 - (NSURL *)constructAccountUrlWithUserIdentifier:(NSString *)userId
                                             query:(NSString *)query {
 
-    NSMutableString *urlString = [self.apiUrl mutableCopy];
-    [urlString appendFormat:@"/app/%@/account", _appIdentifier];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/app/%@/account", self.apiUrl, _appIdentifier]];
     if (userId) {
-        [urlString appendFormat:@"/%@", userId];
+        url = [url URLByAppendingPathComponent:userId];
     } else if (query) {
-        [urlString appendFormat:@"?p=%@", query];
+        url = [url URLByAppendingQueryString:[NSString stringWithFormat:@"p=%@", query]];
     }
 
-    return [NSURL URLWithString:urlString];
+    return url;
 }
 
 - (NSURL *)appendKeys:(NSArray *)keys
