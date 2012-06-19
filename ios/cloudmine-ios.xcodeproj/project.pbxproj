@@ -134,6 +134,7 @@
 		7AFDFE47158E959B00388D6E /* CMUntypedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE41158E959B00388D6E /* CMUntypedObject.m */; };
 		7AFDFE4A158E965400388D6E /* CMActiveUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE49158E965400388D6E /* CMActiveUser.m */; };
 		7AFDFE4C158E9EB400388D6E /* CMActiveUserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE4B158E9EB400388D6E /* CMActiveUserSpec.m */; };
+		D01DBF5A1590D36D003CB5BE /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = D01DBF591590D36D003CB5BE /* NSData+Base64.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -324,6 +325,8 @@
 		7AFDFE48158E965400388D6E /* CMActiveUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMActiveUser.h; sourceTree = "<group>"; };
 		7AFDFE49158E965400388D6E /* CMActiveUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMActiveUser.m; sourceTree = "<group>"; };
 		7AFDFE4B158E9EB400388D6E /* CMActiveUserSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMActiveUserSpec.m; sourceTree = "<group>"; };
+		D01DBF581590D36D003CB5BE /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		D01DBF591590D36D003CB5BE /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -399,6 +402,8 @@
 		7A04139F146C5B3A00EF537A /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				D01DBF581590D36D003CB5BE /* NSData+Base64.h */,
+				D01DBF591590D36D003CB5BE /* NSData+Base64.m */,
 				7AF02D4B1507B35B005F03FD /* SPSuccinct */,
 				7AA79D6914DC23C700F3CA3B /* MAObjCRuntime */,
 				7AD36F72146C623B00DD4734 /* YAJL */,
@@ -821,6 +826,7 @@
 				7AFDFE46158E959B00388D6E /* CMObjectClassNameRegistry.m in Sources */,
 				7AFDFE47158E959B00388D6E /* CMUntypedObject.m in Sources */,
 				7AFDFE4A158E965400388D6E /* CMActiveUser.m in Sources */,
+				D01DBF5A1590D36D003CB5BE /* NSData+Base64.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
