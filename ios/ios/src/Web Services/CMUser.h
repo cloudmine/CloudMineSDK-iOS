@@ -21,6 +21,8 @@
  */
 typedef void (^CMUserOperationCallback)(CMUserAccountResult resultCode, NSArray *messages);
 
+typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
+
 /**
  * Representation of an end-user in CloudMine. This class manages session state (i.e. tokens and all that).
  *
@@ -185,5 +187,11 @@ typedef void (^CMUserOperationCallback)(CMUserAccountResult resultCode, NSArray 
  * @see https://cloudmine.me/developer_zone#ref/password_reset
  */
 - (void)resetForgottenPasswordWithCallback:(CMUserOperationCallback)callback;
+
+- (void)allUsersWithCallback:(CMUserFetchCallback)callback;
+
+- (void)searchUsers:(NSString *)query callback:(CMUserFetchCallback)callback;
+
+- (void)userWithIdentifier:(NSString *)identifier callback:(CMUserFetchCallback)callback;
 
 @end

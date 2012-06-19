@@ -10,6 +10,8 @@
 #import "CMWebService.h"
 #import "CMObjectSerialization.h"
 
+#import "CMObjectDecoder.h"
+
 @interface CMUser ()
 @property CMWebService *webService;
 @end
@@ -191,6 +193,30 @@
 - (void)resetForgottenPasswordWithCallback:(CMUserOperationCallback)callback {
     [webService resetForgottenPasswordForUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         callback(result, [NSArray array]);
+    }];
+}
+
+#pragma mark - Discovering other users
+
+- (void)allUsersWithCallback:(CMUserFetchCallback)callback {
+    [webService getAllUsersWithCallback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
+        callback([CMObjectDecoder decodeObjects:results], errors);
+    }];
+}
+
+- (void)searchUsers:(NSString *)query callback:(CMUserFetchCallback)callback {
+    [webService searchUsers:query callback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
+        callback([CMObjectDecoder decodeObjects:results], errors);
+    }];
+}
+
+- (void)userWithIdentifier:(NSString *)identifier callback:(CMUserFetchCallback)callback {
+    [webService getUserProfileWithIdentifier:identifier callback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
+        if (errors.count > 0) {
+            callback([NSArray array], errors);
+        } else {
+            callback([CMObjectDecoder decodeObjects:results], errors);
+        }
     }];
 }
 

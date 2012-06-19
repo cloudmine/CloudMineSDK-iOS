@@ -155,10 +155,13 @@
 
 + (Class)typeFromDictionaryRepresentation:(NSDictionary *)representation {
     NSString *className = [representation objectForKey:CMInternalClassStorageKey];
+    NSString *typeName = [representation objectForKey:CMInternalTypeStorageKey];
     Class klass = nil;
 
     if ([className isEqualToString:CMInternalHashClassName]) {
         klass = [NSDictionary class];
+    } else if ([typeName isEqualToString:@"user"]) {
+        klass = [CMUser class];
     } else {
         // First try to look up a custom class name (i.e. a name given to a CMObject subclass by overriding +className).
         klass = [[CMObjectClassNameRegistry sharedInstance] classForName:className];
