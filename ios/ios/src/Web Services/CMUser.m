@@ -198,20 +198,20 @@
 
 #pragma mark - Discovering other users
 
-- (void)allUsersWithCallback:(CMUserFetchCallback)callback {
-    [webService getAllUsersWithCallback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
++ (void)allUsersWithCallback:(CMUserFetchCallback)callback {
+    [[[CMWebService alloc] init] getAllUsersWithCallback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
         callback([CMObjectDecoder decodeObjects:results], errors);
     }];
 }
 
-- (void)searchUsers:(NSString *)query callback:(CMUserFetchCallback)callback {
-    [webService searchUsers:query callback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
++ (void)searchUsers:(NSString *)query callback:(CMUserFetchCallback)callback {
+    [[[CMWebService alloc] init] searchUsers:query callback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
         callback([CMObjectDecoder decodeObjects:results], errors);
     }];
 }
 
-- (void)userWithIdentifier:(NSString *)identifier callback:(CMUserFetchCallback)callback {
-    [webService getUserProfileWithIdentifier:identifier callback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
++ (void)userWithIdentifier:(NSString *)identifier callback:(CMUserFetchCallback)callback {
+    [[[CMWebService alloc] init] getUserProfileWithIdentifier:identifier callback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
         if (errors.count > 0) {
             callback([NSArray array], errors);
         } else {

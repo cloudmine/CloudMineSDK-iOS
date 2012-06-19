@@ -188,10 +188,10 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
  */
 - (void)resetForgottenPasswordWithCallback:(CMUserOperationCallback)callback;
 
-- (void)allUsersWithCallback:(CMUserFetchCallback)callback;
++ (void)allUsersWithCallback:(CMUserFetchCallback)callback;
 
-- (void)searchUsers:(NSString *)query callback:(CMUserFetchCallback)callback;
++ (void)searchUsers:(NSString *)query callback:(CMUserFetchCallback)callback;
 
-- (void)userWithIdentifier:(NSString *)identifier callback:(CMUserFetchCallback)callback;
++ (void)userWithIdentifier:(NSString *)identifier callback:(CMUserFetchCallback)callback;
 
 @end
