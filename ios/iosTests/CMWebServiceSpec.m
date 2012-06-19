@@ -58,7 +58,7 @@ describe(@"CMWebService", ^{
                         sortingOptions:nil
                                  user:nil
                       extraParameters:nil
-                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
+                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
                        } errorHandler:^(NSError *error) {
                        }
              ];
@@ -91,7 +91,7 @@ describe(@"CMWebService", ^{
                       sortingOptions:nil
                                 user:nil
                      extraParameters:nil
-                      successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
+                      successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
                       } errorHandler:^(NSError *error) {
                       }
              ];
@@ -122,7 +122,7 @@ describe(@"CMWebService", ^{
                      serverSideFunction:nil
                                    user:nil
                         extraParameters:nil
-                         successHandler:^(NSData *data, NSString *contentType) {
+                         successHandler:^(NSData *data, NSString *contentType, NSDictionary *headers) {
                          } errorHandler:^(NSError *error) {
                          }
              ];
@@ -154,7 +154,7 @@ describe(@"CMWebService", ^{
                        sortingOptions:nil
                                  user:nil
                       extraParameters:nil
-                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
+                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
                        } errorHandler:^(NSError *error) {
                        }
              ];
@@ -187,7 +187,7 @@ describe(@"CMWebService", ^{
                        sortingOptions:nil
                                  user:nil
                       extraParameters:nil
-                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
+                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
                        } errorHandler:^(NSError *error) {
                        }
              ];
@@ -223,7 +223,7 @@ describe(@"CMWebService", ^{
                        sortingOptions:nil
                                  user:creds
                       extraParameters:nil
-                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
+                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
                        } errorHandler:^(NSError *error) {
                        }
              ];
@@ -259,7 +259,7 @@ describe(@"CMWebService", ^{
                      serverSideFunction:nil
                                    user:creds
                         extraParameters:nil
-                         successHandler:^(NSData *data, NSString *contentType) {
+                         successHandler:^(NSData *data, NSString *contentType, NSDictionary *headers) {
                          } errorHandler:^(NSError *error) {
                          }
              ];
@@ -296,7 +296,7 @@ describe(@"CMWebService", ^{
                        sortingOptions:nil
                                  user:creds
                       extraParameters:nil
-                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
+                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
                        } errorHandler:^(NSError *error) {
                        }
              ];
@@ -333,7 +333,7 @@ describe(@"CMWebService", ^{
                              serverSideFunction:nil
                                            user:nil
                                 extraParameters:nil
-                                 successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
+                                 successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
                                  } errorHandler:^(NSError *error) {
                                  }
              ];
@@ -369,7 +369,7 @@ describe(@"CMWebService", ^{
                            ofMimeType:@"application/cloudmine"
                                  user:nil
                       extraParameters:nil
-                       successHandler:^(CMFileUploadResult result, NSString *fileKey, id snippetResult) {
+                       successHandler:^(CMFileUploadResult result, NSString *fileKey, id snippetResult, NSDictionary *headers) {
                        }
                          errorHandler:^(NSError *error) {
                          }
@@ -410,7 +410,7 @@ describe(@"CMWebService", ^{
                              serverSideFunction:nil
                                            user:creds
                                 extraParameters:nil
-                                 successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
+                                 successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
                                  } errorHandler:^(NSError *error) {
                                  }
              ];
@@ -453,7 +453,7 @@ describe(@"CMWebService", ^{
                        ofMimeType:@"application/cloudmine"
                              user:creds
                   extraParameters:nil
-                   successHandler:^(CMFileUploadResult result, NSString *fileKey, id snippetResult) {
+                   successHandler:^(CMFileUploadResult result, NSString *fileKey, id snippetResult, NSDictionary *headers) {
                    } errorHandler:^(NSError *error) {
                    }
          ];
@@ -489,7 +489,7 @@ describe(@"CMWebService", ^{
                           serverSideFunction:nil
                                         user:nil
                              extraParameters:nil
-                              successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
+                              successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
                               } errorHandler:^(NSError *error) {
                               }
              ];
@@ -529,7 +529,7 @@ describe(@"CMWebService", ^{
                           serverSideFunction:nil
                                         user:creds
                              extraParameters:nil
-                              successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
+                              successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
                               } errorHandler:^(NSError *error) {
                               }
              ];
@@ -561,7 +561,7 @@ describe(@"CMWebService", ^{
                       serverSideFunction:nil
                                     user:nil
                          extraParameters:nil
-                          successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
+                          successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
                           } errorHandler:^(NSError *error) {
                           }
              ];
@@ -591,7 +591,7 @@ describe(@"CMWebService", ^{
                       serverSideFunction:nil
                                     user:nil
                          extraParameters:nil
-                          successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
+                          successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
                           } errorHandler:^(NSError *error) {
                           }
              ];
@@ -626,7 +626,7 @@ describe(@"CMWebService", ^{
                       serverSideFunction:nil
                                     user:creds
                          extraParameters:nil
-                          successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
+                          successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
                           } errorHandler:^(NSError *error) {
                           }
              ];
@@ -661,7 +661,7 @@ describe(@"CMWebService", ^{
                       serverSideFunction:nil
                                     user:creds
                          extraParameters:nil
-                          successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
+                          successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
                        } errorHandler:^(NSError *error) {
                        }
              ];
