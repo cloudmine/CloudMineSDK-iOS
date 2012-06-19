@@ -29,23 +29,22 @@
 #define CM_SESSIONTOKEN_HEADER @"X-CloudMine-SessionToken"
 
 static __strong NSSet *_validHTTPVerbs = nil;
-
 typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger httpResponseCode);
 
+
 @interface CMWebService ()
-
 @property (nonatomic, strong) NSString *apiUrl;
-
 - (NSURL *)constructTextUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys query:(NSString *)searchString pagingOptions:(CMPagingDescriptor *)paging sortingOptions:(CMSortDescriptor *)sorting withServerSideFunction:(CMServerFunction *)function extraParameters:(NSDictionary *)params;
 - (NSURL *)constructBinaryUrlAtUserLevel:(BOOL)atUserLevel withKey:(NSString *)key withServerSideFunction:(CMServerFunction *)function extraParameters:(NSDictionary *)params;
 - (NSURL *)constructDataUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys withServerSideFunction:(CMServerFunction *)function extraParameters:(NSDictionary *)params;
 - (ASIHTTPRequest *)constructHTTPRequestWithVerb:(NSString *)verb URL:(NSURL *)url appSecret:(NSString *)appSecret binaryData:(BOOL)isForBinaryData user:(CMUser *)user;
-- (void)executeUserAccountRequest:(ASIHTTPRequest *)request codeMapper:(_CMWebServiceAccountResponseCodeMapper)codeMapper callback:(CMWebServiceUserAccountOperationCallback)callback;
+- (void)executeUserAccountActionRequest:(ASIHTTPRequest *)request codeMapper:(_CMWebServiceAccountResponseCodeMapper)codeMapper callback:(CMWebServiceUserAccountOperationCallback)callback;
 - (void)executeRequest:(ASIHTTPRequest *)request successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 - (void)executeBinaryDataFetchRequest:(ASIHTTPRequest *)request successHandler:(CMWebServiceFileFetchSuccessCallback)successHandler  errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 - (void)executeBinaryDataUploadRequest:(ASIHTTPRequest *)request successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 - (NSURL *)appendKeys:(NSArray *)keys query:(NSString *)queryString serverSideFunction:(CMServerFunction *)function pagingOptions:(CMPagingDescriptor *)paging sortingOptions:(CMSortDescriptor *)sorting toURL:(NSURL *)theUrl extraParameters:(NSDictionary *)params;
 @end
+
 
 @implementation CMWebService
 @synthesize networkQueue;
@@ -270,7 +269,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     request.username = user.userId;
     request.password = user.password;
 
-    [self executeUserAccountRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode) {
+    [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode) {
         switch (httpResponseCode) {
             case 200:
                 return CMUserAccountLoginSucceeded;
@@ -293,7 +292,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
     [request addRequestHeader:CM_SESSIONTOKEN_HEADER value:user.token];
 
-    [self executeUserAccountRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode) {
+    [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode) {
         switch (httpResponseCode) {
             case 200:
                 return CMUserAccountLogoutSucceeded;
@@ -326,7 +325,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     
     [request appendPostData:[[payload yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
 
-    [self executeUserAccountRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode) {
+    [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode) {
         switch (httpResponseCode) {
             case 201:
                 return CMUserAccountCreateSucceeded;
@@ -358,7 +357,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     NSDictionary *payload = $dict(@"password", newPassword);
     [request appendPostData:[[payload yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
 
-    [self executeUserAccountRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode) {
+    [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode) {
         switch (httpResponseCode) {
             case 200:
                 return CMUserAccountPasswordChangeSucceeded;
@@ -383,7 +382,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     NSDictionary *payload = $dict(@"email", user.userId);
     [request appendPostData:[[payload yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
 
-    [self executeUserAccountRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode) {
+    [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode) {
         switch (httpResponseCode) {
             case 200:
                 return CMUserAccountPasswordResetEmailSent;
@@ -396,11 +395,19 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
                            callback:callback];
 }
 
+- (void)getAllUsersWithCallback:(CMWebServiceUserFetchSuccessCallback)callback {
+    
+}
+
+- (void)searchUsers:(NSString *)query callback:(CMWebServiceUserFetchSuccessCallback)callback {
+    
+}
+
 #pragma - Request queueing and execution
 
-- (void)executeUserAccountRequest:(ASIHTTPRequest *)request
-                       codeMapper:(_CMWebServiceAccountResponseCodeMapper)codeMapper
-                         callback:(CMWebServiceUserAccountOperationCallback)callback {
+- (void)executeUserAccountActionRequest:(ASIHTTPRequest *)request
+                             codeMapper:(_CMWebServiceAccountResponseCodeMapper)codeMapper
+                               callback:(CMWebServiceUserAccountOperationCallback)callback {
 
     // TODO: Let this switch between MsgPack and GZIP'd JSON.
     [request addRequestHeader:@"Content-type" value:@"application/json"];
@@ -609,7 +616,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
                          pagingOptions:(CMPagingDescriptor *)paging
                         sortingOptions:(CMSortDescriptor *)sorting
                 withServerSideFunction:(CMServerFunction *)function 
-                       extraParameters:params{
+                       extraParameters:params {
 
     NSAssert(keys == nil || searchString == nil, @"When constructing CM URLs, 'keys' and 'searchString' are mutually exclusive");
 
