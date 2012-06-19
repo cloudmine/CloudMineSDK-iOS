@@ -319,7 +319,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     // Extract other profile fields from the user by serializing it to JSON and removing the "token" and "tokenExpiration" fields (which don't
     // need to be sent over the wire).
     NSMutableDictionary *serializedUser = [[[(NSDictionary *)[CMObjectEncoder encodeObjects:$array(user)] allValues] objectAtIndex:0] mutableCopy];
-    [serializedUser removeObjectsForKeys:[$array(@"token", @"tokenExpiration") arrayByAddingObjectsFromArray:[CMInternalKeys allObjects]]];
+    [serializedUser removeObjectsForKeys:$array(@"token", @"tokenExpiration")];
     if ([serializedUser count] > 0) {
         [payload setObject:serializedUser forKey:@"profile"];
     }
@@ -726,6 +726,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     if (userId) {
         url = [url URLByAppendingPathComponent:userId];
     } else if (query) {
+        url = [url URLByAppendingPathComponent:@"search"];
         url = [url URLByAppendingQueryString:[NSString stringWithFormat:@"p=%@", query]];
     }
 
