@@ -209,9 +209,16 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
                                                       binaryData:YES
                                                             user:user];
     if (mimeType.length > 0) {
-        [request setValue:mimeType forKey:@"Content-Type"];
+        [request setValue:mimeType forHTTPHeaderField:@"Content-Type"];
     }
+    
+    // If file does not exist, all will just be nil
+    NSError *error;
+    NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:&error];
+    unsigned long long fileSize = [[fileAttributes objectForKey:NSFileSize] unsignedLongLongValue];
+    [request setValue:[NSString stringWithFormat:@"%llu", fileSize] forHTTPHeaderField:@"Content-Length"];
     [request setHTTPBodyStream:[NSInputStream inputStreamWithFileAtPath:path]];
+    
     [self executeBinaryDataUploadRequest:request successHandler:successHandler errorHandler:errorHandler];
 }
 
