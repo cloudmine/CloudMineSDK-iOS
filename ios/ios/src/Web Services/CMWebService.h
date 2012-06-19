@@ -11,7 +11,6 @@
 #import "CMFileUploadResult.h"
 #import "CMUserAccountResult.h"
 
-@class ASINetworkQueue;
 @class CMUser;
 @class CMServerFunction;
 @class CMPagingDescriptor;
@@ -79,7 +78,7 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
  * One of these exists for each instance of <tt>CMWebService</tt>, allowing you to parallelize
  * network communication.
  */
-@property (nonatomic, strong) ASINetworkQueue *networkQueue;
+@property (nonatomic, strong) NSOperationQueue *networkQueue;
 
 /**
  * Default initializer for the web service connector. You <strong>must</strong> have already configured the
