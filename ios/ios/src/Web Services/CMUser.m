@@ -10,9 +10,9 @@
 #import "CMWebService.h"
 #import "CMObjectSerialization.h"
 
-@interface CMUser ()
-@property CMWebService *webService;
-@end
+#import "CMObjectDecoder.h"
+
+static CMWebService *webService;
 
 @implementation CMUser
 
@@ -20,21 +20,23 @@
 @synthesize password;
 @synthesize token;
 @synthesize tokenExpiration;
-@synthesize webService;
 @synthesize objectId;
 
 + (NSString *)className {
-    return @"user";
+    return NSStringFromClass([self class]);
 }
 
 #pragma mark - Constructors
+
++ (void)initialize {
+    webService = [[CMWebService alloc] init];
+}
 
 - (id)initWithUserId:(NSString *)theUserId andPassword:(NSString *)thePassword {
     if (self = [super init]) {
         self.token = nil;
         self.userId = theUserId;
         self.password = thePassword;
-        webService = [[CMWebService alloc] init];
         objectId = @"";
     }
     return self;
@@ -192,6 +194,40 @@
     [webService resetForgottenPasswordForUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         callback(result, [NSArray array]);
     }];
+}
+
+#pragma mark - Discovering other users
+
++ (void)allUsersWithCallback:(CMUserFetchCallback)callback {
+    [webService getAllUsersWithCallback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
+        callback([CMObjectDecoder decodeObjects:results], errors);
+    }];
+}
+
++ (void)searchUsers:(NSString *)query callback:(CMUserFetchCallback)callback {
+    [webService searchUsers:query callback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
+        callback([CMObjectDecoder decodeObjects:results], errors);
+    }];
+}
+
++ (void)userWithIdentifier:(NSString *)identifier callback:(CMUserFetchCallback)callback {
+    [webService getUserProfileWithIdentifier:identifier callback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
+        if (errors.count > 0) {
+            callback([NSArray array], errors);
+        } else {
+            callback([CMObjectDecoder decodeObjects:results], errors);
+        }
+    }];
+}
+
+#pragma mark - Private stuff
+
+- (void)setWebService:(CMWebService *)newWebService {
+    webService = newWebService;
+}
+
+- (CMWebService *)webService {
+    return webService;
 }
 
 @end

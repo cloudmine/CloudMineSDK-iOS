@@ -29,13 +29,13 @@
 /**
  * Callback block signature for all operations on <tt>CMWebService</tt> that fetch objects
  * from the CloudMine servers. These blocks return <tt>void</tt> and take a dictionary of results,
- * a dictionary of errors, a dictionary of metadata, and a dynamic snippet result as arguments. 
+ * a dictionary of errors, a dictionary of metadata, and a dynamic snippet result as arguments.
  * These map directly with the CloudMine API response format.
  */
 typedef void (^CMWebServiceObjectFetchSuccessCallback)(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers);
 
 /**
- * Callback block signature for <b>all</b> operations on <tt>CMStore</tt> that can fail. These are general
+ * Callback block signature for <b>all</b> operations on <tt>CMWebService</tt> that can fail. These are general
  * errors that cause the entire call to fail, not key-specific errors (which are reported instead in
  * the <tt>errors</tt> dictionary in the <tt>CMWebServiceObjectFetchSuccessCallback</tt> callback block).
  * The block returns <tt>void</tt> and takes an <tt>NSError</tt> describing the error as an argument.
@@ -63,6 +63,14 @@ typedef void (^CMWebServiceFileFetchSuccessCallback)(NSData *data, NSString *con
  * of the response body from the server.
  */
 typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult result, NSDictionary *responseBody);
+
+/**
+ * Callback block signature for all operations that return a list of users for the current app
+ * from the CloudMine servers. These blocks return <tt>void</tt> and take a dictionary of results,
+ * a dictionary of errors, and the total number of users returned as arguments.
+ * The contents of the former two map directly to the CloudMine API response format.
+ */
+typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDictionary *errors, NSNumber *count);
 
 /**
  * Base class for all classes concerned with the communication between the client device and the CloudMine
@@ -341,5 +349,11 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
  * @see https://cloudmine.me/developer_zone#ref/password_reset
  */
 - (void)resetForgottenPasswordForUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
+
+- (void)getAllUsersWithCallback:(CMWebServiceUserFetchSuccessCallback)callback;
+
+- (void)getUserProfileWithIdentifier:(NSString *)identifier callback:(CMWebServiceUserFetchSuccessCallback)callback;
+
+- (void)searchUsers:(NSString *)query callback:(CMWebServiceUserFetchSuccessCallback)callback;
 
 @end
