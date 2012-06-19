@@ -683,7 +683,7 @@ describe(@"CMWebService", ^{
                 [request.password shouldBeNil];
                 [[[[request requestHeaders] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
                 [[[request requestHeaders] objectForKey:@"X-CloudMine-SessionToken"] shouldBeNil];
-                [[[request.postBody yajl_JSON] should] equal:[@"{\"email\": \"test@domain.com\", \"password\":\"pass\"}" yajl_JSON]];
+                [[[request.postBody yajl_JSON] should] equal:[@"{\"credentials\": {\"email\": \"test@domain.com\", \"password\":\"pass\"}}" yajl_JSON]];
             } forSelector:@selector(addOperation:)];
 
             // Validate the request when it's pushed onto the network queue so

@@ -8,7 +8,7 @@
 
 /** @file */
 
-#import <Foundation/Foundation.h>
+#import "CMSerializable.h"
 #import "CMUserAccountResult.h"
 
 /**
@@ -23,8 +23,14 @@ typedef void (^CMUserOperationCallback)(CMUserAccountResult resultCode, NSArray 
 
 /**
  * Representation of an end-user in CloudMine. This class manages session state (i.e. tokens and all that).
+ *
+ * <strong>Subclassing Notes</strong>
+ * You can subclass <tt>CMUser</tt> to add your own user profile fields, if you'd like. <tt>CMUser</tt> conforms to <tt>CMSerializable</tt>, so you should implement
+ * <tt>encodeWithCoder:</tt> and <tt>initWithCoder:</tt> in the same way as you would for a <tt>CMObject</tt> subclass. Be sure to call super's implementation
+ * from both of those methods! Your custom fields will be pushed to the server when you first call CMUser#createAccountWithCallback: or CMUser#createAccountAndLoginWithCallback:.
+ * Upon subsequent logins, the custom fields will be updated with those stored on CloudMine.
  */
-@interface CMUser : NSObject <NSCoding>
+@interface CMUser : NSObject <CMSerializable>
 
 /**
  * The user's identifier (i.e. email address).
@@ -68,7 +74,8 @@ typedef void (^CMUserOperationCallback)(CMUserAccountResult resultCode, NSArray 
  *
  * Upon successful login, the CMUser#token property will be set to the user's new session token and the CMUser#password field
  * will be cleared for security reasons. The CMUser#tokenExpiration property will also be set with the expiration date and time
- * of the session token. These properties will be set <strong>before</strong> the callback block is invoked.
+ * of the session token. In addition, all your custom properties (if you are using a custom subclass of <tt>CMUser</tt>) will be populated for you using key-value coding.
+ * All these properties will be set <strong>before</strong> the callback block is invoked.
  *
  * Possible result codes:
  * - <tt>CMUserAccountLoginSucceeded</tt>
@@ -109,7 +116,7 @@ typedef void (^CMUserOperationCallback)(CMUserAccountResult resultCode, NSArray 
  * returned by the server contained in an array. See the CloudMine documentation online for the possible contents of this array.
  *
  * Note that this method simply creates the user account; it does not log the user in.
- * @see createAccountAndLoginWithCallback: for a convenience method that creates and logs the user in at the same time.
+ * CMUser#createAccountAndLoginWithCallback: is a convenience method that creates and logs the user in at the same time.
  *
  * Possible result codes:
  * - <tt>CMUserAccountCreateSucceeded</tt>

@@ -21,6 +21,10 @@
 #import "CMActiveUser.h"
 #import "NSURL+QueryParameterAdditions.h"
 
+#import "CMObjectEncoder.h"
+#import "CMObjectDecoder.h"
+#import "CMObjectSerialization.h"
+
 #define CM_APIKEY_HEADER @"X-CloudMine-ApiKey"
 #define CM_SESSIONTOKEN_HEADER @"X-CloudMine-SessionToken"
 
@@ -310,7 +314,16 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
 
     // The username and password of this account are supplied in the request body.
-    NSDictionary *payload = $dict(@"email", user.userId, @"password", user.password);
+    NSMutableDictionary *payload = $mdict(@"credentials", $dict(@"email", user.userId, @"password", user.password));
+    
+    // Extract other profile fields from the user by serializing it to JSON and removing the "token" and "tokenExpiration" fields (which don't
+    // need to be sent over the wire).
+    NSMutableDictionary *serializedUser = [[[(NSDictionary *)[CMObjectEncoder encodeObjects:$array(user)] allValues] objectAtIndex:0] mutableCopy];
+    [serializedUser removeObjectsForKeys:[$array(@"token", @"tokenExpiration") arrayByAddingObjectsFromArray:[CMInternalKeys allObjects]]];
+    if ([serializedUser count] > 0) {
+        [payload setObject:serializedUser forKey:@"profile"];
+    }
+    
     [request appendPostData:[[payload yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
 
     [self executeUserAccountRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode) {
