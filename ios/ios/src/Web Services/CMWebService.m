@@ -37,7 +37,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 - (NSURL *)constructBinaryUrlAtUserLevel:(BOOL)atUserLevel withKey:(NSString *)key withServerSideFunction:(CMServerFunction *)function extraParameters:(NSDictionary *)params;
 - (NSURL *)constructDataUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys withServerSideFunction:(CMServerFunction *)function extraParameters:(NSDictionary *)params;
 - (NSMutableURLRequest *)constructHTTPRequestWithVerb:(NSString *)verb URL:(NSURL *)url appSecret:(NSString *)appSecret binaryData:(BOOL)isForBinaryData user:(CMUser *)user;
-- (void)executeUserAccountRequest:(NSURLRequest *)request codeMapper:(_CMWebServiceAccountResponseCodeMapper)codeMapper callback:(CMWebServiceUserAccountOperationCallback)callback;
+- (void)executeUserAccountActionRequest:(NSURLRequest *)request codeMapper:(_CMWebServiceAccountResponseCodeMapper)codeMapper callback:(CMWebServiceUserAccountOperationCallback)callback;
 - (void)executeRequest:(NSURLRequest *)request successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 - (void)executeBinaryDataFetchRequest:(NSURLRequest *)request successHandler:(CMWebServiceFileFetchSuccessCallback)successHandler  errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 - (void)executeBinaryDataUploadRequest:(NSURLRequest *)request successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
@@ -406,7 +406,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 }
 
 - (void)getAllUsersWithCallback:(CMWebServiceUserFetchSuccessCallback)callback {
-    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"GET"
+    NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"GET"
                                                              URL:[self constructAccountUrlWithUserIdentifier:nil query:nil]
                                                        appSecret:_appSecret
                                                       binaryData:NO
@@ -417,7 +417,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 
 - (void)getUserProfileWithIdentifier:(NSString *)identifier
                             callback:(CMWebServiceUserFetchSuccessCallback)callback {
-    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"GET"
+    NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"GET"
                                                              URL:[self constructAccountUrlWithUserIdentifier:identifier query:nil]
                                                        appSecret:_appSecret
                                                       binaryData:NO
@@ -426,7 +426,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 }
 
 - (void)searchUsers:(NSString *)query callback:(CMWebServiceUserFetchSuccessCallback)callback {
-    ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"GET"
+    NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"GET"
                                                              URL:[self constructAccountUrlWithUserIdentifier:nil query:query]
                                                        appSecret:_appSecret
                                                       binaryData:NO
@@ -439,14 +439,15 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 - (void)executeUserProfileFetchRequest:(NSMutableURLRequest *)request
                               callback:(CMWebServiceUserFetchSuccessCallback)callback {
     // TODO: Let this switch between MsgPack and GZIP'd JSON.
-    [request addRequestHeader:@"Content-type" value:@"application/json"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
 
-    __unsafe_unretained ASIHTTPRequest *blockRequest = request;
-    void (^responseBlock)() = ^{
+    void (^responseBlock)() = ^(NSHTTPURLResponse *response, NSData *data, NSError *error) {
+        NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+
         NSDictionary *responseBody = [NSDictionary dictionary];
-        if (blockRequest.responseString != nil) {
+        if (responseString != nil) {
             NSError *parseErr = nil;
-            NSDictionary *parsedResponseBody = [blockRequest.responseString yajl_JSON:&parseErr];
+            NSDictionary *parsedResponseBody = [responseString yajl_JSON:&parseErr];
             if (!parseErr && parsedResponseBody) {
                 responseBody = parsedResponseBody;
             }
@@ -457,11 +458,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
         }
     };
 
-    [request setCompletionBlock:responseBlock];
-    [request setFailedBlock:responseBlock];
-
-    [self.networkQueue addOperation:request];
-    [self.networkQueue go];
+    [NSURLConnection sendAsynchronousRequest:request queue:self.networkQueue completionHandler:responseBlock];
 }
 
 - (void)executeUserAccountActionRequest:(NSMutableURLRequest *)request
