@@ -47,7 +47,7 @@
         }
 
         if (decodedObject) {
-            if(![decodedObject isKindOfClass:[CMObject class]]) {
+            if(![decodedObject isKindOfClass:[CMObject class]] && ![decodedObject isKindOfClass:[CMUser class]]) {
                 [[NSException exceptionWithName:@"CMInternalInconsistencyException" reason:[NSString stringWithFormat:@"Can only deserialize top-level objects that inherit from CMObject. Got %@.", NSStringFromClass([decodedObject class])] userInfo:nil] raise];
 
                 return nil;
@@ -155,10 +155,13 @@
 
 + (Class)typeFromDictionaryRepresentation:(NSDictionary *)representation {
     NSString *className = [representation objectForKey:CMInternalClassStorageKey];
+    NSString *typeName = [representation objectForKey:CMInternalTypeStorageKey];
     Class klass = nil;
 
     if ([className isEqualToString:CMInternalHashClassName]) {
         klass = [NSDictionary class];
+    } else if ([typeName isEqualToString:@"user"] && !className) {
+        klass = [CMUser class];
     } else {
         // First try to look up a custom class name (i.e. a name given to a CMObject subclass by overriding +className).
         klass = [[CMObjectClassNameRegistry sharedInstance] classForName:className];
