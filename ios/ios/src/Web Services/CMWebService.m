@@ -273,10 +273,10 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
 
     // Add Basic Auth header manually
-    NSData *credentialData = [[NSString stringWithFormat:@"%@:%@", user.userId, user.password] dataUsingEncoding:NSASCIIStringEncoding];
+    NSData *credentialData = [[NSString stringWithFormat:@"%@:%@", user.userId, user.password] dataUsingEncoding:NSUTF8StringEncoding];
     NSString *basicAuthValue = [NSString stringWithFormat:@"Basic %@", [credentialData base64EncodedString]];
     [request setValue:basicAuthValue forHTTPHeaderField:@"Authorization"];
-
+        
     [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode) {
         switch (httpResponseCode) {
             case 200:
@@ -360,7 +360,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 
     // This API endpoint doesn't use a session token for security purposes. The user must supply their old password
     // explicitly in addition to their new password.
-    NSData *credentialData = [[NSString stringWithFormat:@"%@:%@", user.userId, user.password] dataUsingEncoding:NSASCIIStringEncoding];
+    NSData *credentialData = [[NSString stringWithFormat:@"%@:%@", user.userId, user.password] dataUsingEncoding:NSUTF8StringEncoding];
     NSString *basicAuthValue = [NSString stringWithFormat:@"Basic %@", [credentialData base64EncodedString]];
     [request setValue:basicAuthValue forHTTPHeaderField:@"Authorization"];
 
