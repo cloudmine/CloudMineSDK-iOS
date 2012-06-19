@@ -29,7 +29,7 @@
 /**
  * Callback block signature for all operations on <tt>CMWebService</tt> that fetch objects
  * from the CloudMine servers. These blocks return <tt>void</tt> and take a dictionary of results,
- * a dictionary of errors, a dictionary of metadata, and a dynamic snippet result as arguments. 
+ * a dictionary of errors, a dictionary of metadata, and a dynamic snippet result as arguments.
  * These map directly with the CloudMine API response format.
  */
 typedef void (^CMWebServiceObjectFetchSuccessCallback)(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count);
@@ -351,6 +351,8 @@ typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDi
 - (void)resetForgottenPasswordForUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
 
 - (void)getAllUsersWithCallback:(CMWebServiceUserFetchSuccessCallback)callback;
+
+- (void)getUserProfileWithIdentifier:(NSString *)identifier callback:(CMWebServiceUserFetchSuccessCallback)callback;
 
 - (void)searchUsers:(NSString *)query callback:(CMWebServiceUserFetchSuccessCallback)callback;
 
