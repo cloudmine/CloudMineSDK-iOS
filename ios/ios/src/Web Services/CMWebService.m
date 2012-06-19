@@ -462,20 +462,20 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
                                callback:(CMWebServiceUserAccountOperationCallback)callback {
 
     // TODO: Let this switch between MsgPack and GZIP'd JSON.
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
 
-    __unsafe_unretained NSURLRequest *blockRequest = request;
-    void (^responseBlock)() = ^{
-        CMUserAccountResult resultCode = codeMapper(blockRequest.responseStatusCode);
-
+    void (^responseBlock)() = ^(NSHTTPURLResponse *response, NSData *data, NSError *error) {
+        CMUserAccountResult resultCode = codeMapper([response statusCode]);
+        NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        
         if (resultCode == CMUserAccountUnknownResult) {
-            NSLog(@"Unexpected response received from server during user account creation. Code %d, body: %@.", blockRequest.responseStatusCode, blockRequest.responseString);
+            NSLog(@"Unexpected response received from server during user account creation. Code %d, body: %@.", [response statusCode], responseString);
         }
 
         NSDictionary *responseBody = [NSDictionary dictionary];
-        if (blockRequest.responseString != nil) {
+        if (responseString != nil) {
             NSError *parseErr = nil;
-            NSDictionary *parsedResponseBody = [blockRequest.responseString yajl_JSON:&parseErr];
+            NSDictionary *parsedResponseBody = [responseString yajl_JSON:&parseErr];
             if (!parseErr && parsedResponseBody) {
                 responseBody = parsedResponseBody;
             }
@@ -486,136 +486,120 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
         }
     };
 
-    [request setCompletionBlock:responseBlock];
-    [request setFailedBlock:responseBlock];
-
-    [self.networkQueue addOperation:request];
-    [self.networkQueue go];
+    [NSURLConnection sendAsynchronousRequest:request queue:self.networkQueue completionHandler:responseBlock];
 }
 
 - (void)executeRequest:(NSURLRequest *)request
         successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
           errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
 
-    __unsafe_unretained NSURLRequest *blockRequest = request; // Stop the retain cycle.
-
-    [request setCompletionBlock:^{
-        NSDictionary *results = [blockRequest.responseString yajl_JSON];
-
-        if (blockRequest.responseStatusCode == 400 || blockRequest.responseStatusCode == 500) {
+    void (^responseBlock)() = ^(NSHTTPURLResponse *response, NSData *data, NSError *error) {
+        NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                
+        if ([response statusCode] == 400 || [response statusCode] == 500) {
+            NSDictionary *results = [responseString yajl_JSON];
             NSString *message = [results objectForKey:@"error"];
-            NSError *err = $makeErr(@"CloudMine", 500, message);
+            error = $makeErr(@"CloudMine", 500, message);
+        }
 
+        if (error) {
             if (errorHandler != nil) {
-                errorHandler(err);
+                errorHandler(error);
             }
-        } else {
-            NSDictionary *successes = nil;
-            NSDictionary *errors = nil;
-            NSDictionary *meta = nil;
-            NSNumber *count = nil;
-
-            id snippetResult = nil;
-            if (results) {
-                successes = [results objectForKey:@"success"];
-                if (!successes) {
-                    successes = [NSDictionary dictionary];
-                }
-
-                errors = [results objectForKey:@"errors"];
-                if (!errors) {
-                    errors = [NSDictionary dictionary];
-                }
-
-                snippetResult = [results objectForKey:@"result"];
-                if(!snippetResult) {
-                    snippetResult = [NSDictionary dictionary];
-                }
-
-                meta = [results objectForKey:@"meta"];
-                if(!meta) {
-                    meta = [NSDictionary dictionary];
-                }
-
-                count = [results objectForKey:@"count"];
-            }
-            if (successHandler != nil) {
-                successHandler(successes, errors, meta, snippetResult, count, blockRequest.responseHeaders);
-            }
+            return;
         }
-    }];
 
-    [request setFailedBlock:^{
-        if (errorHandler != nil) {
-            errorHandler(blockRequest.error);
+        NSDictionary *results = [responseString yajl_JSON];
+        
+        NSDictionary *successes = nil;
+        NSDictionary *errors = nil;
+        NSDictionary *meta = nil;
+        NSNumber *count = nil;
+        
+        id snippetResult = nil;
+        if (results) {
+            successes = [results objectForKey:@"success"];
+            if (!successes) {
+                successes = [NSDictionary dictionary];
+            }
+
+            errors = [results objectForKey:@"errors"];
+            if (!errors) {
+                errors = [NSDictionary dictionary];
+            }
+
+            snippetResult = [results objectForKey:@"result"];
+            if(!snippetResult) {
+                snippetResult = [NSDictionary dictionary];
+            }
+
+            meta = [results objectForKey:@"meta"];
+            if(!meta) {
+                meta = [NSDictionary dictionary];
+            }
+
+            count = [results objectForKey:@"count"];
         }
-    }];
+        
+        if (successHandler != nil) {
+            successHandler(successes, errors, meta, snippetResult, count, [response allHeaderFields]);
+        }
+    };
 
-    [self.networkQueue addOperation:request];
-    [self.networkQueue go];
+
+    [NSURLConnection sendAsynchronousRequest:request queue:self.networkQueue completionHandler:responseBlock];
 }
 
 - (void)executeBinaryDataFetchRequest:(NSURLRequest *)request
         successHandler:(CMWebServiceFileFetchSuccessCallback)successHandler
           errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
 
-    __unsafe_unretained NSURLRequest *blockRequest = request; // Stop the retain cycle.
+    void (^responseBlock)() = ^(NSHTTPURLResponse *response, NSData *data, NSError *error) {
 
-    [request setCompletionBlock:^{
-        if (blockRequest.responseStatusCode == 200) {
+        if ([response statusCode] == 200) {
             if (successHandler != nil) {
-                successHandler(blockRequest.responseData, [blockRequest.responseHeaders objectForKey:@"Content-Type"], blockRequest.responseHeaders);
+                successHandler(data, [[response allHeaderFields] objectForKey:@"Content-Type"], [response allHeaderFields]);
             }
         } else {
             if (errorHandler != nil) {
-                NSError *err = $makeErr(@"CloudMine", blockRequest.responseStatusCode, blockRequest.responseStatusMessage);
+                NSError *err = $makeErr(@"CloudMine", [response statusCode], @"Something went wrong!"); // TODO: Obtain user readable status code message
                 errorHandler(err);
             }
         }
-    }];
+    };
 
-    [request setFailedBlock:^{
-        if (errorHandler != nil) {
-            errorHandler(blockRequest.error);
-        }
-    }];
-
-    [self.networkQueue addOperation:request];
-    [self.networkQueue go];
+    [NSURLConnection sendAsynchronousRequest:request queue:self.networkQueue completionHandler:responseBlock];
 }
 
 - (void)executeBinaryDataUploadRequest:(NSURLRequest *)request
                        successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler
                          errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
 
-    __unsafe_unretained NSURLRequest *blockRequest = request; // Stop the retain cycle.
-
-    [request setCompletionBlock:^{
-        NSDictionary *results = [blockRequest.responseString yajl_JSON];
-
+    void (^responseBlock)() = ^(NSHTTPURLResponse *response, NSData *data, NSError *error) {
+        if (error) {
+            if (errorHandler != nil) {
+                errorHandler(error);
+            }
+            return;
+        }
+        
+        NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSDictionary *results = [responseString yajl_JSON];        
         id snippetResult = nil;
         NSString *key = [results objectForKey:@"key"];
 
-        if(results) {
+        if (results) {
             snippetResult = [results objectForKey:@"result"];
-
-            if(!snippetResult) {
+            if (!snippetResult)
                 snippetResult = [NSDictionary dictionary];
-            }
         }
+        
         if (successHandler != nil) {
-            successHandler(blockRequest.responseStatusCode == 201 ? CMFileCreated : CMFileUpdated, key, snippetResult, blockRequest.responseHeaders);
+            successHandler([response statusCode] == 201 ? CMFileCreated : CMFileUpdated, key, snippetResult, [response allHeaderFields]);
         }
-    }];
+    };
 
-    [request setFailedBlock:^{
-        if (errorHandler != nil) {
-            errorHandler(blockRequest.error);
-        }
-    }];
-
-    [self.networkQueue addOperation:request];
-    [self.networkQueue go];
+    [NSURLConnection sendAsynchronousRequest:request queue:self.networkQueue completionHandler:responseBlock];
 }
 
 #pragma - Request construction
@@ -642,7 +626,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 
     // Don't do this for binary data since that requires further intervention by the developer.
     if (!isForBinaryData) {
-        [request setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     }
 
@@ -651,7 +635,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     [request setValue:[[CMActiveUser currentActiveUser] identifier] forHTTPHeaderField:@"X-CloudMine-UT"];
 
     #ifdef DEBUG
-        NSLog(@"Constructed CloudMine URL: %@\nHeaders:%@", request.url, request.allHTTPHeaderFields);
+        NSLog(@"Constructed CloudMine URL: %@\nHeaders:%@", [request URL], [request allHTTPHeaderFields]);
     #endif
 
     return [request copy];
