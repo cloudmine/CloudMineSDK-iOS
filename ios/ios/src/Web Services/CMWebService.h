@@ -32,7 +32,7 @@
  * a dictionary of errors, a dictionary of metadata, and a dynamic snippet result as arguments. 
  * These map directly with the CloudMine API response format.
  */
-typedef void (^CMWebServiceObjectFetchSuccessCallback)(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count);
+typedef void (^CMWebServiceObjectFetchSuccessCallback)(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers);
 
 /**
  * Callback block signature for <b>all</b> operations on <tt>CMStore</tt> that can fail. These are general
@@ -47,14 +47,14 @@ typedef void (^CMWebServiceFetchFailureCallback)(NSError *error);
  * the CloudMine servers. These blocks return <tt>void</tt> and take a <tt>CMFileUploadResult</tt>, the key
  * of the new file, and a dynamic snippet result as arguments to indicate the final result of the upload operation.
  */
-typedef void (^CMWebServiceFileUploadSuccessCallback)(CMFileUploadResult result, NSString *fileKey, id snippetResult);
+typedef void (^CMWebServiceFileUploadSuccessCallback)(CMFileUploadResult result, NSString *fileKey, id snippetResult, NSDictionary *headers);
 
 /**
  * Callback block signature for all operations on <tt>CMWebService</tt> that download binary files from
  * the CloudMine servers. These blocks return <tt>void</tt> and take an <tt>NSData</tt> instance that contains
  * the raw data for the file as well as a string with the content type of the file returned from the server.
  */
-typedef void (^CMWebServiceFileFetchSuccessCallback)(NSData *data, NSString *contentType);
+typedef void (^CMWebServiceFileFetchSuccessCallback)(NSData *data, NSString *contentType, NSDictionary *headers);
 
 /**
  * Callback block signature for all operations on <tt>CMWebService</tt> and <tt>CMUser</tt> that involve the management

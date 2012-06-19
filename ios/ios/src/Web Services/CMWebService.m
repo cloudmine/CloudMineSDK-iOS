@@ -481,7 +481,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
                 count = [results objectForKey:@"count"];
             }
             if (successHandler != nil) {
-                successHandler(successes, errors, meta, snippetResult, count);
+                successHandler(successes, errors, meta, snippetResult, count, blockRequest.responseHeaders);
             }
         }
     }];
@@ -505,7 +505,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     [request setCompletionBlock:^{
         if (blockRequest.responseStatusCode == 200) {
             if (successHandler != nil) {
-                successHandler(blockRequest.responseData, [blockRequest.responseHeaders objectForKey:@"Content-Type"]);
+                successHandler(blockRequest.responseData, [blockRequest.responseHeaders objectForKey:@"Content-Type"], blockRequest.responseHeaders);
             }
         } else {
             if (errorHandler != nil) {
@@ -533,7 +533,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 
     [request setCompletionBlock:^{
         NSDictionary *results = [blockRequest.responseString yajl_JSON];
-
+        
         id snippetResult = nil;
         NSString *key = [results objectForKey:@"key"];
 
@@ -545,7 +545,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
             }
         }
         if (successHandler != nil) {
-            successHandler(blockRequest.responseStatusCode == 201 ? CMFileCreated : CMFileUpdated, key, snippetResult);
+            successHandler(blockRequest.responseStatusCode == 201 ? CMFileCreated : CMFileUpdated, key, snippetResult, blockRequest.responseHeaders);
         }
     }];
 
