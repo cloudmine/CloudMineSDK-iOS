@@ -8,5 +8,6 @@ var searchData=
   ['user',['user',['../interface_c_m_store.html#a40869eb6333f44b032490fdb9a8f82f0',1,'CMStore']]],
   ['userfilewithname_3aadditionaloptions_3acallback_3a',['userFileWithName:additionalOptions:callback:',['../interface_c_m_store.html#abf65f27fcfb813a67f650c84fa518c45',1,'CMStore']]],
   ['userid',['userId',['../interface_c_m_user.html#aae1ccbb80ad2e0627ea3c0154fe8b822',1,'CMUser']]],
-  ['userobjectswithkeys_3aadditionaloptions_3acallback_3a',['userObjectsWithKeys:additionalOptions:callback:',['../interface_c_m_store.html#af6bbaa617ad3893bcc76a146d3c9416d',1,'CMStore']]]
+  ['userobjectswithkeys_3aadditionaloptions_3acallback_3a',['userObjectsWithKeys:additionalOptions:callback:',['../interface_c_m_store.html#af6bbaa617ad3893bcc76a146d3c9416d',1,'CMStore']]],
+  ['userwithidentifier_3acallback_3a',['userWithIdentifier:callback:',['../interface_c_m_user.html#ae43fccb2db39b33eaf97dae80bf73c96',1,'CMUser']]]
 ];

@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>CloudMine iOS SDK: Member List</title>
+<title>CloudMine iOS SDK: ios/src/Web Services/CMActiveUser.h Source File</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -52,8 +52,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
-      <li><a href="files.html"><span>Files</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -74,10 +74,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
-      <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
-      <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
-      <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
+      <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 </div>
@@ -91,7 +89,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-  initNavTree('interface_c_m_sort_descriptor.html','');
+  initNavTree('_c_m_active_user_8h.html','');
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -110,22 +108,29 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div class="header">
   <div class="headertitle">
-<div class="title">CMSortDescriptor Member List</div>  </div>
+<div class="title">ios/src/Web Services/CMActiveUser.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-This is the complete list of members for <a class="el" href="interface_c_m_sort_descriptor.html">CMSortDescriptor</a>, including all inherited members.<table>
-  <tr bgcolor="#f0f0f0"><td>-&#160;</td><td><b>count</b> (defined in <a class="el" href="interface_c_m_sort_descriptor.html">CMSortDescriptor</a>)</td><td><a class="el" href="interface_c_m_sort_descriptor.html">CMSortDescriptor</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td>-&#160;</td><td><b>directionOfField:</b> (defined in <a class="el" href="interface_c_m_sort_descriptor.html">CMSortDescriptor</a>)</td><td><a class="el" href="interface_c_m_sort_descriptor.html">CMSortDescriptor</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td>+&#160;</td><td><b>emptyDescriptor</b> (defined in <a class="el" href="interface_c_m_sort_descriptor.html">CMSortDescriptor</a>)</td><td><a class="el" href="interface_c_m_sort_descriptor.html">CMSortDescriptor</a></td><td><code> [static]</code></td></tr>
-  <tr bgcolor="#f0f0f0"><td>-&#160;</td><td><b>initWithFieldsAndDirections:</b> (defined in <a class="el" href="interface_c_m_sort_descriptor.html">CMSortDescriptor</a>)</td><td><a class="el" href="interface_c_m_sort_descriptor.html">CMSortDescriptor</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td>-&#160;</td><td><b>sortByField:</b> (defined in <a class="el" href="interface_c_m_sort_descriptor.html">CMSortDescriptor</a>)</td><td><a class="el" href="interface_c_m_sort_descriptor.html">CMSortDescriptor</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td>-&#160;</td><td><b>sortByField:direction:</b> (defined in <a class="el" href="interface_c_m_sort_descriptor.html">CMSortDescriptor</a>)</td><td><a class="el" href="interface_c_m_sort_descriptor.html">CMSortDescriptor</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td>-&#160;</td><td><b>stopSortingByField:</b> (defined in <a class="el" href="interface_c_m_sort_descriptor.html">CMSortDescriptor</a>)</td><td><a class="el" href="interface_c_m_sort_descriptor.html">CMSortDescriptor</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td>-&#160;</td><td><b>stringRepresentation</b> (defined in <a class="el" href="interface_c_m_sort_descriptor.html">CMSortDescriptor</a>)</td><td><a class="el" href="interface_c_m_sort_descriptor.html">CMSortDescriptor</a></td><td></td></tr>
-</table></div><!-- contents -->
+<div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">//</span>
+<a name="l00002"></a>00002 <span class="comment">//  CMActiveUser.h</span>
+<a name="l00003"></a>00003 <span class="comment">//  cloudmine-ios</span>
+<a name="l00004"></a>00004 <span class="comment">//</span>
+<a name="l00005"></a>00005 <span class="comment">//  Copyright (c) 2012 CloudMine, LLC. All rights reserved.</span>
+<a name="l00006"></a>00006 <span class="comment">//  See LICENSE file included with SDK for details.</span>
+<a name="l00007"></a>00007 <span class="comment">//</span>
+<a name="l00008"></a>00008 
+<a name="l00010"></a><a class="code" href="interface_c_m_active_user.html">00010</a> <span class="keyword">@interface </span><a class="code" href="interface_c_m_active_user.html">CMActiveUser</a> : NSObject &lt;NSCoding&gt;
+<a name="l00011"></a>00011 
+<a name="l00012"></a>00012 @property (nonatomic, readonly) NSString *identifier;
+<a name="l00013"></a>00013 
+<a name="l00014"></a>00014 + (<a class="code" href="interface_c_m_active_user.html">CMActiveUser</a> *)currentActiveUser;
+<a name="l00015"></a>00015 
+<a name="l00016"></a>00016 <span class="keyword">@end</span>
+</pre></div></div><!-- contents -->
 </div>
   <div id="nav-path" class="navpath">
     <ul>
+      <li class="navelem"><b>CMActiveUser.h</b>      </li>
 
     <li class="footer">Generated on Tue Jun 19 2012 16:13:25 for CloudMine iOS SDK by
     <a href="http://www.doxygen.org/index.html">

@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>CloudMine iOS SDK: src/Web Services/CMServerFunction.h Source File</title>
+<title>CloudMine iOS SDK: ios/src/Web Services/CMServerFunction.h Source File</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -30,12 +30,10 @@
  <tbody>
  <tr style="height: 56px;">
   
-  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
-  
   
   <td style="padding-left: 0.5em;">
    <div id="projectname">CloudMine iOS SDK
-   &#160;<span id="projectnumber">0.1</span>
+   &#160;<span id="projectnumber">1.0</span>
    </div>
    
   </td>
@@ -110,7 +108,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div class="header">
   <div class="headertitle">
-<div class="title">src/Web Services/CMServerFunction.h</div>  </div>
+<div class="title">ios/src/Web Services/CMServerFunction.h</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">//</span>
@@ -121,40 +119,38 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00006"></a>00006 <span class="comment">//  See LICENSE file included with SDK for details.</span>
 <a name="l00007"></a>00007 <span class="comment">//</span>
 <a name="l00008"></a>00008 
-<a name="l00009"></a>00009 <span class="preprocessor">#import &lt;Foundation/Foundation.h&gt;</span>
-<a name="l00010"></a>00010 
-<a name="l00015"></a><a class="code" href="interface_c_m_server_function.html">00015</a> <span class="keyword">@interface </span><a class="code" href="interface_c_m_server_function.html">CMServerFunction</a> : NSObject
-<a name="l00016"></a>00016 
-<a name="l00022"></a><a class="code" href="interface_c_m_server_function.html#a8ae6acedc3030784acd47bbdba62770b">00022</a> @property (nonatomic, strong) NSString *<a class="code" href="interface_c_m_server_function.html#a8ae6acedc3030784acd47bbdba62770b">functionName</a>;
-<a name="l00023"></a>00023 
-<a name="l00031"></a><a class="code" href="interface_c_m_server_function.html#af70b18524f098105fa7357caaceb1c5c">00031</a> @property (nonatomic, strong) NSDictionary *<a class="code" href="interface_c_m_server_function.html#af70b18524f098105fa7357caaceb1c5c">extraParameters</a>;
-<a name="l00032"></a>00032 
-<a name="l00040"></a><a class="code" href="interface_c_m_server_function.html#ab1c45b7eff50653fd89fa99e7aa7cec4">00040</a> @property (nonatomic, assign) BOOL <a class="code" href="interface_c_m_server_function.html#ab1c45b7eff50653fd89fa99e7aa7cec4">resultOnly</a>;
-<a name="l00041"></a>00041 
-<a name="l00050"></a><a class="code" href="interface_c_m_server_function.html#a6c657b633f0582b8719635cd661a6bb9">00050</a> @property (nonatomic, assign) BOOL <a class="code" href="interface_c_m_server_function.html#a6c657b633f0582b8719635cd661a6bb9">async</a>;
-<a name="l00051"></a>00051 
-<a name="l00059"></a>00059 + (id)serverFunctionWithName:(NSString *)theFunctionName;
-<a name="l00060"></a>00060 
-<a name="l00069"></a>00069 + (id)serverFunctionWithName:(NSString *)theFunctionName extraParameters:(NSDictionary *)theExtraParameters;
-<a name="l00070"></a>00070 
-<a name="l00083"></a>00083 + (id)serverFunctionWithName:(NSString *)theFunctionName extraParameters:(NSDictionary *)theExtraParameters responseContainsResultOnly:(BOOL)resultOnly;
-<a name="l00084"></a>00084 
-<a name="l00099"></a>00099 + (id)serverFunctionWithName:(NSString *)theFunctionName extraParameters:(NSDictionary *)theExtraParameters responseContainsResultOnly:(BOOL)resultOnly performAsynchronously:(BOOL)async;
-<a name="l00100"></a>00100 
-<a name="l00115"></a>00115 - (id)initWithFunctionName:(NSString *)theFunctionName extraParameters:(NSDictionary *)theExtraParameters responseContainsResultOnly:(BOOL)resultOnly performAsynchronously:(BOOL)async;
-<a name="l00116"></a>00116 
-<a name="l00122"></a>00122 - (id)<a class="code" href="interface_c_m_server_function.html#a16ebf5447f07ff91b94c3718b2977ef6">init</a>;
-<a name="l00123"></a>00123 
-<a name="l00130"></a>00130 - (NSString *)<a class="code" href="interface_c_m_server_function.html#aed0761fc5064797d132e4ef13c0f5d32">stringRepresentation</a>;
-<a name="l00131"></a>00131 
-<a name="l00132"></a>00132 <span class="keyword">@end</span>
+<a name="l00013"></a><a class="code" href="interface_c_m_server_function.html">00013</a> <span class="keyword">@interface </span><a class="code" href="interface_c_m_server_function.html">CMServerFunction</a> : NSObject
+<a name="l00014"></a>00014 
+<a name="l00020"></a><a class="code" href="interface_c_m_server_function.html#a8ae6acedc3030784acd47bbdba62770b">00020</a> @property (nonatomic, strong) NSString *<a class="code" href="interface_c_m_server_function.html#a8ae6acedc3030784acd47bbdba62770b">functionName</a>;
+<a name="l00021"></a>00021 
+<a name="l00029"></a><a class="code" href="interface_c_m_server_function.html#af70b18524f098105fa7357caaceb1c5c">00029</a> @property (nonatomic, strong) NSDictionary *<a class="code" href="interface_c_m_server_function.html#af70b18524f098105fa7357caaceb1c5c">extraParameters</a>;
+<a name="l00030"></a>00030 
+<a name="l00038"></a><a class="code" href="interface_c_m_server_function.html#ab1c45b7eff50653fd89fa99e7aa7cec4">00038</a> @property (nonatomic, assign) BOOL <a class="code" href="interface_c_m_server_function.html#ab1c45b7eff50653fd89fa99e7aa7cec4">resultOnly</a>;
+<a name="l00039"></a>00039 
+<a name="l00048"></a><a class="code" href="interface_c_m_server_function.html#a6c657b633f0582b8719635cd661a6bb9">00048</a> @property (nonatomic, assign) BOOL <a class="code" href="interface_c_m_server_function.html#a6c657b633f0582b8719635cd661a6bb9">async</a>;
+<a name="l00049"></a>00049 
+<a name="l00057"></a>00057 + (id)serverFunctionWithName:(NSString *)theFunctionName;
+<a name="l00058"></a>00058 
+<a name="l00067"></a>00067 + (id)serverFunctionWithName:(NSString *)theFunctionName extraParameters:(NSDictionary *)theExtraParameters;
+<a name="l00068"></a>00068 
+<a name="l00081"></a>00081 + (id)serverFunctionWithName:(NSString *)theFunctionName extraParameters:(NSDictionary *)theExtraParameters responseContainsResultOnly:(BOOL)resultOnly;
+<a name="l00082"></a>00082 
+<a name="l00097"></a>00097 + (id)serverFunctionWithName:(NSString *)theFunctionName extraParameters:(NSDictionary *)theExtraParameters responseContainsResultOnly:(BOOL)resultOnly performAsynchronously:(BOOL)async;
+<a name="l00098"></a>00098 
+<a name="l00113"></a>00113 - (id)initWithFunctionName:(NSString *)theFunctionName extraParameters:(NSDictionary *)theExtraParameters responseContainsResultOnly:(BOOL)resultOnly performAsynchronously:(BOOL)async;
+<a name="l00114"></a>00114 
+<a name="l00120"></a>00120 - (id)<a class="code" href="interface_c_m_server_function.html#a16ebf5447f07ff91b94c3718b2977ef6">init</a>;
+<a name="l00121"></a>00121 
+<a name="l00128"></a>00128 - (NSString *)<a class="code" href="interface_c_m_server_function.html#aed0761fc5064797d132e4ef13c0f5d32">stringRepresentation</a>;
+<a name="l00129"></a>00129 
+<a name="l00130"></a>00130 <span class="keyword">@end</span>
 </pre></div></div><!-- contents -->
 </div>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><b>CMServerFunction.h</b>      </li>
 
-    <li class="footer">Generated on Tue Jun 5 2012 16:51:28 for CloudMine iOS SDK by
+    <li class="footer">Generated on Tue Jun 19 2012 16:13:25 for CloudMine iOS SDK by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.0 </li>
    </ul>
