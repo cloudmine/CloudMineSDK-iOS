@@ -1,5 +1,6 @@
 var annotated =
 [
+    [ "CMActiveUser", "interface_c_m_active_user.html", "interface_c_m_active_user" ],
     [ "CMAPICredentials", "interface_c_m_a_p_i_credentials.html", "interface_c_m_a_p_i_credentials" ],
     [ "CMDate", "interface_c_m_date.html", "interface_c_m_date" ],
     [ "CMDeleteResponse", "interface_c_m_delete_response.html", "interface_c_m_delete_response" ],

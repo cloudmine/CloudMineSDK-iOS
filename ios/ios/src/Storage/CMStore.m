@@ -27,13 +27,15 @@
 #define _CMUserOrNil (userLevel ? user : nil)
 #define _CMTryMethod(obj, method) (obj ? [obj method] : nil)
 
+#define CM_TOKENEXPIRATION_HEADER @"X-CloudMine-TE"
+
 #pragma mark - Notification strings
 
 NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotification";
 
 #pragma mark -
 
-@interface CMStore (Private)
+@interface CMStore ()
 - (void)_allObjects:(CMStoreObjectFetchCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
 - (void)_allObjects:(CMStoreObjectFetchCallback)callback ofClass:(Class)klass userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
 - (void)_objectsWithKeys:(NSArray *)keys callback:(CMStoreObjectFetchCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
@@ -43,17 +45,16 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (void)_saveFileAtURL:(NSURL *)url named:(NSString *)name userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
 - (void)_saveFileWithData:(NSData *)data named:(NSString *)name userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
 - (NSString *)_mimeTypeForFileAtURL:(NSURL *)url withCustomName:(NSString *)name;
-- (void)_deleteObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreDeleteCallback)callback;
-- (void)_deleteFileNamed:(NSString *)name userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback;
 - (void)_ensureUserLoggedInWithCallback:(void (^)(void))callback;
-- (NSDictionary *)_buildExtraParametersFromOptions:(CMStoreOptions *)options;
 - (void)cacheObjectsInMemory:(NSArray *)objects atUserLevel:(BOOL)userLevel;
+@property (strong, nonatomic) NSDateFormatter *dateFormatter;
 @end
 
 @implementation CMStore
 @synthesize webService;
 @synthesize user;
 @synthesize lastError;
+@synthesize dateFormatter;
 
 #pragma mark - Shared store
 
@@ -86,6 +87,12 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     if (self = [super init]) {
         self.webService = [[CMWebService alloc] init];
         self.user = theUser;
+        
+        NSDateFormatter *df = [[NSDateFormatter alloc] init];
+        [df setLenient:YES];
+        df.dateFormat = @"EEE',' dd MMM yyyy HH':'mm':'ss 'GMT'";
+        self.dateFormatter = df;
+        
         lastError = nil;
         _cachedAppObjects = [[NSMutableDictionary alloc] init];
         _cachedUserObjects = theUser ? [[NSMutableDictionary alloc] init] : nil;
@@ -157,13 +164,19 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                   sortingOptions:_CMTryMethod(options, sortDescriptor)
                             user:_CMUserOrNil
                  extraParameters:_CMTryMethod(options, buildExtraParameters)
-                  successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult, NSNumber *count) {
+                  successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult, NSNumber *count, NSDictionary *headers) {
                       NSArray *objects = [CMObjectDecoder decodeObjects:results];
                       [blockSelf cacheObjectsInMemory:objects atUserLevel:userLevel];
                       CMResponseMetadata *metadata = [[CMResponseMetadata alloc] initWithMetadata:meta];
                       CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
                       CMObjectFetchResponse *response = [[CMObjectFetchResponse alloc] initWithObjects:objects errors:errors snippetResult:result responseMetadata:metadata];
                       response.count = count ? [count intValue] : [objects count];
+                      
+                      NSDate *expirationDate = [self.dateFormatter dateFromString:[headers objectForKey:CM_TOKENEXPIRATION_HEADER]];
+                      if (expirationDate && userLevel) {
+                          user.tokenExpiration = expirationDate;
+                      }
+                      
                       if (callback) {
                           callback(response);
                       }
@@ -230,13 +243,19 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                  sortingOptions:_CMTryMethod(options, sortDescriptor)
                            user:_CMUserOrNil
                 extraParameters:_CMTryMethod(options, buildExtraParameters)
-                 successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult, NSNumber *count) {
+                 successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult, NSNumber *count, NSDictionary *headers) {
                      NSArray *objects = [CMObjectDecoder decodeObjects:results];
                      CMResponseMetadata *metadata = [[CMResponseMetadata alloc] initWithMetadata:meta];
                      CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
                      [blockSelf cacheObjectsInMemory:objects atUserLevel:userLevel];
                      CMObjectFetchResponse *response = [[CMObjectFetchResponse alloc] initWithObjects:objects errors:errors snippetResult:result responseMetadata:metadata];
                      response.count = count ? [count intValue] : [objects count];
+                     
+                     NSDate *expirationDate = [self.dateFormatter dateFromString:[headers objectForKey:CM_TOKENEXPIRATION_HEADER]];
+                     if (expirationDate && userLevel) {
+                         user.tokenExpiration = expirationDate;
+                     }
+                     
                      if (callback) {
                          callback(response);
                      }
@@ -317,10 +336,16 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                         serverSideFunction:_CMTryMethod(options, serverSideFunction)
                                       user:_CMUserOrNil
                            extraParameters:_CMTryMethod(options, buildExtraParameters)
-                            successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult, NSNumber *count) {
+                            successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult, NSNumber *count, NSDictionary *headers) {
                                 CMResponseMetadata *metadata = [[CMResponseMetadata alloc] initWithMetadata:meta];
                                 CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
                                 CMObjectUploadResponse *response = [[CMObjectUploadResponse alloc] initWithUploadStatuses:results snippetResult:result responseMetadata:metadata];
+                                
+                                NSDate *expirationDate = [self.dateFormatter dateFromString:[headers objectForKey:CM_TOKENEXPIRATION_HEADER]];
+                                if (expirationDate && userLevel) {
+                                    user.tokenExpiration = expirationDate;
+                                }
+                                
                                 if (callback) {
                                     callback(response);
                                 }
@@ -368,9 +393,15 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                       ofMimeType:[self _mimeTypeForFileAtURL:url withCustomName:name]
                             user:_CMUserOrNil
                  extraParameters:_CMTryMethod(options, buildExtraParameters)
-                  successHandler:^(CMFileUploadResult result, NSString *fileKey, id snippetResult) {
+                  successHandler:^(CMFileUploadResult result, NSString *fileKey, id snippetResult, NSDictionary *headers) {
                       CMSnippetResult *sResult = [[CMSnippetResult alloc] initWithData:snippetResult];
                       CMFileUploadResponse *response = [[CMFileUploadResponse alloc] initWithResult:result key:fileKey snippetResult:sResult];
+                      
+                      NSDate *expirationDate = [self.dateFormatter dateFromString:[headers objectForKey:CM_TOKENEXPIRATION_HEADER]];
+                      if (expirationDate && userLevel) {
+                          user.tokenExpiration = expirationDate;
+                      }
+                      
                       if (callback) {
                           callback(response);
                       }
@@ -416,9 +447,15 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                       ofMimeType:[self _mimeTypeForFileAtURL:nil withCustomName:name]
                             user:_CMUserOrNil
                  extraParameters:_CMTryMethod(options, buildExtraParameters)
-                  successHandler:^(CMFileUploadResult result, NSString *fileKey, id snippetResult) {
+                  successHandler:^(CMFileUploadResult result, NSString *fileKey, id snippetResult, NSDictionary *headers) {
                       CMSnippetResult *sResult = [[CMSnippetResult alloc] initWithData:snippetResult];
                       CMFileUploadResponse *response = [[CMFileUploadResponse alloc] initWithResult:result key:fileKey snippetResult:sResult];
+                      
+                      NSDate *expirationDate = [self.dateFormatter dateFromString:[headers objectForKey:CM_TOKENEXPIRATION_HEADER]];
+                      if (expirationDate && userLevel) {
+                          user.tokenExpiration = expirationDate;
+                      }
+                      
                       if (callback) {
                           callback(response);
                       }
@@ -498,9 +535,15 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                  serverSideFunction:_CMTryMethod(options, serverSideFunction)
                                user:_CMUserOrNil
                     extraParameters:_CMTryMethod(options, buildExtraParameters)
-                     successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult, NSNumber *count) {
+                     successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult, NSNumber *count, NSDictionary *headers) {
                          CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
                          CMDeleteResponse *response = [[CMDeleteResponse alloc] initWithSuccess:results errors:errors snippetResult:result];
+                         
+                         NSDate *expirationDate = [self.dateFormatter dateFromString:[headers objectForKey:CM_TOKENEXPIRATION_HEADER]];
+                         if (expirationDate && userLevel) {
+                             user.tokenExpiration = expirationDate;
+                         }
+                         
                          if (callback) {
                              callback(response);
                          }
@@ -531,9 +574,15 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                  serverSideFunction:_CMTryMethod(options, serverSideFunction)
                                user:_CMUserOrNil
                     extraParameters:_CMTryMethod(options, buildExtraParameters)
-                     successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult, NSNumber *count) {
+                     successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult, NSNumber *count, NSDictionary *headers) {
                          CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
                          CMDeleteResponse *response = [[CMDeleteResponse alloc] initWithSuccess:results errors:errors snippetResult:result];
+                         
+                         NSDate *expirationDate = [self.dateFormatter dateFromString:[headers objectForKey:CM_TOKENEXPIRATION_HEADER]];
+                         if (expirationDate && userLevel) {
+                             user.tokenExpiration = expirationDate;
+                         }
+                         
                          if (callback) {
                              callback(response);
                          }
@@ -570,13 +619,19 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                 serverSideFunction:_CMTryMethod(options, serverSideFunction)
                               user:_CMUserOrNil
                    extraParameters:_CMTryMethod(options, buildExtraParameters)
-                    successHandler:^(NSData *data, NSString *mimeType) {
+                    successHandler:^(NSData *data, NSString *mimeType, NSDictionary *headers) {
                         CMFile *file = [[CMFile alloc] initWithData:data
                                                               named:name
                                                     belongingToUser:userLevel ? user : nil
                                                            mimeType:mimeType];
                         [file writeToCache];
                         CMFileFetchResponse *response = [[CMFileFetchResponse alloc] initWithFile:file];
+                        
+                        NSDate *expirationDate = [self.dateFormatter dateFromString:[headers objectForKey:CM_TOKENEXPIRATION_HEADER]];
+                        if (expirationDate && userLevel) {
+                            user.tokenExpiration = expirationDate;
+                        }
+                        
                         if (callback) {
                             callback(response);
                         }

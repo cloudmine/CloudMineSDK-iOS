@@ -21,6 +21,7 @@ var searchData=
   ['saveuserobject_3acallback_3a',['saveUserObject:callback:',['../interface_c_m_store.html#ab8895c2c051248cea83186ee70bb1c6c',1,'CMStore']]],
   ['searchobjects_3aadditionaloptions_3acallback_3a',['searchObjects:additionalOptions:callback:',['../interface_c_m_store.html#a3c6a53c41da688f318159d37c1757544',1,'CMStore']]],
   ['searchuserobjects_3aadditionaloptions_3acallback_3a',['searchUserObjects:additionalOptions:callback:',['../interface_c_m_store.html#a15ef9bfa7002a0650a329024a0432ce9',1,'CMStore']]],
+  ['searchusers_3acallback_3a',['searchUsers:callback:',['../interface_c_m_user.html#ae5d87ea90f6e05422f492420c3335cd6',1,'CMUser::searchUsers:callback:()'],['../interface_c_m_web_service.html#adc373387bce4b16ddefe5344bc00fc44',1,'CMWebService::searchUsers:callback:()']]],
   ['serverfunctionwithname_3a',['serverFunctionWithName:',['../interface_c_m_server_function.html#aa2db5489d1f909314b0955c770f2c682',1,'CMServerFunction']]],
   ['serverfunctionwithname_3aextraparameters_3a',['serverFunctionWithName:extraParameters:',['../interface_c_m_server_function.html#ac2626c8f015cddb05f3f1133eb49641b',1,'CMServerFunction']]],
   ['serverfunctionwithname_3aextraparameters_3aresponsecontainsresultonly_3a',['serverFunctionWithName:extraParameters:responseContainsResultOnly:',['../interface_c_m_server_function.html#a2e0f03dc377aaa0c74453d6524edc5ad',1,'CMServerFunction']]],

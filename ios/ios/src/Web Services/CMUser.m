@@ -8,10 +8,11 @@
 
 #import "CMUser.h"
 #import "CMWebService.h"
+#import "CMObjectSerialization.h"
 
-@interface CMUser ()
-@property CMWebService *webService;
-@end
+#import "CMObjectDecoder.h"
+
+static CMWebService *webService;
 
 @implementation CMUser
 
@@ -19,24 +20,36 @@
 @synthesize password;
 @synthesize token;
 @synthesize tokenExpiration;
-@synthesize webService;
+@synthesize objectId;
+
++ (NSString *)className {
+    return NSStringFromClass([self class]);
+}
 
 #pragma mark - Constructors
+
++ (void)initialize {
+    webService = [[CMWebService alloc] init];
+}
 
 - (id)initWithUserId:(NSString *)theUserId andPassword:(NSString *)thePassword {
     if (self = [super init]) {
         self.token = nil;
         self.userId = theUserId;
         self.password = thePassword;
-        webService = [[CMWebService alloc] init];
+        objectId = @"";
     }
     return self;
 }
 
 - (id)initWithCoder:(NSCoder *)coder {
     if (self = [super init]) {
-        self.token = [coder decodeObjectForKey:@"token"];
-        self.tokenExpiration = [coder decodeObjectForKey:@"tokenExpiration"];
+        objectId = [coder decodeObjectForKey:CMInternalObjectIdKey];
+        if (!objectId) {
+            objectId = @"";
+        }
+        token = [coder decodeObjectForKey:@"token"];
+        tokenExpiration = [coder decodeObjectForKey:@"tokenExpiration"];
     }
     return self;
 }
@@ -44,6 +57,7 @@
 #pragma mark - Serialization
 
 - (void)encodeWithCoder:(NSCoder *)coder {
+    [coder encodeObject:self.objectId forKey:CMInternalObjectIdKey];
     [coder encodeObject:self.token forKey:@"token"];
     [coder encodeObject:self.tokenExpiration forKey:@"tokenExpiration"];
 }
@@ -98,6 +112,14 @@
             [df setLenient:YES];
             df.dateFormat = @"EEE',' dd MMM yyyy HH':'mm':'ss 'GMT'"; // RFC 1123 format
             blockSelf.tokenExpiration = [df dateFromString:[responseBody objectForKey:@"expires"]];
+
+            NSDictionary *userProfile = [responseBody objectForKey:@"profile"];
+            objectId = [userProfile objectForKey:CMInternalObjectIdKey];
+            for (NSString *key in userProfile) {
+                if (![CMInternalKeys containsObject:key]) {
+                    [blockSelf setValue:[userProfile objectForKey:key] forKey:key];
+                }
+            }
         }
 
         callback(result, messages);
@@ -125,7 +147,9 @@
         NSArray *messages = [NSArray array];
 
         if (result != CMUserAccountCreateSucceeded) {
-            messages = [responseBody allValues];
+            messages = [responseBody objectForKey:@"errors"];
+        } else {
+            objectId = [responseBody objectForKey:CMInternalObjectIdKey];
         }
 
         callback(result, messages);
@@ -170,6 +194,40 @@
     [webService resetForgottenPasswordForUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         callback(result, [NSArray array]);
     }];
+}
+
+#pragma mark - Discovering other users
+
++ (void)allUsersWithCallback:(CMUserFetchCallback)callback {
+    [webService getAllUsersWithCallback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
+        callback([CMObjectDecoder decodeObjects:results], errors);
+    }];
+}
+
++ (void)searchUsers:(NSString *)query callback:(CMUserFetchCallback)callback {
+    [webService searchUsers:query callback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
+        callback([CMObjectDecoder decodeObjects:results], errors);
+    }];
+}
+
++ (void)userWithIdentifier:(NSString *)identifier callback:(CMUserFetchCallback)callback {
+    [webService getUserProfileWithIdentifier:identifier callback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
+        if (errors.count > 0) {
+            callback([NSArray array], errors);
+        } else {
+            callback([CMObjectDecoder decodeObjects:results], errors);
+        }
+    }];
+}
+
+#pragma mark - Private stuff
+
+- (void)setWebService:(CMWebService *)newWebService {
+    webService = newWebService;
+}
+
+- (CMWebService *)webService {
+    return webService;
 }
 
 @end

@@ -29,13 +29,13 @@
 /**
  * Callback block signature for all operations on <tt>CMWebService</tt> that fetch objects
  * from the CloudMine servers. These blocks return <tt>void</tt> and take a dictionary of results,
- * a dictionary of errors, a dictionary of metadata, and a dynamic snippet result as arguments. 
+ * a dictionary of errors, a dictionary of metadata, and a dynamic snippet result as arguments.
  * These map directly with the CloudMine API response format.
  */
-typedef void (^CMWebServiceObjectFetchSuccessCallback)(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count);
+typedef void (^CMWebServiceObjectFetchSuccessCallback)(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers);
 
 /**
- * Callback block signature for <b>all</b> operations on <tt>CMStore</tt> that can fail. These are general
+ * Callback block signature for <b>all</b> operations on <tt>CMWebService</tt> that can fail. These are general
  * errors that cause the entire call to fail, not key-specific errors (which are reported instead in
  * the <tt>errors</tt> dictionary in the <tt>CMWebServiceObjectFetchSuccessCallback</tt> callback block).
  * The block returns <tt>void</tt> and takes an <tt>NSError</tt> describing the error as an argument.
@@ -47,14 +47,14 @@ typedef void (^CMWebServiceFetchFailureCallback)(NSError *error);
  * the CloudMine servers. These blocks return <tt>void</tt> and take a <tt>CMFileUploadResult</tt>, the key
  * of the new file, and a dynamic snippet result as arguments to indicate the final result of the upload operation.
  */
-typedef void (^CMWebServiceFileUploadSuccessCallback)(CMFileUploadResult result, NSString *fileKey, id snippetResult);
+typedef void (^CMWebServiceFileUploadSuccessCallback)(CMFileUploadResult result, NSString *fileKey, id snippetResult, NSDictionary *headers);
 
 /**
  * Callback block signature for all operations on <tt>CMWebService</tt> that download binary files from
  * the CloudMine servers. These blocks return <tt>void</tt> and take an <tt>NSData</tt> instance that contains
  * the raw data for the file as well as a string with the content type of the file returned from the server.
  */
-typedef void (^CMWebServiceFileFetchSuccessCallback)(NSData *data, NSString *contentType);
+typedef void (^CMWebServiceFileFetchSuccessCallback)(NSData *data, NSString *contentType, NSDictionary *headers);
 
 /**
  * Callback block signature for all operations on <tt>CMWebService</tt> and <tt>CMUser</tt> that involve the management
@@ -63,6 +63,14 @@ typedef void (^CMWebServiceFileFetchSuccessCallback)(NSData *data, NSString *con
  * of the response body from the server.
  */
 typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult result, NSDictionary *responseBody);
+
+/**
+ * Callback block signature for all operations that return a list of users for the current app
+ * from the CloudMine servers. These blocks return <tt>void</tt> and take a dictionary of results,
+ * a dictionary of errors, and the total number of users returned as arguments.
+ * The contents of the former two map directly to the CloudMine API response format.
+ */
+typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDictionary *errors, NSNumber *count);
 
 /**
  * Base class for all classes concerned with the communication between the client device and the CloudMine
@@ -324,7 +332,7 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
 /**
  * Asynchronously reset the password for the given user. This method is used to reset a user's password if
  * he or she forgot it. This method of course does not require the user to be logged in in order to function.
- * On completion, the <tt>callback</tt> block will be called with the result  of the operation and the body of the
+ * On completion, the <tt>callback</tt> block will be called with the result of the operation and the body of the
  * response represented by an <tt>NSDictonary</tt>. See the CloudMine documentation online for the possible contents of this dictionary.
  *
  * This method causes an email to be sent to the user with a link that allows them to reset their password from their browser.
@@ -341,5 +349,33 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
  * @see https://cloudmine.me/developer_zone#ref/password_reset
  */
 - (void)resetForgottenPasswordForUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
+
+/**
+ * Asynchronously fetch all the users of this app. This will download the profiles of all the users of your app, and is useful for displaying
+ * lists of people to share with or running analytics on your users yourself. On completion, the <tt>callback</tt> block
+ * will be called with a dictionary of the objects retrieved as well as a dictionary of the key-related errors returned from the server.
+ *
+ * @param callback The block that will be called on completion of the operation.
+ */
+- (void)getAllUsersWithCallback:(CMWebServiceUserFetchSuccessCallback)callback;
+
+/**
+ * Asynchronously fetch a single user profile of a user of this app given its objectId. On completion, the <tt>callback</tt> block
+ * will be called with a dictionary of the objects retrieved as well as a dictionary of the key-related errors returned from the server.
+ *
+ * @param identifier The objectId of the user profile to retrieve. You can access this via CMUser#objectId.
+ * @param callback The block that will be called on completion of the operation.
+ */
+- (void)getUserProfileWithIdentifier:(NSString *)identifier callback:(CMWebServiceUserFetchSuccessCallback)callback;
+
+/**
+ * Asynchronously search all profiles of users of this app for matching fields. This will download the profiles of all matching users of your app,
+ * and is useful for displaying and filtering lists of people to share with or running analytics on your users yourself. On completion, the <tt>callback</tt> block
+ * will be called with a dictionary of the objects retrieved as well as a dictionary of the key-related errors returned from the server.
+ *
+ * @param query The search query to run against all user profiles. This is the same syntax as defined at https://cloudmine.me/developer_zone#ref/query_syntax and used by <tt>CMStore</tt>'s search methods.
+ * @param callback The block that will be called on completion of the operation.
+ */
+- (void)searchUsers:(NSString *)query callback:(CMWebServiceUserFetchSuccessCallback)callback;
 
 @end

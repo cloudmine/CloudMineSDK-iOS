@@ -8,7 +8,7 @@
 
 /** @file */
 
-#import <Foundation/Foundation.h>
+#import "CMSerializable.h"
 #import "CMUserAccountResult.h"
 
 /**
@@ -22,9 +22,23 @@
 typedef void (^CMUserOperationCallback)(CMUserAccountResult resultCode, NSArray *messages);
 
 /**
- * Representation of an end-user in CloudMine. This class manages session state (i.e. tokens and all that).
+ * The block callback for any user account operation that involves fetching one or more user profiles. The block returns <tt>void</tt>
+ * and takes an <tt>NSArray</tt> containing all the deserialized <tt>CMUser</tt> (or subclass) instances as well as a dictionary of error messages
+ * the server sent back. The second parameter will always be an empty dictionary except when using CMUser#userWithIdentifier:callback:, in which case
+ * that will be the place where the "not found" error is recorded.
  */
-@interface CMUser : NSObject <NSCoding>
+typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
+
+/**
+ * Representation of an end-user in CloudMine. This class manages session state (i.e. tokens and all that).
+ *
+ * <strong>Subclassing Notes</strong>
+ * You can subclass <tt>CMUser</tt> to add your own user profile fields, if you'd like. <tt>CMUser</tt> conforms to <tt>CMSerializable</tt>, so you should implement
+ * <tt>encodeWithCoder:</tt> and <tt>initWithCoder:</tt> in the same way as you would for a <tt>CMObject</tt> subclass. Be sure to call super's implementation
+ * from both of those methods! Your custom fields will be pushed to the server when you first call CMUser#createAccountWithCallback: or CMUser#createAccountAndLoginWithCallback:.
+ * Upon subsequent logins, the custom fields will be updated with those stored on CloudMine.
+ */
+@interface CMUser : NSObject <CMSerializable>
 
 /**
  * The user's identifier (i.e. email address).
@@ -68,7 +82,8 @@ typedef void (^CMUserOperationCallback)(CMUserAccountResult resultCode, NSArray 
  *
  * Upon successful login, the CMUser#token property will be set to the user's new session token and the CMUser#password field
  * will be cleared for security reasons. The CMUser#tokenExpiration property will also be set with the expiration date and time
- * of the session token. These properties will be set <strong>before</strong> the callback block is invoked.
+ * of the session token. In addition, all your custom properties (if you are using a custom subclass of <tt>CMUser</tt>) will be populated for you using key-value coding.
+ * All these properties will be set <strong>before</strong> the callback block is invoked.
  *
  * Possible result codes:
  * - <tt>CMUserAccountLoginSucceeded</tt>
@@ -109,7 +124,7 @@ typedef void (^CMUserOperationCallback)(CMUserAccountResult resultCode, NSArray 
  * returned by the server contained in an array. See the CloudMine documentation online for the possible contents of this array.
  *
  * Note that this method simply creates the user account; it does not log the user in.
- * @see createAccountAndLoginWithCallback: for a convenience method that creates and logs the user in at the same time.
+ * CMUser#createAccountAndLoginWithCallback: is a convenience method that creates and logs the user in at the same time.
  *
  * Possible result codes:
  * - <tt>CMUserAccountCreateSucceeded</tt>
@@ -178,5 +193,32 @@ typedef void (^CMUserOperationCallback)(CMUserAccountResult resultCode, NSArray 
  * @see https://cloudmine.me/developer_zone#ref/password_reset
  */
 - (void)resetForgottenPasswordWithCallback:(CMUserOperationCallback)callback;
+
+/**
+ * Asynchronously fetch all the users of this app. This will download the profiles of all the users of your app, and is useful for displaying
+ * lists of people to share with or running analytics on your users yourself. On completion, the <tt>callback</tt> block will be called with an array
+ * of <tt>CMUser</tt> objects (or your custom subclass, if applicable) as well as a dictionary of errors.
+ *
+ * @param callback The block that will be called on completion of the operation.
+ */
++ (void)allUsersWithCallback:(CMUserFetchCallback)callback;
+
+/**
+ * Asynchronously search all profiles of users of this app for matching fields. This will download the profiles of all matching users of your app, and is useful for displaying
+ * and filtering lists of people to share with or running analytics on your users yourself. On completion, the <tt>callback</tt> block will be called with an array
+ * of <tt>CMUser</tt> objects (or your custom subclass, if applicable) as well as a dictionary of errors.
+ *
+ * @param query The search query to run against all user profiles. This is the same syntax as defined at https://cloudmine.me/developer_zone#ref/query_syntax and used by <tt>CMStore</tt>'s search methods.
+ * @param callback The block that will be called on completion of the operation.
+ */
++ (void)searchUsers:(NSString *)query callback:(CMUserFetchCallback)callback;
+
+/**
+ * Asynchronously fetch a single user profile object from CloudMine given its object id. You can access this via CMUser#objectId.
+ *
+ * @param identifier The objectId of the user profile to fetch.
+ * @param callback The block that will be called on completion of the operation.
+ */
++ (void)userWithIdentifier:(NSString *)identifier callback:(CMUserFetchCallback)callback;
 
 @end

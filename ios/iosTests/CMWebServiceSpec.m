@@ -64,7 +64,7 @@ describe(@"CMWebService", ^{
                         sortingOptions:nil
                                  user:nil
                       extraParameters:nil
-                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
+                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
                        } errorHandler:^(NSError *error) {
                        }
              ];
@@ -97,7 +97,7 @@ describe(@"CMWebService", ^{
                       sortingOptions:nil
                                 user:nil
                      extraParameters:nil
-                      successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
+                      successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
                       } errorHandler:^(NSError *error) {
                       }
              ];
@@ -128,7 +128,7 @@ describe(@"CMWebService", ^{
                      serverSideFunction:nil
                                    user:nil
                         extraParameters:nil
-                         successHandler:^(NSData *data, NSString *contentType) {
+                         successHandler:^(NSData *data, NSString *contentType, NSDictionary *headers) {
                          } errorHandler:^(NSError *error) {
                          }
              ];
@@ -160,7 +160,7 @@ describe(@"CMWebService", ^{
                        sortingOptions:nil
                                  user:nil
                       extraParameters:nil
-                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
+                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
                        } errorHandler:^(NSError *error) {
                        }
              ];
@@ -193,7 +193,7 @@ describe(@"CMWebService", ^{
                        sortingOptions:nil
                                  user:nil
                       extraParameters:nil
-                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
+                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
                        } errorHandler:^(NSError *error) {
                        }
              ];
@@ -229,7 +229,7 @@ describe(@"CMWebService", ^{
                        sortingOptions:nil
                                  user:creds
                       extraParameters:nil
-                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
+                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
                        } errorHandler:^(NSError *error) {
                        }
              ];
@@ -265,7 +265,7 @@ describe(@"CMWebService", ^{
                      serverSideFunction:nil
                                    user:creds
                         extraParameters:nil
-                         successHandler:^(NSData *data, NSString *contentType) {
+                         successHandler:^(NSData *data, NSString *contentType, NSDictionary *headers) {
                          } errorHandler:^(NSError *error) {
                          }
              ];
@@ -302,7 +302,7 @@ describe(@"CMWebService", ^{
                        sortingOptions:nil
                                  user:creds
                       extraParameters:nil
-                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
+                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
                        } errorHandler:^(NSError *error) {
                        }
              ];
@@ -339,7 +339,7 @@ describe(@"CMWebService", ^{
                              serverSideFunction:nil
                                            user:nil
                                 extraParameters:nil
-                                 successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
+                                 successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
                                  } errorHandler:^(NSError *error) {
                                  }
              ];
@@ -375,7 +375,7 @@ describe(@"CMWebService", ^{
                            ofMimeType:@"application/cloudmine"
                                  user:nil
                       extraParameters:nil
-                       successHandler:^(CMFileUploadResult result, NSString *fileKey, id snippetResult) {
+                       successHandler:^(CMFileUploadResult result, NSString *fileKey, id snippetResult, NSDictionary *headers) {
                        }
                          errorHandler:^(NSError *error) {
                          }
@@ -416,7 +416,7 @@ describe(@"CMWebService", ^{
                              serverSideFunction:nil
                                            user:creds
                                 extraParameters:nil
-                                 successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
+                                 successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
                                  } errorHandler:^(NSError *error) {
                                  }
              ];
@@ -459,7 +459,7 @@ describe(@"CMWebService", ^{
                        ofMimeType:@"application/cloudmine"
                              user:creds
                   extraParameters:nil
-                   successHandler:^(CMFileUploadResult result, NSString *fileKey, id snippetResult) {
+                   successHandler:^(CMFileUploadResult result, NSString *fileKey, id snippetResult, NSDictionary *headers) {
                    } errorHandler:^(NSError *error) {
                    }
          ];
@@ -495,7 +495,7 @@ describe(@"CMWebService", ^{
                           serverSideFunction:nil
                                         user:nil
                              extraParameters:nil
-                              successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
+                              successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
                               } errorHandler:^(NSError *error) {
                               }
              ];
@@ -535,7 +535,7 @@ describe(@"CMWebService", ^{
                           serverSideFunction:nil
                                         user:creds
                              extraParameters:nil
-                              successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
+                              successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
                               } errorHandler:^(NSError *error) {
                               }
              ];
@@ -567,7 +567,7 @@ describe(@"CMWebService", ^{
                       serverSideFunction:nil
                                     user:nil
                          extraParameters:nil
-                          successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
+                          successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
                           } errorHandler:^(NSError *error) {
                           }
              ];
@@ -597,7 +597,7 @@ describe(@"CMWebService", ^{
                       serverSideFunction:nil
                                     user:nil
                          extraParameters:nil
-                          successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
+                          successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
                           } errorHandler:^(NSError *error) {
                           }
              ];
@@ -632,7 +632,7 @@ describe(@"CMWebService", ^{
                       serverSideFunction:nil
                                     user:creds
                          extraParameters:nil
-                          successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
+                          successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
                           } errorHandler:^(NSError *error) {
                           }
              ];
@@ -667,7 +667,7 @@ describe(@"CMWebService", ^{
                       serverSideFunction:nil
                                     user:creds
                          extraParameters:nil
-                          successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count) {
+                          successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
                        } errorHandler:^(NSError *error) {
                        }
              ];
@@ -689,7 +689,7 @@ describe(@"CMWebService", ^{
                 [request.password shouldBeNil];
                 [[[[request requestHeaders] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
                 [[[request requestHeaders] objectForKey:@"X-CloudMine-SessionToken"] shouldBeNil];
-                [[[request.postBody yajl_JSON] should] equal:[@"{\"email\": \"test@domain.com\", \"password\":\"pass\"}" yajl_JSON]];
+                [[[request.postBody yajl_JSON] should] equal:[@"{\"credentials\": {\"email\": \"test@domain.com\", \"password\":\"pass\"}}" yajl_JSON]];
             } forSelector:@selector(addOperation:)];
 
             // Validate the request when it's pushed onto the network queue so
@@ -814,6 +814,77 @@ describe(@"CMWebService", ^{
             [[service.networkQueue should] receive:@selector(go)];
 
             [service logoutUser:user callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
+            }];
+        });
+
+        it(@"fetches all users properly", ^{
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account", appId]];
+            id spy = [[CMBlockValidationMessageSpy alloc] init];
+            [spy addValidationBlock:^(NSInvocation *invocation) {
+                ASIHTTPRequest *request = nil;
+                [invocation getArgument:&request atIndex:2]; // only arg is the request
+                [[request.url should] equal:expectedUrl];
+                [[request.requestMethod should] equal:@"GET"];
+                [[[[request requestHeaders] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
+            } forSelector:@selector(addOperation:)];
+
+            // Validate the request when it's pushed onto the network queue so
+            // we don't interfere with the construction and use of the request
+            // otherwise throughout the production code.
+            [service.networkQueue addMessageSpy:spy forMessagePattern:[KWMessagePattern messagePatternWithSelector:@selector(addOperation:)]];
+
+            [[service.networkQueue should] receive:@selector(addOperation:)];
+            [[service.networkQueue should] receive:@selector(go)];
+
+            [service getAllUsersWithCallback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
+            }];
+        });
+
+        it(@"fetches a user profile by identifier properly", ^{
+            NSString *userId = @"1234abcd";
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/%@", appId, userId]];
+            id spy = [[CMBlockValidationMessageSpy alloc] init];
+            [spy addValidationBlock:^(NSInvocation *invocation) {
+                ASIHTTPRequest *request = nil;
+                [invocation getArgument:&request atIndex:2]; // only arg is the request
+                [[request.url should] equal:expectedUrl];
+                [[request.requestMethod should] equal:@"GET"];
+                [[[[request requestHeaders] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
+            } forSelector:@selector(addOperation:)];
+
+            // Validate the request when it's pushed onto the network queue so
+            // we don't interfere with the construction and use of the request
+            // otherwise throughout the production code.
+            [service.networkQueue addMessageSpy:spy forMessagePattern:[KWMessagePattern messagePatternWithSelector:@selector(addOperation:)]];
+
+            [[service.networkQueue should] receive:@selector(addOperation:)];
+            [[service.networkQueue should] receive:@selector(go)];
+
+            [service getUserProfileWithIdentifier:userId callback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
+            }];
+        });
+
+        it(@"searches user profiles properly", ^{
+            NSString *query = @"[name = /Marc/i]";
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account?p=%@", appId, [query stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+            id spy = [[CMBlockValidationMessageSpy alloc] init];
+            [spy addValidationBlock:^(NSInvocation *invocation) {
+                ASIHTTPRequest *request = nil;
+                [invocation getArgument:&request atIndex:2]; // only arg is the request
+                [[request.url should] equal:expectedUrl];
+                [[request.requestMethod should] equal:@"GET"];
+                [[[[request requestHeaders] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
+            } forSelector:@selector(addOperation:)];
+
+            // Validate the request when it's pushed onto the network queue so
+            // we don't interfere with the construction and use of the request
+            // otherwise throughout the production code.
+            [service.networkQueue addMessageSpy:spy forMessagePattern:[KWMessagePattern messagePatternWithSelector:@selector(addOperation:)]];
+
+            [[service.networkQueue should] receive:@selector(addOperation:)];
+            [[service.networkQueue should] receive:@selector(go)];
+
+            [service searchUsers:query callback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
             }];
         });
     });
