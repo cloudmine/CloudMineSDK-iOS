@@ -564,7 +564,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     // Remove the objects from the cache first.
     NSMutableDictionary *deletedObjects = [NSMutableDictionary dictionaryWithCapacity:objects.count];
     [objects enumerateObjectsUsingBlock:^(CMObject *obj, NSUInteger idx, BOOL *stop) {
-        SEL delMethod = userLevel ? @selector(removeObject:) : @selector(removeUserObject:);
+        SEL delMethod = userLevel ? @selector(removeUserObject:) : @selector(removeObject:);
         [deletedObjects setObject:obj forKey:obj.objectId];
         [self performSelector:delMethod withObject:obj];
     }];

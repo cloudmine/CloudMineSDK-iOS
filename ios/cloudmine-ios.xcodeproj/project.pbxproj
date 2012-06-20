@@ -62,12 +62,13 @@
 		7A0DB1BC147B016B007F482C /* CMBlockValidationMessageSpy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0DB1BB147B016B007F482C /* CMBlockValidationMessageSpy.m */; };
 		7A262E0B14C8F8B0006A03BA /* NSURL+QueryParameterAdditions.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AD36F8B146CB6A600DD4734 /* NSURL+QueryParameterAdditions.h */; };
 		7A262E0C14C8F8B0006A03BA /* CMStore.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7A7E31C614C88F8A0091F1E3 /* CMStore.h */; };
-		7A28FFE2158F8AE4002C504A /* CMDate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AFDFE36158E959B00388D6E /* CMDate.h */; };
-		7A28FFE3158F8AE4002C504A /* CMFile.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AFDFE38158E959B00388D6E /* CMFile.h */; };
-		7A28FFE4158F8AE4002C504A /* CMGeoPoint.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AFDFE3A158E959B00388D6E /* CMGeoPoint.h */; };
-		7A28FFE5158F8AE4002C504A /* CMObject.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AFDFE3C158E959B00388D6E /* CMObject.h */; };
-		7A28FFE6158F8AE4002C504A /* CMObjectClassNameRegistry.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AFDFE3E158E959B00388D6E /* CMObjectClassNameRegistry.h */; };
-		7A28FFE7158F8AE4002C504A /* CMUntypedObject.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AFDFE40158E959B00388D6E /* CMUntypedObject.h */; };
+		7A28002615922364002C504A /* CMDate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AFDFE36158E959B00388D6E /* CMDate.h */; };
+		7A28002715922364002C504A /* CMFile.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AFDFE38158E959B00388D6E /* CMFile.h */; };
+		7A28002815922364002C504A /* CMGeoPoint.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AFDFE3A158E959B00388D6E /* CMGeoPoint.h */; };
+		7A28002915922364002C504A /* CMObject.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AFDFE3C158E959B00388D6E /* CMObject.h */; };
+		7A28002A15922364002C504A /* CMObjectClassNameRegistry.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AFDFE3E158E959B00388D6E /* CMObjectClassNameRegistry.h */; };
+		7A28002B15922364002C504A /* CMUntypedObject.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AFDFE40158E959B00388D6E /* CMUntypedObject.h */; };
+		7A28002C15922364002C504A /* CMNullStore.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7A0D7CFA1581479000C7C476 /* CMNullStore.h */; };
 		7A308A3714798EFD008ADD3C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AD36F80146C656600DD4734 /* UIKit.framework */; };
 		7A308A3814798F0E008ADD3C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D5146C5B6900EF537A /* MobileCoreServices.framework */; };
 		7A308A3914798F12008ADD3C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D3146C5B5C00EF537A /* SystemConfiguration.framework */; };
@@ -164,12 +165,13 @@
 			dstPath = "${BUILD_DIR}/${CONFIGURATION}-iphoneuniversal/${PRODUCT_NAME}.framework/Versions/A/Headers/";
 			dstSubfolderSpec = 0;
 			files = (
-				7A28FFE2158F8AE4002C504A /* CMDate.h in CopyFiles */,
-				7A28FFE3158F8AE4002C504A /* CMFile.h in CopyFiles */,
-				7A28FFE4158F8AE4002C504A /* CMGeoPoint.h in CopyFiles */,
-				7A28FFE5158F8AE4002C504A /* CMObject.h in CopyFiles */,
-				7A28FFE6158F8AE4002C504A /* CMObjectClassNameRegistry.h in CopyFiles */,
-				7A28FFE7158F8AE4002C504A /* CMUntypedObject.h in CopyFiles */,
+				7A28002615922364002C504A /* CMDate.h in CopyFiles */,
+				7A28002715922364002C504A /* CMFile.h in CopyFiles */,
+				7A28002815922364002C504A /* CMGeoPoint.h in CopyFiles */,
+				7A28002915922364002C504A /* CMObject.h in CopyFiles */,
+				7A28002A15922364002C504A /* CMObjectClassNameRegistry.h in CopyFiles */,
+				7A28002B15922364002C504A /* CMUntypedObject.h in CopyFiles */,
+				7A28002C15922364002C504A /* CMNullStore.h in CopyFiles */,
 				7AEF7B4B158EB60000BE47B3 /* CMActiveUser.h in CopyFiles */,
 				65199ED5156A84D600267EC6 /* CMDistance.h in CopyFiles */,
 				65199ECD156A847A00267EC6 /* CMDeleteResponse.h in CopyFiles */,
