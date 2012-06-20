@@ -296,7 +296,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     NSParameterAssert(user);
     NSAssert(user.isLoggedIn, @"Cannot logout a user that hasn't been logged in.");
 
-    NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/login", _appIdentifier]];
+    NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/logout", _appIdentifier]];
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
     [request setValue:user.token forHTTPHeaderField:CM_SESSIONTOKEN_HEADER];
 

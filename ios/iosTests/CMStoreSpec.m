@@ -9,6 +9,8 @@
 #import "Kiwi.h"
 
 #import "CMStore.h"
+#import "CMNullStore.h"
+#import "CMNullStore.h"
 #import "CMWebService.h"
 #import "CMGenericSerializableObject.h"
 #import "CMAPICredentials.h"
@@ -37,6 +39,15 @@ describe(@"CMStore", ^{
             store.webService = webService;
         });
 
+        it(@"should nullify the object's store reference when removed from the store", ^{
+            CMObject *obj = [[CMObject alloc] init];
+            [store addObject:obj];
+
+            [store removeObject:obj];
+            [[theValue([store objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipUndefinedLevel)];
+            [[obj.store should] equal:[CMNullStore nullStore]];
+        });
+
         context(@"when computing object ownership level", ^{
             it(@"should be an unknown level when the object doesn't exist in the store", ^{
                 CMObject *obj = [[CMObject alloc] init];
@@ -48,15 +59,6 @@ describe(@"CMStore", ^{
                 [store addObject:obj];
                 [[theValue([store objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipAppLevel)];
                 [[obj.store should] equal:store];
-            });
-
-            it(@"should nullify the object's store reference when removed from the store", ^{
-                CMObject *obj = [[CMObject alloc] init];
-                [store addObject:obj];
-
-                [store removeObject:obj];
-                [[theValue([store objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipUndefinedLevel)];
-                [obj.store shouldBeNil];
             });
 
             it(@"should raise an exception when a user-level object is added", ^{
@@ -75,6 +77,15 @@ describe(@"CMStore", ^{
             store.webService = webService;
         });
 
+        it(@"should nullify the object's store reference when removed from the store", ^{
+            CMObject *obj = [[CMObject alloc] init];
+            [store addUserObject:obj];
+
+            [store removeUserObject:obj];
+            [[theValue([store objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipUndefinedLevel)];
+            [[obj.store should] equal:[CMNullStore nullStore]];
+        });
+
         context(@"when computing object ownership level", ^{
             it(@"should be an unknown level when the object doesn't exist in the store", ^{
                 CMObject *obj = [[CMObject alloc] init];
@@ -86,15 +97,6 @@ describe(@"CMStore", ^{
                 [store addObject:obj];
                 [[theValue([store objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipAppLevel)];
                 [[obj.store should] equal:store];
-            });
-
-            it(@"should nullify the object's store reference when removed from the store", ^{
-                CMObject *obj = [[CMObject alloc] init];
-                [store addUserObject:obj];
-
-                [store removeUserObject:obj];
-                [[theValue([store objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipUndefinedLevel)];
-                [obj.store shouldBeNil];
             });
 
             it(@"should be user-level when the object is added to the store at the user level", ^{
@@ -160,8 +162,7 @@ describe(@"CMStore", ^{
                 CMUser *theOtherUser = [[CMUser alloc] initWithUserId:@"somethingelse" andPassword:@"foobar"];
                 store.user = theOtherUser;
                 [userObjects enumerateObjectsUsingBlock:^(CMObject *obj, NSUInteger idx, BOOL *stop) {
-                    NSLog(@"addy of obj's store is %p", obj.store);
-                    [obj.store shouldBeNil];
+                    [[obj.store should] equal:[CMNullStore nullStore]];
                     [[theValue([store objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipUndefinedLevel)];
                 }];
                 [appObjects enumerateObjectsUsingBlock:^(CMObject *obj, NSUInteger idx, BOOL *stop) {
@@ -171,98 +172,15 @@ describe(@"CMStore", ^{
             });
         });
 
-        context(@"when using the default store", ^{
-            it(@"should always be the same store instance", ^{
-                CMStore *defaultStore = [CMStore defaultStore];
-                [[defaultStore should] equal:[CMStore defaultStore]];
+        context(@"when removing any object from a store", ^{
+            it(@"should cause the object's store to be CMNullStore", ^{
+                CMObject *obj = [[CMObject alloc] init];
+                [[obj.store should] equal:[CMStore defaultStore]];
+                [[CMStore defaultStore] removeObject:obj];
+                [[obj.store should] equal:[CMNullStore nullStore]];
             });
         });
     });
-
-//
-//    beforeEach(^{
-//        webService = [CMWebService mock];
-//        store = [CMStore store];
-//        store.webService = webService;
-//    });
-//
-//    context(@"given no query or keys", ^{
-//        it(@"should pass all objects to provided callback when the store is asked for all objects", ^{
-//            NSMutableDictionary *webServiceResponse = [[NSMutableDictionary alloc] initWithCapacity:10];
-//            NSMutableArray *allObjectsInResponse = [[NSMutableArray alloc] initWithCapacity:10];
-//            for(int i=0; i<10; i++) {
-//                CMGenericSerializableObject *obj = [[CMGenericSerializableObject alloc] init];
-//                [obj fillPropertiesWithDefaults];
-//                [webServiceResponse setObject:obj forKey:obj.objectId];
-//                [allObjectsInResponse addObject:obj];
-//            }
-//
-//            id spy = [[CMBlockValidationMessageSpy alloc] init];
-//            [spy addValidationBlock:^(NSInvocation *invocation) {
-//
-//            } forSelector:@selector(getValuesForKeys:serverSideFunction:successHandler:errorHandler:)];
-//
-//            [store allObjects:^(NSArray *objects) {
-//                [[[objects should] have:10] items];
-//                for (CMGenericSerializableObject *theObj in objects) {
-//                    [[allObjectsInResponse should] contain:theObj];
-//                }
-//            }];
-//        });
-//
-//        context(@"given permission to use the local cache", ^{
-//            pending(@"should not make a web call if objects exist in local cache", ^{
-//
-//            });
-//        });
-//    });
-//
-//    context(@"given a collection of keys to objects", ^{
-//        pending(@"should return objects with those keys", ^{
-//        });
-//
-//        pending(@"should set error conditions for keys that don't exist server-side", ^{
-//        });
-//    });
-//
-//    context(@"given a query to execute", ^{
-//        pending(@"should execute it with a server request and return a collection of the objects", ^{
-//        });
-//
-//        context(@"given a server-side post-processing function", ^{
-//            pending(@"should execute it and return a collection of those post-processed objects", ^{
-//            });
-//        });
-//
-//        pending(@"should not send an HTTP request when a previously-issued query is re-issued", ^{
-//        });
-//    });
-//
-//    context(@"given the key of a binary file", ^{
-//        pending(@"should return the raw data of that file if it exists server-side", ^{
-//        });
-//
-//        pending(@"should return an error when the file doesn't exist server-side", ^{
-//        });
-//    });
-//
-//    context(@"given a locally-created object", ^{
-//        pending(@"should mark the object as unsaved", ^{
-//        });
-//    });
-//
-//    context(@"when requested to save", ^{
-//        context(@"when a particular, local-only object id is given", ^{
-//            pending(@"should persist only that one object to the server and no longer consider it local-only", ^{
-//            });
-//        });
-//
-//        context(@"when a particular, non-local-only object id is given", ^{
-//            pending(@"should persist only that one object", ^{
-//            });
-//        });
-//    });
-
 });
 
 SPEC_END
