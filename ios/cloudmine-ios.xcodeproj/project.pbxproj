@@ -137,7 +137,7 @@
 		7AFDFE47158E959B00388D6E /* CMUntypedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE41158E959B00388D6E /* CMUntypedObject.m */; };
 		7AFDFE4A158E965400388D6E /* CMActiveUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE49158E965400388D6E /* CMActiveUser.m */; };
 		7AFDFE4C158E9EB400388D6E /* CMActiveUserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE4B158E9EB400388D6E /* CMActiveUserSpec.m */; };
-		D01DBF5A1590D36D003CB5BE /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = D01DBF591590D36D003CB5BE /* NSData+Base64.m */; };
+		D004178E15925DC900B596CC /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = D01DBF591590D36D003CB5BE /* NSData+Base64.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -837,7 +837,6 @@
 				7AFDFE47158E959B00388D6E /* CMUntypedObject.m in Sources */,
 				7A0D7CFC1581479000C7C476 /* CMNullStore.m in Sources */,
 				7AFDFE4A158E965400388D6E /* CMActiveUser.m in Sources */,
-				D01DBF5A1590D36D003CB5BE /* NSData+Base64.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -863,6 +862,7 @@
 				7A0D7CD41581097200C7C476 /* CMObjectSpec.m in Sources */,
 				7AAFB49B158017450066B4A4 /* CMMimeTypeSpec.m in Sources */,
 				7AFDFE4C158E9EB400388D6E /* CMActiveUserSpec.m in Sources */,
+				D004178E15925DC900B596CC /* NSData+Base64.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
