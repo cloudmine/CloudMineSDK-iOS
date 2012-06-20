@@ -29,7 +29,11 @@ static CMWebService *webService;
 #pragma mark - Constructors
 
 + (void)initialize {
-    webService = [[CMWebService alloc] init];
+    @try {
+        webService = [[CMWebService alloc] init];
+    } @catch (NSException *e) {
+        webService = nil;
+    }
 }
 
 - (id)initWithUserId:(NSString *)theUserId andPassword:(NSString *)thePassword {
@@ -38,6 +42,9 @@ static CMWebService *webService;
         self.userId = theUserId;
         self.password = thePassword;
         objectId = @"";
+        if (!webService) {
+            webService = [[CMWebService alloc] init];
+        }
     }
     return self;
 }
@@ -50,6 +57,9 @@ static CMWebService *webService;
         }
         token = [coder decodeObjectForKey:@"token"];
         tokenExpiration = [coder decodeObjectForKey:@"tokenExpiration"];
+        if (!webService) {
+            webService = [[CMWebService alloc] init];
+        }
     }
     return self;
 }
