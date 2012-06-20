@@ -9,7 +9,6 @@
 #import <YAJLiOS/YAJL.h>
 
 #import "SPLowVerbosity.h"
-#import "NSData+Base64.h"
 
 #import "CMWebService.h"
 #import "CMAPICredentials.h"
@@ -28,7 +27,7 @@
 #define CM_SESSIONTOKEN_HEADER @"X-CloudMine-SessionToken"
 
 static __strong NSSet *_validHTTPVerbs = nil;
-typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger httpResponseCode);
+typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger httpResponseCode, NSError *error);
 
 
 @interface CMWebService ()
@@ -272,12 +271,20 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/login", _appIdentifier]];
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
 
-    // Add Basic Auth header manually
-    NSData *credentialData = [[NSString stringWithFormat:@"%@:%@", user.userId, user.password] dataUsingEncoding:NSUTF8StringEncoding];
-    NSString *basicAuthValue = [NSString stringWithFormat:@"Basic %@", [credentialData base64EncodedString]];
+    CFHTTPMessageRef dummyRequest = CFHTTPMessageCreateRequest(kCFAllocatorDefault, CFSTR("GET"), (__bridge CFURLRef)[request URL], kCFHTTPVersion1_1);
+    CFHTTPMessageAddAuthentication(dummyRequest, nil, (__bridge CFStringRef)user.userId, (__bridge CFStringRef)user.password, kCFHTTPAuthenticationSchemeBasic, FALSE);
+    NSString *basicAuthValue = (__bridge NSString *)CFHTTPMessageCopyHeaderFieldValue(dummyRequest, CFSTR("Authorization"));
     [request setValue:basicAuthValue forHTTPHeaderField:@"Authorization"];
-        
-    [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode) {
+    CFRelease(dummyRequest);
+
+    [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode, NSError *error) {
+        if (!httpResponseCode && error) {
+            if ([[error domain] isEqualToString:NSURLErrorDomain]) {
+                if ([error code] == NSURLErrorUserCancelledAuthentication) {
+                    return CMUserAccountLoginFailedIncorrectCredentials;
+                }
+            }
+        }
         switch (httpResponseCode) {
             case 200:
                 return CMUserAccountLoginSucceeded;
@@ -300,7 +307,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
     [request setValue:user.token forHTTPHeaderField:CM_SESSIONTOKEN_HEADER];
 
-    [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode) {
+    [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode, NSError *error) {
         switch (httpResponseCode) {
             case 200:
                 return CMUserAccountLogoutSucceeded;
@@ -333,7 +340,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 
     [request setHTTPBody:[[payload yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
 
-    [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode) {
+    [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode, NSError *error) {
         switch (httpResponseCode) {
             case 201:
                 return CMUserAccountCreateSucceeded;
@@ -360,14 +367,23 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 
     // This API endpoint doesn't use a session token for security purposes. The user must supply their old password
     // explicitly in addition to their new password.
-    NSData *credentialData = [[NSString stringWithFormat:@"%@:%@", user.userId, user.password] dataUsingEncoding:NSUTF8StringEncoding];
-    NSString *basicAuthValue = [NSString stringWithFormat:@"Basic %@", [credentialData base64EncodedString]];
+    CFHTTPMessageRef dummyRequest = CFHTTPMessageCreateRequest(kCFAllocatorDefault, CFSTR("GET"), (__bridge CFURLRef)[request URL], kCFHTTPVersion1_1);
+    CFHTTPMessageAddAuthentication(dummyRequest, nil, (__bridge CFStringRef)user.userId, (__bridge CFStringRef)oldPassword, kCFHTTPAuthenticationSchemeBasic, FALSE);
+    NSString *basicAuthValue = (__bridge NSString *)CFHTTPMessageCopyHeaderFieldValue(dummyRequest, CFSTR("Authorization"));
     [request setValue:basicAuthValue forHTTPHeaderField:@"Authorization"];
+    CFRelease(dummyRequest);
 
     NSDictionary *payload = $dict(@"password", newPassword);
     [request setHTTPBody:[[payload yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
 
-    [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode) {
+    [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode, NSError *error) {
+        if (!httpResponseCode && error) {
+            if ([[error domain] isEqualToString:NSURLErrorDomain]) {
+                if ([error code] == NSURLErrorUserCancelledAuthentication) {
+                    return CMUserAccountPasswordChangeFailedInvalidCredentials;
+                }
+            }
+        }
         switch (httpResponseCode) {
             case 200:
                 return CMUserAccountPasswordChangeSucceeded;
@@ -392,7 +408,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     NSDictionary *payload = $dict(@"email", user.userId);
     [request setHTTPBody:[[payload yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
 
-    [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode) {
+    [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode, NSError *error) {
         switch (httpResponseCode) {
             case 200:
                 return CMUserAccountPasswordResetEmailSent;
@@ -469,9 +485,9 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
 
     void (^responseBlock)() = ^(NSHTTPURLResponse *response, NSData *data, NSError *error) {
-        CMUserAccountResult resultCode = codeMapper([response statusCode]);
+        CMUserAccountResult resultCode = codeMapper([response statusCode], error);
         NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        
+                
         if (resultCode == CMUserAccountUnknownResult) {
             NSLog(@"Unexpected response received from server during user account creation. Code %d, body: %@.", [response statusCode], responseString);
         }
@@ -566,7 +582,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
             }
         } else {
             if (errorHandler != nil) {
-                NSError *err = $makeErr(@"CloudMine", [response statusCode], @"Something went wrong!"); // TODO: Obtain user readable status code message
+                NSError *err = $makeErr(@"CloudMine", [response statusCode], [NSHTTPURLResponse localizedStringForStatusCode:[response statusCode]]);
                 errorHandler(err);
             }
         }
