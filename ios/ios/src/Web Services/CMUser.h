@@ -21,6 +21,12 @@
  */
 typedef void (^CMUserOperationCallback)(CMUserAccountResult resultCode, NSArray *messages);
 
+/**
+ * The block callback for any user account operation that involves fetching one or more user profiles. The block returns <tt>void</tt>
+ * and takes an <tt>NSArray</tt> containing all the deserialized <tt>CMUser</tt> (or subclass) instances as well as a dictionary of error messages
+ * the server sent back. The second parameter will always be an empty dictionary except when using CMUser#userWithIdentifier:callback:, in which case
+ * that will be the place where the "not found" error is recorded.
+ */
 typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
 
 /**
@@ -188,10 +194,31 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
  */
 - (void)resetForgottenPasswordWithCallback:(CMUserOperationCallback)callback;
 
+/**
+ * Asynchronously fetch all the users of this app. This will download the profiles of all the users of your app, and is useful for displaying
+ * lists of people to share with or running analytics on your users yourself. On completion, the <tt>callback</tt> block will be called with an array
+ * of <tt>CMUser</tt> objects (or your custom subclass, if applicable) as well as a dictionary of errors.
+ *
+ * @param callback The block that will be called on completion of the operation.
+ */
 + (void)allUsersWithCallback:(CMUserFetchCallback)callback;
 
+/**
+ * Asynchronously search all profiles of users of this app for matching fields. This will download the profiles of all matching users of your app, and is useful for displaying
+ * and filtering lists of people to share with or running analytics on your users yourself. On completion, the <tt>callback</tt> block will be called with an array
+ * of <tt>CMUser</tt> objects (or your custom subclass, if applicable) as well as a dictionary of errors.
+ *
+ * @param query The search query to run against all user profiles. This is the same syntax as defined at https://cloudmine.me/developer_zone#ref/query_syntax and used by <tt>CMStore</tt>'s search methods.
+ * @param callback The block that will be called on completion of the operation.
+ */
 + (void)searchUsers:(NSString *)query callback:(CMUserFetchCallback)callback;
 
+/**
+ * Asynchronously fetch a single user profile object from CloudMine given its object id. You can access this via CMUser#objectId.
+ *
+ * @param identifier The objectId of the user profile to fetch.
+ * @param callback The block that will be called on completion of the operation.
+ */
 + (void)userWithIdentifier:(NSString *)identifier callback:(CMUserFetchCallback)callback;
 
 @end

@@ -30,12 +30,10 @@
  <tbody>
  <tr style="height: 56px;">
   
-  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
-  
   
   <td style="padding-left: 0.5em;">
    <div id="projectname">CloudMine iOS SDK
-   &#160;<span id="projectnumber">0.1</span>
+   &#160;<span id="projectnumber">1.0</span>
    </div>
    
   </td>
@@ -145,7 +143,7 @@ Properties</h2></td></tr>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Encapsulates a call to a server-side function. The call is triggered by being attached to a regular HTTP call (GET, POST, or PUT) to the CM web services. </p>
 
-<p>Definition at line <a class="el" href="_c_m_server_function_8h_source.html#l00015">15</a> of file <a class="el" href="_c_m_server_function_8h_source.html">CMServerFunction.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_server_function_8h_source.html#l00013">13</a> of file <a class="el" href="_c_m_server_function_8h_source.html">CMServerFunction.h</a>.</p>
 </div><hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="a16ebf5447f07ff91b94c3718b2977ef6"></a>
 <div class="memitem">
@@ -414,7 +412,7 @@ Properties</h2></td></tr>
 <p>If <code>YES</code>, causes the server-side code snippet to be run asynchronously with respect to the request that triggered it. This means the request will return immediately and thus the server-side snippet cannot add any information to the response.</p>
 <p>Default is <code>NO</code>. Setting this to <code>YES</code> causes <code>resultOnly</code> to be treated as <code>NO</code> regardless of what you set it to. </p>
 
-<p>Definition at line <a class="el" href="_c_m_server_function_8h_source.html#l00050">50</a> of file <a class="el" href="_c_m_server_function_8h_source.html">CMServerFunction.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_server_function_8h_source.html#l00048">48</a> of file <a class="el" href="_c_m_server_function_8h_source.html">CMServerFunction.h</a>.</p>
 
 </div>
 </div>
@@ -431,7 +429,7 @@ Properties</h2></td></tr>
 <p>Extra parameters to serve as input to the server-side snippet. These key-value pairs will be converted into JSON so be sure that all non-primitive, non-collection types are able to be serialized as such.</p>
 <p>Default is <code>nil</code>. </p>
 
-<p>Definition at line <a class="el" href="_c_m_server_function_8h_source.html#l00031">31</a> of file <a class="el" href="_c_m_server_function_8h_source.html">CMServerFunction.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_server_function_8h_source.html#l00029">29</a> of file <a class="el" href="_c_m_server_function_8h_source.html">CMServerFunction.h</a>.</p>
 
 </div>
 </div>
@@ -448,7 +446,7 @@ Properties</h2></td></tr>
 <p>The name of the server-side code snippet to call.</p>
 <p>This corresponds to the name of the snippet defined in your CloudMine dashboard. </p>
 
-<p>Definition at line <a class="el" href="_c_m_server_function_8h_source.html#l00022">22</a> of file <a class="el" href="_c_m_server_function_8h_source.html">CMServerFunction.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_server_function_8h_source.html#l00020">20</a> of file <a class="el" href="_c_m_server_function_8h_source.html">CMServerFunction.h</a>.</p>
 
 </div>
 </div>
@@ -465,12 +463,12 @@ Properties</h2></td></tr>
 <p>If <code>YES</code>, this causes only the result of this function call to be sent in the server's response. This means that the original data will be left out. Use this to reduce the data traffic your app consumes if it doesn't need access to the original data.</p>
 <p>Default is <code>NO</code>. Has no effect if <code>async</code> is <code>YES</code>. </p>
 
-<p>Definition at line <a class="el" href="_c_m_server_function_8h_source.html#l00040">40</a> of file <a class="el" href="_c_m_server_function_8h_source.html">CMServerFunction.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_server_function_8h_source.html#l00038">38</a> of file <a class="el" href="_c_m_server_function_8h_source.html">CMServerFunction.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>src/Web Services/<a class="el" href="_c_m_server_function_8h_source.html">CMServerFunction.h</a></li>
+<li>ios/src/Web Services/<a class="el" href="_c_m_server_function_8h_source.html">CMServerFunction.h</a></li>
 </ul>
 </div><!-- contents -->
 </div>
@@ -478,7 +476,7 @@ Properties</h2></td></tr>
     <ul>
       <li class="navelem"><a class="el" href="interface_c_m_server_function.html">CMServerFunction</a>      </li>
 
-    <li class="footer">Generated on Tue Jun 5 2012 16:51:29 for CloudMine iOS SDK by
+    <li class="footer">Generated on Tue Jun 19 2012 16:13:25 for CloudMine iOS SDK by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.0 </li>
    </ul>
