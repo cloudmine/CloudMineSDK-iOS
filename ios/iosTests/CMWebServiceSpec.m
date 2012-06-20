@@ -689,7 +689,10 @@ describe(@"CMWebService", ^{
                 [request.password shouldBeNil];
                 [[[[request requestHeaders] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
                 [[[request requestHeaders] objectForKey:@"X-CloudMine-SessionToken"] shouldBeNil];
-                [[[request.postBody yajl_JSON] should] equal:[@"{\"credentials\": {\"email\": \"test@domain.com\", \"password\":\"pass\"}}" yajl_JSON]];
+                
+                NSDictionary *responseBody = [request.postBody yajl_JSON];
+                [[[responseBody objectForKey:@"credentials"] should] haveValue:@"test@domain.com" forKey:@"email"];
+                [[[responseBody objectForKey:@"credentials"] should] haveValue:@"pass" forKey:@"password"];
             } forSelector:@selector(addOperation:)];
 
             // Validate the request when it's pushed onto the network queue so
@@ -788,7 +791,7 @@ describe(@"CMWebService", ^{
         });
 
         it(@"constructs logout URL correctly", ^{
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/login", appId]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/logout", appId]];
             CMUser *user = [[CMUser alloc] initWithUserId:@"test@domain.com" andPassword:@"pass"];
             user.token = @"token";
             user.tokenExpiration = [NSDate dateWithTimeIntervalSinceNow:9999];
@@ -866,7 +869,7 @@ describe(@"CMWebService", ^{
 
         it(@"searches user profiles properly", ^{
             NSString *query = @"[name = /Marc/i]";
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account?p=%@", appId, [query stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/search?p=%@", appId, [query stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
             id spy = [[CMBlockValidationMessageSpy alloc] init];
             [spy addValidationBlock:^(NSInvocation *invocation) {
                 ASIHTTPRequest *request = nil;
