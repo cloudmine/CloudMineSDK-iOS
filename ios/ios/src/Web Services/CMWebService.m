@@ -285,7 +285,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
         switch (resultCode) {
             case CMUserAccountLoginFailedIncorrectCredentials:
                 NSLog(@"CloudMine *** User login failed because the credentials provided were incorrect");
-                return ;
+                break;
             case CMUserAccountOperationFailedUnknownAccount:
                 NSLog(@"CloudMine *** User login failed because the application does not exist");
                 break;
@@ -539,6 +539,10 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     
     [request setFailedBlock:^{
         NSLog(@"CloudMine *** Unexpected error occurred during user account operation. Error: %@", blockRequest.error);
+        CMUserAccountResult resultCode = codeMapper(blockRequest.responseStatusCode);
+        if (callback != nil) {
+            callback(resultCode, nil);
+        }
     }];
 
     [self.networkQueue addOperation:request];
