@@ -2,8 +2,8 @@
 //  CMSerializable.h
 //  cloudmine-ios
 //
-//  Created by Marc Weil on 11/25/11.
 //  Copyright (c) 2012 CloudMine, LLC. All rights reserved.
+//  See LICENSE file included with SDK for details.
 //
 
 #import <Foundation/Foundation.h>
