@@ -1,6 +1,5 @@
 var annotated =
 [
-    [ "CMActiveUser", "interface_c_m_active_user.html", "interface_c_m_active_user" ],
     [ "CMAPICredentials", "interface_c_m_a_p_i_credentials.html", "interface_c_m_a_p_i_credentials" ],
     [ "CMDate", "interface_c_m_date.html", "interface_c_m_date" ],
     [ "CMDeleteResponse", "interface_c_m_delete_response.html", "interface_c_m_delete_response" ],
@@ -9,7 +8,6 @@ var annotated =
     [ "CMFileFetchResponse", "interface_c_m_file_fetch_response.html", "interface_c_m_file_fetch_response" ],
     [ "CMFileUploadResponse", "interface_c_m_file_upload_response.html", "interface_c_m_file_upload_response" ],
     [ "CMGeoPoint", "interface_c_m_geo_point.html", "interface_c_m_geo_point" ],
-    [ "CMJSONEncoder", "interface_c_m_j_s_o_n_encoder.html", "interface_c_m_j_s_o_n_encoder" ],
     [ "CMMimeType", "interface_c_m_mime_type.html", "interface_c_m_mime_type" ],
     [ "CMNullStore", "interface_c_m_null_store.html", "interface_c_m_null_store" ],
     [ "CMObject", "interface_c_m_object.html", "interface_c_m_object" ],
@@ -29,7 +27,5 @@ var annotated =
     [ "CMStoreResponse", "interface_c_m_store_response.html", "interface_c_m_store_response" ],
     [ "CMUntypedObject", "interface_c_m_untyped_object.html", "interface_c_m_untyped_object" ],
     [ "CMUser", "interface_c_m_user.html", "interface_c_m_user" ],
-    [ "CMWebService", "interface_c_m_web_service.html", "interface_c_m_web_service" ],
-    [ "NSString(UUID)", "interface_n_s_string_07_u_u_i_d_08.html", "interface_n_s_string_07_u_u_i_d_08" ],
-    [ "NSURL(QueryParameterAdditions)", "interface_n_s_u_r_l_07_query_parameter_additions_08.html", "interface_n_s_u_r_l_07_query_parameter_additions_08" ]
+    [ "CMWebService", "interface_c_m_web_service.html", "interface_c_m_web_service" ]
 ];

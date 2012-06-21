@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['cmactiveuser',['CMActiveUser',['../interface_c_m_active_user.html',1,'']]],
   ['cmapicredentials',['CMAPICredentials',['../interface_c_m_a_p_i_credentials.html',1,'']]],
   ['cmdate',['CMDate',['../interface_c_m_date.html',1,'']]],
   ['cmdeleteresponse',['CMDeleteResponse',['../interface_c_m_delete_response.html',1,'']]],
@@ -9,7 +8,6 @@ var searchData=
   ['cmfilefetchresponse',['CMFileFetchResponse',['../interface_c_m_file_fetch_response.html',1,'']]],
   ['cmfileuploadresponse',['CMFileUploadResponse',['../interface_c_m_file_upload_response.html',1,'']]],
   ['cmgeopoint',['CMGeoPoint',['../interface_c_m_geo_point.html',1,'']]],
-  ['cmjsonencoder',['CMJSONEncoder',['../interface_c_m_j_s_o_n_encoder.html',1,'']]],
   ['cmmimetype',['CMMimeType',['../interface_c_m_mime_type.html',1,'']]],
   ['cmnullstore',['CMNullStore',['../interface_c_m_null_store.html',1,'']]],
   ['cmobject',['CMObject',['../interface_c_m_object.html',1,'']]],
