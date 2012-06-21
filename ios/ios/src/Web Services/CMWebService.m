@@ -281,7 +281,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
             default:
                 return CMUserAccountUnknownResult;
         }
-    } callback:^(CMUserAccountResult resultCode, NSArray *messages) {
+    } callback:^(CMUserAccountResult resultCode, NSDictionary *messages) {
         switch (resultCode) {
             case CMUserAccountLoginFailedIncorrectCredentials:
                 NSLog(@"CloudMine *** User login failed because the credentials provided were incorrect");
@@ -313,7 +313,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
             default:
                 return CMUserAccountUnknownResult;
         }
-    } callback:^(CMUserAccountResult resultCode, NSArray *messages) {
+    } callback:^(CMUserAccountResult resultCode, NSDictionary *messages) {
         switch (resultCode) {
             case CMUserAccountOperationFailedUnknownAccount:
                 NSLog(@"CloudMine *** User logout failed because the application does not exist");
@@ -356,7 +356,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
             default:
                 return CMUserAccountUnknownResult;
         }
-    } callback:^(CMUserAccountResult resultCode, NSArray *messages) {
+    } callback:^(CMUserAccountResult resultCode, NSDictionary *messages) {
         switch (resultCode) {
             case CMUserAccountCreateFailedInvalidRequest:
                 NSLog(@"CloudMine *** User creation failed because the request was invalid");
@@ -399,7 +399,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
             default:
                 return CMUserAccountUnknownResult;
         }
-    } callback:^(CMUserAccountResult resultCode, NSArray *messages) {
+    } callback:^(CMUserAccountResult resultCode, NSDictionary *messages) {
         switch (resultCode) {
             case CMUserAccountPasswordChangeFailedInvalidCredentials:
                 NSLog(@"CloudMine *** User password change failed because the credentials provided were incorrect");
@@ -475,9 +475,9 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 
     __unsafe_unretained ASIHTTPRequest *blockRequest = request;
     void (^responseBlock)() = ^{
+        NSError *parseErr = nil;
         NSDictionary *responseBody = [NSDictionary dictionary];
         if (blockRequest.responseString != nil) {
-            NSError *parseErr = nil;
             NSDictionary *parsedResponseBody = [blockRequest.responseString yajl_JSON:&parseErr];
             if (!parseErr && parsedResponseBody) {
                 responseBody = parsedResponseBody;
@@ -497,9 +497,6 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     
     [request setFailedBlock:^{
         NSLog(@"CloudMine *** Unexpected error occurred during user profile fetch operation. Error: %@", blockRequest.error);
-        if (errorHandler != nil) {
-            errorHandler(blockRequest.error);
-        }
     }];
 
     [self.networkQueue addOperation:request];
@@ -518,9 +515,9 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     [request setCompletionBlock:^{
         CMUserAccountResult resultCode = codeMapper(blockRequest.responseStatusCode);
         
+        NSError *parseErr = nil;
         NSDictionary *responseBody = [NSDictionary dictionary];
         if (blockRequest.responseString != nil) {
-            NSError *parseErr = nil;
             NSDictionary *parsedResponseBody = [blockRequest.responseString yajl_JSON:&parseErr];
             if (!parseErr && parsedResponseBody) {
                 responseBody = parsedResponseBody;
@@ -542,9 +539,6 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     
     [request setFailedBlock:^{
         NSLog(@"CloudMine *** Unexpected error occurred during user account operation. Error: %@", blockRequest.error);
-        if (errorHandler != nil) {
-            errorHandler(blockRequest.error);
-        }
     }];
 
     [self.networkQueue addOperation:request];

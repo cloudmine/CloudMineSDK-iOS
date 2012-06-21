@@ -587,7 +587,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                              callback(response);
                          }
                      } errorHandler:^(NSError *error) {
-                         NSLog(@"CloudMine *** Error occurred deleting objects %@ for user: %@ with message: %@", objects, name, _CMUserOrNil, [error description]);
+                         NSLog(@"CloudMine *** Error occurred deleting objects %@ for user: %@ with message: %@", objects, _CMUserOrNil, [error description]);
                          lastError = error;
                          if (callback) {
                              callback(nil);
