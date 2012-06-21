@@ -15,9 +15,11 @@
  */
 @interface CMStoreResponse : NSObject
 
+@property (strong, nonatomic) NSError *error;
 @property (strong, nonatomic) CMResponseMetadata *metadata;
 @property (strong, nonatomic) CMSnippetResult *snippetResult;
 
 - (id)initWithMetadata:(CMResponseMetadata *)metadata snippetResult:(CMSnippetResult *)snippetResult;
+- (id)initWithError:(NSError *)error;
 
 @end

@@ -31,6 +31,9 @@
 static __strong NSSet *_validHTTPVerbs = nil;
 typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger httpResponseCode);
 
+NSString * const CMErrorDomain = @"CMErrorDomain";
+NSString * const ASIErrorKey = @"ASIErrorKey";
+NSString * const YAJLErrorKey = @"YAJLErrorKey";
 
 @interface CMWebService ()
 @property (nonatomic, strong) NSString *apiUrl;
@@ -556,61 +559,88 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     __unsafe_unretained ASIHTTPRequest *blockRequest = request; // Stop the retain cycle.
 
     [request setCompletionBlock:^{
-        NSError *parseErr;
-        NSDictionary *results = [blockRequest.responseString yajl_JSON:&parseErr];
+        NSError *error;
+        NSDictionary *results = [blockRequest.responseString yajl_JSON:&error];
         
-        if (parseErr) {
-            NSLog(@"CloudMine *** Unexpected data received from server during object request. (Code %d) Error: %@ Body: %@", blockRequest.responseStatusCode, parseErr, blockRequest.responseString);
+        if ([[error domain] isEqualToString:YAJLErrorDomain]) {
+            error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidResponse userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The response received from the server was malformed.", NSLocalizedDescriptionKey, error, YAJLErrorKey, nil]];
         }
         
-        if (blockRequest.responseStatusCode == 400 || blockRequest.responseStatusCode == 500) {
-            NSString *message = [results objectForKey:@"error"];
-            NSLog(@"CloudMine *** Unexpected error occurred during object request. (Code %d) Message: %@", blockRequest.responseStatusCode, message);
-            NSError *err = $makeErr(@"CloudMine", blockRequest.responseStatusCode, message);
+        switch (blockRequest.responseStatusCode) {
+            case 404:
+                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorNotFound userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The application was not found. Is your application identifier correct?", NSLocalizedDescriptionKey, nil]];
+                break;
+            
+            case 401:
+                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was unauthorized. Is your API key correct?", NSLocalizedDescriptionKey, nil]];
+            
+            case 400:
+                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidRequest userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was malformed.", NSLocalizedDescriptionKey, nil]];
+                
+            case 500:
+                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The server experienced an error", NSLocalizedDescriptionKey, nil]];
 
+            default:
+                break;
+        }
+        
+        if (error) {
+            NSLog(@"CloudMine *** Unexpected error occurred during object request. (%@)", [error localizedDescription]);
             if (errorHandler != nil) {
-                errorHandler(err);
+                errorHandler(error);
             }
-        } else {
-            NSDictionary *successes = nil;
-            NSDictionary *errors = nil;
-            NSDictionary *meta = nil;
-            NSNumber *count = nil;
+            return;
+        }
+            
+        NSDictionary *successes = nil;
+        NSDictionary *errors = nil;
+        NSDictionary *meta = nil;
+        NSNumber *count = nil;
 
-            id snippetResult = nil;
-            if (results) {
-                successes = [results objectForKey:@"success"];
-                if (!successes) {
-                    successes = [NSDictionary dictionary];
-                }
-
-                errors = [results objectForKey:@"errors"];
-                if (!errors) {
-                    errors = [NSDictionary dictionary];
-                }
-
-                snippetResult = [results objectForKey:@"result"];
-                if(!snippetResult) {
-                    snippetResult = [NSDictionary dictionary];
-                }
-
-                meta = [results objectForKey:@"meta"];
-                if(!meta) {
-                    meta = [NSDictionary dictionary];
-                }
-
-                count = [results objectForKey:@"count"];
+        id snippetResult = nil;
+        if (results) {
+            successes = [results objectForKey:@"success"];
+            if (!successes) {
+                successes = [NSDictionary dictionary];
             }
-            if (successHandler != nil) {
-                successHandler(successes, errors, meta, snippetResult, count, blockRequest.responseHeaders);
+
+            errors = [results objectForKey:@"errors"];
+            if (!errors) {
+                errors = [NSDictionary dictionary];
             }
+
+            snippetResult = [results objectForKey:@"result"];
+            if(!snippetResult) {
+                snippetResult = [NSDictionary dictionary];
+            }
+
+            meta = [results objectForKey:@"meta"];
+            if(!meta) {
+                meta = [NSDictionary dictionary];
+            }
+
+            count = [results objectForKey:@"count"];
+        }
+        if (successHandler != nil) {
+            successHandler(successes, errors, meta, snippetResult, count, blockRequest.responseHeaders);
         }
     }];
 
     [request setFailedBlock:^{
-        NSLog(@"CloudMine *** Unexpected error occurred during object request. Error: %@", blockRequest.error);
+        NSError *error = blockRequest.error;
+        if ([[error domain] isEqualToString:NetworkRequestErrorDomain]) {
+            if ([error code] == ASIAuthenticationErrorType) {
+                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was unauthorized. Is your API key correct?", NSLocalizedDescriptionKey, error, ASIErrorKey, nil]];
+            } else if ([error code] == ASIConnectionFailureErrorType || [error code] == ASIRequestTimedOutErrorType) {
+                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerConnectionFailed userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"A connection to the server was not able to be established.", NSLocalizedDescriptionKey, error, ASIErrorKey, nil]];
+            } else {
+                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnknown userInfo:[NSDictionary dictionaryWithObjectsAndKeys:error, ASIErrorKey, nil]];
+            }
+        }
+        
+        NSLog(@"CloudMine *** Unexpected error occurred during object request. (%@)", [error localizedDescription]);
         if (errorHandler != nil) {
-            errorHandler(blockRequest.error);
+            errorHandler(error);
         }
     }];
 
@@ -630,18 +660,47 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
                 successHandler(blockRequest.responseData, [blockRequest.responseHeaders objectForKey:@"Content-Type"], blockRequest.responseHeaders);
             }
         } else {
-            NSLog(@"CloudMine *** Unexpected error occurred during binary data fetch request. (Code %d) Message: %@", blockRequest.responseStatusCode, blockRequest.responseStatusMessage);
+            NSError *error;
+            switch (blockRequest.responseStatusCode) {
+                case 404:
+                    error = [NSError errorWithDomain:CMErrorDomain code:CMErrorNotFound userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Either the file was not found or the application itself was not found.", NSLocalizedDescriptionKey, nil]];
+                    break;
+                    
+                case 401:
+                    error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was unauthorized. Is your API key correct?", NSLocalizedDescriptionKey, nil]];
+                    
+                case 400:
+                    error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidRequest userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was malformed.", NSLocalizedDescriptionKey, nil]];
+                    
+                case 500:
+                    error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The server experienced an error", NSLocalizedDescriptionKey, nil]];
+                    
+                default:
+                    break;
+            }
+            
+            NSLog(@"CloudMine *** Unexpected error occurred during binary download request. (%@)", [error localizedDescription]);
             if (errorHandler != nil) {
-                NSError *err = $makeErr(@"CloudMine", blockRequest.responseStatusCode, blockRequest.responseStatusMessage);
-                errorHandler(err);
+                errorHandler(error);
             }
         }
     }];
 
     [request setFailedBlock:^{
-        NSLog(@"CloudMine *** Unexpected error occurred during binary data fetch request. Error: %@", blockRequest.error);
+        NSError *error = blockRequest.error;
+        if ([[error domain] isEqualToString:NetworkRequestErrorDomain]) {
+            if ([error code] == ASIAuthenticationErrorType) {
+                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was unauthorized. Is your API key correct?", NSLocalizedDescriptionKey, error, ASIErrorKey, nil]];
+            } else if ([error code] == ASIConnectionFailureErrorType || [error code] == ASIRequestTimedOutErrorType) {
+                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerConnectionFailed userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"A connection to the server was not able to be established.", NSLocalizedDescriptionKey, error, ASIErrorKey, nil]];
+            } else {
+                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnknown userInfo:[NSDictionary dictionaryWithObjectsAndKeys:error, ASIErrorKey, nil]];
+            }
+        }
+        
+        NSLog(@"CloudMine *** Unexpected error occurred during binary download request. (%@)", [error localizedDescription]);
         if (errorHandler != nil) {
-            errorHandler(blockRequest.error);
+            errorHandler(error);
         }
     }];
 
@@ -656,7 +715,39 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     __unsafe_unretained ASIHTTPRequest *blockRequest = request; // Stop the retain cycle.
 
     [request setCompletionBlock:^{
-        NSDictionary *results = [blockRequest.responseString yajl_JSON];
+        NSError *error;
+        NSDictionary *results = [blockRequest.responseString yajl_JSON:&error];
+        
+        if ([[error domain] isEqualToString:YAJLErrorDomain]) {
+            error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidResponse userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The response received from the server was malformed.", NSLocalizedDescriptionKey, error, YAJLErrorKey, nil]];
+        }
+        
+        NSString *message = [[results objectForKey:@"errors"] lastObject];
+        switch (blockRequest.responseStatusCode) {
+            case 404:
+                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorNotFound userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The application was not found. Is your application identifier correct?", NSLocalizedDescriptionKey, nil]];
+                break;
+                
+            case 401:
+                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was unauthorized. Is your API key correct?", NSLocalizedDescriptionKey, nil]];
+                
+            case 400:
+                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidRequest userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was malformed.", NSLocalizedDescriptionKey, nil]];
+                
+            case 500:
+                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The server experienced an error", NSLocalizedDescriptionKey, nil]];
+                
+            default:
+                break;
+        }
+        
+        if (error) {
+            NSLog(@"CloudMine *** Unexpected error occurred during binary upload request. (%@)", [error localizedDescription]);
+            if (errorHandler != nil) {
+                errorHandler(error);
+            }
+            return;
+        }
         
         id snippetResult = nil;
         NSString *key = [results objectForKey:@"key"];
@@ -674,9 +765,20 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     }];
 
     [request setFailedBlock:^{
-        NSLog(@"CloudMine *** Unexpected error occurred during binary data upload request. Error: %@", blockRequest.error);
+        NSError *error = blockRequest.error;
+        if ([[error domain] isEqualToString:NetworkRequestErrorDomain]) {
+            if ([error code] == ASIAuthenticationErrorType) {
+                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was unauthorized. Is your API key correct?", NSLocalizedDescriptionKey, error, ASIErrorKey, nil]];
+            } else if ([error code] == ASIConnectionFailureErrorType || [error code] == ASIRequestTimedOutErrorType) {
+                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerConnectionFailed userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"A connection to the server was not able to be established.", NSLocalizedDescriptionKey, error, ASIErrorKey, nil]];
+            } else {
+                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnknown userInfo:[NSDictionary dictionaryWithObjectsAndKeys:error, ASIErrorKey, nil]];
+            }
+        }
+        
+        NSLog(@"CloudMine *** Unexpected error occurred during binary upload request. (%@)", [error localizedDescription]);
         if (errorHandler != nil) {
-            errorHandler(blockRequest.error);
+            errorHandler(error);
         }
     }];
 

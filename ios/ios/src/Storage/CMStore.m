@@ -182,9 +182,10 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                       }
                   } errorHandler:^(NSError *error) {
                       NSLog(@"CloudMine *** Error occurred during object request for keys: %@ for user: %@ with message: %@", keys, _CMUserOrNil, [error description]);
+                      CMObjectFetchResponse *response = [[CMObjectFetchResponse alloc] initWithError:error];
                       lastError = error;
                       if (callback) {
-                          callback(nil);
+                          callback(response);
                       }
                   }
      ];
@@ -261,9 +262,10 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                      }
                  } errorHandler:^(NSError *error) {
                      NSLog(@"CloudMine *** Error occurred during object search with query: %@ for user: %@ with message: %@", query, _CMUserOrNil, [error description]);
+                     CMObjectFetchResponse *response = [[CMObjectFetchResponse alloc] initWithError:error];
                      lastError = error;
                      if (callback) {
-                         callback(nil);
+                         callback(response);
                      }
                  }
      ];
@@ -351,9 +353,10 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                                 }
                             } errorHandler:^(NSError *error) {
                                 NSLog(@"CloudMine *** Error occurred during object save with message: %@", [error description]);
+                                CMObjectUploadResponse *response = [[CMObjectUploadResponse alloc] initWithError:error];
                                 lastError = error;
                                 if (callback) {
-                                    callback(nil);
+                                    callback(response);
                                 }
                             }
      ];
@@ -407,9 +410,10 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                       }
                   } errorHandler:^(NSError *error) {
                       NSLog(@"CloudMine *** Error occurred uploading streamed file with URL: %@ name: %@ for user: %@ with message: %@", [url absoluteString], name, _CMUserOrNil, [error description]);
+                      CMFileUploadResponse *response = [[CMFileUploadResponse alloc] initWithError:error];
                       lastError = error;
                       if (callback) {
-                          callback(nil);
+                          callback(response);
                       }
                   }
      ];
@@ -461,9 +465,10 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                       }
                   } errorHandler:^(NSError *error) {
                       NSLog(@"CloudMine *** Error occurred uploading data as file with name: %@ for user: %@ with message: %@", name, _CMUserOrNil, [error description]);
+                      CMFileUploadResponse *response = [[CMFileUploadResponse alloc] initWithError:error];
                       lastError = error;
                       if (callback) {
-                          callback(nil);
+                          callback(response);
                       }
                   }
      ];
@@ -549,9 +554,10 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                          }
                      } errorHandler:^(NSError *error) {
                          NSLog(@"CloudMine *** Error occurred deleting file with name: %@ for user: %@ with message: %@", name, _CMUserOrNil, [error description]);
+                         CMDeleteResponse *response = [[CMDeleteResponse alloc] initWithError:error];
                          lastError = error;
                          if (callback) {
-                             callback(nil);
+                             callback(response);
                          }
                      }
      ];
@@ -588,9 +594,10 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                          }
                      } errorHandler:^(NSError *error) {
                          NSLog(@"CloudMine *** Error occurred deleting objects %@ for user: %@ with message: %@", objects, _CMUserOrNil, [error description]);
+                         CMDeleteResponse *response = [[CMDeleteResponse alloc] initWithError:error];
                          lastError = error;
                          if (callback) {
-                             callback(nil);
+                             callback(response);
                          }
                      }
      ];
@@ -637,9 +644,10 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                         }
                     } errorHandler:^(NSError *error) {
                         NSLog(@"CloudMine *** Error occurred downloading file with name: %@ for user: %@ with message: %@", name, _CMUserOrNil, [error description]);
+                        CMFileFetchResponse *response = [[CMFileFetchResponse alloc] initWithError:error];
                         lastError = error;
                         if (callback) {
-                            callback(nil);
+                            callback(response);
                         }
                     }
      ];

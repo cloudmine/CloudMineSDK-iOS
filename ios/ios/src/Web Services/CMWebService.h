@@ -17,6 +17,18 @@
 @class CMPagingDescriptor;
 @class CMSortDescriptor;
 
+extern NSString * const CMErrorDomain;
+
+typedef enum {
+    CMErrorUnknown,
+    CMErrorServerConnectionFailed,
+    CMErrorServerError,
+    CMErrorNotFound,
+    CMErrorInvalidRequest,
+    CMErrorInvalidResponse,
+    CMErrorUnauthorized
+} CMErrorCode;
+
 /**
  * Base URL for the current version of the CloudMine API.
  */
