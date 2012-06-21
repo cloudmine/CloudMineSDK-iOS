@@ -281,8 +281,19 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
             default:
                 return CMUserAccountUnknownResult;
         }
-    }
-                           callback:callback];
+    } callback:^(CMUserAccountResult resultCode, NSArray *messages) {
+        switch (resultCode) {
+            case CMUserAccountLoginFailedIncorrectCredentials:
+                NSLog(@"CloudMine *** User login failed because the credentials provided were incorrect");
+                return ;
+            case CMUserAccountOperationFailedUnknownAccount:
+                NSLog(@"CloudMine *** User login failed because the application does not exist");
+                break;
+            default:
+                break;
+        }
+        callback(resultCode, messages);
+    }];
 }
 
 - (void)logoutUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
@@ -302,13 +313,21 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
             default:
                 return CMUserAccountUnknownResult;
         }
-    }
-                           callback:callback];
+    } callback:^(CMUserAccountResult resultCode, NSArray *messages) {
+        switch (resultCode) {
+            case CMUserAccountOperationFailedUnknownAccount:
+                NSLog(@"CloudMine *** User logout failed because the application does not exist");
+                break;
+            default:
+                break;
+        }
+        callback(resultCode, messages);
+    }];
 }
 
 - (void)createAccountWithUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
     NSParameterAssert(user);
-    NSAssert(user.userId != nil && user.password != nil, @"Cannot create an account from a user that doesn't have an ID or password set.");
+    NSAssert(user.userId != nil && user.password != nil, @"CloudMine *** User creation failed because the user object doesn't have a user ID or password set.");
 
     NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/create", _appIdentifier]];
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
@@ -337,8 +356,19 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
             default:
                 return CMUserAccountUnknownResult;
         }
-    }
-                           callback:callback];
+    } callback:^(CMUserAccountResult resultCode, NSArray *messages) {
+        switch (resultCode) {
+            case CMUserAccountCreateFailedInvalidRequest:
+                NSLog(@"CloudMine *** User creation failed because the request was invalid");
+                break;
+            case CMUserAccountCreateFailedDuplicateAccount:
+                NSLog(@"CloudMine *** User creation failed because the account already exists");
+                break;
+            default:
+                break;
+        }
+        callback(resultCode, messages);
+    }];
 }
 
 - (void)changePasswordForUser:(CMUser *)user oldPassword:(NSString *)oldPassword newPassword:(NSString *)newPassword callback:(CMWebServiceUserAccountOperationCallback)callback {
@@ -346,7 +376,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     NSParameterAssert(user);
     NSParameterAssert(oldPassword);
     NSParameterAssert(newPassword);
-    NSAssert(user.userId, @"Cannot change the password of a user that doesn't have a user id set.");
+    NSAssert(user.userId, @"CloudMine *** User password change failed because the user object doesn't have a user ID set.");
 
     NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/password/change", _appIdentifier]];
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
@@ -369,13 +399,24 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
             default:
                 return CMUserAccountUnknownResult;
         }
-    }
-                           callback:callback];
+    } callback:^(CMUserAccountResult resultCode, NSArray *messages) {
+        switch (resultCode) {
+            case CMUserAccountPasswordChangeFailedInvalidCredentials:
+                NSLog(@"CloudMine *** User password change failed because the credentials provided were incorrect");
+                break;
+            case CMUserAccountOperationFailedUnknownAccount:
+                NSLog(@"CloudMine *** User password change failed because the application does not exist");
+                break;
+            default:
+                break;
+        }
+        callback(resultCode, messages);
+    }];
 }
 
 - (void)resetForgottenPasswordForUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
     NSParameterAssert(user);
-    NSAssert(user.userId, @"Cannot reset the password of a user that doesn't have a user id set.");
+    NSAssert(user.userId, @"CloudMine *** User password reset failed because the user object doesn't have a user ID set.");
 
     NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/password/reset", _appIdentifier]];
     ASIHTTPRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
@@ -443,13 +484,23 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
             }
         }
 
+        if (parseErr) {
+            NSLog(@"CloudMine *** Unexpected data received from server during user profile fetch operation. (Code %d) Error: %@ Body: %@", blockRequest.responseStatusCode, parseErr, blockRequest.responseString);
+        }
+        
         if (callback != nil) {
             callback([responseBody objectForKey:@"success"], [responseBody objectForKey:@"errors"], $num([[responseBody objectForKey:@"success"] count]));
         }
     };
 
     [request setCompletionBlock:responseBlock];
-    [request setFailedBlock:responseBlock];
+    
+    [request setFailedBlock:^{
+        NSLog(@"CloudMine *** Unexpected error occurred during user profile fetch operation. Error: %@", blockRequest.error);
+        if (errorHandler != nil) {
+            errorHandler(blockRequest.error);
+        }
+    }];
 
     [self.networkQueue addOperation:request];
     [self.networkQueue go];
@@ -463,13 +514,10 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     [request addRequestHeader:@"Content-type" value:@"application/json"];
 
     __unsafe_unretained ASIHTTPRequest *blockRequest = request;
-    void (^responseBlock)() = ^{
+    
+    [request setCompletionBlock:^{
         CMUserAccountResult resultCode = codeMapper(blockRequest.responseStatusCode);
-
-        if (resultCode == CMUserAccountUnknownResult) {
-            NSLog(@"Unexpected response received from server during user account creation. Code %d, body: %@.", blockRequest.responseStatusCode, blockRequest.responseString);
-        }
-
+        
         NSDictionary *responseBody = [NSDictionary dictionary];
         if (blockRequest.responseString != nil) {
             NSError *parseErr = nil;
@@ -478,14 +526,26 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
                 responseBody = parsedResponseBody;
             }
         }
-
+        
+        if (resultCode == CMUserAccountUnknownResult) {
+            NSLog(@"CloudMine *** Unexpected response received from server during user account operation. (Code %d) Body: %@", blockRequest.responseStatusCode, blockRequest.responseString);
+        }
+        
+        if (parseErr) {
+            NSLog(@"CloudMine *** Unexpected data received from server during user account operation. (Code %d) Error: %@ Body: %@", blockRequest.responseStatusCode, parseErr, blockRequest.responseString);
+        }
+        
         if (callback != nil) {
             callback(resultCode, responseBody);
         }
-    };
-
-    [request setCompletionBlock:responseBlock];
-    [request setFailedBlock:responseBlock];
+    }];
+    
+    [request setFailedBlock:^{
+        NSLog(@"CloudMine *** Unexpected error occurred during user account operation. Error: %@", blockRequest.error);
+        if (errorHandler != nil) {
+            errorHandler(blockRequest.error);
+        }
+    }];
 
     [self.networkQueue addOperation:request];
     [self.networkQueue go];
@@ -498,11 +558,17 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     __unsafe_unretained ASIHTTPRequest *blockRequest = request; // Stop the retain cycle.
 
     [request setCompletionBlock:^{
-        NSDictionary *results = [blockRequest.responseString yajl_JSON];
-
+        NSError *parseErr;
+        NSDictionary *results = [blockRequest.responseString yajl_JSON:&parseErr];
+        
+        if (parseErr) {
+            NSLog(@"CloudMine *** Unexpected data received from server during object request. (Code %d) Error: %@ Body: %@", blockRequest.responseStatusCode, parseErr, blockRequest.responseString);
+        }
+        
         if (blockRequest.responseStatusCode == 400 || blockRequest.responseStatusCode == 500) {
             NSString *message = [results objectForKey:@"error"];
-            NSError *err = $makeErr(@"CloudMine", 500, message);
+            NSLog(@"CloudMine *** Unexpected error occurred during object request. (Code %d) Message: %@", blockRequest.responseStatusCode, message);
+            NSError *err = $makeErr(@"CloudMine", blockRequest.responseStatusCode, message);
 
             if (errorHandler != nil) {
                 errorHandler(err);
@@ -544,6 +610,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     }];
 
     [request setFailedBlock:^{
+        NSLog(@"CloudMine *** Unexpected error occurred during object request. Error: %@", blockRequest.error);
         if (errorHandler != nil) {
             errorHandler(blockRequest.error);
         }
@@ -565,6 +632,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
                 successHandler(blockRequest.responseData, [blockRequest.responseHeaders objectForKey:@"Content-Type"], blockRequest.responseHeaders);
             }
         } else {
+            NSLog(@"CloudMine *** Unexpected error occurred during binary data fetch request. (Code %d) Message: %@", blockRequest.responseStatusCode, blockRequest.responseStatusMessage);
             if (errorHandler != nil) {
                 NSError *err = $makeErr(@"CloudMine", blockRequest.responseStatusCode, blockRequest.responseStatusMessage);
                 errorHandler(err);
@@ -573,6 +641,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     }];
 
     [request setFailedBlock:^{
+        NSLog(@"CloudMine *** Unexpected error occurred during binary data fetch request. Error: %@", blockRequest.error);
         if (errorHandler != nil) {
             errorHandler(blockRequest.error);
         }
@@ -607,6 +676,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     }];
 
     [request setFailedBlock:^{
+        NSLog(@"CloudMine *** Unexpected error occurred during binary data upload request. Error: %@", blockRequest.error);
         if (errorHandler != nil) {
             errorHandler(blockRequest.error);
         }

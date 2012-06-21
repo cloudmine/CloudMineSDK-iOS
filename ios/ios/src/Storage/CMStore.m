@@ -181,7 +181,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                           callback(response);
                       }
                   } errorHandler:^(NSError *error) {
-                      NSLog(@"*** Error occurred during object request: %@", [error description]);
+                      NSLog(@"CloudMine *** Error occurred during object request for keys: %@ for user: %@ with message: %@", keys, _CMUserOrNil, [error description]);
                       lastError = error;
                       if (callback) {
                           callback(nil);
@@ -232,7 +232,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     _CMAssertAPICredentialsInitialized;
 
     if (!query || [query length] == 0) {
-        NSLog(@"*** No query provided, so executing standard all-object retrieval");
+        NSLog(@"CloudMine *** No query provided, so executing standard all-object retrieval");
         return [self _allObjects:callback userLevel:userLevel additionalOptions:options];
     }
 
@@ -260,7 +260,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                          callback(response);
                      }
                  } errorHandler:^(NSError *error) {
-                     NSLog(@"*** Error occurred during object request: %@", [error description]);
+                     NSLog(@"CloudMine *** Error occurred during object search with query: %@ for user: %@ with message: %@", query, _CMUserOrNil, [error description]);
                      lastError = error;
                      if (callback) {
                          callback(nil);
@@ -350,7 +350,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                                     callback(response);
                                 }
                             } errorHandler:^(NSError *error) {
-                                NSLog(@"*** Error occurred during object uploading: %@", [error description]);
+                                NSLog(@"CloudMine *** Error occurred during object save with message: %@", [error description]);
                                 lastError = error;
                                 if (callback) {
                                     callback(nil);
@@ -406,7 +406,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                           callback(response);
                       }
                   } errorHandler:^(NSError *error) {
-                      NSLog(@"*** Error ocurred during file uploading: %@", [error description]);
+                      NSLog(@"CloudMine *** Error occurred uploading streamed file with URL: %@ name: %@ for user: %@ with message: %@", [url absoluteString], name, _CMUserOrNil, [error description]);
                       lastError = error;
                       if (callback) {
                           callback(nil);
@@ -460,7 +460,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                           callback(response);
                       }
                   } errorHandler:^(NSError *error) {
-                      NSLog(@"*** Error ocurred during in-memory file uploading: %@", [error description]);
+                      NSLog(@"CloudMine *** Error occurred uploading data as file with name: %@ for user: %@ with message: %@", name, _CMUserOrNil, [error description]);
                       lastError = error;
                       if (callback) {
                           callback(nil);
@@ -548,7 +548,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                              callback(response);
                          }
                      } errorHandler:^(NSError *error) {
-                         NSLog(@"*** An error occurred when deleting the file named \"%@\": %@", name, [error description]);
+                         NSLog(@"CloudMine *** Error occurred deleting file with name: %@ for user: %@ with message: %@", name, _CMUserOrNil, [error description]);
                          lastError = error;
                          if (callback) {
                              callback(nil);
@@ -587,7 +587,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                              callback(response);
                          }
                      } errorHandler:^(NSError *error) {
-                         NSLog(@"*** An error occurred when deleting objects with keys (%@): %@", keys, [error description]);
+                         NSLog(@"CloudMine *** Error occurred deleting objects %@ for user: %@ with message: %@", objects, name, _CMUserOrNil, [error description]);
                          lastError = error;
                          if (callback) {
                              callback(nil);
@@ -636,7 +636,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                             callback(response);
                         }
                     } errorHandler:^(NSError *error) {
-                        NSLog(@"*** Error occurred during file request: %@", [error description]);
+                        NSLog(@"CloudMine *** Error occurred downloading file with name: %@ for user: %@ with message: %@", name, _CMUserOrNil, [error description]);
                         lastError = error;
                         if (callback) {
                             callback(nil);
@@ -702,11 +702,11 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 #pragma mark - Helper functions
 
 - (void)_ensureUserLoggedInWithCallback:(void (^)(void))callback {
-    NSAssert(user != nil, @"*** Attemping to log user in when user is not set on store. This is from an internal function and should never happen unless you are doing bad things!");
+    NSAssert(user != nil, @"CloudMine *** Attemping to log user in when user is not set on store. This is from an internal function and should never happen unless you are doing bad things!");
     if (!user.isLoggedIn) {
         [user loginWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
             if (CMUserAccountOperationFailed(resultCode)) {
-                NSLog(@"*** Failed to login user during store operation");
+                NSLog(@"CloudMine *** Failed to login user during store operation");
                 lastError = $makeErr(@"CloudMineUserLoginErrorDomain", 0, $dict(@"user", user, @"resultCode", $num(resultCode)));
             } else {
                 callback();
