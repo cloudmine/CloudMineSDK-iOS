@@ -6,6 +6,8 @@
 //  See LICENSE file included with SDK for details.
 //
 
+#import <SystemConfiguration/SystemConfiguration.h>
+
 #import <YAJLiOS/YAJL.h>
 
 #import "SPLowVerbosity.h"
@@ -27,10 +29,19 @@
 #define CM_SESSIONTOKEN_HEADER @"X-CloudMine-SessionToken"
 
 static __strong NSSet *_validHTTPVerbs = nil;
+static __strong NSString *CMReachabilityStatusChangedNotification = @"CMReachabilityStatusChangedNotification";
 typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger httpResponseCode, NSError *error);
 
+typedef enum {
+    CMNotReachable,
+    CMReachableViaWiFi,
+    CMReachableViaWWAN
+} CMReachabilityStatus;
 
-@interface CMWebService ()
+@interface CMWebService () {
+    SCNetworkReachabilityRef reachability;
+}
+
 @property (nonatomic, strong) NSString *apiUrl;
 - (NSURL *)constructTextUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys query:(NSString *)searchString pagingOptions:(CMPagingDescriptor *)paging sortingOptions:(CMSortDescriptor *)sorting withServerSideFunction:(CMServerFunction *)function extraParameters:(NSDictionary *)params;
 - (NSURL *)constructBinaryUrlAtUserLevel:(BOOL)atUserLevel withKey:(NSString *)key withServerSideFunction:(CMServerFunction *)function extraParameters:(NSDictionary *)params;
@@ -49,6 +60,10 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 @synthesize networkQueue;
 @synthesize apiUrl;
 
+static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReachabilityFlags flags, void *info) {
+    [[NSNotificationCenter defaultCenter] postNotificationName:CMReachabilityStatusChangedNotification object:nil];
+}
+
 #pragma mark - Service initialization
 
 - (id)init {
@@ -66,14 +81,74 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
         _validHTTPVerbs = $set(@"GET", @"POST", @"PUT", @"DELETE");
     }
 
-    if (self = [super init]) {
+    if ((self = [super init])) {
         self.networkQueue = [[NSOperationQueue alloc] init];
         self.apiUrl = CM_BASE_URL;
-
+        
+        reachability = SCNetworkReachabilityCreateWithName(NULL, [[[NSURL URLWithString:self.apiUrl] host] UTF8String]);
+        SCNetworkReachabilityContext context = {0, NULL, NULL, NULL, NULL};
+        SCNetworkReachabilitySetCallback(reachability, ReachabilityCallback, &context);
+        SCNetworkReachabilityScheduleWithRunLoop(reachability, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityStatusChanged:) name:CMReachabilityStatusChangedNotification object:nil];
+        
+        [self.networkQueue setSuspended:([self reachabilityStatus] == CMNotReachable)];
+        
         _appSecret = appSecret;
         _appIdentifier = appIdentifier;
     }
     return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    CFRelease(reachability);
+}
+
+#pragma mark - Reachability
+
+- (void)reachabilityStatusChanged:(NSNotification *)notification {
+    CMReachabilityStatus currentStatus = [self reachabilityStatus];
+    
+    NSArray *currentlyExecuting = [NSArray array];
+    if (currentStatus == CMNotReachable) {
+        NSArray *operations = [self.networkQueue operations];
+        currentlyExecuting = [operations objectsAtIndexes:[operations indexesOfObjectsPassingTest:^(NSOperation *op, NSUInteger idx, BOOL *stop) {
+            return [op isExecuting];
+        }]];
+    }
+    
+    [self.networkQueue setSuspended:(currentStatus == CMNotReachable)];
+    
+    [currentlyExecuting enumerateObjectsUsingBlock:^(NSOperation *op, NSUInteger idx, BOOL *stop) {
+        [self.networkQueue addOperation:[op copy]];
+    }];    
+}
+
+- (CMReachabilityStatus)reachabilityStatus {
+    SCNetworkReachabilityFlags flags;
+	if (!SCNetworkReachabilityGetFlags(reachability, &flags))
+        return CMNotReachable;
+    
+    if ((flags & kSCNetworkReachabilityFlagsReachable) == 0)
+		return CMNotReachable;
+    
+    CMReachabilityStatus status = CMNotReachable;
+    
+	if ((flags & kSCNetworkReachabilityFlagsConnectionRequired) == 0) {
+		status = CMReachableViaWiFi;
+	}
+	
+	if ((((flags & kSCNetworkReachabilityFlagsConnectionOnDemand ) != 0) || (flags & kSCNetworkReachabilityFlagsConnectionOnTraffic) != 0)) {
+        if ((flags & kSCNetworkReachabilityFlagsInterventionRequired) == 0) {
+            status = CMReachableViaWiFi;
+        }
+    }
+	
+	if ((flags & kSCNetworkReachabilityFlagsIsWWAN) == kSCNetworkReachabilityFlagsIsWWAN) {
+        status = CMReachableViaWWAN;
+	}
+    
+    return status;
 }
 
 #pragma mark - GET requests for non-binary data
@@ -458,6 +533,9 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
 
     void (^responseBlock)() = ^(NSHTTPURLResponse *response, NSData *data, NSError *error) {
+        if (error)
+            NSLog(@"ERROR!! %@", error);
+        
         NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 
         NSDictionary *responseBody = [NSDictionary dictionary];
@@ -485,6 +563,9 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
 
     void (^responseBlock)() = ^(NSHTTPURLResponse *response, NSData *data, NSError *error) {
+        if (error)
+            NSLog(@"ERROR!! %@", error);
+        
         CMUserAccountResult resultCode = codeMapper([response statusCode], error);
         NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                 
@@ -514,6 +595,9 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
           errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
 
     void (^responseBlock)() = ^(NSHTTPURLResponse *response, NSData *data, NSError *error) {
+        if (error)
+            NSLog(@"ERROR!! %@", error);
+        
         NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                 
         if ([response statusCode] == 400 || [response statusCode] == 500) {
@@ -575,6 +659,8 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
           errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
 
     void (^responseBlock)() = ^(NSHTTPURLResponse *response, NSData *data, NSError *error) {
+        if (error)
+            NSLog(@"ERROR!! %@", error);
 
         if ([response statusCode] == 200) {
             if (successHandler != nil) {
@@ -596,6 +682,9 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
                          errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
 
     void (^responseBlock)() = ^(NSHTTPURLResponse *response, NSData *data, NSError *error) {
+        if (error)
+            NSLog(@"ERROR!! %@", error);
+        
         if (error) {
             if (errorHandler != nil) {
                 errorHandler(error);
