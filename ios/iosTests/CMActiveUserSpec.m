@@ -16,7 +16,7 @@ describe(@"CMActiveUser", ^{
     afterEach(^{
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"cmau"];
     });
-    
+
     it(@"should persist itself when the singleton is accessed for the first time", ^{
         CMActiveUser *activeUser = [CMActiveUser currentActiveUser];
         CMActiveUser *readUser = [NSKeyedUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults] objectForKey:@"cmau"]];

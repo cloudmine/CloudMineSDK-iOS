@@ -58,7 +58,7 @@
     if(self.distanceUnits) {
         [params setObject:self.distanceUnits forKey:CMDistanceUnitsKey];
     }
-    
+
     return params;
 }
 
@@ -67,7 +67,7 @@
     _CMAddIfNotNil(components, pagingDescriptor);
     _CMAddIfNotNil(components, sortDescriptor);
     _CMAddIfNotNil(components, serverSideFunction);
-    
+
     return [components componentsJoinedByString:@"&"];
 }
 

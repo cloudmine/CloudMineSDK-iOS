@@ -378,4 +378,6 @@ typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDi
  */
 - (void)searchUsers:(NSString *)query callback:(CMWebServiceUserFetchSuccessCallback)callback;
 
+- (void)saveUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
+
 @end

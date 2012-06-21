@@ -20,19 +20,19 @@ NSString * const CMMetadataTypeGeo = @"geo";
     if(self = [super init]) {
         metadata = data;
     }
-    
+
     return self;
 }
 
 - (NSDictionary *)metadataForObject:(CMObject *)object ofType:(NSString *)type {
     if(metadata) {
         NSDictionary *metaForObject = [metadata objectForKey:object.objectId];
-        
+
         if(metaForObject) {
             return [metaForObject objectForKey:type];
         }
     }
-    
+
     return nil;
 }
 
@@ -40,11 +40,11 @@ NSString * const CMMetadataTypeGeo = @"geo";
     NSDictionary *geoData = [self metadataForObject:object ofType:CMMetadataTypeGeo];
 
     if(geoData) {
-        return [[CMDistance alloc] 
+        return [[CMDistance alloc]
                 initWithDistance:[[geoData objectForKey:@"distance"] doubleValue]
                 andUnits:[geoData objectForKey:@"units"]];
     }
-    
+
     return nil;
 }
 

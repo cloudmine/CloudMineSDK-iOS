@@ -16,6 +16,7 @@
 #import "CMFile.h"
 #import "CMStoreCallbacks.h"
 #import "CMFileUploadResult.h"
+#import "CMObjectOwnershipLevel.h"
 
 #import "CMObjectFetchResponse.h"
 #import "CMObjectUploadResponse.h"
@@ -29,21 +30,6 @@
  * Name of the notification that is sent out when an object is deleted.
  */
 extern NSString * const CMStoreObjectDeletedNotification;
-
-/** Defines possible ownership levels of a CMObject. */
-typedef enum {
-    /** The ownership level could not be determined. This is usually because the object doesn't belong to a store. */
-    CMObjectOwnershipUndefinedLevel = -1,
-
-    /** The object is app-level and is owned by no particular user. */
-    CMObjectOwnershipAppLevel = 0,
-
-    /**
-     * The object is owned by a particular user, specifically the user of the store where the object is held.
-     * @see CMStore#user
-     */
-    CMObjectOwnershipUserLevel = 1
-} CMObjectOwnershipLevel;
 
 /**
  * This is the high-level interface for interacting with remote objects stored on CloudMine.
@@ -62,11 +48,7 @@ typedef enum {
  * is deleted. The <tt>userInfo</tt> dictionary in the <tt>NSNotification</tt> object passed to your handler
  * will contain a mapping of object IDs to the object instances that were deleted.
  */
-@interface CMStore : NSObject {
-@private
-    NSMutableDictionary *_cachedAppObjects;
-    NSMutableDictionary *_cachedUserObjects;
-}
+@interface CMStore : NSObject
 
 /** The <tt>CMWebService</tt> instance that backs this store */
 @property (nonatomic, strong) CMWebService *webService;
@@ -649,7 +631,7 @@ typedef enum {
 - (void)addUserObject:(CMObject *)theObject;
 
 /**
- * Removes an app-level object to this store. Doing this also nullifies the object's <tt>store</tt> property.
+ * Removes an app-level object from this store. Doing this also nullifies the object's <tt>store</tt> property.
  * No persistence is performed as a result of calling this method. <b>This method is thread-safe</b>.
  *
  * @param theObject The object to remove.
@@ -659,7 +641,7 @@ typedef enum {
 - (void)removeObject:(CMObject *)theObject;
 
 /**
- * Removes a user-level object to this store. The store must be configured with a user or else calling this method will throw an exception.
+ * Removes a user-level object from this store. The store must be configured with a user or else calling this method will throw an exception.
  * Doing this also nullifies the object's <tt>store</tt> property.
  * No persistence is performed as a result of calling this method. <b>This method is thread-safe</b>.
  *
@@ -670,10 +652,55 @@ typedef enum {
 - (void)removeUserObject:(CMObject *)theObject;
 
 /**
- * @param theObject
- * @return The ownership level of the object given.
+ * Adds an app-level file to this store. Doing this also sets the file's <tt>store</tt> property to this store.
+ * No persistence is performed as a result of calling this method. <b>This method is thread-safe</b>.
+ *
+ * @param theFile The file to add.
+ *
+ * @see CMObject#store
+ */
+- (void)addFile:(CMFile *)theFile;
+
+/**
+ * Adds a user-level file to this store. Doing this also sets the file's <tt>store</tt> property to this store.
+ * No persistence is performed as a result of calling this method. The store must be configured
+ * with a user or else calling this method will throw an exception. <b>This method is thread-safe</b>.
+ *
+ * @param theFile The file to add.
+ *
+ * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
+ *
+ * @see CMObject#store
+ * @see https://cloudmine.me/developer_zone#ref/account_overview
+ */
+- (void)addUserFile:(CMFile *)theFile;
+
+/**
+ * Removes an app-level file from this store. Doing this also nullifies the file's <tt>store</tt> property.
+ * No persistence is performed as a result of calling this method. <b>This method is thread-safe</b>.
+ *
+ * @param theFile The file to remove.
+ *
+ * @see CMObject#store
+ */
+- (void)removeFile:(CMFile *)theFile;
+
+/**
+ * Removes a user-level file from this store. The store must be configured with a user or else calling this method will throw an exception.
+ * Doing this also nullifies the file's <tt>store</tt> property.
+ * No persistence is performed as a result of calling this method. <b>This method is thread-safe</b>.
+ *
+ * @param theFile The file to remove.
+ *
+ * @see CMObject#store
+ */
+- (void)removeUserFile:(CMFile *)theFile;
+
+/**
+ * @param theObject An instance of CMObject or CMFile.
+ * @return The ownership level of the object or file given.
  * @see CMObjectOwnershipLevel
  */
-- (CMObjectOwnershipLevel)objectOwnershipLevel:(CMObject *)theObject;
+- (CMObjectOwnershipLevel)objectOwnershipLevel:(id)theObject;
 
 @end

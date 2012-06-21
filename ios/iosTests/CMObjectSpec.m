@@ -47,6 +47,13 @@ describe(@"CMObject", ^{
             [obj save:nil];
             [[theValue([obj ownershipLevel]) should] equal:theValue(CMObjectOwnershipAppLevel)];
         });
+
+        it(@"should throw an exception if the object is subsequently saved with a user", ^{
+            CMUser *user = [[CMUser alloc] initWithUserId:@"test@test.com" andPassword:@"pass"];
+            [obj save:nil];
+            [[theValue([obj ownershipLevel]) should] equal:theValue(CMObjectOwnershipAppLevel)];
+            [[theBlock(^{ [obj saveWithUser:user callback:nil]; }) should] raise];
+        });
     });
 
     context(@"given an object that belongs to a user-level store", ^{
@@ -61,21 +68,14 @@ describe(@"CMObject", ^{
             [obj save:nil];
             [[theValue(obj.ownershipLevel) should] equal:theValue(CMObjectOwnershipUserLevel)];
         });
-
-        it(@"should throw an exception if the object is subsequently saved with a user", ^{
-            CMUser *user = [[CMUser alloc] initWithUserId:@"test@test.com" andPassword:@"pass"];
-            [obj save:nil];
-            [[theValue([obj ownershipLevel]) should] equal:theValue(CMObjectOwnershipAppLevel)];
-            [[theBlock(^{ [obj saveWithUser:user callback:nil]; }) should] raise];
-        });
     });
-    
+
     context(@"given an object that doesn't belong to a store yet", ^{
         it(@"should save to the app-level when save: is called on the object", ^{
             [obj save:nil];
             [[theValue(obj.ownershipLevel) should] equal:theValue(CMObjectOwnershipAppLevel)];
         });
-        
+
         it(@"should save to the user-level when saveWithUser: is called on the object", ^{
             CMUser *user = [[CMUser alloc] init];
             user.token = @"1234";

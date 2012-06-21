@@ -11,6 +11,7 @@ var searchData=
   ['cmgeopoint',['CMGeoPoint',['../interface_c_m_geo_point.html',1,'']]],
   ['cmjsonencoder',['CMJSONEncoder',['../interface_c_m_j_s_o_n_encoder.html',1,'']]],
   ['cmmimetype',['CMMimeType',['../interface_c_m_mime_type.html',1,'']]],
+  ['cmnullstore',['CMNullStore',['../interface_c_m_null_store.html',1,'']]],
   ['cmobject',['CMObject',['../interface_c_m_object.html',1,'']]],
   ['cmobjectclassnameregistry',['CMObjectClassNameRegistry',['../interface_c_m_object_class_name_registry.html',1,'']]],
   ['cmobjectdecoder',['CMObjectDecoder',['../interface_c_m_object_decoder.html',1,'']]],

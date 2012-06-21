@@ -61,6 +61,7 @@
 #import "CMUser.h"
 #import "CMUserAccountResult.h"
 #import "CMWebService.h"
+#import "CMObjectOwnershipLevel.h"
 
 #import "CMObjectFetchResponse.h"
 #import "CMObjectUploadResponse.h"

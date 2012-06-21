@@ -23,7 +23,7 @@
 @interface CMObject : NSObject <CMSerializable>
 
 /**
- * The store that the object belongs to. If you have not explicitly assigned this object to a store, it 
+ * The store that the object belongs to. If you have not explicitly assigned this object to a store, it
  * will automatically belong to CMStore#defaultStore.
  *
  * If you manually change the store yourself, this object will automatically remove itself from the old
@@ -86,7 +86,7 @@
  * originally added to a store using CMStore#addObject: or CMStore#saveObject:: (i.e. at the app-level) it will be saved at the app-level. If it was
  * originally added using CMStore#addUserObject:callback:, CMStore#saveUserObject:callback:, or CMObject#saveWithUser:callback: (i.e. at the user-level) it will be saved
  * at the user-level.
- 
+
  * @param callback The callback block to be invoked after the save operation has completed.
  *
  * @see CMStore#defaultStore
@@ -97,7 +97,7 @@
  * Saves this object to CloudMine at the user-level associated with the given user.
  * If this object does not belong to a store, the default store will be used.
  *
- * <b>Note:</b> If this object has already been added to a store at the app-level, it cannot be later 
+ * <b>Note:</b> If this object has already been added to a store at the app-level, it cannot be later
  * saved at the user-level. You must duplicate the object, change its CMObject#objectId, and then add it
  * at the user-level.
  *

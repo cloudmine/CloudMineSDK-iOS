@@ -52,6 +52,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -133,6 +134,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:adc2b15ea9176fb8756ab1492974c79d6"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_user.html#adc2b15ea9176fb8756ab1492974c79d6">createAccountAndLoginWithCallback:</a></td></tr>
 <tr class="memitem:a99b30d2883f01db177619893155308ad"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_user.html#a99b30d2883f01db177619893155308ad">changePasswordTo:from:callback:</a></td></tr>
 <tr class="memitem:a7d923bd10ddc116d5f39c9b64899ec1e"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_user.html#a7d923bd10ddc116d5f39c9b64899ec1e">resetForgottenPasswordWithCallback:</a></td></tr>
+<tr class="memitem:a1eec107ae4482a7b33f91c824686f926"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_user.html#a1eec107ae4482a7b33f91c824686f926">save:</a></td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a2129f5b1da4b3bdee69876b3a2e7bc26"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_c_m_user.html#a2129f5b1da4b3bdee69876b3a2e7bc26">allUsersWithCallback:</a></td></tr>
@@ -144,6 +146,8 @@ Properties</h2></td></tr>
 <tr class="memitem:ac2491f631569e280b4114df4252bb507"><td class="memItemLeft" align="right" valign="top">NSString *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_c_m_user.html#ac2491f631569e280b4114df4252bb507">password</a></td></tr>
 <tr class="memitem:ae2dc1c3d94fdc3bdddce1d18ca2b783d"><td class="memItemLeft" align="right" valign="top">NSString *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_c_m_user.html#ae2dc1c3d94fdc3bdddce1d18ca2b783d">token</a></td></tr>
 <tr class="memitem:a63988bb36f7095fa8cc570fff5d77fc3"><td class="memItemLeft" align="right" valign="top">NSDate *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_c_m_user.html#a63988bb36f7095fa8cc570fff5d77fc3">tokenExpiration</a></td></tr>
+<tr class="memitem:a92ba3d7982697465bdac7a9e30ae695b"><td class="memItemLeft" align="right" valign="top">BOOL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_c_m_user.html#a92ba3d7982697465bdac7a9e30ae695b">isCreatedRemotely</a></td></tr>
+<tr class="memitem:aa905d59efc4d6edcc4617e55227943a1"><td class="memItemLeft" align="right" valign="top">BOOL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_c_m_user.html#aa905d59efc4d6edcc4617e55227943a1">isDirty</a></td></tr>
 <tr class="memitem:a71d8b0ea64535a5b3099da6771b4b160"><td class="memItemLeft" align="right" valign="top">BOOL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_c_m_user.html#a71d8b0ea64535a5b3099da6771b4b160">isLoggedIn</a></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
@@ -335,6 +339,7 @@ Properties</h2></td></tr>
 <div class="memdoc">
 <p>Asynchronously login the user and create a new session. On completion, the <code>callback</code> block will be called with the result of the operation and any messages returned by the server contained in an array. See the CloudMine documentation online for the possible contents of this array.</p>
 <p>Upon successful login, the <a class="el" href="interface_c_m_user.html#ae2dc1c3d94fdc3bdddce1d18ca2b783d">CMUser::token</a> property will be set to the user's new session token and the <a class="el" href="interface_c_m_user.html#ac2491f631569e280b4114df4252bb507">CMUser::password</a> field will be cleared for security reasons. The <a class="el" href="interface_c_m_user.html#a63988bb36f7095fa8cc570fff5d77fc3">CMUser::tokenExpiration</a> property will also be set with the expiration date and time of the session token. In addition, all your custom properties (if you are using a custom subclass of <code><a class="el" href="interface_c_m_user.html">CMUser</a></code>) will be populated for you using key-value coding. All these properties will be set <b>before</b> the callback block is invoked.</p>
+<p><b>Important</b> This method will cause the user's profile fields (i.e. any custom fields you have defined on your <a class="el" href="interface_c_m_user.html">CMUser</a> subclass) to be synced with the server state.</p>
 <p>Possible result codes:</p>
 <ul>
 <li><code>CMUserAccountLoginSucceeded</code></li>
@@ -423,6 +428,31 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a1eec107ae4482a7b33f91c824686f926"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) <a class="el" href="interface_c_m_user.html#a1eec107ae4482a7b33f91c824686f926">save:</a> </td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="_c_m_user_8h.html#a103162e6c8dfb13dea703dc3d31664a8">CMUserOperationCallback</a>)&#160;</td>
+          <td class="paramname"><em>callback</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Saves this user's profile. If you call this before the user's account has been created server-side, this method is the same as CMUser::createAccountWithCallback. If the account already exists, the profile will be updated server-side to reflect the state of this object.</p>
+<p><b>Important implementation note</b> If this user is not logged in, they must first be logged in before a save can be completed. The library will automatically do that for you if the user is logged out. However, this has the effect of ignoring any server-side changes that may have occured since you last synchronized the state of the user's profile data. If you need to synchronize state with the server before modifying the user's profile, you need to first login using <a class="el" href="interface_c_m_user.html#a3051b10f7ec22fa1a7064ad8d97b1c73">loginWithCallback:</a> (which will sync the state of the profile) and <em>then</em> modify the user profile as you wish. After that, calling this method will simply save.</p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">callback</td><td>The block that will be called on completion of the operation. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="ae5d87ea90f6e05422f492420c3335cd6"></a>
 <div class="memitem">
 <div class="memproto">
@@ -494,6 +524,38 @@ Properties</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Property Documentation</h2>
+<a class="anchor" id="a92ba3d7982697465bdac7a9e30ae695b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (BOOL) <a class="el" href="interface_c_m_user.html#a92ba3d7982697465bdac7a9e30ae695b">isCreatedRemotely</a><code> [read, assign]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p><code>YES</code> when the user's account and profile have been created server-side. If <code>NO</code>, it means the user exists only locally in your app. </p>
+
+<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00067">67</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa905d59efc4d6edcc4617e55227943a1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (BOOL) <a class="el" href="interface_c_m_user.html#aa905d59efc4d6edcc4617e55227943a1">isDirty</a><code> [read, assign]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>The object is dirty if any changes have been made locally that have not yet been persisted to the server. </p>
+
+<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00072">72</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a71d8b0ea64535a5b3099da6771b4b160"></a>
 <div class="memitem">
 <div class="memproto">
@@ -509,7 +571,7 @@ Properties</h2></td></tr>
 <dd>
 <a class="el" href="interface_c_m_user.html#a63988bb36f7095fa8cc570fff5d77fc3">CMUser::tokenExpiration</a> </dd></dl>
 
-<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00071">71</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00081">81</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
 
 </div>
 </div>
@@ -586,7 +648,7 @@ Properties</h2></td></tr>
     <ul>
       <li class="navelem"><a class="el" href="interface_c_m_user.html">CMUser</a>      </li>
 
-    <li class="footer">Generated on Tue Jun 19 2012 16:13:25 for CloudMine iOS SDK by
+    <li class="footer">Generated on Thu Jun 21 2012 11:37:26 for CloudMine iOS SDK by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.0 </li>
    </ul>

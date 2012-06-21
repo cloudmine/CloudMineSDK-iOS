@@ -21,7 +21,7 @@ describe(@"CMStoreOptions", ^{
     __block CMPagingDescriptor *paging = nil;
     __block CMServerFunction *func = nil;
     __block CMSortDescriptor *sorting = nil;
-    
+
     context(@"given only a sort descriptor", ^{
         beforeEach(^{
             sorting = [[CMSortDescriptor alloc] initWithFieldsAndDirections:@"field1", CMSortAscending, nil];

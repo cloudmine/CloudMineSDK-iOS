@@ -11,6 +11,7 @@ var annotated =
     [ "CMGeoPoint", "interface_c_m_geo_point.html", "interface_c_m_geo_point" ],
     [ "CMJSONEncoder", "interface_c_m_j_s_o_n_encoder.html", "interface_c_m_j_s_o_n_encoder" ],
     [ "CMMimeType", "interface_c_m_mime_type.html", "interface_c_m_mime_type" ],
+    [ "CMNullStore", "interface_c_m_null_store.html", "interface_c_m_null_store" ],
     [ "CMObject", "interface_c_m_object.html", "interface_c_m_object" ],
     [ "CMObjectClassNameRegistry", "interface_c_m_object_class_name_registry.html", "interface_c_m_object_class_name_registry" ],
     [ "CMObjectDecoder", "interface_c_m_object_decoder.html", "interface_c_m_object_decoder" ],

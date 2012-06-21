@@ -31,7 +31,7 @@ describe(@"CMWebService", ^{
         [[CMAPICredentials sharedInstance] setAppIdentifier:appId];
         [[CMAPICredentials sharedInstance] setAppSecret:appSecret];
     });
-    
+
     beforeEach(^{
         service = [[CMWebService alloc] init];
         service.networkQueue = [ASINetworkQueue mock];
@@ -689,7 +689,7 @@ describe(@"CMWebService", ^{
                 [request.password shouldBeNil];
                 [[[[request requestHeaders] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
                 [[[request requestHeaders] objectForKey:@"X-CloudMine-SessionToken"] shouldBeNil];
-                
+
                 NSDictionary *responseBody = [request.postBody yajl_JSON];
                 [[[responseBody objectForKey:@"credentials"] should] haveValue:@"test@domain.com" forKey:@"email"];
                 [[[responseBody objectForKey:@"credentials"] should] haveValue:@"pass" forKey:@"password"];

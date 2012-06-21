@@ -50,7 +50,7 @@ describe(@"CMGeoPoint", ^{
         [[CMAPICredentials sharedInstance] setAppSecret:@"appSecret"];
         [[CMAPICredentials sharedInstance] setAppIdentifier:@"appIdentifier"];
     });
-    
+
     it(@"should convert radians to degrees before storage if initialized with radians", ^{
         double latitudeInRadians = M_PI;
         double longitudeInRadians = M_PI_2;

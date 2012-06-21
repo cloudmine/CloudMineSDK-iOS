@@ -23,7 +23,9 @@ var hierarchy =
     [ "CMServerFunction", "interface_c_m_server_function.html", null ],
     [ "CMSnippetResult", "interface_c_m_snippet_result.html", null ],
     [ "CMSortDescriptor", "interface_c_m_sort_descriptor.html", null ],
-    [ "CMStore", "interface_c_m_store.html", null ],
+    [ "CMStore", "interface_c_m_store.html", [
+      [ "CMNullStore", "interface_c_m_null_store.html", null ]
+    ] ],
     [ "CMStoreOptions", "interface_c_m_store_options.html", null ],
     [ "CMStoreResponse", "interface_c_m_store_response.html", [
       [ "CMDeleteResponse", "interface_c_m_delete_response.html", null ],

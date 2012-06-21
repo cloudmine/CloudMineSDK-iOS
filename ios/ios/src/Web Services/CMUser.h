@@ -62,6 +62,16 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
 @property (atomic, strong) NSDate *tokenExpiration;
 
 /**
+ * <tt>YES</tt> when the user's account and profile have been created server-side. If <tt>NO</tt>, it means the user exists only locally in your app.
+ */
+@property (readonly) BOOL isCreatedRemotely;
+
+/**
+ * The object is dirty if any changes have been made locally that have not yet been persisted to the server.
+ */
+@property (readonly) BOOL isDirty;
+
+/**
  * <tt>YES</tt> if the user is logged in and <tt>NO</tt> otherwise. Being logged in
  * is defined by having a session token set and having a token expiration date in the future.
  *
@@ -84,6 +94,9 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
  * will be cleared for security reasons. The CMUser#tokenExpiration property will also be set with the expiration date and time
  * of the session token. In addition, all your custom properties (if you are using a custom subclass of <tt>CMUser</tt>) will be populated for you using key-value coding.
  * All these properties will be set <strong>before</strong> the callback block is invoked.
+ *
+ * <strong>Important</strong>
+ * This method will cause the user's profile fields (i.e. any custom fields you have defined on your CMUser subclass) to be synced with the server state.
  *
  * Possible result codes:
  * - <tt>CMUserAccountLoginSucceeded</tt>
@@ -193,6 +206,20 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
  * @see https://cloudmine.me/developer_zone#ref/password_reset
  */
 - (void)resetForgottenPasswordWithCallback:(CMUserOperationCallback)callback;
+
+/**
+ * Saves this user's profile. If you call this before the user's account has been created server-side, this method is the same as CMUser#createAccountWithCallback.
+ * If the account already exists, the profile will be updated server-side to reflect the state of this object.
+ *
+ * <strong>Important implementation note</strong>
+ * If this user is not logged in, they must first be logged in before a save can be completed. The library will automatically do that for you if the user is logged out.
+ * However, this has the effect of ignoring any server-side changes that may have occured since you last synchronized the state of the user's profile data. If you need
+ * to synchronize state with the server before modifying the user's profile, you need to first login using CMUser#loginWithCallback: (which will sync the state of the profile)
+ * and <em>then</em> modify the user profile as you wish. After that, calling this method will simply save.
+ *
+ * @param callback The block that will be called on completion of the operation.
+ */
+- (void)save:(CMUserOperationCallback)callback;
 
 /**
  * Asynchronously fetch all the users of this app. This will download the profiles of all the users of your app, and is useful for displaying

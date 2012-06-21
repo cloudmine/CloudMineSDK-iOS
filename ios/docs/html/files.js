@@ -11,6 +11,8 @@ var files =
     [ "ios/src/Persisted Objects/CMObject.h", null, null ],
     [ "ios/src/Persisted Objects/CMObjectClassNameRegistry.h", null, null ],
     [ "ios/src/Persisted Objects/CMUntypedObject.h", null, null ],
+    [ "ios/src/Storage/CMNullStore.h", null, null ],
+    [ "ios/src/Storage/CMObjectOwnershipLevel.h", "_c_m_object_ownership_level_8h.html", "_c_m_object_ownership_level_8h" ],
     [ "ios/src/Storage/CMStore.h", "_c_m_store_8h.html", "_c_m_store_8h" ],
     [ "ios/src/Storage/CMStoreCallbacks.h", "_c_m_store_callbacks_8h.html", "_c_m_store_callbacks_8h" ],
     [ "ios/src/Storage/CMStoreOptions.h", null, null ],

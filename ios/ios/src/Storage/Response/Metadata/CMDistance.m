@@ -26,7 +26,7 @@ NSString * const CMDistanceUnitsFt = @"ft";
         distance = theDistance;
         units = theUnits;
     }
-    
+
     return self;
 }
 
