@@ -21,7 +21,7 @@
 /**
  * Dictionary keyed on object id, indicting which objects had errors.
  */
-@property (strong, nonatomic) NSDictionary *errors;
+@property (strong, nonatomic) NSDictionary *objectErrors;
 
 - (id)initWithSuccess:(NSDictionary *)success errors:(NSDictionary *)errors;
 - (id)initWithSuccess:(NSDictionary *)success errors:(NSDictionary *)errors snippetResult:(CMSnippetResult *)snippetResult;

@@ -21,7 +21,7 @@
 /**
  * Errors returned from the API.
  */
-@property (strong, nonatomic) NSDictionary *errors;
+@property (strong, nonatomic) NSDictionary *objectErrors;
 
 /**
  * Count of objects returned.

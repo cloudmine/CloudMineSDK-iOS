@@ -11,7 +11,7 @@
 @implementation CMObjectFetchResponse
 
 @synthesize objects;
-@synthesize errors;
+@synthesize objectErrors;
 @synthesize count;
 
 - (id)initWithObjects:(NSArray *)theObjects errors:(NSDictionary *)theErrors {
@@ -25,7 +25,7 @@
 - (id)initWithObjects:(NSArray *)theObjects errors:(NSDictionary *)theErrors snippetResult:(CMSnippetResult *)theSnippetResult responseMetadata:(CMResponseMetadata *)theMetadata {
     if (self = [super initWithMetadata:theMetadata snippetResult:theSnippetResult]) {
         self.objects = theObjects;
-        self.errors = theErrors;
+        self.objectErrors = theErrors;
     }
     return self;
 }
