@@ -11,7 +11,7 @@
 @implementation CMDeleteResponse
 
 @synthesize success;
-@synthesize errors;
+@synthesize objectErrors;
 
 - (id)initWithSuccess:(NSDictionary *)theSuccess errors:(NSDictionary *)theErrors {
     return [self initWithSuccess:theSuccess errors:theErrors snippetResult:nil responseMetadata:nil];
@@ -24,7 +24,7 @@
 - (id)initWithSuccess:(NSDictionary *)theSuccess errors:(NSDictionary *)theErrors snippetResult:(CMSnippetResult *)theSnippetResult responseMetadata:(CMResponseMetadata *)theMetadata {
     if (self = [super initWithMetadata:theMetadata snippetResult:theSnippetResult]) {
         self.success = theSuccess;
-        self.errors = theErrors;
+        self.objectErrors = theErrors;
     }
     return self;
 }
