@@ -192,7 +192,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (void)_objectsWithKeys:(NSArray *)keys callback:(CMStoreObjectFetchCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options {
     _CMAssertAPICredentialsInitialized;
 
-    __weak CMStore *blockSelf = self;
+    __unsafe_unretained CMStore *blockSelf = self;
     [webService getValuesForKeys:keys
               serverSideFunction:_CMTryMethod(options, serverSideFunction)
                    pagingOptions:_CMTryMethod(options, pagingDescriptor)
@@ -272,7 +272,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
         return [self _allObjects:callback userLevel:userLevel additionalOptions:options];
     }
 
-    __weak CMStore *blockSelf = self;
+    __unsafe_unretained CMStore *blockSelf = self;
     [webService searchValuesFor:query
              serverSideFunction:_CMTryMethod(options, serverSideFunction)
                   pagingOptions:_CMTryMethod(options, pagingDescriptor)
@@ -313,7 +313,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 }
 
 - (void)saveAllWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback {
-    __weak CMStore *selff = self;
+    __unsafe_unretained CMStore *selff = self;
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
 
     dispatch_async(queue, ^{

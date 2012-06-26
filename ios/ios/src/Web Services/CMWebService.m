@@ -407,7 +407,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     if (user.isCreatedRemotely) {
         // The user has already been saved, so just update the profile. In order for this to work, the user must be logged in.
 
-        __weak CMWebService *blockSelf = self;
+        __unsafe_unretained CMWebService *blockSelf = self;
         void (^save)() = ^{
             NSURL *url = [NSURL URLWithString:[blockSelf.apiUrl stringByAppendingFormat:@"/app/%@/account/%@", _appIdentifier, user.objectId]];
             NSMutableURLRequest *request = [blockSelf constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:user];
