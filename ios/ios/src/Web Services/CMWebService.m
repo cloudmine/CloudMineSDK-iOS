@@ -276,7 +276,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 
     CFHTTPMessageRef dummyRequest = CFHTTPMessageCreateRequest(kCFAllocatorDefault, CFSTR("GET"), (__bridge CFURLRef)[request URL], kCFHTTPVersion1_1);
     CFHTTPMessageAddAuthentication(dummyRequest, nil, (__bridge CFStringRef)user.userId, (__bridge CFStringRef)user.password, kCFHTTPAuthenticationSchemeBasic, FALSE);
-    NSString *basicAuthValue = (__bridge NSString *)CFHTTPMessageCopyHeaderFieldValue(dummyRequest, CFSTR("Authorization"));
+    NSString *basicAuthValue = (__bridge_transfer NSString *)CFHTTPMessageCopyHeaderFieldValue(dummyRequest, CFSTR("Authorization"));
     [request setValue:basicAuthValue forHTTPHeaderField:@"Authorization"];
     CFRelease(dummyRequest);
 
@@ -493,7 +493,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     // explicitly in addition to their new password.
     CFHTTPMessageRef dummyRequest = CFHTTPMessageCreateRequest(kCFAllocatorDefault, CFSTR("GET"), (__bridge CFURLRef)[request URL], kCFHTTPVersion1_1);
     CFHTTPMessageAddAuthentication(dummyRequest, nil, (__bridge CFStringRef)user.userId, (__bridge CFStringRef)oldPassword, kCFHTTPAuthenticationSchemeBasic, FALSE);
-    NSString *basicAuthValue = (__bridge NSString *)CFHTTPMessageCopyHeaderFieldValue(dummyRequest, CFSTR("Authorization"));
+    NSString *basicAuthValue = (__bridge_transfer NSString *)CFHTTPMessageCopyHeaderFieldValue(dummyRequest, CFSTR("Authorization"));
     [request setValue:basicAuthValue forHTTPHeaderField:@"Authorization"];
     CFRelease(dummyRequest);
 
