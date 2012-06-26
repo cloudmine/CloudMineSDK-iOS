@@ -6,8 +6,6 @@
 //  See LICENSE file included with SDK for details.
 //
 
-#import <SystemConfiguration/SystemConfiguration.h>
-
 #import <YAJLiOS/YAJL.h>
 
 #import "SPLowVerbosity.h"
@@ -29,22 +27,13 @@
 #define CM_SESSIONTOKEN_HEADER @"X-CloudMine-SessionToken"
 
 static __strong NSSet *_validHTTPVerbs = nil;
-static __strong NSString *CMReachabilityStatusChangedNotification = @"CMReachabilityStatusChangedNotification";
 typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger httpResponseCode, NSError *error);
-
-typedef enum {
-    CMNotReachable,
-    CMReachableViaWiFi,
-    CMReachableViaWWAN
-} CMReachabilityStatus;
 
 NSString * const CMErrorDomain = @"CMErrorDomain";
 NSString * const NSURLErrorKey = @"NSURLErrorKey";
 NSString * const YAJLErrorKey = @"YAJLErrorKey";
 
-@interface CMWebService () {
-    SCNetworkReachabilityRef reachability;
-}
+@interface CMWebService ()
 @property (nonatomic, strong) NSString *apiUrl;
 - (NSURL *)constructTextUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys query:(NSString *)searchString pagingOptions:(CMPagingDescriptor *)paging sortingOptions:(CMSortDescriptor *)sorting withServerSideFunction:(CMServerFunction *)function extraParameters:(NSDictionary *)params;
 - (NSURL *)constructBinaryUrlAtUserLevel:(BOOL)atUserLevel withKey:(NSString *)key withServerSideFunction:(CMServerFunction *)function extraParameters:(NSDictionary *)params;
@@ -62,10 +51,6 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 @implementation CMWebService
 @synthesize networkQueue;
 @synthesize apiUrl;
-
-static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReachabilityFlags flags, void *info) {
-    [[NSNotificationCenter defaultCenter] postNotificationName:CMReachabilityStatusChangedNotification object:nil];
-}
 
 #pragma mark - Service initialization
 
@@ -87,59 +72,11 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     if ((self = [super init])) {
         self.networkQueue = [[NSOperationQueue alloc] init];
         self.apiUrl = CM_BASE_URL;
-        
-        reachability = SCNetworkReachabilityCreateWithName(NULL, [[[NSURL URLWithString:self.apiUrl] host] UTF8String]);
-        SCNetworkReachabilityContext context = {0, NULL, NULL, NULL, NULL};
-        SCNetworkReachabilitySetCallback(reachability, ReachabilityCallback, &context);
-        SCNetworkReachabilityScheduleWithRunLoop(reachability, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityStatusChanged:) name:CMReachabilityStatusChangedNotification object:nil];
-        
-        [self.networkQueue setSuspended:([self reachabilityStatus] == CMNotReachable)];
-        
+
         _appSecret = appSecret;
         _appIdentifier = appIdentifier;
     }
     return self;
-}
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    CFRelease(reachability);
-}
-
-#pragma mark - Reachability
-
-- (void)reachabilityStatusChanged:(NSNotification *)notification {
-    CMReachabilityStatus currentStatus = [self reachabilityStatus];
-    
-    [self.networkQueue setSuspended:(currentStatus == CMNotReachable)];
-}
-
-- (CMReachabilityStatus)reachabilityStatus {
-    SCNetworkReachabilityFlags flags;
-	if (!SCNetworkReachabilityGetFlags(reachability, &flags))
-        return CMNotReachable;
-    
-    if ((flags & kSCNetworkReachabilityFlagsReachable) == 0)
-		return CMNotReachable;
-    
-    CMReachabilityStatus status = CMNotReachable;
-    
-	if ((flags & kSCNetworkReachabilityFlagsConnectionRequired) == 0) {
-		status = CMReachableViaWiFi;
-	}
-	
-	if ((((flags & kSCNetworkReachabilityFlagsConnectionOnDemand ) != 0) || (flags & kSCNetworkReachabilityFlagsConnectionOnTraffic) != 0)) {
-        if ((flags & kSCNetworkReachabilityFlagsInterventionRequired) == 0) {
-            status = CMReachableViaWiFi;
-        }
-    }
-	
-	if ((flags & kSCNetworkReachabilityFlagsIsWWAN) == kSCNetworkReachabilityFlagsIsWWAN) {
-        status = CMReachableViaWWAN;
-	}
-    
-    return status;
 }
 
 #pragma mark - GET requests for non-binary data
