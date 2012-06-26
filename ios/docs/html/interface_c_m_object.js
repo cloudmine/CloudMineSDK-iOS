@@ -6,6 +6,7 @@ var interface_c_m_object =
     [ "initWithCoder:", "interface_c_m_object.html#a1f06802da6db1e7a329f74a4bf61c7a2", null ],
     [ "initWithObjectId:", "interface_c_m_object.html#acc946857adb88b3df84c8409dffd06a2", null ],
     [ "save:", "interface_c_m_object.html#a89557710931e0d3fa58fd1a5a013b4ee", null ],
+    [ "saveWithUser:callback:", "interface_c_m_object.html#a0d84c908c11844c7a275ed5e4e74f6c4", null ],
     [ "ownershipLevel", "interface_c_m_object.html#a56eed5e40843bdeb26e3feac45844107", null ],
     [ "store", "interface_c_m_object.html#a076c2f007b57f127a4825ccf21621381", null ]
 ];

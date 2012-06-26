@@ -16,7 +16,7 @@
     if(self = [super init]) {
         data = theData;
     }
-    
+
     return self;
 }
 

@@ -50,7 +50,13 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
 @end
 
-@implementation CMStore
+@implementation CMStore {
+    NSMutableDictionary *_cachedAppObjects;
+    NSMutableDictionary *_cachedUserObjects;
+    NSMutableDictionary *_cachedAppFiles;
+    NSMutableDictionary *_cachedUserFiles;
+}
+
 @synthesize webService;
 @synthesize user;
 @synthesize lastError;
@@ -87,15 +93,17 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     if (self = [super init]) {
         self.webService = [[CMWebService alloc] init];
         self.user = theUser;
-        
+
         NSDateFormatter *df = [[NSDateFormatter alloc] init];
         [df setLenient:YES];
         df.dateFormat = @"EEE',' dd MMM yyyy HH':'mm':'ss 'GMT'";
         self.dateFormatter = df;
-        
+
         lastError = nil;
         _cachedAppObjects = [[NSMutableDictionary alloc] init];
         _cachedUserObjects = theUser ? [[NSMutableDictionary alloc] init] : nil;
+        _cachedAppFiles = [[NSMutableDictionary alloc] init];
+        _cachedUserFiles = theUser ? [[NSMutableDictionary alloc] init] : nil;
     }
     return self;
 }
@@ -110,6 +118,15 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
         } else {
             _cachedUserObjects = [[NSMutableDictionary alloc] init];
         }
+        
+        if (_cachedUserFiles) {
+            [_cachedUserFiles enumerateKeysAndObjectsUsingBlock:^(id key, CMObject *obj, BOOL *stop) {
+                obj.store = nil;
+            }];
+            [_cachedUserFiles removeAllObjects];
+        } else {
+            _cachedUserFiles = [[NSMutableDictionary alloc] init];
+        }
         user = theUser;
         [user setValue:self.webService forKey:@"webService"];
     }
@@ -117,10 +134,28 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 #pragma mark - Store state
 
-- (CMObjectOwnershipLevel)objectOwnershipLevel:(CMObject *)theObject {
-    if ([_cachedAppObjects objectForKey:theObject.objectId] != nil) {
+- (CMObjectOwnershipLevel)objectOwnershipLevel:(id)theObject {
+    if ([theObject respondsToSelector:@selector(uuid)]) {
+        return [self _fileOwnershipLevel:theObject];
+    } else {
+        return [self _objectOwnershipLevel:theObject];
+    }
+}
+
+- (CMObjectOwnershipLevel)_objectOwnershipLevel:(CMObject *)theObject {
+    if ([_cachedAppObjects objectForKey:[theObject objectId]] != nil) {
         return CMObjectOwnershipAppLevel;
-    } else if ([_cachedUserObjects objectForKey:theObject.objectId] != nil) {
+    } else if ([_cachedUserObjects objectForKey:[theObject objectId]] != nil) {
+        return CMObjectOwnershipUserLevel;
+    } else {
+        return CMObjectOwnershipUndefinedLevel;
+    }
+}
+
+- (CMObjectOwnershipLevel)_fileOwnershipLevel:(CMFile *)theFile {
+    if ([_cachedAppFiles objectForKey:[theFile uuid]] != nil) {
+        return CMObjectOwnershipAppLevel;
+    } else if ([_cachedUserFiles objectForKey:[theFile uuid]] != nil) {
         return CMObjectOwnershipUserLevel;
     } else {
         return CMObjectOwnershipUndefinedLevel;
@@ -171,20 +206,21 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                       CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
                       CMObjectFetchResponse *response = [[CMObjectFetchResponse alloc] initWithObjects:objects errors:errors snippetResult:result responseMetadata:metadata];
                       response.count = count ? [count intValue] : [objects count];
-                      
+
                       NSDate *expirationDate = [self.dateFormatter dateFromString:[headers objectForKey:CM_TOKENEXPIRATION_HEADER]];
                       if (expirationDate && userLevel) {
                           user.tokenExpiration = expirationDate;
                       }
-                      
+
                       if (callback) {
                           callback(response);
                       }
                   } errorHandler:^(NSError *error) {
-                      NSLog(@"*** Error occurred during object request: %@", [error description]);
+                      NSLog(@"CloudMine *** Error occurred during object request for keys: %@ for user: %@ with message: %@", keys, _CMUserOrNil, [error description]);
+                      CMObjectFetchResponse *response = [[CMObjectFetchResponse alloc] initWithError:error];
                       lastError = error;
                       if (callback) {
-                          callback(nil);
+                          callback(response);
                       }
                   }
      ];
@@ -232,7 +268,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     _CMAssertAPICredentialsInitialized;
 
     if (!query || [query length] == 0) {
-        NSLog(@"*** No query provided, so executing standard all-object retrieval");
+        NSLog(@"CloudMine *** No query provided, so executing standard all-object retrieval");
         return [self _allObjects:callback userLevel:userLevel additionalOptions:options];
     }
 
@@ -250,20 +286,21 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                      [blockSelf cacheObjectsInMemory:objects atUserLevel:userLevel];
                      CMObjectFetchResponse *response = [[CMObjectFetchResponse alloc] initWithObjects:objects errors:errors snippetResult:result responseMetadata:metadata];
                      response.count = count ? [count intValue] : [objects count];
-                     
+
                      NSDate *expirationDate = [self.dateFormatter dateFromString:[headers objectForKey:CM_TOKENEXPIRATION_HEADER]];
                      if (expirationDate && userLevel) {
                          user.tokenExpiration = expirationDate;
                      }
-                     
+
                      if (callback) {
                          callback(response);
                      }
                  } errorHandler:^(NSError *error) {
-                     NSLog(@"*** Error occurred during object request: %@", [error description]);
+                     NSLog(@"CloudMine *** Error occurred during object search with query: %@ for user: %@ with message: %@", query, _CMUserOrNil, [error description]);
+                     CMObjectFetchResponse *response = [[CMObjectFetchResponse alloc] initWithError:error];
                      lastError = error;
                      if (callback) {
-                         callback(nil);
+                         callback(response);
                      }
                  }
      ];
@@ -340,20 +377,21 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                                 CMResponseMetadata *metadata = [[CMResponseMetadata alloc] initWithMetadata:meta];
                                 CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
                                 CMObjectUploadResponse *response = [[CMObjectUploadResponse alloc] initWithUploadStatuses:results snippetResult:result responseMetadata:metadata];
-                                
+
                                 NSDate *expirationDate = [self.dateFormatter dateFromString:[headers objectForKey:CM_TOKENEXPIRATION_HEADER]];
                                 if (expirationDate && userLevel) {
                                     user.tokenExpiration = expirationDate;
                                 }
-                                
+
                                 if (callback) {
                                     callback(response);
                                 }
                             } errorHandler:^(NSError *error) {
-                                NSLog(@"*** Error occurred during object uploading: %@", [error description]);
+                                NSLog(@"CloudMine *** Error occurred during object save with message: %@", [error description]);
+                                CMObjectUploadResponse *response = [[CMObjectUploadResponse alloc] initWithError:error];
                                 lastError = error;
                                 if (callback) {
-                                    callback(nil);
+                                    callback(response);
                                 }
                             }
      ];
@@ -396,20 +434,21 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                   successHandler:^(CMFileUploadResult result, NSString *fileKey, id snippetResult, NSDictionary *headers) {
                       CMSnippetResult *sResult = [[CMSnippetResult alloc] initWithData:snippetResult];
                       CMFileUploadResponse *response = [[CMFileUploadResponse alloc] initWithResult:result key:fileKey snippetResult:sResult];
-                      
+
                       NSDate *expirationDate = [self.dateFormatter dateFromString:[headers objectForKey:CM_TOKENEXPIRATION_HEADER]];
                       if (expirationDate && userLevel) {
                           user.tokenExpiration = expirationDate;
                       }
-                      
+
                       if (callback) {
                           callback(response);
                       }
                   } errorHandler:^(NSError *error) {
-                      NSLog(@"*** Error ocurred during file uploading: %@", [error description]);
+                      NSLog(@"CloudMine *** Error occurred uploading streamed file with URL: %@ name: %@ for user: %@ with message: %@", [url absoluteString], name, _CMUserOrNil, [error description]);
+                      CMFileUploadResponse *response = [[CMFileUploadResponse alloc] initWithError:error];
                       lastError = error;
                       if (callback) {
-                          callback(nil);
+                          callback(response);
                       }
                   }
      ];
@@ -450,20 +489,21 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                   successHandler:^(CMFileUploadResult result, NSString *fileKey, id snippetResult, NSDictionary *headers) {
                       CMSnippetResult *sResult = [[CMSnippetResult alloc] initWithData:snippetResult];
                       CMFileUploadResponse *response = [[CMFileUploadResponse alloc] initWithResult:result key:fileKey snippetResult:sResult];
-                      
+
                       NSDate *expirationDate = [self.dateFormatter dateFromString:[headers objectForKey:CM_TOKENEXPIRATION_HEADER]];
                       if (expirationDate && userLevel) {
                           user.tokenExpiration = expirationDate;
                       }
-                      
+
                       if (callback) {
                           callback(response);
                       }
                   } errorHandler:^(NSError *error) {
-                      NSLog(@"*** Error ocurred during in-memory file uploading: %@", [error description]);
+                      NSLog(@"CloudMine *** Error occurred uploading data as file with name: %@ for user: %@ with message: %@", name, _CMUserOrNil, [error description]);
+                      CMFileUploadResponse *response = [[CMFileUploadResponse alloc] initWithError:error];
                       lastError = error;
                       if (callback) {
-                          callback(nil);
+                          callback(response);
                       }
                   }
      ];
@@ -538,20 +578,21 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                      successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult, NSNumber *count, NSDictionary *headers) {
                          CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
                          CMDeleteResponse *response = [[CMDeleteResponse alloc] initWithSuccess:results errors:errors snippetResult:result];
-                         
+
                          NSDate *expirationDate = [self.dateFormatter dateFromString:[headers objectForKey:CM_TOKENEXPIRATION_HEADER]];
                          if (expirationDate && userLevel) {
                              user.tokenExpiration = expirationDate;
                          }
-                         
+
                          if (callback) {
                              callback(response);
                          }
                      } errorHandler:^(NSError *error) {
-                         NSLog(@"*** An error occurred when deleting the file named \"%@\": %@", name, [error description]);
+                         NSLog(@"CloudMine *** Error occurred deleting file with name: %@ for user: %@ with message: %@", name, _CMUserOrNil, [error description]);
+                         CMDeleteResponse *response = [[CMDeleteResponse alloc] initWithError:error];
                          lastError = error;
                          if (callback) {
-                             callback(nil);
+                             callback(response);
                          }
                      }
      ];
@@ -577,20 +618,21 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                      successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult, NSNumber *count, NSDictionary *headers) {
                          CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
                          CMDeleteResponse *response = [[CMDeleteResponse alloc] initWithSuccess:results errors:errors snippetResult:result];
-                         
+
                          NSDate *expirationDate = [self.dateFormatter dateFromString:[headers objectForKey:CM_TOKENEXPIRATION_HEADER]];
                          if (expirationDate && userLevel) {
                              user.tokenExpiration = expirationDate;
                          }
-                         
+
                          if (callback) {
                              callback(response);
                          }
                      } errorHandler:^(NSError *error) {
-                         NSLog(@"*** An error occurred when deleting objects with keys (%@): %@", keys, [error description]);
+                         NSLog(@"CloudMine *** Error occurred deleting objects %@ for user: %@ with message: %@", objects, _CMUserOrNil, [error description]);
+                         CMDeleteResponse *response = [[CMDeleteResponse alloc] initWithError:error];
                          lastError = error;
                          if (callback) {
-                             callback(nil);
+                             callback(response);
                          }
                      }
      ];
@@ -626,20 +668,21 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                                                            mimeType:mimeType];
                         [file writeToCache];
                         CMFileFetchResponse *response = [[CMFileFetchResponse alloc] initWithFile:file];
-                        
+
                         NSDate *expirationDate = [self.dateFormatter dateFromString:[headers objectForKey:CM_TOKENEXPIRATION_HEADER]];
                         if (expirationDate && userLevel) {
                             user.tokenExpiration = expirationDate;
                         }
-                        
+
                         if (callback) {
                             callback(response);
                         }
                     } errorHandler:^(NSError *error) {
-                        NSLog(@"*** Error occurred during file request: %@", [error description]);
+                        NSLog(@"CloudMine *** Error occurred downloading file with name: %@ for user: %@ with message: %@", name, _CMUserOrNil, [error description]);
+                        CMFileFetchResponse *response = [[CMFileFetchResponse alloc] initWithError:error];
                         lastError = error;
                         if (callback) {
-                            callback(nil);
+                            callback(response);
                         }
                     }
      ];
@@ -699,14 +742,55 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     }
 }
 
+- (void)addUserFile:(CMFile *)theFile {
+    NSAssert(user != nil, @"Attempted to add File (%@) to store (%@) belonging to user when user is not set.", theFile, self);
+    @synchronized(self) {
+        [_cachedUserFiles setObject:theFile forKey:theFile.uuid];
+    }
+    
+    if (theFile.store != self) {
+        theFile.store = self;
+    }
+}
+
+- (void)addFile:(CMFile *)theFile {
+    @synchronized(self) {
+        [_cachedAppFiles setObject:theFile forKey:theFile.uuid];
+    }
+    
+    if (theFile.store != self) {
+        theFile.store = self;
+    }
+}
+
+- (void)removeFile:(CMFile *)theFile {
+    @synchronized(self) {
+        [_cachedAppFiles removeObjectForKey:theFile.uuid];
+    }
+    
+    if (theFile.store) {
+        theFile.store = nil;
+    }
+}
+
+- (void)removeUserFile:(CMFile *)theFile {
+    @synchronized(self) {
+        [_cachedUserFiles removeObjectForKey:theFile.uuid];
+    }
+    
+    if (theFile.store) {
+        theFile.store = nil;
+    }
+}
+
 #pragma mark - Helper functions
 
 - (void)_ensureUserLoggedInWithCallback:(void (^)(void))callback {
-    NSAssert(user != nil, @"*** Attemping to log user in when user is not set on store. This is from an internal function and should never happen unless you are doing bad things!");
+    NSAssert(user != nil, @"CloudMine *** Attemping to log user in when user is not set on store. This is from an internal function and should never happen unless you are doing bad things!");
     if (!user.isLoggedIn) {
         [user loginWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
             if (CMUserAccountOperationFailed(resultCode)) {
-                NSLog(@"*** Failed to login user during store operation");
+                NSLog(@"CloudMine *** Failed to login user during store operation");
                 lastError = $makeErr(@"CloudMineUserLoginErrorDomain", 0, $dict(@"user", user, @"resultCode", $num(resultCode)));
             } else {
                 callback();

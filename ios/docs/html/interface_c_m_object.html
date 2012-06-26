@@ -49,9 +49,11 @@
 <script type="text/javascript">
 var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </script>
+<script type="text/javascript" src="dynsections.js"></script>
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -133,10 +135,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6c13f53a999141aa655e57700595fc38"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_object.html#a6c13f53a999141aa655e57700595fc38">encodeWithCoder:</a></td></tr>
 <tr class="memitem:ae40b12c88a8fd5dc0b23b794d8c24028"><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_object.html#ae40b12c88a8fd5dc0b23b794d8c24028">belongsToStore</a></td></tr>
 <tr class="memitem:a89557710931e0d3fa58fd1a5a013b4ee"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_object.html#a89557710931e0d3fa58fd1a5a013b4ee">save:</a></td></tr>
+<tr class="memitem:a0d84c908c11844c7a275ed5e4e74f6c4"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_object.html#a0d84c908c11844c7a275ed5e4e74f6c4">saveWithUser:callback:</a></td></tr>
 <tr><td colspan="2"><h2><a name="properties"></a>
 Properties</h2></td></tr>
 <tr class="memitem:a076c2f007b57f127a4825ccf21621381"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_c_m_store.html">CMStore</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_c_m_object.html#a076c2f007b57f127a4825ccf21621381">store</a></td></tr>
-<tr class="memitem:a56eed5e40843bdeb26e3feac45844107"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_c_m_store_8h.html#aca64414bfa2065bf238f4164a59a2e25">CMObjectOwnershipLevel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_c_m_object.html#a56eed5e40843bdeb26e3feac45844107">ownershipLevel</a></td></tr>
+<tr class="memitem:a56eed5e40843bdeb26e3feac45844107"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_c_m_object_ownership_level_8h.html#aca64414bfa2065bf238f4164a59a2e25">CMObjectOwnershipLevel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_c_m_object.html#a56eed5e40843bdeb26e3feac45844107">ownershipLevel</a></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Extend from this instead of <code>NSObject</code> for all model objects in your app that need to be backed by remote storage on CloudMine. Be sure to implement <code>initWithCoder:</code> and <code>encodeWithCoder:</code> in each of these model classes to define how to serialize and deserialize the object. This behavior follows the standard archiving/unarchiving conventions defined by Apple's <code>NSCoding</code> protocol.</p>
@@ -157,6 +160,7 @@ Properties</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000003">Deprecated:</a></b></dt><dd>This method will always return <code>YES</code>. If no store has been explicitly assigned, the default store will be used.</dd></dl>
 <p>Note: The object must belong to a store if you need to save it. You can easily add the object to a store and save it by using <code><a class="el" href="interface_c_m_store.html">CMStore</a></code>'s <code>saveObject:</code> method.</p>
 <dl class="section see"><dt>See also:</dt><dd><a class="el" href="interface_c_m_store.html">CMStore</a> </dd></dl>
 <dl class="section return"><dt>Returns:</dt><dd><code>true</code> if this object belongs to any store. </dd></dl>
@@ -256,8 +260,51 @@ Properties</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Saves this object to CloudMine using its current store. If this object does not belong to a store, you can easily add the object to a store and save it by using <code><a class="el" href="interface_c_m_store.html">CMStore</a></code>'s <code>saveObject:</code> method instead.</p>
-<dl class="section see"><dt>See also:</dt><dd><a class="el" href="interface_c_m_store.html">CMStore</a> </dd></dl>
+<p>Saves this object to CloudMine using its current store. If this object does not belong to a store, the default store will be used. It will be added at the app-level. If you need to associate this object with a user, see <a class="el" href="interface_c_m_object.html#a0d84c908c11844c7a275ed5e4e74f6c4">saveWithUser:callback:</a>.</p>
+<p>If this object already belongs to a store, it will be saved to the app- or user-level, whichever it was added as. For example, if it was originally added to a store using <a class="el" href="interface_c_m_store.html#abbc222e65aad40914fd019eb91758614">addObject: (CMStore)</a> or CMStore::saveObject:: (i.e. at the app-level) it will be saved at the app-level. If it was originally added using CMStore::addUserObject:callback:, <a class="el" href="interface_c_m_store.html#ab8895c2c051248cea83186ee70bb1c6c">saveUserObject:callback: (CMStore)</a>, or <a class="el" href="interface_c_m_object.html#a0d84c908c11844c7a275ed5e4e74f6c4">saveWithUser:callback:</a> (i.e. at the user-level) it will be saved at the user-level.</p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">callback</td><td>The callback block to be invoked after the save operation has completed.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also:</dt><dd><a class="el" href="interface_c_m_store.html#a285fbfea6e1d95baba4046d815f83fd4">+ defaultStore (CMStore)</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a0d84c908c11844c7a275ed5e4e74f6c4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) saveWithUser: </td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="interface_c_m_user.html">CMUser</a> *)&#160;</td>
+          <td class="paramname"><em>user</em></td>
+        </tr>
+        <tr>
+          <td class="paramkey">callback:</td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="_c_m_store_callbacks_8h.html#a31bd90b82d404aa9586fc609fa21dd41">CMStoreObjectUploadCallback</a>)&#160;</td>
+          <td class="paramname"><em>callback</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Saves this object to CloudMine at the user-level associated with the given user. If this object does not belong to a store, the default store will be used.</p>
+<p><b>Note:</b> If this object has already been added to a store at the app-level, it cannot be later saved at the user-level. You must duplicate the object, change its <a class="el" href="protocol_c_m_serializable-p.html#a030e4239b227f0097e86688b5a4f4947">CMObject::objectId</a>, and then add it at the user-level.</p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">user</td><td>The user to associate this object with. </td></tr>
+    <tr><td class="paramname">callback</td><td>The callback block to be invoked after the save operation has completed. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -267,15 +314,15 @@ Properties</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">- (<a class="el" href="_c_m_store_8h.html#aca64414bfa2065bf238f4164a59a2e25">CMObjectOwnershipLevel</a>) <a class="el" href="interface_c_m_object.html#a56eed5e40843bdeb26e3feac45844107">ownershipLevel</a><code> [read, assign]</code></td>
+          <td class="memname">- (<a class="el" href="_c_m_object_ownership_level_8h.html#aca64414bfa2065bf238f4164a59a2e25">CMObjectOwnershipLevel</a>) <a class="el" href="interface_c_m_object.html#a56eed5e40843bdeb26e3feac45844107">ownershipLevel</a><code> [read, assign]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <p>The ownership level of this object. This reflects whether the object is app-level, user-level, or unknown. </p>
-<dl class="section see"><dt>See also:</dt><dd><a class="el" href="_c_m_store_8h.html#aca64414bfa2065bf238f4164a59a2e25">CMObjectOwnershipLevel</a> </dd></dl>
+<dl class="section see"><dt>See also:</dt><dd><a class="el" href="_c_m_object_ownership_level_8h.html#aca64414bfa2065bf238f4164a59a2e25">CMObjectOwnershipLevel</a> </dd></dl>
 
-<p>Definition at line <a class="el" href="_c_m_object_8h_source.html#l00040">40</a> of file <a class="el" href="_c_m_object_8h_source.html">CMObject.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_object_8h_source.html#l00038">38</a> of file <a class="el" href="_c_m_object_8h_source.html">CMObject.h</a>.</p>
 
 </div>
 </div>
@@ -289,10 +336,10 @@ Properties</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>The store that the object belongs to. It is possible for this to be <code>nil</code>, meaning that the object was created locally and hasn't been saved via a store yet. It is important to note that the object must belong to a store if you need to save it. You can easily add the object to a store and save it by using <code><a class="el" href="interface_c_m_store.html">CMStore</a></code>'s <code>saveObject:</code> method.</p>
+<p>The store that the object belongs to. If you have not explicitly assigned this object to a store, it will automatically belong to <a class="el" href="interface_c_m_store.html#a285fbfea6e1d95baba4046d815f83fd4">defaultStore (CMStore)</a>.</p>
 <p>If you manually change the store yourself, this object will automatically remove itself from the old store and add it to the new store. <b>This operation is thread-safe.</b> </p>
 
-<p>Definition at line <a class="el" href="_c_m_object_8h_source.html#l00034">34</a> of file <a class="el" href="_c_m_object_8h_source.html">CMObject.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_object_8h_source.html#l00032">32</a> of file <a class="el" href="_c_m_object_8h_source.html">CMObject.h</a>.</p>
 
 </div>
 </div>
@@ -305,7 +352,7 @@ Properties</h2></td></tr>
     <ul>
       <li class="navelem"><a class="el" href="interface_c_m_object.html">CMObject</a>      </li>
 
-    <li class="footer">Generated on Tue Jun 19 2012 16:13:25 for CloudMine iOS SDK by
+    <li class="footer">Generated on Thu Jun 21 2012 12:01:31 for CloudMine iOS SDK by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.0 </li>
    </ul>

@@ -20,6 +20,8 @@ typedef enum {
     CMUserAccountLogoutSucceeded,
     /** The account create operation succeeded */
     CMUserAccountCreateSucceeded,
+    /** The user profile update succeeded */
+    CMUserAccountProfileUpdateSucceeded,
     /** The password change for a user succeeded */
     CMUserAccountPasswordChangeSucceeded,
     /** The forgotten password email was sent for the user */
@@ -27,6 +29,8 @@ typedef enum {
 
     /** Account creation failed because of an invalid email address or password */
     CMUserAccountCreateFailedInvalidRequest,
+    /** The user profile update failed. See the accompanying dictionary for reasons. */
+    CMUserAccountProfileUpdateFailed,
     /** Account creation failed because a user with that email address already exists for the current app */
     CMUserAccountCreateFailedDuplicateAccount,
     /** The login failed due to an incorrect password for the given email address */

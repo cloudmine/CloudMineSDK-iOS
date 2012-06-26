@@ -49,9 +49,11 @@
 <script type="text/javascript">
 var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </script>
+<script type="text/javascript" src="dynsections.js"></script>
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -127,30 +129,32 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00014"></a>00014 
 <a name="l00023"></a><a class="code" href="interface_c_m_object.html">00023</a> <span class="keyword">@interface </span><a class="code" href="interface_c_m_object.html">CMObject</a> : NSObject &lt;<a class="code" href="protocol_c_m_serializable-p.html">CMSerializable</a>&gt;
 <a name="l00024"></a>00024 
-<a name="l00034"></a><a class="code" href="interface_c_m_object.html#a076c2f007b57f127a4825ccf21621381">00034</a> @property (nonatomic, unsafe_unretained) <a class="code" href="interface_c_m_store.html">CMStore</a> *<a class="code" href="interface_c_m_object.html#a076c2f007b57f127a4825ccf21621381">store</a>;
-<a name="l00035"></a>00035 
-<a name="l00040"></a><a class="code" href="interface_c_m_object.html#a56eed5e40843bdeb26e3feac45844107">00040</a> @property (nonatomic, readonly) <a class="code" href="_c_m_store_8h.html#aca64414bfa2065bf238f4164a59a2e25">CMObjectOwnershipLevel</a> <a class="code" href="interface_c_m_object.html#a56eed5e40843bdeb26e3feac45844107">ownershipLevel</a>;
-<a name="l00041"></a>00041 
-<a name="l00045"></a>00045 - (id)<a class="code" href="interface_c_m_object.html#a9a333abe636c2aaa411f71d1c714c945">init</a>;
-<a name="l00046"></a>00046 
-<a name="l00052"></a>00052 - (id)initWithObjectId:(NSString *)theObjectId;
-<a name="l00053"></a>00053 
-<a name="l00060"></a>00060 - (id)initWithCoder:(NSCoder *)aDecoder;
-<a name="l00061"></a>00061 
-<a name="l00068"></a>00068 - (void)encodeWithCoder:(NSCoder *)aCoder;
-<a name="l00069"></a>00069 
-<a name="l00077"></a>00077 - (BOOL)<a class="code" href="interface_c_m_object.html#ae40b12c88a8fd5dc0b23b794d8c24028">belongsToStore</a>;
-<a name="l00078"></a>00078 
-<a name="l00086"></a>00086 - (void)save:(<a class="code" href="_c_m_store_callbacks_8h.html#a31bd90b82d404aa9586fc609fa21dd41">CMStoreObjectUploadCallback</a>)callback;
-<a name="l00087"></a>00087 
-<a name="l00088"></a>00088 <span class="keyword">@end</span>
+<a name="l00032"></a><a class="code" href="interface_c_m_object.html#a076c2f007b57f127a4825ccf21621381">00032</a> @property (nonatomic, unsafe_unretained) <a class="code" href="interface_c_m_store.html">CMStore</a> *<a class="code" href="interface_c_m_object.html#a076c2f007b57f127a4825ccf21621381">store</a>;
+<a name="l00033"></a>00033 
+<a name="l00038"></a><a class="code" href="interface_c_m_object.html#a56eed5e40843bdeb26e3feac45844107">00038</a> @property (nonatomic, readonly) <a class="code" href="_c_m_object_ownership_level_8h.html#aca64414bfa2065bf238f4164a59a2e25">CMObjectOwnershipLevel</a> <a class="code" href="interface_c_m_object.html#a56eed5e40843bdeb26e3feac45844107">ownershipLevel</a>;
+<a name="l00039"></a>00039 
+<a name="l00043"></a>00043 - (id)<a class="code" href="interface_c_m_object.html#a9a333abe636c2aaa411f71d1c714c945">init</a>;
+<a name="l00044"></a>00044 
+<a name="l00050"></a>00050 - (id)initWithObjectId:(NSString *)theObjectId;
+<a name="l00051"></a>00051 
+<a name="l00058"></a>00058 - (id)initWithCoder:(NSCoder *)aDecoder;
+<a name="l00059"></a>00059 
+<a name="l00066"></a>00066 - (void)encodeWithCoder:(NSCoder *)aCoder;
+<a name="l00067"></a>00067 
+<a name="l00078"></a>00078 - (BOOL)<a class="code" href="interface_c_m_object.html#ae40b12c88a8fd5dc0b23b794d8c24028">belongsToStore</a>;
+<a name="l00079"></a>00079 
+<a name="l00094"></a>00094 - (void)save:(<a class="code" href="_c_m_store_callbacks_8h.html#a31bd90b82d404aa9586fc609fa21dd41">CMStoreObjectUploadCallback</a>)callback;
+<a name="l00095"></a>00095 
+<a name="l00107"></a>00107 - (void)saveWithUser:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user callback:(<a class="code" href="_c_m_store_callbacks_8h.html#a31bd90b82d404aa9586fc609fa21dd41">CMStoreObjectUploadCallback</a>)callback;
+<a name="l00108"></a>00108 
+<a name="l00109"></a>00109 <span class="keyword">@end</span>
 </pre></div></div><!-- contents -->
 </div>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><b>CMObject.h</b>      </li>
 
-    <li class="footer">Generated on Tue Jun 19 2012 16:13:25 for CloudMine iOS SDK by
+    <li class="footer">Generated on Thu Jun 21 2012 12:01:31 for CloudMine iOS SDK by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.0 </li>
    </ul>

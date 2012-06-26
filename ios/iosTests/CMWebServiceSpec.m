@@ -30,7 +30,7 @@ describe(@"CMWebService", ^{
         [[CMAPICredentials sharedInstance] setAppIdentifier:appId];
         [[CMAPICredentials sharedInstance] setAppSecret:appSecret];
     });
-    
+
     beforeEach(^{
         service = [[CMWebService alloc] init];
         

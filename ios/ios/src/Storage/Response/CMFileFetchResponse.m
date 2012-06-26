@@ -7,6 +7,7 @@
 //
 
 #import "CMFileFetchResponse.h"
+#import "CMFile.h"
 
 @implementation CMFileFetchResponse
 
@@ -16,7 +17,7 @@
     if(self = [super init]) {
         self.file = theFile;
     }
-    
+
     return self;
 }
 

@@ -12,6 +12,7 @@ var interface_c_m_web_service =
     [ "loginUser:callback:", "interface_c_m_web_service.html#ab00f58df417b7239e284ff07d76b5e67", null ],
     [ "logoutUser:callback:", "interface_c_m_web_service.html#ab2b470a6e96d9faf9a0ecb145e0b2fed", null ],
     [ "resetForgottenPasswordForUser:callback:", "interface_c_m_web_service.html#a6d0e4f4519c9a6ec38160c338af2bf5f", null ],
+    [ "saveUser:callback:", "interface_c_m_web_service.html#a640280c0c80000bd60156e9141bfb73c", null ],
     [ "searchUsers:callback:", "interface_c_m_web_service.html#adc373387bce4b16ddefe5344bc00fc44", null ],
     [ "searchValuesFor:serverSideFunction:pagingOptions:sortingOptions:user:extraParameters:successHandler:errorHandler:", "interface_c_m_web_service.html#a9a436fc4423fe4982d1ef2482610e35e", null ],
     [ "setValuesFromDictionary:serverSideFunction:user:extraParameters:successHandler:errorHandler:", "interface_c_m_web_service.html#a4e6f1c17ab00b492687a05be395d9b0e", null ],

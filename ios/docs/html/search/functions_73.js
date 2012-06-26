@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['save_3a',['save:',['../interface_c_m_object.html#a89557710931e0d3fa58fd1a5a013b4ee',1,'CMObject']]],
+  ['save_3a',['save:',['../interface_c_m_file.html#abce8a6c5950b3111a0ea55a9a13cdefb',1,'CMFile::save:()'],['../interface_c_m_object.html#a89557710931e0d3fa58fd1a5a013b4ee',1,'CMObject::save:()'],['../interface_c_m_user.html#a1eec107ae4482a7b33f91c824686f926',1,'CMUser::save:()']]],
   ['saveall_3a',['saveAll:',['../interface_c_m_store.html#af1f69ac2eded3e4bc6a475ebd2596cb7',1,'CMStore']]],
   ['saveallappobjects_3a',['saveAllAppObjects:',['../interface_c_m_store.html#a4ecb470b1da50638f8207b09e7d5ca75',1,'CMStore']]],
   ['saveallappobjectswithoptions_3acallback_3a',['saveAllAppObjectsWithOptions:callback:',['../interface_c_m_store.html#ae1edbb6c5ae2bedd2661dba542df8b1e',1,'CMStore']]],
@@ -19,6 +19,7 @@ var searchData=
   ['saveuserfilewithdata_3anamed_3aadditionaloptions_3acallback_3a',['saveUserFileWithData:named:additionalOptions:callback:',['../interface_c_m_store.html#ae73e9c2f15b211adf6cafcf1500556d2',1,'CMStore']]],
   ['saveuserobject_3aadditionaloptions_3acallback_3a',['saveUserObject:additionalOptions:callback:',['../interface_c_m_store.html#a5a1aebc97fe260b957037ab504659ebb',1,'CMStore']]],
   ['saveuserobject_3acallback_3a',['saveUserObject:callback:',['../interface_c_m_store.html#ab8895c2c051248cea83186ee70bb1c6c',1,'CMStore']]],
+  ['savewithuser_3acallback_3a',['saveWithUser:callback:',['../interface_c_m_file.html#adcd9adaa07e285023560c67715ba6c98',1,'CMFile::saveWithUser:callback:()'],['../interface_c_m_object.html#a0d84c908c11844c7a275ed5e4e74f6c4',1,'CMObject::saveWithUser:callback:()']]],
   ['searchobjects_3aadditionaloptions_3acallback_3a',['searchObjects:additionalOptions:callback:',['../interface_c_m_store.html#a3c6a53c41da688f318159d37c1757544',1,'CMStore']]],
   ['searchuserobjects_3aadditionaloptions_3acallback_3a',['searchUserObjects:additionalOptions:callback:',['../interface_c_m_store.html#a15ef9bfa7002a0650a329024a0432ce9',1,'CMStore']]],
   ['searchusers_3acallback_3a',['searchUsers:callback:',['../interface_c_m_user.html#ae5d87ea90f6e05422f492420c3335cd6',1,'CMUser::searchUsers:callback:()'],['../interface_c_m_web_service.html#adc373387bce4b16ddefe5344bc00fc44',1,'CMWebService::searchUsers:callback:()']]],

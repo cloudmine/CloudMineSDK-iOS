@@ -16,6 +16,18 @@
 @class CMPagingDescriptor;
 @class CMSortDescriptor;
 
+extern NSString * const CMErrorDomain;
+
+typedef enum {
+    CMErrorUnknown,
+    CMErrorServerConnectionFailed,
+    CMErrorServerError,
+    CMErrorNotFound,
+    CMErrorInvalidRequest,
+    CMErrorInvalidResponse,
+    CMErrorUnauthorized
+} CMErrorCode;
+
 /**
  * Base URL for the current version of the CloudMine API.
  */
@@ -376,5 +388,7 @@ typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDi
  * @param callback The block that will be called on completion of the operation.
  */
 - (void)searchUsers:(NSString *)query callback:(CMWebServiceUserFetchSuccessCallback)callback;
+
+- (void)saveUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
 
 @end

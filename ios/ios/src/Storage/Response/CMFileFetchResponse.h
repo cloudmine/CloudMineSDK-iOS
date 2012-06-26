@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "CMStoreResponse.h"
-#import "CMFile.h"
+
+@class CMFile;
 
 /**
  * Response object returned after a file fetch request.

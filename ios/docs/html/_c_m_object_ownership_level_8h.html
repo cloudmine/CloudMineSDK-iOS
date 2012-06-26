@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>CloudMine iOS SDK: CMJSONEncoder Class Reference</title>
+<title>CloudMine iOS SDK: ios/src/Storage/CMObjectOwnershipLevel.h File Reference</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -49,11 +49,13 @@
 <script type="text/javascript">
 var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </script>
+<script type="text/javascript" src="dynsections.js"></script>
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
-      <li><a href="files.html"><span>Files</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -74,10 +76,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
-      <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
-      <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
-      <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
+      <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 </div>
@@ -91,7 +91,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-  initNavTree('interface_c_m_j_s_o_n_encoder.html','');
+  initNavTree('_c_m_object_ownership_level_8h.html','');
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -110,89 +110,62 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div class="header">
   <div class="summary">
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#properties">Properties</a>  </div>
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
-<div class="title">CMJSONEncoder Class Reference</div>  </div>
+<div class="title">ios/src/Storage/CMObjectOwnershipLevel.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#import &lt;<a class="el" href="_c_m_j_s_o_n_encoder_8h_source.html">CMJSONEncoder.h</a>&gt;</code></p>
-
-<p>Inherits <a class="el" href="interface_c_m_object_encoder.html">CMObjectEncoder</a>.</p>
-
-<p><a href="class_c_m_j_s_o_n_encoder-members.html">List of all members.</a></p>
+<p><a href="_c_m_object_ownership_level_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr><td colspan="2"><h2><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a29cc3f7ef8218bc086229a4c2c26e20d"><td class="memItemLeft" align="right" valign="top">(NSString *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_c_m_j_s_o_n_encoder.html#a29cc3f7ef8218bc086229a4c2c26e20d">encodeObjects:</a></td></tr>
-<tr><td colspan="2"><h2><a name="properties"></a>
-Properties</h2></td></tr>
-<tr class="memitem:ac896c77af706e35573c31c0db4aa6f84"><td class="memItemLeft" align="right" valign="top">id&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_c_m_j_s_o_n_encoder.html#ac896c77af706e35573c31c0db4aa6f84">encodedRepresentation</a></td></tr>
+<tr><td colspan="2"><h2><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:aca64414bfa2065bf238f4164a59a2e25"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_m_object_ownership_level_8h.html#aca64414bfa2065bf238f4164a59a2e25">CMObjectOwnershipLevel</a> { <a class="el" href="_c_m_object_ownership_level_8h.html#aca64414bfa2065bf238f4164a59a2e25a0be24502c418fe7670a5889f008661a6">CMObjectOwnershipUndefinedLevel</a> =  -1, 
+<a class="el" href="_c_m_object_ownership_level_8h.html#aca64414bfa2065bf238f4164a59a2e25a9909005fa328be382d967d29f79131a9">CMObjectOwnershipAppLevel</a> =  0, 
+<a class="el" href="_c_m_object_ownership_level_8h.html#aca64414bfa2065bf238f4164a59a2e25a3d12f703395b84ce70fd125897d317ec">CMObjectOwnershipUserLevel</a> =  1
+ }</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
-<div class="textblock"><p>Encodes objects and scalar values into JSON form. This is meant for simple domain model relationships and should not be considered as general purpose as <code>NSArchiver</code> and <code>NSUnarchiver</code>, which can be used easily to serialize entire user interfaces.</p>
-<p>Other than that note, this works the exact same way as standard Cocoa object serialization and deserailization works. Just implement <code>NSCoding</code> on your class and respond to the two methods.</p>
-<dl class="section see"><dt>See also:</dt><dd><a class="el" href="interface_c_m_object_encoder.html">CMObjectEncoder</a> </dd></dl>
-
-<p>Definition at line <a class="el" href="_c_m_j_s_o_n_encoder_8h_source.html#l00021">21</a> of file <a class="el" href="_c_m_j_s_o_n_encoder_8h_source.html">CMJSONEncoder.h</a>.</p>
-</div><hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a29cc3f7ef8218bc086229a4c2c26e20d"></a>
+<div class="textblock">
+<p>Definition in file <a class="el" href="_c_m_object_ownership_level_8h_source.html">CMObjectOwnershipLevel.h</a>.</p>
+</div><hr/><h2>Enumeration Type Documentation</h2>
+<a class="anchor" id="aca64414bfa2065bf238f4164a59a2e25"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">+ (NSString *) <a class="el" href="interface_c_m_j_s_o_n_encoder.html#a29cc3f7ef8218bc086229a4c2c26e20d">encodeObjects:</a> </td>
-          <td></td>
-          <td class="paramtype">(id&lt; NSFastEnumeration &gt;)&#160;</td>
-          <td class="paramname"><em>objects</em></td>
-          <td></td>
+          <td class="memname">enum <a class="el" href="_c_m_object_ownership_level_8h.html#aca64414bfa2065bf238f4164a59a2e25">CMObjectOwnershipLevel</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Kicks off the encoding process for each of <code>objects</code> and returns a string containing the JSON representation of all the serialized objects that can be subsequently sent over the wire to CloudMine's web services.</p>
-<dl class="params"><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramname">objects</td><td></td></tr>
-  </table>
-  </dd>
+<p>Defines possible ownership levels of a <a class="el" href="interface_c_m_object.html">CMObject</a>. </p>
+<dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em><a class="anchor" id="aca64414bfa2065bf238f4164a59a2e25a0be24502c418fe7670a5889f008661a6"></a>CMObjectOwnershipUndefinedLevel</em>&nbsp;</td><td>
+<p>The ownership level could not be determined. This is usually because the object doesn't belong to a store. </p>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="aca64414bfa2065bf238f4164a59a2e25a9909005fa328be382d967d29f79131a9"></a>CMObjectOwnershipAppLevel</em>&nbsp;</td><td>
+<p>The object is app-level and is owned by no particular user. </p>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="aca64414bfa2065bf238f4164a59a2e25a3d12f703395b84ce70fd125897d317ec"></a>CMObjectOwnershipUserLevel</em>&nbsp;</td><td>
+<p>The object is owned by a particular user, specifically the user of the store where the object is held. </p>
+<dl class="section see"><dt>See also:</dt><dd><a class="el" href="interface_c_m_store.html#a40869eb6333f44b032490fdb9a8f82f0">CMStore::user</a> </dd></dl>
+</td></tr>
+</table>
+</dd>
 </dl>
-<dl class="section return"><dt>Returns:</dt><dd>The JSON representation of the objects, ready to be sent to CloudMine. </dd></dl>
 
-<p>Implements <a class="el" href="interface_c_m_object_encoder.html#a19607ac7da7005a2475a4121c17a6620">CMObjectEncoder</a>.</p>
-
-</div>
-</div>
-<hr/><h2>Property Documentation</h2>
-<a class="anchor" id="ac896c77af706e35573c31c0db4aa6f84"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (id) <a class="el" href="interface_c_m_j_s_o_n_encoder.html#ac896c77af706e35573c31c0db4aa6f84">encodedRepresentation</a><code> [read, assign]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>An <code>NSString</code> containing the JSON representation of the encoded objects. </p>
-
-<p>Implements <a class="el" href="interface_c_m_object_encoder.html#ab999fc096f3faed0a5dbd13ba86b83e4">CMObjectEncoder</a>.</p>
-
-<p>Definition at line <a class="el" href="_c_m_j_s_o_n_encoder_8h_source.html#l00026">26</a> of file <a class="el" href="_c_m_j_s_o_n_encoder_8h_source.html">CMJSONEncoder.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_object_ownership_level_8h_source.html#l00012">12</a> of file <a class="el" href="_c_m_object_ownership_level_8h_source.html">CMObjectOwnershipLevel.h</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>ios/src/Web Services/Encoding/<a class="el" href="_c_m_j_s_o_n_encoder_8h_source.html">CMJSONEncoder.h</a></li>
-</ul>
 </div><!-- contents -->
 </div>
   <div id="nav-path" class="navpath">
     <ul>
-      <li class="navelem"><a class="el" href="interface_c_m_j_s_o_n_encoder.html">CMJSONEncoder</a>      </li>
+      <li class="navelem"><a class="el" href="_c_m_object_ownership_level_8h.html">CMObjectOwnershipLevel.h</a>      </li>
 
-    <li class="footer">Generated on Tue Jun 19 2012 16:13:25 for CloudMine iOS SDK by
+    <li class="footer">Generated on Thu Jun 21 2012 12:01:31 for CloudMine iOS SDK by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.0 </li>
    </ul>

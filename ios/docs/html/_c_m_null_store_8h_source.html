@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>CloudMine iOS SDK: CMActiveUser Class Reference</title>
+<title>CloudMine iOS SDK: ios/src/Storage/CMNullStore.h Source File</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -49,11 +49,13 @@
 <script type="text/javascript">
 var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </script>
+<script type="text/javascript" src="dynsections.js"></script>
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
-      <li><a href="files.html"><span>Files</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -74,10 +76,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
-      <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
-      <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
-      <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
+      <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 </div>
@@ -91,7 +91,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-  initNavTree('interface_c_m_active_user.html','');
+  initNavTree('_c_m_null_store_8h.html','');
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -109,38 +109,32 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#properties">Properties</a>  </div>
   <div class="headertitle">
-<div class="title">CMActiveUser Class Reference</div>  </div>
+<div class="title">ios/src/Storage/CMNullStore.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p><a href="class_c_m_active_user-members.html">List of all members.</a></p>
-<table class="memberdecls">
-<tr><td colspan="2"><h2><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a2cb0c6ccc0f880c49e39ed49ea1ab2bc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2cb0c6ccc0f880c49e39ed49ea1ab2bc"></a>
-(<a class="el" href="interface_c_m_active_user.html">CMActiveUser</a> *)&#160;</td><td class="memItemRight" valign="bottom">+ <b>currentActiveUser</b></td></tr>
-<tr><td colspan="2"><h2><a name="properties"></a>
-Properties</h2></td></tr>
-<tr class="memitem:ab8d2c8c1e62a8bf31c3b4c081b233b5c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab8d2c8c1e62a8bf31c3b4c081b233b5c"></a>
-NSString *&#160;</td><td class="memItemRight" valign="bottom"><b>identifier</b></td></tr>
-</table>
-<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
-<div class="textblock">
-<p>Definition at line <a class="el" href="_c_m_active_user_8h_source.html#l00010">10</a> of file <a class="el" href="_c_m_active_user_8h_source.html">CMActiveUser.h</a>.</p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
-<li>ios/src/Web Services/<a class="el" href="_c_m_active_user_8h_source.html">CMActiveUser.h</a></li>
-</ul>
-</div><!-- contents -->
+<div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">//</span>
+<a name="l00002"></a>00002 <span class="comment">//  CMNullStore.h</span>
+<a name="l00003"></a>00003 <span class="comment">//  cloudmine-ios</span>
+<a name="l00004"></a>00004 <span class="comment">//</span>
+<a name="l00005"></a>00005 <span class="comment">//  Copyright (c) 2012 CloudMine, LLC. All rights reserved.</span>
+<a name="l00006"></a>00006 <span class="comment">//  See LICENSE file included with SDK for details.</span>
+<a name="l00007"></a>00007 <span class="comment">//</span>
+<a name="l00008"></a>00008 
+<a name="l00009"></a>00009 <span class="preprocessor">#import &quot;<a class="code" href="_c_m_store_8h.html">CMStore.h</a>&quot;</span>
+<a name="l00010"></a>00010 
+<a name="l00017"></a><a class="code" href="interface_c_m_null_store.html">00017</a> <span class="keyword">@interface </span><a class="code" href="interface_c_m_null_store.html">CMNullStore</a> : <a class="code" href="interface_c_m_store.html">CMStore</a>
+<a name="l00018"></a>00018 
+<a name="l00022"></a>00022 + (<a class="code" href="interface_c_m_null_store.html">CMNullStore</a> *)<a class="code" href="interface_c_m_null_store.html#a5f4407634406fc5f57be9445c21cd5c9">nullStore</a>;
+<a name="l00023"></a>00023 
+<a name="l00024"></a>00024 <span class="keyword">@end</span>
+</pre></div></div><!-- contents -->
 </div>
   <div id="nav-path" class="navpath">
     <ul>
-      <li class="navelem"><a class="el" href="interface_c_m_active_user.html">CMActiveUser</a>      </li>
+      <li class="navelem"><b>CMNullStore.h</b>      </li>
 
-    <li class="footer">Generated on Tue Jun 19 2012 16:13:25 for CloudMine iOS SDK by
+    <li class="footer">Generated on Thu Jun 21 2012 12:01:31 for CloudMine iOS SDK by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.0 </li>
    </ul>

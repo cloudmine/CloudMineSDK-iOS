@@ -17,13 +17,13 @@
     if (self = [super initWithObjectId:objId]) {
         self.fields = theFields;
     }
-    
+
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:self.objectId forKey:CMInternalObjectIdKey];
-    
+
     for (id key in fields) {
         [aCoder encodeObject:[fields objectForKey:key] forKey:key];
     }

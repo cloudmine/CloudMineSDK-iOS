@@ -12,11 +12,19 @@
 
 @synthesize snippetResult;
 @synthesize metadata;
+@synthesize error;
 
 - (id)initWithMetadata:(CMResponseMetadata *)theMetadata snippetResult:(CMSnippetResult *)theSnippetResult {
     if (self = [super init]) {
         self.snippetResult = theSnippetResult;
         self.metadata = theMetadata;
+    }
+    return self;
+}
+
+- (id)initWithError:(NSError *)theError {
+    if ((self = [super init])) {
+        self.error = theError;
     }
     return self;
 }

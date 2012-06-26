@@ -46,7 +46,7 @@
 @property (nonatomic, strong) NSString *distanceUnits;
 
 /**
- * 
+ *
  */
 - (id)initWithPagingDescriptor:(CMPagingDescriptor *)thePagingDescriptor;
 - (id)initWithServerSideFunction:(CMServerFunction *)theServerFunction;

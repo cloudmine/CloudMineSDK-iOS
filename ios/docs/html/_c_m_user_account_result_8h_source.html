@@ -49,9 +49,11 @@
 <script type="text/javascript">
 var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </script>
+<script type="text/javascript" src="dynsections.js"></script>
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -124,31 +126,33 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00018"></a><a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea5fc2e7b1014b676800b515f6e3948e98">00018</a>     <a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea5fc2e7b1014b676800b515f6e3948e98">CMUserAccountLoginSucceeded</a> = 0,
 <a name="l00020"></a><a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eeaeecaa9ed84d13cdd5a0fecc6c9d9fbce">00020</a>     <a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eeaeecaa9ed84d13cdd5a0fecc6c9d9fbce">CMUserAccountLogoutSucceeded</a>,
 <a name="l00022"></a><a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea2abab18343e3a9fc1ab18df2f6c90fe9">00022</a>     <a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea2abab18343e3a9fc1ab18df2f6c90fe9">CMUserAccountCreateSucceeded</a>,
-<a name="l00024"></a><a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eeaa764680c2ab1a1588ad51aee2a09ac76">00024</a>     <a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eeaa764680c2ab1a1588ad51aee2a09ac76">CMUserAccountPasswordChangeSucceeded</a>,
-<a name="l00026"></a><a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea823a98b55b291436c33c1a5f9522c47c">00026</a>     <a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea823a98b55b291436c33c1a5f9522c47c">CMUserAccountPasswordResetEmailSent</a>,
-<a name="l00027"></a>00027 
-<a name="l00029"></a><a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea5670a1fbb118996aab2a55087a745a23">00029</a>     <a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea5670a1fbb118996aab2a55087a745a23">CMUserAccountCreateFailedInvalidRequest</a>,
-<a name="l00031"></a><a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea206cb8d3de756a7918e0d05e217cd522">00031</a>     <a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea206cb8d3de756a7918e0d05e217cd522">CMUserAccountCreateFailedDuplicateAccount</a>,
-<a name="l00033"></a><a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea079196bcb074f6a9b8ccc0d13d264cfe">00033</a>     <a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea079196bcb074f6a9b8ccc0d13d264cfe">CMUserAccountLoginFailedIncorrectCredentials</a>,
-<a name="l00035"></a><a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea79e1efb15fa7977fb4707ce7e7d451fb">00035</a>     <a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea79e1efb15fa7977fb4707ce7e7d451fb">CMUserAccountPasswordChangeFailedInvalidCredentials</a>,
-<a name="l00037"></a><a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eeafb9cf6702ad9ea4ad59c6422625d0720">00037</a>     <a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eeafb9cf6702ad9ea4ad59c6422625d0720">CMUserAccountOperationFailedUnknownAccount</a>
-<a name="l00038"></a>00038 
-<a name="l00039"></a>00039 } <a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138ee">CMUserAccountResult</a>;
-<a name="l00040"></a>00040 
-<a name="l00047"></a>00047 <span class="keyword">static</span> <span class="keyword">inline</span> BOOL CMUserAccountOperationSuccessful(<a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138ee">CMUserAccountResult</a> resultCode) {
-<a name="l00048"></a>00048     <span class="keywordflow">return</span> (resultCode &gt;= 0 &amp;&amp; resultCode &lt;= 4);
-<a name="l00049"></a>00049 }
-<a name="l00050"></a>00050 
-<a name="l00057"></a>00057 <span class="keyword">static</span> <span class="keyword">inline</span> BOOL CMUserAccountOperationFailed(<a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138ee">CMUserAccountResult</a> resultCode) {
-<a name="l00058"></a>00058     <span class="keywordflow">return</span> !CMUserAccountOperationSuccessful(resultCode);
-<a name="l00059"></a>00059 }
+<a name="l00024"></a><a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea62e3edfbefcf4d3a37c3d438f0e20bda">00024</a>     <a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea62e3edfbefcf4d3a37c3d438f0e20bda">CMUserAccountProfileUpdateSucceeded</a>,
+<a name="l00026"></a><a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eeaa764680c2ab1a1588ad51aee2a09ac76">00026</a>     <a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eeaa764680c2ab1a1588ad51aee2a09ac76">CMUserAccountPasswordChangeSucceeded</a>,
+<a name="l00028"></a><a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea823a98b55b291436c33c1a5f9522c47c">00028</a>     <a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea823a98b55b291436c33c1a5f9522c47c">CMUserAccountPasswordResetEmailSent</a>,
+<a name="l00029"></a>00029 
+<a name="l00031"></a><a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea5670a1fbb118996aab2a55087a745a23">00031</a>     <a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea5670a1fbb118996aab2a55087a745a23">CMUserAccountCreateFailedInvalidRequest</a>,
+<a name="l00033"></a><a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eeabc796f14eba5f6525bcbf068c108bd4d">00033</a>     <a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eeabc796f14eba5f6525bcbf068c108bd4d">CMUserAccountProfileUpdateFailed</a>,
+<a name="l00035"></a><a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea206cb8d3de756a7918e0d05e217cd522">00035</a>     <a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea206cb8d3de756a7918e0d05e217cd522">CMUserAccountCreateFailedDuplicateAccount</a>,
+<a name="l00037"></a><a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea079196bcb074f6a9b8ccc0d13d264cfe">00037</a>     <a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea079196bcb074f6a9b8ccc0d13d264cfe">CMUserAccountLoginFailedIncorrectCredentials</a>,
+<a name="l00039"></a><a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea79e1efb15fa7977fb4707ce7e7d451fb">00039</a>     <a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea79e1efb15fa7977fb4707ce7e7d451fb">CMUserAccountPasswordChangeFailedInvalidCredentials</a>,
+<a name="l00041"></a><a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eeafb9cf6702ad9ea4ad59c6422625d0720">00041</a>     <a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eeafb9cf6702ad9ea4ad59c6422625d0720">CMUserAccountOperationFailedUnknownAccount</a>
+<a name="l00042"></a>00042 
+<a name="l00043"></a>00043 } <a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138ee">CMUserAccountResult</a>;
+<a name="l00044"></a>00044 
+<a name="l00051"></a>00051 <span class="keyword">static</span> <span class="keyword">inline</span> BOOL CMUserAccountOperationSuccessful(<a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138ee">CMUserAccountResult</a> resultCode) {
+<a name="l00052"></a>00052     <span class="keywordflow">return</span> (resultCode &gt;= 0 &amp;&amp; resultCode &lt;= 4);
+<a name="l00053"></a>00053 }
+<a name="l00054"></a>00054 
+<a name="l00061"></a>00061 <span class="keyword">static</span> <span class="keyword">inline</span> BOOL CMUserAccountOperationFailed(<a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138ee">CMUserAccountResult</a> resultCode) {
+<a name="l00062"></a>00062     <span class="keywordflow">return</span> !CMUserAccountOperationSuccessful(resultCode);
+<a name="l00063"></a>00063 }
 </pre></div></div><!-- contents -->
 </div>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="_c_m_user_account_result_8h.html">CMUserAccountResult.h</a>      </li>
 
-    <li class="footer">Generated on Tue Jun 19 2012 16:13:25 for CloudMine iOS SDK by
+    <li class="footer">Generated on Thu Jun 21 2012 12:01:31 for CloudMine iOS SDK by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.0 </li>
    </ul>

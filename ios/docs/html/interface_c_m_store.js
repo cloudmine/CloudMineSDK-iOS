@@ -1,6 +1,8 @@
 var interface_c_m_store =
 [
+    [ "addFile:", "interface_c_m_store.html#ac3ef11897694784c9f1137b94f43bd02", null ],
     [ "addObject:", "interface_c_m_store.html#abbc222e65aad40914fd019eb91758614", null ],
+    [ "addUserFile:", "interface_c_m_store.html#a5444573de681be6749286988ec5476fc", null ],
     [ "addUserObject:", "interface_c_m_store.html#aaa70aa6a07e87f04907990f1fe58d340", null ],
     [ "allObjectsOfClass:additionalOptions:callback:", "interface_c_m_store.html#a979dd9830afdc9bb304929624e03cd1d", null ],
     [ "allObjectsWithOptions:callback:", "interface_c_m_store.html#a41ed9518281289364feafc4e4cdf5750", null ],
@@ -16,9 +18,11 @@ var interface_c_m_store =
     [ "fileWithName:additionalOptions:callback:", "interface_c_m_store.html#ae53b36e723779c6ee8f701d16b4dd5a4", null ],
     [ "init", "interface_c_m_store.html#a4ab6760aa025c006ebb424eeb5990dc0", null ],
     [ "initWithUser:", "interface_c_m_store.html#a190c8f57daff87592a4c76e7872a001d", null ],
-    [ "objectOwnershipLevel:", "interface_c_m_store.html#af5edba6dcd2fff16a318cf3407c77e24", null ],
+    [ "objectOwnershipLevel:", "interface_c_m_store.html#a614627ba346051ff400fed89f3f98cdb", null ],
     [ "objectsWithKeys:additionalOptions:callback:", "interface_c_m_store.html#ae0be960b64e4790842bb18509f3a26d2", null ],
+    [ "removeFile:", "interface_c_m_store.html#a14d997d484483e3b3acf14c3ae8d698c", null ],
     [ "removeObject:", "interface_c_m_store.html#ab9a0738306039b862ff99e2f27fef55a", null ],
+    [ "removeUserFile:", "interface_c_m_store.html#a9a560eeee46950e2228bf689d78b7c22", null ],
     [ "removeUserObject:", "interface_c_m_store.html#aa168a5b4763f0ec93eddcec8653468ee", null ],
     [ "saveAll:", "interface_c_m_store.html#af1f69ac2eded3e4bc6a475ebd2596cb7", null ],
     [ "saveAllAppObjects:", "interface_c_m_store.html#a4ecb470b1da50638f8207b09e7d5ca75", null ],

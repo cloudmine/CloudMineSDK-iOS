@@ -49,9 +49,11 @@
 <script type="text/javascript">
 var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </script>
+<script type="text/javascript" src="dynsections.js"></script>
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -109,7 +111,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#enum-members">Enumerations</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">ios/src/Storage/CMStore.h File Reference</div>  </div>
@@ -123,6 +124,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#import &quot;CMFile.h&quot;</code><br/>
 <code>#import &quot;<a class="el" href="_c_m_store_callbacks_8h_source.html">CMStoreCallbacks.h</a>&quot;</code><br/>
 <code>#import &quot;<a class="el" href="_c_m_file_upload_result_8h_source.html">CMFileUploadResult.h</a>&quot;</code><br/>
+<code>#import &quot;<a class="el" href="_c_m_object_ownership_level_8h_source.html">CMObjectOwnershipLevel.h</a>&quot;</code><br/>
 <code>#import &quot;CMObjectFetchResponse.h&quot;</code><br/>
 <code>#import &quot;CMObjectUploadResponse.h&quot;</code><br/>
 <code>#import &quot;CMFileFetchResponse.h&quot;</code><br/>
@@ -133,12 +135,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr><td colspan="2"><h2><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_c_m_store.html">CMStore</a></td></tr>
-<tr><td colspan="2"><h2><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:aca64414bfa2065bf238f4164a59a2e25"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_m_store_8h.html#aca64414bfa2065bf238f4164a59a2e25">CMObjectOwnershipLevel</a> { <a class="el" href="_c_m_store_8h.html#aca64414bfa2065bf238f4164a59a2e25a0be24502c418fe7670a5889f008661a6">CMObjectOwnershipUndefinedLevel</a> =  -1, 
-<a class="el" href="_c_m_store_8h.html#aca64414bfa2065bf238f4164a59a2e25a9909005fa328be382d967d29f79131a9">CMObjectOwnershipAppLevel</a> =  0, 
-<a class="el" href="_c_m_store_8h.html#aca64414bfa2065bf238f4164a59a2e25a3d12f703395b84ce70fd125897d317ec">CMObjectOwnershipUserLevel</a>
- }</td></tr>
 <tr><td colspan="2"><h2><a name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:ae1dc3641b79831d9516226beaedc054f"><td class="memItemLeft" align="right" valign="top">NSString *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_m_store_8h.html#ae1dc3641b79831d9516226beaedc054f">CMStoreObjectDeletedNotification</a></td></tr>
@@ -146,38 +142,7 @@ Variables</h2></td></tr>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock">
 <p>Definition in file <a class="el" href="_c_m_store_8h_source.html">CMStore.h</a>.</p>
-</div><hr/><h2>Enumeration Type Documentation</h2>
-<a class="anchor" id="aca64414bfa2065bf238f4164a59a2e25"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="_c_m_store_8h.html#aca64414bfa2065bf238f4164a59a2e25">CMObjectOwnershipLevel</a></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>Defines possible ownership levels of a <a class="el" href="interface_c_m_object.html">CMObject</a>. </p>
-<dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
-<tr><td valign="top"><em><a class="anchor" id="aca64414bfa2065bf238f4164a59a2e25a0be24502c418fe7670a5889f008661a6"></a>CMObjectOwnershipUndefinedLevel</em>&nbsp;</td><td>
-<p>The ownership level could not be determined. This is usually because the object doesn't belong to a store. </p>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" id="aca64414bfa2065bf238f4164a59a2e25a9909005fa328be382d967d29f79131a9"></a>CMObjectOwnershipAppLevel</em>&nbsp;</td><td>
-<p>The object is app-level and is owned by no particular user. </p>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" id="aca64414bfa2065bf238f4164a59a2e25a3d12f703395b84ce70fd125897d317ec"></a>CMObjectOwnershipUserLevel</em>&nbsp;</td><td>
-<p>The object is owned by a particular user, specifically the user of the store where the object is held. </p>
-<dl class="section see"><dt>See also:</dt><dd><a class="el" href="interface_c_m_store.html#a40869eb6333f44b032490fdb9a8f82f0">CMStore::user</a> </dd></dl>
-</td></tr>
-</table>
-</dd>
-</dl>
-
-<p>Definition at line <a class="el" href="_c_m_store_8h_source.html#l00034">34</a> of file <a class="el" href="_c_m_store_8h_source.html">CMStore.h</a>.</p>
-
-</div>
-</div>
-<hr/><h2>Variable Documentation</h2>
+</div><hr/><h2>Variable Documentation</h2>
 <a class="anchor" id="ae1dc3641b79831d9516226beaedc054f"></a>
 <div class="memitem">
 <div class="memproto">
@@ -198,7 +163,7 @@ Variables</h2></td></tr>
     <ul>
       <li class="navelem"><a class="el" href="_c_m_store_8h.html">CMStore.h</a>      </li>
 
-    <li class="footer">Generated on Tue Jun 19 2012 16:13:25 for CloudMine iOS SDK by
+    <li class="footer">Generated on Thu Jun 21 2012 12:01:31 for CloudMine iOS SDK by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.0 </li>
    </ul>
