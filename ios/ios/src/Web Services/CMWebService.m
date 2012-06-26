@@ -873,7 +873,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 
 #pragma - Request construction
 
-- (NSURLRequest *)constructHTTPRequestWithVerb:(NSString *)verb
+- (NSMutableURLRequest *)constructHTTPRequestWithVerb:(NSString *)verb
                                              URL:(NSURL *)url
                                           appSecret:(NSString *)appSecret
                                       binaryData:(BOOL)isForBinaryData
