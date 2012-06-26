@@ -112,19 +112,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 - (void)reachabilityStatusChanged:(NSNotification *)notification {
     CMReachabilityStatus currentStatus = [self reachabilityStatus];
     
-    NSArray *currentlyExecuting = [NSArray array];
-    if (currentStatus == CMNotReachable) {
-        NSArray *operations = [self.networkQueue operations];
-        currentlyExecuting = [operations objectsAtIndexes:[operations indexesOfObjectsPassingTest:^(NSOperation *op, NSUInteger idx, BOOL *stop) {
-            return [op isExecuting];
-        }]];
-    }
-    
     [self.networkQueue setSuspended:(currentStatus == CMNotReachable)];
-    
-    [currentlyExecuting enumerateObjectsUsingBlock:^(NSOperation *op, NSUInteger idx, BOOL *stop) {
-        [self.networkQueue addOperation:[op copy]];
-    }];    
 }
 
 - (CMReachabilityStatus)reachabilityStatus {
