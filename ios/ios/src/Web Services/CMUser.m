@@ -104,14 +104,14 @@ static CMWebService *webService;
 }
 
 - (void)registerAllPropertiesForKVO {
-    __unsafe_unretained CMUser *blockSelf = self;
+    __weak CMUser *blockSelf = self;
     [self executeBlockForAllUserDefinedProperties:^(RTProperty *property) {
         [blockSelf addObserver:blockSelf forKeyPath:[property name] options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
     }];
 }
 
 - (void)deregisterAllPropertiesForKVO {
-    __unsafe_unretained CMUser *blockSelf = self;
+    __weak CMUser *blockSelf = self;
     [self executeBlockForAllUserDefinedProperties:^(RTProperty *property) {
         [blockSelf removeObserver:blockSelf forKeyPath:[property name]];
     }];
@@ -201,7 +201,7 @@ static CMWebService *webService;
 }
 
 - (void)loginWithCallback:(CMUserOperationCallback)callback {
-    __unsafe_unretained CMUser *blockSelf = self;
+    __weak CMUser *blockSelf = self;
 
     [webService loginUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         NSArray *messages = [NSArray array];
@@ -230,7 +230,7 @@ static CMWebService *webService;
 }
 
 - (void)logoutWithCallback:(CMUserOperationCallback)callback {
-    __unsafe_unretained CMUser *blockSelf = self;
+    __weak CMUser *blockSelf = self;
 
     [webService logoutUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         NSArray *messages = [NSArray array];
@@ -265,7 +265,7 @@ static CMWebService *webService;
 }
 
 - (void)createAccountAndLoginWithCallback:(CMUserOperationCallback)callback {
-    __unsafe_unretained CMUser *blockSelf = self;
+    __weak CMUser *blockSelf = self;
 
     [self createAccountWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
         if (resultCode == CMUserAccountCreateFailedDuplicateAccount || resultCode == CMUserAccountCreateSucceeded) {
@@ -279,7 +279,7 @@ static CMWebService *webService;
 }
 
 - (void)changePasswordTo:(NSString *)newPassword from:(NSString *)oldPassword callback:(CMUserOperationCallback)callback {
-    __unsafe_unretained CMUser *blockSelf = self;
+    __weak CMUser *blockSelf = self;
 
     [webService changePasswordForUser:self
                            oldPassword:oldPassword

@@ -930,7 +930,7 @@
 					"$(SRCROOT)/**",
 					"\"$(SRCROOT)/ios/Vendor\"/**",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-all_load";
 				SDKROOT = iphoneos;
@@ -955,7 +955,7 @@
 					"$(SRCROOT)/**",
 					"\"$(SRCROOT)/ios/Vendor\"/**",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-all_load";
 				SDKROOT = iphoneos;

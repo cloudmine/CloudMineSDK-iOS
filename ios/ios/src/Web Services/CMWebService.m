@@ -407,10 +407,10 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     if (user.isCreatedRemotely) {
         // The user has already been saved, so just update the profile. In order for this to work, the user must be logged in.
 
-        __block CMWebService *blockSelf = self;
+        __weak CMWebService *blockSelf = self;
         void (^save)() = ^{
             NSURL *url = [NSURL URLWithString:[blockSelf.apiUrl stringByAppendingFormat:@"/app/%@/account/%@", _appIdentifier, user.objectId]];
-            __block NSMutableURLRequest *request = [blockSelf constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:user];
+            NSMutableURLRequest *request = [blockSelf constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:user];
             NSMutableDictionary *payload = [[[CMObjectEncoder encodeObjects:$set(user)] objectForKey:user.objectId] mutableCopy]; // Don't need the outer object wrapping it like with objects
             [payload removeObjectsForKeys:$array(@"token", @"tokenExpiration")];
             [request setHTTPBody:[[payload yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
@@ -607,7 +607,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         }
         
         // Handle any connection errors. Log the error, fail the callback
-        // Do not pass the error to the user, because applications do not expect NSError objects in error dictionary. Doing so could cause a crash
+        // Do not pass the error to the user, because applications do not expect NSError objects in error dictionary. Doing so could cause a crash.
         if (error) {
             NSLog(@"CloudMine *** User profile fetch operation failed (%@)", [error localizedDescription]);
             callback(nil, nil, nil);
