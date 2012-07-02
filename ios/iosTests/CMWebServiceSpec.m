@@ -33,6 +33,7 @@ describe(@"CMWebService", ^{
 
     beforeEach(^{
         service = [[CMWebService alloc] init];
+        [service setValue:@"https://api.cloudmine.me/v1" forKey:@"apiUrl"];
         
         spy = [[KWCaptureSpy alloc] initWithArgumentIndex:0];
         
