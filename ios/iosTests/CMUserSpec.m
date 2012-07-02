@@ -67,6 +67,33 @@ describe(@"CMUser", ^{
             [[theValue(user.isDirty) should] beNo];
         });
         
+        context(@"when accessing other users of the app", ^{
+            beforeEach(^{
+                [user setValue:@"abc123" forKey:@"objectId"];
+            });
+            
+            it(@"should cache the user returned when searching by a specific identifier", ^{
+                KWCaptureSpy *callbackBlockSpy = [mockWebService captureArgument:@selector(getUserProfileWithIdentifier:callback:) atIndex:1];
+                [[mockWebService should] receive:@selector(getUserProfileWithIdentifier:callback:) withCount:1];
+                [[CMUser should] receive:@selector(cacheMultipleUsers:) withCount:1];
+                
+                // This first call should trigger the web service call.
+                [CMUser userWithIdentifier:user.objectId callback:^(NSArray *users, NSDictionary *errors) {
+                    [[[[users lastObject] objectId] should] equal:user.objectId];
+                }];
+                
+                CMWebServiceUserFetchSuccessCallback callback = callbackBlockSpy.argument;
+                NSDictionary *userState = [CMObjectEncoder encodeObjects:$set(user)];
+                callback(userState, [NSDictionary dictionary], $num(1));
+                
+                // Now let's do the same thing again, but this time it should read from the cache.
+                [[CMUser should] receive:@selector(userFromCacheWithIdentifier:) withArguments:user.objectId];
+                [CMUser userWithIdentifier:user.objectId callback:^(NSArray *users, NSDictionary *errors) {
+                    [[[[users lastObject] objectId] should] equal:user.objectId];
+                }];
+            });
+        });
+        
         context(@"when making changes to fields on the instance", ^{
             it(@"should become dirty if properties are changed after a save and no other object changes have occured server-side", ^{
                 KWCaptureSpy *callbackBlockSpy = [mockWebService captureArgument:@selector(saveUser:callback:) atIndex:1];

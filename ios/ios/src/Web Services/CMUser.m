@@ -40,10 +40,12 @@ static CMWebService *webService;
 #pragma mark - Constructors
 
 + (void)initialize {
-    @try {
-        webService = [[CMWebService alloc] init];
-    } @catch (NSException *e) {
-        webService = nil;
+    if (!webService) {
+        @try {
+            webService = [[CMWebService alloc] init];
+        } @catch (NSException *e) {
+            webService = nil;
+        }
     }
 }
 
