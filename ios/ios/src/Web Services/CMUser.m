@@ -377,9 +377,7 @@ static CMWebService *webService;
 }
 
 - (void)writeToCache {
-    NSMutableDictionary *cachedUsers = [CMUser cachedUsers];
-    [cachedUsers setObject:self forKey:self.objectId];
-    [[NSKeyedArchiver archivedDataWithRootObject:cachedUsers] writeToURL:[CMUser cacheLocation] atomically:YES];
+    [CMUser cacheMultipleUsers:$array(self)];
 }
 
 + (void)cacheMultipleUsers:(NSArray *)users {
