@@ -11,6 +11,7 @@
 extern NSString * const CMACLReadPermission;
 extern NSString * const CMACLUpdatePermission;
 extern NSString * const CMACLDeletePermission;
+extern NSString * const CMACLTypeName;
 
 @interface CMACL : CMObject
 

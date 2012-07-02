@@ -12,6 +12,7 @@
 #import "CMObjectSerialization.h"
 #import "CMGeoPoint.h"
 #import "CMDate.h"
+#import "CMACL.h"
 
 @interface CMObjectEncoder (Private)
 - (NSArray *)encodeAllInList:(NSArray *)list;
@@ -127,7 +128,7 @@
         return [self encodeAllInList:[objv allObjects]];
     } else if ([objv isKindOfClass:[NSDictionary class]]) {
         return [self encodeAllInDictionary:objv];
-    } else if ([objv isKindOfClass:[CMGeoPoint class]] || [objv isKindOfClass:[CMDate class]]) {
+    } else if ([objv isKindOfClass:[CMGeoPoint class]] || [objv isKindOfClass:[CMDate class]] || [objv isKindOfClass:[CMACL class]]) {
         CMObjectEncoder *newEncoder = [[CMObjectEncoder alloc] init];
         [objv encodeWithCoder:newEncoder];
         NSMutableDictionary *serializedRepresentation = [NSMutableDictionary dictionaryWithDictionary:newEncoder.encodedRepresentation];

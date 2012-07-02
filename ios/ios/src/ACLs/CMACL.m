@@ -7,10 +7,12 @@
 //
 
 #import "CMACL.h"
+#import "CMObjectSerialization.h"
 
 NSString * const CMACLReadPermission = @"r";
 NSString * const CMACLUpdatePermission = @"u";
 NSString * const CMACLDeletePermission = @"d";
+NSString * const CMACLTypeName = @"acl";
 
 @implementation CMACL {
     NSMutableSet *_members;
@@ -19,6 +21,10 @@ NSString * const CMACLDeletePermission = @"d";
 
 @synthesize members = _members;
 @synthesize permissions = _permissions;
+
++ (NSString *)className {
+    return CMACLTypeName;
+}
 
 #pragma mark - Constructors
 
@@ -44,6 +50,7 @@ NSString * const CMACLDeletePermission = @"d";
     [super encodeWithCoder:aCoder];
     [aCoder encodeObject:[_members allObjects] forKey:@"members"];
     [aCoder encodeObject:[_permissions allObjects] forKey:@"permissions"];
+    [aCoder encodeObject:CMACLTypeName forKey:CMInternalTypeStorageKey];
 }
 
 @end
