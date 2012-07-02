@@ -16,13 +16,14 @@ NSString * const CMACLDeletePermission = @"d";
     NSMutableSet *_members;
     NSMutableSet *_permissions;
 }
+
 @synthesize members = _members;
 @synthesize permissions = _permissions;
 
 #pragma mark - Constructors
 
-- (id)initWithObjectId:(NSString *)theObjectId {
-    if (self = [super initWithObjectId:theObjectId]) {
+- (id)init {
+    if (self = [super init]) {
         _members = [NSMutableSet set];
         _permissions = [NSMutableSet set];
     }
