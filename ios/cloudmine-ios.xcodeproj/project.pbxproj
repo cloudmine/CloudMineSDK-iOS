@@ -299,8 +299,8 @@
 		7AD36F80146C656600DD4734 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7AD36F82146CA4AC00DD4734 /* CMAPICredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMAPICredentials.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		7AD36F83146CA4AC00DD4734 /* CMAPICredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMAPICredentials.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		7AD36F86146CAE0600DD4734 /* CMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMUser.h; sourceTree = "<group>"; };
-		7AD36F87146CAE0700DD4734 /* CMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUser.m; sourceTree = "<group>"; };
+		7AD36F86146CAE0600DD4734 /* CMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMUser.h; path = "../Web Services/CMUser.h"; sourceTree = "<group>"; };
+		7AD36F87146CAE0700DD4734 /* CMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMUser.m; path = "../Web Services/CMUser.m"; sourceTree = "<group>"; };
 		7AD36F8B146CB6A600DD4734 /* NSURL+QueryParameterAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+QueryParameterAdditions.h"; sourceTree = "<group>"; };
 		7AD36F8C146CB6A600DD4734 /* NSURL+QueryParameterAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+QueryParameterAdditions.m"; sourceTree = "<group>"; };
 		7AD7DA5714D221F600F771C7 /* CMStoreCallbacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMStoreCallbacks.h; sourceTree = "<group>"; };
@@ -445,7 +445,18 @@
 				7A2D458815A1E73300F1D73F /* CMACL.h */,
 				7A2D458915A1E73300F1D73F /* CMACL.m */,
 			);
-			path = ACLs;
+			name = ACLs;
+			path = ../ACLs;
+			sourceTree = "<group>";
+		};
+		7A2D458B15A215E000F1D73F /* Users */ = {
+			isa = PBXGroup;
+			children = (
+				7A2D458615A1E72400F1D73F /* ACLs */,
+				7AD36F86146CAE0600DD4734 /* CMUser.h */,
+				7AD36F87146CAE0700DD4734 /* CMUser.m */,
+			);
+			path = Users;
 			sourceTree = "<group>";
 		};
 		7A7E31C514C88F760091F1E3 /* Storage */ = {
@@ -607,12 +618,12 @@
 				7AA79DDA14DC5E4000F3CA3B /* CloudMine.h */,
 				7A58CC1F14F1B544003E864B /* CMMimeType.h */,
 				7A58CC2014F1B544003E864B /* CMMimeType.m */,
-				7A2D458615A1E72400F1D73F /* ACLs */,
 				7AFDFE35158E953200388D6E /* Persisted Objects */,
 				65199EBF156A7D9500267EC6 /* Metadata */,
 				7AD36F8A146CB69000DD4734 /* Extensions */,
 				7AD36F7B146C64F300DD4734 /* Web Services */,
 				7A7E31C514C88F760091F1E3 /* Storage */,
+				7A2D458B15A215E000F1D73F /* Users */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -628,8 +639,6 @@
 				7A4A6F2B14FFF3CF00B95D13 /* CMUserAccountResult.h */,
 				7AD36F7C146C650500DD4734 /* CMWebService.h */,
 				7AD36F7D146C650500DD4734 /* CMWebService.m */,
-				7AD36F86146CAE0600DD4734 /* CMUser.h */,
-				7AD36F87146CAE0700DD4734 /* CMUser.m */,
 				7AD36F82146CA4AC00DD4734 /* CMAPICredentials.h */,
 				7AD36F83146CA4AC00DD4734 /* CMAPICredentials.m */,
 				7A04E869147D8435006E00AB /* CMServerFunction.h */,
