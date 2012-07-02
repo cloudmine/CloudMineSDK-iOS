@@ -347,7 +347,9 @@ static CMWebService *webService;
             if (errors.count > 0) {
                 callback([NSArray array], errors);
             } else {
-                callback([CMObjectDecoder decodeObjects:results], errors);
+                NSArray *users = [CMObjectDecoder decodeObjects:results];
+                [self cacheMultipleUsers:users];
+                callback(users, errors);
             }
         }];
     }
