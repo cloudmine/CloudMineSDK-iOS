@@ -14,6 +14,13 @@
 #import "MARTNSObject.h"
 #import "RTProperty.h"
 
+@interface CMUser ()
++ (NSURL *)cacheLocation;
++ (NSMutableDictionary *)cachedUsers;
++ (CMUser *)userFromCacheWithIdentifier:(NSString *)objectId;
+- (void)writeToCache;
+@end
+
 static CMWebService *webService;
 
 @implementation CMUser
@@ -333,6 +340,45 @@ static CMWebService *webService;
             callback([CMObjectDecoder decodeObjects:results], errors);
         }
     }];
+}
+
+#pragma mark - Caching
+
++ (NSURL *)cacheLocation {
+    static NSURL *_cacheLocation = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _cacheLocation = [[[NSFileManager defaultManager] URLsForDirectory:NSCachesDirectory inDomains:NSUserDomainMask] lastObject];
+        _cacheLocation = [_cacheLocation URLByAppendingPathComponent:@"cmusers.plist"];
+    });
+
+    return _cacheLocation;
+}
+
++ (NSMutableDictionary *)cachedUsers {
+    NSURL *cacheLocation = [self cacheLocation];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[cacheLocation absoluteString]]) {
+        // Since the file doesn't already exist, create it with an empty dictionary.
+        [[NSKeyedArchiver archivedDataWithRootObject:[NSDictionary dictionary]] writeToURL:cacheLocation atomically:YES];
+        return [NSMutableDictionary dictionary];
+    }
+    return [[NSKeyedUnarchiver unarchiveObjectWithData:[NSData dataWithContentsOfURL:[self cacheLocation]]] mutableCopy];
+}
+
+- (void)writeToCache {
+    NSMutableDictionary *cachedUsers = [CMUser cachedUsers];
+    [cachedUsers setObject:self forKey:self.objectId];
+    [[NSKeyedArchiver archivedDataWithRootObject:cachedUsers] writeToURL:[CMUser cacheLocation] atomically:YES];
+}
+
++ (CMUser *)userFromCacheWithIdentifier:(NSString *)objectId {
+    NSDictionary *cachedUserRepresentation = [[self cachedUsers] objectForKey:objectId];
+    if (cachedUserRepresentation) {
+        CMObjectDecoder *decoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:cachedUserRepresentation];
+        return [[CMUser alloc] initWithCoder:decoder];
+    } else {
+        return nil;
+    }
 }
 
 #pragma mark - Private stuff
