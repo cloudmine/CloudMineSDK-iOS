@@ -18,6 +18,7 @@
 + (NSURL *)cacheLocation;
 + (NSMutableDictionary *)cachedUsers;
 + (CMUser *)userFromCacheWithIdentifier:(NSString *)objectId;
++ (void)cacheMultipleUsers:(NSArray *)users;
 - (void)writeToCache;
 @end
 
@@ -320,26 +321,36 @@ static CMWebService *webService;
 + (void)allUsersWithCallback:(CMUserFetchCallback)callback {
     NSParameterAssert(callback);
     [webService getAllUsersWithCallback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
-        callback([CMObjectDecoder decodeObjects:results], errors);
+        NSArray *users = [CMObjectDecoder decodeObjects:results];
+        [self cacheMultipleUsers:users];
+        callback(users, errors);
     }];
 }
 
 + (void)searchUsers:(NSString *)query callback:(CMUserFetchCallback)callback {
     NSParameterAssert(callback);
     [webService searchUsers:query callback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
-        callback([CMObjectDecoder decodeObjects:results], errors);
+        NSArray *users = [CMObjectDecoder decodeObjects:results];
+        [self cacheMultipleUsers:users];
+        callback(users, errors);
     }];
 }
 
 + (void)userWithIdentifier:(NSString *)identifier callback:(CMUserFetchCallback)callback {
     NSParameterAssert(callback);
-    [webService getUserProfileWithIdentifier:identifier callback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
-        if (errors.count > 0) {
-            callback([NSArray array], errors);
-        } else {
-            callback([CMObjectDecoder decodeObjects:results], errors);
-        }
-    }];
+    
+    CMUser *cachedUser = [self userFromCacheWithIdentifier:identifier];
+    if (cachedUser) {
+        callback($array(cachedUser), [NSDictionary dictionary]);
+    } else {
+        [webService getUserProfileWithIdentifier:identifier callback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
+            if (errors.count > 0) {
+                callback([NSArray array], errors);
+            } else {
+                callback([CMObjectDecoder decodeObjects:results], errors);
+            }
+        }];
+    }
 }
 
 #pragma mark - Caching
@@ -368,6 +379,14 @@ static CMWebService *webService;
 - (void)writeToCache {
     NSMutableDictionary *cachedUsers = [CMUser cachedUsers];
     [cachedUsers setObject:self forKey:self.objectId];
+    [[NSKeyedArchiver archivedDataWithRootObject:cachedUsers] writeToURL:[CMUser cacheLocation] atomically:YES];
+}
+
++ (void)cacheMultipleUsers:(NSArray *)users {
+    NSMutableDictionary *cachedUsers = [CMUser cachedUsers];
+    for (CMUser *user in users) {
+        [cachedUsers setObject:user forKey:user.objectId];
+    }
     [[NSKeyedArchiver archivedDataWithRootObject:cachedUsers] writeToURL:[CMUser cacheLocation] atomically:YES];
 }
 
