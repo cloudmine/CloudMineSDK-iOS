@@ -626,7 +626,9 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         }
         
         if (callback != nil) {
-            callback([responseBody objectForKey:@"success"], [responseBody objectForKey:@"errors"], $num([[responseBody objectForKey:@"success"] count]));
+            dispatch_async(dispatch_get_main_queue(), ^{
+                callback([responseBody objectForKey:@"success"], [responseBody objectForKey:@"errors"], $num([[responseBody objectForKey:@"success"] count]));
+            });
         }
     };
 
@@ -666,7 +668,9 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         }
         
         if (callback != nil) {
-            callback(resultCode, responseBody);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                callback(resultCode, responseBody);
+            });
         }
     };
 
@@ -716,7 +720,9 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         if (error) {
             NSLog(@"CloudMine *** Unexpected error occurred during object request. (%@)", [error localizedDescription]);
             if (errorHandler != nil) {
-                errorHandler(error);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    errorHandler(error);
+                });
             }
             return;
         }
@@ -752,7 +758,9 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         }
         
         if (successHandler != nil) {
-            successHandler(successes, errors, meta, snippetResult, count, [response allHeaderFields]);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                successHandler(successes, errors, meta, snippetResult, count, [response allHeaderFields]);
+            });
         }
     };
 
@@ -766,7 +774,9 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     void (^responseBlock)() = ^(NSHTTPURLResponse *response, NSData *data, NSError *error) {
          if ([response statusCode] == 200) {
             if (successHandler != nil) {
-                successHandler(data, [[response allHeaderFields] objectForKey:@"Content-Type"], [response allHeaderFields]);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    successHandler(data, [[response allHeaderFields] objectForKey:@"Content-Type"], [response allHeaderFields]);
+                });
             }
         } else {
             if ([[error domain] isEqualToString:NSURLErrorDomain]) {
@@ -798,7 +808,9 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
             
             NSLog(@"CloudMine *** Unexpected error occurred during binary download request. (%@)", [error localizedDescription]);
             if (errorHandler != nil) {
-                errorHandler(error);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    errorHandler(error);
+                });
             }
         }
     };
@@ -849,7 +861,9 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         if (error) {
             NSLog(@"CloudMine *** Unexpected error occurred during binary upload request. (%@)", [error localizedDescription]);
             if (errorHandler != nil) {
-                errorHandler(error);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    errorHandler(error);
+                });
             }
             return;
         }
@@ -864,7 +878,9 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         }
         
         if (successHandler != nil) {
-            successHandler([response statusCode] == 201 ? CMFileCreated : CMFileUpdated, key, snippetResult, [response allHeaderFields]);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                successHandler([response statusCode] == 201 ? CMFileCreated : CMFileUpdated, key, snippetResult, [response allHeaderFields]);
+            });
         }
     };
 
