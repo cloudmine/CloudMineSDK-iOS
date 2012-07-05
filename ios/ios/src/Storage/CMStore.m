@@ -35,6 +35,10 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 #pragma mark -
 
+@interface CMObject (Private)
+@property (getter = isDirty) BOOL dirty;
+@end
+
 @interface CMStore ()
 - (void)_allObjects:(CMStoreObjectFetchCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
 - (void)_allObjects:(CMStoreObjectFetchCallback)callback ofClass:(Class)klass userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
@@ -382,7 +386,15 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                                 if (expirationDate && userLevel) {
                                     user.tokenExpiration = expirationDate;
                                 }
-
+                                
+                                // If the objects were successfully uploaded, mark them as clean
+                                [objects enumerateObjectsUsingBlock:^(CMObject *object, NSUInteger idx, BOOL *stop) {
+                                    NSString *status = [response.uploadStatuses objectForKey:object.objectId];
+                                    if ([status isEqualToString:@"updated"] || [status isEqualToString:@"created"]) {
+                                        object.dirty = NO;
+                                    }
+                                }];
+                                
                                 if (callback) {
                                     callback(response);
                                 }
