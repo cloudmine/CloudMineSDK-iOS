@@ -10,6 +10,7 @@
 #import "CMObject.h"
 #import "NSString+UUID.h"
 #import "CMObjectSerialization.h"
+#import "CMObjectDecoder.h"
 
 #import "MARTNSObject.h"
 #import "RTProperty.h"
@@ -33,7 +34,7 @@
     if (self = [super init]) {
         objectId = theObjectId;
         store = nil;
-        dirty = NO;
+        dirty = YES;
         [self registerAllPropertiesForKVO];
     }
     return self;
@@ -41,12 +42,15 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     id deserializedObjectId = [aDecoder decodeObjectForKey:CMInternalObjectIdKey];
-
-    if (![deserializedObjectId isKindOfClass:[NSString class]]) {
+    if (![deserializedObjectId isKindOfClass:[NSString class]])
         deserializedObjectId = [deserializedObjectId stringValue];
-    }
 
-    return [self initWithObjectId:deserializedObjectId];
+    if (self = [self initWithObjectId:deserializedObjectId]) {
+        if ([aDecoder isKindOfClass:[CMObjectDecoder class]]) {
+            dirty = NO;
+        }
+    }
+    return self;
 }
 
 - (void)dealloc {

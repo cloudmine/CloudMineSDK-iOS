@@ -11,6 +11,8 @@
 #import "CMStore.h"
 #import "CMNullStore.h"
 #import "CMObject.h"
+#import "CMObjectDecoder.h"
+#import "CMObjectEncoder.h"
 #import "CMAPICredentials.h"
 #import "CMUser.h"
 
@@ -115,9 +117,22 @@ describe(@"CMObject", ^{
             store.webService = [CMWebService nullMock];
         });
         
-        it(@"should not be dirty", ^{
+        it(@"should be dirty, seeing as I am the one who initialized it", ^{
+            [[theValue(object.dirty) should] beYes];
+        });
+        
+        it(@"should become clean if it is encoded and then decoded with CMObjectDecoder", ^{
+            [[theValue(object.dirty) should] beYes];
+            
+            // Encode and decode the object, and ensure it went correctly
+            NSString *objectId = object.objectId;
+            object = [[CMObjectDecoder decodeObjects:[CMObjectEncoder encodeObjects:[NSArray arrayWithObject:object]]] lastObject];
+            [[object.objectId should] equal:objectId];
+            
+            // It should be clean, because it was decoded with CMObjectDecoder
             [[theValue(object.dirty) should] beNo];
         });
+        
         
         it(@"should become dirty if properties are changed and no other object changes have occured server-side", ^{
             [[theValue(object.dirty) should] beNo];
@@ -128,8 +143,7 @@ describe(@"CMObject", ^{
             [[theValue(object.dirty) should] beYes];
         });
         
-        it(@"should clean itself after it is successfully uploaded", ^{
-            // The object should be dirty, from the previous example
+        it(@"should clean itself after it is successfully uploaded by CMStore", ^{
             [[theValue(object.dirty) should] beYes];
                         
             // Prepare spy and wait for message
