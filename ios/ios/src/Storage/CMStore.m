@@ -356,7 +356,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (void)saveUserObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback {
     _CMAssertUserConfigured;
     [self _ensureUserLoggedInWithCallback:^{
-        [self _saveObjects:$set(theObject) userLevel:YES callback:callback additionalOptions:options];
+        [self _saveObjects:$array(theObject) userLevel:YES callback:callback additionalOptions:options];
     }];
 }
 
@@ -365,7 +365,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 }
 
 - (void)saveObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback {
-    [self _saveObjects:$set(theObject) userLevel:NO callback:callback additionalOptions:options];
+    [self _saveObjects:$array(theObject) userLevel:NO callback:callback additionalOptions:options];
 }
 
 - (void)_saveObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreObjectUploadCallback)callback additionalOptions:(CMStoreOptions *)options {
