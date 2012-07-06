@@ -38,6 +38,11 @@
 @property (nonatomic, readonly) CMObjectOwnershipLevel ownershipLevel;
 
 /**
+ * The object is dirty if any changes have been made locally that have not yet been persisted to the server.
+ */
+@property (readonly, getter = isDirty) BOOL dirty;
+
+/**
  * Initializes this app-level object by generating a UUID as the default value for <tt>objectId</tt>.
  */
 - (id)init;
