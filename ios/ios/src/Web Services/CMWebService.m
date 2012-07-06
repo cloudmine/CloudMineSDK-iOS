@@ -109,10 +109,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 #pragma mark - Reachability
 
-- (void)reachabilityStatusChanged:(NSNotification *)notification {
-    CMReachabilityStatus currentStatus = [self reachabilityStatus];
-    
-    [self.networkQueue setSuspended:(currentStatus == CMNotReachable)];
+- (void)reachabilityStatusChanged:(NSNotification *)notification {    
+    [self.networkQueue setSuspended:([self reachabilityStatus] == CMNotReachable)];
 }
 
 - (CMReachabilityStatus)reachabilityStatus {
@@ -339,7 +337,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
     CFHTTPMessageRef dummyRequest = CFHTTPMessageCreateRequest(kCFAllocatorDefault, CFSTR("GET"), (__bridge CFURLRef)[request URL], kCFHTTPVersion1_1);
     CFHTTPMessageAddAuthentication(dummyRequest, nil, (__bridge CFStringRef)user.userId, (__bridge CFStringRef)user.password, kCFHTTPAuthenticationSchemeBasic, FALSE);
-    NSString *basicAuthValue = (__bridge NSString *)CFHTTPMessageCopyHeaderFieldValue(dummyRequest, CFSTR("Authorization"));
+    NSString *basicAuthValue = (__bridge_transfer NSString *)CFHTTPMessageCopyHeaderFieldValue(dummyRequest, CFSTR("Authorization"));
     [request setValue:basicAuthValue forHTTPHeaderField:@"Authorization"];
     CFRelease(dummyRequest);
 
@@ -470,10 +468,10 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     if (user.isCreatedRemotely) {
         // The user has already been saved, so just update the profile. In order for this to work, the user must be logged in.
 
-        __block CMWebService *blockSelf = self;
+        __unsafe_unretained CMWebService *blockSelf = self;
         void (^save)() = ^{
             NSURL *url = [NSURL URLWithString:[blockSelf.apiUrl stringByAppendingFormat:@"/app/%@/account/%@", _appIdentifier, user.objectId]];
-            __block NSMutableURLRequest *request = [blockSelf constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:user];
+            NSMutableURLRequest *request = [blockSelf constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:user];
             NSMutableDictionary *payload = [[[CMObjectEncoder encodeObjects:$set(user)] objectForKey:user.objectId] mutableCopy]; // Don't need the outer object wrapping it like with objects
             [payload removeObjectsForKeys:$array(@"token", @"tokenExpiration")];
             [request setHTTPBody:[[payload yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
@@ -556,7 +554,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     // explicitly in addition to their new password.
     CFHTTPMessageRef dummyRequest = CFHTTPMessageCreateRequest(kCFAllocatorDefault, CFSTR("GET"), (__bridge CFURLRef)[request URL], kCFHTTPVersion1_1);
     CFHTTPMessageAddAuthentication(dummyRequest, nil, (__bridge CFStringRef)user.userId, (__bridge CFStringRef)oldPassword, kCFHTTPAuthenticationSchemeBasic, FALSE);
-    NSString *basicAuthValue = (__bridge NSString *)CFHTTPMessageCopyHeaderFieldValue(dummyRequest, CFSTR("Authorization"));
+    NSString *basicAuthValue = (__bridge_transfer NSString *)CFHTTPMessageCopyHeaderFieldValue(dummyRequest, CFSTR("Authorization"));
     [request setValue:basicAuthValue forHTTPHeaderField:@"Authorization"];
     CFRelease(dummyRequest);
 
@@ -689,7 +687,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         }
         
         if (callback != nil) {
-            callback([responseBody objectForKey:@"success"], [responseBody objectForKey:@"errors"], $num([[responseBody objectForKey:@"success"] count]));
+            void (^block)() = ^{ callback([responseBody objectForKey:@"success"], [responseBody objectForKey:@"errors"], $num([[responseBody objectForKey:@"success"] count])); };
+            [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
         }
     };
 
@@ -729,7 +728,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         }
         
         if (callback != nil) {
-            callback(resultCode, responseBody);
+            void (^block)() = ^{ callback(resultCode, responseBody); };
+            [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
         }
     };
 
@@ -779,7 +779,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         if (error) {
             NSLog(@"CloudMine *** Unexpected error occurred during object request. (%@)", [error localizedDescription]);
             if (errorHandler != nil) {
-                errorHandler(error);
+                void (^block)() = ^{ errorHandler(error); };
+                [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
             }
             return;
         }
@@ -815,7 +816,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         }
         
         if (successHandler != nil) {
-            successHandler(successes, errors, meta, snippetResult, count, [response allHeaderFields]);
+            void (^block)() = ^{ successHandler(successes, errors, meta, snippetResult, count, [response allHeaderFields]); };
+            [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
         }
     };
 
@@ -829,7 +831,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     void (^responseBlock)() = ^(NSHTTPURLResponse *response, NSData *data, NSError *error) {
          if ([response statusCode] == 200) {
             if (successHandler != nil) {
-                successHandler(data, [[response allHeaderFields] objectForKey:@"Content-Type"], [response allHeaderFields]);
+                void (^block)() = ^{ successHandler(data, [[response allHeaderFields] objectForKey:@"Content-Type"], [response allHeaderFields]); };
+                [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
             }
         } else {
             if ([[error domain] isEqualToString:NSURLErrorDomain]) {
@@ -861,7 +864,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
             
             NSLog(@"CloudMine *** Unexpected error occurred during binary download request. (%@)", [error localizedDescription]);
             if (errorHandler != nil) {
-                errorHandler(error);
+                void (^block)() = ^{ errorHandler(error); };
+                [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
             }
         }
     };
@@ -878,7 +882,6 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
         NSError *parseError;
         NSDictionary *results = [responseString yajl_JSON:&error];
-        
         if ([[error domain] isEqualToString:NSURLErrorDomain]) {
             if ([error code] == NSURLErrorUserCancelledAuthentication) {
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was unauthorized. Is your API key correct?", NSLocalizedDescriptionKey, error, NSURLErrorKey, nil]];
@@ -912,7 +915,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         if (error) {
             NSLog(@"CloudMine *** Unexpected error occurred during binary upload request. (%@)", [error localizedDescription]);
             if (errorHandler != nil) {
-                errorHandler(error);
+                void (^block)() = ^{ errorHandler(error); };
+                [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
             }
             return;
         }
@@ -927,16 +931,21 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         }
         
         if (successHandler != nil) {
-            successHandler([response statusCode] == 201 ? CMFileCreated : CMFileUpdated, key, snippetResult, [response allHeaderFields]);
+            void (^block)() = ^{ successHandler([response statusCode] == 201 ? CMFileCreated : CMFileUpdated, key, snippetResult, [response allHeaderFields]); };
+            [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
         }
     };
-
+    
     [NSURLConnection sendAsynchronousRequest:request queue:self.networkQueue completionHandler:responseBlock];
+}
+
+- (void)performBlock:(void (^)())block {
+    block();
 }
 
 #pragma - Request construction
 
-- (NSURLRequest *)constructHTTPRequestWithVerb:(NSString *)verb
+- (NSMutableURLRequest *)constructHTTPRequestWithVerb:(NSString *)verb
                                              URL:(NSURL *)url
                                           appSecret:(NSString *)appSecret
                                       binaryData:(BOOL)isForBinaryData
