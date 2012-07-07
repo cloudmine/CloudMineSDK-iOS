@@ -626,7 +626,8 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         }
         
         if (callback != nil) {
-            callback([responseBody objectForKey:@"success"], [responseBody objectForKey:@"errors"], $num([[responseBody objectForKey:@"success"] count]));
+            void (^block)() = ^{ callback([responseBody objectForKey:@"success"], [responseBody objectForKey:@"errors"], $num([[responseBody objectForKey:@"success"] count])); };
+            [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
         }
     };
 
@@ -666,7 +667,8 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         }
         
         if (callback != nil) {
-            callback(resultCode, responseBody);
+            void (^block)() = ^{ callback(resultCode, responseBody); };
+            [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
         }
     };
 
@@ -716,7 +718,8 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         if (error) {
             NSLog(@"CloudMine *** Unexpected error occurred during object request. (%@)", [error localizedDescription]);
             if (errorHandler != nil) {
-                errorHandler(error);
+                void (^block)() = ^{ errorHandler(error); };
+                [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
             }
             return;
         }
@@ -752,7 +755,8 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         }
         
         if (successHandler != nil) {
-            successHandler(successes, errors, meta, snippetResult, count, [response allHeaderFields]);
+            void (^block)() = ^{ successHandler(successes, errors, meta, snippetResult, count, [response allHeaderFields]); };
+            [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
         }
     };
 
@@ -766,7 +770,8 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     void (^responseBlock)() = ^(NSHTTPURLResponse *response, NSData *data, NSError *error) {
          if ([response statusCode] == 200) {
             if (successHandler != nil) {
-                successHandler(data, [[response allHeaderFields] objectForKey:@"Content-Type"], [response allHeaderFields]);
+                void (^block)() = ^{ successHandler(data, [[response allHeaderFields] objectForKey:@"Content-Type"], [response allHeaderFields]); };
+                [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
             }
         } else {
             if ([[error domain] isEqualToString:NSURLErrorDomain]) {
@@ -798,7 +803,8 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
             
             NSLog(@"CloudMine *** Unexpected error occurred during binary download request. (%@)", [error localizedDescription]);
             if (errorHandler != nil) {
-                errorHandler(error);
+                void (^block)() = ^{ errorHandler(error); };
+                [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
             }
         }
     };
@@ -849,7 +855,8 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         if (error) {
             NSLog(@"CloudMine *** Unexpected error occurred during binary upload request. (%@)", [error localizedDescription]);
             if (errorHandler != nil) {
-                errorHandler(error);
+                void (^block)() = ^{ errorHandler(error); };
+                [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
             }
             return;
         }
@@ -864,11 +871,16 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         }
         
         if (successHandler != nil) {
-            successHandler([response statusCode] == 201 ? CMFileCreated : CMFileUpdated, key, snippetResult, [response allHeaderFields]);
+            void (^block)() = ^{ successHandler([response statusCode] == 201 ? CMFileCreated : CMFileUpdated, key, snippetResult, [response allHeaderFields]); };
+            [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
         }
     };
-
+    
     [NSURLConnection sendAsynchronousRequest:request queue:self.networkQueue completionHandler:responseBlock];
+}
+
+- (void)performBlock:(void (^)())block {
+    block();
 }
 
 #pragma - Request construction

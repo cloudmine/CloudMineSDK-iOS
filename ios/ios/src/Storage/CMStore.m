@@ -35,6 +35,10 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 #pragma mark -
 
+@interface CMObject (Private)
+@property (getter = isDirty) BOOL dirty;
+@end
+
 @interface CMStore ()
 - (void)_allObjects:(CMStoreObjectFetchCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
 - (void)_allObjects:(CMStoreObjectFetchCallback)callback ofClass:(Class)klass userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
@@ -352,7 +356,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (void)saveUserObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback {
     _CMAssertUserConfigured;
     [self _ensureUserLoggedInWithCallback:^{
-        [self _saveObjects:$set(theObject) userLevel:YES callback:callback additionalOptions:options];
+        [self _saveObjects:$array(theObject) userLevel:YES callback:callback additionalOptions:options];
     }];
 }
 
@@ -361,19 +365,33 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 }
 
 - (void)saveObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback {
-    [self _saveObjects:$set(theObject) userLevel:NO callback:callback additionalOptions:options];
+    [self _saveObjects:$array(theObject) userLevel:NO callback:callback additionalOptions:options];
 }
 
 - (void)_saveObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreObjectUploadCallback)callback additionalOptions:(CMStoreOptions *)options {
     NSParameterAssert(objects);
     _CMAssertAPICredentialsInitialized;
     [self cacheObjectsInMemory:objects atUserLevel:userLevel];
-
-    [webService updateValuesFromDictionary:[CMObjectEncoder encodeObjects:objects]
+    
+    NSMutableArray *cleanObjects = [NSMutableArray array];
+    NSMutableArray *dirtyObjects = [NSMutableArray array];
+    [objects enumerateObjectsUsingBlock:^(CMObject* obj, NSUInteger idx, BOOL *stop) {
+        obj.dirty ? [dirtyObjects addObject:obj] : [cleanObjects addObject:obj];
+    }];
+    
+    // Only send the dirty objects to the servers
+    [webService updateValuesFromDictionary:[CMObjectEncoder encodeObjects:dirtyObjects]
                         serverSideFunction:_CMTryMethod(options, serverSideFunction)
                                       user:_CMUserOrNil
                            extraParameters:_CMTryMethod(options, buildExtraParameters)
                             successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult, NSNumber *count, NSDictionary *headers) {
+                                // Add clean objects that were omitted from the request into the response as pseudo-updated
+                                NSMutableDictionary *mutResults = [results mutableCopy];
+                                [cleanObjects enumerateObjectsUsingBlock:^(CMObject *obj, NSUInteger idx, BOOL *stop) {
+                                    [mutResults setObject:@"updated" forKey:obj.objectId];
+                                }];
+                                results = [mutResults copy];
+                                
                                 CMResponseMetadata *metadata = [[CMResponseMetadata alloc] initWithMetadata:meta];
                                 CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
                                 CMObjectUploadResponse *response = [[CMObjectUploadResponse alloc] initWithUploadStatuses:results snippetResult:result responseMetadata:metadata];
@@ -382,7 +400,15 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                                 if (expirationDate && userLevel) {
                                     user.tokenExpiration = expirationDate;
                                 }
-
+                                
+                                // If the dirty objects were successfully uploaded, mark them as clean
+                                [dirtyObjects enumerateObjectsUsingBlock:^(CMObject *object, NSUInteger idx, BOOL *stop) {
+                                    NSString *status = [response.uploadStatuses objectForKey:object.objectId];
+                                    if ([status isEqualToString:@"updated"] || [status isEqualToString:@"created"]) {
+                                        object.dirty = NO;
+                                    }
+                                }];
+                                
                                 if (callback) {
                                     callback(response);
                                 }
