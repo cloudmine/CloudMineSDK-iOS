@@ -11,8 +11,19 @@
 #import "CMStore.h"
 #import "CMNullStore.h"
 #import "CMObject.h"
+#import "CMObjectDecoder.h"
+#import "CMObjectEncoder.h"
 #import "CMAPICredentials.h"
 #import "CMUser.h"
+
+@interface CustomObject : CMObject
+@property (nonatomic, retain) NSString *something;
+@property (nonatomic, retain) NSString *somethingElse;
+@end
+
+@implementation CustomObject
+@synthesize something, somethingElse;
+@end
 
 SPEC_BEGIN(CMObjectSpec)
 
@@ -93,6 +104,63 @@ describe(@"CMObject", ^{
             obj.store = nil;
             [[obj.store should] equal:[CMNullStore nullStore]];
         });
+    });
+    
+    
+    context(@"given an object that is a custom subclass", ^{
+        __block CustomObject *object = nil;
+        __block CMStore *store = store;
+        
+        beforeAll(^{
+            object = [[CustomObject alloc] init];
+            store = [CMStore defaultStore];
+            store.webService = [CMWebService nullMock];
+        });
+        
+        it(@"should be dirty, seeing as I am the one who initialized it", ^{
+            [[theValue(object.dirty) should] beYes];
+        });
+        
+        it(@"should become clean if it is encoded and then decoded with CMObjectDecoder", ^{
+            [[theValue(object.dirty) should] beYes];
+            
+            // Encode and decode the object, and ensure it went correctly
+            NSString *objectId = object.objectId;
+            object = [[CMObjectDecoder decodeObjects:[CMObjectEncoder encodeObjects:[NSArray arrayWithObject:object]]] lastObject];
+            [[object.objectId should] equal:objectId];
+            
+            // It should be clean, because it was decoded with CMObjectDecoder
+            [[theValue(object.dirty) should] beNo];
+        });
+        
+        
+        it(@"should become dirty if properties are changed and no other object changes have occured server-side", ^{
+            [[theValue(object.dirty) should] beNo];
+            
+            // Changing the value of a property should make the object dirty
+            object.something = @"Something important!";
+            
+            [[theValue(object.dirty) should] beYes];
+        });
+        
+        it(@"should clean itself after it is successfully uploaded by CMStore", ^{
+            [[theValue(object.dirty) should] beYes];
+                        
+            // Prepare spy and wait for message
+            [[store should] receive:@selector(saveObject:additionalOptions:callback:)];
+            KWCaptureSpy *spy = [(KWMock *)store.webService captureArgument:@selector(updateValuesFromDictionary:serverSideFunction:user:extraParameters:successHandler:errorHandler:) atIndex:4];
+            
+            [object save:^(CMObjectUploadResponse *response) { }];
+            
+            // Fabricate a successful upload response
+            [object setValue:@"SomeIDReturnedByTheServer" forKey:@"objectId"];
+            CMWebServiceObjectFetchSuccessCallback callback = (CMWebServiceObjectFetchSuccessCallback)spy.argument;
+            callback([NSDictionary dictionaryWithObject:@"updated" forKey:object.objectId], nil, nil, nil, nil, nil);
+            
+            // The object should be marked as clean
+            [[theValue(object.dirty) should] beNo];
+        });
+
     });
 });
 

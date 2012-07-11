@@ -10,10 +10,19 @@
 #import "CMObject.h"
 #import "NSString+UUID.h"
 #import "CMObjectSerialization.h"
+#import "CMObjectDecoder.h"
+
+#import "MARTNSObject.h"
+#import "RTProperty.h"
+
+@interface CMObject ()
+@property (readwrite, getter = isDirty) BOOL dirty;
+@end
 
 @implementation CMObject
 @synthesize objectId;
 @synthesize store;
+@synthesize dirty;
 
 #pragma mark - Initializers
 
@@ -25,18 +34,59 @@
     if (self = [super init]) {
         objectId = theObjectId;
         store = nil;
+        dirty = YES;
+        [self registerAllPropertiesForKVO];
     }
     return self;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     id deserializedObjectId = [aDecoder decodeObjectForKey:CMInternalObjectIdKey];
-
-    if (![deserializedObjectId isKindOfClass:[NSString class]]) {
+    if (![deserializedObjectId isKindOfClass:[NSString class]])
         deserializedObjectId = [deserializedObjectId stringValue];
-    }
 
-    return [self initWithObjectId:deserializedObjectId];
+    if (self = [self initWithObjectId:deserializedObjectId]) {
+        if ([aDecoder isKindOfClass:[CMObjectDecoder class]]) {
+            dirty = NO;
+        }
+    }
+    return self;
+}
+
+- (void)dealloc {
+    [self deregisterAllPropertiesForKVO];
+}
+
+#pragma mark - Dirty tracking
+
+- (void)executeBlockForAllUserDefinedProperties:(void (^)(RTProperty *property))block {
+    NSArray *allProperties = [[self class] rt_properties];
+    NSArray *superclassProperties = [[CMObject class] rt_properties];
+    [allProperties enumerateObjectsUsingBlock:^(RTProperty *property, NSUInteger idx, BOOL *stop) {
+        if (![superclassProperties containsObject:property]) {
+            block(property);
+        }
+    }];
+}
+
+- (void)registerAllPropertiesForKVO {
+    [self executeBlockForAllUserDefinedProperties:^(RTProperty *property) {
+        [self addObserver:self forKeyPath:[property name] options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+    }];
+}
+
+- (void)deregisterAllPropertiesForKVO {
+    [self executeBlockForAllUserDefinedProperties:^(RTProperty *property) {
+        [self removeObserver:self forKeyPath:[property name]];
+    }];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    id oldValue = [change objectForKey:NSKeyValueChangeOldKey];
+    id newValue = [change objectForKey:NSKeyValueChangeNewKey];
+    if (![oldValue isEqual:newValue]) {
+        dirty = YES;
+    }
 }
 
 #pragma mark - Serialization
@@ -51,7 +101,7 @@
     if ([self.store objectOwnershipLevel:self] == CMObjectOwnershipUndefinedLevel) {
         [self.store addObject:self];
     }
-
+    
     switch ([self.store objectOwnershipLevel:self]) {
         case CMObjectOwnershipAppLevel:
             [self.store saveObject:self callback:callback];
