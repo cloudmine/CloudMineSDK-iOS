@@ -25,6 +25,7 @@
 
 #define CM_APIKEY_HEADER @"X-CloudMine-ApiKey"
 #define CM_SESSIONTOKEN_HEADER @"X-CloudMine-SessionToken"
+#define CM_REQUESTID_HEADER @"X-CloudMine-Request"
 
 static __strong NSSet *_validHTTPVerbs = nil;
 typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger httpResponseCode, NSError *error);
@@ -33,7 +34,9 @@ NSString * const CMErrorDomain = @"CMErrorDomain";
 NSString * const NSURLErrorKey = @"NSURLErrorKey";
 NSString * const YAJLErrorKey = @"YAJLErrorKey";
 
-@interface CMWebService ()
+@interface CMWebService () {
+    NSMutableDictionary *_responseTimes;
+}
 @property (nonatomic, strong) NSString *apiUrl;
 - (NSURL *)constructTextUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys query:(NSString *)searchString pagingOptions:(CMPagingDescriptor *)paging sortingOptions:(CMSortDescriptor *)sorting withServerSideFunction:(CMServerFunction *)function extraParameters:(NSDictionary *)params;
 - (NSURL *)constructBinaryUrlAtUserLevel:(BOOL)atUserLevel withKey:(NSString *)key withServerSideFunction:(CMServerFunction *)function extraParameters:(NSDictionary *)params;
@@ -75,6 +78,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 
         _appSecret = appSecret;
         _appIdentifier = appIdentifier;
+        _responseTimes = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -597,6 +601,8 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     // TODO: Let this switch between MsgPack and GZIP'd JSON.
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
 
+    NSDate *startDate = [NSDate date];
+    
     void (^responseBlock)() = ^(NSHTTPURLResponse *response, NSData *data, NSError *error) {
         if ([[error domain] isEqualToString:NSURLErrorDomain]) {
             if ([error code] == NSURLErrorUserCancelledAuthentication) {
@@ -604,6 +610,12 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
             } else {
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerConnectionFailed userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"A connection to the server was not able to be established.", NSLocalizedDescriptionKey, error, NSURLErrorKey, nil]];
             }
+        }
+        
+        NSString *requestId = [[response allHeaderFields] objectForKey:CM_REQUESTID_HEADER];
+        if (requestId) {
+            int milliseconds = (int)([[NSDate date] timeIntervalSinceDate:startDate] * 1000.0f);
+            [_responseTimes setObject:[NSNumber numberWithInt:milliseconds] forKey:requestId];
         }
         
         // Handle any connection errors. Log the error, fail the callback
@@ -640,7 +652,9 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 
     // TODO: Let this switch between MsgPack and GZIP'd JSON.
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-
+    
+    NSDate *startDate = [NSDate date];
+    
     void (^responseBlock)() = ^(NSHTTPURLResponse *response, NSData *data, NSError *error) {
         if ([[error domain] isEqualToString:NSURLErrorDomain]) {
             if ([error code] == NSURLErrorUserCancelledAuthentication) {
@@ -649,7 +663,13 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerConnectionFailed userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"A connection to the server was not able to be established.", NSLocalizedDescriptionKey, error, NSURLErrorKey, nil]];
             }
         }
-                
+        
+        NSString *requestId = [[response allHeaderFields] objectForKey:CM_REQUESTID_HEADER];
+        if (requestId) {
+            int milliseconds = (int)([[NSDate date] timeIntervalSinceDate:startDate] * 1000.0f);
+            [_responseTimes setObject:[NSNumber numberWithInt:milliseconds] forKey:requestId];
+        }
+        
         CMUserAccountResult resultCode = codeMapper([response statusCode], error);
         NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         
@@ -679,6 +699,8 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
           errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
 
+    NSDate *startDate = [NSDate date];
+    
     void (^responseBlock)() = ^(NSHTTPURLResponse *response, NSData *data, NSError *error) {
         NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         
@@ -688,6 +710,12 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
             } else {
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerConnectionFailed userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"A connection to the server was not able to be established.", NSLocalizedDescriptionKey, error, NSURLErrorKey, nil]];
             }
+        }
+        
+        NSString *requestId = [[response allHeaderFields] objectForKey:CM_REQUESTID_HEADER];
+        if (requestId) {
+            int milliseconds = (int)([[NSDate date] timeIntervalSinceDate:startDate] * 1000.0f);
+            [_responseTimes setObject:[NSNumber numberWithInt:milliseconds] forKey:requestId];
         }
         
         NSError *parseError;
@@ -767,7 +795,15 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         successHandler:(CMWebServiceFileFetchSuccessCallback)successHandler
           errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
 
+    NSDate *startDate = [NSDate date];
+    
     void (^responseBlock)() = ^(NSHTTPURLResponse *response, NSData *data, NSError *error) {
+        NSString *requestId = [[response allHeaderFields] objectForKey:CM_REQUESTID_HEADER];
+        if (requestId) {
+            int milliseconds = (int)([[NSDate date] timeIntervalSinceDate:startDate] * 1000.0f);
+            [_responseTimes setObject:[NSNumber numberWithInt:milliseconds] forKey:requestId];
+        }
+        
          if ([response statusCode] == 200) {
             if (successHandler != nil) {
                 void (^block)() = ^{ successHandler(data, [[response allHeaderFields] objectForKey:@"Content-Type"], [response allHeaderFields]); };
@@ -816,6 +852,8 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                        successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler
                          errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
 
+    NSDate *startDate = [NSDate date];
+    
     void (^responseBlock)() = ^(NSHTTPURLResponse *response, NSData *data, NSError *error) {
         NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 
@@ -828,6 +866,12 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
             } else {
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerConnectionFailed userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"A connection to the server was not able to be established.", NSLocalizedDescriptionKey, error, NSURLErrorKey, nil]];
             }
+        }
+        
+        NSString *requestId = [[response allHeaderFields] objectForKey:CM_REQUESTID_HEADER];
+        if (requestId) {
+            int milliseconds = (int)([[NSDate date] timeIntervalSinceDate:startDate] * 1000.0f);
+            [_responseTimes setObject:[NSNumber numberWithInt:milliseconds] forKey:requestId];
         }
         
         if (!error && [[parseError domain] isEqualToString:YAJLErrorDomain]) {
@@ -910,10 +954,17 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     }
+    
+    // Concatenate response times into one string
+    NSMutableString *responseTimes = [NSMutableString string];
+    [_responseTimes enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSNumber *obj, BOOL *stop) {
+        [responseTimes appendFormat:@";%@:%@", key, [obj stringValue]];
+    }];
+    [_responseTimes removeAllObjects];
 
     // Add user agent and user tracking headers
     [request setValue:[NSString stringWithFormat:@"CM-iOS/%@", CM_VERSION] forHTTPHeaderField:@"X-CloudMine-Agent"];
-    [request setValue:[[CMActiveUser currentActiveUser] identifier] forHTTPHeaderField:@"X-CloudMine-UT"];
+    [request setValue:[[[CMActiveUser currentActiveUser] identifier] stringByAppendingString:responseTimes] forHTTPHeaderField:@"X-CloudMine-UT"];
 
     #ifdef DEBUG
         NSLog(@"Constructed CloudMine URL: %@\nHeaders:%@", [request URL], [request allHTTPHeaderFields]);
