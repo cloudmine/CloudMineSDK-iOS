@@ -25,7 +25,6 @@
 
 #define CM_APIKEY_HEADER @"X-CloudMine-ApiKey"
 #define CM_SESSIONTOKEN_HEADER @"X-CloudMine-SessionToken"
-#define CM_REQUESTID_HEADER @"X-CloudMine-Request"
 
 static __strong NSSet *_validHTTPVerbs = nil;
 typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger httpResponseCode, NSError *error);
@@ -612,7 +611,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
             }
         }
         
-        NSString *requestId = [[response allHeaderFields] objectForKey:CM_REQUESTID_HEADER];
+        NSString *requestId = [[response allHeaderFields] objectForKey:@"X-Request-Id"];
         if (requestId) {
             int milliseconds = (int)([[NSDate date] timeIntervalSinceDate:startDate] * 1000.0f);
             [_responseTimes setObject:[NSNumber numberWithInt:milliseconds] forKey:requestId];
@@ -664,7 +663,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
             }
         }
         
-        NSString *requestId = [[response allHeaderFields] objectForKey:CM_REQUESTID_HEADER];
+        NSString *requestId = [[response allHeaderFields] objectForKey:@"X-Request-Id"];
         if (requestId) {
             int milliseconds = (int)([[NSDate date] timeIntervalSinceDate:startDate] * 1000.0f);
             [_responseTimes setObject:[NSNumber numberWithInt:milliseconds] forKey:requestId];
@@ -712,7 +711,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
             }
         }
         
-        NSString *requestId = [[response allHeaderFields] objectForKey:CM_REQUESTID_HEADER];
+        NSString *requestId = [[response allHeaderFields] objectForKey:@"X-Request-Id"];
         if (requestId) {
             int milliseconds = (int)([[NSDate date] timeIntervalSinceDate:startDate] * 1000.0f);
             [_responseTimes setObject:[NSNumber numberWithInt:milliseconds] forKey:requestId];
@@ -798,7 +797,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     NSDate *startDate = [NSDate date];
     
     void (^responseBlock)() = ^(NSHTTPURLResponse *response, NSData *data, NSError *error) {
-        NSString *requestId = [[response allHeaderFields] objectForKey:CM_REQUESTID_HEADER];
+        NSString *requestId = [[response allHeaderFields] objectForKey:@"X-Request-Id"];
         if (requestId) {
             int milliseconds = (int)([[NSDate date] timeIntervalSinceDate:startDate] * 1000.0f);
             [_responseTimes setObject:[NSNumber numberWithInt:milliseconds] forKey:requestId];
@@ -868,7 +867,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
             }
         }
         
-        NSString *requestId = [[response allHeaderFields] objectForKey:CM_REQUESTID_HEADER];
+        NSString *requestId = [[response allHeaderFields] objectForKey:@"X-Request-Id"];
         if (requestId) {
             int milliseconds = (int)([[NSDate date] timeIntervalSinceDate:startDate] * 1000.0f);
             [_responseTimes setObject:[NSNumber numberWithInt:milliseconds] forKey:requestId];
@@ -955,16 +954,20 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     }
     
-    // Concatenate response times into one string
-    NSMutableString *responseTimes = [NSMutableString string];
+    // Add response times to user token string
+    NSMutableArray *times = [NSMutableArray array];
     [_responseTimes enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSNumber *obj, BOOL *stop) {
-        [responseTimes appendFormat:@";%@:%@", key, [obj stringValue]];
+        [times addObject:[NSString stringWithFormat:@"%@:%@", key, [obj stringValue]]];
     }];
     [_responseTimes removeAllObjects];
-
+    if (times.count > 20)
+        [times removeObjectsInRange:NSMakeRange(20, times.count - 20)];
+    NSString *activeIdentifier = [[CMActiveUser currentActiveUser] identifier];
+    NSString *userToken = times.count ? [NSString stringWithFormat:@"%@;%@", activeIdentifier, [times componentsJoinedByString:@","]] : activeIdentifier;
+    
     // Add user agent and user tracking headers
     [request setValue:[NSString stringWithFormat:@"CM-iOS/%@", CM_VERSION] forHTTPHeaderField:@"X-CloudMine-Agent"];
-    [request setValue:[[[CMActiveUser currentActiveUser] identifier] stringByAppendingString:responseTimes] forHTTPHeaderField:@"X-CloudMine-UT"];
+    [request setValue:userToken forHTTPHeaderField:@"X-CloudMine-UT"];
 
     #ifdef DEBUG
         NSLog(@"Constructed CloudMine URL: %@\nHeaders:%@", [request URL], [request allHTTPHeaderFields]);
