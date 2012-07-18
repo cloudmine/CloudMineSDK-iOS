@@ -126,48 +126,6 @@ typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDi
           errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
 /**
- * Asynchronously search all ACLs associated with the user, using the specified query. On completion, the <tt>successHandler</tt> block
- * will be called with a dictionary of the objects retrieved.
- *
- * @param query This is the same syntax as defined at https://cloudmine.me/developer_zone#ref/query_syntax and used by <tt>CMStore</tt>'s search methods.
- * @param user The user whose ACLs to query.
- * @param successHandler The block to be called when the objects have been populated.
- * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
- */
-- (void)searchACLs:(NSString *)query
-              user:(CMUser *)user
-    successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
-      errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
-
-/**
- * Asynchronously update the specified ACL. On completion, the <tt>successHandler</tt> block will be called with a dictionary containing
- * the object updated. If no <tt>__id__</tt> field is specified in the acl argument, the ACL will be created instead.
- *
- * @param acl This is a dictionary containing the attributes of the ACL object to update, as serialized by <tt>CMObjectEncoder</tt>.
- * @param user The user to whom the ACL is associated.
- * @param successHandler The block to be called when a response has been received.
- * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
- */
-- (void)updateACL:(NSDictionary *)acl
-             user:(CMUser *)user
-   successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
-     errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
-
-/**
- * Asynchronously delete the ACL with the specified key, associated with the specified user. On completion, the <tt>successHandler</tt> block will be called
- * with a dictionary containing the status of the deletion.
- *
- * @param key The key of the ACL that will be deleted.
- * @param user The user to whom the ACL is associated.
- * @param successHandler The block to be called when a response has been received.
- * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
- */
-- (void)deleteACLWithKey:(NSString *)key
-                       user:(CMUser *)user
-             successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
-               errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
-
-/**
  * Asynchronously retrieve objects for the named user-level keys. On completion, the <tt>successHandler</tt> block
  * will be called with a dictionary of the objects retrieved as well as a dictionary of the key-related errors returned from the server.
  *
@@ -194,6 +152,20 @@ typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDi
         extraParameters:(NSDictionary *)params
          successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
            errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
+
+/**
+ * Asynchronously search all ACLs associated with the user, using the specified query. On completion, the <tt>successHandler</tt> block
+ * will be called with a dictionary of the objects retrieved.
+ *
+ * @param query This is the same syntax as defined at https://cloudmine.me/developer_zone#ref/query_syntax and used by <tt>CMStore</tt>'s search methods.
+ * @param user The user whose ACLs to query.
+ * @param successHandler The block to be called when the objects have been populated.
+ * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
+ */
+- (void)searchACLs:(NSString *)query
+              user:(CMUser *)user
+    successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
+      errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
 /**
  * Asynchronously retrieve a binary file for the named user-leve key. On completion, the <tt>successHandler</tt> block
@@ -228,6 +200,20 @@ typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDi
                    extraParameters:(NSDictionary *)params
                     successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
                       errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
+
+/**
+ * Asynchronously update the specified ACL. On completion, the <tt>successHandler</tt> block will be called with a dictionary containing
+ * the object updated. If no <tt>__id__</tt> field is specified in the acl argument, the ACL will be created instead.
+ *
+ * @param acl This is a dictionary containing the attributes of the ACL object to update, as serialized by <tt>CMObjectEncoder</tt>.
+ * @param user The user to whom the ACL is associated.
+ * @param successHandler The block to be called when a response has been received.
+ * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
+ */
+- (void)updateACL:(NSDictionary *)acl
+             user:(CMUser *)user
+   successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
+     errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
 /**
  * Asynchronously upload the raw binary data contained in <tt>data</tt> with an optional MIME type as a user-level object.
@@ -315,6 +301,20 @@ typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDi
             extraParameters:(NSDictionary *)params
              successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
                errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
+
+/**
+ * Asynchronously delete the ACL with the specified key, associated with the specified user. On completion, the <tt>successHandler</tt> block will be called
+ * with a dictionary containing the status of the deletion.
+ *
+ * @param key The key of the ACL that will be deleted.
+ * @param user The user to whom the ACL is associated.
+ * @param successHandler The block to be called when a response has been received.
+ * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
+ */
+- (void)deleteACLWithKey:(NSString *)key
+                    user:(CMUser *)user
+          successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
+            errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
 /**
  * Asynchronously login a user and create a new session. On completion, the <tt>callback</tt> block will be called with

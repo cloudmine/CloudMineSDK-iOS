@@ -44,6 +44,7 @@
 #import "CMUntypedObject.h"
 #import "CMFile.h"
 #import "CMGeoPoint.h"
+#import "CMACL.h"
 #import "CMMimeType.h"
 #import "CMObject.h"
 #import "CMObjectClassNameRegistry.h"
