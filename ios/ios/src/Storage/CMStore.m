@@ -15,6 +15,7 @@
 #import "CMObjectSerialization.h"
 #import "CMAPICredentials.h"
 #import "CMObject.h"
+#import "CMACL.h"
 #import "CMMimeType.h"
 #import "CMObjectFetchResponse.h"
 #import "CMObjectUploadResponse.h"
@@ -57,6 +58,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 @implementation CMStore {
     NSMutableDictionary *_cachedAppObjects;
     NSMutableDictionary *_cachedUserObjects;
+    NSMutableDictionary *_cachedACLs;
     NSMutableDictionary *_cachedAppFiles;
     NSMutableDictionary *_cachedUserFiles;
 }
@@ -105,6 +107,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
         lastError = nil;
         _cachedAppObjects = [[NSMutableDictionary alloc] init];
+        _cachedACLs = theUser ? [[NSMutableDictionary alloc] init] : nil;
         _cachedUserObjects = theUser ? [[NSMutableDictionary alloc] init] : nil;
         _cachedAppFiles = [[NSMutableDictionary alloc] init];
         _cachedUserFiles = theUser ? [[NSMutableDictionary alloc] init] : nil;
@@ -121,6 +124,15 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
             [_cachedUserObjects removeAllObjects];
         } else {
             _cachedUserObjects = [[NSMutableDictionary alloc] init];
+        }
+        
+        if (_cachedACLs) {
+            [_cachedACLs enumerateKeysAndObjectsUsingBlock:^(id key, CMACL *obj, BOOL *stop) {
+                obj.store = nil;
+            }];
+            [_cachedACLs removeAllObjects];
+        } else {
+            _cachedACLs = [[NSMutableDictionary alloc] init];
         }
         
         if (_cachedUserFiles) {
@@ -141,6 +153,8 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (CMObjectOwnershipLevel)objectOwnershipLevel:(id)theObject {
     if ([theObject respondsToSelector:@selector(uuid)]) {
         return [self _fileOwnershipLevel:theObject];
+    } else if ([theObject isKindOfClass:[CMACL class]]) {
+        return [self _aclOwnershipLebel:theObject];
     } else {
         return [self _objectOwnershipLevel:theObject];
     }
@@ -156,6 +170,14 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     }
 }
 
+- (CMObjectOwnershipLevel)_aclOwnershipLebel:(CMACL *)acl {
+    if ([_cachedACLs objectForKey:acl.objectId] != nil) {
+        return CMObjectOwnershipUserLevel;
+    } else {
+        return CMObjectOwnershipUndefinedLevel;
+    }
+}
+
 - (CMObjectOwnershipLevel)_fileOwnershipLevel:(CMFile *)theFile {
     if ([_cachedAppFiles objectForKey:[theFile uuid]] != nil) {
         return CMObjectOwnershipAppLevel;
@@ -164,6 +186,180 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     } else {
         return CMObjectOwnershipUndefinedLevel;
     }
+}
+
+- (void)allACLs:(CMStoreACLFetchCallback)callback {
+    _CMAssertUserConfigured;
+    [self _ensureUserLoggedInWithCallback:^{
+        [webService getACLsForUser:user successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
+            // Reset expiration date to the one received in the headers
+            NSDate *expirationDate = [self.dateFormatter dateFromString:[headers objectForKey:CM_TOKENEXPIRATION_HEADER]];
+            if (expirationDate)
+                user.tokenExpiration = expirationDate;
+            
+            // Decode and cache objects
+            NSArray *acls = [CMObjectDecoder decodeObjects:results];
+            [acls enumerateObjectsUsingBlock:^(CMACL *acl, NSUInteger idx, BOOL *stop) {
+                [self addACL:acl];
+            }];
+            
+            CMACLFetchResponse *response = [[CMACLFetchResponse alloc] initWithACLs:acls errors:errors];
+            if (callback) {
+                callback(response);
+            }
+        } errorHandler:^(NSError *error) {
+            NSLog(@"CloudMine *** Error occurred retrieving ACLS for user: %@ with message: %@", user, [error description]);
+            CMACLFetchResponse *response = [[CMACLFetchResponse alloc] initWithError:error];
+            lastError = error;
+            if (callback) {
+                callback(response);
+            }
+        }];
+    }];
+}
+
+- (void)searchACLs:(NSString *)query callback:(CMStoreACLFetchCallback)callback {
+    _CMAssertUserConfigured;
+    [self _ensureUserLoggedInWithCallback:^{
+        [webService searchACLs:query user:user successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
+            // Reset expiration date to the one received in the headers
+            NSDate *expirationDate = [self.dateFormatter dateFromString:[headers objectForKey:CM_TOKENEXPIRATION_HEADER]];
+            if (expirationDate)
+                user.tokenExpiration = expirationDate;
+            
+            // Decode and cache objects
+            NSArray *acls = [CMObjectDecoder decodeObjects:results];
+            [acls enumerateObjectsUsingBlock:^(CMACL *acl, NSUInteger idx, BOOL *stop) {
+                [self addACL:acl];
+            }];
+            
+            CMACLFetchResponse *response = [[CMACLFetchResponse alloc] initWithACLs:acls errors:errors];
+            if (callback) {
+                callback(response);
+            }
+        } errorHandler:^(NSError *error) {
+            NSLog(@"CloudMine *** Error occurred retrieving ACLS for user: %@ with message: %@", user, [error description]);
+            CMACLFetchResponse *response = [[CMACLFetchResponse alloc] initWithError:error];
+            lastError = error;
+            if (callback) {
+                callback(response);
+            }
+        }];
+    }];
+}
+
+- (void)saveACL:(id<CMSerializable>)acl callback:(CMStoreObjectUploadCallback)callback {
+    [self saveACLs:[NSArray arrayWithObject:acl] callback:callback];
+}
+
+- (void)saveAllACLs:(CMStoreObjectUploadCallback)callback {
+    [self saveACLs:[_cachedACLs allValues] callback:callback];
+}
+
+- (void)saveACLs:(NSArray *)acls callback:(CMStoreObjectUploadCallback)callback {
+    _CMAssertUserConfigured;
+    _CMAssertAPICredentialsInitialized;
+    if (!acls.count) {
+        callback([[CMObjectUploadResponse alloc] init]);
+        return;
+    }
+    
+    [self _ensureUserLoggedInWithCallback:^{
+        [acls enumerateObjectsUsingBlock:^(CMACL *acl, NSUInteger idx, BOOL *stop) {
+            [self addACL:acl];
+        }];
+        
+        __block NSUInteger index = 0;
+        NSMutableDictionary *uploadStatuses = [NSMutableDictionary dictionary];
+        
+        __block CMWebServiceObjectFetchSuccessCallback successHandler;
+        
+        CMWebServiceFetchFailureCallback errorHandler = ^(NSError *error) {
+            successHandler(nil, [NSDictionary dictionaryWithObject:[error localizedDescription] forKey:[[acls objectAtIndex:index] objectId]], nil, nil, nil, nil);
+        };
+        
+        successHandler = ^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
+            CMACL *acl = [[CMObjectDecoder decodeObjects:results] lastObject];
+            if (acl) {
+                [self addACL:acl];
+                acl.dirty = NO;
+                [uploadStatuses setObject:@"updated" forKey:acl.objectId];
+            } else {
+                [uploadStatuses addEntriesFromDictionary:errors];
+            }
+            
+            index++;
+            if (index < acls.count) {
+                acl = [acls objectAtIndex:index];
+                NSDictionary *aclDict = [[CMObjectEncoder encodeObjects:[NSSet setWithObject:acl]] objectForKey:acl.objectId];
+                if (acl.dirty)
+                    [webService updateACL:aclDict user:user successHandler:successHandler errorHandler:errorHandler];
+                else
+                    successHandler([NSDictionary dictionaryWithObject:aclDict forKey:acl.objectId], nil, nil, nil, [NSNumber numberWithUnsignedInt:1], nil);
+            } else {            
+                CMObjectUploadResponse *response = [[CMObjectUploadResponse alloc] initWithUploadStatuses:uploadStatuses];
+                if (callback)
+                    callback(response);
+            }
+        };
+        
+        CMACL *acl = [acls objectAtIndex:index];
+        NSDictionary *aclDict = [[CMObjectEncoder encodeObjects:[NSSet setWithObject:acl]] objectForKey:acl.objectId];
+        if (acl.dirty)
+            [webService updateACL:aclDict user:user successHandler:successHandler errorHandler:errorHandler];
+        else
+            successHandler([NSDictionary dictionaryWithObject:aclDict forKey:acl.objectId], nil, nil, nil, [NSNumber numberWithUnsignedInt:1], nil);
+    }];
+}
+
+- (void)deleteACL:(id<CMSerializable>)acl callback:(CMStoreDeleteCallback)callback {
+    [self deleteACLs:[NSArray arrayWithObject:acl] callback:callback];
+}
+
+- (void)deleteACLs:(NSArray *)acls callback:(CMStoreDeleteCallback)callback {
+    _CMAssertUserConfigured;
+    _CMAssertAPICredentialsInitialized;
+    if (!acls.count) {
+        callback([[CMDeleteResponse alloc] init]);
+        return;
+    }
+    
+    [self _ensureUserLoggedInWithCallback:^{
+        [acls enumerateObjectsUsingBlock:^(CMACL *acl, NSUInteger idx, BOOL *stop) {
+            [self removeACL:acl];
+        }];
+        
+        __block NSUInteger index = 0;
+        NSMutableDictionary *allSuccess = [NSMutableDictionary dictionary];
+        NSMutableDictionary *allErrors = [NSMutableDictionary dictionary];
+        
+        __block CMWebServiceObjectFetchSuccessCallback successHandler;
+        
+        CMWebServiceFetchFailureCallback errorHandler = ^(NSError *error) {
+            successHandler(nil, [NSDictionary dictionaryWithObject:[error localizedDescription] forKey:[[acls objectAtIndex:index] objectId]], nil, nil, nil, nil);
+        };
+        
+        successHandler = ^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
+            if (results) {
+                [allSuccess addEntriesFromDictionary:results];
+            } else if (errors) {
+                [allErrors addEntriesFromDictionary:errors];
+            }
+            
+            index++;
+            if (index < acls.count) {
+                CMACL *acl = [acls objectAtIndex:index];
+                [webService deleteACLWithKey:acl.objectId user:user successHandler:successHandler errorHandler:errorHandler];
+            } else {
+                CMDeleteResponse *response = [[CMDeleteResponse alloc] initWithSuccess:allSuccess errors:allErrors];
+                if (callback)
+                    callback(response);
+            }
+        };
+        
+        CMACL *acl = [acls objectAtIndex:index];
+        [webService deleteACLWithKey:acl.objectId user:user successHandler:successHandler errorHandler:errorHandler];
+    }];
 }
 
 #pragma mark - Object retrieval
@@ -727,6 +923,17 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     }
 }
 
+- (void)addACL:(CMACL *)acl {
+    NSAssert(user != nil, @"Attempted to add ACL (%@) to store (%@) belonging to user when user is not set.", acl, self);
+    @synchronized(self) {
+        [_cachedACLs setObject:acl forKey:acl.objectId];
+    }
+    
+    if (acl.store != self) {
+        acl.store = self;
+    }
+}
+
 - (void)addUserObject:(CMObject *)theObject {
     NSAssert(user != nil, @"Attempted to add object (%@) to store (%@) belonging to user when user is not set.", theObject, self);
     @synchronized(self) {
@@ -765,6 +972,16 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
     if (theObject.store) {
         theObject.store = nil;
+    }
+}
+
+- (void)removeACL:(CMACL *)acl {
+    @synchronized(self) {
+        [_cachedACLs removeObjectForKey:acl.objectId];
+    }
+    
+    if (acl.store) {
+        acl.store = nil;
     }
 }
 

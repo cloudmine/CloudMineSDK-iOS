@@ -9,6 +9,7 @@
 /** @file */
 
 #import "CMFileUploadResult.h"
+#import "CMACLFetchResponse.h"
 #import "CMObjectFetchResponse.h"
 #import "CMObjectUploadResponse.h"
 #import "CMFileFetchResponse.h"
@@ -16,6 +17,10 @@
 #import "CMDeleteResponse.h"
 
 @class CMFile;
+
+// TODO - Doxument this
+
+typedef void (^CMStoreACLFetchCallback)(CMACLFetchResponse *response);
 
 /**
  * Callback block signature for all operations on <tt>CMStore</tt> that fetch objects

@@ -7,6 +7,7 @@
 //
 
 #import "CMACL.h"
+#import "CMNullStore.h"
 #import "CMObjectSerialization.h"
 
 NSString * const CMACLReadPermission = @"r";
@@ -51,6 +52,26 @@ NSString * const CMACLTypeName = @"acl";
     [aCoder encodeObject:[_members allObjects] forKey:@"members"];
     [aCoder encodeObject:[_permissions allObjects] forKey:@"permissions"];
     [aCoder encodeObject:CMACLTypeName forKey:CMInternalTypeStorageKey];
+}
+
+- (void)save:(CMStoreObjectUploadCallback)callback {
+    if ([self.store objectOwnershipLevel:self] == CMObjectOwnershipUndefinedLevel) {
+        [self.store addACL:self];
+    }
+    
+    [self.store saveACL:self callback:callback];
+}
+
+- (void)saveWithUser:(CMUser *)user callback:(CMStoreObjectUploadCallback)callback {
+    [self save:callback];
+}
+
+- (CMObjectOwnershipLevel)ownershipLevel {
+    if (self.store != nil && self.store != [CMNullStore nullStore]) {
+        return [self.store objectOwnershipLevel:self];
+    } else {
+        return CMObjectOwnershipUndefinedLevel;
+    }
 }
 
 @end

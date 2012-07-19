@@ -141,6 +141,8 @@
 		7AFDFE4A158E965400388D6E /* CMActiveUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE49158E965400388D6E /* CMActiveUser.m */; };
 		7AFDFE4C158E9EB400388D6E /* CMActiveUserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE4B158E9EB400388D6E /* CMActiveUserSpec.m */; };
 		D004178E15925DC900B596CC /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = D01DBF591590D36D003CB5BE /* NSData+Base64.m */; };
+		D03A4D5C15B48D2200A956BC /* CMACLFetchResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D042C2E915AF41F100A88888 /* CMACLFetchResponse.h */; };
+		D042C2EB15AF41F100A88888 /* CMACLFetchResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = D042C2EA15AF41F100A88888 /* CMACLFetchResponse.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -160,6 +162,7 @@
 			dstPath = "${BUILD_DIR}/${CONFIGURATION}-iphoneuniversal/${PRODUCT_NAME}.framework/Versions/A/Headers/";
 			dstSubfolderSpec = 0;
 			files = (
+				D03A4D5C15B48D2200A956BC /* CMACLFetchResponse.h in CopyFiles */,
 				7AF00BA215A8DC7C0070442A /* CMACL.h in CopyFiles */,
 				7AF00BA315A8DC7C0070442A /* CMUser.h in CopyFiles */,
 				7A28005515929AEC002C504A /* CMObjectOwnershipLevel.h in CopyFiles */,
@@ -342,6 +345,8 @@
 		7AFDFE4B158E9EB400388D6E /* CMActiveUserSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMActiveUserSpec.m; sourceTree = "<group>"; };
 		D01DBF581590D36D003CB5BE /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		D01DBF591590D36D003CB5BE /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		D042C2E915AF41F100A88888 /* CMACLFetchResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMACLFetchResponse.h; sourceTree = "<group>"; };
+		D042C2EA15AF41F100A88888 /* CMACLFetchResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMACLFetchResponse.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -402,6 +407,8 @@
 				65199EB4156A7D9500267EC6 /* CMFileUploadResponse.m */,
 				65199EB5156A7D9500267EC6 /* CMObjectFetchResponse.h */,
 				65199EB6156A7D9500267EC6 /* CMObjectFetchResponse.m */,
+				D042C2E915AF41F100A88888 /* CMACLFetchResponse.h */,
+				D042C2EA15AF41F100A88888 /* CMACLFetchResponse.m */,
 				65199EB7156A7D9500267EC6 /* CMObjectUploadResponse.h */,
 				65199EB8156A7D9500267EC6 /* CMObjectUploadResponse.m */,
 				65199EB9156A7D9500267EC6 /* CMResponseMetadata.h */,
@@ -866,6 +873,7 @@
 				7AFDFE4A158E965400388D6E /* CMActiveUser.m in Sources */,
 				7AF00BA015A8DC650070442A /* CMACL.m in Sources */,
 				7AF00BA115A8DC650070442A /* CMUser.m in Sources */,
+				D042C2EB15AF41F100A88888 /* CMACLFetchResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

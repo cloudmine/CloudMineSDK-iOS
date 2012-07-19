@@ -25,6 +25,7 @@
 #import "CMDeleteResponse.h"
 
 @class CMObject;
+@class CMACL;
 
 /**
  * Name of the notification that is sent out when an object is deleted.
@@ -132,6 +133,23 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * @see https://cloudmine.me/developer_zone#ref/account_overview
  */
 - (id)initWithUser:(CMUser *)theUser;
+
+// ACL shit
+// TODO: Doxument and and reorganize
+
+- (void)allACLs:(CMStoreACLFetchCallback)callback;
+
+- (void)searchACLs:(NSString *)query callback:(CMStoreACLFetchCallback)callback;
+
+- (void)saveACL:(CMACL *)acl callback:(CMStoreObjectUploadCallback)callback;
+- (void)saveAllACLs:(CMStoreObjectUploadCallback)callback;
+- (void)saveACLs:(NSArray *)acls callback:(CMStoreObjectUploadCallback)callback;
+
+- (void)deleteACL:(CMACL *)acl callback:(CMStoreDeleteCallback)callback;
+- (void)deleteACLs:(NSArray *)acls callback:(CMStoreDeleteCallback)callback;
+
+- (void)addACL:(CMACL *)acl;
+- (void)removeACL:(CMACL *)acl;
 
 /**
  * Downloads all app-level objects for your app's CloudMine object store.

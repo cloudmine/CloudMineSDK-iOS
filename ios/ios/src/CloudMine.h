@@ -64,6 +64,7 @@
 #import "CMWebService.h"
 #import "CMObjectOwnershipLevel.h"
 
+#import "CMACLFetchResponse.h"
 #import "CMObjectFetchResponse.h"
 #import "CMObjectUploadResponse.h"
 #import "CMFileFetchResponse.h"
