@@ -115,7 +115,7 @@ typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDi
 
 /**
  * Asynchronously retrieve all ACLs associated with the named user. On completion, the <tt>successHandler</tt> block
- * will be called with a dictionary of the objects retrieved.
+ * will be called with a dictionary of the ACLs retrieved.
  *
  * @param user The user whose ACLs to fetch.
  * @param successHandler The block to be called when the objects have been populated.
@@ -155,7 +155,7 @@ typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDi
 
 /**
  * Asynchronously search all ACLs associated with the user, using the specified query. On completion, the <tt>successHandler</tt> block
- * will be called with a dictionary of the objects retrieved.
+ * will be called with a dictionary of the ACLs retrieved.
  *
  * @param query This is the same syntax as defined at https://cloudmine.me/developer_zone#ref/query_syntax and used by <tt>CMStore</tt>'s search methods.
  * @param user The user whose ACLs to query.
@@ -203,7 +203,7 @@ typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDi
 
 /**
  * Asynchronously update the specified ACL. On completion, the <tt>successHandler</tt> block will be called with a dictionary containing
- * the object updated. If no <tt>__id__</tt> field is specified in the acl argument, the ACL will be created instead.
+ * the object updated.
  *
  * @param acl This is a dictionary containing the attributes of the ACL object to update, as serialized by <tt>CMObjectEncoder</tt>.
  * @param user The user to whom the ACL is associated.

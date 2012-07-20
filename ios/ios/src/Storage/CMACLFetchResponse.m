@@ -35,7 +35,7 @@
 
 - (NSSet *)permissionsForAllMembers {
     // Return the permissions every ACL has in common
-    __block NSMutableSet *permissions = [NSMutableSet setWithObjects:CMACLReadPermission, CMACLUpdatePermission, CMACLDeletePermission, nil];
+    NSMutableSet *permissions = [NSMutableSet setWithObjects:CMACLReadPermission, CMACLUpdatePermission, CMACLDeletePermission, nil];
     [self.acls enumerateObjectsUsingBlock:^(CMACL *acl, NSUInteger idx, BOOL *stop) {
         [permissions intersectSet:acl.permissions];
     }];
