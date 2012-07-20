@@ -353,6 +353,13 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
         
         successHandler = ^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
             if (results) {
+                // Remove all references to ACL in cached objects (this is actually performed server side)
+                [[_cachedUserObjects allValues] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                    NSMutableArray *objectIds = [obj.aclIds mutableCopy];
+                    [objectIds removeObjectsInArray:[results allKeys]];
+                    obj.aclIds = [objectIds copy];
+                }];
+                
                 [allSuccess addEntriesFromDictionary:results];
             } else if (errors) {
                 [allErrors addEntriesFromDictionary:errors];
