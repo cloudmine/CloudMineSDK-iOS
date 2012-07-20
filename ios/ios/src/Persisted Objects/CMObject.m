@@ -17,12 +17,14 @@
 
 @interface CMObject ()
 @property (readwrite, getter = isDirty) BOOL dirty;
+@property (strong, nonatomic) NSArray *aclIds;
 @end
 
 @implementation CMObject
 @synthesize objectId;
 @synthesize store;
 @synthesize dirty;
+@synthesize aclIds;
 
 #pragma mark - Initializers
 
@@ -46,6 +48,7 @@
         deserializedObjectId = [deserializedObjectId stringValue];
 
     if (self = [self initWithObjectId:deserializedObjectId]) {
+        self.aclIds = [aDecoder decodeObjectForKey:CMInternalObjectACLsKey];
         if ([aDecoder isKindOfClass:[CMObjectDecoder class]]) {
             dirty = NO;
         }
@@ -55,6 +58,60 @@
 
 - (void)dealloc {
     [self deregisterAllPropertiesForKVO];
+}
+
+#pragma mark - ACLs
+
+- (void)getACLs:(CMStoreACLFetchCallback)callback {
+    [self.store allACLs:^(CMACLFetchResponse *response) {
+        NSIndexSet *indexes = [response.acls indexesOfObjectsPassingTest:^BOOL(CMObject *obj, NSUInteger idx, BOOL *stop) {
+            return [self.aclIds containsObject:obj.objectId];
+        }];
+        response.acls = [response.acls objectsAtIndexes:indexes];
+        callback(response);
+    }];
+}
+
+- (void)saveACLs:(CMStoreObjectUploadCallback)callback {
+    [self.store saveACLsOnObject:self callback:callback];
+}
+
+- (void)removeACL:(CMACL *)acl callback:(CMStoreObjectUploadCallback)callback {
+    [self removeACLs:[NSArray arrayWithObject:acl] callback:callback];
+}
+
+- (void)removeACLs:(NSArray *)acls callback:(CMStoreObjectUploadCallback)callback {
+    NSMutableArray *objectIds = [self.aclIds mutableCopy];
+    [objectIds removeObjectsInArray:[acls valueForKey:@"objectId"]];
+    self.aclIds = [objectIds copy];
+    [self save:callback];
+}
+
+- (void)addACL:(CMACL *)acl callback:(CMStoreObjectUploadCallback)callback {
+    [self addACLs:[NSArray arrayWithObject:acl] callback:callback];
+}
+
+- (void)addACLs:(NSArray *)acls callback:(CMStoreObjectUploadCallback)callback {
+    [self.store saveACLs:acls callback:^(CMObjectUploadResponse *saveResponse) {
+        // Add saved ACLs to `aclIds` property
+        NSMutableArray *objectIds = self.aclIds ? [self.aclIds mutableCopy] : [NSMutableArray array];
+        NSSet *keys = [saveResponse.uploadStatuses keysOfEntriesPassingTest:^(id key, id obj, BOOL *stop) {
+            return [obj isEqualToString:@"updated"];
+        }];
+        [keys enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
+            if (![objectIds containsObject:obj])
+                [objectIds addObject:obj];
+        }];
+        self.aclIds = [objectIds copy];
+        
+        // Save object and send merged response back in callback
+        [self save:^(CMObjectUploadResponse *response) {
+            NSMutableDictionary *statuses = [NSMutableDictionary dictionaryWithDictionary:response.uploadStatuses];
+            [statuses addEntriesFromDictionary:saveResponse.uploadStatuses];
+            response.uploadStatuses = statuses;
+            callback(response);
+        }];
+    }];
 }
 
 #pragma mark - Dirty tracking
@@ -93,6 +150,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:self.objectId forKey:CMInternalObjectIdKey];
+    [aCoder encodeObject:self.aclIds forKey:CMInternalObjectACLsKey];
 }
 
 #pragma mark - CMStore interactions

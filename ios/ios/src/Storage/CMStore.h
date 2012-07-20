@@ -144,6 +144,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
 - (void)saveACL:(CMACL *)acl callback:(CMStoreObjectUploadCallback)callback;
 - (void)saveAllACLs:(CMStoreObjectUploadCallback)callback;
 - (void)saveACLs:(NSArray *)acls callback:(CMStoreObjectUploadCallback)callback;
+- (void)saveACLsOnObject:(CMObject *)object callback:(CMStoreObjectUploadCallback)callback;
 
 - (void)deleteACL:(CMACL *)acl callback:(CMStoreDeleteCallback)callback;
 - (void)deleteACLs:(NSArray *)acls callback:(CMStoreDeleteCallback)callback;

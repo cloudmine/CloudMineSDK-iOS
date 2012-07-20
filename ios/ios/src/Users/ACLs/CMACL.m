@@ -86,4 +86,28 @@ static __strong NSSet *avaiablePermissions;
     }
 }
 
+- (void)getACLs:(CMStoreACLFetchCallback)callback {
+    [NSException raise:NSInternalInconsistencyException format:@"A CMACL object cannot have any ACLs associated with it."];
+}
+
+- (void)saveACLs:(CMStoreObjectUploadCallback)callback {
+    [NSException raise:NSInternalInconsistencyException format:@"A CMACL object cannot have any ACLs associated with it."];
+}
+
+- (void)removeACL:(CMACL *)acl callback:(CMStoreObjectUploadCallback)callback {
+    [NSException raise:NSInternalInconsistencyException format:@"A CMACL object cannot have any ACLs associated with it."];    
+}
+
+- (void)removeACLs:(NSArray *)acls callback:(CMStoreObjectUploadCallback)callback {
+    [NSException raise:NSInternalInconsistencyException format:@"A CMACL object cannot have any ACLs associated with it."];
+}
+
+- (void)addACL:(CMACL *)acl callback:(CMStoreObjectUploadCallback)callback {
+    [NSException raise:NSInternalInconsistencyException format:@"A CMACL object cannot have any ACLs associated with it."];
+}
+
+- (void)addACLs:(NSArray *)acls callback:(CMStoreObjectUploadCallback)callback {    
+    [NSException raise:NSInternalInconsistencyException format:@"A CMACL object cannot have any ACLs associated with it."];
+}
+
 @end

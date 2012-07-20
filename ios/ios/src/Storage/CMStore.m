@@ -38,6 +38,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 @interface CMObject (Private)
 @property (getter = isDirty) BOOL dirty;
+@property (strong, nonatomic) NSArray *aclIds;
 @end
 
 @interface CMStore ()
@@ -254,6 +255,17 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 - (void)saveAllACLs:(CMStoreObjectUploadCallback)callback {
     [self saveACLs:[_cachedACLs allValues] callback:callback];
+}
+
+- (void)saveACLsOnObject:(CMObject *)object callback:(CMStoreObjectUploadCallback)callback {
+    NSMutableArray *acls = [NSMutableArray array];
+    [object.aclIds enumerateObjectsUsingBlock:^(id key, NSUInteger idx, BOOL *stop) {
+        id obj = [_cachedACLs objectForKey:key];
+        if (obj)
+            [acls addObject:obj];
+    }];
+    
+    [self saveACLs:acls callback:callback];
 }
 
 - (void)saveACLs:(NSArray *)acls callback:(CMStoreObjectUploadCallback)callback {

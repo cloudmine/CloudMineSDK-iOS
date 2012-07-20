@@ -42,6 +42,15 @@
  */
 @property (readonly, getter = isDirty) BOOL dirty;
 
+// TODO: Doxument this
+
+- (void)getACLs:(CMStoreACLFetchCallback)callback;
+- (void)saveACLs:(CMStoreObjectUploadCallback)callback;
+- (void)removeACL:(CMACL *)acl callback:(CMStoreObjectUploadCallback)callback;
+- (void)removeACLs:(NSArray *)acls callback:(CMStoreObjectUploadCallback)callback;
+- (void)addACL:(CMACL *)acl callback:(CMStoreObjectUploadCallback)callback;
+- (void)addACLs:(NSArray *)acls callback:(CMStoreObjectUploadCallback)callback;
+
 /**
  * Initializes this app-level object by generating a UUID as the default value for <tt>objectId</tt>.
  */

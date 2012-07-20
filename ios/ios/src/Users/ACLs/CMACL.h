@@ -15,6 +15,8 @@ extern NSString * const CMACLTypeName;
 
 @interface CMACL : CMObject
 
+// TODO: Doxument this
+
 @property (nonatomic, strong) NSSet *members;
 @property (nonatomic, strong) NSSet *permissions;
 
