@@ -11,16 +11,40 @@
 
 @interface CMACLFetchResponse : CMStoreResponse
 
-// TODO: Doxument these
+/**
+ * A set of all the ACLs fetched from the server.
+ */
+@property (strong, nonatomic) NSSet *acls;
 
-@property (strong, nonatomic) NSArray *acls;
+/**
+ * A dictionary of errors that occurred fetching ACLs from the server. It is keyed by object ID.
+ */
 @property (strong, nonatomic) NSDictionary *aclErrors;
 
-- (id)initWithACLs:(NSArray *)acls errors:(NSDictionary *)errors;
+- (id)initWithACLs:(NSSet *)acls errors:(NSDictionary *)errors;
 
+/**
+ * Returns a set of every user, unioned from every ACL.
+ */
 - (NSSet *)allMembers;
+
+/**
+ * Returns a set of permissions thay every ACL has in common, an empty set if none.
+ */
 - (NSSet *)permissionsForAllMembers;
+
+/**
+ * Returns the maxmimum permissions of a user, unioned from every ACL in this response that he is also a member of.
+ *
+ * @param member The member to retrieve permissions for
+ */
 - (NSSet *)getPermissionsForMember:(CMUser *)member;
-- (NSSet *)getMemebersWithPermissions:(NSSet *)permissions;
+
+/**
+ * Returns the list of all users with at least the specified permissions.
+ *
+ * @param permissions The set of permissions that the returned users are guaranteed to have.
+ */
+- (NSSet *)getMembersWithPermissions:(NSSet *)permissions;
 
 @end

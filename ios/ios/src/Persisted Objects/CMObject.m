@@ -8,6 +8,7 @@
 
 #import "CMNullStore.h"
 #import "CMObject.h"
+#import "CMACL.h"
 #import "NSString+UUID.h"
 #import "CMObjectSerialization.h"
 #import "CMObjectDecoder.h"
@@ -17,11 +18,13 @@
 
 @interface CMObject ()
 @property (readwrite, getter = isDirty) BOOL dirty;
+@property (readwrite, strong, nonatomic) NSString *owner;
 @property (strong, nonatomic) NSArray *aclIds;
 @end
 
 @implementation CMObject
 @synthesize objectId;
+@synthesize owner;
 @synthesize store;
 @synthesize dirty;
 @synthesize aclIds;
@@ -60,58 +63,10 @@
     [self deregisterAllPropertiesForKVO];
 }
 
-#pragma mark - ACLs
-
-- (void)getACLs:(CMStoreACLFetchCallback)callback {
-    [self.store allACLs:^(CMACLFetchResponse *response) {
-        NSIndexSet *indexes = [response.acls indexesOfObjectsPassingTest:^BOOL(CMObject *obj, NSUInteger idx, BOOL *stop) {
-            return [self.aclIds containsObject:obj.objectId];
-        }];
-        response.acls = [response.acls objectsAtIndexes:indexes];
-        callback(response);
-    }];
-}
-
-- (void)saveACLs:(CMStoreObjectUploadCallback)callback {
-    [self.store saveACLsOnObject:self callback:callback];
-}
-
-- (void)removeACL:(CMACL *)acl callback:(CMStoreObjectUploadCallback)callback {
-    [self removeACLs:[NSArray arrayWithObject:acl] callback:callback];
-}
-
-- (void)removeACLs:(NSArray *)acls callback:(CMStoreObjectUploadCallback)callback {
-    NSMutableArray *objectIds = [self.aclIds mutableCopy];
-    [objectIds removeObjectsInArray:[acls valueForKey:@"objectId"]];
-    self.aclIds = [objectIds copy];
-    [self save:callback];
-}
-
-- (void)addACL:(CMACL *)acl callback:(CMStoreObjectUploadCallback)callback {
-    [self addACLs:[NSArray arrayWithObject:acl] callback:callback];
-}
-
-- (void)addACLs:(NSArray *)acls callback:(CMStoreObjectUploadCallback)callback {
-    [self.store saveACLs:acls callback:^(CMObjectUploadResponse *saveResponse) {
-        // Add saved ACLs to `aclIds` property
-        NSMutableArray *objectIds = self.aclIds ? [self.aclIds mutableCopy] : [NSMutableArray array];
-        NSSet *keys = [saveResponse.uploadStatuses keysOfEntriesPassingTest:^(id key, id obj, BOOL *stop) {
-            return [obj isEqualToString:@"updated"];
-        }];
-        [keys enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
-            if (![objectIds containsObject:obj])
-                [objectIds addObject:obj];
-        }];
-        self.aclIds = [objectIds copy];
-        
-        // Save object and send merged response back in callback
-        [self save:^(CMObjectUploadResponse *response) {
-            NSMutableDictionary *statuses = [NSMutableDictionary dictionaryWithDictionary:response.uploadStatuses];
-            [statuses addEntriesFromDictionary:saveResponse.uploadStatuses];
-            response.uploadStatuses = statuses;
-            callback(response);
-        }];
-    }];
+- (NSString *)owner {
+    if (!owner)
+        owner = self.store.user.objectId;
+    return owner;
 }
 
 #pragma mark - Dirty tracking
@@ -236,6 +191,77 @@
             }
         }
     }
+}
+
+#pragma mark - ACLs
+
+- (void)getACLs:(CMStoreACLFetchCallback)callback {
+    NSAssert([self.store objectOwnershipLevel:self] == CMObjectOwnershipUserLevel, @"*** Error: Object %@ is not at the user level. It must be a user level object in order for it to have ACLs.", self);
+    
+    if (self.owner && ![self.owner isEqualToString:self.store.user.objectId]) {
+        // TODO: Change this to populate the permissions property. Waiting on platform.
+        CMACL *acl = [[CMACL alloc] init];
+        acl.members = [NSSet setWithObject:self.owner];
+        
+        CMACLFetchResponse *response = [[CMACLFetchResponse alloc] initWithACLs:[NSArray arrayWithObject:acl] errors:nil];
+        callback(response);
+    }
+    
+    [self.store allACLs:^(CMACLFetchResponse *response) {
+        NSMutableSet *acls = [NSMutableSet set];
+        [response.acls enumerateObjectsUsingBlock:^(CMACL *acl, BOOL *stop) {
+            if ([self.aclIds containsObject:acl.objectId])
+                [acls addObject:acl];
+        }];
+        response.acls = [acls copy];
+        callback(response);
+    }];
+}
+
+- (void)saveACLs:(CMStoreObjectUploadCallback)callback {
+    [self.store saveACLsOnObject:self callback:callback];
+}
+
+- (void)removeACL:(CMACL *)acl callback:(CMStoreObjectUploadCallback)callback {
+    [self removeACLs:[NSArray arrayWithObject:acl] callback:callback];
+}
+
+- (void)removeACLs:(NSArray *)acls callback:(CMStoreObjectUploadCallback)callback {
+    NSAssert([self.store objectOwnershipLevel:self] == CMObjectOwnershipUserLevel, @"*** Error: Object %@ is not at the user level. It must be a user level object in order for it to have ACLs.", self);
+    NSAssert(self.owner ? [self.store.user.objectId isEqualToString:self.owner] : YES, @"*** Error: Object %@ is not owned by the user configured with the store. You must have ownership of the object in order to see or modify its ACLs.", self);
+    NSMutableArray *objectIds = [self.aclIds mutableCopy];
+    [objectIds removeObjectsInArray:[acls valueForKey:@"objectId"]];
+    self.aclIds = [objectIds copy];
+    [self save:callback];
+}
+
+- (void)addACL:(CMACL *)acl callback:(CMStoreObjectUploadCallback)callback {
+    [self addACLs:[NSArray arrayWithObject:acl] callback:callback];
+}
+
+- (void)addACLs:(NSArray *)acls callback:(CMStoreObjectUploadCallback)callback {
+    NSAssert([self.store objectOwnershipLevel:self] == CMObjectOwnershipUserLevel, @"*** Error: Object %@ is not at the user level. It must be a user level object in order for it to have ACLs.", self);
+    NSAssert(self.owner ? [self.store.user.objectId isEqualToString:self.owner] : YES, @"*** Error: Object %@ is not owned by the user configured with the store. You must have ownership of the object in order to see or modify its ACLs.", self);
+    [self.store saveACLs:acls callback:^(CMObjectUploadResponse *saveResponse) {
+        // Add saved ACLs to `aclIds` property
+        NSMutableArray *objectIds = self.aclIds ? [self.aclIds mutableCopy] : [NSMutableArray array];
+        NSSet *keys = [saveResponse.uploadStatuses keysOfEntriesPassingTest:^(id key, id obj, BOOL *stop) {
+            return [obj isEqualToString:@"updated"];
+        }];
+        [keys enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
+            if (![objectIds containsObject:obj])
+                [objectIds addObject:obj];
+        }];
+        self.aclIds = [objectIds copy];
+        
+        // Save object and send merged response back in callback
+        [self save:^(CMObjectUploadResponse *response) {
+            NSMutableDictionary *statuses = [NSMutableDictionary dictionaryWithDictionary:response.uploadStatuses];
+            [statuses addEntriesFromDictionary:saveResponse.uploadStatuses];
+            response.uploadStatuses = statuses;
+            callback(response);
+        }];
+    }];
 }
 
 #pragma mark - Accessors
