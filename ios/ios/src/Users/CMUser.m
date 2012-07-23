@@ -387,18 +387,15 @@ static CMWebService *webService;
 
 + (void)cacheMultipleUsers:(NSArray *)users {
     NSMutableDictionary *cachedUsers = [self cachedUsers];
-    [cachedUsers addEntriesFromDictionary:[CMObjectEncoder encodeObjects:users]];
+    [users enumerateObjectsUsingBlock:^(CMUser *obj, NSUInteger idx, BOOL *stop) {
+        [cachedUsers setObject:obj forKey:obj.objectId];
+    }];
+    
     [[NSKeyedArchiver archivedDataWithRootObject:cachedUsers] writeToURL:[self cacheLocation] atomically:YES];
 }
 
 + (CMUser *)userFromCacheWithIdentifier:(NSString *)objectId {
-    NSDictionary *cachedUserRepresentation = [[self cachedUsers] objectForKey:objectId];
-    if (cachedUserRepresentation) {
-        CMObjectDecoder *decoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:cachedUserRepresentation];
-        return [[self alloc] initWithCoder:decoder];
-    } else {
-        return nil;
-    }
+    return [[self cachedUsers] objectForKey:objectId];
 }
 
 #pragma mark - Private stuff
