@@ -10,6 +10,7 @@
 #import "CMWebService.h"
 #import "CMObjectSerialization.h"
 #import "CMObjectDecoder.h"
+#import "CMObjectEncoder.h"
 
 #import "MARTNSObject.h"
 #import "RTProperty.h"
@@ -372,12 +373,12 @@ static CMWebService *webService;
 
 + (NSMutableDictionary *)cachedUsers {
     NSURL *cacheLocation = [self cacheLocation];
-    if (![[NSFileManager defaultManager] fileExistsAtPath:[cacheLocation absoluteString]]) {
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[cacheLocation relativePath]]) {
         // Since the file doesn't already exist, create it with an empty dictionary.
         [[NSKeyedArchiver archivedDataWithRootObject:[NSDictionary dictionary]] writeToURL:cacheLocation atomically:YES];
         return [NSMutableDictionary dictionary];
     }
-    return [[NSKeyedUnarchiver unarchiveObjectWithData:[NSData dataWithContentsOfURL:[self cacheLocation]]] mutableCopy];
+    return [[NSKeyedUnarchiver unarchiveObjectWithData:[NSData dataWithContentsOfURL:cacheLocation]] mutableCopy];
 }
 
 - (void)writeToCache {
@@ -385,18 +386,16 @@ static CMWebService *webService;
 }
 
 + (void)cacheMultipleUsers:(NSArray *)users {
-    NSMutableDictionary *cachedUsers = [CMUser cachedUsers];
-    for (CMUser *user in users) {
-        [cachedUsers setObject:user forKey:user.objectId];
-    }
-    [[NSKeyedArchiver archivedDataWithRootObject:cachedUsers] writeToURL:[CMUser cacheLocation] atomically:YES];
+    NSMutableDictionary *cachedUsers = [self cachedUsers];
+    [cachedUsers addEntriesFromDictionary:[CMObjectEncoder encodeObjects:users]];
+    [[NSKeyedArchiver archivedDataWithRootObject:cachedUsers] writeToURL:[self cacheLocation] atomically:YES];
 }
 
 + (CMUser *)userFromCacheWithIdentifier:(NSString *)objectId {
     NSDictionary *cachedUserRepresentation = [[self cachedUsers] objectForKey:objectId];
     if (cachedUserRepresentation) {
         CMObjectDecoder *decoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:cachedUserRepresentation];
-        return [[CMUser alloc] initWithCoder:decoder];
+        return [[self alloc] initWithCoder:decoder];
     } else {
         return nil;
     }
