@@ -14,6 +14,10 @@
 #import "CMAPICredentials.h"
 #import "CMObjectEncoder.h"
 
+@interface CMUser (Internal)
++ (NSURL *)cacheLocation;
+@end
+
 @interface CustomUser : CMUser
 @property (strong) NSString *name;
 @property (assign) int age;
@@ -73,6 +77,8 @@ describe(@"CMUser", ^{
             });
             
             it(@"should cache the user returned when searching by a specific identifier", ^{
+                [[NSFileManager defaultManager] removeItemAtURL:[CMUser cacheLocation] error:nil];
+                
                 KWCaptureSpy *callbackBlockSpy = [mockWebService captureArgument:@selector(getUserProfileWithIdentifier:callback:) atIndex:1];
                 [[mockWebService should] receive:@selector(getUserProfileWithIdentifier:callback:) withCount:1];
                 [[CMUser should] receive:@selector(cacheMultipleUsers:) withCount:1];
