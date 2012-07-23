@@ -141,6 +141,7 @@
 		7AFDFE4A158E965400388D6E /* CMActiveUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE49158E965400388D6E /* CMActiveUser.m */; };
 		7AFDFE4C158E9EB400388D6E /* CMActiveUserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE4B158E9EB400388D6E /* CMActiveUserSpec.m */; };
 		D004178E15925DC900B596CC /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = D01DBF591590D36D003CB5BE /* NSData+Base64.m */; };
+		D039C16715BDEB77005CCD33 /* CMACLSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D039C16615BDEB77005CCD33 /* CMACLSpec.m */; };
 		D03A4D5C15B48D2200A956BC /* CMACLFetchResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D042C2E915AF41F100A88888 /* CMACLFetchResponse.h */; };
 		D042C2EB15AF41F100A88888 /* CMACLFetchResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = D042C2EA15AF41F100A88888 /* CMACLFetchResponse.m */; };
 /* End PBXBuildFile section */
@@ -345,6 +346,7 @@
 		7AFDFE4B158E9EB400388D6E /* CMActiveUserSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMActiveUserSpec.m; sourceTree = "<group>"; };
 		D01DBF581590D36D003CB5BE /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		D01DBF591590D36D003CB5BE /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		D039C16615BDEB77005CCD33 /* CMACLSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMACLSpec.m; sourceTree = "<group>"; };
 		D042C2E915AF41F100A88888 /* CMACLFetchResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMACLFetchResponse.h; sourceTree = "<group>"; };
 		D042C2EA15AF41F100A88888 /* CMACLFetchResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMACLFetchResponse.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -575,6 +577,7 @@
 				7AAFB49A158017450066B4A4 /* CMMimeTypeSpec.m */,
 				7AD93BAE14D1CCFE00CC1CC9 /* CMFileSpec.m */,
 				7A0D7CD31581097200C7C476 /* CMObjectSpec.m */,
+				D039C16615BDEB77005CCD33 /* CMACLSpec.m */,
 				7A4A6F2814FFF08100B95D13 /* CMUserSpec.m */,
 				7A766208156307DF009840EE /* CMSortDescriptorSpec.m */,
 				7A0DB1B8147B0153007F482C /* Support */,
@@ -900,6 +903,7 @@
 				7AFDFE4C158E9EB400388D6E /* CMActiveUserSpec.m in Sources */,
 				D004178E15925DC900B596CC /* NSData+Base64.m in Sources */,
 				7A28003D15923446002C504A /* CMUserSpec.m in Sources */,
+				D039C16715BDEB77005CCD33 /* CMACLSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
