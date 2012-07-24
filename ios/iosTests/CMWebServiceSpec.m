@@ -14,6 +14,7 @@
 #import "NSData+Base64.h"
 
 #import "CMWebService.h"
+#import "CMObjectSerialization.h"
 #import "CMUser.h"
 #import "CMServerFunction.h"
 #import "CMAPICredentials.h"
@@ -169,27 +170,27 @@ describe(@"CMWebService", ^{
             [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-SessionToken"] should] equal:creds.token];
             [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
         });
-
-        it(@"binary data URLs at the user level correctly", ^{
-            NSString *binaryKey = @"filename";
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/binary/%@", appId, binaryKey]];
+        
+        it(@"JSON URLs at the user level correctly", ^{
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/text", appId]];
             CMUser *creds = [[CMUser alloc] initWithUserId:@"user" andPassword:@"pass"];
             creds.token = @"token";
-
-            [service getBinaryDataNamed:binaryKey
-                     serverSideFunction:nil
-                                   user:creds
-                        extraParameters:nil
-                         successHandler:^(NSData *data, NSString *contentType, NSDictionary *headers) {
-                         } errorHandler:^(NSError *error) {
-                         }
+            
+            [service getValuesForKeys:nil
+                   serverSideFunction:nil
+                        pagingOptions:nil
+                       sortingOptions:nil
+                                 user:creds
+                      extraParameters:nil
+                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
+                       } errorHandler:^(NSError *error) {
+                       }
              ];
             
             NSURLRequest *request = spy.argument;
             [[[request URL] should] equal:expectedUrl];
             [[[request allHTTPHeaderFields] objectForKey:@"Authorization"] shouldBeNil];
             [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-SessionToken"] should] equal:creds.token];
-            [[[request HTTPMethod] should] equal:@"GET"];
             [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
         });
 
@@ -207,6 +208,46 @@ describe(@"CMWebService", ^{
                        successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
                        } errorHandler:^(NSError *error) {
                        }
+             ];
+            
+            NSURLRequest *request = spy.argument;
+            [[[request URL] should] equal:expectedUrl];
+            [[[request allHTTPHeaderFields] objectForKey:@"Authorization"] shouldBeNil];
+            [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-SessionToken"] should] equal:creds.token];
+            [[[request HTTPMethod] should] equal:@"GET"];
+            [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
+        });
+        
+        it(@"ACL URLs correctly", ^{
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/access", appId]];
+            CMUser *creds = [[CMUser alloc] initWithUserId:@"user" andPassword:@"pass"];
+            creds.token = @"token";
+            
+            [service getACLsForUser:creds
+                     successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
+                     } errorHandler:^(NSError *error) {
+                     }
+             ];
+            
+            NSURLRequest *request = spy.argument;
+            [[[request URL] should] equal:expectedUrl];
+            [[[request allHTTPHeaderFields] objectForKey:@"Authorization"] shouldBeNil];
+            [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-SessionToken"] should] equal:creds.token];
+            [[[request HTTPMethod] should] equal:@"GET"];
+            [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
+        });
+        
+        it(@"ACL URLs with a search query correctly", ^{
+            NSString *query = @"[key=\"value\"]";
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/access/search?q=%@", appId, [query stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+            CMUser *creds = [[CMUser alloc] initWithUserId:@"user" andPassword:@"pass"];
+            creds.token = @"token";
+            
+            [service searchACLs:query
+                           user:creds
+                 successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
+                 } errorHandler:^(NSError *error) {
+                 }
              ];
             
             NSURLRequest *request = spy.argument;
@@ -292,6 +333,31 @@ describe(@"CMWebService", ^{
             [[[request HTTPMethod] should] equal:@"POST"];
             [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
             [[[[request HTTPBody] yajl_JSON] should] equal:dataToPost];
+        });
+        
+        it(@"ACL URLs correctly", ^{
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/access", appId]];
+            NSMutableDictionary *aclDict = [[NSMutableDictionary alloc] init];
+            [aclDict setObject:@"val1" forKey:@"key1"];
+            [aclDict setObject:@"val2" forKey:@"key2"];
+            [aclDict setObject:[NSArray arrayWithObjects:@"arrVal1", @"arrVal2", nil] forKey:@"arrKey1"];
+            CMUser *creds = [[CMUser alloc] initWithUserId:@"user" andPassword:@"pass"];
+            creds.token = @"token";
+            
+            [service updateACL:aclDict
+                          user:creds
+                successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
+                } errorHandler:^(NSError *error) {
+                }
+             ];
+            
+            NSURLRequest *request = spy.argument;
+            [[[request URL] should] equal:expectedUrl];
+            [[[request allHTTPHeaderFields] objectForKey:@"Authorization"] shouldBeNil];
+            [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-SessionToken"] should] equal:creds.token];
+            [[[request HTTPMethod] should] equal:@"POST"];
+            [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
+            [[[[request HTTPBody] yajl_JSON] should] equal:aclDict];
         });
     });
 
@@ -445,6 +511,26 @@ describe(@"CMWebService", ^{
                                     user:creds
                          extraParameters:nil
                           successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
+                       } errorHandler:^(NSError *error) {
+                       }
+             ];
+            
+            NSURLRequest *request = spy.argument;
+            [[[request URL] should] equal:expectedUrl];
+            [[[request allHTTPHeaderFields] objectForKey:@"Authorization"] shouldBeNil];
+            [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-SessionToken"] should] equal:creds.token];
+            [[[request HTTPMethod] should] equal:@"DELETE"];
+            [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
+        });
+        
+        it(@"JSON URLs at the user level with keys correctly", ^{
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/access/k1", appId]];
+            CMUser *creds = [[CMUser alloc] initWithUserId:@"user" andPassword:@"pass"];
+            creds.token = @"token";
+            
+            [service deleteACLWithKey:@"k1"
+                                 user:creds
+                       successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
                        } errorHandler:^(NSError *error) {
                        }
              ];
