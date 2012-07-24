@@ -9,7 +9,7 @@
 #import "Kiwi.h"
 
 #import "CMStore.h"
-#import "CMNullStore.h"
+#import "CMACL.h"
 #import "CMNullStore.h"
 #import "CMWebService.h"
 #import "CMGenericSerializableObject.h"
@@ -63,9 +63,12 @@ describe(@"CMStore", ^{
 
             it(@"should raise an exception when a user-level object is added", ^{
                 CMObject *obj = [[CMObject alloc] init];
-                [[theBlock(^{
-                    [store addUserObject:obj];
-                }) should] raise];
+                [[theBlock(^{ [store addUserObject:obj]; }) should] raiseWithName:NSInternalInconsistencyException];
+            });
+            
+            it(@"should raise an exception when an ACL is added", ^{
+                CMACL *acl = [[CMACL alloc] init];
+                [[theBlock(^{ [store addACL:acl]; }) should] raiseWithName:NSInternalInconsistencyException];
             });
         });
     });
@@ -105,6 +108,13 @@ describe(@"CMStore", ^{
                 [[theValue([store objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipUserLevel)];
                 [[obj.store should] equal:store];
             });
+            
+            it(@"should be user-level when an ACL is added to the store", ^{
+                CMACL *acl = [[CMACL alloc] init];
+                [store addACL:acl];
+                [[theValue([store objectOwnershipLevel:acl]) should] equal:theValue(CMObjectOwnershipUserLevel)];
+                [[acl.store should] equal:store];
+            });
         });
 
         context(@"when performing a remote operation", ^{
@@ -133,22 +143,57 @@ describe(@"CMStore", ^{
                 [[user should] receive:@selector(loginWithCallback:)];
                 [store allUserObjectsWithOptions:nil callback:nil];
             });
+            
+            it(@"should log the user in if they aren't already logged in before saving an ACL", ^{
+                CMACL *acl = [[CMACL alloc] init];
+                [[user should] receive:@selector(isLoggedIn)];
+                [[user should] receive:@selector(loginWithCallback:)];
+                [store saveACL:acl callback:nil];
+            });
+            
+            it(@"should log the user in if they aren't already logged in before deleting an ACLs", ^{
+                CMACL *acl = [[CMACL alloc] init];
+                [[user should] receive:@selector(isLoggedIn)];
+                [[user should] receive:@selector(loginWithCallback:)];
+                [store deleteACL:acl callback:nil];
+            });
+            
+            it(@"should log the user in if they aren't already logged in before searching for ACLs", ^{
+                [[user should] receive:@selector(isLoggedIn)];
+                [[user should] receive:@selector(loginWithCallback:)];
+                [store searchACLs:@"" callback:nil];
+            });
+            
+            it(@"should log the user in if they aren't already logged in before getting all ACLs", ^{
+                [[user should] receive:@selector(isLoggedIn)];
+                [[user should] receive:@selector(loginWithCallback:)];
+                [store allACLs:nil];
+            });
+            
         });
 
         context(@"when changing user ownership of a store", ^{
             it(@"should nullify store relationships with user-level objects stored under the previous user", ^{
                 NSMutableArray *userObjects = [NSMutableArray arrayWithCapacity:5];
                 NSMutableArray *appObjects = [NSMutableArray arrayWithCapacity:5];
+                NSMutableArray *aclObjects = [NSMutableArray arrayWithCapacity:5];
                 for (int i=0; i<5; i++) {
                     CMObject *userObject = [[CMObject alloc] init];
                     CMObject *appObject = [[CMObject alloc] init];
+                    CMACL *acl = [[CMACL alloc] init];
                     [userObjects addObject:userObject];
                     [appObjects addObject:appObject];
+                    [aclObjects addObject:acl];
+                    [store addACL:acl];
                     [store addUserObject:userObject];
                     [store addObject:appObject];
                 }
 
                 // Validate that all the objects have been configured properly.
+                [aclObjects enumerateObjectsUsingBlock:^(CMACL *acl, NSUInteger idx, BOOL *stop) {
+                    [[acl.store should] equal:store];
+                    [[theValue([store objectOwnershipLevel:acl]) should] equal:theValue(CMObjectOwnershipUserLevel)];
+                }];
                 [userObjects enumerateObjectsUsingBlock:^(CMObject *obj, NSUInteger idx, BOOL *stop) {
                     [[obj.store should] equal:store];
                     [[theValue([store objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipUserLevel)];
@@ -161,6 +206,10 @@ describe(@"CMStore", ^{
                 // Now change the store user and re-validate.
                 CMUser *theOtherUser = [[CMUser alloc] initWithUserId:@"somethingelse" andPassword:@"foobar"];
                 store.user = theOtherUser;
+                [aclObjects enumerateObjectsUsingBlock:^(CMACL *acl, NSUInteger idx, BOOL *stop) {
+                    [[acl.store should] equal:[CMNullStore nullStore]];
+                    [[theValue([store objectOwnershipLevel:acl]) should] equal:theValue(CMObjectOwnershipUndefinedLevel)];
+                }];
                 [userObjects enumerateObjectsUsingBlock:^(CMObject *obj, NSUInteger idx, BOOL *stop) {
                     [[obj.store should] equal:[CMNullStore nullStore]];
                     [[theValue([store objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipUndefinedLevel)];
@@ -169,15 +218,6 @@ describe(@"CMStore", ^{
                     [[obj.store should] equal:store];
                     [[theValue([store objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipAppLevel)];
                 }];
-            });
-        });
-
-        context(@"when removing any object from a store", ^{
-            it(@"should cause the object's store to be CMNullStore", ^{
-                CMObject *obj = [[CMObject alloc] init];
-                [[obj.store should] equal:[CMStore defaultStore]];
-                [[CMStore defaultStore] removeObject:obj];
-                [[obj.store should] equal:[CMNullStore nullStore]];
             });
         });
     });
