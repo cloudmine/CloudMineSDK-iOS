@@ -42,6 +42,16 @@
  */
 @property (nonatomic, strong) CMServerFunction *serverSideFunction;
 
+/**
+ * Whether or not to include shared objects in the results.
+ */
+@property (nonatomic) BOOL shared;
+
+/**
+ * If this is set to YES, only shared objects will be returned in the results.
+ */
+@property (nonatomic) BOOL sharedOnly;
+
 @property (nonatomic) BOOL includeDistance;
 @property (nonatomic, strong) NSString *distanceUnits;
 
