@@ -39,6 +39,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 @interface CMObject (Private)
 @property (getter = isDirty) BOOL dirty;
 @property (readwrite, strong, nonatomic) NSString *owner;
+@property (strong, nonatomic) CMACL *sharedACL;
 @property (strong, nonatomic) NSArray *aclIds;
 @end
 
@@ -267,6 +268,13 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                       
                       [objects enumerateObjectsUsingBlock:^(CMObject *obj, NSUInteger idx, BOOL *stop) {
                           obj.owner = [metadata metadataForObject:obj ofType:@"owner"];
+                          NSArray *permissions = [metadata metadataForObject:obj ofType:@"permissions"];
+                          if (permissions) {
+                              CMACL *acl = [[CMACL alloc] init];
+                              acl.permissions = [NSSet setWithArray:permissions];
+                              acl.members = [NSSet setWithObject:user.objectId];
+                              obj.sharedACL = acl;
+                          }
                       }];
                       
                       NSDate *expirationDate = [self.dateFormatter dateFromString:[headers objectForKey:CM_TOKENEXPIRATION_HEADER]];
@@ -351,6 +359,13 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                      
                      [objects enumerateObjectsUsingBlock:^(CMObject *obj, NSUInteger idx, BOOL *stop) {
                          obj.owner = [metadata metadataForObject:obj ofType:@"owner"];
+                         NSArray *permissions = [metadata metadataForObject:obj ofType:@"permissions"];
+                         if (permissions) {
+                             CMACL *acl = [[CMACL alloc] init];
+                             acl.permissions = [NSSet setWithArray:permissions];
+                             acl.members = [NSSet setWithObject:user.objectId];
+                             obj.sharedACL = acl;
+                         }
                      }];
                      
                      NSDate *expirationDate = [self.dateFormatter dateFromString:[headers objectForKey:CM_TOKENEXPIRATION_HEADER]];
@@ -1020,7 +1035,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 - (void)addUserFile:(CMFile *)theFile {
     NSAssert(user != nil, @"Attempted to add File (%@) to store (%@) belonging to user when user is not set.", theFile, self);
-    NSAssert([theFile isKindOfClass:[CMFile class]], @"Attempted to add object (%@) to store (%@) as an file.", theFile, self);
+    NSAssert([theFile isKindOfClass:[CMFile class]], @"Attempted to add object (%@) to store (%@) as a file.", theFile, self);
     @synchronized(self) {
         [_cachedUserFiles setObject:theFile forKey:theFile.uuid];
     }
@@ -1031,7 +1046,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 }
 
 - (void)addFile:(CMFile *)theFile {
-    NSAssert([theFile isKindOfClass:[CMFile class]], @"Attempted to add object (%@) to store (%@) as an file.", theFile, self);
+    NSAssert([theFile isKindOfClass:[CMFile class]], @"Attempted to add object (%@) to store (%@) as a file.", theFile, self);
     @synchronized(self) {
         [_cachedAppFiles setObject:theFile forKey:theFile.uuid];
     }

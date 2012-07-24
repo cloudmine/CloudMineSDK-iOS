@@ -19,6 +19,7 @@
 @interface CMObject ()
 @property (readwrite, getter = isDirty) BOOL dirty;
 @property (readwrite, strong, nonatomic) NSString *owner;
+@property (strong, nonatomic) CMACL *sharedACL;
 @property (strong, nonatomic) NSArray *aclIds;
 @end
 
@@ -201,12 +202,8 @@
 - (void)getACLs:(CMStoreACLFetchCallback)callback {
     NSAssert([self.store objectOwnershipLevel:self] == CMObjectOwnershipUserLevel, @"*** Error: Object %@ is not at the user level. It must be a user level object in order for it to have ACLs.", self);
     
-    if (self.owner && ![self.owner isEqualToString:self.store.user.objectId]) {
-        // TODO: Change this to populate the permissions property. Waiting on platform.
-        CMACL *acl = [[CMACL alloc] init];
-        acl.members = [NSSet setWithObject:self.owner];
-        
-        CMACLFetchResponse *response = [[CMACLFetchResponse alloc] initWithACLs:[NSArray arrayWithObject:acl] errors:nil];
+    if (self.sharedACL) {
+        CMACLFetchResponse *response = [[CMACLFetchResponse alloc] initWithACLs:[NSArray arrayWithObject:self.sharedACL] errors:nil];
         callback(response);
     }
     
