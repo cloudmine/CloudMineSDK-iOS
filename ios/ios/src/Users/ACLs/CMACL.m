@@ -17,10 +17,7 @@ NSString * const CMACLTypeName = @"acl";
 
 static __strong NSSet *avaiablePermissions;
 
-@implementation CMACL {
-    NSSet *_members;
-    NSSet *_permissions;
-}
+@implementation CMACL
 
 @synthesize members = _members;
 @synthesize permissions = _permissions;
@@ -37,8 +34,8 @@ static __strong NSSet *avaiablePermissions;
 
 - (id)init {
     if (self = [super init]) {
-        _members = [NSMutableSet set];
-        _permissions = [NSMutableSet set];
+        _members = [NSSet set];
+        _permissions = [NSSet set];
     }
     return self;
 }
@@ -54,9 +51,11 @@ static __strong NSSet *avaiablePermissions;
 }
 
 - (void)setPermissions:(NSSet *)permissions {
-    if (![permissions isSubsetOfSet:avaiablePermissions])
-        [NSException raise:NSInternalInconsistencyException format:@"The permissions %@ are not valid!", permissions];
-    _permissions = permissions;
+    if (permissions != _permissions) {
+        if (![permissions isSubsetOfSet:avaiablePermissions])
+            [NSException raise:NSInternalInconsistencyException format:@"The permissions %@ are not valid!", permissions];
+        _permissions = permissions;
+    }
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {

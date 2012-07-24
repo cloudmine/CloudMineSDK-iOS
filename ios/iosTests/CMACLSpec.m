@@ -26,17 +26,24 @@ describe(@"CMACL", ^{
         acl = [[CMACL alloc] init];
         store = [CMStore defaultStore];
         store.webService = [CMWebService nullMock];
+        
         store.user = [[CMUser alloc] init];
         store.user.token = @"1234";
         store.user.tokenExpiration = [NSDate dateWithTimeIntervalSinceNow:1000.0];
     });
 
     context(@"given an ACL that does not belong to a store", ^{
+        
+        it(@"should raise an exception if attempting to add an ACL to a store with no user", ^{
+            [[theValue([acl ownershipLevel]) should] equal:theValue(CMObjectOwnershipUndefinedLevel)];
+            store.user = nil;
+            [[theBlock(^{ [store addACL:acl]; }) should] raiseWithName:NSInternalInconsistencyException];
+        });
+        
         it(@"it should become cached when added to the store", ^{
             [[theValue([acl ownershipLevel]) should] equal:theValue(CMObjectOwnershipUndefinedLevel)];
             [store addACL:acl];
             [[theValue([acl ownershipLevel]) should] equal:theValue(CMObjectOwnershipUserLevel)];
-            
         });
         
         it(@"it should save with the web service if cached", ^{
@@ -48,11 +55,12 @@ describe(@"CMACL", ^{
         });
         
         it(@"should raise an exception if attempting to view or modify ACLs", ^{
-            [[theBlock(^{ [acl getACLs:nil]; }) should] raise];
-            [[theBlock(^{ [acl saveACLs:nil]; }) should] raise];
-            [[theBlock(^{ [acl addACLs:nil callback:nil]; }) should] raise];
-            [[theBlock(^{ [acl removeACLs:nil callback:nil]; }) should] raise];
+            [[theBlock(^{ [acl getACLs:nil]; }) should] raiseWithName:NSInternalInconsistencyException];
+            [[theBlock(^{ [acl saveACLs:nil]; }) should] raiseWithName:NSInternalInconsistencyException];
+            [[theBlock(^{ [acl addACLs:nil callback:nil]; }) should] raiseWithName:NSInternalInconsistencyException];
+            [[theBlock(^{ [acl removeACLs:nil callback:nil]; }) should] raiseWithName:NSInternalInconsistencyException];
         });
+
     });
 });
 
