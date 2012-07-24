@@ -163,7 +163,10 @@
                     break;
                 case CMObjectOwnershipUserLevel:
                     store = newStore;
-                    [store addUserObject:self];
+                    if ([self isKindOfClass:[CMACL class]])
+                        [store addACL:(CMACL *)self];
+                    else
+                        [store addUserObject:self];
                     break;
                 default:
                     store = newStore;

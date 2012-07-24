@@ -955,6 +955,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 - (void)addACL:(CMACL *)acl {
     NSAssert(user != nil, @"Attempted to add ACL (%@) to store (%@) belonging to user when user is not set.", acl, self);
+    NSAssert([acl isKindOfClass:[CMACL class]], @"Attempted to add object (%@) to store (%@) as an ACL.", acl, self);
     @synchronized(self) {
         [_cachedACLs setObject:acl forKey:acl.objectId];
     }
@@ -966,6 +967,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 - (void)addUserObject:(CMObject *)theObject {
     NSAssert(user != nil, @"Attempted to add object (%@) to store (%@) belonging to user when user is not set.", theObject, self);
+    NSAssert((![theObject isKindOfClass:[CMACL class]] && [theObject isKindOfClass:[CMObject class]]), @"Attempted to add ACL (%@) to store (%@) as a user-level object.", theObject, self);
     @synchronized(self) {
         [_cachedUserObjects setObject:theObject forKey:theObject.objectId];
     }
@@ -976,6 +978,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 }
 
 - (void)addObject:(CMObject *)theObject {
+    NSAssert((![theObject isKindOfClass:[CMACL class]] && [theObject isKindOfClass:[CMObject class]]), @"Attempted to add ACL (%@) to store (%@) as an app-level object.", theObject, self);
     @synchronized(self) {
         [_cachedAppObjects setObject:theObject forKey:theObject.objectId];
     }
@@ -1017,6 +1020,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 - (void)addUserFile:(CMFile *)theFile {
     NSAssert(user != nil, @"Attempted to add File (%@) to store (%@) belonging to user when user is not set.", theFile, self);
+    NSAssert([theFile isKindOfClass:[CMFile class]], @"Attempted to add object (%@) to store (%@) as an file.", theFile, self);
     @synchronized(self) {
         [_cachedUserFiles setObject:theFile forKey:theFile.uuid];
     }
@@ -1027,6 +1031,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 }
 
 - (void)addFile:(CMFile *)theFile {
+    NSAssert([theFile isKindOfClass:[CMFile class]], @"Attempted to add object (%@) to store (%@) as an file.", theFile, self);
     @synchronized(self) {
         [_cachedAppFiles setObject:theFile forKey:theFile.uuid];
     }
