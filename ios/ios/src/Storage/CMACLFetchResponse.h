@@ -38,13 +38,13 @@
  *
  * @param member The member to retrieve permissions for
  */
-- (NSSet *)getPermissionsForMember:(CMUser *)member;
+- (NSSet *)permissionsForMember:(NSString *)member;
 
 /**
  * Returns the list of all users with at least the specified permissions.
  *
  * @param permissions The set of permissions that the returned users are guaranteed to have.
  */
-- (NSSet *)getMembersWithPermissions:(NSSet *)permissions;
+- (NSSet *)membersWithPermissions:(NSSet *)permissions;
 
 @end

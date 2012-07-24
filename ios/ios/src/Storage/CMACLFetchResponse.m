@@ -43,7 +43,7 @@
     return permissions;
 }
 
-- (NSSet *)getPermissionsForMember:(CMUser *)user {
+- (NSSet *)permissionsForMember:(NSString *)user {
     
     // Filter the returned ACLs by user
     NSMutableSet *acls = [NSMutableSet set];
@@ -61,7 +61,7 @@
     return [permissions copy];
 }
 
-- (NSSet *)getMembersWithPermissions:(NSSet *)permissions {
+- (NSSet *)membersWithPermissions:(NSSet *)permissions {
     // Filter the returned ACLs by permission
     NSMutableSet *acls = [NSMutableSet set];
     [self.acls enumerateObjectsUsingBlock:^(CMACL *acl, BOOL *stop) {
