@@ -73,13 +73,16 @@
 #pragma mark - Dirty tracking
 
 - (void)executeBlockForAllUserDefinedProperties:(void (^)(RTProperty *property))block {
-    NSArray *allProperties = [[self class] rt_properties];
-    NSArray *superclassProperties = [[CMObject class] rt_properties];
-    [allProperties enumerateObjectsUsingBlock:^(RTProperty *property, NSUInteger idx, BOOL *stop) {
-        if (![superclassProperties containsObject:property]) {
-            block(property);
-        }
+    NSMutableArray *allProperties = [NSMutableArray array];
+    for (Class class = [self class]; [class isSubclassOfClass:[CMObject class]]; class = [class superclass]) {
+        [allProperties addObjectsFromArray:[class rt_properties]];
+    }
+    [[[CMObject class] rt_properties] enumerateObjectsUsingBlock:^(RTProperty *property, NSUInteger idx, BOOL *stop) {
+        if (![[property name] isEqualToString:@"aclIds"])
+            [allProperties removeObject:property];
     }];
+     
+    [allProperties enumerateObjectsUsingBlock:^(RTProperty *property, NSUInteger idx, BOOL *stop) { block(property); }];
 }
 
 - (void)registerAllPropertiesForKVO {
@@ -205,6 +208,7 @@
     if (self.sharedACL) {
         CMACLFetchResponse *response = [[CMACLFetchResponse alloc] initWithACLs:[NSArray arrayWithObject:self.sharedACL] errors:nil];
         callback(response);
+        return;
     }
     
     [self.store allACLs:^(CMACLFetchResponse *response) {
