@@ -543,8 +543,6 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 }
 
 - (void)saveACLsOnObject:(CMObject *)object callback:(CMStoreObjectUploadCallback)callback {
-    NSAssert([self objectOwnershipLevel:object] == CMObjectOwnershipUserLevel, @"*** Error: Object %@ is not at the user level. It must be a user level object in order for it to have ACLs.", self);
-    NSAssert(object.owner ? [self.user.objectId isEqualToString:object.owner] : YES, @"*** Error: Object %@ is not owned by the user configured with the store. You must have ownership of the object in order to see or modify its ACLs.", self);
     NSMutableArray *acls = [NSMutableArray array];
     [object.aclIds enumerateObjectsUsingBlock:^(id key, NSUInteger idx, BOOL *stop) {
         id obj = [_cachedACLs objectForKey:key];

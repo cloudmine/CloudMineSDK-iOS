@@ -223,6 +223,13 @@
 }
 
 - (void)saveACLs:(CMStoreObjectUploadCallback)callback {
+    NSAssert([self.store objectOwnershipLevel:self] == CMObjectOwnershipUserLevel, @"*** Error: Object %@ is not at the user level. It must be a user level object in order for it to have ACLs.", self);
+    if (self.sharedACL) {
+        NSError *ownerError = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidRequest userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Object %@ is not owned by the user configured with the store. You must have ownership of the object in order to save any ACLs.", NSLocalizedDescriptionKey, nil]];
+        CMObjectUploadResponse *response = [[CMObjectUploadResponse alloc] initWithError:ownerError];
+        callback(response);
+        return;
+    }
     [self.store saveACLsOnObject:self callback:callback];
 }
 
@@ -232,7 +239,13 @@
 
 - (void)removeACLs:(NSArray *)acls callback:(CMStoreObjectUploadCallback)callback {
     NSAssert([self.store objectOwnershipLevel:self] == CMObjectOwnershipUserLevel, @"*** Error: Object %@ is not at the user level. It must be a user level object in order for it to have ACLs.", self);
-    NSAssert(self.owner ? [self.store.user.objectId isEqualToString:self.owner] : YES, @"*** Error: Object %@ is not owned by the user configured with the store. You must have ownership of the object in order to see or modify its ACLs.", self);
+    if (self.sharedACL) {
+        NSError *ownerError = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidRequest userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Object %@ is not owned by the user configured with the store. You must have ownership of the object in order to remove ACLs.", NSLocalizedDescriptionKey, nil]];
+        CMObjectUploadResponse *response = [[CMObjectUploadResponse alloc] initWithError:ownerError];
+        callback(response);
+        return;
+    }
+    
     NSMutableArray *objectIds = [self.aclIds mutableCopy];
     [objectIds removeObjectsInArray:[acls valueForKey:@"objectId"]];
     self.aclIds = [objectIds copy];
@@ -245,7 +258,13 @@
 
 - (void)addACLs:(NSArray *)acls callback:(CMStoreObjectUploadCallback)callback {
     NSAssert([self.store objectOwnershipLevel:self] == CMObjectOwnershipUserLevel, @"*** Error: Object %@ is not at the user level. It must be a user level object in order for it to have ACLs.", self);
-    NSAssert(self.owner ? [self.store.user.objectId isEqualToString:self.owner] : YES, @"*** Error: Object %@ is not owned by the user configured with the store. You must have ownership of the object in order to see or modify its ACLs.", self);
+    if (self.sharedACL) {
+        NSError *ownerError = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidRequest userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Object %@ is not owned by the user configured with the store. You must have ownership of the object in order to add ACLs.", NSLocalizedDescriptionKey, nil]];
+        CMObjectUploadResponse *response = [[CMObjectUploadResponse alloc] initWithError:ownerError];
+        callback(response);
+        return;
+    }
+    
     [self.store saveACLs:acls callback:^(CMObjectUploadResponse *saveResponse) {
         // Add saved ACLs to `aclIds` property
         NSMutableArray *objectIds = self.aclIds ? [self.aclIds mutableCopy] : [NSMutableArray array];
