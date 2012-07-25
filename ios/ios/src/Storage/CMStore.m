@@ -435,6 +435,9 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
         dispatch_async(queue, ^{
             [selff saveAllUserObjectsWithOptions:options callback:callback];
         });
+        dispatch_async(queue, ^{
+            [selff saveAllACLs:callback];
+        });
     }
 }
 
@@ -502,6 +505,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                             successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult, NSNumber *count, NSDictionary *headers) {
                                 // Add clean objects that were omitted from the request into the response as pseudo-updated
                                 NSMutableDictionary *mutResults = [results mutableCopy];
+                                [mutResults addEntriesFromDictionary:errors];
                                 [cleanObjects enumerateObjectsUsingBlock:^(CMObject *obj, NSUInteger idx, BOOL *stop) {
                                     [mutResults setObject:@"updated" forKey:obj.objectId];
                                 }];
