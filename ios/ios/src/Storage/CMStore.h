@@ -25,6 +25,7 @@
 #import "CMDeleteResponse.h"
 
 @class CMObject;
+@class CMACL;
 
 /**
  * Name of the notification that is sent out when an object is deleted.
@@ -50,7 +51,9 @@ extern NSString * const CMStoreObjectDeletedNotification;
  */
 @interface CMStore : NSObject
 
-/** The <tt>CMWebService</tt> instance that backs this store */
+/** 
+ * The <tt>CMWebService</tt> instance that backs this store.
+ */
 @property (nonatomic, strong) CMWebService *webService;
 
 /**
@@ -67,7 +70,9 @@ extern NSString * const CMStoreObjectDeletedNotification;
  */
 @property (nonatomic, strong) CMUser *user;
 
-/** The last error that occured during a store-based operation. */
+/** 
+ * The last error that occured during a store-based operation.
+ */
 @property (readonly, strong) NSError *lastError;
 
 /**
@@ -160,6 +165,18 @@ extern NSString * const CMStoreObjectDeletedNotification;
 - (void)allUserObjectsWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
 
 /**
+ * Downloads all ACLs associated with the store's user
+ *
+ * @param callback The callback to be triggered when all the ACLs are finished downloading. The store must be configured
+ * with a user or else calling this method will throw an exception.
+ *
+ * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
+ *
+ * @see CMACL
+ */
+- (void)allACLs:(CMStoreACLFetchCallback)callback;
+
+/**
  * Downloads app-level objects for your app's CloudMine object store with the given keys.
  *
  * @param keys The keys of the objects you wish to download. Specifying a key for an object that does not exist will <b>not</b> cause an error.
@@ -245,6 +262,20 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * @see https://cloudmine.me/developer_zone#ref/account_overview
  */
 - (void)searchUserObjects:(NSString *)query additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
+
+/**
+ * Performs a search across all ACLs owned by the user of the store The store must be configured
+ * with a user or else calling this method will throw an exception.
+ *
+ * @param query The search query to perform. This must conform to the syntax outlined in the CloudMine <a href="https://cloudmine.me/developer_zone#ref/query_syntax" target="_blank">documentation</a>.
+ * @param callback The callback to be triggered when all the ACLs are finished downloading.
+ *
+ * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
+ *
+ * @see CMACL
+ * @see https://cloudmine.me/developer_zone#ref/query_syntax
+ */
+- (void)searchACLs:(NSString *)query callback:(CMStoreACLFetchCallback)callback;
 
 /**
  * Downloads an app-level binary file from your app's CloudMine data store.
@@ -339,6 +370,18 @@ extern NSString * const CMStoreObjectDeletedNotification;
 - (void)saveAllUserObjectsWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
 
 /**
+ * Saves all the ACLs in the local store to CloudMine. The store must be configured
+ * with a user or else calling this method will throw an exception.
+ *
+ * @param callback The callback to be triggered when all the ACLs are finished uploading.
+ *
+ * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
+ *
+ * @see CMACL
+ */
+- (void)saveAllACLs:(CMStoreObjectUploadCallback)callback;
+
+/**
  * Saves an individual object to your app's CloudMine data store at the app-level. If this object doesn't
  * already belong to this store, it will automatically be added as well. This has the additional effect of increasing
  * the object's retain count by 1 as well as setting its <tt>store</tt> property to this store.
@@ -399,6 +442,51 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * @see https://cloudmine.me/developer_zone#ref/account_overview
  */
 - (void)saveUserObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+
+/**
+ * Saves an individual ACL to CloudMine's data store. The store must be configured with a user or else calling 
+ * this method will throw an exception. If this ACL doesn't already belong to this store, it will
+ * automatically be added as well. This has the additional effect of increasing
+ * the ACL's retain count by 1 as well as setting its <tt>store</tt> property to this store.
+ *
+ * @param acl The ACL to save.
+ * @param callback The callback to be triggered when all the ACLs are finished uploading.
+ *
+ * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
+ *
+ * @see CMACL
+ */
+- (void)saveACL:(CMACL *)acl callback:(CMStoreObjectUploadCallback)callback;
+
+/**
+ * Saves an array of ACLs to CloudMine's data store. The store must be configured with a user or else calling
+ * this method will throw an exception. If the ACLs doesn't already belong to this store, it will
+ * automatically be added as well. This has the additional effect of increasing
+ * the ACLs' retain counts by 1 as well as setting their <tt>store</tt> property to this store.
+ *
+ * @param acls The ACLs to save.
+ * @param callback The callback to be triggered when all the ACLs are finished uploading.
+ *
+ * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
+ *
+ * @see CMACL
+ */
+- (void)saveACLs:(NSArray *)acls callback:(CMStoreObjectUploadCallback)callback;
+
+/**
+ * Saves all the ACLs in the store that are associated to the given object. The store must be configured with
+ * a user or else calling this method will throw an exception. If the ACLs doesn't already belong to
+ * this store, it will automatically be added as well. This has the additional effect of increasing
+ * the ACLs' retain counts by 1 as well as setting their <tt>store</tt> property to this store.
+ *
+ * @param object The object whose ACLs will be saved
+ * @param callback The callback to be triggered when all the ACLs are finished uploading.
+ *
+ * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
+ *
+ * @see CMACL
+ */
+- (void)saveACLsOnObject:(CMObject *)object callback:(CMStoreObjectUploadCallback)callback;
 
 /**
  * Deletes the given app-level object from your app's CloudMine data store and removes the object from this store.
@@ -577,6 +665,18 @@ extern NSString * const CMStoreObjectDeletedNotification;
 - (void)deleteUserObject:(id<CMSerializable>)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback;
 
 /**
+ * Deletes the given ACL from CloudMine's data store and removes the acl from this store. The store must be configured
+ * with a user or else calling this method will throw an exception. The ACL will automatically remove references to itself from
+ * __access__ fields of the objects it belonged to.
+ *
+ * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
+ *
+ * @param acl The ACL to delete and remove from the store.
+ * @param callback The callback to be triggered when the acl has been deleted.
+ */
+- (void)deleteACL:(CMACL *)acl callback:(CMStoreDeleteCallback)callback;
+
+/**
  * Deletes all the given app-level objects from your app's CloudMine data store and removes the object from this store.
  * This also triggers a notification of type <tt>CMStoreObjectDeletedNotification</tt> to subscribers of the store
  * so you can do any other necessary cleanup throughout your app. This notification is triggered <b>before</b> the objects
@@ -607,6 +707,18 @@ extern NSString * const CMStoreObjectDeletedNotification;
 - (void)deleteUserObjects:(NSArray *)objects additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback;
 
 /**
+ * Deletes the given ACLs from CloudMine's data store and removes them from this store. The store must be configured
+ * with a user or else calling this method will throw an exception. The ACLs will automatically remove references to themselves from
+ * __access__ fields of the objects it belonged to.
+ *
+ * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
+ *
+ * @param acls The ACLs to delete and remove from the store.
+ * @param callback The callback to be triggered when the acl has been deleted.
+ */
+- (void)deleteACLs:(NSArray *)acls callback:(CMStoreDeleteCallback)callback;
+
+/**
  * Adds an app-level object to this store. Doing this also sets the object's <tt>store</tt> property to this store.
  * No persistence is performed as a result of calling this method. <b>This method is thread-safe</b>.
  *
@@ -631,6 +743,19 @@ extern NSString * const CMStoreObjectDeletedNotification;
 - (void)addUserObject:(CMObject *)theObject;
 
 /**
+ * Adds an ACL to this store. Doing this also sets the ACL's <tt>store</tt> property to this store.
+ * No persistence is performed as a result of calling this method. The store must be configured
+ * with a user or else calling this method will throw an exception. <b>This method is thread-safe</b>.
+ *
+ * @param acl The object to add.
+ *
+ * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
+ *
+ * @see CMACL
+ */
+- (void)addACL:(CMACL *)acl;
+
+/**
  * Removes an app-level object from this store. Doing this also nullifies the object's <tt>store</tt> property.
  * No persistence is performed as a result of calling this method. <b>This method is thread-safe</b>.
  *
@@ -650,6 +775,17 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * @see CMObject#store
  */
 - (void)removeUserObject:(CMObject *)theObject;
+
+/**
+ * Removes an ACL from this store. The store must be configured with a user or else calling this method will throw an exception.
+ * Doing this also nullifies the object's <tt>store</tt> property.
+ * No persistence is performed as a result of calling this method. <b>This method is thread-safe</b>.
+ *
+ * @param acl The object to remove.
+ *
+ * @see CMACL
+ */
+- (void)removeACL:(CMACL *)acl;
 
 /**
  * Adds an app-level file to this store. Doing this also sets the file's <tt>store</tt> property to this store.

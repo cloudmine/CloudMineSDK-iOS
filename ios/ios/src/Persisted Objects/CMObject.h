@@ -42,6 +42,12 @@
  */
 @property (readonly, getter = isDirty) BOOL dirty;
 
+
+/**
+ * The ID of the user that owns the object. This will differ from the user of the store if the object has been shared.
+ */
+@property (readonly, strong, nonatomic) NSString *owner;
+
 /**
  * Initializes this app-level object by generating a UUID as the default value for <tt>objectId</tt>.
  */
@@ -110,5 +116,56 @@
  * @param callback The callback block to be invoked after the save operation has completed.
  */
 - (void)saveWithUser:(CMUser *)user callback:(CMStoreObjectUploadCallback)callback;
+
+/**
+ * Gets the set of ACLs associated with the object.
+ *
+ * @param callback The callback block to be invoked after the get operation has completed.
+ */
+- (void)getACLs:(CMStoreACLFetchCallback)callback;
+
+/**
+ * Saves the ACLs associated with this object to CloudMine. ACLs will return an 'updated' status if they have been
+ * successfully saved.
+ *
+ * @param callback The callback block to be invoked after the save operation has completed.
+ */
+- (void)saveACLs:(CMStoreObjectUploadCallback)callback;
+
+/**
+ * Disassociates the given ACL from the object. This is not to be confused with deleting the ACL. The object
+ * will return an 'updated' status if the ACL has been successfully removed.
+ *
+ * @param acl The ACL to be removed
+ * @param callback The callback block to be invoked after the remove operation has completed.
+ */
+- (void)removeACL:(CMACL *)acl callback:(CMStoreObjectUploadCallback)callback;
+
+/**
+ * Disassociates the given ACLs from the object. This is not to be confused with deleting the ACLs. The object
+ * will return an 'updated' status if the ACLs have been successfully removed.
+ *
+ * @param acls The ACLs to be removed
+ * @param callback The callback block to be invoked after the remove operation has completed.
+ */
+- (void)removeACLs:(NSArray *)acls callback:(CMStoreObjectUploadCallback)callback;
+
+/**
+ * Saves the given ACL and associates it with the object. The ACL will return an 'updated' status if it has been
+ * successfully saved, and the object will return an 'updated' status if the ACL has been successfully associated.
+ *
+ * @param acl The ACL to be added
+ * @param callback The callback block to be invoked after the add operation has completed.
+ */
+- (void)addACL:(CMACL *)acl callback:(CMStoreObjectUploadCallback)callback;
+
+/**
+ * Saves the given ACLs and associates them with the object. The ACLs will return an 'updated' status if they has been
+ * successfully saved, and the object will return an 'updated' status if the ACLs have been successfully associated.
+ *
+ * @param acls The ACLs to be added
+ * @param callback The callback block to be invoked after the add operation has completed.
+ */
+- (void)addACLs:(NSArray *)acls callback:(CMStoreObjectUploadCallback)callback;
 
 @end

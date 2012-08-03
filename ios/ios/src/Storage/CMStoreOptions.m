@@ -18,6 +18,8 @@
 @synthesize pagingDescriptor;
 @synthesize serverSideFunction;
 @synthesize sortDescriptor;
+@synthesize shared;
+@synthesize sharedOnly;
 
 #define _CMAddIfNotNil(array, obj) if(obj) [array addObject:[obj stringRepresentation]];
 
@@ -57,6 +59,12 @@
     }
     if(self.distanceUnits) {
         [params setObject:self.distanceUnits forKey:CMDistanceUnitsKey];
+    }
+    if (self.shared) {
+        [params setObject:@"true" forKey:@"shared"];
+    }
+    if (self.sharedOnly) {
+        [params setObject:@"true" forKey:@"shared_only"];
     }
 
     return params;
