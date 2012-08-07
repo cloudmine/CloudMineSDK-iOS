@@ -157,7 +157,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     if ([theObject respondsToSelector:@selector(uuid)]) {
         return [self _fileOwnershipLevel:theObject];
     } else if ([theObject isKindOfClass:[CMACL class]]) {
-        return [self _aclOwnershipLebel:theObject];
+        return [self _aclOwnershipLevel:theObject];
     } else {
         return [self _objectOwnershipLevel:theObject];
     }
@@ -173,7 +173,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     }
 }
 
-- (CMObjectOwnershipLevel)_aclOwnershipLebel:(CMACL *)acl {
+- (CMObjectOwnershipLevel)_aclOwnershipLevel:(CMACL *)acl {
     if ([_cachedACLs objectForKey:acl.objectId] != nil) {
         return CMObjectOwnershipUserLevel;
     } else {
