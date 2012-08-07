@@ -18,14 +18,14 @@
 
 @interface CMObject ()
 @property (readwrite, getter = isDirty) BOOL dirty;
-@property (readwrite, strong, nonatomic) NSString *owner;
+@property (readwrite, strong, nonatomic) NSString *ownerId;
 @property (strong, nonatomic) CMACL *sharedACL;
 @property (strong, nonatomic) NSArray *aclIds;
 @end
 
 @implementation CMObject
 @synthesize objectId;
-@synthesize owner;
+@synthesize ownerId;
 @synthesize store;
 @synthesize dirty;
 @synthesize aclIds;
@@ -64,10 +64,10 @@
     [self deregisterAllPropertiesForKVO];
 }
 
-- (NSString *)owner {
-    if (!owner)
-        owner = self.store.user.objectId;
-    return owner;
+- (NSString *)ownerId {
+    if (!ownerId)
+        ownerId = self.store.user.objectId;
+    return ownerId;
 }
 
 #pragma mark - Dirty tracking

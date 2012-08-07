@@ -46,7 +46,7 @@
 /**
  * The ID of the user that owns the object. This will differ from the user of the store if the object has been shared.
  */
-@property (readonly, strong, nonatomic) NSString *owner;
+@property (readonly, strong, nonatomic) NSString *ownerId;
 
 /**
  * Initializes this app-level object by generating a UUID as the default value for <tt>objectId</tt>.

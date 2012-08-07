@@ -38,7 +38,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 @interface CMObject (Private)
 @property (getter = isDirty) BOOL dirty;
-@property (readwrite, strong, nonatomic) NSString *owner;
+@property (readwrite, strong, nonatomic) NSString *ownerId;
 @property (strong, nonatomic) CMACL *sharedACL;
 @property (strong, nonatomic) NSArray *aclIds;
 @end
@@ -266,7 +266,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                       response.count = count ? [count intValue] : [objects count];
                       
                       [objects enumerateObjectsUsingBlock:^(CMObject *obj, NSUInteger idx, BOOL *stop) {
-                          obj.owner = [metadata metadataForObject:obj ofType:@"owner"];
+                          obj.ownerId = [metadata metadataForObject:obj ofType:@"owner"];
                           NSArray *permissions = [metadata metadataForObject:obj ofType:@"permissions"];
                           if (permissions) {
                               CMACL *acl = [[CMACL alloc] init];
@@ -356,7 +356,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                      response.count = count ? [count intValue] : [objects count];
                      
                      [objects enumerateObjectsUsingBlock:^(CMObject *obj, NSUInteger idx, BOOL *stop) {
-                         obj.owner = [metadata metadataForObject:obj ofType:@"owner"];
+                         obj.ownerId = [metadata metadataForObject:obj ofType:@"owner"];
                          NSArray *permissions = [metadata metadataForObject:obj ofType:@"permissions"];
                          if (permissions) {
                              CMACL *acl = [[CMACL alloc] init];
@@ -433,7 +433,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
             [self saveAllUserObjectsWithOptions:options callback:callback];
         });
         dispatch_async(queue, ^{
-            [selff saveAllACLs:callback];
+            [self saveAllACLs:callback];
         });
     }
 }
