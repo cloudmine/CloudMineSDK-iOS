@@ -73,13 +73,17 @@
 #pragma mark - Dirty tracking
 
 - (void)executeBlockForAllUserDefinedProperties:(void (^)(RTProperty *property))block {
+    // Add every property on the class, up the class hierarchy the CMObject
     NSMutableArray *allProperties = [NSMutableArray array];
     for (Class class = [self class]; [class isSubclassOfClass:[CMObject class]]; class = [class superclass]) {
         [allProperties addObjectsFromArray:[class rt_properties]];
     }
+    
+    // Remove all properties on CMObject itself, minus aclIDs
     [[[CMObject class] rt_properties] enumerateObjectsUsingBlock:^(RTProperty *property, NSUInteger idx, BOOL *stop) {
-        if (![[property name] isEqualToString:@"aclIds"])
+        if (![[property name] isEqualToString:@"aclIds"]) {
             [allProperties removeObject:property];
+        }
     }];
      
     [allProperties enumerateObjectsUsingBlock:^(RTProperty *property, NSUInteger idx, BOOL *stop) { block(property); }];
