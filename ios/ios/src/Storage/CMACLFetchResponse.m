@@ -40,7 +40,7 @@
         [permissions intersectSet:acl.permissions];
     }];
     
-    return permissions;
+    return [permissions copy];
 }
 
 - (NSSet *)permissionsForMember:(NSString *)user {
