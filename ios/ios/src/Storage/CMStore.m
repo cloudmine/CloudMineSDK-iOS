@@ -251,7 +251,6 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (void)_objectsWithKeys:(NSArray *)keys callback:(CMStoreObjectFetchCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options {
     _CMAssertAPICredentialsInitialized;
 
-    __unsafe_unretained CMStore *blockSelf = self;
     [webService getValuesForKeys:keys
               serverSideFunction:_CMTryMethod(options, serverSideFunction)
                    pagingOptions:_CMTryMethod(options, pagingDescriptor)
@@ -260,7 +259,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                  extraParameters:_CMTryMethod(options, buildExtraParameters)
                   successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult, NSNumber *count, NSDictionary *headers) {
                       NSArray *objects = [CMObjectDecoder decodeObjects:results];
-                      [blockSelf cacheObjectsInMemory:objects atUserLevel:userLevel];
+                      [self cacheObjectsInMemory:objects atUserLevel:userLevel];
                       CMResponseMetadata *metadata = [[CMResponseMetadata alloc] initWithMetadata:meta];
                       CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
                       CMObjectFetchResponse *response = [[CMObjectFetchResponse alloc] initWithObjects:objects errors:errors snippetResult:result responseMetadata:metadata];
@@ -342,7 +341,6 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
         return [self _allObjects:callback userLevel:userLevel additionalOptions:options];
     }
 
-    __unsafe_unretained CMStore *blockSelf = self;
     [webService searchValuesFor:query
              serverSideFunction:_CMTryMethod(options, serverSideFunction)
                   pagingOptions:_CMTryMethod(options, pagingDescriptor)
@@ -353,7 +351,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                      NSArray *objects = [CMObjectDecoder decodeObjects:results];
                      CMResponseMetadata *metadata = [[CMResponseMetadata alloc] initWithMetadata:meta];
                      CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
-                     [blockSelf cacheObjectsInMemory:objects atUserLevel:userLevel];
+                     [self cacheObjectsInMemory:objects atUserLevel:userLevel];
                      CMObjectFetchResponse *response = [[CMObjectFetchResponse alloc] initWithObjects:objects errors:errors snippetResult:result responseMetadata:metadata];
                      response.count = count ? [count intValue] : [objects count];
                      
@@ -424,16 +422,15 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 }
 
 - (void)saveAllWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback {
-    __unsafe_unretained CMStore *selff = self;
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
 
     dispatch_async(queue, ^{
-        [selff saveAllAppObjectsWithOptions:options callback:callback];
+        [self saveAllAppObjectsWithOptions:options callback:callback];
     });
 
     if (user) {
         dispatch_async(queue, ^{
-            [selff saveAllUserObjectsWithOptions:options callback:callback];
+            [self saveAllUserObjectsWithOptions:options callback:callback];
         });
         dispatch_async(queue, ^{
             [selff saveAllACLs:callback];

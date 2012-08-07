@@ -55,7 +55,7 @@
  * If you manually change the store yourself, this file will automatically remove itself from the old
  * store and add it to the new store. <b>This operation is thread-safe.</b>
  */
-@property (nonatomic, unsafe_unretained) CMStore *store;
+@property (nonatomic, assign) CMStore *store;
 
 /**
  * The ownership level of this object. This reflects whether the object is app-level, user-level, or unknown.
