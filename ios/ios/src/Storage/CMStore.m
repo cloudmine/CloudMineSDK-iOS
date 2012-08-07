@@ -268,7 +268,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                       [objects enumerateObjectsUsingBlock:^(CMObject *obj, NSUInteger idx, BOOL *stop) {
                           obj.ownerId = [metadata metadataForObject:obj ofType:@"owner"];
                           NSArray *permissions = [metadata metadataForObject:obj ofType:@"permissions"];
-                          if (permissions) {
+                          if (![obj.ownerId isEqualToString:self.user.objectId] && permissions) {
                               CMACL *acl = [[CMACL alloc] init];
                               acl.permissions = [NSSet setWithArray:permissions];
                               acl.members = [NSSet setWithObject:user.objectId];
@@ -358,7 +358,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                      [objects enumerateObjectsUsingBlock:^(CMObject *obj, NSUInteger idx, BOOL *stop) {
                          obj.ownerId = [metadata metadataForObject:obj ofType:@"owner"];
                          NSArray *permissions = [metadata metadataForObject:obj ofType:@"permissions"];
-                         if (permissions) {
+                         if (![obj.ownerId isEqualToString:self.user.objectId] && permissions) {
                              CMACL *acl = [[CMACL alloc] init];
                              acl.permissions = [NSSet setWithArray:permissions];
                              acl.members = [NSSet setWithObject:user.objectId];
