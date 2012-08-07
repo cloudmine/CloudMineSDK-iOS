@@ -191,9 +191,17 @@
                     [newStore addObject:self];
                     break;
                 case CMObjectOwnershipUserLevel:
-                    [store removeUserObject:self];
+                    if ([self isKindOfClass:[CMACL class]])
+                        [store removeACL:(CMACL *)self];
+                    else
+                        [store removeUserObject:self];
+                    
                     store = newStore;
-                    [newStore addUserObject:self];
+                    
+                    if ([self isKindOfClass:[CMACL class]])
+                        [store addACL:(CMACL *)self];
+                    else
+                        [store addUserObject:self];
                     break;
                 default:
                     store = newStore;
