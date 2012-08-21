@@ -72,7 +72,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         _validHTTPVerbs = $set(@"GET", @"POST", @"PUT", @"DELETE");
     }
 
-    if ((self = [super init])) {
+    if ((self = [super initWithBaseURL:nil])) {
         self.apiUrl = CM_BASE_URL;
 
         _appSecret = appSecret;
