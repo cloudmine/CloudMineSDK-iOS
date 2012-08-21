@@ -149,6 +149,7 @@
 		D088F5B115E3FDF1005062BD /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D088F59E15E3FDF1005062BD /* AFHTTPRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D088F5B515E3FDF1005062BD /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D088F5A615E3FDF1005062BD /* AFNetworkActivityIndicatorManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D088F5B715E3FDF1005062BD /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D088F5AB15E3FDF1005062BD /* AFURLConnectionOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		D0F4E4F615E418F800055638 /* AFJSONUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D088F5A415E3FDF1005062BD /* AFJSONUtilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -939,6 +940,7 @@
 				D088F5B115E3FDF1005062BD /* AFHTTPRequestOperation.m in Sources */,
 				D088F5B515E3FDF1005062BD /* AFNetworkActivityIndicatorManager.m in Sources */,
 				D088F5B715E3FDF1005062BD /* AFURLConnectionOperation.m in Sources */,
+				D0F4E4F615E418F800055638 /* AFJSONUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

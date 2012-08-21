@@ -38,12 +38,12 @@ describe(@"CMWebService", ^{
         
         spy = [[KWCaptureSpy alloc] initWithArgumentIndex:0];
         
-        [NSURLConnection addMessageSpy:spy forMessagePattern:[KWMessagePattern messagePatternWithSelector:@selector(sendAsynchronousRequest:queue:completionHandler:)]];
-        [[NSURLConnection should] receive:@selector(sendAsynchronousRequest:queue:completionHandler:)];
+        [service addMessageSpy:spy forMessagePattern:[KWMessagePattern messagePatternWithSelector:@selector(HTTPRequestOperationWithRequest:success:failure:)]];
+        [[service should] receive:@selector(enqueueHTTPRequestOperation:)];
     });
     
     afterEach(^{
-        [NSURLConnection removeMessageSpy:spy forMessagePattern:[KWMessagePattern messagePatternWithSelector:@selector(sendAsynchronousRequest:queue:completionHandler:)]];
+        [service removeMessageSpy:spy forMessagePattern:[KWMessagePattern messagePatternWithSelector:@selector(HTTPRequestOperationWithRequest:success:failure:)]];
     });
 
     context(@"should construct GET request", ^{

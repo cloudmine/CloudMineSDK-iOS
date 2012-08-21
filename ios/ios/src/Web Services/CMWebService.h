@@ -8,6 +8,8 @@
 
 /** @file */
 
+#import <AFNetworking/AFHTTPClient.h>
+
 #import "CMFileUploadResult.h"
 #import "CMUserAccountResult.h"
 
@@ -15,18 +17,6 @@
 @class CMServerFunction;
 @class CMPagingDescriptor;
 @class CMSortDescriptor;
-
-extern NSString * const CMErrorDomain;
-
-typedef enum {
-    CMErrorUnknown,
-    CMErrorServerConnectionFailed,
-    CMErrorServerError,
-    CMErrorNotFound,
-    CMErrorInvalidRequest,
-    CMErrorInvalidResponse,
-    CMErrorUnauthorized
-} CMErrorCode;
 
 /**
  * Base URL for the current version of the CloudMine API.
@@ -87,18 +77,10 @@ typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDi
  * Base class for all classes concerned with the communication between the client device and the CloudMine
  * web services.
  */
-@interface CMWebService : NSObject {
+@interface CMWebService : AFHTTPClient {
     NSString *_appSecret;
     NSString *_appIdentifier;
 }
-
-/**
- * The message queue used to send messages to the CloudMine web services.
- *
- * One of these exists for each instance of <tt>CMWebService</tt>, allowing you to parallelize
- * network communication.
- */
-@property (nonatomic, strong) NSOperationQueue *networkQueue;
 
 /**
  * Default initializer for the web service connector. You <strong>must</strong> have already configured the
