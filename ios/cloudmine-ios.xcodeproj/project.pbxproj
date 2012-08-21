@@ -86,7 +86,6 @@
 		7A87315414BB0AD0000D6DEA /* CMObjectDecoder.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AABA2FB14818DCA00FD52A0 /* CMObjectDecoder.h */; };
 		7A87315514BB0AD0000D6DEA /* CMObjectEncoder.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AABA2FE14818DCA00FD52A0 /* CMObjectEncoder.h */; };
 		7A87315614BB0AD0000D6DEA /* CMJSONEncoder.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AABA30414818E2A00FD52A0 /* CMJSONEncoder.h */; };
-		7A87315714BB0AD0000D6DEA /* CMWebService.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AD36F7C146C650500DD4734 /* CMWebService.h */; };
 		7A87315914BB0AD0000D6DEA /* CMAPICredentials.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AD36F82146CA4AC00DD4734 /* CMAPICredentials.h */; };
 		7A87315A14BB0AD0000D6DEA /* CMServerFunction.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7A04E869147D8435006E00AB /* CMServerFunction.h */; };
 		7A87315B14BB0AD0000D6DEA /* CMSerializable.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AABA2E21480513500FD52A0 /* CMSerializable.h */; };
@@ -206,7 +205,6 @@
 				7A87315414BB0AD0000D6DEA /* CMObjectDecoder.h in CopyFiles */,
 				7A87315514BB0AD0000D6DEA /* CMObjectEncoder.h in CopyFiles */,
 				7A87315614BB0AD0000D6DEA /* CMJSONEncoder.h in CopyFiles */,
-				7A87315714BB0AD0000D6DEA /* CMWebService.h in CopyFiles */,
 				7A87315914BB0AD0000D6DEA /* CMAPICredentials.h in CopyFiles */,
 				7A87315A14BB0AD0000D6DEA /* CMServerFunction.h in CopyFiles */,
 				7A87315B14BB0AD0000D6DEA /* CMSerializable.h in CopyFiles */,
