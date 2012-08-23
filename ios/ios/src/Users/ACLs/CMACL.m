@@ -15,8 +15,6 @@ NSString * const CMACLUpdatePermission = @"u";
 NSString * const CMACLDeletePermission = @"d";
 NSString * const CMACLTypeName = @"acl";
 
-static __strong NSSet *avaiablePermissions;
-
 @implementation CMACL
 
 @synthesize members = _members;
@@ -27,10 +25,6 @@ static __strong NSSet *avaiablePermissions;
 }
 
 #pragma mark - Constructors
-
-+ (void)load {
-    avaiablePermissions = [NSSet setWithObjects:CMACLReadPermission, CMACLDeletePermission, CMACLUpdatePermission, nil];
-}
 
 - (id)init {
     if (self = [super init]) {
@@ -52,8 +46,13 @@ static __strong NSSet *avaiablePermissions;
 
 - (void)setPermissions:(NSSet *)permissions {
     if (permissions != _permissions) {
-        if (![permissions isSubsetOfSet:avaiablePermissions])
-            [NSException raise:NSInternalInconsistencyException format:@"The permissions %@ are not valid!", permissions];
+        NSSet *availablePermissions = [NSSet setWithObjects:CMACLReadPermission, CMACLUpdatePermission, CMACLDeletePermission, nil];
+        
+        // Reduce list of permissions to only valid values
+        NSMutableSet *mutPermissions = [NSMutableSet setWithSet:permissions];
+        [mutPermissions intersectSet:availablePermissions];
+        permissions = [NSSet setWithSet:mutPermissions];
+        
         _permissions = permissions;
     }
 }
