@@ -10,9 +10,18 @@
 #import "CMWebService.h"
 #import "CMObjectSerialization.h"
 #import "CMObjectDecoder.h"
+#import "CMObjectEncoder.h"
 
 #import "MARTNSObject.h"
 #import "RTProperty.h"
+
+@interface CMUser ()
++ (NSURL *)cacheLocation;
++ (NSMutableDictionary *)cachedUsers;
++ (CMUser *)userFromCacheWithIdentifier:(NSString *)objectId;
++ (void)cacheMultipleUsers:(NSArray *)users;
+- (void)writeToCache;
+@end
 
 static CMWebService *webService;
 
@@ -32,10 +41,12 @@ static CMWebService *webService;
 #pragma mark - Constructors
 
 + (void)initialize {
-    @try {
-        webService = [[CMWebService alloc] init];
-    } @catch (NSException *e) {
-        webService = nil;
+    if (!webService) {
+        @try {
+            webService = [[CMWebService alloc] init];
+        } @catch (NSException *e) {
+            webService = nil;
+        }
     }
 }
 
@@ -302,26 +313,78 @@ static CMWebService *webService;
 + (void)allUsersWithCallback:(CMUserFetchCallback)callback {
     NSParameterAssert(callback);
     [webService getAllUsersWithCallback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
-        callback([CMObjectDecoder decodeObjects:results], errors);
+        NSArray *users = [CMObjectDecoder decodeObjects:results];
+        [self cacheMultipleUsers:users];
+        callback(users, errors);
     }];
 }
 
 + (void)searchUsers:(NSString *)query callback:(CMUserFetchCallback)callback {
     NSParameterAssert(callback);
     [webService searchUsers:query callback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
-        callback([CMObjectDecoder decodeObjects:results], errors);
+        NSArray *users = [CMObjectDecoder decodeObjects:results];
+        [self cacheMultipleUsers:users];
+        callback(users, errors);
     }];
 }
 
 + (void)userWithIdentifier:(NSString *)identifier callback:(CMUserFetchCallback)callback {
     NSParameterAssert(callback);
-    [webService getUserProfileWithIdentifier:identifier callback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
-        if (errors.count > 0) {
-            callback([NSArray array], errors);
-        } else {
-            callback([CMObjectDecoder decodeObjects:results], errors);
-        }
+    
+    CMUser *cachedUser = [self userFromCacheWithIdentifier:identifier];
+    if (cachedUser) {
+        callback($array(cachedUser), [NSDictionary dictionary]);
+    } else {
+        [webService getUserProfileWithIdentifier:identifier callback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
+            if (errors.count > 0) {
+                callback([NSArray array], errors);
+            } else {
+                NSArray *users = [CMObjectDecoder decodeObjects:results];
+                [self cacheMultipleUsers:users];
+                callback(users, errors);
+            }
+        }];
+    }
+}
+
+#pragma mark - Caching
+
++ (NSURL *)cacheLocation {
+    static NSURL *_cacheLocation = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _cacheLocation = [[[NSFileManager defaultManager] URLsForDirectory:NSCachesDirectory inDomains:NSUserDomainMask] lastObject];
+        _cacheLocation = [_cacheLocation URLByAppendingPathComponent:@"cmusers.plist"];
+    });
+
+    return _cacheLocation;
+}
+
++ (NSMutableDictionary *)cachedUsers {
+    NSURL *cacheLocation = [self cacheLocation];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[cacheLocation relativePath]]) {
+        // Since the file doesn't already exist, create it with an empty dictionary.
+        [[NSKeyedArchiver archivedDataWithRootObject:[NSDictionary dictionary]] writeToURL:cacheLocation atomically:YES];
+        return [NSMutableDictionary dictionary];
+    }
+    return [[NSKeyedUnarchiver unarchiveObjectWithData:[NSData dataWithContentsOfURL:cacheLocation]] mutableCopy];
+}
+
+- (void)writeToCache {
+    [CMUser cacheMultipleUsers:$array(self)];
+}
+
++ (void)cacheMultipleUsers:(NSArray *)users {
+    NSMutableDictionary *cachedUsers = [self cachedUsers];
+    [users enumerateObjectsUsingBlock:^(CMUser *obj, NSUInteger idx, BOOL *stop) {
+        [cachedUsers setObject:obj forKey:obj.objectId];
     }];
+    
+    [[NSKeyedArchiver archivedDataWithRootObject:cachedUsers] writeToURL:[self cacheLocation] atomically:YES];
+}
+
++ (CMUser *)userFromCacheWithIdentifier:(NSString *)objectId {
+    return [[self cachedUsers] objectForKey:objectId];
 }
 
 #pragma mark - Private stuff

@@ -11,6 +11,7 @@
 #import "CMStore.h"
 #import "CMNullStore.h"
 #import "CMObject.h"
+#import "CMACL.h"
 #import "CMObjectDecoder.h"
 #import "CMObjectEncoder.h"
 #import "CMAPICredentials.h"
@@ -64,6 +65,13 @@ describe(@"CMObject", ^{
             [obj save:nil];
             [[theValue([obj ownershipLevel]) should] equal:theValue(CMObjectOwnershipAppLevel)];
             [[theBlock(^{ [obj saveWithUser:user callback:nil]; }) should] raise];
+        });
+        
+        it(@"should throw an exception if ACLs are added to the object", ^{
+            CMACL *acl = [[CMACL alloc] init];
+            [obj save:nil];
+            [[theValue([obj ownershipLevel]) should] equal:theValue(CMObjectOwnershipAppLevel)];
+            [[theBlock(^{ [obj addACL:acl callback:nil]; }) should] raise];
         });
     });
 
