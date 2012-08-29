@@ -7,10 +7,12 @@
 //
 
 #import <objc/runtime.h>
+#import "SPLowVerbosity.h"
 
 #import "CMStore.h"
 #import "CMObject+Private.h"
 
+#import "CMWebService.h"
 #import "CMObjectDecoder.h"
 #import "CMObjectEncoder.h"
 #import "CMObjectSerialization.h"

@@ -50,6 +50,7 @@
 #import "CMObjectClassNameRegistry.h"
 #import "CMObjectDecoder.h"
 #import "CMObjectEncoder.h"
+#import "CMObjectOwnershipLevel.h"
 #import "CMObjectSerialization.h"
 #import "CMPagingDescriptor.h"
 #import "CMSerializable.h"
@@ -62,7 +63,6 @@
 #import "CMUser.h"
 #import "CMUserAccountResult.h"
 #import "CMWebService.h"
-#import "CMObjectOwnershipLevel.h"
 
 #import "CMACLFetchResponse.h"
 #import "CMObjectFetchResponse.h"

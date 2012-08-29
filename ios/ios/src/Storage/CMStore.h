@@ -8,7 +8,6 @@
 
 /** @file */
 
-#import "CMWebService.h"
 #import "CMStoreOptions.h"
 #import "CMServerFunction.h"
 #import "CMPagingDescriptor.h"
@@ -24,8 +23,21 @@
 #import "CMFileUploadResult.h"
 #import "CMDeleteResponse.h"
 
+@class CMWebService;
 @class CMObject;
 @class CMACL;
+
+extern NSString * const CMErrorDomain;
+
+typedef enum {
+    CMErrorUnknown,
+    CMErrorServerConnectionFailed,
+    CMErrorServerError,
+    CMErrorNotFound,
+    CMErrorInvalidRequest,
+    CMErrorInvalidResponse,
+    CMErrorUnauthorized
+} CMErrorCode;
 
 /**
  * Name of the notification that is sent out when an object is deleted.
@@ -51,9 +63,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  */
 @interface CMStore : NSObject
 
-/**
- * The <tt>CMWebService</tt> instance that backs this store.
- */
+/** The <tt>CMWebService</tt> instance that backs this store */
 @property (nonatomic, strong) CMWebService *webService;
 
 /**
@@ -70,9 +80,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  */
 @property (nonatomic, strong) CMUser *user;
 
-/**
- * The last error that occured during a store-based operation.
- */
+/** The last error that occured during a store-based operation. */
 @property (readonly, strong) NSError *lastError;
 
 /**

@@ -1,3 +1,6 @@
 [submodule "ios/kiwi"]
 	path = ios/kiwi
 	url = git://github.com/allending/Kiwi.git
+[submodule "ios/ios/Vendor/AFNetworking"]
+	path = ios/ios/Vendor/AFNetworking
+	url = git://github.com/AFNetworking/AFNetworking.git
