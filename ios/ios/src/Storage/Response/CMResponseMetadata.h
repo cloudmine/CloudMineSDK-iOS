@@ -27,7 +27,7 @@ extern NSString * const CMMetadataTypeGeo;
  * @param object The object whose metadata we're looking for.
  * @param type The type of metadata to extract.
  */
-- (NSDictionary *)metadataForObject:(CMObject *)object ofType:(NSString *)type;
+- (id)metadataForObject:(CMObject *)object ofType:(NSString *)type;
 
 /**
  * Given an object fetched with a distance query, returns the distance from that object to the point given in the query.

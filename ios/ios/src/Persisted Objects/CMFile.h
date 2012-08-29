@@ -82,7 +82,7 @@
 
 /**
  * @deprecated
- * Modifying the owner of a CMFile directly is no longer supported. Instead, go through CMStore as you would 
+ * Modifying the owner of a CMFile directly is no longer supported. Instead, go through CMStore as you would
  * for managing ownership of CMObject instances.
  *
  * The non-deprecated constructor to use is CMFile#initWithData:named:mimeType:.
@@ -120,7 +120,7 @@
  * originally added to a store using CMStore#addFile: or CMStore#saveFile:: (i.e. at the app-level) it will be saved at the app-level. If it was
  * originally added using CMStore#addUserFile:callback:, CMStore#saveUserFile:callback:, or CMFile#saveWithUser:callback: (i.e. at the user-level) it will be saved
  * at the user-level.
- 
+
  * @param callback The callback block to be invoked after the save operation has completed.
  *
  * @see CMStore#defaultStore

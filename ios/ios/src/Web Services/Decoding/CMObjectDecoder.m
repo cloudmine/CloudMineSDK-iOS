@@ -11,6 +11,7 @@
 #import "CMSerializable.h"
 #import "CMObjectSerialization.h"
 #import "CMGeoPoint.h"
+#import "CMACL.h"
 #import "CMDate.h"
 #import "CMObjectClassNameRegistry.h"
 
@@ -213,14 +214,17 @@
 
         if ([[objv objectForKey:CMInternalClassStorageKey] isEqualToString:CMInternalHashClassName]) {
             return [self decodeAllInDictionary:objv];
-        } else if ([[objv objectForKey:CMInternalTypeStorageKey] isEqualToString:CMGeoPointClassName]) {
-            // Note that this uses CMInternalTypeStorageKey instead of CMInternalClassStorageKey on purpose
-            // since the CM backend treats these objects as special unicorns (i.e. it has to know to geoindex them).
+        } else {
             CMObjectDecoder *subObjectDecoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:objv];
-            return [[CMGeoPoint alloc] initWithCoder:subObjectDecoder];
-        } else if ([[objv objectForKey:CMInternalClassStorageKey] isEqualToString:CMDateClassName]) {
-            CMObjectDecoder *subObjectDecoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:objv];
-            return [[CMDate alloc] initWithCoder:subObjectDecoder];
+            if ([[objv objectForKey:CMInternalTypeStorageKey] isEqualToString:CMGeoPointClassName]) {
+                // Note that this uses CMInternalTypeStorageKey instead of CMInternalClassStorageKey on purpose
+                // since the CM backend treats these objects as special unicorns (i.e. it has to know to geoindex them).
+                return [[CMGeoPoint alloc] initWithCoder:subObjectDecoder];
+            } else if ([[objv objectForKey:CMInternalTypeStorageKey] isEqualToString:CMACLTypeName]) {
+                return [[CMACL alloc] initWithCoder:subObjectDecoder];
+            } else if ([[objv objectForKey:CMInternalClassStorageKey] isEqualToString:CMDateClassName]) {
+                return [[CMDate alloc] initWithCoder:subObjectDecoder];
+            }
         }
     }
 

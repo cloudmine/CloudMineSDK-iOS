@@ -24,7 +24,7 @@ NSString * const CMMetadataTypeGeo = @"geo";
     return self;
 }
 
-- (NSDictionary *)metadataForObject:(CMObject *)object ofType:(NSString *)type {
+- (id)metadataForObject:(CMObject *)object ofType:(NSString *)type {
     if(metadata) {
         NSDictionary *metaForObject = [metadata objectForKey:object.objectId];
 
