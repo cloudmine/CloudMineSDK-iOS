@@ -6,9 +6,10 @@
 //  See LICENSE file included with SDK for details.
 //
 
-#import "CMStore.h"
 #import <objc/runtime.h>
-#import "SPLowVerbosity.h"
+
+#import "CMStore.h"
+#import "CMObject+Private.h"
 
 #import "CMObjectDecoder.h"
 #import "CMObjectEncoder.h"
@@ -23,6 +24,8 @@
 #import "CMFileUploadResponse.h"
 #import "CMDeleteResponse.h"
 
+#import "SPLowVerbosity.h"
+
 #define _CMAssertAPICredentialsInitialized NSAssert([[CMAPICredentials sharedInstance] appSecret] != nil && [[[CMAPICredentials sharedInstance] appSecret] length] > 0 && [[CMAPICredentials sharedInstance] appIdentifier] != nil && [[[CMAPICredentials sharedInstance] appIdentifier] length] > 0, @"The CMAPICredentials singleton must be initialized before using a CloudMine Store")
 #define _CMAssertUserConfigured NSAssert(user, @"You must set the user of this store to a CMUser before querying for user-level objects.")
 #define _CMUserOrNil (userLevel ? user : nil)
@@ -35,13 +38,6 @@
 NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotification";
 
 #pragma mark -
-
-@interface CMObject (Private)
-@property (getter = isDirty) BOOL dirty;
-@property (readwrite, strong, nonatomic) NSString *ownerId;
-@property (strong, nonatomic) CMACL *sharedACL;
-@property (strong, nonatomic) NSArray *aclIds;
-@end
 
 @interface CMStore ()
 - (void)_allObjects:(CMStoreObjectFetchCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;

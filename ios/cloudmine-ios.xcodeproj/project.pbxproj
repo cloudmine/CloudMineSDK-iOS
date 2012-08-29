@@ -246,6 +246,7 @@
 		7A28005315928518002C504A /* CMObjectOwnershipLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMObjectOwnershipLevel.h; sourceTree = "<group>"; };
 		7A308A4314799134008ADD3C /* CMWebServiceSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMWebServiceSpec.m; sourceTree = "<group>"; };
 		7A308A4B14799471008ADD3C /* libKiwi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libKiwi.a; path = "kiwi/build/Release-iphoneos/libKiwi.a"; sourceTree = "<group>"; };
+		7A3DCECB15EEAF3000AC4890 /* CMObject+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CMObject+Private.h"; sourceTree = "<group>"; };
 		7A4A6F2814FFF08100B95D13 /* CMUserSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUserSpec.m; sourceTree = "<group>"; };
 		7A4A6F2B14FFF3CF00B95D13 /* CMUserAccountResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMUserAccountResult.h; sourceTree = "<group>"; };
 		7A58CC1F14F1B544003E864B /* CMMimeType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMMimeType.h; sourceTree = "<group>"; };
@@ -706,6 +707,7 @@
 				7AFDFE3B158E959B00388D6E /* CMGeoPoint.m */,
 				7AFDFE3C158E959B00388D6E /* CMObject.h */,
 				7AFDFE3D158E959B00388D6E /* CMObject.m */,
+				7A3DCECB15EEAF3000AC4890 /* CMObject+Private.h */,
 				7AFDFE3E158E959B00388D6E /* CMObjectClassNameRegistry.h */,
 				7AFDFE3F158E959B00388D6E /* CMObjectClassNameRegistry.m */,
 				7AFDFE40158E959B00388D6E /* CMUntypedObject.h */,

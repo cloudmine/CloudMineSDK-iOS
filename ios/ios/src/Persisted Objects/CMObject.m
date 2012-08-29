@@ -6,8 +6,10 @@
 //  See LICENSE file included with SDK for details.
 //
 
-#import "CMNullStore.h"
 #import "CMObject.h"
+#import "CMObject+Private.h"
+
+#import "CMNullStore.h"
 #import "CMACL.h"
 #import "NSString+UUID.h"
 #import "CMObjectSerialization.h"
@@ -15,13 +17,6 @@
 
 #import "MARTNSObject.h"
 #import "RTProperty.h"
-
-@interface CMObject ()
-@property (readwrite, getter = isDirty) BOOL dirty;
-@property (readwrite, strong, nonatomic) NSString *ownerId;
-@property (strong, nonatomic) CMACL *sharedACL;
-@property (strong, nonatomic) NSArray *aclIds;
-@end
 
 @implementation CMObject
 @synthesize objectId;

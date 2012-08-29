@@ -6,7 +6,6 @@
 //  See LICENSE file included with SDK for details.
 //
 
-#import <Foundation/Foundation.h>
 #import "CMSerializable.h"
 #import "CMStoreCallbacks.h"
 #import "CMUser.h"
