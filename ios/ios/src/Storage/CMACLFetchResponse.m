@@ -29,7 +29,7 @@
     [self.acls enumerateObjectsUsingBlock:^(CMACL *acl, BOOL *stop) {
         [members unionSet:acl.members];
     }];
-    
+
     return [members copy];
 }
 
@@ -39,25 +39,25 @@
     [self.acls enumerateObjectsUsingBlock:^(CMACL *acl, BOOL *stop) {
         [permissions intersectSet:acl.permissions];
     }];
-    
+
     return [permissions copy];
 }
 
 - (NSSet *)permissionsForMember:(NSString *)user {
-    
+
     // Filter the returned ACLs by user
     NSMutableSet *acls = [NSMutableSet set];
     [self.acls enumerateObjectsUsingBlock:^(CMACL *acl, BOOL *stop) {
         if ([acl.members containsObject:user])
             [acls addObject:acl];
     }];
-    
+
     // Get maximum permissions for this user
     NSMutableSet *permissions = [NSMutableSet set];
     [acls enumerateObjectsUsingBlock:^(CMACL *acl, BOOL *stop) {
         [permissions unionSet:acl.permissions];
     }];
-    
+
     return [permissions copy];
 }
 
@@ -68,13 +68,13 @@
         if ([permissions isSubsetOfSet:acl.permissions])
             [acls addObject:acl];
     }];
-    
+
     // Get all of the users
     NSMutableSet *members = [NSMutableSet set];
     [acls enumerateObjectsUsingBlock:^(CMACL *acl, BOOL *stop) {
         [members unionSet:acl.members];
     }];
-    
+
     return [members copy];
 }
 

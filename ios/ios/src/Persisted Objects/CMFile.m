@@ -109,7 +109,7 @@ NSString * const _mimeTypeKey = @"mime";
                     [store addFile:self];
                     break;
             }
-            
+
             return;
         } else if (newStore != store) {
             switch ([store objectOwnershipLevel:self]) {
@@ -146,7 +146,7 @@ NSString * const _mimeTypeKey = @"mime";
     if ([self.store objectOwnershipLevel:self] == CMObjectOwnershipUndefinedLevel) {
         [self.store addFile:self];
     }
-    
+
     switch ([self.store objectOwnershipLevel:self]) {
         case CMObjectOwnershipAppLevel:
             [self.store saveFileWithData:self.fileData named:self.fileName additionalOptions:nil callback:callback];

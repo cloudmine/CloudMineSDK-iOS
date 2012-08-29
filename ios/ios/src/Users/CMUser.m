@@ -330,7 +330,7 @@ static CMWebService *webService;
 
 + (void)userWithIdentifier:(NSString *)identifier callback:(CMUserFetchCallback)callback {
     NSParameterAssert(callback);
-    
+
     CMUser *cachedUser = [self userFromCacheWithIdentifier:identifier];
     if (cachedUser) {
         callback($array(cachedUser), [NSDictionary dictionary]);
@@ -379,7 +379,7 @@ static CMWebService *webService;
     [users enumerateObjectsUsingBlock:^(CMUser *obj, NSUInteger idx, BOOL *stop) {
         [cachedUsers setObject:obj forKey:obj.objectId];
     }];
-    
+
     [[NSKeyedArchiver archivedDataWithRootObject:cachedUsers] writeToURL:[self cacheLocation] atomically:YES];
 }
 

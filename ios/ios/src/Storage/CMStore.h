@@ -51,7 +51,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  */
 @interface CMStore : NSObject
 
-/** 
+/**
  * The <tt>CMWebService</tt> instance that backs this store.
  */
 @property (nonatomic, strong) CMWebService *webService;
@@ -70,7 +70,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  */
 @property (nonatomic, strong) CMUser *user;
 
-/** 
+/**
  * The last error that occured during a store-based operation.
  */
 @property (readonly, strong) NSError *lastError;
@@ -444,7 +444,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
 - (void)saveUserObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
 
 /**
- * Saves an individual ACL to CloudMine's data store. The store must be configured with a user or else calling 
+ * Saves an individual ACL to CloudMine's data store. The store must be configured with a user or else calling
  * this method will throw an exception. If this ACL doesn't already belong to this store, it will
  * automatically be added as well. This has the additional effect of increasing
  * the ACL's retain count by 1 as well as setting its <tt>store</tt> property to this store.

@@ -145,7 +145,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
               user:(CMUser *)user
     successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
       errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
-    
+
     NSURLRequest *request = [self constructHTTPRequestWithVerb:@"GET"
                                                            URL:[self constructACLUrlWithKey:nil query:query extraParameters:nil]
                                                      appSecret:_appSecret
@@ -253,14 +253,14 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     if (mimeType.length > 0) {
         [request setValue:mimeType forHTTPHeaderField:@"Content-Type"];
     }
-    
+
     // If file does not exist, all will just be nil
     NSError *error;
     NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:&error];
     unsigned long long fileSize = [[fileAttributes objectForKey:NSFileSize] unsignedLongLongValue];
     [request setValue:[NSString stringWithFormat:@"%llu", fileSize] forHTTPHeaderField:@"Content-Length"];
     [request setHTTPBodyStream:[NSInputStream inputStreamWithFileAtPath:path]];
-    
+
     [self executeBinaryDataUploadRequest:request successHandler:successHandler errorHandler:errorHandler];
 }
 
@@ -342,7 +342,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                 }
             }
         }
-        
+
         switch (httpResponseCode) {
             case 200:
                 return CMUserAccountLoginSucceeded;
@@ -474,16 +474,16 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                         error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerConnectionFailed userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"A connection to the server was not able to be established.", NSLocalizedDescriptionKey, error, NSURLErrorKey, nil]];
                     }
                 }
-                
+
                 // Handle any connection errors. Log the error, fail the callback
                 if (error) {
                     NSLog(@"CloudMine *** User profile save operation failed (%@)", [error localizedDescription]);
                     callback(CMUserAccountProfileUpdateFailed, nil);
                     return;
                 }
-                
+
                 NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                
+
                 // Parse responsibly. If error is not handled, it will crash the application!
                 NSError *parseErr = nil;
                 NSDictionary *results = [NSDictionary dictionary];
@@ -493,7 +493,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                         results = parsedResults;
                     }
                 }
-                
+
                 // Handle any service errors, or report success
                 if ([response statusCode] == 200 && [[results objectForKey:@"errors"] count] == 0) {
                     callback(CMUserAccountProfileUpdateSucceeded, results);
@@ -649,7 +649,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
 
     NSDate *startDate = [NSDate date];
-    
+
     void (^responseBlock)() = ^(NSHTTPURLResponse *response, NSData *data, NSError *error) {
         if ([[error domain] isEqualToString:NSURLErrorDomain]) {
             if ([error code] == NSURLErrorUserCancelledAuthentication) {
@@ -658,13 +658,13 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerConnectionFailed userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"A connection to the server was not able to be established.", NSLocalizedDescriptionKey, error, NSURLErrorKey, nil]];
             }
         }
-        
+
         NSString *requestId = [[response allHeaderFields] objectForKey:@"X-Request-Id"];
         if (requestId) {
             int milliseconds = (int)([[NSDate date] timeIntervalSinceDate:startDate] * 1000.0f);
             [_responseTimes setObject:[NSNumber numberWithInt:milliseconds] forKey:requestId];
         }
-        
+
         // Handle any connection errors. Log the error, fail the callback
         // Do not pass the error to the user, because applications do not expect NSError objects in error dictionary. Doing so could cause a crash.
         if (error) {
@@ -672,7 +672,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
             callback(nil, nil, nil);
             return;
         }
-        
+
         NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 
         NSError *parseErr = nil;
@@ -683,7 +683,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                 responseBody = parsedResponseBody;
             }
         }
-        
+
         if (callback != nil) {
             void (^block)() = ^{ callback([responseBody objectForKey:@"success"], [responseBody objectForKey:@"errors"], $num([[responseBody objectForKey:@"success"] count])); };
             [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
@@ -699,9 +699,9 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 
     // TODO: Let this switch between MsgPack and GZIP'd JSON.
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    
+
     NSDate *startDate = [NSDate date];
-    
+
     void (^responseBlock)() = ^(NSHTTPURLResponse *response, NSData *data, NSError *error) {
         if ([[error domain] isEqualToString:NSURLErrorDomain]) {
             if ([error code] == NSURLErrorUserCancelledAuthentication) {
@@ -710,16 +710,16 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerConnectionFailed userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"A connection to the server was not able to be established.", NSLocalizedDescriptionKey, error, NSURLErrorKey, nil]];
             }
         }
-        
+
         NSString *requestId = [[response allHeaderFields] objectForKey:@"X-Request-Id"];
         if (requestId) {
             int milliseconds = (int)([[NSDate date] timeIntervalSinceDate:startDate] * 1000.0f);
             [_responseTimes setObject:[NSNumber numberWithInt:milliseconds] forKey:requestId];
         }
-        
+
         CMUserAccountResult resultCode = codeMapper([response statusCode], error);
         NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        
+
         NSError *parseErr = nil;
         NSDictionary *responseBody = [NSDictionary dictionary];
         if (responseString != nil) {
@@ -728,11 +728,11 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                 responseBody = parsedResponseBody;
             }
         }
-        
+
         if (resultCode == CMUserAccountUnknownResult) {
             NSLog(@"CloudMine *** Unexpected response received from server during user account operation. (%@) (Code %d) Body: %@", [error localizedDescription], [response statusCode], responseString);
         }
-        
+
         if (callback != nil) {
             void (^block)() = ^{ callback(resultCode, responseBody); };
             [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
@@ -747,10 +747,10 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
           errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
 
     NSDate *startDate = [NSDate date];
-    
+
     void (^responseBlock)() = ^(NSHTTPURLResponse *response, NSData *data, NSError *error) {
         NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        
+
         if ([[error domain] isEqualToString:NSURLErrorDomain]) {
             if ([error code] == NSURLErrorUserCancelledAuthentication) {
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was unauthorized. Is your API key correct?", NSLocalizedDescriptionKey, error, NSURLErrorKey, nil]];
@@ -758,41 +758,41 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerConnectionFailed userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"A connection to the server was not able to be established.", NSLocalizedDescriptionKey, error, NSURLErrorKey, nil]];
             }
         }
-        
+
         NSString *requestId = [[response allHeaderFields] objectForKey:@"X-Request-Id"];
         if (requestId) {
             int milliseconds = (int)([[NSDate date] timeIntervalSinceDate:startDate] * 1000.0f);
             [_responseTimes setObject:[NSNumber numberWithInt:milliseconds] forKey:requestId];
         }
-        
+
         NSError *parseError;
         NSDictionary *results = [responseString yajl_JSON:&parseError];
-        
+
         if (!error && [[parseError domain] isEqualToString:YAJLErrorDomain]) {
             error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidResponse userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The response received from the server was malformed.", NSLocalizedDescriptionKey, parseError, YAJLErrorKey, nil]];
         }
-        
+
         switch ([response statusCode]) {
             case 404:
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorNotFound userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The application was not found. Is your application identifier correct?", NSLocalizedDescriptionKey, nil]];
                 break;
-            
+
             case 401:
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was unauthorized. Is your API key correct?", NSLocalizedDescriptionKey, nil]];
                 break;
-                
+
             case 400:
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidRequest userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was malformed.", NSLocalizedDescriptionKey, nil]];
                 break;
-                
+
             case 500:
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The server experienced an error", NSLocalizedDescriptionKey, nil]];
                 break;
-                
+
             default:
                 break;
         }
-        
+
         if (error) {
             NSLog(@"CloudMine *** Unexpected error occurred during object request. (%@)", [error localizedDescription]);
             if (errorHandler != nil) {
@@ -801,7 +801,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
             }
             return;
         }
-            
+
         NSDictionary *successes = nil;
         NSDictionary *errors = nil;
         NSDictionary *meta = nil;
@@ -831,7 +831,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 
             count = [results objectForKey:@"count"];
         }
-        
+
         if (successHandler != nil) {
             void (^block)() = ^{ successHandler(successes, errors, meta, snippetResult, count, [response allHeaderFields]); };
             [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
@@ -844,10 +844,10 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 - (void)executeACLUpdateRequest:(NSURLRequest *)request
                  successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
                    errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
-    
+
     void (^responseBlock)() = ^(NSHTTPURLResponse *response, NSData *data, NSError *error) {
         NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        
+
         if ([[error domain] isEqualToString:NSURLErrorDomain]) {
             if ([error code] == NSURLErrorUserCancelledAuthentication) {
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was unauthorized. Is your API key correct?", NSLocalizedDescriptionKey, error, NSURLErrorKey, nil]];
@@ -855,35 +855,35 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerConnectionFailed userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"A connection to the server was not able to be established.", NSLocalizedDescriptionKey, error, NSURLErrorKey, nil]];
             }
         }
-        
+
         NSError *parseError;
         NSDictionary *results = [responseString yajl_JSON:&parseError];
-        
+
         if (!error && [[parseError domain] isEqualToString:YAJLErrorDomain]) {
             error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidResponse userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The response received from the server was malformed.", NSLocalizedDescriptionKey, parseError, YAJLErrorKey, nil]];
         }
-        
+
         switch ([response statusCode]) {
             case 404:
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorNotFound userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Either the ACL or the entire application was not found. Does the ACL exist? Is your application identifier correct?", NSLocalizedDescriptionKey, nil]];
                 break;
-                
+
             case 401:
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was unauthorized. Are you authoried to do this? Is your API key correct?", NSLocalizedDescriptionKey, nil]];
                 break;
-                
+
             case 400:
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidRequest userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was malformed.", NSLocalizedDescriptionKey, nil]];
                 break;
-                
+
             case 500:
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The server experienced an error", NSLocalizedDescriptionKey, nil]];
                 break;
-                
+
             default:
                 break;
         }
-        
+
         if (error) {
             NSLog(@"CloudMine *** Unexpected error occurred during object request. (%@)", [error localizedDescription]);
             if (errorHandler != nil) {
@@ -892,7 +892,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
             }
             return;
         }
-    
+
         if (successHandler != nil) {
             void (^block)() = ^{ successHandler(results, nil, nil, nil, [NSNumber numberWithUnsignedInteger:results.count], [response allHeaderFields]); };
             [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
@@ -905,7 +905,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 - (void)executeACLDeleteRequest:(NSURLRequest *)request
                  successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
                    errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
-    
+
     void (^responseBlock)() = ^(NSHTTPURLResponse *response, NSData *data, NSError *error) {
         if ([[error domain] isEqualToString:NSURLErrorDomain]) {
             if ([error code] == NSURLErrorUserCancelledAuthentication) {
@@ -914,28 +914,28 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerConnectionFailed userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"A connection to the server was not able to be established.", NSLocalizedDescriptionKey, error, NSURLErrorKey, nil]];
             }
         }
-        
+
         switch ([response statusCode]) {
             case 404:
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorNotFound userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Either the ACL or the entire application was not found. Does the ACL exist? Is your application identifier correct?", NSLocalizedDescriptionKey, nil]];
                 break;
-                
+
             case 401:
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was unauthorized. Are you authoried to do this? Is your API key correct?", NSLocalizedDescriptionKey, nil]];
                 break;
-                
+
             case 400:
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidRequest userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was malformed.", NSLocalizedDescriptionKey, nil]];
                 break;
-                
+
             case 500:
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The server experienced an error", NSLocalizedDescriptionKey, nil]];
                 break;
-                
+
             default:
                 break;
         }
-        
+
         if (error) {
             NSLog(@"CloudMine *** Unexpected error occurred during object request. (%@)", [error localizedDescription]);
             if (errorHandler != nil) {
@@ -944,13 +944,13 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
             }
             return;
         }
-        
+
         if (successHandler != nil) {
             void (^block)() = ^{ successHandler([NSDictionary dictionaryWithObject:@"deleted" forKey:[[request URL] lastPathComponent]], nil, nil, nil, [NSNumber numberWithUnsignedInt:1], [response allHeaderFields]); };
             [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
         }
     };
-    
+
     [NSURLConnection sendAsynchronousRequest:request queue:self.networkQueue completionHandler:responseBlock];
 }
 
@@ -959,14 +959,14 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
           errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
 
     NSDate *startDate = [NSDate date];
-    
+
     void (^responseBlock)() = ^(NSHTTPURLResponse *response, NSData *data, NSError *error) {
         NSString *requestId = [[response allHeaderFields] objectForKey:@"X-Request-Id"];
         if (requestId) {
             int milliseconds = (int)([[NSDate date] timeIntervalSinceDate:startDate] * 1000.0f);
             [_responseTimes setObject:[NSNumber numberWithInt:milliseconds] forKey:requestId];
         }
-        
+
          if ([response statusCode] == 200) {
             if (successHandler != nil) {
                 void (^block)() = ^{ successHandler(data, [[response allHeaderFields] objectForKey:@"Content-Type"], [response allHeaderFields]); };
@@ -980,29 +980,29 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                     error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerConnectionFailed userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"A connection to the server was not able to be established.", NSLocalizedDescriptionKey, error, NSURLErrorKey, nil]];
                 }
             }
-            
+
             NSError *error;
             switch ([response statusCode]) {
                 case 404:
                     error = [NSError errorWithDomain:CMErrorDomain code:CMErrorNotFound userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Either the file was not found or the application itself was not found.", NSLocalizedDescriptionKey, nil]];
                     break;
-                    
+
                 case 401:
                     error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was unauthorized. Is your API key correct?", NSLocalizedDescriptionKey, nil]];
                     break;
-                    
+
                 case 400:
                     error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidRequest userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was malformed.", NSLocalizedDescriptionKey, nil]];
                     break;
-                    
+
                 case 500:
                     error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The server experienced an error", NSLocalizedDescriptionKey, nil]];
                     break;
-                    
+
                 default:
                     break;
             }
-            
+
             NSLog(@"CloudMine *** Unexpected error occurred during binary download request. (%@)", [error localizedDescription]);
             if (errorHandler != nil) {
                 void (^block)() = ^{ errorHandler(error); };
@@ -1019,13 +1019,13 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                          errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
 
     NSDate *startDate = [NSDate date];
-    
+
     void (^responseBlock)() = ^(NSHTTPURLResponse *response, NSData *data, NSError *error) {
         NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 
         NSError *parseError;
         NSDictionary *results = [responseString yajl_JSON:&error];
-        
+
         if ([[error domain] isEqualToString:NSURLErrorDomain]) {
             if ([error code] == NSURLErrorUserCancelledAuthentication) {
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was unauthorized. Is your API key correct?", NSLocalizedDescriptionKey, error, NSURLErrorKey, nil]];
@@ -1033,38 +1033,38 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerConnectionFailed userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"A connection to the server was not able to be established.", NSLocalizedDescriptionKey, error, NSURLErrorKey, nil]];
             }
         }
-        
+
         NSString *requestId = [[response allHeaderFields] objectForKey:@"X-Request-Id"];
         if (requestId) {
             int milliseconds = (int)([[NSDate date] timeIntervalSinceDate:startDate] * 1000.0f);
             [_responseTimes setObject:[NSNumber numberWithInt:milliseconds] forKey:requestId];
         }
-        
+
         if (!error && [[parseError domain] isEqualToString:YAJLErrorDomain]) {
             error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidResponse userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The response received from the server was malformed.", NSLocalizedDescriptionKey, error, YAJLErrorKey, nil]];
         }
-        
+
         switch ([response statusCode]) {
             case 404:
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorNotFound userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The application was not found. Is your application identifier correct?", NSLocalizedDescriptionKey, nil]];
                 break;
-                
+
             case 401:
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was unauthorized. Is your API key correct?", NSLocalizedDescriptionKey, nil]];
                 break;
-                
+
             case 400:
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidRequest userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was malformed.", NSLocalizedDescriptionKey, nil]];
                 break;
-                
+
             case 500:
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The server experienced an error", NSLocalizedDescriptionKey, nil]];
                 break;
-                
+
             default:
                 break;
         }
-        
+
         if (error) {
             NSLog(@"CloudMine *** Unexpected error occurred during binary upload request. (%@)", [error localizedDescription]);
             if (errorHandler != nil) {
@@ -1073,7 +1073,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
             }
             return;
         }
-        
+
         id snippetResult = nil;
         NSString *key = [results objectForKey:@"key"];
 
@@ -1082,13 +1082,13 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
             if (!snippetResult)
                 snippetResult = [NSDictionary dictionary];
         }
-        
+
         if (successHandler != nil) {
             void (^block)() = ^{ successHandler([response statusCode] == 201 ? CMFileCreated : CMFileUpdated, key, snippetResult, [response allHeaderFields]); };
             [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
         }
     };
-    
+
     [NSURLConnection sendAsynchronousRequest:request queue:self.networkQueue completionHandler:responseBlock];
 }
 
@@ -1123,7 +1123,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     }
-    
+
     // Add response times to user token string
     NSMutableArray *times = [NSMutableArray array];
     [_responseTimes enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSNumber *obj, BOOL *stop) {
@@ -1134,7 +1134,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         [times removeObjectsInRange:NSMakeRange(20, times.count - 20)];
     NSString *activeIdentifier = [[CMActiveUser currentActiveUser] identifier];
     NSString *userToken = times.count ? [NSString stringWithFormat:@"%@;%@", activeIdentifier, [times componentsJoinedByString:@","]] : activeIdentifier;
-    
+
     // Add user agent and user tracking headers
     [request setValue:[NSString stringWithFormat:@"CM-iOS/%@", CM_VERSION] forHTTPHeaderField:@"X-CloudMine-Agent"];
     [request setValue:userToken forHTTPHeaderField:@"X-CloudMine-UT"];
@@ -1150,15 +1150,15 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 
 - (NSURL *)constructACLUrlWithKey:(NSString *)key query:(NSString *)query extraParameters:(NSDictionary *)params {
     NSAssert(key == nil || query == nil, @"When constructing CM URLs, 'key' and 'query' are mutually exclusive");
-    
+
     NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/user/access", _appIdentifier]];
-    
+
     if (query)
         url = [url URLByAppendingPathComponent:@"search"];
-    
+
     if (key)
         url = [url URLByAppendingPathComponent:key];
-    
+
     return [self appendKeys:nil query:query serverSideFunction:nil pagingOptions:nil sortingOptions:nil toURL:url extraParameters:params];
 }
 
