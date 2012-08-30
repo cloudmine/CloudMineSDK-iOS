@@ -135,26 +135,30 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00034"></a>00034 
 <a name="l00043"></a><a class="code" href="interface_c_m_store_options.html#a924f3f661479f50e6888241bc23666d3">00043</a> @property (nonatomic, strong) <a class="code" href="interface_c_m_server_function.html">CMServerFunction</a> *<a class="code" href="interface_c_m_store_options.html#a924f3f661479f50e6888241bc23666d3">serverSideFunction</a>;
 <a name="l00044"></a>00044 
-<a name="l00045"></a>00045 @property (nonatomic) BOOL includeDistance;
-<a name="l00046"></a>00046 @property (nonatomic, strong) NSString *distanceUnits;
-<a name="l00047"></a>00047 
-<a name="l00051"></a>00051 - (id)initWithPagingDescriptor:(<a class="code" href="interface_c_m_paging_descriptor.html">CMPagingDescriptor</a> *)thePagingDescriptor;
-<a name="l00052"></a>00052 - (id)initWithServerSideFunction:(<a class="code" href="interface_c_m_server_function.html">CMServerFunction</a> *)theServerFunction;
-<a name="l00053"></a>00053 - (id)initWithSortDescriptor:(<a class="code" href="interface_c_m_sort_descriptor.html">CMSortDescriptor</a> *)theSortDescriptor;
-<a name="l00054"></a>00054 - (id)initWithPagingDescriptor:(<a class="code" href="interface_c_m_paging_descriptor.html">CMPagingDescriptor</a> *)thePagingDescriptor sortDescriptor:(<a class="code" href="interface_c_m_sort_descriptor.html">CMSortDescriptor</a> *)theSortDescriptor andServerSideFunction:(<a class="code" href="interface_c_m_server_function.html">CMServerFunction</a> *)theServerFunction;
-<a name="l00055"></a>00055 
-<a name="l00059"></a>00059 - (NSDictionary *)<a class="code" href="interface_c_m_store_options.html#aac387d12ff4ff932333fb8ab9fd618f5">buildExtraParameters</a>;
-<a name="l00060"></a>00060 
-<a name="l00064"></a>00064 - (NSString *)<a class="code" href="interface_c_m_store_options.html#a692f9c37fd790642049992120af1cfc1">stringRepresentation</a>;
+<a name="l00048"></a><a class="code" href="interface_c_m_store_options.html#ad4b6d7300ee4fb9f1d6d45caad5ec606">00048</a> @property (nonatomic) BOOL <a class="code" href="interface_c_m_store_options.html#ad4b6d7300ee4fb9f1d6d45caad5ec606">shared</a>;
+<a name="l00049"></a>00049 
+<a name="l00053"></a><a class="code" href="interface_c_m_store_options.html#abbf5cf4e504095816e3b1f28230ac500">00053</a> @property (nonatomic) BOOL <a class="code" href="interface_c_m_store_options.html#abbf5cf4e504095816e3b1f28230ac500">sharedOnly</a>;
+<a name="l00054"></a>00054 
+<a name="l00055"></a>00055 @property (nonatomic) BOOL includeDistance;
+<a name="l00056"></a>00056 @property (nonatomic, strong) NSString *distanceUnits;
+<a name="l00057"></a>00057 
+<a name="l00061"></a>00061 - (id)initWithPagingDescriptor:(<a class="code" href="interface_c_m_paging_descriptor.html">CMPagingDescriptor</a> *)thePagingDescriptor;
+<a name="l00062"></a>00062 - (id)initWithServerSideFunction:(<a class="code" href="interface_c_m_server_function.html">CMServerFunction</a> *)theServerFunction;
+<a name="l00063"></a>00063 - (id)initWithSortDescriptor:(<a class="code" href="interface_c_m_sort_descriptor.html">CMSortDescriptor</a> *)theSortDescriptor;
+<a name="l00064"></a>00064 - (id)initWithPagingDescriptor:(<a class="code" href="interface_c_m_paging_descriptor.html">CMPagingDescriptor</a> *)thePagingDescriptor sortDescriptor:(<a class="code" href="interface_c_m_sort_descriptor.html">CMSortDescriptor</a> *)theSortDescriptor andServerSideFunction:(<a class="code" href="interface_c_m_server_function.html">CMServerFunction</a> *)theServerFunction;
 <a name="l00065"></a>00065 
-<a name="l00066"></a>00066 <span class="keyword">@end</span>
+<a name="l00069"></a>00069 - (NSDictionary *)<a class="code" href="interface_c_m_store_options.html#aac387d12ff4ff932333fb8ab9fd618f5">buildExtraParameters</a>;
+<a name="l00070"></a>00070 
+<a name="l00074"></a>00074 - (NSString *)<a class="code" href="interface_c_m_store_options.html#a692f9c37fd790642049992120af1cfc1">stringRepresentation</a>;
+<a name="l00075"></a>00075 
+<a name="l00076"></a>00076 <span class="keyword">@end</span>
 </pre></div></div><!-- contents -->
 </div>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><b>CMStoreOptions.h</b>      </li>
 
-    <li class="footer">Generated on Thu Jun 21 2012 12:01:31 for CloudMine iOS SDK by
+    <li class="footer">Generated on Thu Aug 30 2012 09:16:39 for CloudMine iOS SDK by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.0 </li>
    </ul>

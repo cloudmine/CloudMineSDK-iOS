@@ -117,7 +117,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">ios/src/Web Services/CMWebService.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#import &quot;<a class="el" href="_c_m_file_upload_result_8h_source.html">CMFileUploadResult.h</a>&quot;</code><br/>
+<div class="textblock"><code>#import &lt;AFNetworking/AFHTTPClient.h&gt;</code><br/>
+<code>#import &quot;<a class="el" href="_c_m_file_upload_result_8h_source.html">CMFileUploadResult.h</a>&quot;</code><br/>
 <code>#import &quot;<a class="el" href="_c_m_user_account_result_8h_source.html">CMUserAccountResult.h</a>&quot;</code><br/>
 </div>
 <p><a href="_c_m_web_service_8h_source.html">Go to the source code of this file.</a></p>
@@ -153,7 +154,7 @@ Typedefs</h2></td></tr>
 <div class="memdoc">
 <p>Base URL for the current version of the CloudMine API. </p>
 
-<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00026">26</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00027">27</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
 
 </div>
 </div>
@@ -170,7 +171,7 @@ Typedefs</h2></td></tr>
 <div class="memdoc">
 <p>Callback block signature for <b>all</b> operations on <code><a class="el" href="interface_c_m_web_service.html">CMWebService</a></code> that can fail. These are general errors that cause the entire call to fail, not key-specific errors (which are reported instead in the <code>errors</code> dictionary in the <code>CMWebServiceObjectFetchSuccessCallback</code> callback block). The block returns <code>void</code> and takes an <code>NSError</code> describing the error as an argument. </p>
 
-<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00043">43</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00044">44</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
 
 </div>
 </div>
@@ -186,7 +187,7 @@ Typedefs</h2></td></tr>
 <div class="memdoc">
 <p>Callback block signature for all operations on <code><a class="el" href="interface_c_m_web_service.html">CMWebService</a></code> that download binary files from the CloudMine servers. These blocks return <code>void</code> and take an <code>NSData</code> instance that contains the raw data for the file as well as a string with the content type of the file returned from the server. </p>
 
-<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00057">57</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00058">58</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
 
 </div>
 </div>
@@ -202,7 +203,7 @@ Typedefs</h2></td></tr>
 <div class="memdoc">
 <p>Callback block signature for all operations on <code><a class="el" href="interface_c_m_web_service.html">CMWebService</a></code> that upload binary files to the CloudMine servers. These blocks return <code>void</code> and take a <code>CMFileUploadResult</code>, the key of the new file, and a dynamic snippet result as arguments to indicate the final result of the upload operation. </p>
 
-<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00050">50</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00051">51</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
 
 </div>
 </div>
@@ -218,7 +219,7 @@ Typedefs</h2></td></tr>
 <div class="memdoc">
 <p>Callback block signature for all operations on <code><a class="el" href="interface_c_m_web_service.html">CMWebService</a></code> that fetch objects from the CloudMine servers. These blocks return <code>void</code> and take a dictionary of results, a dictionary of errors, a dictionary of metadata, and a dynamic snippet result as arguments. These map directly with the CloudMine API response format. </p>
 
-<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00035">35</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00036">36</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
 
 </div>
 </div>
@@ -234,7 +235,7 @@ Typedefs</h2></td></tr>
 <div class="memdoc">
 <p>Callback block signature for all operations on <code><a class="el" href="interface_c_m_web_service.html">CMWebService</a></code> and <code><a class="el" href="interface_c_m_user.html">CMUser</a></code> that involve the management of user accounts and user sessions. These blocks return <code>void</code> and take a <code>CMUserAccountResult</code> code that represents the result of the operation as well as an <code>NSDictionary</code> containing the dictionary representation of the response body from the server. </p>
 
-<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00065">65</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00066">66</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
 
 </div>
 </div>
@@ -250,7 +251,7 @@ Typedefs</h2></td></tr>
 <div class="memdoc">
 <p>Callback block signature for all operations that return a list of users for the current app from the CloudMine servers. These blocks return <code>void</code> and take a dictionary of results, a dictionary of errors, and the total number of users returned as arguments. The contents of the former two map directly to the CloudMine API response format. </p>
 
-<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00073">73</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00074">74</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
 
 </div>
 </div>
@@ -260,7 +261,7 @@ Typedefs</h2></td></tr>
     <ul>
       <li class="navelem"><a class="el" href="_c_m_web_service_8h.html">CMWebService.h</a>      </li>
 
-    <li class="footer">Generated on Thu Jun 21 2012 12:01:31 for CloudMine iOS SDK by
+    <li class="footer">Generated on Thu Aug 30 2012 09:16:39 for CloudMine iOS SDK by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.0 </li>
    </ul>

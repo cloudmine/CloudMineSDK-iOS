@@ -12,6 +12,7 @@ var hierarchy =
       [ "CMDate", "interface_c_m_date.html", null ],
       [ "CMFile", "interface_c_m_file.html", null ],
       [ "CMObject", "interface_c_m_object.html", [
+        [ "CMACL", "interface_c_m_a_c_l.html", null ],
         [ "CMGeoPoint", "interface_c_m_geo_point.html", null ],
         [ "CMUntypedObject", "interface_c_m_untyped_object.html", null ]
       ] ],
@@ -25,6 +26,7 @@ var hierarchy =
     ] ],
     [ "CMStoreOptions", "interface_c_m_store_options.html", null ],
     [ "CMStoreResponse", "interface_c_m_store_response.html", [
+      [ "CMACLFetchResponse", "interface_c_m_a_c_l_fetch_response.html", null ],
       [ "CMDeleteResponse", "interface_c_m_delete_response.html", null ],
       [ "CMFileFetchResponse", "interface_c_m_file_fetch_response.html", null ],
       [ "CMFileUploadResponse", "interface_c_m_file_upload_response.html", null ],

@@ -121,134 +121,152 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00006"></a>00006 <span class="comment">//  See LICENSE file included with SDK for details.</span>
 <a name="l00007"></a>00007 <span class="comment">//</span>
 <a name="l00008"></a>00008 
-<a name="l00011"></a>00011 <span class="preprocessor">#import &quot;<a class="code" href="_c_m_file_upload_result_8h.html">CMFileUploadResult.h</a>&quot;</span>
-<a name="l00012"></a>00012 <span class="preprocessor">#import &quot;<a class="code" href="_c_m_user_account_result_8h.html">CMUserAccountResult.h</a>&quot;</span>
-<a name="l00013"></a>00013 
-<a name="l00014"></a>00014 <span class="keyword">@class</span> ASINetworkQueue;
-<a name="l00015"></a>00015 <span class="keyword">@class</span> <a class="code" href="interface_c_m_user.html">CMUser</a>;
-<a name="l00016"></a>00016 <span class="keyword">@class</span> <a class="code" href="interface_c_m_server_function.html">CMServerFunction</a>;
-<a name="l00017"></a>00017 <span class="keyword">@class</span> <a class="code" href="interface_c_m_paging_descriptor.html">CMPagingDescriptor</a>;
-<a name="l00018"></a>00018 <span class="keyword">@class</span> <a class="code" href="interface_c_m_sort_descriptor.html">CMSortDescriptor</a>;
-<a name="l00019"></a>00019 
-<a name="l00023"></a>00023 <span class="preprocessor">#ifdef DEBUG</span>
-<a name="l00024"></a>00024 <span class="preprocessor"></span><span class="preprocessor">#define CM_BASE_URL @&quot;http://localhost:3001/v1&quot;</span>
-<a name="l00025"></a>00025 <span class="preprocessor"></span><span class="preprocessor">#else</span>
-<a name="l00026"></a><a class="code" href="_c_m_web_service_8h.html#a223a09a15a9261d019c3bb8e10ccb77e">00026</a> <span class="preprocessor"></span><span class="preprocessor">#define CM_BASE_URL @&quot;https://api.cloudmine.me/v1&quot;</span>
-<a name="l00027"></a>00027 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
-<a name="l00028"></a>00028 <span class="preprocessor"></span>
-<a name="l00035"></a><a class="code" href="_c_m_web_service_8h.html#a6f4c0d209c5241e677bebc5db592eeea">00035</a> <span class="keyword">typedef</span> void (^<a class="code" href="_c_m_web_service_8h.html#a6f4c0d209c5241e677bebc5db592eeea">CMWebServiceObjectFetchSuccessCallback</a>)(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, <span class="keywordtype">id</span> snippetResult, NSNumber *count, NSDictionary *headers);
-<a name="l00036"></a>00036 
-<a name="l00043"></a><a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">00043</a> <span class="keyword">typedef</span> void (^<a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a>)(NSError *error);
-<a name="l00044"></a>00044 
-<a name="l00050"></a><a class="code" href="_c_m_web_service_8h.html#a5609890cd4b9e8590aaf19c69bf4dc3a">00050</a> <span class="keyword">typedef</span> void (^<a class="code" href="_c_m_web_service_8h.html#a5609890cd4b9e8590aaf19c69bf4dc3a">CMWebServiceFileUploadSuccessCallback</a>)(<a class="code" href="_c_m_file_upload_result_8h.html#a03bfabac838d96b38d11f2327a3188c7">CMFileUploadResult</a> result, NSString *fileKey, <span class="keywordtype">id</span> snippetResult, NSDictionary *headers);
-<a name="l00051"></a>00051 
-<a name="l00057"></a><a class="code" href="_c_m_web_service_8h.html#ae8267288b3502db7c66608bd3a43cc6a">00057</a> <span class="keyword">typedef</span> void (^<a class="code" href="_c_m_web_service_8h.html#ae8267288b3502db7c66608bd3a43cc6a">CMWebServiceFileFetchSuccessCallback</a>)(NSData *data, NSString *contentType, NSDictionary *headers);
-<a name="l00058"></a>00058 
-<a name="l00065"></a><a class="code" href="_c_m_web_service_8h.html#adeb3b39bba6f7c9c458b03dd0ee76d75">00065</a> <span class="keyword">typedef</span> void (^<a class="code" href="_c_m_web_service_8h.html#adeb3b39bba6f7c9c458b03dd0ee76d75">CMWebServiceUserAccountOperationCallback</a>)(<a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138ee">CMUserAccountResult</a> result, NSDictionary *responseBody);
-<a name="l00066"></a>00066 
-<a name="l00073"></a><a class="code" href="_c_m_web_service_8h.html#a2f10c20197b181b65b8017c411e87674">00073</a> <span class="keyword">typedef</span> void (^<a class="code" href="_c_m_web_service_8h.html#a2f10c20197b181b65b8017c411e87674">CMWebServiceUserFetchSuccessCallback</a>)(NSDictionary *results, NSDictionary *errors, NSNumber *count);
-<a name="l00074"></a>00074 
-<a name="l00079"></a><a class="code" href="interface_c_m_web_service.html">00079</a> <span class="keyword">@interface </span><a class="code" href="interface_c_m_web_service.html">CMWebService</a> : NSObject {
-<a name="l00080"></a>00080     NSString *_appSecret;
-<a name="l00081"></a>00081     NSString *_appIdentifier;
-<a name="l00082"></a>00082 }
-<a name="l00083"></a>00083 
-<a name="l00090"></a><a class="code" href="interface_c_m_web_service.html#a07aafe0a4b2668b2b6f75cee245d1434">00090</a> <span class="keyword">@property</span> (nonatomic, strong) ASINetworkQueue *networkQueue;
-<a name="l00091"></a>00091 
-<a name="l00098"></a>00098 - (id)init;
-<a name="l00099"></a>00099 
-<a name="l00103"></a>00103 - (id)initWithAppSecret:(NSString *)appSecret appIdentifier:(NSString *)appIdentifier;
-<a name="l00104"></a>00104 
-<a name="l00115"></a>00115 - (void)getValuesForKeys:(NSArray *)keys
-<a name="l00116"></a>00116       serverSideFunction:(<a class="code" href="interface_c_m_server_function.html">CMServerFunction</a> *)function
-<a name="l00117"></a>00117            pagingOptions:(<a class="code" href="interface_c_m_paging_descriptor.html">CMPagingDescriptor</a> *)paging
-<a name="l00118"></a>00118           sortingOptions:(<a class="code" href="interface_c_m_sort_descriptor.html">CMSortDescriptor</a> *)sorting
-<a name="l00119"></a>00119                     user:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user
-<a name="l00120"></a>00120          extraParameters:(NSDictionary *)params
-<a name="l00121"></a>00121           successHandler:(<a class="code" href="_c_m_web_service_8h.html#a6f4c0d209c5241e677bebc5db592eeea">CMWebServiceObjectFetchSuccessCallback</a>)successHandler
-<a name="l00122"></a>00122             errorHandler:(<a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a>)errorHandler;
-<a name="l00123"></a>00123 
-<a name="l00124"></a>00124 - (void)searchValuesFor:(NSString *)searchQuery
-<a name="l00125"></a>00125      serverSideFunction:(<a class="code" href="interface_c_m_server_function.html">CMServerFunction</a> *)function
-<a name="l00126"></a>00126           pagingOptions:(<a class="code" href="interface_c_m_paging_descriptor.html">CMPagingDescriptor</a> *)paging
-<a name="l00127"></a>00127          sortingOptions:(<a class="code" href="interface_c_m_sort_descriptor.html">CMSortDescriptor</a> *)sorting
-<a name="l00128"></a>00128                    user:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user
-<a name="l00129"></a>00129         extraParameters:(NSDictionary *)params
-<a name="l00130"></a>00130          successHandler:(<a class="code" href="_c_m_web_service_8h.html#a6f4c0d209c5241e677bebc5db592eeea">CMWebServiceObjectFetchSuccessCallback</a>)successHandler
-<a name="l00131"></a>00131            errorHandler:(<a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a>)errorHandler;
-<a name="l00132"></a>00132 
-<a name="l00142"></a>00142 - (void)getBinaryDataNamed:(NSString *)key
-<a name="l00143"></a>00143         serverSideFunction:(<a class="code" href="interface_c_m_server_function.html">CMServerFunction</a> *)function
-<a name="l00144"></a>00144                       user:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user
-<a name="l00145"></a>00145            extraParameters:(NSDictionary *)params
-<a name="l00146"></a>00146             successHandler:(<a class="code" href="_c_m_web_service_8h.html#ae8267288b3502db7c66608bd3a43cc6a">CMWebServiceFileFetchSuccessCallback</a>)successHandler
-<a name="l00147"></a>00147               errorHandler:(<a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a>)errorHandler;
-<a name="l00148"></a>00148 
-<a name="l00160"></a>00160 - (void)updateValuesFromDictionary:(NSDictionary *)data
-<a name="l00161"></a>00161                 serverSideFunction:(<a class="code" href="interface_c_m_server_function.html">CMServerFunction</a> *)function
-<a name="l00162"></a>00162                               user:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user
-<a name="l00163"></a>00163                    extraParameters:(NSDictionary *)params
-<a name="l00164"></a>00164                     successHandler:(<a class="code" href="_c_m_web_service_8h.html#a6f4c0d209c5241e677bebc5db592eeea">CMWebServiceObjectFetchSuccessCallback</a>)successHandler
-<a name="l00165"></a>00165                       errorHandler:(<a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a>)errorHandler;
-<a name="l00166"></a>00166 
-<a name="l00179"></a>00179 - (void)uploadBinaryData:(NSData *)data
-<a name="l00180"></a>00180       serverSideFunction:(<a class="code" href="interface_c_m_server_function.html">CMServerFunction</a> *)function
-<a name="l00181"></a>00181                    named:(NSString *)key
-<a name="l00182"></a>00182               ofMimeType:(NSString *)mimeType
-<a name="l00183"></a>00183                     user:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user
-<a name="l00184"></a>00184          extraParameters:(NSDictionary *)params
-<a name="l00185"></a>00185           successHandler:(<a class="code" href="_c_m_web_service_8h.html#a5609890cd4b9e8590aaf19c69bf4dc3a">CMWebServiceFileUploadSuccessCallback</a>)successHandler
-<a name="l00186"></a>00186             errorHandler:(<a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a>)errorHandler;
-<a name="l00187"></a>00187 
-<a name="l00204"></a>00204 - (void)uploadFileAtPath:(NSString *)path
-<a name="l00205"></a>00205       serverSideFunction:(<a class="code" href="interface_c_m_server_function.html">CMServerFunction</a> *)function
-<a name="l00206"></a>00206                    named:(NSString *)key
-<a name="l00207"></a>00207               ofMimeType:(NSString *)mimeType
-<a name="l00208"></a>00208                     user:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user
-<a name="l00209"></a>00209          extraParameters:(NSDictionary *)params
-<a name="l00210"></a>00210           successHandler:(<a class="code" href="_c_m_web_service_8h.html#a5609890cd4b9e8590aaf19c69bf4dc3a">CMWebServiceFileUploadSuccessCallback</a>)successHandler
-<a name="l00211"></a>00211             errorHandler:(<a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a>)errorHandler;
-<a name="l00212"></a>00212 
-<a name="l00228"></a>00228 - (void)setValuesFromDictionary:(NSDictionary *)data
-<a name="l00229"></a>00229              serverSideFunction:(<a class="code" href="interface_c_m_server_function.html">CMServerFunction</a> *)function
-<a name="l00230"></a>00230                            user:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user
-<a name="l00231"></a>00231                 extraParameters:(NSDictionary *)params
-<a name="l00232"></a>00232                  successHandler:(<a class="code" href="_c_m_web_service_8h.html#a6f4c0d209c5241e677bebc5db592eeea">CMWebServiceObjectFetchSuccessCallback</a>)successHandler
-<a name="l00233"></a>00233                    errorHandler:(<a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a>)errorHandler;
-<a name="l00234"></a>00234 
-<a name="l00247"></a>00247 - (void)deleteValuesForKeys:(NSArray *)keys
-<a name="l00248"></a>00248          serverSideFunction:(<a class="code" href="interface_c_m_server_function.html">CMServerFunction</a> *)function
-<a name="l00249"></a>00249                        user:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user
-<a name="l00250"></a>00250             extraParameters:(NSDictionary *)params
-<a name="l00251"></a>00251              successHandler:(<a class="code" href="_c_m_web_service_8h.html#a6f4c0d209c5241e677bebc5db592eeea">CMWebServiceObjectFetchSuccessCallback</a>)successHandler
-<a name="l00252"></a>00252                errorHandler:(<a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a>)errorHandler;
-<a name="l00253"></a>00253 
-<a name="l00270"></a>00270 - (void)loginUser:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user callback:(<a class="code" href="_c_m_web_service_8h.html#adeb3b39bba6f7c9c458b03dd0ee76d75">CMWebServiceUserAccountOperationCallback</a>)callback;
-<a name="l00271"></a>00271 
-<a name="l00287"></a>00287 - (void)logoutUser:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user callback:(<a class="code" href="_c_m_web_service_8h.html#adeb3b39bba6f7c9c458b03dd0ee76d75">CMWebServiceUserAccountOperationCallback</a>)callback;
-<a name="l00288"></a>00288 
-<a name="l00306"></a>00306 - (void)createAccountWithUser:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user callback:(<a class="code" href="_c_m_web_service_8h.html#adeb3b39bba6f7c9c458b03dd0ee76d75">CMWebServiceUserAccountOperationCallback</a>)callback;
-<a name="l00307"></a>00307 
-<a name="l00330"></a>00330 - (void)changePasswordForUser:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user oldPassword:(NSString *)oldPassword newPassword:(NSString *)newPassword callback:(<a class="code" href="_c_m_web_service_8h.html#adeb3b39bba6f7c9c458b03dd0ee76d75">CMWebServiceUserAccountOperationCallback</a>)callback;
-<a name="l00331"></a>00331 
-<a name="l00351"></a>00351 - (void)resetForgottenPasswordForUser:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user callback:(<a class="code" href="_c_m_web_service_8h.html#adeb3b39bba6f7c9c458b03dd0ee76d75">CMWebServiceUserAccountOperationCallback</a>)callback;
-<a name="l00352"></a>00352 
-<a name="l00360"></a>00360 - (void)getAllUsersWithCallback:(<a class="code" href="_c_m_web_service_8h.html#a2f10c20197b181b65b8017c411e87674">CMWebServiceUserFetchSuccessCallback</a>)callback;
-<a name="l00361"></a>00361 
-<a name="l00369"></a>00369 - (void)getUserProfileWithIdentifier:(NSString *)identifier callback:(<a class="code" href="_c_m_web_service_8h.html#a2f10c20197b181b65b8017c411e87674">CMWebServiceUserFetchSuccessCallback</a>)callback;
-<a name="l00370"></a>00370 
-<a name="l00379"></a>00379 - (void)searchUsers:(NSString *)query callback:(<a class="code" href="_c_m_web_service_8h.html#a2f10c20197b181b65b8017c411e87674">CMWebServiceUserFetchSuccessCallback</a>)callback;
-<a name="l00380"></a>00380 
-<a name="l00381"></a>00381 - (void)saveUser:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user callback:(<a class="code" href="_c_m_web_service_8h.html#adeb3b39bba6f7c9c458b03dd0ee76d75">CMWebServiceUserAccountOperationCallback</a>)callback;
-<a name="l00382"></a>00382 
-<a name="l00383"></a>00383 <span class="keyword">@end</span>
+<a name="l00011"></a>00011 <span class="preprocessor">#import &lt;AFNetworking/AFHTTPClient.h&gt;</span>
+<a name="l00012"></a>00012 
+<a name="l00013"></a>00013 <span class="preprocessor">#import &quot;<a class="code" href="_c_m_file_upload_result_8h.html">CMFileUploadResult.h</a>&quot;</span>
+<a name="l00014"></a>00014 <span class="preprocessor">#import &quot;<a class="code" href="_c_m_user_account_result_8h.html">CMUserAccountResult.h</a>&quot;</span>
+<a name="l00015"></a>00015 
+<a name="l00016"></a>00016 <span class="keyword">@class</span> <a class="code" href="interface_c_m_user.html">CMUser</a>;
+<a name="l00017"></a>00017 <span class="keyword">@class</span> <a class="code" href="interface_c_m_server_function.html">CMServerFunction</a>;
+<a name="l00018"></a>00018 <span class="keyword">@class</span> <a class="code" href="interface_c_m_paging_descriptor.html">CMPagingDescriptor</a>;
+<a name="l00019"></a>00019 <span class="keyword">@class</span> <a class="code" href="interface_c_m_sort_descriptor.html">CMSortDescriptor</a>;
+<a name="l00020"></a>00020 
+<a name="l00024"></a>00024 <span class="preprocessor">#ifdef DEBUG</span>
+<a name="l00025"></a>00025 <span class="preprocessor"></span><span class="preprocessor">#define CM_BASE_URL @&quot;http://localhost:3001/v1&quot;</span>
+<a name="l00026"></a>00026 <span class="preprocessor"></span><span class="preprocessor">#else</span>
+<a name="l00027"></a><a class="code" href="_c_m_web_service_8h.html#a223a09a15a9261d019c3bb8e10ccb77e">00027</a> <span class="preprocessor"></span><span class="preprocessor">#define CM_BASE_URL @&quot;https://api.cloudmine.me/v1&quot;</span>
+<a name="l00028"></a>00028 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
+<a name="l00029"></a>00029 <span class="preprocessor"></span>
+<a name="l00036"></a><a class="code" href="_c_m_web_service_8h.html#a6f4c0d209c5241e677bebc5db592eeea">00036</a> <span class="keyword">typedef</span> void (^<a class="code" href="_c_m_web_service_8h.html#a6f4c0d209c5241e677bebc5db592eeea">CMWebServiceObjectFetchSuccessCallback</a>)(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, <span class="keywordtype">id</span> snippetResult, NSNumber *count, NSDictionary *headers);
+<a name="l00037"></a>00037 
+<a name="l00044"></a><a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">00044</a> <span class="keyword">typedef</span> void (^<a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a>)(NSError *error);
+<a name="l00045"></a>00045 
+<a name="l00051"></a><a class="code" href="_c_m_web_service_8h.html#a5609890cd4b9e8590aaf19c69bf4dc3a">00051</a> <span class="keyword">typedef</span> void (^<a class="code" href="_c_m_web_service_8h.html#a5609890cd4b9e8590aaf19c69bf4dc3a">CMWebServiceFileUploadSuccessCallback</a>)(<a class="code" href="_c_m_file_upload_result_8h.html#a03bfabac838d96b38d11f2327a3188c7">CMFileUploadResult</a> result, NSString *fileKey, <span class="keywordtype">id</span> snippetResult, NSDictionary *headers);
+<a name="l00052"></a>00052 
+<a name="l00058"></a><a class="code" href="_c_m_web_service_8h.html#ae8267288b3502db7c66608bd3a43cc6a">00058</a> <span class="keyword">typedef</span> void (^<a class="code" href="_c_m_web_service_8h.html#ae8267288b3502db7c66608bd3a43cc6a">CMWebServiceFileFetchSuccessCallback</a>)(NSData *data, NSString *contentType, NSDictionary *headers);
+<a name="l00059"></a>00059 
+<a name="l00066"></a><a class="code" href="_c_m_web_service_8h.html#adeb3b39bba6f7c9c458b03dd0ee76d75">00066</a> <span class="keyword">typedef</span> void (^<a class="code" href="_c_m_web_service_8h.html#adeb3b39bba6f7c9c458b03dd0ee76d75">CMWebServiceUserAccountOperationCallback</a>)(<a class="code" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138ee">CMUserAccountResult</a> result, NSDictionary *responseBody);
+<a name="l00067"></a>00067 
+<a name="l00074"></a><a class="code" href="_c_m_web_service_8h.html#a2f10c20197b181b65b8017c411e87674">00074</a> <span class="keyword">typedef</span> void (^<a class="code" href="_c_m_web_service_8h.html#a2f10c20197b181b65b8017c411e87674">CMWebServiceUserFetchSuccessCallback</a>)(NSDictionary *results, NSDictionary *errors, NSNumber *count);
+<a name="l00075"></a>00075 
+<a name="l00080"></a><a class="code" href="interface_c_m_web_service.html">00080</a> <span class="keyword">@interface </span><a class="code" href="interface_c_m_web_service.html">CMWebService</a> : AFHTTPClient {
+<a name="l00081"></a>00081     NSString *_appSecret;
+<a name="l00082"></a>00082     NSString *_appIdentifier;
+<a name="l00083"></a>00083 }
+<a name="l00084"></a>00084 
+<a name="l00091"></a>00091 - (id)init;
+<a name="l00092"></a>00092 
+<a name="l00096"></a>00096 - (id)initWithAppSecret:(NSString *)appSecret appIdentifier:(NSString *)appIdentifier;
+<a name="l00097"></a>00097 
+<a name="l00106"></a>00106 - (void)getACLsForUser:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user
+<a name="l00107"></a>00107         successHandler:(<a class="code" href="_c_m_web_service_8h.html#a6f4c0d209c5241e677bebc5db592eeea">CMWebServiceObjectFetchSuccessCallback</a>)successHandler
+<a name="l00108"></a>00108           errorHandler:(<a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a>)errorHandler;
+<a name="l00109"></a>00109 
+<a name="l00120"></a>00120 - (void)getValuesForKeys:(NSArray *)keys
+<a name="l00121"></a>00121       serverSideFunction:(<a class="code" href="interface_c_m_server_function.html">CMServerFunction</a> *)function
+<a name="l00122"></a>00122            pagingOptions:(<a class="code" href="interface_c_m_paging_descriptor.html">CMPagingDescriptor</a> *)paging
+<a name="l00123"></a>00123           sortingOptions:(<a class="code" href="interface_c_m_sort_descriptor.html">CMSortDescriptor</a> *)sorting
+<a name="l00124"></a>00124                     user:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user
+<a name="l00125"></a>00125          extraParameters:(NSDictionary *)params
+<a name="l00126"></a>00126           successHandler:(<a class="code" href="_c_m_web_service_8h.html#a6f4c0d209c5241e677bebc5db592eeea">CMWebServiceObjectFetchSuccessCallback</a>)successHandler
+<a name="l00127"></a>00127             errorHandler:(<a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a>)errorHandler;
+<a name="l00128"></a>00128 
+<a name="l00129"></a>00129 - (void)searchValuesFor:(NSString *)searchQuery
+<a name="l00130"></a>00130      serverSideFunction:(<a class="code" href="interface_c_m_server_function.html">CMServerFunction</a> *)function
+<a name="l00131"></a>00131           pagingOptions:(<a class="code" href="interface_c_m_paging_descriptor.html">CMPagingDescriptor</a> *)paging
+<a name="l00132"></a>00132          sortingOptions:(<a class="code" href="interface_c_m_sort_descriptor.html">CMSortDescriptor</a> *)sorting
+<a name="l00133"></a>00133                    user:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user
+<a name="l00134"></a>00134         extraParameters:(NSDictionary *)params
+<a name="l00135"></a>00135          successHandler:(<a class="code" href="_c_m_web_service_8h.html#a6f4c0d209c5241e677bebc5db592eeea">CMWebServiceObjectFetchSuccessCallback</a>)successHandler
+<a name="l00136"></a>00136            errorHandler:(<a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a>)errorHandler;
+<a name="l00137"></a>00137 
+<a name="l00147"></a>00147 - (void)searchACLs:(NSString *)query
+<a name="l00148"></a>00148               user:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user
+<a name="l00149"></a>00149     successHandler:(<a class="code" href="_c_m_web_service_8h.html#a6f4c0d209c5241e677bebc5db592eeea">CMWebServiceObjectFetchSuccessCallback</a>)successHandler
+<a name="l00150"></a>00150       errorHandler:(<a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a>)errorHandler;
+<a name="l00151"></a>00151 
+<a name="l00161"></a>00161 - (void)getBinaryDataNamed:(NSString *)key
+<a name="l00162"></a>00162         serverSideFunction:(<a class="code" href="interface_c_m_server_function.html">CMServerFunction</a> *)function
+<a name="l00163"></a>00163                       user:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user
+<a name="l00164"></a>00164            extraParameters:(NSDictionary *)params
+<a name="l00165"></a>00165             successHandler:(<a class="code" href="_c_m_web_service_8h.html#ae8267288b3502db7c66608bd3a43cc6a">CMWebServiceFileFetchSuccessCallback</a>)successHandler
+<a name="l00166"></a>00166               errorHandler:(<a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a>)errorHandler;
+<a name="l00167"></a>00167 
+<a name="l00179"></a>00179 - (void)updateValuesFromDictionary:(NSDictionary *)data
+<a name="l00180"></a>00180                 serverSideFunction:(<a class="code" href="interface_c_m_server_function.html">CMServerFunction</a> *)function
+<a name="l00181"></a>00181                               user:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user
+<a name="l00182"></a>00182                    extraParameters:(NSDictionary *)params
+<a name="l00183"></a>00183                     successHandler:(<a class="code" href="_c_m_web_service_8h.html#a6f4c0d209c5241e677bebc5db592eeea">CMWebServiceObjectFetchSuccessCallback</a>)successHandler
+<a name="l00184"></a>00184                       errorHandler:(<a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a>)errorHandler;
+<a name="l00185"></a>00185 
+<a name="l00195"></a>00195 - (void)updateACL:(NSDictionary *)acl
+<a name="l00196"></a>00196              user:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user
+<a name="l00197"></a>00197    successHandler:(<a class="code" href="_c_m_web_service_8h.html#a6f4c0d209c5241e677bebc5db592eeea">CMWebServiceObjectFetchSuccessCallback</a>)successHandler
+<a name="l00198"></a>00198      errorHandler:(<a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a>)errorHandler;
+<a name="l00199"></a>00199 
+<a name="l00212"></a>00212 - (void)uploadBinaryData:(NSData *)data
+<a name="l00213"></a>00213       serverSideFunction:(<a class="code" href="interface_c_m_server_function.html">CMServerFunction</a> *)function
+<a name="l00214"></a>00214                    named:(NSString *)key
+<a name="l00215"></a>00215               ofMimeType:(NSString *)mimeType
+<a name="l00216"></a>00216                     user:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user
+<a name="l00217"></a>00217          extraParameters:(NSDictionary *)params
+<a name="l00218"></a>00218           successHandler:(<a class="code" href="_c_m_web_service_8h.html#a5609890cd4b9e8590aaf19c69bf4dc3a">CMWebServiceFileUploadSuccessCallback</a>)successHandler
+<a name="l00219"></a>00219             errorHandler:(<a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a>)errorHandler;
+<a name="l00220"></a>00220 
+<a name="l00237"></a>00237 - (void)uploadFileAtPath:(NSString *)path
+<a name="l00238"></a>00238       serverSideFunction:(<a class="code" href="interface_c_m_server_function.html">CMServerFunction</a> *)function
+<a name="l00239"></a>00239                    named:(NSString *)key
+<a name="l00240"></a>00240               ofMimeType:(NSString *)mimeType
+<a name="l00241"></a>00241                     user:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user
+<a name="l00242"></a>00242          extraParameters:(NSDictionary *)params
+<a name="l00243"></a>00243           successHandler:(<a class="code" href="_c_m_web_service_8h.html#a5609890cd4b9e8590aaf19c69bf4dc3a">CMWebServiceFileUploadSuccessCallback</a>)successHandler
+<a name="l00244"></a>00244             errorHandler:(<a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a>)errorHandler;
+<a name="l00245"></a>00245 
+<a name="l00261"></a>00261 - (void)setValuesFromDictionary:(NSDictionary *)data
+<a name="l00262"></a>00262              serverSideFunction:(<a class="code" href="interface_c_m_server_function.html">CMServerFunction</a> *)function
+<a name="l00263"></a>00263                            user:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user
+<a name="l00264"></a>00264                 extraParameters:(NSDictionary *)params
+<a name="l00265"></a>00265                  successHandler:(<a class="code" href="_c_m_web_service_8h.html#a6f4c0d209c5241e677bebc5db592eeea">CMWebServiceObjectFetchSuccessCallback</a>)successHandler
+<a name="l00266"></a>00266                    errorHandler:(<a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a>)errorHandler;
+<a name="l00267"></a>00267 
+<a name="l00280"></a>00280 - (void)deleteValuesForKeys:(NSArray *)keys
+<a name="l00281"></a>00281          serverSideFunction:(<a class="code" href="interface_c_m_server_function.html">CMServerFunction</a> *)function
+<a name="l00282"></a>00282                        user:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user
+<a name="l00283"></a>00283             extraParameters:(NSDictionary *)params
+<a name="l00284"></a>00284              successHandler:(<a class="code" href="_c_m_web_service_8h.html#a6f4c0d209c5241e677bebc5db592eeea">CMWebServiceObjectFetchSuccessCallback</a>)successHandler
+<a name="l00285"></a>00285                errorHandler:(<a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a>)errorHandler;
+<a name="l00286"></a>00286 
+<a name="l00296"></a>00296 - (void)deleteACLWithKey:(NSString *)key
+<a name="l00297"></a>00297                     user:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user
+<a name="l00298"></a>00298           successHandler:(<a class="code" href="_c_m_web_service_8h.html#a6f4c0d209c5241e677bebc5db592eeea">CMWebServiceObjectFetchSuccessCallback</a>)successHandler
+<a name="l00299"></a>00299             errorHandler:(<a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a>)errorHandler;
+<a name="l00300"></a>00300 
+<a name="l00317"></a>00317 - (void)loginUser:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user callback:(<a class="code" href="_c_m_web_service_8h.html#adeb3b39bba6f7c9c458b03dd0ee76d75">CMWebServiceUserAccountOperationCallback</a>)callback;
+<a name="l00318"></a>00318 
+<a name="l00334"></a>00334 - (void)logoutUser:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user callback:(<a class="code" href="_c_m_web_service_8h.html#adeb3b39bba6f7c9c458b03dd0ee76d75">CMWebServiceUserAccountOperationCallback</a>)callback;
+<a name="l00335"></a>00335 
+<a name="l00353"></a>00353 - (void)createAccountWithUser:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user callback:(<a class="code" href="_c_m_web_service_8h.html#adeb3b39bba6f7c9c458b03dd0ee76d75">CMWebServiceUserAccountOperationCallback</a>)callback;
+<a name="l00354"></a>00354 
+<a name="l00377"></a>00377 - (void)changePasswordForUser:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user oldPassword:(NSString *)oldPassword newPassword:(NSString *)newPassword callback:(<a class="code" href="_c_m_web_service_8h.html#adeb3b39bba6f7c9c458b03dd0ee76d75">CMWebServiceUserAccountOperationCallback</a>)callback;
+<a name="l00378"></a>00378 
+<a name="l00398"></a>00398 - (void)resetForgottenPasswordForUser:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user callback:(<a class="code" href="_c_m_web_service_8h.html#adeb3b39bba6f7c9c458b03dd0ee76d75">CMWebServiceUserAccountOperationCallback</a>)callback;
+<a name="l00399"></a>00399 
+<a name="l00407"></a>00407 - (void)getAllUsersWithCallback:(<a class="code" href="_c_m_web_service_8h.html#a2f10c20197b181b65b8017c411e87674">CMWebServiceUserFetchSuccessCallback</a>)callback;
+<a name="l00408"></a>00408 
+<a name="l00416"></a>00416 - (void)getUserProfileWithIdentifier:(NSString *)identifier callback:(<a class="code" href="_c_m_web_service_8h.html#a2f10c20197b181b65b8017c411e87674">CMWebServiceUserFetchSuccessCallback</a>)callback;
+<a name="l00417"></a>00417 
+<a name="l00426"></a>00426 - (void)searchUsers:(NSString *)query callback:(<a class="code" href="_c_m_web_service_8h.html#a2f10c20197b181b65b8017c411e87674">CMWebServiceUserFetchSuccessCallback</a>)callback;
+<a name="l00427"></a>00427 
+<a name="l00428"></a>00428 - (void)saveUser:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user callback:(<a class="code" href="_c_m_web_service_8h.html#adeb3b39bba6f7c9c458b03dd0ee76d75">CMWebServiceUserAccountOperationCallback</a>)callback;
+<a name="l00429"></a>00429 
+<a name="l00430"></a>00430 <span class="keyword">@end</span>
 </pre></div></div><!-- contents -->
 </div>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="_c_m_web_service_8h.html">CMWebService.h</a>      </li>
 
-    <li class="footer">Generated on Thu Jun 21 2012 12:01:31 for CloudMine iOS SDK by
+    <li class="footer">Generated on Thu Aug 30 2012 09:16:39 for CloudMine iOS SDK by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.0 </li>
    </ul>
