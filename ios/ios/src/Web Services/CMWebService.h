@@ -8,7 +8,7 @@
 
 /** @file */
 
-#import <AFNetworking/AFHTTPClient.h>
+#import "AFHTTPClient.h"
 
 #import "CMFileUploadResult.h"
 #import "CMUserAccountResult.h"
