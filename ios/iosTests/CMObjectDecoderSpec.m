@@ -76,6 +76,39 @@ describe(@"CMObjectDecoder", ^{
             [CMObjectDecoder decodeObjects:dictionary];
         }) should] raiseWithName:@"CMInternalInconsistencyException"];
     });
+
+    it(@"should decode multiple objects properly when some of them don't have __id__ fields but do have __class__ fields", ^{
+        NSMutableArray *originalObjects = [NSMutableArray arrayWithCapacity:5];
+        for (int i=0; i<5; i++) {
+            CMGenericSerializableObject *obj = [[CMGenericSerializableObject alloc] init];
+            [obj fillPropertiesWithDefaults];
+            [originalObjects addObject:obj];
+        }
+
+        NSDictionary *originalObjectsDictionaryRepresentation = [CMObjectEncoder encodeObjects:originalObjects];
+
+        // Now strip out the __id__ field from some of the objects.
+        NSMutableDictionary *objectsDictRepForTesting = [NSMutableDictionary dictionary];
+        __block int count = 0;
+        [originalObjectsDictionaryRepresentation enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSDictionary *obj, BOOL *stop) {
+            NSMutableDictionary *mutObj = [obj mutableCopy];
+            if (count < 2) {
+                [mutObj removeObjectForKey:@"__id__"];
+            }
+            [objectsDictRepForTesting setObject:mutObj forKey:key];
+            count += 1;
+        }];
+
+        // Decoding shouldn't crash, of course.
+        NSArray *decodedObjects = [CMObjectDecoder decodeObjects:objectsDictRepForTesting];
+        [[[decodedObjects should] have:5] items];
+
+        // Now let's make sure that the objectId property has been filled for all the objects.
+        for (id<CMSerializable> obj in decodedObjects) {
+            [[[obj objectId] shouldNot] beNil];
+            [[[originalObjectsDictionaryRepresentation objectForKey:obj.objectId] shouldNot] beNil];
+        }
+    });
 });
 
 SPEC_END

@@ -10,6 +10,7 @@
 
 #import "CMACL.h"
 #import "CMAPICredentials.h"
+#import "CMWebService.h"
 
 SPEC_BEGIN(CMACLSpec)
 
