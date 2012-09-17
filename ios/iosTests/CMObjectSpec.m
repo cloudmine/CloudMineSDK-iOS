@@ -16,6 +16,7 @@
 #import "CMObjectEncoder.h"
 #import "CMAPICredentials.h"
 #import "CMUser.h"
+#import "CMWebService.h"
 
 @interface CustomObject : CMObject
 @property (nonatomic, retain) NSString *something;

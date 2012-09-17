@@ -30,13 +30,18 @@
     NSMutableArray *decodedObjects = [NSMutableArray arrayWithCapacity:[serializedObjects count]];
 
     for (id key in serializedObjects) {
-        NSDictionary *objectRepresentation = [serializedObjects objectForKey:key];
+        NSMutableDictionary *objectRepresentation = [[serializedObjects objectForKey:key] mutableCopy];
 
         Class klass = [CMObjectDecoder typeFromDictionaryRepresentation:objectRepresentation];
 
         id stringifiedKey = key;
         if (![stringifiedKey isKindOfClass:[NSString class]]) {
             stringifiedKey = [stringifiedKey stringValue];
+        }
+        
+        // Let's be nice if __id__ wasn't specified in the object and help it out a bit.
+        if ([objectRepresentation objectForKey:CMInternalObjectIdKey] == nil) {
+            [objectRepresentation setObject:stringifiedKey forKey:CMInternalObjectIdKey];
         }
 
         id<CMSerializable> decodedObject = nil;
@@ -54,6 +59,7 @@
                 return nil;
             }
 
+            // Add it to the final array of inflated objects.
             [decodedObjects addObject:decodedObject];
         } else {
             NSLog(@"Failed to deserialize and inflate object with dictionary representation:\n%@", objectRepresentation);
