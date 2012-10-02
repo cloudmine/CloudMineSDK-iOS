@@ -20,6 +20,8 @@ If you wish to simply download the precompiled universal framework, you [may do 
 Building
 -----
 
+The first step is checking out the git submodules for our library dependencies. From the root directory, run "git submodule update --init".
+
 To modify and build this framework yourself, simply open `cm-ios.xcworkspace` in XCode. Do not open any of the project files in the `ios/` directory directly as things won't work correctly.
 
 There are a few schemes to pick from. Use `libcloudmine` for development work and for running the unit tests. All the unit tests are written using [Kiwi](https://github.com/allending/Kiwi/wiki), a nice BDD-style unit testing framework. When you are ready to build the final framework for use in your own apps, choose the `CloudMine Universal Framework` scheme, clean, and build. This will build a universal framework that can run both on the iOS simulator as well as an iOS device. You can find the resulting framework under `ios/build/Release-iphoneuniversal`.
