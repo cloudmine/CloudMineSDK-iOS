@@ -9,6 +9,7 @@
 #import "Kiwi.h"
 
 #import "CMACL.h"
+#import "CMWebService.h"
 #import "CMAPICredentials.h"
 
 SPEC_BEGIN(CMACLSpec)
@@ -18,8 +19,7 @@ describe(@"CMACL", ^{
     __block CMStore *store;
 
     beforeAll(^{
-        [[CMAPICredentials sharedInstance] setAppSecret:@"appSecret"];
-        [[CMAPICredentials sharedInstance] setAppIdentifier:@"appIdentifier"];
+        [[CMAPICredentials sharedInstance] setAppIdentifier:@"appSecret" andApiKey:@"appIdentifier"];
     });
 
     beforeEach(^{

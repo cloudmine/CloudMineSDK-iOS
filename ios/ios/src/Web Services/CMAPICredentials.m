@@ -20,4 +20,9 @@
     return _sharedInstance;
 }
 
+- (void)setAppIdentifier:(NSString *)appId andApiKey:(NSString *)apiKey {
+    self.appIdentifier = appId;
+    self.apiKey = apiKey;
+}
+
 @end

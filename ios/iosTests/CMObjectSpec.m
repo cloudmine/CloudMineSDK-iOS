@@ -15,6 +15,7 @@
 #import "CMObjectDecoder.h"
 #import "CMObjectEncoder.h"
 #import "CMAPICredentials.h"
+#import "CMWebService.h"
 #import "CMUser.h"
 
 @interface CustomObject : CMObject
