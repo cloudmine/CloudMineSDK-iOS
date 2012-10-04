@@ -9,7 +9,7 @@
 #import "CMAPICredentials.h"
 
 @implementation CMAPICredentials
-@synthesize appSecret, appIdentifier;
+@synthesize apiKey = _apiKey, appIdentifier = _appIdentifier;
 
 + (id)sharedInstance {
     __strong static id _sharedInstance = nil;
@@ -23,6 +23,16 @@
 - (void)setAppIdentifier:(NSString *)appId andApiKey:(NSString *)apiKey {
     self.appIdentifier = appId;
     self.apiKey = apiKey;
+}
+
+#pragma mark - Backwards compatibility
+
+- (NSString *)appSecret {
+    return self.apiKey;
+}
+
+- (void)setAppSecret:(NSString *)appSecret {
+    self.apiKey = appSecret;
 }
 
 @end
