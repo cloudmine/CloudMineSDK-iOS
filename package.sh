@@ -18,6 +18,8 @@ echo "Copying files to deploy..."
 mkdir $DEPLOY_DIR
 cp -R "ios/build/Release-iphoneuniversal/CloudMine.framework" $DEPLOY_DIR
 cp -R "ios/docs" $DEPLOY_DIR
+cp *.md $DEPLOY_DIR
+cp LICENSE $DEPLOY_DIR
 
 echo "Tarballing deploy directory..."
 if [ -e $ARCHIVE_NAME ]; then
