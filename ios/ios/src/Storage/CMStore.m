@@ -928,8 +928,12 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                     successHandler:^(NSData *data, NSString *mimeType, NSDictionary *headers) {
                         CMFile *file = [[CMFile alloc] initWithData:data
                                                               named:name
-                                                    belongingToUser:userLevel ? user : nil
                                                            mimeType:mimeType];
+                        if (userLevel) {
+                            [self addUserFile:file];
+                        } else {
+                            [self addFile:file];
+                        }
                         [file writeToCache];
                         CMFileFetchResponse *response = [[CMFileFetchResponse alloc] initWithFile:file];
 
