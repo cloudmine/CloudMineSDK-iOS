@@ -26,7 +26,7 @@
 - (void)setAppIdentifier:(NSString *)appId andApiKey:(NSString *)apiKey;
 
 /**
- * The Secret Key from your CloudMine dashboard.
+ * The API Key from your CloudMine dashboard.
  * @see https://cloudmine.me/dashboard
  */
 @property (strong) NSString *apiKey;
