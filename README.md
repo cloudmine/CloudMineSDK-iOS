@@ -20,7 +20,7 @@ If you wish to simply download the precompiled universal framework, you [may do 
 Building
 -----
 
-The first step is checking out the git submodules for our library dependencies. From the root directory, run "git submodule update --init".
+The first step is checking out the git submodules for our library dependencies. From the root directory, run `git submodule update --init`.
 
 To modify and build this framework yourself, simply open `cm-ios.xcworkspace` in XCode. Do not open any of the project files in the `ios/` directory directly as things won't work correctly.
 
