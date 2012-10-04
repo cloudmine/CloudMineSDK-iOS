@@ -5,6 +5,7 @@ v1.2
 * Make `CMMimeType` case-insensitive.
 * Stop using deprecated `CMFile` constructor in `CMStore`.
 * Add convenience method to `CMAPICredentials` to set the App ID and API Key at the same time.
+* Rebuild to support iPhone 5's armv7s architecture.
 
 v1.1 (September 14, 2012)
 ======
