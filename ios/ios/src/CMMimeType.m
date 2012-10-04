@@ -47,6 +47,7 @@ static NSDictionary *_mimeTypeExtensionMappings = nil;
                                            @".pct",@"image/pict",
                                            @".pict",@"image/pict",
                                            @".psd",@"image/photoshop",
+                                           @".png", @"image/png",
                                            @".qtif",@"image/x-quicktime",
                                            @".rle",@"image/rle",
                                            @".tif",@"image/tiff",
