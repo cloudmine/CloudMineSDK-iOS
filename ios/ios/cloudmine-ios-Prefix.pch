@@ -1,5 +1,5 @@
 
-#define CM_VERSION @"1.0"
+#define CM_VERSION @"1.2"
 
 #ifdef __OBJC__
     #import <Foundation/Foundation.h>
