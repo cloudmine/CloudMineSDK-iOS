@@ -1,4 +1,4 @@
-v1.2
+v1.2 (October 4, 2012)
 =======
 * Rename `appSecret` to `apiKey` in `CMAPICredentials` so it's consistent with the dashboard phrasing.
 * Add PNG to mime types registered in `CMMimeType`.
