@@ -1,3 +1,8 @@
+v1.2.1 (October 8, 2012)
+======
+* Recompile YAJL.framework to support iPhone 5 (armv7s).
+
+
 v1.2 (October 4, 2012)
 =======
 * Rename `appSecret` to `apiKey` in `CMAPICredentials` so it's consistent with the dashboard phrasing.
