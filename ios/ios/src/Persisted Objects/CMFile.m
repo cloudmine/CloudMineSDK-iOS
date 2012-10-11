@@ -178,7 +178,7 @@ NSString * const _mimeTypeKey = @"mime";
 }
 
 - (BOOL)writeToLocation:(NSURL *)url options:(NSFileWrapperWritingOptions)options {
-    return [NSKeyedArchiver archiveRootObject:self toFile:[url absoluteString]];
+    return [NSKeyedArchiver archiveRootObject:self toFile:[url path]];
 }
 
 - (BOOL)writeToCache {
