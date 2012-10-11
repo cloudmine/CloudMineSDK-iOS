@@ -1,3 +1,7 @@
+HEAD
+=====
+* Fix bug that caused CMFile's on-device caching to never work.
+
 v1.2.1 (October 8, 2012)
 ======
 * Recompile YAJL.framework to support iPhone 5 (armv7s).
