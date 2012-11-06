@@ -308,6 +308,39 @@ static CMWebService *webService;
     }];
 }
 
+#pragma mark - Social login with Singly
+
+// TODO
+-(void)loginWithSocial:(CMUserOperationCallback)callback {
+    // Note: most of this code is based on the loginWithCallback method, will be edited to work with Singly
+    
+    [webService loginUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
+        NSArray *messages = [NSArray array];
+        
+        if (result == CMUserAccountLoginSucceeded) {
+            self.token = [responseBody objectForKey:@"session_token"];
+            
+            NSDateFormatter *df = [[NSDateFormatter alloc] init];
+            [df setLenient:YES];
+            df.dateFormat = @"EEE',' dd MMM yyyy HH':'mm':'ss 'GMT'"; // RFC 1123 format
+            self.tokenExpiration = [df dateFromString:[responseBody objectForKey:@"expires"]];
+            
+            NSDictionary *userProfile = [responseBody objectForKey:@"profile"];
+            objectId = [userProfile objectForKey:CMInternalObjectIdKey];
+            
+            if (!self.isDirty) {
+                // Only bring the changes from the server into the object state if there weren't local modifications.
+                [self copyValuesFromDictionaryIntoState:userProfile];
+            }
+        }
+        
+        if (callback) {
+            callback(result, messages);
+        }
+    }];
+    
+}
+
 #pragma mark - Discovering other users
 
 + (void)allUsersWithCallback:(CMUserFetchCallback)callback {

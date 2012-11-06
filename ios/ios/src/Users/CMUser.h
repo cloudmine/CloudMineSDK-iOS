@@ -221,6 +221,23 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
  */
 - (void)save:(CMUserOperationCallback)callback;
 
+
+/**
+ * Login with social networking sites such as facebook or github through Singly.
+ *
+ * Possible result codes:
+ * - <tt>CMUserAccountLoginSucceeded</tt>
+ * - <tt>CMUserAccountLoginFailedIncorrectCredentials</tt>
+ * - <tt>CMUserAccountOperationFailedUnknownAccount</tt>
+ *
+ * @param callback The block that will be called on completion of the operation. TODO
+ *
+ * @see CMUserAccountResult TODO
+ * @see isLoggedIn TODO
+ * @see TODO
+ */
+- (void)loginWithSocial:(CMUserOperationCallback)callback;
+
 /**
  * Asynchronously fetch all the users of this app. This will download the profiles of all the users of your app, and is useful for displaying
  * lists of people to share with or running analytics on your users yourself. On completion, the <tt>callback</tt> block will be called with an array
