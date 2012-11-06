@@ -314,6 +314,7 @@ static CMWebService *webService;
 -(void)loginWithSocial:(CMUserOperationCallback)callback {
     // Note: most of this code is based on the loginWithCallback method, will be edited to work with Singly
     
+    
     [webService loginUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         NSArray *messages = [NSArray array];
         

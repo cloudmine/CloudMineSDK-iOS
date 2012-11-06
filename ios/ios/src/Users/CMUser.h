@@ -238,6 +238,7 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
  */
 - (void)loginWithSocial:(CMUserOperationCallback)callback;
 
+
 /**
  * Asynchronously fetch all the users of this app. This will download the profiles of all the users of your app, and is useful for displaying
  * lists of people to share with or running analytics on your users yourself. On completion, the <tt>callback</tt> block will be called with an array
