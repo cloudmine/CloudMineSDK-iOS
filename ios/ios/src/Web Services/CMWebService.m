@@ -1312,4 +1312,31 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     return [theUrl URLByAppendingQueryString:[queryComponents componentsJoinedByString:@"&"]];
 }
 
+#pragma mark - Snippet execution
+
+-(void) runSnippet:(NSString*)snippetName withParams:(NSDictionary *)params user:(CMUser*)user successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
+    NSString* baseURL = self.apiUrl;
+    
+    NSString* appId = _appIdentifier;
+    NSString* paramStr = @"";
+    if (params) {
+        NSMutableArray* queryComponents = [NSMutableArray array];
+        for (id key in params)
+            [queryComponents addObject:[NSString stringWithFormat:@"%@=%@", key, [params objectForKey:key]]];
+        
+        paramStr = [queryComponents componentsJoinedByString:@"&"];
+    }
+    
+    NSMutableString* urlStr = [NSMutableString stringWithFormat:@"%@/app/%@/run/%@", baseURL, appId, snippetName];
+    
+    if ([paramStr length])
+        [urlStr appendFormat:@"?%@", paramStr];
+    
+    NSURL* url = [NSURL URLWithString:urlStr];
+    NSMutableURLRequest* request = [self constructHTTPRequestWithVerb:@"GET" URL:url appSecret:_appSecret binaryData:NO user:user];
+    [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
+}
+
+
+
 @end
