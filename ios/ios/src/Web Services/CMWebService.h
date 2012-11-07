@@ -427,4 +427,16 @@ typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDi
 
 - (void)saveUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
 
+/**
+ * Asynchronously execute a snippet. On completion, the <tt>successHandler</tt> block will be called with the result of the snippet.
+ *
+ * @param snippetName The name of the server-side snippet to run.
+ * @param params Any parameters that need to be passed to the snippet. Can be nil.
+ * @param user Passed to the snippet if it operates on user-level objects. If nil, then the snippet will operate on app-level objects.
+ * @param successHandler The block to be called when the snippet successfully executes.
+ * @param errorHandler The block to be called if the request failed.
+ */
+-(void) runSnippet:(NSString*)snippetName withParams:(NSDictionary*)params user:(CMUser*)user successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
+
+
 @end
