@@ -436,7 +436,6 @@ typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDi
  * @param successHandler The block to be called when the snippet successfully executes.
  * @param errorHandler The block to be called if the request failed.
  */
--(void) runSnippet:(NSString*)snippetName withParams:(NSDictionary*)params user:(CMUser*)user successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
-
+- (void)runSnippet:(NSString *)snippetName withParams:(NSDictionary *)params user:(CMUser *)user successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
 @end
