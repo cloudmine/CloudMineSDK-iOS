@@ -1,6 +1,7 @@
 HEAD
 =====
 * Fix bug that caused CMFile's on-device caching to never work.
+* Add method to `CMWebService` to run Java or JavaScript snippets directly without running a store operation and wrapping it.
 
 v1.2.1 (October 8, 2012)
 ======

@@ -321,6 +321,36 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     [self executeACLDeleteRequest:request successHandler:successHandler errorHandler:errorHandler];
 }
 
+#pragma mark - Snippet execution
+
+- (void)runSnippet:(NSString *)snippetName withParams:(NSDictionary *)params user:(CMUser *)user successHandler:(CMWebServiceSnippetRunSuccessCallback)successHandler errorHandler:(CMWebServiceSnippetRunFailureCallback)errorHandler {
+    NSString *baseURL = self.apiUrl;
+    NSString *appId = _appIdentifier;
+    NSString *paramStr = @"";
+
+    if (params) {
+        NSMutableArray* queryComponents = [NSMutableArray array];
+        for (id key in params) {
+            [queryComponents addObject:[NSString stringWithFormat:@"%@=%@", key, [params objectForKey:key]]];
+        }
+
+        paramStr = [queryComponents componentsJoinedByString:@"&"];
+    }
+
+    NSMutableString* urlStr = [NSMutableString stringWithFormat:@"%@/app/%@/run/%@", baseURL, appId, snippetName];
+
+    if ([paramStr length]) {
+        [urlStr appendFormat:@"?%@", paramStr];
+    }
+
+    NSURL* url = [NSURL URLWithString:urlStr];
+    NSMutableURLRequest* request = [self constructHTTPRequestWithVerb:@"GET" URL:url appSecret:_appSecret binaryData:NO user:user];
+    [self executeRequest:request successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
+        successHandler(snippetResult, headers);
+    } errorHandler:errorHandler];
+}
+
+
 #pragma mark - User account management
 
 - (void)loginUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
