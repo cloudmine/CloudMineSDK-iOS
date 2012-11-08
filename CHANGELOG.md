@@ -1,3 +1,7 @@
+HEAD
+=======
+* Add method to `CMWebService` to run Java or JavaScript snippets directly without running a store operation and wrapping it.
+
 v1.2 (October 4, 2012)
 =======
 * Rename `appSecret` to `apiKey` in `CMAPICredentials` so it's consistent with the dashboard phrasing.
