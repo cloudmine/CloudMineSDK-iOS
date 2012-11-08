@@ -323,7 +323,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 
 #pragma mark - Snippet execution
 
-- (void)runSnippet:(NSString *)snippetName withParams:(NSDictionary *)params user:(CMUser *)user successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
+- (void)runSnippet:(NSString *)snippetName withParams:(NSDictionary *)params user:(CMUser *)user successHandler:(CMWebServiceSnippetRunSuccessCallback)successHandler errorHandler:(CMWebServiceSnippetRunFailureCallback)errorHandler {
     NSString *baseURL = self.apiUrl;
     NSString *appId = _appIdentifier;
     NSString *paramStr = @"";
@@ -345,7 +345,9 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 
     NSURL* url = [NSURL URLWithString:urlStr];
     NSMutableURLRequest* request = [self constructHTTPRequestWithVerb:@"GET" URL:url appSecret:_appSecret binaryData:NO user:user];
-    [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
+    [self executeRequest:request successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
+        successHandler(snippetResult, headers);
+    } errorHandler:errorHandler];
 }
 
 

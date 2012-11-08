@@ -51,6 +51,15 @@ typedef void (^CMWebServiceFetchFailureCallback)(NSError *error);
 typedef void (^CMWebServiceFileUploadSuccessCallback)(CMFileUploadResult result, NSString *fileKey, id snippetResult, NSDictionary *headers);
 
 /**
+ * Callback block signature for operations on <tt>CMWebService</tt> that directly execute a server-side code snippet on the CloudMine servers.
+ * These blocks return <tt>void</tt> and take the snippet result (the type of which is determined by the type of data you use inside your exit() call 
+ * in your server-side JavaScript code or what you return from the main method in your server-side Java code) and all the headers of the response.
+ */
+typedef void (^CMWebServiceSnippetRunSuccessCallback)(id snippetResult, NSDictionary *headers);
+
+typedef CMWebServiceFetchFailureCallback CMWebServiceSnippetRunFailureCallback;
+
+/**
  * Callback block signature for all operations on <tt>CMWebService</tt> that download binary files from
  * the CloudMine servers. These blocks return <tt>void</tt> and take an <tt>NSData</tt> instance that contains
  * the raw data for the file as well as a string with the content type of the file returned from the server.
@@ -436,6 +445,6 @@ typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDi
  * @param successHandler The block to be called when the snippet successfully executes.
  * @param errorHandler The block to be called if the request failed.
  */
-- (void)runSnippet:(NSString *)snippetName withParams:(NSDictionary *)params user:(CMUser *)user successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
+- (void)runSnippet:(NSString *)snippetName withParams:(NSDictionary *)params user:(CMUser *)user successHandler:(CMWebServiceSnippetRunSuccessCallback)successHandler errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
 @end
