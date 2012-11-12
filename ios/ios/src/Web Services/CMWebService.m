@@ -456,6 +456,40 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     }];
 }
 
+- (void)loginWithSocial:(CMUser *)user withService:(NSString *)service callback:(CMWebServiceUserAccountOperationCallback)callback {
+
+    // TODOsingly (call SocialLoginViewController)
+    // TODO WebService (self) to SocialLoginViewController
+
+}
+
+// ***** Singly
+
+
+- (void)socialLoginViewController:(SocialLoginViewController *)controller didLoginForService:(NSString *)service;
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)socialLoginViewController:(SocialLoginViewController *)controller errorLoggingInToService:(NSString *)service withError:(NSError *)error;
+{
+    [self dismissViewControllerAnimated:NO completion:nil];
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Login Error"
+                                                    message:[error localizedDescription]
+                                                   delegate:self cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+}
+
+- (void)authenticateWithService:(NSString *)service
+{
+    SocialLoginViewController* loginViewController = [[SocialLoginViewController alloc] initforService:service];
+    loginViewController.delegate = self;
+    [self presentViewController:loginViewController animated:YES completion:NULL];
+}
+
+// ***** /Singly
+
 - (void)saveUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
     NSParameterAssert(user);
 

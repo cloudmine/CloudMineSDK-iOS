@@ -300,7 +300,7 @@ static CMWebService *webService;
      ];
 }
 
-- (void)resetForgottenPasswordWithCallback:(CMUserOperationCallback)callback {
+- (void)resetForgottenPasswordWithCallback:(CMUserOperationCallback)callback  {
     [webService resetForgottenPasswordForUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         if (callback) {
             callback(result, [NSArray array]);
@@ -310,12 +310,8 @@ static CMWebService *webService;
 
 #pragma mark - Social login with Singly
 
-// TODO
--(void)loginWithSocial:(CMUserOperationCallback)callback {
-    // Note: most of this code is based on the loginWithCallback method, will be edited to work with Singly
-    
-    
-    [webService loginUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
+-(void)loginWithSocial:(NSString *)service callback:(CMUserOperationCallback)callback {    
+    [webService loginWithSocial:self withService:service callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         NSArray *messages = [NSArray array];
         
         if (result == CMUserAccountLoginSucceeded) {
@@ -339,7 +335,6 @@ static CMWebService *webService;
             callback(result, messages);
         }
     }];
-    
 }
 
 #pragma mark - Discovering other users

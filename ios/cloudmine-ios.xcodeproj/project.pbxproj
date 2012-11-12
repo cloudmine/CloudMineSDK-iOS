@@ -46,6 +46,8 @@
 		714022981649AB080016E2CF /* SinglySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 714022941649AB070016E2CF /* SinglySDK.bundle */; };
 		714022991649AB080016E2CF /* SinglySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 714022951649AB070016E2CF /* SinglySDK.framework */; };
 		7140229A1649AB080016E2CF /* SinglySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 714022951649AB070016E2CF /* SinglySDK.framework */; };
+		71E886B716516C3D0060C217 /* SocialLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71E886B616516C3D0060C217 /* SocialLoginViewController.m */; };
+		71E886BA16516F0F0060C217 /* UIViewController+Modal.m in Sources */ = {isa = PBXBuildFile; fileRef = 71E886B916516F0F0060C217 /* UIViewController+Modal.m */; };
 		7A0413D2146C5B5200EF537A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D1146C5B5200EF537A /* CFNetwork.framework */; };
 		7A0413D4146C5B5C00EF537A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D3146C5B5C00EF537A /* SystemConfiguration.framework */; };
 		7A0413D6146C5B6900EF537A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D5146C5B6900EF537A /* MobileCoreServices.framework */; };
@@ -256,6 +258,10 @@
 		714022931649AB070016E2CF /* libSinglySDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSinglySDK.a; sourceTree = "<group>"; };
 		714022941649AB070016E2CF /* SinglySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SinglySDK.bundle; sourceTree = "<group>"; };
 		714022951649AB070016E2CF /* SinglySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SinglySDK.framework; sourceTree = "<group>"; };
+		71E886B516516C3D0060C217 /* SocialLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialLoginViewController.h; sourceTree = "<group>"; };
+		71E886B616516C3D0060C217 /* SocialLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialLoginViewController.m; sourceTree = "<group>"; };
+		71E886B816516F0F0060C217 /* UIViewController+Modal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Modal.h"; sourceTree = "<group>"; };
+		71E886B916516F0F0060C217 /* UIViewController+Modal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Modal.m"; sourceTree = "<group>"; };
 		7A0413D1146C5B5200EF537A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		7A0413D3146C5B5C00EF537A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		7A0413D5146C5B6900EF537A /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -509,6 +515,17 @@
 			path = Headers;
 			sourceTree = "<group>";
 		};
+		71E886B3165161050060C217 /* Social Login */ = {
+			isa = PBXGroup;
+			children = (
+				71E886B516516C3D0060C217 /* SocialLoginViewController.h */,
+				71E886B616516C3D0060C217 /* SocialLoginViewController.m */,
+				71E886B816516F0F0060C217 /* UIViewController+Modal.h */,
+				71E886B916516F0F0060C217 /* UIViewController+Modal.m */,
+			);
+			name = "Social Login";
+			sourceTree = "<group>";
+		};
 		7A04139F146C5B3A00EF537A /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
@@ -711,6 +728,7 @@
 		7AD36F7B146C64F300DD4734 /* Web Services */ = {
 			isa = PBXGroup;
 			children = (
+				71E886B3165161050060C217 /* Social Login */,
 				7AABA2FA14818DCA00FD52A0 /* Decoding */,
 				7AABA2FD14818DCA00FD52A0 /* Encoding */,
 				7AFDFE48158E965400388D6E /* CMActiveUser.h */,
@@ -1002,6 +1020,8 @@
 				D088F5B515E3FDF1005062BD /* AFNetworkActivityIndicatorManager.m in Sources */,
 				D088F5B715E3FDF1005062BD /* AFURLConnectionOperation.m in Sources */,
 				D0F4E4F615E418F800055638 /* AFJSONUtilities.m in Sources */,
+				71E886B716516C3D0060C217 /* SocialLoginViewController.m in Sources */,
+				71E886BA16516F0F0060C217 /* UIViewController+Modal.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

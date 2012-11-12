@@ -10,6 +10,7 @@
 
 #import "CMSerializable.h"
 #import "CMUserAccountResult.h"
+#import "SocialLoginViewController.h"
 
 /**
  * The block callback for all user account and session operations that take place on an instance of <tt>CMUser</tt>.
@@ -223,21 +224,18 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
 
 
 /**
- * Login with social networking sites such as facebook or github through Singly.
+ * Login with social networking sites through Singly.  Calls a UIWebView for authenticaion
  *
  * Possible result codes:
  * - <tt>CMUserAccountLoginSucceeded</tt>
  * - <tt>CMUserAccountLoginFailedIncorrectCredentials</tt>
  * - <tt>CMUserAccountOperationFailedUnknownAccount</tt>
  *
- * @param callback The block that will be called on completion of the operation. TODO
- *
- * @see CMUserAccountResult TODO
- * @see isLoggedIn TODO
- * @see TODO
+ * @param callback The block that will be called on completion of the operation.
+ * @param service The social service to be logged into
+ * @see https://cloudmine.me/docs/api#users_social
  */
-- (void)loginWithSocial:(CMUserOperationCallback)callback;
-
+-(void)loginWithSocial:(NSString *)service callback:(CMUserOperationCallback)callback;
 
 /**
  * Asynchronously fetch all the users of this app. This will download the profiles of all the users of your app, and is useful for displaying

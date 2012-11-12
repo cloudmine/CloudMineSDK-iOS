@@ -353,6 +353,15 @@ typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDi
 - (void)createAccountWithUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
 
 /**
+ * Initialize the social login service by calling the SocialLoginViewController (which contains only a webview)
+ * 
+ * @param callback The block that will be called on completion of the operation
+ * @param service The social service to be logged into
+ * @see https://cloudmine.me/docs/api#users_social
+ */
+- (void)loginWithSocial:(CMUser *)user withService:(NSString *)service callback:(CMWebServiceUserAccountOperationCallback)callback;
+
+/**
  * Asynchronously change the password for the given user. For security purposes, you must have the user enter his or her
  * old password and new password in order to perform this operation. This operation will succeed regardless of whether
  * the user's <tt>CMUser</tt> instance is logged in or not.
