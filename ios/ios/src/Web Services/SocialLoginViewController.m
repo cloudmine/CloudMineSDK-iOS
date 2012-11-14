@@ -36,13 +36,17 @@
     return self;
 }
 
-- (id)initForService:(NSString *)service
+- (id)initForService:(NSString *)service withAppID:(NSString *)appID andApiKey:(NSString *)apiKey
 {
     self = [super init];
     if (self)
     {
         [self initializeView];
         _targetService = service;
+        _appID = appID;
+        _apiKey = apiKey;
+        _challenge = [[NSUUID UUID] UUIDString];
+
     }
     return self;
 }
@@ -58,6 +62,7 @@
     _webView.scalesPageToFit = YES;
     _webView.delegate = self;
     [self.view addSubview:_webView];
+    [self presentViewController:self animated:YES completion:NULL];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -67,7 +72,6 @@
 
 - (void)viewWillAppear:(BOOL)animated;
 {
-    // TODO work on this
     if (self.isModal)
     {
         self.webView.frame = CGRectMake(0, 44, self.view.frame.size.width, self.view.frame.size.height - 44);
@@ -86,22 +90,9 @@
         }
     }
     
-    NSString* urlStr = [NSString stringWithFormat:@"https://api.social.com/oauth/authorize?redirect_uri=fb%@://authorize&service=%@&client_id=%@", self.session.clientID, self.targetService, self.session.clientID];
-    if (self.session.accountID) {
-        urlStr = [urlStr stringByAppendingFormat:@"&account=%@", self.session.accountID];
-    } else {
-        urlStr = [urlStr stringByAppendingString:@"&account=false"];
-    }
-    if (self.scope) {
-        urlStr = [urlStr stringByAppendingFormat:@"&scope=%@", self.scope];
-    }
-    if (self.flags) {
-        urlStr = [urlStr stringByAppendingFormat:@"&flag=%@", self.flags];
-    }
+    NSString *urlStr = [NSString stringWithFormat:@"http://api.cloudmine.me/v1/app/%@/account/social/login?service=%@&apikey=%@&challenge=%@",
+                             _appID,_targetService,_apiKey,_challenge];
     NSLog(@"Going to auth url %@", urlStr);
-    // TODO setup
-    NSString *loginURLstr = [NSString stringWithFormat:@"http://api.cloudmine.me/v1/app/%@/account/social/login?service=%@&apikey=%@&challenge=%@",
-                             appID,service,apiKey,_challenge];
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]]];
 }
 
@@ -117,7 +108,8 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType;
 {
     // TODO work on this
-    if ([request.URL.scheme isEqualToString:[NSString stringWithFormat:@"fb%@", self.session.clientID]] && [request.URL.host isEqualToString:@"authorize"]) {
+    //if ([request.URL.scheme isEqualToString:[NSString stringWithFormat:@"fb%@", self.session.clientID]] && [request.URL.host isEqualToString:@"authorize"]) {
+    
         
         pendingLoginView = [[UIView alloc] initWithFrame:self.view.bounds];
         pendingLoginView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.8];
@@ -130,34 +122,17 @@
         [self.view addSubview:pendingLoginView];
         [self.view bringSubviewToFront:pendingLoginView];
         
-        // Find the code and request an access token
-        NSArray *parameterPairs = [request.URL.query componentsSeparatedByString:@"&"];
-        
-        NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithCapacity:[parameterPairs count]];
-        
-        for (NSString *currentPair in parameterPairs) {
-            NSArray *pairComponents = [currentPair componentsSeparatedByString:@"="];
-            
-            NSString *key = ([pairComponents count] >= 1 ? [pairComponents objectAtIndex:0] : nil);
-            if (key == nil) continue;
-            
-            NSString *value = ([pairComponents count] >= 2 ? [pairComponents objectAtIndex:1] : [NSNull null]);
-            [parameters setObject:value forKey:key];
-        }
-        
-        if ([parameters objectForKey:@"code"]) {
-            NSLog(@"Getting the tokens");
-            NSURL* accessTokenURL = [NSURL URLWithString:@"https://api.social.com/oauth/access_token"];
-            NSMutableURLRequest* req = [NSMutableURLRequest requestWithURL:accessTokenURL];
-            req.HTTPMethod = @"POST";
-            req.HTTPBody = [[NSString stringWithFormat:@"client_id=%@&client_secret=%@&code=%@", self.session.clientID, self.session.clientSecret, [parameters objectForKey:@"code"]] dataUsingEncoding:NSUTF8StringEncoding];
-            responseData = [NSMutableData data];
-            [NSURLConnection connectionWithRequest:req delegate:self];
-        }
+        NSLog(@"Getting the tokens");
+        NSString* accessTokenStr = [NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/social/login/status?challenge=%@", _appID,_challenge];
+        NSURL* accessTokenURL = [NSURL URLWithString:accessTokenStr];
+        NSMutableURLRequest* req = [NSMutableURLRequest requestWithURL:accessTokenURL];
+        req.HTTPMethod = @"GET";
+        responseData = [NSMutableData data];
+        [NSURLConnection connectionWithRequest:req delegate:self];
         NSLog(@"Request the token");
         return NO;
-    }
-    return YES;
+    //}
+    //return YES;
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView;
@@ -170,7 +145,7 @@
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error;
 {
-    //TODO:  Fill this in
+    //TODO:  Fill this in (comment leftover from Singly sdk)
 }
 
 #pragma mark - NSURLConnectionDataDelegate
@@ -186,14 +161,12 @@
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection;
-{
-    // TODO work on this
-    
+{    
     NSError *error;
     NSDictionary* jsonResult = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
     if (error) {
         if (self.delegate) {
-            [self.delegate socialLoginViewController:self errorLoggingInToService:self.targetService withError:error];
+            [self errorLoggingInToService:self.targetService withError:error];
         }
         return;
     }
@@ -202,28 +175,38 @@
     if (loginError) {
         if (self.delegate) {
             NSError* error = [NSError errorWithDomain:@"socialSDK" code:100 userInfo:[NSDictionary dictionaryWithObject:loginError forKey:NSLocalizedDescriptionKey]];
-            [self.delegate socialLoginViewController:self errorLoggingInToService:self.targetService withError:error];
+            [self errorLoggingInToService:self.targetService withError:error];
             
         }
         return;
     }
     
+    // TODO save information properly
     // Save the access token and account id
-    self.session.accessToken = [jsonResult objectForKey:@"access_token"];
-    self.session.accountID = [jsonResult objectForKey:@"account"];
-    [self.session updateProfilesWithCompletion:^{
-        NSLog(@"All set to do requests as account %@ with access token %@", self.session.accountID, self.session.accessToken);
-        if (self.delegate) {
-            [self.delegate socialLoginViewController:self didLoginForService:self.targetService];
-        }
-    }];
+    _session_token = [jsonResult objectForKey:@"session_token"];
+    //self.session.accountID = [jsonResult objectForKey:@"account"];
+    
+    //NSLog(@"All set to do requests as account %@ with session_token %@", self.session.accountID, self.session.accessToken);
+    NSLog(@"JSON Response: %@", [jsonResult description]);
+    if (self.delegate) {
+        // TODO put info in callback response
+        
+        [self.delegate socialLoginViewController:self didLoginForService:self.targetService];
+    }
 }
 
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
     if (self.delegate) {
-        [self.delegate socialLoginViewController:self errorLoggingInToService:self.targetService withError:error];
+        [self errorLoggingInToService:self.targetService withError:error];
     }
+}
+
+
+-(void)errorLoggingInToService:(NSString *)service withError:(NSError *)error
+{
+    // TODO handle errors with callback response info, not alert
+    
 }
 
 - (void)didReceiveMemoryWarning

@@ -41,11 +41,6 @@
 		65199ED3156A847A00267EC6 /* CMSnippetResult.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65199EBB156A7D9500267EC6 /* CMSnippetResult.h */; };
 		65199ED4156A847A00267EC6 /* CMStoreResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65199EBD156A7D9500267EC6 /* CMStoreResponse.h */; };
 		65199ED5156A84D600267EC6 /* CMDistance.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65199EC0156A7D9500267EC6 /* CMDistance.h */; };
-		714022961649AB070016E2CF /* libSinglySDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 714022931649AB070016E2CF /* libSinglySDK.a */; };
-		714022971649AB070016E2CF /* libSinglySDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 714022931649AB070016E2CF /* libSinglySDK.a */; };
-		714022981649AB080016E2CF /* SinglySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 714022941649AB070016E2CF /* SinglySDK.bundle */; };
-		714022991649AB080016E2CF /* SinglySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 714022951649AB070016E2CF /* SinglySDK.framework */; };
-		7140229A1649AB080016E2CF /* SinglySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 714022951649AB070016E2CF /* SinglySDK.framework */; };
 		71E886B716516C3D0060C217 /* SocialLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71E886B616516C3D0060C217 /* SocialLoginViewController.m */; };
 		71E886BA16516F0F0060C217 /* UIViewController+Modal.m in Sources */ = {isa = PBXBuildFile; fileRef = 71E886B916516F0F0060C217 /* UIViewController+Modal.m */; };
 		7A0413D2146C5B5200EF537A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D1146C5B5200EF537A /* CFNetwork.framework */; };
@@ -243,21 +238,6 @@
 		65199EBE156A7D9500267EC6 /* CMStoreResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMStoreResponse.m; path = Response/CMStoreResponse.m; sourceTree = "<group>"; };
 		65199EC0156A7D9500267EC6 /* CMDistance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMDistance.h; sourceTree = "<group>"; };
 		65199EC1156A7D9500267EC6 /* CMDistance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMDistance.m; sourceTree = "<group>"; };
-		714022871649AB070016E2CF /* SinglyAPIRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinglyAPIRequest.h; sourceTree = "<group>"; };
-		714022881649AB070016E2CF /* SinglyConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinglyConstants.h; sourceTree = "<group>"; };
-		714022891649AB070016E2CF /* SinglyFacebookServiceWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinglyFacebookServiceWrapper.h; sourceTree = "<group>"; };
-		7140228A1649AB070016E2CF /* SinglyFriendModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinglyFriendModel.h; sourceTree = "<group>"; };
-		7140228B1649AB070016E2CF /* SinglyFriendPickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinglyFriendPickerCell.h; sourceTree = "<group>"; };
-		7140228C1649AB070016E2CF /* SinglyFriendPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinglyFriendPickerViewController.h; sourceTree = "<group>"; };
-		7140228D1649AB070016E2CF /* SinglyLoginPickerServiceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinglyLoginPickerServiceCell.h; sourceTree = "<group>"; };
-		7140228E1649AB070016E2CF /* SinglyLoginPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinglyLoginPickerViewController.h; sourceTree = "<group>"; };
-		7140228F1649AB070016E2CF /* SinglyLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinglyLoginViewController.h; sourceTree = "<group>"; };
-		714022901649AB070016E2CF /* SinglySDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinglySDK.h; sourceTree = "<group>"; };
-		714022911649AB070016E2CF /* SinglySession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinglySession.h; sourceTree = "<group>"; };
-		714022921649AB070016E2CF /* SinglySharingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinglySharingViewController.h; sourceTree = "<group>"; };
-		714022931649AB070016E2CF /* libSinglySDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSinglySDK.a; sourceTree = "<group>"; };
-		714022941649AB070016E2CF /* SinglySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SinglySDK.bundle; sourceTree = "<group>"; };
-		714022951649AB070016E2CF /* SinglySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SinglySDK.framework; sourceTree = "<group>"; };
 		71E886B516516C3D0060C217 /* SocialLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialLoginViewController.h; sourceTree = "<group>"; };
 		71E886B616516C3D0060C217 /* SocialLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialLoginViewController.m; sourceTree = "<group>"; };
 		71E886B816516F0F0060C217 /* UIViewController+Modal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Modal.h"; sourceTree = "<group>"; };
@@ -422,8 +402,6 @@
 				7A0413D4146C5B5C00EF537A /* SystemConfiguration.framework in Frameworks */,
 				7A0413D2146C5B5200EF537A /* CFNetwork.framework in Frameworks */,
 				7AB4AB63145DC5D8006AEF67 /* Foundation.framework in Frameworks */,
-				714022961649AB070016E2CF /* libSinglySDK.a in Frameworks */,
-				714022991649AB080016E2CF /* SinglySDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,8 +419,6 @@
 				7AB4AB71145DC5D8006AEF67 /* SenTestingKit.framework in Frameworks */,
 				7AB4AB74145DC5D8006AEF67 /* Foundation.framework in Frameworks */,
 				7AB4AB77145DC5D8006AEF67 /* libcloudmine.a in Frameworks */,
-				714022971649AB070016E2CF /* libSinglySDK.a in Frameworks */,
-				7140229A1649AB080016E2CF /* SinglySDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -484,44 +460,9 @@
 			name = Response;
 			sourceTree = "<group>";
 		};
-		714022851649AB070016E2CF /* SinglySDK */ = {
-			isa = PBXGroup;
-			children = (
-				714022861649AB070016E2CF /* Headers */,
-				714022931649AB070016E2CF /* libSinglySDK.a */,
-				714022941649AB070016E2CF /* SinglySDK.bundle */,
-				714022951649AB070016E2CF /* SinglySDK.framework */,
-			);
-			name = SinglySDK;
-			path = ios/Vendor/SinglySDK;
-			sourceTree = "<group>";
-		};
-		714022861649AB070016E2CF /* Headers */ = {
-			isa = PBXGroup;
-			children = (
-				714022871649AB070016E2CF /* SinglyAPIRequest.h */,
-				714022881649AB070016E2CF /* SinglyConstants.h */,
-				714022891649AB070016E2CF /* SinglyFacebookServiceWrapper.h */,
-				7140228A1649AB070016E2CF /* SinglyFriendModel.h */,
-				7140228B1649AB070016E2CF /* SinglyFriendPickerCell.h */,
-				7140228C1649AB070016E2CF /* SinglyFriendPickerViewController.h */,
-				7140228D1649AB070016E2CF /* SinglyLoginPickerServiceCell.h */,
-				7140228E1649AB070016E2CF /* SinglyLoginPickerViewController.h */,
-				7140228F1649AB070016E2CF /* SinglyLoginViewController.h */,
-				714022901649AB070016E2CF /* SinglySDK.h */,
-				714022911649AB070016E2CF /* SinglySession.h */,
-				714022921649AB070016E2CF /* SinglySharingViewController.h */,
-			);
-			path = Headers;
-			sourceTree = "<group>";
-		};
 		71E886B3165161050060C217 /* Social Login */ = {
 			isa = PBXGroup;
 			children = (
-				71E886B516516C3D0060C217 /* SocialLoginViewController.h */,
-				71E886B616516C3D0060C217 /* SocialLoginViewController.m */,
-				71E886B816516F0F0060C217 /* UIViewController+Modal.h */,
-				71E886B916516F0F0060C217 /* UIViewController+Modal.m */,
 			);
 			name = "Social Login";
 			sourceTree = "<group>";
@@ -632,7 +573,6 @@
 		7AB4AB61145DC5D8006AEF67 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				714022851649AB070016E2CF /* SinglySDK */,
 				7A308A4B14799471008ADD3C /* libKiwi.a */,
 				7A91E8D814E6EF85008B7941 /* CoreLocation.framework */,
 				7AF6685414719FC800E2A06D /* YAJLiOS */,
@@ -728,6 +668,10 @@
 		7AD36F7B146C64F300DD4734 /* Web Services */ = {
 			isa = PBXGroup;
 			children = (
+				71E886B516516C3D0060C217 /* SocialLoginViewController.h */,
+				71E886B616516C3D0060C217 /* SocialLoginViewController.m */,
+				71E886B816516F0F0060C217 /* UIViewController+Modal.h */,
+				71E886B916516F0F0060C217 /* UIViewController+Modal.m */,
 				71E886B3165161050060C217 /* Social Login */,
 				7AABA2FA14818DCA00FD52A0 /* Decoding */,
 				7AABA2FD14818DCA00FD52A0 /* Encoding */,
@@ -920,7 +864,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7AB4AB7D145DC5D8006AEF67 /* InfoPlist.strings in Resources */,
-				714022981649AB080016E2CF /* SinglySDK.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1152,17 +1095,13 @@
 			buildSettings = {
 				CURRENT_PROJECT_VERSION = 1.2.1;
 				DSTROOT = /tmp/ios.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/ios/Vendor/SinglySDK\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ios/cloudmine-ios-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/ios/Vendor/YAJL/YAJLiOS.framework/Versions/A\"",
-					"\"$(SRCROOT)/ios/Vendor/SinglySDK\"",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1178,16 +1117,12 @@
 			buildSettings = {
 				CURRENT_PROJECT_VERSION = 1.2.1;
 				DSTROOT = /tmp/ios.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/ios/Vendor/SinglySDK\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ios/cloudmine-ios-Prefix.pch";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/ios/Vendor/YAJL/YAJLiOS.framework/Versions/A\"",
-					"\"$(SRCROOT)/ios/Vendor/SinglySDK\"",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",

@@ -13,15 +13,18 @@
 @protocol SocialLoginViewControllerDelegate <NSObject>
 
 - (void)socialLoginViewController:(SocialLoginViewController *)controller didLoginForService:(NSString *)service;
-- (void)socialLoginViewController:(SocialLoginViewController *)controller errorLoggingInToService:(NSString *)service withError:(NSError *)error;
 
 @end
 
 @interface SocialLoginViewController : UIViewController <UIWebViewDelegate, NSURLConnectionDataDelegate>
 
-@property (weak, atomic) id<SinglyLoginViewControllerDelegate> delegate;
+@property (weak, atomic) id<SocialLoginViewControllerDelegate> delegate;
 
 @property (strong, atomic) NSString *targetService;
+@property (strong, atomic) NSString *appID;
+@property (strong, atomic) NSString *apiKey;
+@property (strong, atomic) NSString *challenge;
+@property (strong, atomic) NSString *session_token;
 
 
 /*!
@@ -30,7 +33,6 @@
  *
  * @param service The name of the service that we are logging into.
  */
-- (id)initForService:(NSString *)service;
-
+- (id)initForService:(NSString *)service withAppID:(NSString *)appID andApiKey:(NSString *)apiKey;
 @end
 

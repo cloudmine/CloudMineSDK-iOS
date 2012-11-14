@@ -12,6 +12,7 @@
 
 #import "CMFileUploadResult.h"
 #import "CMUserAccountResult.h"
+#import "SocialLoginViewController.h"
 
 @class CMUser;
 @class CMServerFunction;
@@ -77,7 +78,7 @@ typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDi
  * Base class for all classes concerned with the communication between the client device and the CloudMine
  * web services.
  */
-@interface CMWebService : AFHTTPClient {
+@interface CMWebService : AFHTTPClient <SocialLoginViewControllerDelegate> {
     NSString *_appSecret;
     NSString *_appIdentifier;
 }
