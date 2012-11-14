@@ -310,8 +310,8 @@ static CMWebService *webService;
 
 #pragma mark - Social login with Singly
 
--(void)loginWithSocial:(NSString *)service callback:(CMUserOperationCallback)callback {    
-    [webService loginWithSocial:self withService:service callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
+-(void)loginWithSocial:(NSString *)service  andViewController:(UIViewController *)viewController callback:(CMUserOperationCallback)callback {
+    [webService loginWithSocial:self withService:service andViewController:viewController callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         NSArray *messages = [NSArray array];
         
         if (result == CMUserAccountLoginSucceeded) {

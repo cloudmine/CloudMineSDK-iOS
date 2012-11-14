@@ -8,23 +8,25 @@
 
 #import <UIKit/UIKit.h>
 
-@class SocialLoginViewController;
+@class CMSocialLoginViewController;
 
-@protocol SocialLoginViewControllerDelegate <NSObject>
+@protocol CMSocialLoginViewControllerDelegate <NSObject>
 
-- (void)socialLoginViewController:(SocialLoginViewController *)controller didLoginForService:(NSString *)service;
+- (void)cmSocialLoginViewController:(CMSocialLoginViewController *)controller didLoginForService:(NSString *)service;
+- (void)cmSocialLoginViewController:(CMSocialLoginViewController *)controller errorLoggingInToService:(NSString *)service withError:(NSError *)error;
 
 @end
 
-@interface SocialLoginViewController : UIViewController <UIWebViewDelegate, NSURLConnectionDataDelegate>
+@interface CMSocialLoginViewController : UIViewController <UIWebViewDelegate, NSURLConnectionDataDelegate>
 
-@property (weak, atomic) id<SocialLoginViewControllerDelegate> delegate;
+@property (nonatomic,strong) id<CMSocialLoginViewControllerDelegate> delegate;
 
 @property (strong, atomic) NSString *targetService;
 @property (strong, atomic) NSString *appID;
 @property (strong, atomic) NSString *apiKey;
 @property (strong, atomic) NSString *challenge;
 @property (strong, atomic) NSString *session_token;
+
 
 
 /*!
@@ -34,5 +36,6 @@
  * @param service The name of the service that we are logging into.
  */
 - (id)initForService:(NSString *)service withAppID:(NSString *)appID andApiKey:(NSString *)apiKey;
+
 @end
 

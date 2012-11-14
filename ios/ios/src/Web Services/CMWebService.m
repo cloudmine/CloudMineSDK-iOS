@@ -459,18 +459,25 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 // ***** Singly Social
 
 
-- (void)loginWithSocial:(CMUser *)user withService:(NSString *)service callback:(CMWebServiceUserAccountOperationCallback)callback
+- (void)loginWithSocial:(CMUser *)user withService:(NSString *)service andViewController:(UIViewController *)viewController callback:(CMWebServiceUserAccountOperationCallback)callback
 {
-    SocialLoginViewController* loginViewController = [[SocialLoginViewController alloc] initForService:service withAppID:_appIdentifier andApiKey:_appSecret];
+    CMSocialLoginViewController* loginViewController = [[CMSocialLoginViewController alloc] initForService:service withAppID:_appIdentifier andApiKey:_appSecret];
     loginViewController.delegate = self;
-    
+    [viewController presentViewController:loginViewController animated:YES completion:NULL];
 }
 
-- (void)socialLoginViewController:(SocialLoginViewController *)controller didLoginForService:(NSString *)service;
+- (void)cmSocialLoginViewController:(CMSocialLoginViewController *)controller didLoginForService:(NSString *)service;
 {
     // TODO respond to call
+    NSLog(@"Successfully logged in");
     //[self dismissViewControllerAnimated:YES completion:nil];
 }
+
+- (void)cmSocialLoginViewController:(CMSocialLoginViewController *)controller errorLoggingInToService:(NSString *)service withError:(NSError *)error {
+    
+    // TODO
+}
+
 
 // ***** /Singly Social
 

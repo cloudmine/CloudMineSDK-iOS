@@ -27,7 +27,7 @@
 //  POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "UIViewController+Modal.h"
+#import "CMUIViewController+Modal.h"
 
 @implementation UIViewController (Modal)
 

@@ -6,10 +6,10 @@
 //  Copyright (c) 2012 CloudMine, LLC. All rights reserved.
 //
 
-#import "UIViewController+Modal.h"
-#import "SocialLoginViewController.h"
+#import "CMUIViewController+Modal.h"
+#import "CMSocialLoginViewController.h"
 
-@interface SocialLoginViewController ()
+@interface CMSocialLoginViewController ()
 {
     NSMutableData* responseData;
     UIView* pendingLoginView;
@@ -23,25 +23,13 @@
 
 @end
 
-@implementation SocialLoginViewController
-
-
-- (id)init
-{
-    self = [super init];
-    if (self)
-    {
-        [self initializeView];
-    }
-    return self;
-}
+@implementation CMSocialLoginViewController
 
 - (id)initForService:(NSString *)service withAppID:(NSString *)appID andApiKey:(NSString *)apiKey
 {
     self = [super init];
     if (self)
     {
-        [self initializeView];
         _targetService = service;
         _appID = appID;
         _apiKey = apiKey;
@@ -51,18 +39,14 @@
     return self;
 }
 
-- (void)awakeFromNib
+- (void)viewDidLoad
 {
-    [self initializeView];
-}
-
-- (void)initializeView
-{
+    [super viewDidLoad];
+    
     _webView = [[UIWebView alloc] initWithFrame:self.view.frame];
     _webView.scalesPageToFit = YES;
     _webView.delegate = self;
     [self.view addSubview:_webView];
-    [self presentViewController:self animated:YES completion:NULL];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -79,6 +63,17 @@
         UINavigationItem *navigationItem = [[UINavigationItem alloc] initWithTitle:self.targetService];
         navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(dismiss)];
         self.navigationBar.items = @[navigationItem];
+        
+        //
+        // Set the tint color of our navigation bar to match the tint of the
+        // view controller's navigation bar that is responsible for presenting
+        // us modally.
+        //
+        if ([self.presentingViewController respondsToSelector:@selector(navigationBar)])
+        {
+            UIColor *presentingTintColor = ((UINavigationController *)self.presentingViewController).navigationBar.tintColor;
+            self.navigationBar.tintColor = presentingTintColor;
+        }
         [self.view addSubview:self.navigationBar];
     }
     else
@@ -90,7 +85,7 @@
         }
     }
     
-    NSString *urlStr = [NSString stringWithFormat:@"http://api.cloudmine.me/v1/app/%@/account/social/login?service=%@&apikey=%@&challenge=%@",
+    NSString *urlStr = [NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/social/login?service=%@&apikey=%@&challenge=%@",
                              _appID,_targetService,_apiKey,_challenge];
     NSLog(@"Going to auth url %@", urlStr);
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]]];
@@ -107,7 +102,9 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType;
 {
+    
     // TODO work on this
+    /*
     //if ([request.URL.scheme isEqualToString:[NSString stringWithFormat:@"fb%@", self.session.clientID]] && [request.URL.host isEqualToString:@"authorize"]) {
     
         
@@ -132,17 +129,20 @@
         NSLog(@"Request the token");
         return NO;
     //}
-    //return YES;
+     */
+    return YES;
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView;
 {
     
 }
+
 - (void)webViewDidFinishLoad:(UIWebView *)webView;
 {
     
 }
+
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error;
 {
     //TODO:  Fill this in (comment leftover from Singly sdk)
@@ -161,7 +161,8 @@
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection;
-{    
+{
+    /*
     NSError *error;
     NSDictionary* jsonResult = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
     if (error) {
@@ -193,6 +194,7 @@
         
         [self.delegate socialLoginViewController:self didLoginForService:self.targetService];
     }
+    */
 }
 
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
