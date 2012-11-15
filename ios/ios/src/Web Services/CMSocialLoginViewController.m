@@ -87,7 +87,6 @@
     
     NSString *urlStr = [NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/social/login?service=%@&apikey=%@&challenge=%@",
                              _appID,_targetService,_apiKey,_challenge];
-    NSLog(@"Going to auth url %@", urlStr);
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]]];
 }
 
@@ -100,39 +99,6 @@
 
 #pragma mark - UIWebViewDelegate
 
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType;
-{
-    
-    // TODO work on this
-    /*
-    //if ([request.URL.scheme isEqualToString:[NSString stringWithFormat:@"fb%@", self.session.clientID]] && [request.URL.host isEqualToString:@"authorize"]) {
-    
-        
-        pendingLoginView = [[UIView alloc] initWithFrame:self.view.bounds];
-        pendingLoginView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.8];
-        
-        activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        activityView.frame = CGRectMake(140, 180, activityView.bounds.size.width, activityView.bounds.size.height);
-        [pendingLoginView addSubview:activityView];
-        [activityView startAnimating];
-        
-        [self.view addSubview:pendingLoginView];
-        [self.view bringSubviewToFront:pendingLoginView];
-        
-        NSLog(@"Getting the tokens");
-        NSString* accessTokenStr = [NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/social/login/status?challenge=%@", _appID,_challenge];
-        NSURL* accessTokenURL = [NSURL URLWithString:accessTokenStr];
-        NSMutableURLRequest* req = [NSMutableURLRequest requestWithURL:accessTokenURL];
-        req.HTTPMethod = @"GET";
-        responseData = [NSMutableData data];
-        [NSURLConnection connectionWithRequest:req delegate:self];
-        NSLog(@"Request the token");
-        return NO;
-    //}
-     */
-    return YES;
-}
-
 - (void)webViewDidStartLoad:(UIWebView *)webView;
 {
     
@@ -140,7 +106,41 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView;
 {
+    NSURLRequest *currentRequest = [webView request];
+    NSURL *currentURL = [currentRequest URL];
+    NSString *currentURLstr = [currentURL absoluteString];
     
+    NSString *baseURLstr = [NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/social/login/complete", _appID];
+    
+    if (currentURLstr.length >= baseURLstr.length) {
+        NSString *comparableRequestStr = [currentURLstr substringToIndex:baseURLstr.length];
+
+        // If at the challenge complete URL, prepare and send GET request for session token info
+        if ([baseURLstr isEqualToString:comparableRequestStr]) {
+        
+            // Display pending login view during request/processing
+            pendingLoginView = [[UIView alloc] initWithFrame:self.view.bounds];
+            pendingLoginView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.8];
+            activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+            activityView.frame = CGRectMake(140, 180, activityView.bounds.size.width, activityView.bounds.size.height);
+            [pendingLoginView addSubview:activityView];
+            [activityView startAnimating];
+            [self.view addSubview:pendingLoginView];
+            [self.view bringSubviewToFront:pendingLoginView];
+        
+            // Request the session token info
+            NSString* accessTokenStr = [NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/social/login/status?challenge=%@", _appID,_challenge];
+            NSURL* accessTokenURL = [NSURL URLWithString:accessTokenStr];
+            NSMutableURLRequest* req = [NSMutableURLRequest requestWithURL:accessTokenURL];
+            req.HTTPMethod = @"GET";
+            responseData = [NSMutableData data];
+            [req setValue:self.apiKey forHTTPHeaderField:@"X-CloudMine-ApiKey"];
+            
+            NSLog(@"Request in full: %@", [req allHTTPHeaderFields]);
+            
+            [NSURLConnection connectionWithRequest:req delegate:self];
+        }
+    }
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error;
@@ -162,10 +162,10 @@
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection;
 {
-    /*
     NSError *error;
     NSDictionary* jsonResult = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
     if (error) {
+        NSLog(@"JSON error with Response: %@", [jsonResult description]);
         if (self.delegate) {
             [self errorLoggingInToService:self.targetService withError:error];
         }
@@ -174,13 +174,15 @@
     
     NSString* loginError = [jsonResult objectForKey:@"error"];
     if (loginError) {
+        NSLog(@"Login error");
         if (self.delegate) {
             NSError* error = [NSError errorWithDomain:@"socialSDK" code:100 userInfo:[NSDictionary dictionaryWithObject:loginError forKey:NSLocalizedDescriptionKey]];
             [self errorLoggingInToService:self.targetService withError:error];
-            
         }
         return;
     }
+    
+    NSLog(@"We ready to JSON now");
     
     // TODO save information properly
     // Save the access token and account id
@@ -191,16 +193,14 @@
     NSLog(@"JSON Response: %@", [jsonResult description]);
     if (self.delegate) {
         // TODO put info in callback response
-        
-        [self.delegate socialLoginViewController:self didLoginForService:self.targetService];
+        [self.delegate cmSocialLoginViewController:self didLoginForService:self.targetService];
     }
-    */
 }
 
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
     if (self.delegate) {
-        [self errorLoggingInToService:self.targetService withError:error];
+        [self.delegate cmSocialLoginViewController:self errorLoggingInToService:self.targetService withError:error];
     }
 }
 

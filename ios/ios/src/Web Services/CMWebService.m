@@ -469,7 +469,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 - (void)cmSocialLoginViewController:(CMSocialLoginViewController *)controller didLoginForService:(NSString *)service;
 {
     // TODO respond to call
-    NSLog(@"Successfully logged in");
+    NSLog(@"Successfully logged in to %@",service);
     //[self dismissViewControllerAnimated:YES completion:nil];
 }
 
