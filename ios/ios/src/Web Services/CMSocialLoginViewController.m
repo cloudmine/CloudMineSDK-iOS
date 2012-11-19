@@ -129,16 +129,18 @@
             [self.view bringSubviewToFront:pendingLoginView];
         
             // Request the session token info
-            NSString* accessTokenStr = [NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/social/login/status?challenge=%@", _appID,_challenge];
-            NSURL* accessTokenURL = [NSURL URLWithString:accessTokenStr];
-            NSMutableURLRequest* req = [NSMutableURLRequest requestWithURL:accessTokenURL];
+            NSMutableURLRequest* req = [NSMutableURLRequest requestWithURL:
+                                        [NSURL URLWithString:
+                                         [NSString stringWithFormat:
+                                          @"https://api.cloudmine.me/v1/app/%@/account/social/login/status?challenge=%@",_appID,_challenge]]];
             req.HTTPMethod = @"GET";
             responseData = [NSMutableData data];
             [req setValue:self.apiKey forHTTPHeaderField:@"X-CloudMine-ApiKey"];
-            
-            NSLog(@"Request in full: %@", [req allHTTPHeaderFields]);
-            
-            [NSURLConnection connectionWithRequest:req delegate:self];
+            NSURLConnection *connection = [[NSURLConnection alloc]initWithRequest:req delegate:self];
+            if (connection) {
+                responseData = [NSMutableData data];
+                [data 
+            }
         }
     }
 }
