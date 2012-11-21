@@ -34,7 +34,6 @@
         _appID = appID;
         _apiKey = apiKey;
         _challenge = [[NSUUID UUID] UUIDString];
-
     }
     return self;
 }
@@ -109,9 +108,7 @@
     NSURLRequest *currentRequest = [webView request];
     NSURL *currentURL = [currentRequest URL];
     NSString *currentURLstr = [currentURL absoluteString];
-    
-    NSLog(@"Received redirect callback at current URL: %@",currentURLstr);
-    
+        
     NSString *baseURLstr = [NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/social/login/complete", _appID];
     
     if (currentURLstr.length >= baseURLstr.length) {

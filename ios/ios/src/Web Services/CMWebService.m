@@ -37,6 +37,8 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 
 @interface CMWebService () {
     NSMutableDictionary *_responseTimes;
+    __strong CMWebServiceUserAccountOperationCallback temporaryCallback;
+
 }
 @property (nonatomic, strong) NSString *apiUrl;
 - (NSURL *)constructTextUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys query:(NSString *)searchString pagingOptions:(CMPagingDescriptor *)paging sortingOptions:(CMSortDescriptor *)sorting withServerSideFunction:(CMServerFunction *)function extraParameters:(NSDictionary *)params;
@@ -458,43 +460,56 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 
 // ***** Singly Social
 
-
 - (void)loginWithSocial:(CMUser *)user withService:(NSString *)service andViewController:(UIViewController *)viewController callback:(CMWebServiceUserAccountOperationCallback)callback
 {
     CMSocialLoginViewController* loginViewController = [[CMSocialLoginViewController alloc] initForService:service withAppID:_appIdentifier andApiKey:_appSecret];
     loginViewController.delegate = self;
+    temporaryCallback = callback;
     [viewController presentViewController:loginViewController animated:YES completion:NULL];
 }
 
-// TODO unit tests
-// TODO get callback to work (or test)
-// TODO convenience method for getting the returned user profile and session token
 - (void)cmSocialLoginViewController:(CMSocialLoginViewController *)controller completeSocialLoginWithChallenge:(NSString *)challenge {
-    NSLog(@"Got this far - logged in, just have to send the GET request now");
-    
-    // TODO
-    
-    
-    /*
+    // Request the session token info
+    NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/social/login/status/%@",_appIdentifier,challenge]];
+    NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"GET" URL:url appSecret:_appSecret binaryData:NO user:nil];
 
-     
-     // Request the session token info
-     NSMutableURLRequest* req = [NSMutableURLRequest requestWithURL:
-     [NSURL URLWithString:
-     [NSString stringWithFormat:
-     @"https://api.cloudmine.me/v1/app/%@/account/social/login/status?challenge=%@",_appID,_challenge]]];
-     req.HTTPMethod = @"GET";
-     responseData = [NSMutableData data];
-     [req setValue:self.apiKey forHTTPHeaderField:@"X-CloudMine-ApiKey"];
-     NSURLConnection *connection = [[NSURLConnection alloc]initWithRequest:req delegate:self];
-     
-     */
-    
-    
     [controller dismissViewControllerAnimated:YES completion:nil];
+
+    [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode, NSError *error) {
+        if (!httpResponseCode && error) {
+            if ([[error domain] isEqualToString:CMErrorDomain]) {
+                if ([error code] == CMErrorUnauthorized) {
+                    return CMUserAccountLoginFailedIncorrectCredentials;
+                } else if ([error code] == CMErrorServerConnectionFailed) {
+                    return CMUserAccountUnknownResult;
+                }
+            }
+        }
+        
+        switch (httpResponseCode) {
+            case 200:
+                return CMUserAccountLoginSucceeded;
+            case 401:
+                return CMUserAccountLoginFailedIncorrectCredentials;
+            case 404:
+                return CMUserAccountOperationFailedUnknownAccount;
+            default:
+                return CMUserAccountUnknownResult;
+        }
+    } callback:^(CMUserAccountResult resultCode, NSDictionary *messages) {
+        switch (resultCode) {
+            case CMUserAccountLoginFailedIncorrectCredentials:
+                NSLog(@"CloudMine *** User login failed because the credentials provided were incorrect");
+                break;
+            case CMUserAccountOperationFailedUnknownAccount:
+                NSLog(@"CloudMine *** User login failed because the application does not exist");
+                break;
+            default:
+                break;
+        }
+        temporaryCallback(resultCode, messages);
+    }]; 
 }
-
-
 
 // ***** /Singly Social
 
@@ -777,6 +792,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
             [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
         NSString *requestId = [[operation.response allHeaderFields] objectForKey:@"X-Request-Id"];
         if (requestId) {
             int milliseconds = (int)([[NSDate date] timeIntervalSinceDate:startDate] * 1000.0f);

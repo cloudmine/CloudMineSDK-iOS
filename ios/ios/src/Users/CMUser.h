@@ -82,6 +82,11 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
 @property (readonly) BOOL isLoggedIn;
 
 /**
+ * The social services the user has linked their profile to.
+ */
+@property (atomic, strong) NSArray *services;
+
+/**
  * Initialize the user with an email address and password.
  */
 - (id)initWithUserId:(NSString *)userId andPassword:(NSString *)password;

@@ -33,6 +33,7 @@ static CMWebService *webService;
 @synthesize tokenExpiration;
 @synthesize objectId;
 @synthesize isDirty;
+@synthesize services;
 
 + (NSString *)className {
     return NSStringFromClass([self class]);
@@ -56,6 +57,7 @@ static CMWebService *webService;
         self.token = nil;
         self.userId = nil;
         self.password = nil;
+        self.services = nil;
         objectId = @"";
         if (!webService) {
             webService = [[CMWebService alloc] init];
@@ -212,9 +214,9 @@ static CMWebService *webService;
     [webService loginUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         NSArray *messages = [NSArray array];
 
-        if (result == CMUserAccountLoginSucceeded) {
+        if (result == CMUserAccountLoginSucceeded) {            
             self.token = [responseBody objectForKey:@"session_token"];
-
+            
             NSDateFormatter *df = [[NSDateFormatter alloc] init];
             [df setLenient:YES];
             df.dateFormat = @"EEE',' dd MMM yyyy HH':'mm':'ss 'GMT'"; // RFC 1123 format
@@ -313,7 +315,7 @@ static CMWebService *webService;
 -(void)loginWithSocial:(NSString *)service  andViewController:(UIViewController *)viewController callback:(CMUserOperationCallback)callback {
     [webService loginWithSocial:self withService:service andViewController:viewController callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         NSArray *messages = [NSArray array];
-        
+
         if (result == CMUserAccountLoginSucceeded) {
             self.token = [responseBody objectForKey:@"session_token"];
             
@@ -321,10 +323,9 @@ static CMWebService *webService;
             [df setLenient:YES];
             df.dateFormat = @"EEE',' dd MMM yyyy HH':'mm':'ss 'GMT'"; // RFC 1123 format
             self.tokenExpiration = [df dateFromString:[responseBody objectForKey:@"expires"]];
-            
             NSDictionary *userProfile = [responseBody objectForKey:@"profile"];
             objectId = [userProfile objectForKey:CMInternalObjectIdKey];
-            
+
             if (!self.isDirty) {
                 // Only bring the changes from the server into the object state if there weren't local modifications.
                 [self copyValuesFromDictionaryIntoState:userProfile];
