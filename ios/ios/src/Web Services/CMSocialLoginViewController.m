@@ -110,6 +110,8 @@
     NSURL *currentURL = [currentRequest URL];
     NSString *currentURLstr = [currentURL absoluteString];
     
+    NSLog(@"Received redirect callback at current URL: %@",currentURLstr);
+    
     NSString *baseURLstr = [NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/social/login/complete", _appID];
     
     if (currentURLstr.length >= baseURLstr.length) {
@@ -127,20 +129,9 @@
             [activityView startAnimating];
             [self.view addSubview:pendingLoginView];
             [self.view bringSubviewToFront:pendingLoginView];
-        
-            // Request the session token info
-            NSMutableURLRequest* req = [NSMutableURLRequest requestWithURL:
-                                        [NSURL URLWithString:
-                                         [NSString stringWithFormat:
-                                          @"https://api.cloudmine.me/v1/app/%@/account/social/login/status?challenge=%@",_appID,_challenge]]];
-            req.HTTPMethod = @"GET";
-            responseData = [NSMutableData data];
-            [req setValue:self.apiKey forHTTPHeaderField:@"X-CloudMine-ApiKey"];
-            NSURLConnection *connection = [[NSURLConnection alloc]initWithRequest:req delegate:self];
-            if (connection) {
-                responseData = [NSMutableData data];
-                [data 
-            }
+            
+            // Call WebService function to establish GET for session token and user profile
+            [self.delegate cmSocialLoginViewController:self completeSocialLoginWithChallenge:_challenge];
         }
     }
 }
@@ -148,69 +139,6 @@
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error;
 {
     //TODO:  Fill this in (comment leftover from Singly sdk)
-}
-
-#pragma mark - NSURLConnectionDataDelegate
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response;
-{
-    [responseData setLength:0];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data;
-{
-    [responseData appendData:data];
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection;
-{
-    NSError *error;
-    NSDictionary* jsonResult = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
-    if (error) {
-        NSLog(@"JSON error with Response: %@", [jsonResult description]);
-        if (self.delegate) {
-            [self errorLoggingInToService:self.targetService withError:error];
-        }
-        return;
-    }
-    
-    NSString* loginError = [jsonResult objectForKey:@"error"];
-    if (loginError) {
-        NSLog(@"Login error");
-        if (self.delegate) {
-            NSError* error = [NSError errorWithDomain:@"socialSDK" code:100 userInfo:[NSDictionary dictionaryWithObject:loginError forKey:NSLocalizedDescriptionKey]];
-            [self errorLoggingInToService:self.targetService withError:error];
-        }
-        return;
-    }
-    
-    NSLog(@"We ready to JSON now");
-    
-    // TODO save information properly
-    // Save the access token and account id
-    _session_token = [jsonResult objectForKey:@"session_token"];
-    //self.session.accountID = [jsonResult objectForKey:@"account"];
-    
-    //NSLog(@"All set to do requests as account %@ with session_token %@", self.session.accountID, self.session.accessToken);
-    NSLog(@"JSON Response: %@", [jsonResult description]);
-    if (self.delegate) {
-        // TODO put info in callback response
-        [self.delegate cmSocialLoginViewController:self didLoginForService:self.targetService];
-    }
-}
-
--(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-    if (self.delegate) {
-        [self.delegate cmSocialLoginViewController:self errorLoggingInToService:self.targetService withError:error];
-    }
-}
-
-
--(void)errorLoggingInToService:(NSString *)service withError:(NSError *)error
-{
-    // TODO handle errors with callback response info, not alert
-    
 }
 
 - (void)didReceiveMemoryWarning

@@ -11,13 +11,10 @@
 @class CMSocialLoginViewController;
 
 @protocol CMSocialLoginViewControllerDelegate <NSObject>
-
-- (void)cmSocialLoginViewController:(CMSocialLoginViewController *)controller didLoginForService:(NSString *)service;
-- (void)cmSocialLoginViewController:(CMSocialLoginViewController *)controller errorLoggingInToService:(NSString *)service withError:(NSError *)error;
-
+- (void)cmSocialLoginViewController:(CMSocialLoginViewController *)controller completeSocialLoginWithChallenge:(NSString *)challenge;
 @end
 
-@interface CMSocialLoginViewController : UIViewController <UIWebViewDelegate, NSURLConnectionDataDelegate>
+@interface CMSocialLoginViewController : UIViewController <UIWebViewDelegate>
 
 @property (nonatomic,strong) id<CMSocialLoginViewControllerDelegate> delegate;
 

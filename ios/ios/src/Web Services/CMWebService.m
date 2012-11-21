@@ -466,17 +466,34 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     [viewController presentViewController:loginViewController animated:YES completion:NULL];
 }
 
-- (void)cmSocialLoginViewController:(CMSocialLoginViewController *)controller didLoginForService:(NSString *)service;
-{
-    // TODO respond to call
-    NSLog(@"Successfully logged in to %@",service);
-    //[self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)cmSocialLoginViewController:(CMSocialLoginViewController *)controller errorLoggingInToService:(NSString *)service withError:(NSError *)error {
+// TODO unit tests
+// TODO get callback to work (or test)
+// TODO convenience method for getting the returned user profile and session token
+- (void)cmSocialLoginViewController:(CMSocialLoginViewController *)controller completeSocialLoginWithChallenge:(NSString *)challenge {
+    NSLog(@"Got this far - logged in, just have to send the GET request now");
     
     // TODO
+    
+    
+    /*
+
+     
+     // Request the session token info
+     NSMutableURLRequest* req = [NSMutableURLRequest requestWithURL:
+     [NSURL URLWithString:
+     [NSString stringWithFormat:
+     @"https://api.cloudmine.me/v1/app/%@/account/social/login/status?challenge=%@",_appID,_challenge]]];
+     req.HTTPMethod = @"GET";
+     responseData = [NSMutableData data];
+     [req setValue:self.apiKey forHTTPHeaderField:@"X-CloudMine-ApiKey"];
+     NSURLConnection *connection = [[NSURLConnection alloc]initWithRequest:req delegate:self];
+     
+     */
+    
+    
+    [controller dismissViewControllerAnimated:YES completion:nil];
 }
+
 
 
 // ***** /Singly Social
