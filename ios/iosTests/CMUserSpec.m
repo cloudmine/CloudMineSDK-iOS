@@ -194,7 +194,7 @@ describe(@"CMUser", ^{
                 [user save:nil];
                 
                 // Make a mock response from the web server with changes we haven't seen yet.
-                NSDictionary *parsedResults = @{@"__class__" : @"CustomUser", @"__id__" : @"1234", @"__type__" : @"user", @"name" : @"Tomas", @"ageOfPerson" : @35};
+                NSDictionary *parsedResults = @{@"__class__" : @"CustomUser", @"__id__" : @"1234", @"__type__" : @"user", @"name" : @"Tomas", @"ageOfPerson" : @35, @"newField" : @"aValue"};
                 
                 
                 CMWebServiceUserAccountOperationCallback callback = callbackBlockSpy.argument;
