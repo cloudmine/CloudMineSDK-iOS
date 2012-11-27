@@ -186,7 +186,14 @@ static CMWebService *webService;
 - (void)copyValuesFromDictionaryIntoState:(NSDictionary *)dict {
     for (NSString *key in dict) {
         if (![CMInternalKeys containsObject:key]) {
-            [self setValue:[dict objectForKey:key] forKey:key];
+            //
+            // Fix for crashing when the Key and Property named are different
+            //
+            if ( [self respondsToSelector:NSSelectorFromString($sprintf(@"set%@%@:",
+                                                                        [[key substringToIndex:1] capitalizedString],
+                                                                        [key substringFromIndex:1]))]) {
+                [self setValue:[dict objectForKey:key] forKey:key];
+            }
         }
     }
     isDirty = NO;
