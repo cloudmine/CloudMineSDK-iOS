@@ -42,6 +42,7 @@ describe(@"CMUser", ^{
         });
     });
 
+
     context(@"given a session token", ^{
         it(@"should no longer maintain a copy of the password", ^{
             CMUser *user = [[CMUser alloc] initWithUserId:@"someone@domain.com" andPassword:@"pass"];
@@ -175,6 +176,38 @@ describe(@"CMUser", ^{
                 [[user.name should] equal:@"Conrad"];
                 [[theValue(user.age) should] equal:theValue(15)];
                 [[user.token should] equal:@"5555"];
+            });
+            
+            it(@"should not crash when the properties returned are named differently than the properties defined in the object", ^{
+                // Make the user appear to exist server side.
+                [user setValue:@"1234" forKey:@"objectId"];
+                
+                // Verify that the user is not dirty.
+                [[theValue(user.isDirty) should] beNo];
+                
+                // Set up the capture spy to intercept the callback block.
+                KWCaptureSpy *callbackBlockSpy = [mockWebService captureArgument:@selector(saveUser:callback:) atIndex:1];
+                [[mockWebService should] receive:@selector(saveUser:callback:)];
+                
+                // Run the test method.
+                // Saving the object should force the person to update, and we can check to see if the properties are set properly
+                [user save:nil];
+                
+                // Make a mock response from the web server with changes we haven't seen yet.
+                NSDictionary *parsedResults = @{@"__class__" : @"CustomUser", @"__id__" : @"1234", @"__type__" : @"user", @"name" : @"Tomas", @"ageOfPerson" : @35, @"newField" : @"aValue"};
+                
+                
+                CMWebServiceUserAccountOperationCallback callback = callbackBlockSpy.argument;
+                callback(CMUserAccountProfileUpdateSucceeded, parsedResults);
+                
+                // Validate that the values from the server were applied to the user correctly.
+                // Will be updated, because the name is the same on server and property
+                [[user.name should] equal:@"Tomas"];
+                // Will NOT be updated, because the naming is different.
+                [[theValue(user.age) shouldNot] equal:theValue(35)];
+
+                
+
             });
         });
     });

@@ -186,7 +186,17 @@ static CMWebService *webService;
 - (void)copyValuesFromDictionaryIntoState:(NSDictionary *)dict {
     for (NSString *key in dict) {
         if (![CMInternalKeys containsObject:key]) {
-            [self setValue:[dict objectForKey:key] forKey:key];
+            //
+            // Fix for crashing when the Key and Property named are different
+            //
+            @try {
+                [self setValue:[dict objectForKey:key] forKey:key];
+            }
+            @catch (NSException *e) {
+                #ifdef DEBUG
+                    NSLog(@"Failed to set value: %@ for key: %@", [dict objectForKey:key], key);
+                #endif
+            }
         }
     }
     isDirty = NO;
