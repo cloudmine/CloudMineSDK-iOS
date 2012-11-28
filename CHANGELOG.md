@@ -2,6 +2,8 @@ HEAD
 =====
 * Fix bug that caused CMFile's on-device caching to never work.
 * Add method to `CMWebService` to run Java or JavaScript snippets directly without running a store operation and wrapping it.
+* Fixed a bug when a custom CMUser has properties named differently than how they are stored on the server.
+
 
 v1.2.1 (October 8, 2012)
 ======
