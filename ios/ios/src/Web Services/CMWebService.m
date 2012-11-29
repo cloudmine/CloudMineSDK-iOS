@@ -473,8 +473,6 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/social/login/status/%@",_appIdentifier,challenge]];
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"GET" URL:url appSecret:_appSecret binaryData:NO user:nil];
 
-    [controller dismissViewControllerAnimated:YES completion:nil];
-
     [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode, NSError *error) {
         if (!httpResponseCode && error) {
             if ([[error domain] isEqualToString:CMErrorDomain]) {
