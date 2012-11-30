@@ -12,6 +12,7 @@
 
 #import "CMFileUploadResult.h"
 #import "CMUserAccountResult.h"
+#import "CMSocialLoginViewController.h"
 
 @class CMUser;
 @class CMServerFunction;
@@ -86,7 +87,7 @@ typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDi
  * Base class for all classes concerned with the communication between the client device and the CloudMine
  * web services.
  */
-@interface CMWebService : AFHTTPClient {
+@interface CMWebService : AFHTTPClient <CMSocialLoginViewControllerDelegate> {
     NSString *_appSecret;
     NSString *_appIdentifier;
 }
@@ -360,6 +361,16 @@ typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDi
  * @see https://cloudmine.me/developer_zone#ref/account_create
  */
 - (void)createAccountWithUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
+
+/**
+ * Initialize the social login service by calling the SocialLoginViewController (which contains only a webview)
+ * 
+ * @param callback The block that will be called on completion of the operation
+ * @param service The social service to be logged into
+ * @param viewController the current viewController in use when this method is called
+ * @see https://cloudmine.me/docs/api#users_social
+ */
+- (void)loginWithSocial:(CMUser *)user withService:(NSString *)service andViewController:(UIViewController *)viewController callback:(CMWebServiceUserAccountOperationCallback)callback;
 
 /**
  * Asynchronously change the password for the given user. For security purposes, you must have the user enter his or her
