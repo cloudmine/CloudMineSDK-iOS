@@ -8,6 +8,7 @@
 
 #import "CMUIViewController+Modal.h"
 #import "CMSocialLoginViewController.h"
+#import "CMWebService.h"
 
 @interface CMSocialLoginViewController ()
 {
@@ -84,8 +85,8 @@
         }
     }
     
-    NSString *urlStr = [NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/social/login?service=%@&apikey=%@&challenge=%@",
-                             _appID,_targetService,_apiKey,_challenge];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/app/%@/account/social/login?service=%@&apikey=%@&challenge=%@",
+                             CM_BASE_URL, _appID, _targetService, _apiKey, _challenge];
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]]];
 }
 
@@ -105,11 +106,10 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView;
 {
-    NSURLRequest *currentRequest = [webView request];
-    NSURL *currentURL = [currentRequest URL];
-    NSString *currentURLstr = [currentURL absoluteString];
+    
+    NSString *currentURLstr = [[[webView request] URL] absoluteString];
         
-    NSString *baseURLstr = [NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/social/login/complete", _appID];
+    NSString *baseURLstr = [NSString stringWithFormat:@"%@/app/%@/account/social/login/complete", CM_BASE_URL, _appID];
     
     if (currentURLstr.length >= baseURLstr.length) {
         NSString *comparableRequestStr = [currentURLstr substringToIndex:baseURLstr.length];

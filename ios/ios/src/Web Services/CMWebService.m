@@ -500,7 +500,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 
 - (void)cmSocialLoginViewController:(CMSocialLoginViewController *)controller completeSocialLoginWithChallenge:(NSString *)challenge {
     // Request the session token info
-    NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/social/login/status/%@",_appIdentifier,challenge]];
+    NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/social/login/status/%@", _appIdentifier, challenge]];
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"GET" URL:url appSecret:_appSecret binaryData:NO user:nil];
 
     [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode, NSError *error) {
