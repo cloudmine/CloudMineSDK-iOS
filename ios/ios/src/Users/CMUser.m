@@ -23,6 +23,22 @@
 - (void)writeToCache;
 @end
 
+
+NSString * const CMSocialNetworkFacebook = @"facebook";
+NSString * const CMSocialNetworkTwitter = @"twitter";
+NSString * const CMSocialNetworkFoursquare = @"foursquare";
+NSString * const CMSocialNetworkInstagram = @"instagram";
+NSString * const CMSocialNetworkTumblr = @"tumblr";
+NSString * const CMSocialNetworkDropbox = @"dropbox";
+NSString * const CMSocialNetworkFitbit = @"fitbit";
+NSString * const CMSocialNetworkGithub = @"github";
+NSString * const CMSocialNetworkLinkedin = @"linkedin";
+NSString * const CMSocialNetworkMeetup = @"meetup";
+NSString * const CMSocialNetworkRunkeeper = @"runkeeper";
+NSString * const CMSocialNetworkWhithings = @"whithings";
+NSString * const CMSocialNetworkWordpress = @"wordpress";
+NSString * const CMSocialNetworkYammer = @"yammer";
+
 static CMWebService *webService;
 
 @implementation CMUser

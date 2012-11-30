@@ -12,6 +12,48 @@
 #import "CMUserAccountResult.h"
 #import "CMSocialLoginViewController.h"
 
+/** Social network identifier for Facebook */
+extern NSString * const CMSocialNetworkFacebook;
+
+/** Social network identifier for Twitter */
+extern NSString * const CMSocialNetworkTwitter;
+
+/** Social network identifier for Foursquare */
+extern NSString * const CMSocialNetworkFoursquare;
+
+/** Social network identifier for Instagream */
+extern NSString * const CMSocialNetworkInstagram;
+
+/** Social network identifier for Tumblr */
+extern NSString * const CMSocialNetworkTumblr;
+
+/** Social network identifier for Dropbox */
+extern NSString * const CMSocialNetworkDropbox;
+
+/** Social network identifier for Fitbit */
+extern NSString * const CMSocialNetworkFitbit;
+
+/** Social network identifier for GitHub */
+extern NSString * const CMSocialNetworkGithub;
+
+/** Social network identifier for LinkedIn */
+extern NSString * const CMSocialNetworkLinkedin;
+
+/** Social network identifier for Meetup.com */
+extern NSString * const CMSocialNetworkMeetup;
+
+/** Social network identifier for Runkeeper */
+extern NSString * const CMSocialNetworkRunkeeper;
+
+/** Social network identifier for Whithings */
+extern NSString * const CMSocialNetworkWhithings;
+
+/** Social network identifier for Wordpress.com */
+extern NSString * const CMSocialNetworkWordpress;
+
+/** Social network identifier for Yammer */
+extern NSString * const CMSocialNetworkYammer;
+
 /**
  * The block callback for all user account and session operations that take place on an instance of <tt>CMUser</tt>.
  * The block returns <tt>void</tt> and takes a <tt>CMUserAccountResult</tt> code representing the reuslt of the operation,
