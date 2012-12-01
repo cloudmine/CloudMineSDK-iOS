@@ -41,6 +41,10 @@
 		65199ED3156A847A00267EC6 /* CMSnippetResult.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65199EBB156A7D9500267EC6 /* CMSnippetResult.h */; };
 		65199ED4156A847A00267EC6 /* CMStoreResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65199EBD156A7D9500267EC6 /* CMStoreResponse.h */; };
 		65199ED5156A84D600267EC6 /* CMDistance.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65199EC0156A7D9500267EC6 /* CMDistance.h */; };
+		715217581653F5C4007FB0A9 /* CMSocialLoginViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 71E886B516516C3D0060C217 /* CMSocialLoginViewController.h */; };
+		7152175A1653F5C4007FB0A9 /* CMUIViewController+Modal.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 71E886B816516F0F0060C217 /* CMUIViewController+Modal.h */; };
+		71E886B716516C3D0060C217 /* CMSocialLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71E886B616516C3D0060C217 /* CMSocialLoginViewController.m */; };
+		71E886BA16516F0F0060C217 /* CMUIViewController+Modal.m in Sources */ = {isa = PBXBuildFile; fileRef = 71E886B916516F0F0060C217 /* CMUIViewController+Modal.m */; };
 		7A0413D2146C5B5200EF537A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D1146C5B5200EF537A /* CFNetwork.framework */; };
 		7A0413D4146C5B5C00EF537A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D3146C5B5C00EF537A /* SystemConfiguration.framework */; };
 		7A0413D6146C5B6900EF537A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D5146C5B6900EF537A /* MobileCoreServices.framework */; };
@@ -170,6 +174,8 @@
 			dstPath = "${SRCROOT}/build/${CONFIGURATION}-iphoneuniversal/${PRODUCT_NAME}.framework/Headers/";
 			dstSubfolderSpec = 0;
 			files = (
+				715217581653F5C4007FB0A9 /* CMSocialLoginViewController.h in CopyFiles */,
+				7152175A1653F5C4007FB0A9 /* CMUIViewController+Modal.h in CopyFiles */,
 				7A3DCEEF15EECBB600AC4890 /* AFHTTPClient.h in CopyFiles */,
 				D03A4D5C15B48D2200A956BC /* CMACLFetchResponse.h in CopyFiles */,
 				7AF00BA215A8DC7C0070442A /* CMACL.h in CopyFiles */,
@@ -236,6 +242,10 @@
 		65199EBE156A7D9500267EC6 /* CMStoreResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMStoreResponse.m; path = Response/CMStoreResponse.m; sourceTree = "<group>"; };
 		65199EC0156A7D9500267EC6 /* CMDistance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMDistance.h; sourceTree = "<group>"; };
 		65199EC1156A7D9500267EC6 /* CMDistance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMDistance.m; sourceTree = "<group>"; };
+		71E886B516516C3D0060C217 /* CMSocialLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMSocialLoginViewController.h; sourceTree = "<group>"; };
+		71E886B616516C3D0060C217 /* CMSocialLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMSocialLoginViewController.m; sourceTree = "<group>"; };
+		71E886B816516F0F0060C217 /* CMUIViewController+Modal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CMUIViewController+Modal.h"; sourceTree = "<group>"; };
+		71E886B916516F0F0060C217 /* CMUIViewController+Modal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CMUIViewController+Modal.m"; sourceTree = "<group>"; };
 		7A0413D1146C5B5200EF537A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		7A0413D3146C5B5C00EF537A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		7A0413D5146C5B6900EF537A /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -454,6 +464,17 @@
 			name = Response;
 			sourceTree = "<group>";
 		};
+		71E886B3165161050060C217 /* Social Login */ = {
+			isa = PBXGroup;
+			children = (
+				71E886B516516C3D0060C217 /* CMSocialLoginViewController.h */,
+				71E886B616516C3D0060C217 /* CMSocialLoginViewController.m */,
+				71E886B816516F0F0060C217 /* CMUIViewController+Modal.h */,
+				71E886B916516F0F0060C217 /* CMUIViewController+Modal.m */,
+			);
+			name = "Social Login";
+			sourceTree = "<group>";
+		};
 		7A04139F146C5B3A00EF537A /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
@@ -655,6 +676,7 @@
 		7AD36F7B146C64F300DD4734 /* Web Services */ = {
 			isa = PBXGroup;
 			children = (
+				71E886B3165161050060C217 /* Social Login */,
 				7AABA2FA14818DCA00FD52A0 /* Decoding */,
 				7AABA2FD14818DCA00FD52A0 /* Encoding */,
 				7AFDFE48158E965400388D6E /* CMActiveUser.h */,
@@ -945,6 +967,8 @@
 				D088F5B515E3FDF1005062BD /* AFNetworkActivityIndicatorManager.m in Sources */,
 				D088F5B715E3FDF1005062BD /* AFURLConnectionOperation.m in Sources */,
 				D0F4E4F615E418F800055638 /* AFJSONUtilities.m in Sources */,
+				71E886B716516C3D0060C217 /* CMSocialLoginViewController.m in Sources */,
+				71E886BA16516F0F0060C217 /* CMUIViewController+Modal.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1121,6 +1145,7 @@
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 					"\"$(SRCROOT)/ios/Vendor/YAJL\"",
+					"\"$(SRCROOT)/ios/Vendor/SinglySDK\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ios/cloudmine-ios-Prefix.pch";
@@ -1129,6 +1154,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/kiwi/build/Debug-iphonesimulator",
 					"\"$(SRCROOT)/ios/Vendor/YAJL/YAJLiOS.framework/Versions/A\"",
+					"\"$(SRCROOT)/ios/Vendor/SinglySDK\"",
 				);
 				PRODUCT_NAME = "cloudmine-iosTests";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/kiwi/Kiwi";
@@ -1144,6 +1170,7 @@
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 					"\"$(SRCROOT)/ios/Vendor/YAJL\"",
+					"\"$(SRCROOT)/ios/Vendor/SinglySDK\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ios/cloudmine-ios-Prefix.pch";
@@ -1152,6 +1179,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/kiwi/build/Debug-iphonesimulator",
 					"\"$(SRCROOT)/ios/Vendor/YAJL/YAJLiOS.framework/Versions/A\"",
+					"\"$(SRCROOT)/ios/Vendor/SinglySDK\"",
 				);
 				PRODUCT_NAME = "cloudmine-iosTests";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/kiwi/Kiwi";
