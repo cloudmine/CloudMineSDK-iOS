@@ -9,6 +9,7 @@
 #import "CMUIViewController+Modal.h"
 #import "CMSocialLoginViewController.h"
 #import "CMWebService.h"
+#import "CMStore.h"
 
 @interface CMSocialLoginViewController ()
 {
@@ -85,8 +86,19 @@
         }
     }
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@/app/%@/account/social/login?service=%@&apikey=%@&challenge=%@",
-                             CM_BASE_URL, _appID, _targetService, _apiKey, _challenge];
+    NSString *urlStr = nil;
+    
+    // Check to see if user is signed in already, if so, link accounts.
+    // Check more than default store?
+    if ([[CMStore defaultStore] user] && [[CMStore defaultStore] user].isLoggedIn) {
+        urlStr = [NSString stringWithFormat:@"%@/app/%@/account/social/login?service=%@&apikey=%@&challenge=%@&session_token=%@",
+                  CM_BASE_URL, _appID, _targetService, _apiKey, _challenge, [[CMStore defaultStore] user].token ];
+    } else {
+        urlStr = [NSString stringWithFormat:@"%@/app/%@/account/social/login?service=%@&apikey=%@&challenge=%@",
+                    CM_BASE_URL, _appID, _targetService, _apiKey, _challenge];
+    }
+    
+     
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]]];
 }
 
