@@ -208,7 +208,9 @@ static CMWebService *webService;
             // Fix for crashing when the Key and Property named are different
             //
             @try {
-                [self setValue:[dict objectForKey:key] forKey:key];
+                id value = [dict objectForKey:key];
+                if (![[NSNull null] isEqual:value])
+                    [self setValue:value forKey:key];
             }
             @catch (NSException *e) {
                 #ifdef DEBUG
