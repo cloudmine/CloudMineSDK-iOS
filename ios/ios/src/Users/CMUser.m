@@ -209,8 +209,10 @@ static CMWebService *webService;
             //
             @try {
                 id value = [dict objectForKey:key];
-                if (![[NSNull null] isEqual:value])
-                    [self setValue:value forKey:key];
+                if ([[NSNull null] isEqual:value]) {
+                    value = nil;
+                }
+                [self setValue:value forKey:key];
             }
             @catch (NSException *e) {
                 #ifdef DEBUG
