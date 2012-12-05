@@ -95,10 +95,8 @@
     // Check more than default store?
     // Pass in user for this later
     if ( _user && _user.isLoggedIn) {
-        urlStr = [NSString stringWithFormat:@"%@&session_token=%@", urlStr, [[CMStore defaultStore] user].token];
+        urlStr = [NSString stringWithFormat:@"%@&session_token=%@", urlStr, _user.token];
     }
-    
-    NSLog(@"URL for social: %@", urlStr);
      
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]]];
 }

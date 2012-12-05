@@ -389,7 +389,6 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                 return CMUserAccountUnknownResult;
         }
     } callback:^(CMUserAccountResult resultCode, NSDictionary *messages) {
-        NSLog(@"NSDictionary Login Succeeded [Login Version]: %@", messages);
         switch (resultCode) {
             case CMUserAccountLoginFailedIncorrectCredentials:
                 NSLog(@"CloudMine *** User login failed because the credentials provided were incorrect");
@@ -493,9 +492,6 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 
 - (void)loginWithSocial:(CMUser *)user withService:(NSString *)service andViewController:(UIViewController *)viewController callback:(CMWebServiceUserAccountOperationCallback)callback
 {
-    //
-    // Perhaps pass the user into the view here, so we don't need to mess with the DefaultSTore at all.
-    //
     CMSocialLoginViewController* loginViewController = [[CMSocialLoginViewController alloc] initForService:service withAppID:_appIdentifier andApiKey:_appSecret user:user];
     loginViewController.delegate = self;
     temporaryCallback = callback;
@@ -529,7 +525,6 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                 return CMUserAccountUnknownResult;
         }
     } callback:^(CMUserAccountResult resultCode, NSDictionary *messages) {
-        NSLog(@"NSDictionary Login Succeeded: %@", messages);
         switch (resultCode) {
             case CMUserAccountLoginFailedIncorrectCredentials:
                 NSLog(@"CloudMine *** User login failed because the credentials provided were incorrect");
