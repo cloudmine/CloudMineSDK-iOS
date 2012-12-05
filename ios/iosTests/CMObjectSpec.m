@@ -26,6 +26,26 @@
 
 @implementation CustomObject
 @synthesize something, somethingElse;
+
+- (id)initWithCoder:(NSCoder *)coder {
+    if(self = [super initWithCoder:coder]) {
+        // Decode properties from coder
+        self.something = [coder decodeObjectForKey:@"something"];
+        self.somethingElse = [coder decodeObjectForKey:@"somethingElse"];
+    }
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+    [super encodeWithCoder:coder];
+    
+    // Encode properties in coder
+    [coder encodeObject:something forKey:@"something"];
+    [coder encodeObject:somethingElse forKey:@"somethingElse"];
+}
+
+
 @end
 
 SPEC_BEGIN(CMObjectSpec)
@@ -169,6 +189,36 @@ describe(@"CMObject", ^{
             
             // The object should be marked as clean
             [[theValue(object.dirty) should] beNo];
+        });
+        
+        it(@"should properly encode and decode nil", ^{
+            object.something = nil;
+            object.somethingElse = nil;
+            
+            NSDictionary *serializedObject = [CMObjectEncoder encodeObjects:@[object]];
+            NSDictionary *result = [serializedObject valueForKey:@"SomeIDReturnedByTheServer"];
+        
+            [[[result valueForKey:@"something"] should] beIdenticalTo:[NSNull null]];
+            [[[result valueForKey:@"somethingElse"] should] beIdenticalTo:[NSNull null]];
+            
+            object = [[CMObjectDecoder decodeObjects:serializedObject] lastObject];
+            [object.something shouldBeNil];
+            [object.somethingElse shouldBeNil];
+        });
+        
+        it(@"should encode and decode null to <null>", ^{
+            object.something = NULL;
+            object.somethingElse = NULL;
+            
+            NSDictionary *serializedObject = [CMObjectEncoder encodeObjects:@[object]];
+            NSDictionary *result = [serializedObject valueForKey:@"SomeIDReturnedByTheServer"];
+            
+            [[[result valueForKey:@"something"] should] beIdenticalTo:[NSNull null]];
+            [[[result valueForKey:@"somethingElse"] should] beIdenticalTo:[NSNull null]];
+            
+            object = [[CMObjectDecoder decodeObjects:serializedObject] lastObject];
+            [object.something shouldBeNil];
+            [object.somethingElse shouldBeNil];
         });
 
     });

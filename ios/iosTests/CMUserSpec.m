@@ -13,6 +13,7 @@
 #import "CMWebService.h"
 #import "CMAPICredentials.h"
 #import "CMObjectEncoder.h"
+#import "CMObjectDecoder.h"
 
 @interface CMUser (Internal)
 + (NSURL *)cacheLocation;
@@ -25,6 +26,24 @@
 
 @implementation CustomUser
 @synthesize name, age;
+
+-(void) encodeWithCoder:(NSCoder *)aCoder {
+    [super encodeWithCoder:aCoder];
+    [aCoder encodeObject:self.name forKey:@"name"];
+    [aCoder encodeObject:[NSNumber numberWithInt:self.age] forKey:@"age"];
+}
+
+-(id) initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        self.name = [aDecoder decodeObjectForKey:@"name"];
+        self.age = [[aDecoder decodeObjectForKey:@"age"] intValue];
+    }
+    
+    return self;
+}
+
+
 @end
 
 SPEC_BEGIN(CMUserSpec)
@@ -205,10 +224,39 @@ describe(@"CMUser", ^{
                 [[user.name should] equal:@"Tomas"];
                 // Will NOT be updated, because the naming is different.
                 [[theValue(user.age) shouldNot] equal:theValue(35)];
-
-                
-
             });
+            
+            it(@"should encode and decode nil properly", ^{
+                [user setValue:@"1234" forKey:@"objectId"];
+                user.name = nil;
+                user.age = 0;
+        
+                NSDictionary *serializedUser = [CMObjectEncoder encodeObjects:$set(user)];
+                NSDictionary *theUser = [serializedUser objectForKey:user.objectId];
+                
+                [[[theUser valueForKey:@"name"] should] beIdenticalTo:[NSNull null]];
+                [[[theUser valueForKey:@"age"] should] equal:theValue(0)];
+                
+                CustomUser *customUser = [[CMObjectDecoder decodeObjects:serializedUser] lastObject];
+                [customUser.name shouldBeNil];
+                [[theValue(customUser.age) should] equal:theValue(0)];
+                
+            });
+            
+            it(@"should encode and decode null properly", ^{
+                [user setValue:@"1234" forKey:@"objectId"];
+                user.name = NULL;
+                
+                NSDictionary *serializedUser = [CMObjectEncoder encodeObjects:$set(user)];
+                NSDictionary *theUser = [serializedUser objectForKey:user.objectId];
+                NSLog(@"Result: %@", serializedUser);
+                
+                [[[theUser valueForKey:@"name"] should] beIdenticalTo:[NSNull null]];
+                
+                CustomUser *customUser = [[CMObjectDecoder decodeObjects:serializedUser] lastObject];
+                [customUser.name shouldBeNil];
+            });
+            
         });
     });
 });
