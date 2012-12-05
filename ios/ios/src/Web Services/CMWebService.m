@@ -353,6 +353,32 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 }
 
 
+#pragma mark - Singly Proxy
+
+// service
+// verb
+// headers
+// callback for success/failure
+// query
+- (void)runQueryOfHTTPRequest:(NSString *)verb onNetwork:(NSString *)network query:(NSString *)query withUser:(CMUser *)user {
+    
+    ///
+    /// chcek to ensure user is logged in
+    ///
+    
+    NSURL *url = [NSURL URLWithString:$sprintf(@"/app/%@/user/social/%@/%@/%@", self.apiUrl, _appIdentifier, network, query)];
+    
+    NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"GET" URL:url appSecret:_appSecret binaryData:NO user:user];
+    
+    [self executeRequest:request successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
+        NSLog(@"Results: %@", results);
+        NSLog(@"Meta: %@", meta);
+    } errorHandler:^(NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+    
+}
+
 #pragma mark - User account management
 
 - (void)loginUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {

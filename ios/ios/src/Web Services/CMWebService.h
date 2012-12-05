@@ -458,4 +458,10 @@ typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDi
  */
 - (void)runSnippet:(NSString *)snippetName withParams:(NSDictionary *)params user:(CMUser *)user successHandler:(CMWebServiceSnippetRunSuccessCallback)successHandler errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
+//
+- (void)runQueryOfHTTPRequest:(NSString *)verb onNetwork:(NSString *)network query:(NSString *)query withUser:(CMUser *)user;
+
+
+
+
 @end
