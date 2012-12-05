@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class CMSocialLoginViewController;
+@class CMUser;
 
 @protocol CMSocialLoginViewControllerDelegate <NSObject>
 - (void)cmSocialLoginViewController:(CMSocialLoginViewController *)controller completeSocialLoginWithChallenge:(NSString *)challenge;
@@ -23,6 +24,7 @@
 @property (strong, atomic) NSString *apiKey;
 @property (strong, atomic) NSString *challenge;
 @property (strong, atomic) NSString *session_token;
+@property (strong, atomic) CMUser *user;
 
 
 
@@ -32,7 +34,7 @@
  *
  * @param service The name of the service that we are logging into.
  */
-- (id)initForService:(NSString *)service withAppID:(NSString *)appID andApiKey:(NSString *)apiKey;
+- (id)initForService:(NSString *)service withAppID:(NSString *)appID andApiKey:(NSString *)apiKey user:(CMUser *)user;
 
 @end
 

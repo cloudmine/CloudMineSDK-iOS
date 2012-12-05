@@ -10,6 +10,7 @@
 #import "CMSocialLoginViewController.h"
 #import "CMWebService.h"
 #import "CMStore.h"
+#import "CMUser.h"
 
 @interface CMSocialLoginViewController ()
 {
@@ -27,11 +28,12 @@
 
 @implementation CMSocialLoginViewController
 
-- (id)initForService:(NSString *)service withAppID:(NSString *)appID andApiKey:(NSString *)apiKey
+- (id)initForService:(NSString *)service withAppID:(NSString *)appID andApiKey:(NSString *)apiKey user:(CMUser *)user;
 {
     self = [super init];
     if (self)
     {
+        _user = user;
         _targetService = service;
         _appID = appID;
         _apiKey = apiKey;
@@ -86,18 +88,15 @@
         }
     }
     
-    NSString *urlStr = nil;
+    NSString *urlStr = [NSString stringWithFormat:@"%@/app/%@/account/social/login?service=%@&apikey=%@&challenge=%@",
+                                    CM_BASE_URL, _appID, _targetService, _apiKey, _challenge];
     
     // Check to see if user is signed in already, if so, link accounts.
     // Check more than default store?
-    if ([[CMStore defaultStore] user] && [[CMStore defaultStore] user].isLoggedIn) {
-        urlStr = [NSString stringWithFormat:@"%@/app/%@/account/social/login?service=%@&apikey=%@&challenge=%@&session_token=%@",
-                  CM_BASE_URL, _appID, _targetService, _apiKey, _challenge, [[CMStore defaultStore] user].token ];
-    } else {
-        urlStr = [NSString stringWithFormat:@"%@/app/%@/account/social/login?service=%@&apikey=%@&challenge=%@",
-                    CM_BASE_URL, _appID, _targetService, _apiKey, _challenge];
+    // Pass in user for this later
+    if ( _user && _user.isLoggedIn) {
+        urlStr = [NSString stringWithFormat:@"%@&session_token=%@", urlStr, _user.token];
     }
-    
      
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]]];
 }
@@ -143,6 +142,9 @@
             [self.delegate cmSocialLoginViewController:self completeSocialLoginWithChallenge:_challenge];
         }
     }
+    ///
+    /// Else, we got some sort of error. Handle responsibly.
+    //TODO: Add in.
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error;
