@@ -83,6 +83,10 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
  */
 typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDictionary *errors, NSNumber *count);
 
+
+
+typedef void (^CMWebServicesSocialQuerySuccessCallback)(NSString *results, NSDictionary *headers);
+
 /**
  * Base class for all classes concerned with the communication between the client device and the CloudMine
  * web services.
@@ -459,7 +463,14 @@ typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDi
 - (void)runSnippet:(NSString *)snippetName withParams:(NSDictionary *)params user:(CMUser *)user successHandler:(CMWebServiceSnippetRunSuccessCallback)successHandler errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
 //
-- (void)runQueryOfHTTPRequest:(NSString *)verb onNetwork:(NSString *)network query:(NSString *)query withUser:(CMUser *)user;
+- (void)runQueryOfHTTPRequest:(NSString *)verb
+                    onNetwork:(NSString *)network
+                    baseQuery:(NSString *)base
+                   parameters:(NSDictionary *)params
+                  messageData:(NSString *)data
+                     withUser:(CMUser *)user
+                successHander:(CMWebServicesSocialQuerySuccessCallback)successHanlder
+                 errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
 
 
