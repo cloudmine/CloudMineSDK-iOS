@@ -339,10 +339,11 @@ static CMWebService *webService;
 #pragma mark - Social login with Singly
 
 // This code is very similar to login above, perhaps we can refactor.
--(void)loginWithSocial:(NSString *)service  andViewController:(UIViewController *)viewController callback:(CMUserOperationCallback)callback {
-    [webService loginWithSocial:self withService:service andViewController:viewController callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
+- (void)loginWithSocial:(NSString *)service andViewController:(UIViewController *)viewController scope:(NSArray *)scope callback:(CMUserOperationCallback)callback {
+    
+    [webService loginWithSocial:self withService:service viewController:viewController scope:scope callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         NSArray *messages = [NSArray array];
-
+        
         if (result == CMUserAccountLoginSucceeded) {
             self.token = [responseBody objectForKey:@"session_token"];
             
@@ -352,7 +353,7 @@ static CMWebService *webService;
             self.tokenExpiration = [df dateFromString:[responseBody objectForKey:@"expires"]];
             NSDictionary *userProfile = [responseBody objectForKey:@"profile"];
             objectId = [userProfile objectForKey:CMInternalObjectIdKey];
-
+            
             if (!self.isDirty) {
                 // Only bring the changes from the server into the object state if there weren't local modifications.
                 [self copyValuesFromDictionaryIntoState:userProfile];

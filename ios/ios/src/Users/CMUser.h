@@ -281,9 +281,10 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
  * @param callback The block that will be called on completion of the operation.
  * @param service The social service to be logged into
  * @param viewController the current view controller in use when this method is called
+ * @param scope - The scope the user is requesting for the authentication token
  * @see https://cloudmine.me/docs/api#users_social
  */
-- (void)loginWithSocial:(NSString *)service andViewController:(UIViewController *)viewController callback:(CMUserOperationCallback)callback;
+- (void)loginWithSocial:(NSString *)service andViewController:(UIViewController *)viewController scope:(NSArray *)scope callback:(CMUserOperationCallback)callback;
 
 /**
  * Asynchronously fetch all the users of this app. This will download the profiles of all the users of your app, and is useful for displaying
