@@ -343,7 +343,7 @@ static CMWebService *webService;
 #pragma mark - Social login with Singly
 
 // This code is very similar to login above, perhaps we can refactor.
-- (void)loginWithSocial:(NSString *)service andViewController:(UIViewController *)viewController scope:(NSArray *)scope callback:(CMUserOperationCallback)callback {
+- (void)loginWithSocialNetwork:(NSString *)service viewController:(UIViewController *)viewController scope:(NSArray *)scope callback:(CMUserOperationCallback)callback {
     
     [webService loginWithSocial:self withService:service viewController:viewController scope:scope callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         NSArray *messages = [NSArray array];
