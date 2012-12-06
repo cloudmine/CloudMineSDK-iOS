@@ -28,7 +28,7 @@
 
 @implementation CMSocialLoginViewController
 
-- (id)initForService:(NSString *)service withAppID:(NSString *)appID andApiKey:(NSString *)apiKey user:(CMUser *)user;
+- (id)initForService:(NSString *)service appID:(NSString *)appID apiKey:(NSString *)apiKey user:(CMUser *)user scope:(NSArray *)scope
 {
     self = [super init];
     if (self)
@@ -37,6 +37,7 @@
         _targetService = service;
         _appID = appID;
         _apiKey = apiKey;
+        _scope = scope;
         _challenge = [[NSUUID UUID] UUIDString];
     }
     return self;
@@ -95,7 +96,13 @@
     // Check more than default store?
     // Pass in user for this later
     if ( _user && _user.isLoggedIn) {
-        urlStr = [NSString stringWithFormat:@"%@&session_token=%@", urlStr, _user.token];
+        urlStr = [urlStr stringByAppendingFormat:@"&session_token=%@", _user.token];
+    }
+    
+    // Check if we should add on scopes for the request
+    if ( self.scope != nil && [_scope count] > 0 ) {
+        NSString *scopes = [_scope componentsJoinedByString:@","];
+        urlStr = [urlStr stringByAppendingFormat:@"&scope=%@", scopes];
     }
      
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]]];

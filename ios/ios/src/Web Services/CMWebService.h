@@ -369,12 +369,14 @@ typedef void (^CMWebServicesSocialQuerySuccessCallback)(NSString *results, NSDic
 /**
  * Initialize the social login service by calling the SocialLoginViewController (which contains only a webview)
  * 
- * @param callback The block that will be called on completion of the operation
- * @param service The social service to be logged into
+ * @param user - The user object that is attempting the login
+ * @param service The social service to be logged into, @see CMSocialNetwork codes
  * @param viewController the current viewController in use when this method is called
+ * @param scope - Can be nil. The Scopes requested for this authentication token
+ * @param callback The block that will be called on completion of the operation
  * @see https://cloudmine.me/docs/api#users_social
  */
-- (void)loginWithSocial:(CMUser *)user withService:(NSString *)service andViewController:(UIViewController *)viewController callback:(CMWebServiceUserAccountOperationCallback)callback;
+- (void)loginWithSocial:(CMUser *)user withService:(NSString *)service viewController:(UIViewController *)viewController scope:(NSArray *)scope callback:(CMWebServiceUserAccountOperationCallback)callback;
 
 /**
  * Asynchronously change the password for the given user. For security purposes, you must have the user enter his or her
