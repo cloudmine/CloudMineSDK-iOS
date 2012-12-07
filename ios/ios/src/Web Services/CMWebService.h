@@ -472,7 +472,7 @@ typedef void (^CMWebServicesSocialQuerySuccessCallback)(NSString *results, NSDic
  * @param network The Network this request is targeting. @see CMSocialNetwork
  * @param base The base query for the request, before any "query" parameters. This does NOT include the hostname, or the version of the API. For example, "https://api.twitter.com/1.1/statuses/home_timeline.json", would just be "statuses/home_timeline.json".
  * @param params The Parameters that would go into the query. These typically are typed out like "some_page.json?query1=testing&querynumber2=test". We take care of formatting that for you, and encoding it in json. The Dictionary keys are used as the first part of the query, and the value is used after the "=". Formatted into a json encoded URL.
- * @param data The data encoded in the request body. We do no encoding of any sort, we simply format it into a UTF8string and set it as the body.
+ * @param data Can be nil. The data encoded in the request body. We do no encoding, we simply put it as the request body.
  * @param user
  *
  */
@@ -480,7 +480,7 @@ typedef void (^CMWebServicesSocialQuerySuccessCallback)(NSString *results, NSDic
                     onNetwork:(NSString *)network
                     baseQuery:(NSString *)base
                    parameters:(NSDictionary *)params
-                  messageData:(NSString *)data
+                  messageData:(NSData *)data
                      withUser:(CMUser *)user
                 successHander:(CMWebServicesSocialQuerySuccessCallback)successHanlder
                  errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
