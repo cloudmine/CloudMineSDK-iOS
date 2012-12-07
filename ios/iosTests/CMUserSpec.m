@@ -116,6 +116,7 @@ describe(@"CMUser", ^{
                 [[CMUser should] receive:@selector(userFromCacheWithIdentifier:) withArguments:user.objectId];
                 [CMUser userWithIdentifier:user.objectId callback:^(NSArray *users, NSDictionary *errors) {
                     [[[[users lastObject] objectId] should] equal:user.objectId];
+                    [[[[users lastObject] userId] should] equal:user.userId];
                 }];
             });
         });
