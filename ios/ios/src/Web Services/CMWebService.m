@@ -355,11 +355,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 
 #pragma mark - Singly Proxy
 
-// service
-// verb
-// headers
-// callback for success/failure
-// query
+
 - (void)runQueryOfHTTPRequest:(NSString *)verb
                     onNetwork:(NSString *)network
                     baseQuery:(NSString *)base
