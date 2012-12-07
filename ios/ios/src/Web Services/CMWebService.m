@@ -366,7 +366,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                  errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
     
     NSParameterAssert(user);
-    NSAssert(user.isLoggedIn, @"Cannot logout a user that hasn't been logged in.");
+    NSAssert(user.isLoggedIn, @"Cannot send a query of a user who is not logged in!");
     
     NSString *url = $sprintf(@"%@/app/%@/user/social/%@/%@", self.apiUrl, _appIdentifier, network, base);
     NSURL *finalUrl = [NSURL URLWithString:url];
