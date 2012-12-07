@@ -360,7 +360,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                     onNetwork:(NSString *)network
                     baseQuery:(NSString *)base
                    parameters:(NSDictionary *)params
-                  messageData:(NSString *)data
+                  messageData:(NSData *)data
                      withUser:(CMUser *)user
                 successHander:(CMWebServicesSocialQuerySuccessCallback)successHanlder
                  errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
@@ -391,7 +391,8 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:verb URL:finalUrl appSecret:_appSecret binaryData:NO user:user];
     
     if (data != nil) {
-        [request setHTTPBody:[data dataUsingEncoding:NSUTF8StringEncoding]];
+        [request setHTTPBody:data];
+        //[request setHTTPBody:[data dataUsingEncoding:NSUTF8StringEncoding]];
     }
     
     NSLog(@"URL Body Not set: %@", data);
