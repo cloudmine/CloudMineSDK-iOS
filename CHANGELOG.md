@@ -1,6 +1,7 @@
 HEAD
 =====
 * Fix bug that caused CMUser's userId field to not be serialized when cached to the filesystem.
+* Fixed NSNull being set in CMUser profile as NSNULL, and not being set as nil. Changed to set as nil.
 
 
 v1.2.2 (November 29, 2012)
