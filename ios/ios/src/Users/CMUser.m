@@ -107,6 +107,7 @@ static CMWebService *webService;
         }
         token = [coder decodeObjectForKey:@"token"];
         tokenExpiration = [coder decodeObjectForKey:@"tokenExpiration"];
+        userId = [coder decodeObjectForKey:@"userId"];
         if (!webService) {
             webService = [[CMWebService alloc] init];
         }
@@ -164,6 +165,9 @@ static CMWebService *webService;
     [coder encodeObject:self.objectId forKey:CMInternalObjectIdKey];
     [coder encodeObject:self.token forKey:@"token"];
     [coder encodeObject:self.tokenExpiration forKey:@"tokenExpiration"];
+    if (self.userId) {
+        [coder encodeObject:self.userId forKey:@"userId"];
+    }
 }
 
 #pragma mark - Comparison

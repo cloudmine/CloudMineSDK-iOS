@@ -1,8 +1,10 @@
 HEAD
 =====
+* Fix bug that caused CMUser's userId field to not be serialized when cached to the filesystem.
 
 
 v1.2.2 (November 29, 2012)
+=====
 * Fix bug that caused CMFile's on-device caching to never work.
 * Add method to `CMWebService` to run Java or JavaScript snippets directly without running a store operation and wrapping it.
 * Fixed a bug when a custom CMUser has properties named differently than how they are stored on the server.
