@@ -1,6 +1,11 @@
 HEAD
 =====
 * Updated CMUser Social Login with generic "query" parameter for handling extra query parameters in logging in. This is a good place to put scope calls.
+* Added in Social Login call for CMUser. Use "loginWithSocialNetwork:(NSString *)service" for logging in with a social network.
+* Added in automatic linking of accounts if a user is already logged in. If you don't want the account to be linked, log out the user before logging in the new one.
+* Added Services field to the CMUser class which keeps track of the services the user has logged in to.
+* Added runQueryOfHTTPRequest method to CMWebService for running queries on the services. The user needs to be logged in to the service first.
+* Added RunQueryGETRequestOnNetwork as a convenience method for running GET requests.
 
 v1.2.2 (November 29, 2012)
 * Fix bug that caused CMFile's on-device caching to never work.
