@@ -369,10 +369,10 @@ typedef void (^CMWebServicesSocialQuerySuccessCallback)(NSString *results, NSDic
 /**
  * Initialize the social login service by calling the SocialLoginViewController (which contains only a webview)
  * 
- * @param user - The user object that is attempting the login
+ * @param user The user object that is attempting the login
  * @param service The social service to be logged into, @see CMSocialNetwork codes
  * @param viewController the current viewController in use when this method is called
- * @param scope - Can be nil. The Scopes requested for this authentication token
+ * @param params The parameters that will be passed through to the authentication request, good for passing through scope.
  * @param callback The block that will be called on completion of the operation
  * @see https://cloudmine.me/docs/api#users_social
  */
