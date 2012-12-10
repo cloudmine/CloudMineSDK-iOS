@@ -744,6 +744,8 @@ describe(@"CMWebService", ^{
         
         it(@"should properly encode the POST data in social queries", ^{
             
+            NSData *data = [@"status=Maybe he'll finally find his keys. #peterfalk" dataUsingEncoding:NSUTF8StringEncoding];
+            
             CMUser *user = [[CMUser alloc] initWithUserId:@"test@domain.com" andPassword:@"pass"];
             user.token = @"token";
             user.tokenExpiration = [NSDate dateWithTimeIntervalSinceNow:9999];
@@ -752,7 +754,7 @@ describe(@"CMWebService", ^{
                                  onNetwork:CMSocialNetworkTwitter
                                  baseQuery:@"statuses/update.json"
                                 parameters:nil
-                               messageData:@"status=Maybe he'll finally find his keys. #peterfalk"
+                               messageData:data
                                   withUser:user
                              successHander:^(NSString *results, NSDictionary *headers) {
                                  
@@ -774,7 +776,7 @@ describe(@"CMWebService", ^{
             NSURLRequest *request = spy.argument;
             [[[request HTTPMethod] should] equal:@"GET"];
             [[[[request URL] absoluteString] should] equal:finalURLShould];
-            [[[[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding] should] equal:@"status=Maybe%20he%27ll%20finally%20find%20his%20keys.%20%23peterfalk"];
+            [[[[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding] should] equal:@"status=Maybe he'll finally find his keys. #peterfalk"];
         });
     });
 
