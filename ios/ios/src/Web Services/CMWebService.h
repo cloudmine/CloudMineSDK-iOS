@@ -376,7 +376,7 @@ typedef void (^CMWebServicesSocialQuerySuccessCallback)(NSString *results, NSDic
  * @param callback The block that will be called on completion of the operation
  * @see https://cloudmine.me/docs/api#users_social
  */
-- (void)loginWithSocial:(CMUser *)user withService:(NSString *)service viewController:(UIViewController *)viewController scope:(NSArray *)scope callback:(CMWebServiceUserAccountOperationCallback)callback;
+- (void)loginWithSocial:(CMUser *)user withService:(NSString *)service viewController:(UIViewController *)viewController params:(NSString *)params callback:(CMWebServiceUserAccountOperationCallback)callback;
 
 /**
  * Asynchronously change the password for the given user. For security purposes, you must have the user enter his or her

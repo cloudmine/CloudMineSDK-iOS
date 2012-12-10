@@ -537,9 +537,8 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 }
 
 // ***** Singly Social
-
-- (void)loginWithSocial:(CMUser *)user withService:(NSString *)service viewController:(UIViewController *)viewController scope:(NSArray *)scope callback:(CMWebServiceUserAccountOperationCallback)callback {
-    CMSocialLoginViewController *loginViewController = [[CMSocialLoginViewController alloc] initForService:service appID:_appIdentifier apiKey:_appSecret user:user scope:scope];
+- (void)loginWithSocial:(CMUser *)user withService:(NSString *)service viewController:(UIViewController *)viewController params:(NSString *)params callback:(CMWebServiceUserAccountOperationCallback)callback {
+    CMSocialLoginViewController *loginViewController = [[CMSocialLoginViewController alloc] initForService:service appID:_appIdentifier apiKey:_appSecret user:user params:params];
     loginViewController.delegate = self;
     temporaryCallback = callback;
     [viewController presentViewController:loginViewController animated:YES completion:NULL];
