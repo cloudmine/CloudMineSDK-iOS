@@ -37,7 +37,7 @@
  * @param appID The appID gotten from the dashboard
  * @param apiKey The APIKey from the dashboard for your application
  * @param user Can be nil, the user you want to link accounts with. If this parameter is nil, we will not link the accounts. If you pass in the user, we will attempt to link the accounts.
- * @param scope The scopes you want your application to ask for upon authentication. For example, in order to create Gist's or Repos in Github, you would need the "gist" or "repo" scope accordingly. The array you pass in should hold the values of the scope you want.
+ * @param params Any extra params you want passed on to the end of the URL. This is how we put the scope in for certain requests. Because difference services handle scope differently, the user must do the encoding for this string.
  */
 - (id)initForService:(NSString *)service appID:(NSString *)appID apiKey:(NSString *)apiKey user:(CMUser *)user params:(NSString *)params;
 

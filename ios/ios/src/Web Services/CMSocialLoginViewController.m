@@ -92,12 +92,9 @@
     NSString *urlStr = [NSString stringWithFormat:@"%@/app/%@/account/social/login?service=%@&apikey=%@&challenge=%@",
                                     CM_BASE_URL, _appID, _targetService, _apiKey, _challenge];
     
-    // Check to see if user is signed in already, if so, link accounts.
-    // Check more than default store?
-    // Pass in user for this later
-    if ( _user && _user.isLoggedIn) {
+    //If the user is logged in, link accounts
+    if ( _user && _user.isLoggedIn)
         urlStr = [urlStr stringByAppendingFormat:@"&session_token=%@", _user.token];
-    }
     
     // Add any additional params to the request
     if ( _params != nil && [_params length] > 0 )
