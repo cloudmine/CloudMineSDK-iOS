@@ -359,7 +359,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                     baseQuery:(NSString *)base
                    parameters:(NSDictionary *)params
                      withUser:(CMUser *)user
-                successHander:(CMWebServicesSocialQuerySuccessCallback)successHanlder
+                successHander:(CMWebServicesSocialQuerySuccessCallback)successHandler
                  errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
     [self runQueryOfHTTPRequest:@"GET"
                       onNetwork:network
@@ -367,11 +367,10 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                      parameters:params
                     messageData:nil
                        withUser:user
-                  successHander:successHanlder
+                  successHander:successHandler
                    errorHandler:errorHandler];
     
 }
-
 
 - (void)runQueryOfHTTPRequest:(NSString *)verb
                     onNetwork:(NSString *)network
@@ -379,7 +378,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                    parameters:(NSDictionary *)params
                   messageData:(NSData *)data
                      withUser:(CMUser *)user
-                successHander:(CMWebServicesSocialQuerySuccessCallback)successHanlder
+                successHander:(CMWebServicesSocialQuerySuccessCallback)successHandler
                  errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
     
     NSParameterAssert(user);
@@ -406,7 +405,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     if (data != nil)
         [request setHTTPBody:data];
     
-    [self executeSocialQuery:request successHandler:successHanlder errorHandler:errorHandler];
+    [self executeSocialQuery:request successHandler:successHandler errorHandler:errorHandler];
 }
 
 #pragma mark - User account management
