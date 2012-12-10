@@ -24,7 +24,7 @@
 @property (strong, nonatomic) NSString *apiKey;
 @property (strong, nonatomic) NSString *challenge;
 @property (strong, nonatomic) NSString *session_token;
-@property (strong, nonatomic) NSArray *scope;
+@property (strong, nonatomic) NSString *params;
 @property (strong, nonatomic) CMUser *user;
 
 
@@ -39,7 +39,7 @@
  * @param user Can be nil, the user you want to link accounts with. If this parameter is nil, we will not link the accounts. If you pass in the user, we will attempt to link the accounts.
  * @param scope The scopes you want your application to ask for upon authentication. For example, in order to create Gist's or Repos in Github, you would need the "gist" or "repo" scope accordingly. The array you pass in should hold the values of the scope you want.
  */
-- (id)initForService:(NSString *)service appID:(NSString *)appID apiKey:(NSString *)apiKey user:(CMUser *)user scope:(NSArray *)scope;
+- (id)initForService:(NSString *)service appID:(NSString *)appID apiKey:(NSString *)apiKey user:(CMUser *)user params:(NSString *)params;
 
 @end
 

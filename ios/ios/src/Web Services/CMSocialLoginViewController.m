@@ -28,7 +28,7 @@
 
 @implementation CMSocialLoginViewController
 
-- (id)initForService:(NSString *)service appID:(NSString *)appID apiKey:(NSString *)apiKey user:(CMUser *)user scope:(NSArray *)scope
+- (id)initForService:(NSString *)service appID:(NSString *)appID apiKey:(NSString *)apiKey user:(CMUser *)user params:(NSString *)params
 {
     self = [super init];
     if (self)
@@ -37,7 +37,7 @@
         _targetService = service;
         _appID = appID;
         _apiKey = apiKey;
-        _scope = scope;
+        _params = params;
         _challenge = [[NSUUID UUID] UUIDString];
     }
     return self;
@@ -99,11 +99,9 @@
         urlStr = [urlStr stringByAppendingFormat:@"&session_token=%@", _user.token];
     }
     
-    // Check if we should add on scopes for the request
-    if ( self.scope != nil && [_scope count] > 0 ) {
-        NSString *scopes = [_scope componentsJoinedByString:@","];
-        urlStr = [urlStr stringByAppendingFormat:@"&scope=%@", scopes];
-    }
+    // Add any additional params to the request
+    if ( _params != nil && [_params length] > 0 )
+        urlStr = [urlStr stringByAppendingString:_params];
      
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]]];
 }
