@@ -485,6 +485,14 @@ typedef void (^CMWebServicesSocialQuerySuccessCallback)(NSString *results, NSDic
                 successHander:(CMWebServicesSocialQuerySuccessCallback)successHanlder
                  errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
+//convienence
+- (void)runQueryGETRequestOnNetwork:(NSString *)network
+                          baseQuery:(NSString *)base
+                         parameters:(NSDictionary *)params
+                           withUser:(CMUser *)user
+                      successHander:(CMWebServicesSocialQuerySuccessCallback)successHanlder
+                       errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
+
 
 
 

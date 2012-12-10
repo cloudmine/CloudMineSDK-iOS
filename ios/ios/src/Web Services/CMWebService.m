@@ -355,6 +355,23 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 
 #pragma mark - Singly Proxy
 
+- (void)runQueryGETRequestOnNetwork:(NSString *)network
+                    baseQuery:(NSString *)base
+                   parameters:(NSDictionary *)params
+                     withUser:(CMUser *)user
+                successHander:(CMWebServicesSocialQuerySuccessCallback)successHanlder
+                 errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
+    [self runQueryOfHTTPRequest:@"GET"
+                      onNetwork:network
+                      baseQuery:base
+                     parameters:params
+                    messageData:nil
+                       withUser:user
+                  successHander:successHanlder
+                   errorHandler:errorHandler];
+    
+}
+
 
 - (void)runQueryOfHTTPRequest:(NSString *)verb
                     onNetwork:(NSString *)network
