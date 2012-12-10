@@ -406,6 +406,9 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     
     NSLog(@"Final URL: %@", finalUrl);
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:verb URL:finalUrl appSecret:_appSecret binaryData:NO user:user];
+    //tweaking
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"" forHTTPHeaderField:@"Accept"];
     
     if (data != nil) {
         [request setHTTPBody:data];
