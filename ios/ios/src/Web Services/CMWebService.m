@@ -392,31 +392,19 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         NSString *jsonHash = @"{";
         for (NSString *key in params) {
             NSAssert([key isKindOfClass:[NSString class]], @"Keys for JSON must be NSStrings!");
-            jsonHash = [jsonHash stringByAppendingFormat:@"\"%@\":%@,", key, [[params valueForKey:key] yajl_JSONString]]; //may cause exceptions??
+            jsonHash = [jsonHash stringByAppendingFormat:@"\"%@\":%@,", key, [[params valueForKey:key] yajl_JSONString]];
         }
-        // Remove the last comma
-        jsonHash = [jsonHash substringToIndex:[jsonHash length]-1];
+        jsonHash = [jsonHash substringToIndex:[jsonHash length]-1]; // Remove the last comma
         jsonHash = [jsonHash stringByAppendingString:@"}"];
-        NSLog(@"Json: %@", jsonHash);
         jsonHash = [NSString stringWithFormat:@"params=%@",jsonHash];
-        NSLog(@"Final Parameters: %@", jsonHash);
         finalUrl = [NSURL URLWithString:[[finalUrl URLByAppendingQueryString:jsonHash] absoluteString]];
-                    //$urlencode([[finalUrl URLByAppendingQueryString:jsonHash] absoluteString])];
     }
     
-    NSLog(@"Final URL: %@", finalUrl);
+    /// TODO: don't make assumptions about content type
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:verb URL:finalUrl appSecret:_appSecret binaryData:(data != nil ? YES : NO) user:user];
-    //tweaking
-    //[request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    //[request setValue:@"" forHTTPHeaderField:@"Accept"];
     
-    if (data != nil) {
+    if (data != nil)
         [request setHTTPBody:data];
-        //[request setHTTPBody:[data dataUsingEncoding:NSUTF8StringEncoding]];
-    }
-    
-    NSLog(@"URL Body Not set: %@", data);
-    NSLog(@"Url Body: %@", request.HTTPBody);
     
     [self executeSocialQuery:request successHandler:successHanlder errorHandler:errorHandler];
 }
