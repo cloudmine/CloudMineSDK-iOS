@@ -349,7 +349,7 @@ static CMWebService *webService;
             objectId = [userProfile objectForKey:CMInternalObjectIdKey];
             
             self.services = [responseBody objectForKey:@"services"];
-            
+
             if (!self.isDirty) {
                 // Only bring the changes from the server into the object state if there weren't local modifications.
                 [self copyValuesFromDictionaryIntoState:userProfile];

@@ -99,7 +99,7 @@
     // Add any additional params to the request
     if ( _params != nil && [_params length] > 0 )
         urlStr = [urlStr stringByAppendingString:_params];
-     
+
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]]];
 }
 
