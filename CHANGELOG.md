@@ -1,6 +1,13 @@
 HEAD
 =====
-* Updated CMUser Social Login with generic "query" parameter for handling extra query parameters in logging in. This is a good place to put scope calls.
+
+
+v1.3 (December 11, 2012)
+* Added Social Login. Login via social networks that are supported through CloudMine and Singly.
+  * https://cloudmine.me/docs/social
+* Allow developers to specify scope for the social login.
+* Linking of accounts! Logging in a user through a social network while a user is previously logged in will link the two accounts.
+* Creation of accounts through social login! Logging in through a social network will automatically create the user account if no user is logged in.
 
 v1.2.2 (November 29, 2012)
 * Fix bug that caused CMFile's on-device caching to never work.
