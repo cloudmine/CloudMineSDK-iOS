@@ -348,7 +348,7 @@ static CMWebService *webService;
             NSDictionary *userProfile = [responseBody objectForKey:@"profile"];
             objectId = [userProfile objectForKey:CMInternalObjectIdKey];
             
-            self.services = [responseBody objectForKey:@"__services__"];
+            self.services = [[responseBody objectForKey:@"profile"] objectForKey:@"__services__"];
 
             if (!self.isDirty) {
                 // Only bring the changes from the server into the object state if there weren't local modifications.
