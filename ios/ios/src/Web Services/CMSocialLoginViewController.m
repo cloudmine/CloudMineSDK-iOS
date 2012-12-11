@@ -28,7 +28,7 @@
 
 @implementation CMSocialLoginViewController
 
-- (id)initForService:(NSString *)service withAppID:(NSString *)appID andApiKey:(NSString *)apiKey user:(CMUser *)user;
+- (id)initForService:(NSString *)service appID:(NSString *)appID apiKey:(NSString *)apiKey user:(CMUser *)user params:(NSString *)params
 {
     self = [super init];
     if (self)
@@ -37,6 +37,7 @@
         _targetService = service;
         _appID = appID;
         _apiKey = apiKey;
+        _params = params;
         _challenge = [[NSUUID UUID] UUIDString];
     }
     return self;
@@ -91,12 +92,13 @@
     NSString *urlStr = [NSString stringWithFormat:@"%@/app/%@/account/social/login?service=%@&apikey=%@&challenge=%@",
                                     CM_BASE_URL, _appID, _targetService, _apiKey, _challenge];
     
-    // Check to see if user is signed in already, if so, link accounts.
-    // Check more than default store?
-    // Pass in user for this later
-    if ( _user && _user.isLoggedIn) {
-        urlStr = [NSString stringWithFormat:@"%@&session_token=%@", urlStr, _user.token];
-    }
+    //Link accounts if user is logged in. If you don't want the accounts linked, log out the user.
+    if ( _user && _user.isLoggedIn)
+        urlStr = [urlStr stringByAppendingFormat:@"&session_token=%@", _user.token];
+    
+    // Add any additional params to the request
+    if ( _params != nil && [_params length] > 0 )
+        urlStr = [urlStr stringByAppendingString:_params];
      
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]]];
 }

@@ -67,21 +67,8 @@ static CMWebService *webService;
     }
 }
 
-- (id)init
-{
-    if (self = [super init]) {
-        self.token = nil;
-        self.userId = nil;
-        self.password = nil;
-        self.services = nil;
-        objectId = @"";
-        if (!webService) {
-            webService = [[CMWebService alloc] init];
-        }
-        isDirty = NO;
-        [self registerAllPropertiesForKVO];
-    }
-    return self;
+- (id)init {
+    return [self initWithUserId:nil andPassword:nil];
 }
 
 - (id)initWithUserId:(NSString *)theUserId andPassword:(NSString *)thePassword {
@@ -89,6 +76,7 @@ static CMWebService *webService;
         self.token = nil;
         self.userId = theUserId;
         self.password = thePassword;
+        self.services = nil;
         objectId = @"";
         if (!webService) {
             webService = [[CMWebService alloc] init];
@@ -107,6 +95,7 @@ static CMWebService *webService;
         }
         token = [coder decodeObjectForKey:@"token"];
         tokenExpiration = [coder decodeObjectForKey:@"tokenExpiration"];
+        services = [coder decodeObjectForKey:@"services"];
         if (!webService) {
             webService = [[CMWebService alloc] init];
         }
@@ -164,6 +153,7 @@ static CMWebService *webService;
     [coder encodeObject:self.objectId forKey:CMInternalObjectIdKey];
     [coder encodeObject:self.token forKey:@"token"];
     [coder encodeObject:self.tokenExpiration forKey:@"tokenExpiration"];
+    [coder encodeObject:self.services forKey:@"services"];
 }
 
 #pragma mark - Comparison
@@ -343,10 +333,11 @@ static CMWebService *webService;
 #pragma mark - Social login with Singly
 
 // This code is very similar to login above, perhaps we can refactor.
--(void)loginWithSocial:(NSString *)service  andViewController:(UIViewController *)viewController callback:(CMUserOperationCallback)callback {
-    [webService loginWithSocial:self withService:service andViewController:viewController callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
+- (void)loginWithSocialNetwork:(NSString *)service viewController:(UIViewController *)viewController params:(NSString *)params callback:(CMUserOperationCallback)callback {
+    
+    [webService loginWithSocial:self withService:service viewController:viewController params:params callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         NSArray *messages = [NSArray array];
-
+        
         if (result == CMUserAccountLoginSucceeded) {
             self.token = [responseBody objectForKey:@"session_token"];
             
@@ -356,7 +347,9 @@ static CMWebService *webService;
             self.tokenExpiration = [df dateFromString:[responseBody objectForKey:@"expires"]];
             NSDictionary *userProfile = [responseBody objectForKey:@"profile"];
             objectId = [userProfile objectForKey:CMInternalObjectIdKey];
-
+            
+            self.services = [responseBody objectForKey:@"services"];
+            
             if (!self.isDirty) {
                 // Only bring the changes from the server into the object state if there weren't local modifications.
                 [self copyValuesFromDictionaryIntoState:userProfile];

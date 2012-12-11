@@ -352,7 +352,6 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     } errorHandler:errorHandler];
 }
 
-
 #pragma mark - User account management
 
 - (void)loginUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
@@ -489,10 +488,8 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 }
 
 // ***** Singly Social
-
-- (void)loginWithSocial:(CMUser *)user withService:(NSString *)service andViewController:(UIViewController *)viewController callback:(CMWebServiceUserAccountOperationCallback)callback
-{
-    CMSocialLoginViewController* loginViewController = [[CMSocialLoginViewController alloc] initForService:service withAppID:_appIdentifier andApiKey:_appSecret user:user];
+- (void)loginWithSocial:(CMUser *)user withService:(NSString *)service viewController:(UIViewController *)viewController params:(NSString *)params callback:(CMWebServiceUserAccountOperationCallback)callback {
+    CMSocialLoginViewController *loginViewController = [[CMSocialLoginViewController alloc] initForService:service appID:_appIdentifier apiKey:_appSecret user:user params:params];
     loginViewController.delegate = self;
     temporaryCallback = callback;
     [viewController presentViewController:loginViewController animated:YES completion:NULL];
@@ -941,6 +938,68 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     }];
     
     [self enqueueHTTPRequestOperation:requestOperation];
+}
+
+- (void)executeSocialQuery:(NSURLRequest *)request successHandler:(CMWebServicesSocialQuerySuccessCallback)successHandler errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
+    
+    
+    NSDate *startDate = [NSDate date];
+    
+    AFHTTPRequestOperation *requestOperation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSString *requestId = [[operation.response allHeaderFields] objectForKey:@"X-Request-Id"];
+        if (requestId) {
+            int milliseconds = (int)([[NSDate date] timeIntervalSinceDate:startDate] * 1000.0f);
+            [_responseTimes setObject:[NSNumber numberWithInt:milliseconds] forKey:requestId];
+        }
+        
+        NSString *responseString = [operation responseString];
+
+        if (successHandler != nil) {
+            void (^block)() = ^{ successHandler( responseString, [operation.response allHeaderFields]); };
+            [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        if ([[error domain] isEqualToString:NSURLErrorDomain]) {
+            if ([error code] == NSURLErrorUserCancelledAuthentication) {
+                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was unauthorized. Is your API key correct?", NSLocalizedDescriptionKey, error, NSURLErrorKey, nil]];
+            } else {
+                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerConnectionFailed userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"A connection to the server was not able to be established.", NSLocalizedDescriptionKey, error, NSURLErrorKey, nil]];
+            }
+        }
+        
+        switch ([operation.response statusCode]) {
+            case 404:
+                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorNotFound userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The application was not found. Is your application identifier correct? Or perhaps the page you were looking for in the query does not exist.", NSLocalizedDescriptionKey, nil]];
+                break;
+                
+            case 401:
+                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was unauthorized. Is your API key correct?", NSLocalizedDescriptionKey, nil]];
+                break;
+                
+            case 400:
+                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidRequest userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was malformed.", NSLocalizedDescriptionKey, nil]];
+                break;
+                
+            case 500:
+                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The server experienced an error", NSLocalizedDescriptionKey, nil]];
+                break;
+                
+            default:
+                break;
+        }
+        
+        NSLog(@"CloudMine *** Unexpected error occurred during object request. (%@)", [error localizedDescription]);
+        if (errorHandler != nil) {
+            void (^block)() = ^{ errorHandler(error); };
+            [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
+        }
+    }];
+    
+    [self enqueueHTTPRequestOperation:requestOperation];
+    
 }
 
 - (void)executeACLUpdateRequest:(NSURLRequest *)request

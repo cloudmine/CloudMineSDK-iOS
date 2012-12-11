@@ -1,6 +1,6 @@
 HEAD
 =====
-
+* Updated CMUser Social Login with generic "query" parameter for handling extra query parameters in logging in. This is a good place to put scope calls.
 
 v1.2.2 (November 29, 2012)
 * Fix bug that caused CMFile's on-device caching to never work.

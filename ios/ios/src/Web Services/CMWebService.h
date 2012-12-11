@@ -83,6 +83,10 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
  */
 typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDictionary *errors, NSNumber *count);
 
+
+
+typedef void (^CMWebServicesSocialQuerySuccessCallback)(NSString *results, NSDictionary *headers);
+
 /**
  * Base class for all classes concerned with the communication between the client device and the CloudMine
  * web services.
@@ -365,12 +369,14 @@ typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDi
 /**
  * Initialize the social login service by calling the SocialLoginViewController (which contains only a webview)
  * 
- * @param callback The block that will be called on completion of the operation
- * @param service The social service to be logged into
+ * @param user - The user object that is attempting the login
+ * @param service The social service to be logged into, @see CMSocialNetwork codes
  * @param viewController the current viewController in use when this method is called
+ * @param scope - Can be nil. The Scopes requested for this authentication token
+ * @param callback The block that will be called on completion of the operation
  * @see https://cloudmine.me/docs/api#users_social
  */
-- (void)loginWithSocial:(CMUser *)user withService:(NSString *)service andViewController:(UIViewController *)viewController callback:(CMWebServiceUserAccountOperationCallback)callback;
+- (void)loginWithSocial:(CMUser *)user withService:(NSString *)service viewController:(UIViewController *)viewController params:(NSString *)params callback:(CMWebServiceUserAccountOperationCallback)callback;
 
 /**
  * Asynchronously change the password for the given user. For security purposes, you must have the user enter his or her
@@ -457,5 +463,8 @@ typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDi
  * @param errorHandler The block to be called if the request failed.
  */
 - (void)runSnippet:(NSString *)snippetName withParams:(NSDictionary *)params user:(CMUser *)user successHandler:(CMWebServiceSnippetRunSuccessCallback)successHandler errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
+
+
+
 
 @end
