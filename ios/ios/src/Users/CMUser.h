@@ -160,7 +160,15 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
 - (void)loginWithCallback:(CMUserOperationCallback)callback;
 
 /**
- * Login with social networking sites through Singly.  Calls a UIWebView for authenticaion
+ * Login with social networking sites through Singly.  Calls a UIWebView for authentication, which loads the authentication page of the
+ * social network you specify.
+ *
+ * If you call this method and the user is logged in already, it will link the logged in user with the social network account. If the user
+ * is not logged in, this call will create a new user.
+ * 
+ * Upon successful login, the CMUser#token property will be set to the user's new session token The CMUser#tokenExpiration property will also be set with the expiration date and time
+ * of the session token. In addition, all your custom properties (if you are using a custom subclass of <tt>CMUser</tt>) will be populated for you using key-value coding.
+ * All these properties will be set <strong>before</strong> the callback block is invoked.
  *
  * Possible result codes:
  * - <tt>CMUserAccountLoginSucceeded</tt>
