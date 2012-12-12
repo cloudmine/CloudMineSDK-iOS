@@ -486,7 +486,6 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     }];
 }
 
-// ***** Singly Social
 - (void)loginWithSocial:(CMUser *)user withService:(NSString *)service viewController:(UIViewController *)viewController params:(NSDictionary *)params callback:(CMWebServiceUserAccountOperationCallback)callback {
     CMSocialLoginViewController *loginViewController = [[CMSocialLoginViewController alloc] initForService:service appID:_appIdentifier apiKey:_appSecret user:user params:params];
     loginViewController.modalPresentationStyle = UIModalPresentationFormSheet;
@@ -540,8 +539,6 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         temporaryCallback(resultCode, messages);
     }]; 
 }
-
-// ***** /Singly Social
 
 - (void)saveUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
     NSParameterAssert(user);
