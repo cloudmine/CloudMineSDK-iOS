@@ -12,6 +12,7 @@ var searchData=
   ['cmwebservicefilefetchsuccesscallback',['CMWebServiceFileFetchSuccessCallback',['../_c_m_web_service_8h.html#ae8267288b3502db7c66608bd3a43cc6a',1,'CMWebService.h']]],
   ['cmwebservicefileuploadsuccesscallback',['CMWebServiceFileUploadSuccessCallback',['../_c_m_web_service_8h.html#a5609890cd4b9e8590aaf19c69bf4dc3a',1,'CMWebService.h']]],
   ['cmwebserviceobjectfetchsuccesscallback',['CMWebServiceObjectFetchSuccessCallback',['../_c_m_web_service_8h.html#a6f4c0d209c5241e677bebc5db592eeea',1,'CMWebService.h']]],
+  ['cmwebservicesnippetrunsuccesscallback',['CMWebServiceSnippetRunSuccessCallback',['../_c_m_web_service_8h.html#a1239696f4302896a4eed78e0ec25ea87',1,'CMWebService.h']]],
   ['cmwebserviceuseraccountoperationcallback',['CMWebServiceUserAccountOperationCallback',['../_c_m_web_service_8h.html#adeb3b39bba6f7c9c458b03dd0ee76d75',1,'CMWebService.h']]],
   ['cmwebserviceuserfetchsuccesscallback',['CMWebServiceUserFetchSuccessCallback',['../_c_m_web_service_8h.html#a2f10c20197b181b65b8017c411e87674',1,'CMWebService.h']]]
 ];

@@ -9,5 +9,6 @@ var searchData=
   ['removeuserfile_3a',['removeUserFile:',['../interface_c_m_store.html#a9a560eeee46950e2228bf689d78b7c22',1,'CMStore']]],
   ['removeuserobject_3a',['removeUserObject:',['../interface_c_m_store.html#aa168a5b4763f0ec93eddcec8653468ee',1,'CMStore']]],
   ['resetforgottenpasswordforuser_3acallback_3a',['resetForgottenPasswordForUser:callback:',['../interface_c_m_web_service.html#a6d0e4f4519c9a6ec38160c338af2bf5f',1,'CMWebService']]],
-  ['resetforgottenpasswordwithcallback_3a',['resetForgottenPasswordWithCallback:',['../interface_c_m_user.html#a7d923bd10ddc116d5f39c9b64899ec1e',1,'CMUser']]]
+  ['resetforgottenpasswordwithcallback_3a',['resetForgottenPasswordWithCallback:',['../interface_c_m_user.html#a7d923bd10ddc116d5f39c9b64899ec1e',1,'CMUser']]],
+  ['runsnippet_3awithparams_3auser_3asuccesshandler_3aerrorhandler_3a',['runSnippet:withParams:user:successHandler:errorHandler:',['../interface_c_m_web_service.html#aa7293a2925334165e62a0cf59ac0149b',1,'CMWebService']]]
 ];

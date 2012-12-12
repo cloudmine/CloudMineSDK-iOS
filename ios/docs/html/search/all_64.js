@@ -11,6 +11,7 @@ var searchData=
   ['deleteuserobject_3aadditionaloptions_3acallback_3a',['deleteUserObject:additionalOptions:callback:',['../interface_c_m_store.html#aa540f4288353bdbbddf1f25dae2a456e',1,'CMStore']]],
   ['deleteuserobjects_3aadditionaloptions_3acallback_3a',['deleteUserObjects:additionalOptions:callback:',['../interface_c_m_store.html#a33aeb50cae65631fb2664887c24a6bed',1,'CMStore']]],
   ['deletevaluesforkeys_3aserversidefunction_3auser_3aextraparameters_3asuccesshandler_3aerrorhandler_3a',['deleteValuesForKeys:serverSideFunction:user:extraParameters:successHandler:errorHandler:',['../interface_c_m_web_service.html#a9f7855cf44b427e943de084ee0966b37',1,'CMWebService']]],
+  ['deprecated_20list',['Deprecated List',['../deprecated.html',1,'']]],
   ['dirty',['dirty',['../interface_c_m_object.html#a55cc5544016ee27a53e5b7d8b12fe7ee',1,'CMObject']]],
   ['distance',['distance',['../interface_c_m_distance.html#aeeff1d138fa9745778aa8bab6fdac4d0',1,'CMDistance']]],
   ['distancefromobject_3a',['distanceFromObject:',['../interface_c_m_response_metadata.html#a67d5ed4222c166f78411209604414d97',1,'CMResponseMetadata']]]

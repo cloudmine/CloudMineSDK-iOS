@@ -1,6 +1,7 @@
 var searchData=
 [
   ['init',['init',['../interface_c_m_date.html#a166585524a8dea6b562ded457c111a4e',1,'CMDate::init()'],['../interface_c_m_object.html#a9a333abe636c2aaa411f71d1c714c945',1,'CMObject::init()'],['../interface_c_m_store.html#a4ab6760aa025c006ebb424eeb5990dc0',1,'CMStore::init()'],['../interface_c_m_server_function.html#a16ebf5447f07ff91b94c3718b2977ef6',1,'CMServerFunction::init()'],['../interface_c_m_web_service.html#a984f8d00b330cdbe6aa274c9553bc652',1,'CMWebService::init()']]],
+  ['initforservice_3aappid_3aapikey_3auser_3aparams_3a',['initForService:appID:apiKey:user:params:',['../interface_c_m_social_login_view_controller.html#a22dd884f46279a5d1f85940a75e7d87c',1,'CMSocialLoginViewController']]],
   ['initwithappsecret_3aappidentifier_3a',['initWithAppSecret:appIdentifier:',['../interface_c_m_web_service.html#a6893a90670be0828f8c85a08dab06842',1,'CMWebService']]],
   ['initwithcllocation_3a',['initWithCLLocation:',['../interface_c_m_geo_point.html#a7cae5f99c5857a47aa29db0bd42a549f',1,'CMGeoPoint']]],
   ['initwithcoder_3a',['initWithCoder:',['../interface_c_m_object.html#a1f06802da6db1e7a329f74a4bf61c7a2',1,'CMObject']]],
@@ -14,5 +15,6 @@ var searchData=
   ['initwithobjectid_3a',['initWithObjectId:',['../interface_c_m_object.html#acc946857adb88b3df84c8409dffd06a2',1,'CMObject']]],
   ['initwithuser_3a',['initWithUser:',['../interface_c_m_store.html#a190c8f57daff87592a4c76e7872a001d',1,'CMStore']]],
   ['initwithuserid_3aandpassword_3a',['initWithUserId:andPassword:',['../interface_c_m_user.html#a40e4ab0f15f843df2d9d03be03685762',1,'CMUser']]],
+  ['ismodal',['isModal',['../category_u_i_view_controller_07_modal_08.html#a197382e344234db3ac14159964940ba9',1,'UIViewController(Modal)']]],
   ['isuserlevel',['isUserLevel',['../interface_c_m_file.html#a65fa1e84bf6b2d8dd0869c63dd6db996',1,'CMFile']]]
 ];

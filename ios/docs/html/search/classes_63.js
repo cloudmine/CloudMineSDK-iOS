@@ -23,6 +23,8 @@ var searchData=
   ['cmserializable_2dp',['CMSerializable-p',['../protocol_c_m_serializable-p.html',1,'']]],
   ['cmserverfunction',['CMServerFunction',['../interface_c_m_server_function.html',1,'']]],
   ['cmsnippetresult',['CMSnippetResult',['../interface_c_m_snippet_result.html',1,'']]],
+  ['cmsocialloginviewcontroller',['CMSocialLoginViewController',['../interface_c_m_social_login_view_controller.html',1,'']]],
+  ['cmsocialloginviewcontrollerdelegate_2dp',['CMSocialLoginViewControllerDelegate-p',['../protocol_c_m_social_login_view_controller_delegate-p.html',1,'']]],
   ['cmsortdescriptor',['CMSortDescriptor',['../interface_c_m_sort_descriptor.html',1,'']]],
   ['cmstore',['CMStore',['../interface_c_m_store.html',1,'']]],
   ['cmstoreoptions',['CMStoreOptions',['../interface_c_m_store_options.html',1,'']]],
