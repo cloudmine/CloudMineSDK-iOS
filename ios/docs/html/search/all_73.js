@@ -35,6 +35,7 @@ var searchData=
   ['serverfunctionwithname_3aextraparameters_3aresponsecontainsresultonly_3a',['serverFunctionWithName:extraParameters:responseContainsResultOnly:',['../interface_c_m_server_function.html#a2e0f03dc377aaa0c74453d6524edc5ad',1,'CMServerFunction']]],
   ['serverfunctionwithname_3aextraparameters_3aresponsecontainsresultonly_3aperformasynchronously_3a',['serverFunctionWithName:extraParameters:responseContainsResultOnly:performAsynchronously:',['../interface_c_m_server_function.html#a89056e475f9c5aacbb77bdc27287adc4',1,'CMServerFunction']]],
   ['serversidefunction',['serverSideFunction',['../interface_c_m_store_options.html#a924f3f661479f50e6888241bc23666d3',1,'CMStoreOptions']]],
+  ['services',['services',['../interface_c_m_user.html#afd774175115e0ade5777f535ac03d57d',1,'CMUser']]],
   ['setappidentifier_3aandapikey_3a',['setAppIdentifier:andApiKey:',['../interface_c_m_a_p_i_credentials.html#ace188c1727c9cc636f1a764a2c147456',1,'CMAPICredentials']]],
   ['setvaluesfromdictionary_3aserversidefunction_3auser_3aextraparameters_3asuccesshandler_3aerrorhandler_3a',['setValuesFromDictionary:serverSideFunction:user:extraParameters:successHandler:errorHandler:',['../interface_c_m_web_service.html#a4e6f1c17ab00b492687a05be395d9b0e',1,'CMWebService']]],
   ['shared',['shared',['../interface_c_m_store_options.html#ad4b6d7300ee4fb9f1d6d45caad5ec606',1,'CMStoreOptions']]],

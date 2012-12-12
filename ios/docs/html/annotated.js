@@ -23,11 +23,14 @@ var annotated =
     [ "<CMSerializable>", "protocol_c_m_serializable-p.html", "protocol_c_m_serializable-p" ],
     [ "CMServerFunction", "interface_c_m_server_function.html", "interface_c_m_server_function" ],
     [ "CMSnippetResult", "interface_c_m_snippet_result.html", "interface_c_m_snippet_result" ],
+    [ "CMSocialLoginViewController", "interface_c_m_social_login_view_controller.html", "interface_c_m_social_login_view_controller" ],
+    [ "<CMSocialLoginViewControllerDelegate>", "protocol_c_m_social_login_view_controller_delegate-p.html", "protocol_c_m_social_login_view_controller_delegate-p" ],
     [ "CMSortDescriptor", "interface_c_m_sort_descriptor.html", "interface_c_m_sort_descriptor" ],
     [ "CMStore", "interface_c_m_store.html", "interface_c_m_store" ],
     [ "CMStoreOptions", "interface_c_m_store_options.html", "interface_c_m_store_options" ],
     [ "CMStoreResponse", "interface_c_m_store_response.html", "interface_c_m_store_response" ],
     [ "CMUntypedObject", "interface_c_m_untyped_object.html", "interface_c_m_untyped_object" ],
     [ "CMUser", "interface_c_m_user.html", "interface_c_m_user" ],
-    [ "CMWebService", "interface_c_m_web_service.html", "interface_c_m_web_service" ]
+    [ "CMWebService", "interface_c_m_web_service.html", "interface_c_m_web_service" ],
+    [ "UIViewController(Modal)", "category_u_i_view_controller_07_modal_08.html", "category_u_i_view_controller_07_modal_08" ]
 ];

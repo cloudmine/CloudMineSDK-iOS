@@ -160,6 +160,30 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
 - (void)loginWithCallback:(CMUserOperationCallback)callback;
 
 /**
+ * Login with social networking sites through Singly.  Calls a UIWebView for authentication, which loads the authentication page of the
+ * social network you specify.
+ *
+ * If you call this method and the user is logged in already, it will link the logged in user with the social network account. If the user
+ * is not logged in, this call will create a new user.
+ * 
+ * Upon successful login, the CMUser#token property will be set to the user's new session token The CMUser#tokenExpiration property will also be set with the expiration date and time
+ * of the session token. In addition, all your custom properties (if you are using a custom subclass of <tt>CMUser</tt>) will be populated for you using key-value coding.
+ * All these properties will be set <strong>before</strong> the callback block is invoked.
+ *
+ * Possible result codes:
+ * - <tt>CMUserAccountLoginSucceeded</tt>
+ * - <tt>CMUserAccountLoginFailedIncorrectCredentials</tt>
+ * - <tt>CMUserAccountOperationFailedUnknownAccount</tt>
+ *
+ * @param service The social service to be logged into
+ * @param viewController the current view controller in use when this method is called
+ * @param params Any extra parameters you want passed in to the authentication request. This dictionary is parsed where each key value pair becomes "&key=value". We do not encode the URL after this, so any encoding will need to be done by the creator. This is a good place to put scope, for example: @{@"scope" : @"gist,repo"}
+ * @param callback The block that will be called on completion of the operation.
+ * @see https://cloudmine.me/docs/api#users_social
+ */
+- (void)loginWithSocialNetwork:(NSString *)service viewController:(UIViewController *)viewController params:(NSDictionary *)params callback:(CMUserOperationCallback)callback;
+
+/**
  * Asynchronously logout the user and clear their session and session token. On completion, the <tt>callback</tt> block will be called with
  * the result of the operation and any messages returned by the server contained in an array. See the CloudMine
  * documentation online for the possible contents of this array.
@@ -268,22 +292,6 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
  * @param callback The block that will be called on completion of the operation.
  */
 - (void)save:(CMUserOperationCallback)callback;
-
-
-/**
- * Login with social networking sites through Singly.  Calls a UIWebView for authenticaion
- *
- * Possible result codes:
- * - <tt>CMUserAccountLoginSucceeded</tt>
- * - <tt>CMUserAccountLoginFailedIncorrectCredentials</tt>
- * - <tt>CMUserAccountOperationFailedUnknownAccount</tt>
- *
- * @param callback The block that will be called on completion of the operation.
- * @param service The social service to be logged into
- * @param viewController the current view controller in use when this method is called
- * @see https://cloudmine.me/docs/api#users_social
- */
-- (void)loginWithSocial:(NSString *)service andViewController:(UIViewController *)viewController callback:(CMUserOperationCallback)callback;
 
 /**
  * Asynchronously fetch all the users of this app. This will download the profiles of all the users of your app, and is useful for displaying
