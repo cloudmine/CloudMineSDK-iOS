@@ -28,7 +28,7 @@
 
 @implementation CMSocialLoginViewController
 
-- (id)initForService:(NSString *)service appID:(NSString *)appID apiKey:(NSString *)apiKey user:(CMUser *)user params:(NSString *)params
+- (id)initForService:(NSString *)service appID:(NSString *)appID apiKey:(NSString *)apiKey user:(CMUser *)user params:(NSDictionary *)params
 {
     self = [super init];
     if (self)
@@ -97,8 +97,11 @@
         urlStr = [urlStr stringByAppendingFormat:@"&session_token=%@", _user.token];
     
     // Add any additional params to the request
-    if ( _params != nil && [_params length] > 0 )
-        urlStr = [urlStr stringByAppendingString:_params];
+    if ( _params != nil && [_params count] > 0 ) {
+        for (NSString *key in _params) {
+            urlStr = [urlStr stringByAppendingFormat:@"&%@=%@", key, [_params valueForKey:key]];
+        }
+    }
 
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]]];
 }

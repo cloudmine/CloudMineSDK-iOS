@@ -177,11 +177,11 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
  *
  * @param service The social service to be logged into
  * @param viewController the current view controller in use when this method is called
- * @param params Can be nil. These will be added to the end of the call for authentication, and is a good place to put the scope. This is simply appended to the back of the URL if present, so it is up to the caller to ensure the parameters are of the correct format.
+ * @param params Any extra parameters you want passed in to the authentication request. This dictionary is parsed where each key value pair becomes "&key=value". We do not encode the URL after this, so any encoding will need to be done by the creator. This is a good place to put scope, for example: @{@"scope" : @"gist,repo"}
  * @param callback The block that will be called on completion of the operation.
  * @see https://cloudmine.me/docs/api#users_social
  */
-- (void)loginWithSocialNetwork:(NSString *)service viewController:(UIViewController *)viewController params:(NSString *)params callback:(CMUserOperationCallback)callback;
+- (void)loginWithSocialNetwork:(NSString *)service viewController:(UIViewController *)viewController params:(NSDictionary *)params callback:(CMUserOperationCallback)callback;
 
 /**
  * Asynchronously logout the user and clear their session and session token. On completion, the <tt>callback</tt> block will be called with
