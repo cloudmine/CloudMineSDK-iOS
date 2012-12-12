@@ -38,6 +38,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 @interface CMWebService () {
     NSMutableDictionary *_responseTimes;
     __strong CMWebServiceUserAccountOperationCallback temporaryCallback;
+    __strong UIViewController *temporaryViewController;
 
 }
 @property (nonatomic, strong) NSString *apiUrl;
@@ -490,8 +491,10 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 // ***** Singly Social
 - (void)loginWithSocial:(CMUser *)user withService:(NSString *)service viewController:(UIViewController *)viewController params:(NSDictionary *)params callback:(CMWebServiceUserAccountOperationCallback)callback {
     CMSocialLoginViewController *loginViewController = [[CMSocialLoginViewController alloc] initForService:service appID:_appIdentifier apiKey:_appSecret user:user params:params];
+    loginViewController.modalPresentationStyle = UIModalPresentationFormSheet;
     loginViewController.delegate = self;
     temporaryCallback = callback;
+    temporaryViewController = viewController;
     [viewController presentViewController:loginViewController animated:YES completion:NULL];
 }
 
@@ -532,6 +535,13 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
             default:
                 break;
         }
+        
+        if ([messages valueForKey:@"expires"] == [NSNull null]) {
+            resultCode = CMUserAccountLoginFailedIncorrectCredentials;
+        }
+
+        [temporaryViewController dismissModalViewControllerAnimated:YES];
+        
         temporaryCallback(resultCode, messages);
     }]; 
 }
