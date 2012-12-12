@@ -6,7 +6,7 @@ var interface_c_m_user =
     [ "createAccountWithCallback:", "interface_c_m_user.html#a75cc2286b78639d55992ee35a5a98ad9", null ],
     [ "initWithUserId:andPassword:", "interface_c_m_user.html#a40e4ab0f15f843df2d9d03be03685762", null ],
     [ "loginWithCallback:", "interface_c_m_user.html#a3051b10f7ec22fa1a7064ad8d97b1c73", null ],
-    [ "loginWithSocialNetwork:viewController:params:callback:", "interface_c_m_user.html#a33e3a0338eb06518004dd0ce8e51e277", null ],
+    [ "loginWithSocialNetwork:viewController:params:callback:", "interface_c_m_user.html#a530087d70def1f0f9f43b5900d8ca793", null ],
     [ "logoutWithCallback:", "interface_c_m_user.html#aadef7929e7f621df7d08c97b11195e97", null ],
     [ "resetForgottenPasswordWithCallback:", "interface_c_m_user.html#a7d923bd10ddc116d5f39c9b64899ec1e", null ],
     [ "save:", "interface_c_m_user.html#a1eec107ae4482a7b33f91c824686f926", null ],

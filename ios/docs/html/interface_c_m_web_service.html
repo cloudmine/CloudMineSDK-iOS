@@ -152,8 +152,9 @@ Instance Methods</h2></td></tr>
 <tr class="separator:ab2b470a6e96d9faf9a0ecb145e0b2fed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a41f9dd0714144cfe0b1ccc0e591e45e4"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_web_service.html#a41f9dd0714144cfe0b1ccc0e591e45e4">createAccountWithUser:callback:</a></td></tr>
 <tr class="separator:a41f9dd0714144cfe0b1ccc0e591e45e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9337de505adbb5ba5f40ba8d6fe5d587"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_web_service.html#a9337de505adbb5ba5f40ba8d6fe5d587">loginWithSocial:withService:viewController:params:callback:</a></td></tr>
-<tr class="separator:a9337de505adbb5ba5f40ba8d6fe5d587"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader"></div></td></tr>
+<tr class="memitem:a0e738142e707f90e65b0c1ca2966ff8e"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_web_service.html#a0e738142e707f90e65b0c1ca2966ff8e">loginWithSocial:withService:viewController:params:callback:</a></td></tr>
+<tr class="separator:a0e738142e707f90e65b0c1ca2966ff8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd3925c1db193cb08f58c55bb2b678aa"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_web_service.html#acd3925c1db193cb08f58c55bb2b678aa">changePasswordForUser:oldPassword:newPassword:callback:</a></td></tr>
 <tr class="separator:acd3925c1db193cb08f58c55bb2b678aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d0e4f4519c9a6ec38160c338af2bf5f"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_web_service.html#a6d0e4f4519c9a6ec38160c338af2bf5f">resetForgottenPasswordForUser:callback:</a></td></tr>
@@ -721,7 +722,7 @@ NSString *&#160;</td><td class="memItemRight" valign="bottom"><b>_appIdentifier<
 
 </div>
 </div>
-<a class="anchor" id="a9337de505adbb5ba5f40ba8d6fe5d587"></a>
+<a class="anchor" id="a0e738142e707f90e65b0c1ca2966ff8e"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -746,7 +747,7 @@ NSString *&#160;</td><td class="memItemRight" valign="bottom"><b>_appIdentifier<
         <tr>
           <td class="paramkey">params:</td>
           <td></td>
-          <td class="paramtype">(NSString *)&#160;</td>
+          <td class="paramtype">(NSDictionary *)&#160;</td>
           <td class="paramname"><em>params</em></td>
         </tr>
         <tr>
@@ -774,7 +775,7 @@ NSString *&#160;</td><td class="memItemRight" valign="bottom"><b>_appIdentifier<
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">viewController</td><td>the current viewController in use when this method is called </td></tr>
-    <tr><td class="paramname">scope</td><td>- Can be nil. The Scopes requested for this authentication token </td></tr>
+    <tr><td class="paramname">params</td><td>Any extra parameters you want passed in to the authentication request. This dictionary is parsed where each key value pair becomes "&amp;key=value". We do not encode the URL after this, so any encoding will need to be done by the creator. This is a good place to put scope, for example:"scope" : @"gist,repo"} </td></tr>
     <tr><td class="paramname">callback</td><td>The block that will be called on completion of the operation </td></tr>
   </table>
   </dd>
@@ -1335,7 +1336,7 @@ NSString *&#160;</td><td class="memItemRight" valign="bottom"><b>_appIdentifier<
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="interface_c_m_web_service.html">CMWebService</a></li>
-    <li class="footer">Generated on Tue Dec 11 2012 13:45:27 for CloudMine iOS SDK by
+    <li class="footer">Generated on Wed Dec 12 2012 14:19:05 for CloudMine iOS SDK by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.2 </li>
   </ul>

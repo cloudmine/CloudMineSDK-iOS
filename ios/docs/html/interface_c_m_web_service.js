@@ -12,7 +12,7 @@ var interface_c_m_web_service =
     [ "init", "interface_c_m_web_service.html#a984f8d00b330cdbe6aa274c9553bc652", null ],
     [ "initWithAppSecret:appIdentifier:", "interface_c_m_web_service.html#a6893a90670be0828f8c85a08dab06842", null ],
     [ "loginUser:callback:", "interface_c_m_web_service.html#ab00f58df417b7239e284ff07d76b5e67", null ],
-    [ "loginWithSocial:withService:viewController:params:callback:", "interface_c_m_web_service.html#a9337de505adbb5ba5f40ba8d6fe5d587", null ],
+    [ "loginWithSocial:withService:viewController:params:callback:", "interface_c_m_web_service.html#a0e738142e707f90e65b0c1ca2966ff8e", null ],
     [ "logoutUser:callback:", "interface_c_m_web_service.html#ab2b470a6e96d9faf9a0ecb145e0b2fed", null ],
     [ "resetForgottenPasswordForUser:callback:", "interface_c_m_web_service.html#a6d0e4f4519c9a6ec38160c338af2bf5f", null ],
     [ "runSnippet:withParams:user:successHandler:errorHandler:", "interface_c_m_web_service.html#aa7293a2925334165e62a0cf59ac0149b", null ],
