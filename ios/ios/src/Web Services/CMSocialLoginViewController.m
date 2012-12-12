@@ -60,10 +60,18 @@
 
 - (void)viewWillAppear:(BOOL)animated;
 {
+    // Clear Cookies
+    NSHTTPCookie *cookie;
+    NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    for (cookie in [storage cookies]) {
+        [storage deleteCookie:cookie];
+    }
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     if (self.isModal)
     {
         self.webView.frame = CGRectMake(0, 44, self.view.frame.size.width, self.view.frame.size.height - 44);
-        self.navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+        self.navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
         UINavigationItem *navigationItem = [[UINavigationItem alloc] initWithTitle:self.targetService];
         navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(dismiss)];
         self.navigationBar.items = @[navigationItem];
@@ -107,7 +115,7 @@
 }
 
 
--(void)processAccessTokenWithData:(NSData*)data;
+- (void)processAccessTokenWithData:(NSData*)data;
 {
     
 }
@@ -134,10 +142,12 @@
         if ([baseURLstr isEqualToString:comparableRequestStr]) {
         
             // Display pending login view during request/processing
-            pendingLoginView = [[UIView alloc] initWithFrame:self.view.bounds];
+            pendingLoginView = [[UIView alloc] initWithFrame:self.webView.bounds];
+            pendingLoginView.center = self.webView.center;
             pendingLoginView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.8];
             activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-            activityView.frame = CGRectMake(140, 180, activityView.bounds.size.width, activityView.bounds.size.height);
+            activityView.frame = CGRectMake(pendingLoginView.frame.size.width / 2, pendingLoginView.frame.size.height / 2, activityView.bounds.size.width, activityView.bounds.size.height);
+            activityView.center = self.webView.center;
             [pendingLoginView addSubview:activityView];
             [activityView startAnimating];
             [self.view addSubview:pendingLoginView];
@@ -152,9 +162,9 @@
     //TODO: Add in.
 }
 
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error;
-{
-    //TODO:  Fill this in (comment leftover from Singly sdk)
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    NSLog(@"WebView error. This sometimes happens when the User is logging into a social network where cookies have been stored and is already logged in. %@", [error description]);
+    [self.delegate cmSocialLoginViewController:self completeSocialLoginWithChallenge:_challenge];
 }
 
 - (void)didReceiveMemoryWarning
