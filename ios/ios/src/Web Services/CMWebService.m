@@ -38,8 +38,6 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 @interface CMWebService () {
     NSMutableDictionary *_responseTimes;
     __strong CMWebServiceUserAccountOperationCallback temporaryCallback;
-    __strong UIViewController *temporaryViewController;
-
 }
 @property (nonatomic, strong) NSString *apiUrl;
 - (NSURL *)constructTextUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys query:(NSString *)searchString pagingOptions:(CMPagingDescriptor *)paging sortingOptions:(CMSortDescriptor *)sorting withServerSideFunction:(CMServerFunction *)function extraParameters:(NSDictionary *)params;
@@ -494,7 +492,6 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     loginViewController.modalPresentationStyle = UIModalPresentationFormSheet;
     loginViewController.delegate = self;
     temporaryCallback = callback;
-    temporaryViewController = viewController;
     [viewController presentViewController:loginViewController animated:YES completion:NULL];
 }
 
@@ -539,8 +536,6 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         if ([messages valueForKey:@"expires"] == [NSNull null]) {
             resultCode = CMUserAccountLoginFailedIncorrectCredentials;
         }
-
-        [temporaryViewController dismissModalViewControllerAnimated:YES];
         
         temporaryCallback(resultCode, messages);
     }]; 
