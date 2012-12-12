@@ -28,8 +28,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_8___c_m_social_login_view_controller_8h_source.html",
-"interface_c_m_object_encoder.html#ab999fc096f3faed0a5dbd13ba86b83e4"
+"_c_m_a_c_l_8h_source.html",
+"interface_c_m_object_fetch_response.html#a1cc1fac3164c32f9abfcd48aef20d22c"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

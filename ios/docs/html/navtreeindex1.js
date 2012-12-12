@@ -1,8 +1,5 @@
 var NAVTREEINDEX1 =
 {
-"interface_c_m_object_encoder.html#ab999fc096f3faed0a5dbd13ba86b83e4":[1,0,15,2],
-"interface_c_m_object_encoder.html#ad985ed0d387868833981c2028ac24747":[1,0,15,1],
-"interface_c_m_object_fetch_response.html":[1,0,16],
 "interface_c_m_object_fetch_response.html#a1cc1fac3164c32f9abfcd48aef20d22c":[1,0,16,2],
 "interface_c_m_object_fetch_response.html#a63f18dfaf91d3d2db6fa1c684e9c11f8":[1,0,16,3],
 "interface_c_m_object_fetch_response.html#a9156ddb188877bb7de243e45cfa6354f":[1,0,16,0],
