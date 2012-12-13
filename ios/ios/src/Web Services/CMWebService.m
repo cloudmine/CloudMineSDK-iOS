@@ -20,6 +20,7 @@
 #import "CMSortDescriptor.h"
 #import "CMActiveUser.h"
 #import "NSURL+QueryParameterAdditions.h"
+#import "UIDevice+IdentifierAddition.h"
 
 #import "CMObjectEncoder.h"
 #import "CMObjectDecoder.h"
@@ -349,6 +350,27 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     [self executeRequest:request successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
         successHandler(snippetResult, headers);
     } errorHandler:errorHandler];
+}
+
+#pragma mark - Push Notifications
+
+- (void)registerForPushNotificationsWithUser:(CMUser *)user deviceToken:(NSData *)devToken {
+    NSParameterAssert(user);
+    NSParameterAssert(devToken);
+    NSAssert(user.isLoggedIn, @"Cannot Register a device unless the user is logged in!");
+    
+    NSString *tokenString = [NSString stringWithFormat:@"%@", devToken];
+    tokenString = [tokenString stringByReplacingOccurrencesOfString:@" " withString:@""];
+    tokenString = [tokenString stringByReplacingOccurrencesOfString:@"<" withString:@""];
+    tokenString = [tokenString stringByReplacingOccurrencesOfString:@">" withString:@""];
+    
+    NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/push", _appIdentifier]];
+    NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:user];
+    
+    NSDictionary *payload = @{@"device_id" : [[UIDevice currentDevice] uniqueGlobalDeviceIdentifier], @"device_type" : @"ios", @"token" : tokenString};
+    [request setHTTPBody:[[payload yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSLog(@"Request Body: %@", [payload yajl_JSONString]);
 }
 
 #pragma mark - User account management

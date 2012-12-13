@@ -464,7 +464,7 @@ typedef void (^CMWebServicesSocialQuerySuccessCallback)(NSString *results, NSDic
  */
 - (void)runSnippet:(NSString *)snippetName withParams:(NSDictionary *)params user:(CMUser *)user successHandler:(CMWebServiceSnippetRunSuccessCallback)successHandler errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
-
+- (void)registerForPushNotificationsWithUser:(CMUser *)user deviceToken:(NSData *)devToken;
 
 
 @end

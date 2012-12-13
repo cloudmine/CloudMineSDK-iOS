@@ -174,6 +174,17 @@ static CMWebService *webService;
     }
 }
 
+#pragma mark - Push Notifications
+
+- (void)registerDeviceForPushNotificationsWithToken:(NSData *)devToken {
+    if (![self isLoggedIn]) {
+        NSLog(@"The user must be logged in to register push notifications!");
+        return;
+    }
+    
+    [webService registerForPushNotificationsWithUser:self deviceToken:devToken];
+}
+
 #pragma mark - State operations and accessors
 
 - (BOOL)isLoggedIn {
