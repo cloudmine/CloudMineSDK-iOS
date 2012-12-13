@@ -364,7 +364,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     tokenString = [tokenString stringByReplacingOccurrencesOfString:@"<" withString:@""];
     tokenString = [tokenString stringByReplacingOccurrencesOfString:@">" withString:@""];
     
-    NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/push", _appIdentifier]];
+    NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/device", _appIdentifier]];
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:user];
     
     NSDictionary *payload = @{@"device_id" : [[UIDevice currentDevice] uniqueGlobalDeviceIdentifier], @"device_type" : @"ios", @"token" : tokenString};
