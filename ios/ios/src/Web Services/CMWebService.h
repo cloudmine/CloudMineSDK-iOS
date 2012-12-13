@@ -23,7 +23,8 @@
  * Base URL for the current version of the CloudMine API.
  */
 #ifdef DEBUG
-#define CM_BASE_URL @"http://localhost:3001/v1"
+//#define CM_BASE_URL @"http://localhost:3001/v1"
+#define CM_BASE_URL @"http://10.10.20.115:3001/v1"
 #else
 #define CM_BASE_URL @"https://api.cloudmine.me/v1"
 #endif
@@ -82,10 +83,6 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
  * The contents of the former two map directly to the CloudMine API response format.
  */
 typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDictionary *errors, NSNumber *count);
-
-
-
-typedef void (^CMWebServicesSocialQuerySuccessCallback)(NSString *results, NSDictionary *headers);
 
 /**
  * Base class for all classes concerned with the communication between the client device and the CloudMine
@@ -464,7 +461,9 @@ typedef void (^CMWebServicesSocialQuerySuccessCallback)(NSString *results, NSDic
  */
 - (void)runSnippet:(NSString *)snippetName withParams:(NSDictionary *)params user:(CMUser *)user successHandler:(CMWebServiceSnippetRunSuccessCallback)successHandler errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
-- (void)registerForPushNotificationsWithUser:(CMUser *)user deviceToken:(NSData *)devToken;
+
+
+- (void)registerForPushNotificationsWithUser:(CMUser *)user deviceToken:(NSData *)devToken callback:(CMWebServiceUserAccountOperationCallback)callback;
 
 
 @end

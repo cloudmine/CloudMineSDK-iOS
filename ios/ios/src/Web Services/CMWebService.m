@@ -354,7 +354,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 
 #pragma mark - Push Notifications
 
-- (void)registerForPushNotificationsWithUser:(CMUser *)user deviceToken:(NSData *)devToken {
+- (void)registerForPushNotificationsWithUser:(CMUser *)user deviceToken:(NSData *)devToken callback:(CMWebServiceUserAccountOperationCallback)callback {
     NSParameterAssert(user);
     NSParameterAssert(devToken);
     NSAssert(user.isLoggedIn, @"Cannot Register a device unless the user is logged in!");
@@ -370,7 +370,41 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     NSDictionary *payload = @{@"device_id" : [[UIDevice currentDevice] uniqueGlobalDeviceIdentifier], @"device_type" : @"ios", @"token" : tokenString};
     [request setHTTPBody:[[payload yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
     
-    NSLog(@"Request Body: %@", [payload yajl_JSONString]);
+    [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode, NSError *error) {
+        if (!httpResponseCode && error) {
+            if ([[error domain] isEqualToString:CMErrorDomain]) {
+                if ([error code] == CMErrorUnauthorized) {
+                    return CMUserAccountLoginFailedIncorrectCredentials;
+                } else if ([error code] == CMErrorServerConnectionFailed) {
+                    return CMUserAccountUnknownResult;
+                }
+            }
+        }
+        
+        switch (httpResponseCode) {
+            case 200:
+                return CMUserAccountDeviceTokenReceived;
+            case 401:
+                return CMUserAccountLoginFailedIncorrectCredentials;
+            case 404:
+                return CMUserAccountOperationFailedUnknownAccount;
+            default:
+                return CMUserAccountUnknownResult;
+        }
+        
+    } callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
+        
+        switch (result) {
+            case CMUserAccountLoginFailedIncorrectCredentials:
+                NSLog(@"CloudMine *** User token registration failed because the user could not be authenticated!");
+                break;
+            case CMUserAccountUnknownResult:
+                NSLog(@"CloudMine *** User token registration failed! The request should send 'ios' as device type! This shouldn't happen, let us know.");
+            default:
+                break;
+        }
+        callback(result, responseBody);
+    }];
 }
 
 #pragma mark - User account management
@@ -965,68 +999,6 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     }];
     
     [self enqueueHTTPRequestOperation:requestOperation];
-}
-
-- (void)executeSocialQuery:(NSURLRequest *)request successHandler:(CMWebServicesSocialQuerySuccessCallback)successHandler errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
-    
-    
-    NSDate *startDate = [NSDate date];
-    
-    AFHTTPRequestOperation *requestOperation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        NSString *requestId = [[operation.response allHeaderFields] objectForKey:@"X-Request-Id"];
-        if (requestId) {
-            int milliseconds = (int)([[NSDate date] timeIntervalSinceDate:startDate] * 1000.0f);
-            [_responseTimes setObject:[NSNumber numberWithInt:milliseconds] forKey:requestId];
-        }
-        
-        NSString *responseString = [operation responseString];
-
-        if (successHandler != nil) {
-            void (^block)() = ^{ successHandler( responseString, [operation.response allHeaderFields]); };
-            [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
-        }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        if ([[error domain] isEqualToString:NSURLErrorDomain]) {
-            if ([error code] == NSURLErrorUserCancelledAuthentication) {
-                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was unauthorized. Is your API key correct?", NSLocalizedDescriptionKey, error, NSURLErrorKey, nil]];
-            } else {
-                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerConnectionFailed userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"A connection to the server was not able to be established.", NSLocalizedDescriptionKey, error, NSURLErrorKey, nil]];
-            }
-        }
-        
-        switch ([operation.response statusCode]) {
-            case 404:
-                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorNotFound userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The application was not found. Is your application identifier correct? Or perhaps the page you were looking for in the query does not exist.", NSLocalizedDescriptionKey, nil]];
-                break;
-                
-            case 401:
-                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was unauthorized. Is your API key correct?", NSLocalizedDescriptionKey, nil]];
-                break;
-                
-            case 400:
-                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidRequest userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was malformed.", NSLocalizedDescriptionKey, nil]];
-                break;
-                
-            case 500:
-                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The server experienced an error", NSLocalizedDescriptionKey, nil]];
-                break;
-                
-            default:
-                break;
-        }
-        
-        NSLog(@"CloudMine *** Unexpected error occurred during object request. (%@)", [error localizedDescription]);
-        if (errorHandler != nil) {
-            void (^block)() = ^{ errorHandler(error); };
-            [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
-        }
-    }];
-    
-    [self enqueueHTTPRequestOperation:requestOperation];
-    
 }
 
 - (void)executeACLUpdateRequest:(NSURLRequest *)request
