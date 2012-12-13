@@ -461,8 +461,13 @@ typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDi
  */
 - (void)runSnippet:(NSString *)snippetName withParams:(NSDictionary *)params user:(CMUser *)user successHandler:(CMWebServiceSnippetRunSuccessCallback)successHandler errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
-
-
+/**
+ * Asynchronously register the device token with CloudMine. On completion, the <tt>callback</tt> will be called with the result of the registration.
+ *
+ * @param user Required, the user which will have the token registered to him.
+ * @param devToken Required, the token Apple has supplied for getting push notifications, this should be unaltered.
+ * @param callback The callback called when the result is done.
+ */
 - (void)registerForPushNotificationsWithUser:(CMUser *)user deviceToken:(NSData *)devToken callback:(CMWebServiceUserAccountOperationCallback)callback;
 
 

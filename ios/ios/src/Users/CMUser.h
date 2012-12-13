@@ -301,10 +301,13 @@ typedef void (^CMUserResultCallback)(CMUserAccountResult result);
 
 
 /**
+ * Registers this user in Cloudmine to get Notifications from the service. The user needs to be logged in, because we 
+ * associate the device to the user to send them notifications.
  *
+ * @param devToken The token Apple gives the user in <tt>application:didRegisterForRemoteNotificationsWithDeviceToken:</tt>. This should not be modified at all.
+ * @param callback The callback to be called once the process is complete. The result will be given back to you here.
  */
 - (void)registerDeviceForPushNotificationsWithToken:(NSData *)devToken callback:(CMUserResultCallback)callback;
-
 
 
 /**
