@@ -1,6 +1,6 @@
 HEAD
 =====
-
+* Added call to register device push notification token with cloudmine
 
 v1.3 (December 11, 2012)
 =====
