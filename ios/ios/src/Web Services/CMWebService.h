@@ -23,8 +23,7 @@
  * Base URL for the current version of the CloudMine API.
  */
 #ifdef DEBUG
-//#define CM_BASE_URL @"http://localhost:3001/v1"
-#define CM_BASE_URL @"http://10.10.20.115:3001/v1"
+#define CM_BASE_URL @"http://localhost:3001/v1"
 #else
 #define CM_BASE_URL @"https://api.cloudmine.me/v1"
 #endif
