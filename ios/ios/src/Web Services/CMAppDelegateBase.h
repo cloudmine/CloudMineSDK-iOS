@@ -15,6 +15,7 @@
 
 @property (atomic, strong) CMUser *user;
 @property (atomic, strong) CMUserResultCallback callback;
+@property (strong, nonatomic) UIWindow *window;
 
 
 /**

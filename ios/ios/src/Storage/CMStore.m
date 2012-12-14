@@ -199,7 +199,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (void)registerForPushNotifications:(UIRemoteNotificationType)notificationType withUser:(CMUser *)aUser callback:(CMUserResultCallback)callback {
     NSAssert([[[UIApplication sharedApplication] delegate] isKindOfClass:[CMAppDelegateBase class]], @"Your Application Delegate MUST Inherit for CMAppDelegateBase in order to register for push notifications in this way!\n \
              If you do not want to inherit from CMAppDelegateBase, you will need to use [CMUser registerDeviceForPushNotificationsWithToken:callback:]");
-    NSAssert(self.user != nil, @"You must set the store user before calling this method!");
+    NSAssert(aUser != nil, @"You must set the store user before calling this method!");
     CMAppDelegateBase *delegate = [[UIApplication sharedApplication] delegate];
     delegate.user = aUser;
     delegate.callback = callback;
