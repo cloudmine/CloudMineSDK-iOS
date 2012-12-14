@@ -147,6 +147,28 @@ extern NSString * const CMStoreObjectDeletedNotification;
 - (id)initWithUser:(CMUser *)theUser;
 
 /**
+ * Registers your application for push notifications. This method will contact Apple, request a token, handle the token
+ * and register your application with CloudMine. After the token has been sent to Cloudmine, the callback with the result
+ * will be given.
+ *
+ * @param notificationType The parameter of this method takes a UIRemoteNotificationType bit mask that specifies the initial types of notifications that the application wishes to receive. For example, <tt>(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)</tt>
+ * @param callback Can be nil - The callback which is called once the Token has been sent to Cloudmine, returns the result of that transaction.
+ */
+- (void)registerForPushNotifications:(UIRemoteNotificationType)notificationType callback:(CMUserResultCallback)callback;
+
+/**
+ * Registers your application for push notifications. This method will contact Apple, request a token, handle the token
+ * and register your application with CloudMine. After the token has been sent to Cloudmine, the callback with the result
+ * will be given.
+ *
+ * @param notificationType The parameter of this method takes a UIRemoteNotificationType bit mask that specifies the initial types of notifications that the application wishes to receive. For example, <tt>(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)</tt>
+ * @param aUser The user to which you want this token registered to, useful if you don't want to use the Store's stored user.
+ * @param callback Can be nil - The callback which is called once the Token has been sent to Cloudmine, returns the result of that transaction.
+ */
+- (void)registerForPushNotifications:(UIRemoteNotificationType)notificationType withUser:(CMUser *)aUser callback:(CMUserResultCallback)callback;
+
+
+/**
  * Downloads all app-level objects for your app's CloudMine object store.
  *
  * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
