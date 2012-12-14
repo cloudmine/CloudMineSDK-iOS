@@ -148,6 +148,8 @@
 		AA89D04A167A640100D8B6C7 /* NSString+MD5Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = AA89D046167A640100D8B6C7 /* NSString+MD5Addition.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		AA89D04E167A640100D8B6C7 /* UIDevice+IdentifierAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = AA89D048167A640100D8B6C7 /* UIDevice+IdentifierAddition.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		AAB2E0B0167B94CF00D2C699 /* CMAppDelegateBase.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB2E0AF167B94CF00D2C699 /* CMAppDelegateBase.m */; };
+		AAB2E0B4167BA05700D2C699 /* CMAppDelegateBase.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAB2E0AE167B94CF00D2C699 /* CMAppDelegateBase.h */; };
+		AAB2E0B5167BA06700D2C699 /* CMAppDelegateBase.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB2E0AF167B94CF00D2C699 /* CMAppDelegateBase.m */; };
 		D004178E15925DC900B596CC /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = D01DBF591590D36D003CB5BE /* NSData+Base64.m */; };
 		D039C16715BDEB77005CCD33 /* CMACLSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D039C16615BDEB77005CCD33 /* CMACLSpec.m */; };
 		D039C16A15BEEB44005CCD33 /* CMACLFetchResponseSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D039C16915BEEB44005CCD33 /* CMACLFetchResponseSpec.m */; };
@@ -177,6 +179,7 @@
 			dstPath = "${SRCROOT}/build/${CONFIGURATION}-iphoneuniversal/${PRODUCT_NAME}.framework/Headers/";
 			dstSubfolderSpec = 0;
 			files = (
+				AAB2E0B4167BA05700D2C699 /* CMAppDelegateBase.h in CopyFiles */,
 				715217581653F5C4007FB0A9 /* CMSocialLoginViewController.h in CopyFiles */,
 				7152175A1653F5C4007FB0A9 /* CMUIViewController+Modal.h in CopyFiles */,
 				7A3DCEEF15EECBB600AC4890 /* AFHTTPClient.h in CopyFiles */,
@@ -1010,6 +1013,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAB2E0B5167BA06700D2C699 /* CMAppDelegateBase.m in Sources */,
 				7A308A4414799134008ADD3C /* CMWebServiceSpec.m in Sources */,
 				7A0DB1BC147B016B007F482C /* CMBlockValidationMessageSpy.m in Sources */,
 				7A04E86F147D90F5006E00AB /* CMServerFunctionSpec.m in Sources */,
