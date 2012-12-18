@@ -206,6 +206,14 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:notificationType];
 }
 
+- (void)unRegisterForPushNotificationsWithCallback:(CMUserResultCallback)callback {
+    [self unRegisterForPushNotificationsWithUser:self.user callback:callback];
+}
+
+- (void)unRegisterForPushNotificationsWithUser:(CMUser *)aUser callback:(CMUserResultCallback)callback {
+    
+}
+
 #pragma mark - Object retrieval
 
 - (void)allObjectsWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback {
