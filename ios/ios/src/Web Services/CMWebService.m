@@ -351,6 +351,52 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     } errorHandler:errorHandler];
 }
 
+#pragma mark - Singly Proxy
+
+- (void)runSocialGraphGETQueryOnNetwork:(NSString *)network
+                              baseQuery:(NSString *)base
+                             parameters:(NSDictionary *)params
+                               withUser:(CMUser *)user
+                          successHandler:(CMWebServicesSocialQuerySuccessCallback)successHandler
+                           errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
+    [self runSocialGraphQueryOnNetwork:network
+                              withVerb:@"GET"
+                             baseQuery:base
+                            parameters:params
+                           messageData:nil
+                              withUser:user
+                         successHandler:successHandler
+                          errorHandler:errorHandler];
+    
+}
+
+- (void)runSocialGraphQueryOnNetwork:(NSString *)network
+                            withVerb:(NSString *)verb
+                           baseQuery:(NSString *)base
+                          parameters:(NSDictionary *)params
+                         messageData:(NSData *)data
+                            withUser:(CMUser *)user
+                       successHandler:(CMWebServicesSocialQuerySuccessCallback)successHandler
+                        errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
+    
+    NSParameterAssert(user);
+    NSAssert(user.isLoggedIn, @"Cannot send a query of a user who is not logged in!");
+    
+    NSString *url = $sprintf(@"%@/app/%@/user/social/%@/%@", self.apiUrl, _appIdentifier, network, base);
+    NSURL *finalUrl = [NSURL URLWithString:url];
+    
+    if (params && [params count] != 0) {
+        finalUrl = [NSURL URLWithString:[[finalUrl URLByAppendingQueryString:$sprintf(@"params=%@", [params yajl_JSONString])] absoluteString]];
+    }
+    
+    NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:verb URL:finalUrl appSecret:_appSecret binaryData:(data ? YES : NO) user:user];
+    
+    if (data)
+        [request setHTTPBody:data];
+    
+    [self executeSocialQuery:request successHandler:successHandler errorHandler:errorHandler];
+}
+
 #pragma mark - User account management
 
 - (void)loginUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
@@ -485,6 +531,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         callback(resultCode, messages);
     }];
 }
+
 
 - (void)loginWithSocial:(CMUser *)user withService:(NSString *)service viewController:(UIViewController *)viewController params:(NSDictionary *)params callback:(CMWebServiceUserAccountOperationCallback)callback {
     CMSocialLoginViewController *loginViewController = [[CMSocialLoginViewController alloc] initForService:service appID:_appIdentifier apiKey:_appSecret user:user params:params];
