@@ -95,6 +95,7 @@ static CMWebService *webService;
         }
         token = [coder decodeObjectForKey:@"token"];
         tokenExpiration = [coder decodeObjectForKey:@"tokenExpiration"];
+        userId = [coder decodeObjectForKey:@"userId"];
         services = [coder decodeObjectForKey:@"services"];
         if (!webService) {
             webService = [[CMWebService alloc] init];
@@ -153,6 +154,9 @@ static CMWebService *webService;
     [coder encodeObject:self.objectId forKey:CMInternalObjectIdKey];
     [coder encodeObject:self.token forKey:@"token"];
     [coder encodeObject:self.tokenExpiration forKey:@"tokenExpiration"];
+    if (self.userId) {
+        [coder encodeObject:self.userId forKey:@"userId"];
+    }
     [coder encodeObject:self.services forKey:@"services"];
 }
 
@@ -333,7 +337,7 @@ static CMWebService *webService;
 #pragma mark - Social login with Singly
 
 // This code is very similar to login above, perhaps we can refactor.
-- (void)loginWithSocialNetwork:(NSString *)service viewController:(UIViewController *)viewController params:(NSString *)params callback:(CMUserOperationCallback)callback {
+- (void)loginWithSocialNetwork:(NSString *)service viewController:(UIViewController *)viewController params:(NSDictionary *)params callback:(CMUserOperationCallback)callback {
     
     [webService loginWithSocial:self withService:service viewController:viewController params:params callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         NSArray *messages = [NSArray array];
@@ -348,8 +352,8 @@ static CMWebService *webService;
             NSDictionary *userProfile = [responseBody objectForKey:@"profile"];
             objectId = [userProfile objectForKey:CMInternalObjectIdKey];
             
-            self.services = [responseBody objectForKey:@"__services__"];
-            
+            self.services = [[responseBody objectForKey:@"profile"] objectForKey:@"__services__"];
+
             if (!self.isDirty) {
                 // Only bring the changes from the server into the object state if there weren't local modifications.
                 [self copyValuesFromDictionaryIntoState:userProfile];

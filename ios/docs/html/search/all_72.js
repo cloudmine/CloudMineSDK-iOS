@@ -11,5 +11,6 @@ var searchData=
   ['resetforgottenpasswordforuser_3acallback_3a',['resetForgottenPasswordForUser:callback:',['../interface_c_m_web_service.html#a6d0e4f4519c9a6ec38160c338af2bf5f',1,'CMWebService']]],
   ['resetforgottenpasswordwithcallback_3a',['resetForgottenPasswordWithCallback:',['../interface_c_m_user.html#a7d923bd10ddc116d5f39c9b64899ec1e',1,'CMUser']]],
   ['result',['result',['../interface_c_m_file_upload_response.html#ace994679b8fb4b6665a8748f6635a3c2',1,'CMFileUploadResponse']]],
-  ['resultonly',['resultOnly',['../interface_c_m_server_function.html#ab1c45b7eff50653fd89fa99e7aa7cec4',1,'CMServerFunction']]]
+  ['resultonly',['resultOnly',['../interface_c_m_server_function.html#ab1c45b7eff50653fd89fa99e7aa7cec4',1,'CMServerFunction']]],
+  ['runsnippet_3awithparams_3auser_3asuccesshandler_3aerrorhandler_3a',['runSnippet:withParams:user:successHandler:errorHandler:',['../interface_c_m_web_service.html#aa7293a2925334165e62a0cf59ac0149b',1,'CMWebService']]]
 ];

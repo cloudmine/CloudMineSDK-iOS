@@ -24,7 +24,7 @@
 @property (strong, nonatomic) NSString *apiKey;
 @property (strong, nonatomic) NSString *challenge;
 @property (strong, nonatomic) NSString *session_token;
-@property (strong, nonatomic) NSString *params;
+@property (strong, nonatomic) NSDictionary *params;
 @property (strong, nonatomic) CMUser *user;
 
 
@@ -37,9 +37,9 @@
  * @param appID The appID gotten from the dashboard
  * @param apiKey The APIKey from the dashboard for your application
  * @param user Can be nil, the user you want to link accounts with. If this parameter is nil, we will not link the accounts. If you pass in the user, we will attempt to link the accounts.
- * @param params Any extra params you want passed on to the end of the URL. This is how we put the scope in for certain requests. Because difference services handle scope differently, the user must do the encoding for this string.
+ * @param params Any extra parameters you want passed in to the authentication request. This dictionary is parsed where each key value pair becomes "&key=value". We do not encode the URL after this, so any encoding will need to be done by the creator. This is a good place to put scope, for example: @{@"scope" : @"gist,repo"}
  */
-- (id)initForService:(NSString *)service appID:(NSString *)appID apiKey:(NSString *)apiKey user:(CMUser *)user params:(NSString *)params;
+- (id)initForService:(NSString *)service appID:(NSString *)appID apiKey:(NSString *)apiKey user:(CMUser *)user params:(NSDictionary *)params;
 
 @end
 

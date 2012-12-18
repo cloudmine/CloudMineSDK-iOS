@@ -2,13 +2,24 @@ HEAD
 =====
 
 
-
 v1.4 (December 18, 2012)
 ======
 * Added runSocialGraphQueryOnNetwork: method to CMWebService for running queries on the services. The user needs to be logged in to the service first.
 * Added RunQueryGETRequestOnNetwork: as a convenience method for running GET requests.
 
+
+v1.3 (December 11, 2012)
+=====
+* Added Social Login. Login via social networks that are supported through CloudMine and Singly.
+  * https://cloudmine.me/docs/social
+* Allow developers to specify scope for the social login.
+* Linking of accounts! Logging in a user through a social network while a user is previously logged in will link the two accounts.
+* Creation of accounts through social login! Logging in through a social network will automatically create the user account if no user is logged in.
+* Fix bug that caused CMUser's userId field to not be serialized when cached to the filesystem.
+* Fixed NSNull being set in CMUser profile as NSNULL, and not being set as nil. Changed to set as nil.
+
 v1.2.2 (November 29, 2012)
+=====
 * Fix bug that caused CMFile's on-device caching to never work.
 * Add method to `CMWebService` to run Java or JavaScript snippets directly without running a store operation and wrapping it.
 * Fixed a bug when a custom CMUser has properties named differently than how they are stored on the server.
