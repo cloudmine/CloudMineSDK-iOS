@@ -355,31 +355,31 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 
 #pragma mark - Singly Proxy
 
-- (void)runQueryGETRequestOnNetwork:(NSString *)network
-                    baseQuery:(NSString *)base
-                   parameters:(NSDictionary *)params
-                     withUser:(CMUser *)user
-                successHander:(CMWebServicesSocialQuerySuccessCallback)successHandler
-                 errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
-    [self runQueryOfHTTPRequest:@"GET"
-                      onNetwork:network
-                      baseQuery:base
-                     parameters:params
-                    messageData:nil
-                       withUser:user
-                  successHander:successHandler
-                   errorHandler:errorHandler];
+- (void)runSocialGraphGETQueryOnNetwork:(NSString *)network
+                              baseQuery:(NSString *)base
+                             parameters:(NSDictionary *)params
+                               withUser:(CMUser *)user
+                          successHandler:(CMWebServicesSocialQuerySuccessCallback)successHandler
+                           errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
+    [self runSocialGraphQueryOnNetwork:network
+                              withVerb:@"GET"
+                             baseQuery:base
+                            parameters:params
+                           messageData:nil
+                              withUser:user
+                         successHandler:successHandler
+                          errorHandler:errorHandler];
     
 }
 
-- (void)runQueryOfHTTPRequest:(NSString *)verb
-                    onNetwork:(NSString *)network
-                    baseQuery:(NSString *)base
-                   parameters:(NSDictionary *)params
-                  messageData:(NSData *)data
-                     withUser:(CMUser *)user
-                successHander:(CMWebServicesSocialQuerySuccessCallback)successHandler
-                 errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
+- (void)runSocialGraphQueryOnNetwork:(NSString *)network
+                            withVerb:(NSString *)verb
+                           baseQuery:(NSString *)base
+                          parameters:(NSDictionary *)params
+                         messageData:(NSData *)data
+                            withUser:(CMUser *)user
+                       successHandler:(CMWebServicesSocialQuerySuccessCallback)successHandler
+                        errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
     
     NSParameterAssert(user);
     NSAssert(user.isLoggedIn, @"Cannot send a query of a user who is not logged in!");
@@ -388,18 +388,9 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     NSURL *finalUrl = [NSURL URLWithString:url];
     
     if (params != nil && [params count] != 0) {
-        NSString *jsonHash = @"{";
-        for (NSString *key in params) {
-            NSAssert([key isKindOfClass:[NSString class]], @"Keys for JSON must be NSStrings!");
-            jsonHash = [jsonHash stringByAppendingFormat:@"\"%@\":%@,", key, [[params valueForKey:key] yajl_JSONString]];
-        }
-        jsonHash = [jsonHash substringToIndex:[jsonHash length]-1]; // Remove the last comma
-        jsonHash = [jsonHash stringByAppendingString:@"}"];
-        jsonHash = [NSString stringWithFormat:@"params=%@",jsonHash];
-        finalUrl = [NSURL URLWithString:[[finalUrl URLByAppendingQueryString:jsonHash] absoluteString]];
+        finalUrl = [NSURL URLWithString:[[finalUrl URLByAppendingQueryString:$sprintf(@"params=%@", [params yajl_JSONString])] absoluteString]];
     }
     
-    /// TODO: don't make assumptions about content type
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:verb URL:finalUrl appSecret:_appSecret binaryData:(data != nil ? YES : NO) user:user];
     
     if (data != nil)

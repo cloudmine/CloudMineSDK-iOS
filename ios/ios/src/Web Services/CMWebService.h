@@ -468,8 +468,8 @@ typedef void (^CMWebServicesSocialQuerySuccessCallback)(NSString *results, NSDic
 /**
  * Asynchronously execute a request on the social network through the singly proxy.
  *
- * @param verb the HTTP verb this request is calling.
  * @param network The Network this request is targeting. @see CMSocialNetwork
+ * @param verb the HTTP verb this request is calling.
  * @param base Can be nil, but probably shoudln't be most of the time. The base query for the request, before any "query" parameters. This does NOT include the hostname, or the version of the API. For example, "https://api.twitter.com/1.1/statuses/home_timeline.json", would just be "statuses/home_timeline.json".
  * @param params Can be nil. The Parameters that would go into the query. These typically are typed out like "some_page.json?query1=testing&querynumber2=test". We take care of formatting that for you, and encoding it in json. The Dictionary keys are used as the first part of the query, and the value is used after the "=". Formatted into a json encoded URL.
  * @param data Can be nil. The data encoded in the request body. We do no encoding, we simply put it as the request body.
@@ -477,14 +477,14 @@ typedef void (^CMWebServicesSocialQuerySuccessCallback)(NSString *results, NSDic
  * @param successHandler The callback for a successful query
  * @param errorHandler The callback for dealing with errors
  */
-- (void)runQueryOfHTTPRequest:(NSString *)verb
-                    onNetwork:(NSString *)network
-                    baseQuery:(NSString *)base
-                   parameters:(NSDictionary *)params
-                  messageData:(NSData *)data
-                     withUser:(CMUser *)user
-                successHander:(CMWebServicesSocialQuerySuccessCallback)successHandler
-                 errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
+- (void)runSocialGraphQueryOnNetwork:(NSString *)network
+                            withVerb:(NSString *)verb
+                           baseQuery:(NSString *)base
+                          parameters:(NSDictionary *)params
+                         messageData:(NSData *)data
+                            withUser:(CMUser *)user
+                       successHandler:(CMWebServicesSocialQuerySuccessCallback)successHandler
+                        errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
 /**
  * Asynchronously execute a GET request with no Data. Convenience method.
@@ -496,13 +496,12 @@ typedef void (^CMWebServicesSocialQuerySuccessCallback)(NSString *results, NSDic
  * @param successHandler The callback for a successful query
  * @param errorHandler The callback for dealing with errors
  */
-- (void)runQueryGETRequestOnNetwork:(NSString *)network
-                          baseQuery:(NSString *)base
-                         parameters:(NSDictionary *)params
-                           withUser:(CMUser *)user
-                      successHander:(CMWebServicesSocialQuerySuccessCallback)successHandler
-                       errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
-
+- (void)runSocialGraphGETQueryOnNetwork:(NSString *)network
+                           baseQuery:(NSString *)base
+                          parameters:(NSDictionary *)params
+                            withUser:(CMUser *)user
+                       successHandler:(CMWebServicesSocialQuerySuccessCallback)successHandler
+                        errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
 
 
