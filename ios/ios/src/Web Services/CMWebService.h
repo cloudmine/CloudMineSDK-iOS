@@ -470,7 +470,7 @@ typedef void (^CMWebServicesSocialQuerySuccessCallback)(NSString *results, NSDic
  *
  * @param network The Network this request is targeting. @see CMSocialNetwork
  * @param verb the HTTP verb this request is calling.
- * @param base Can be nil, but probably shoudln't be most of the time. The base query for the request, before any "query" parameters. This does NOT include the hostname, or the version of the API. For example, "https://api.twitter.com/1.1/statuses/home_timeline.json", would just be "statuses/home_timeline.json".
+ * @param base Can be nil, but probably shouldn't be most of the time. The base query for the request, before any "query" parameters. This does NOT include the hostname, or the version of the API. For example, "https://api.twitter.com/1.1/statuses/home_timeline.json", would just be "statuses/home_timeline.json".
  * @param params Can be nil. The Parameters that would go into the query. These typically are typed out like "some_page.json?query1=testing&querynumber2=test". We take care of formatting that for you, and encoding it in json. The Dictionary keys are used as the first part of the query, and the value is used after the "=". Formatted into a json encoded URL.
  * @param data Can be nil. The data encoded in the request body. We do no encoding, we simply put it as the request body.
  * @param user The user who is making the request to the network he is logged in to.
