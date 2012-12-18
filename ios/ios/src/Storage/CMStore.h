@@ -167,6 +167,28 @@ extern NSString * const CMStoreObjectDeletedNotification;
  */
 - (void)registerForPushNotifications:(UIRemoteNotificationType)notificationType withUser:(CMUser *)aUser callback:(CMUserResultCallback)callback;
 
+/**
+ * Unregisters the users token from CloudMine, so they will no longer receive push notifications. Recommended to remove the token when
+ * the user logs out of the app, but not required.
+ *
+ * @param callback Can be nil - The callback which is called once the Token has been removed fromCloudmine, returns the result of that transaction.
+ */
+- (void)unRegisterForPushNotificationsWithCallback:(CMUserResultCallback)callback {
+    [self unRegisterForPushNotificationsWithUser:self.user callback:callback];
+}
+
+/**
+ * Unregisters the users token from CloudMine, so they will no longer receive push notifications. Recommended to remove the token when
+ * the user logs out of the app, but not required.
+ *
+ * @param aUser The user that is logged in that has the token stored in CloudMine.
+ * @param callback Can be nil - The callback which is called once the Token has been removed fromCloudmine, returns the result of that transaction.
+ */
+- (void)unRegisterForPushNotificationsWithUser:(CMUser *)aUser callback:(CMUserResultCallback)callback {
+    NSAssert(aUser, @"You must set a user in the store before calling this method!");
+    
+}
+
 
 /**
  * Downloads all app-level objects for your app's CloudMine object store.

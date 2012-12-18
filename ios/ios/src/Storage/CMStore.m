@@ -211,6 +211,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 }
 
 - (void)unRegisterForPushNotificationsWithUser:(CMUser *)aUser callback:(CMUserResultCallback)callback {
+    NSAssert(aUser, @"You must set a user in the store before calling this method!");
     
 }
 

@@ -470,4 +470,7 @@ typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDi
 - (void)registerForPushNotificationsWithUser:(CMUser *)user deviceToken:(NSData *)devToken callback:(CMWebServiceUserAccountOperationCallback)callback;
 
 
+- (void)unRegisterForPushNotificationsWithUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
+
+
 @end

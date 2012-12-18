@@ -407,6 +407,51 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     }];
 }
 
+- (void)unRegisterForPushNotificationsWithUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
+    
+    NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/CHANGETHISHERE", _appIdentifier]];
+    NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:user];
+    
+    NSDictionary *payload = @{@"device_id" : [[UIDevice currentDevice] uniqueGlobalDeviceIdentifier], @"device_type" : @"ios"};
+    [request setHTTPBody:[[payload yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode, NSError *error) {
+        if (!httpResponseCode && error) {
+            if ([[error domain] isEqualToString:CMErrorDomain]) {
+                if ([error code] == CMErrorUnauthorized) {
+                    return CMUserAccountLoginFailedIncorrectCredentials;
+                } else if ([error code] == CMErrorServerConnectionFailed) {
+                    return CMUserAccountUnknownResult;
+                }
+            }
+        }
+        
+        switch (httpResponseCode) {
+            case 200:
+                return CMUserAccountDeviceTokenRemoved;
+            case 401:
+                return CMUserAccountLoginFailedIncorrectCredentials;
+            case 404:
+                return CMUserAccountOperationFailedUnknownAccount;
+            default:
+                return CMUserAccountUnknownResult;
+        }
+        
+    } callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
+        
+        switch (result) {
+            case CMUserAccountLoginFailedIncorrectCredentials:
+                NSLog(@"CloudMine *** User token registration failed because the user could not be authenticated!");
+                break;
+            case CMUserAccountUnknownResult:
+                NSLog(@"CloudMine *** User token was not removed!!");
+            default:
+                break;
+        }
+        callback(result, responseBody);
+    }];
+}
+
 #pragma mark - User account management
 
 - (void)loginUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
