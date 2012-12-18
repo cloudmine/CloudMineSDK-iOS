@@ -683,15 +683,17 @@ describe(@"CMWebService", ^{
             user.token = @"token";
             user.tokenExpiration = [NSDate dateWithTimeIntervalSinceNow:9999];
             
-            [service runQueryOfHTTPRequest:@"GET"
-                                onNetwork:CMSocialNetworkTwitter
-                                baseQuery:@"statuses/user_timeline.json"
-                               parameters:@{@"screen_name":@"ethan_mick",@"count":@9}
-                               messageData:nil
-                                 withUser:user
-                            successHander:^(NSString *results, NSDictionary *headers) {
-                            } errorHandler:^(NSError *error) {
-                            }];
+            [service runSocialGraphQueryOnNetwork:CMSocialNetworkTwitter
+                                         withVerb:@"GET"
+                                        baseQuery:@"statuses/user_timeline.json"
+                                       parameters:@{@"screen_name":@"ethan_mick",@"count":@9}
+                                      messageData:nil
+                                         withUser:user
+                                    successHandler:^(NSString *results, NSDictionary *headers) {
+                                        
+                                    } errorHandler:^(NSError *error) {
+                                        
+                                    }];
             
             NSString *finalURLShould = $sprintf(@"https://api.cloudmine.me/v1/app/%@/user/social/twitter/statuses/user_timeline.json?params={\"count\":9,\"screen_name\":\"ethan_mick\"}", appId);
             finalURLShould = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(
@@ -715,17 +717,17 @@ describe(@"CMWebService", ^{
             user.token = @"token";
             user.tokenExpiration = [NSDate dateWithTimeIntervalSinceNow:9999];
             
-            [service runQueryOfHTTPRequest:@"GET"
-                                 onNetwork:CMSocialNetworkTwitter
-                                 baseQuery:@"statuses/user_timeline.json"
-                                parameters:@{@"screen_name":@"ethan_mick",@"testing":@[@"Testing111", @"Testing222"]}
-                               messageData:nil
-                                  withUser:user
-                             successHander:^(NSString *results, NSDictionary *headers) {
-
-                             } errorHandler:^(NSError *error) {
-
-                             }];
+            [service runSocialGraphQueryOnNetwork:CMSocialNetworkTwitter
+                                         withVerb:@"GET"
+                                        baseQuery:@"statuses/user_timeline.json"
+                                       parameters:@{@"screen_name":@"ethan_mick",@"testing":@[@"Testing111", @"Testing222"]}
+                                      messageData:nil
+                                         withUser:user
+                                    successHandler:^(NSString *results, NSDictionary *headers) {
+                                        
+                                    } errorHandler:^(NSError *error) {
+                                        
+                                    }];
             
             NSString *finalURLShould = $sprintf(@"https://api.cloudmine.me/v1/app/%@/user/social/twitter/statuses/user_timeline.json?params={\"screen_name\":\"ethan_mick\",\"testing\":[\"Testing111\",\"Testing222\"]}", appId);
             finalURLShould = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(
@@ -750,18 +752,18 @@ describe(@"CMWebService", ^{
             user.token = @"token";
             user.tokenExpiration = [NSDate dateWithTimeIntervalSinceNow:9999];
             
-            [service runQueryOfHTTPRequest:@"GET"
-                                 onNetwork:CMSocialNetworkTwitter
-                                 baseQuery:@"statuses/update.json"
-                                parameters:nil
-                               messageData:data
-                                  withUser:user
-                             successHander:^(NSString *results, NSDictionary *headers) {
-                                 
-                             } errorHandler:^(NSError *error) {
-                                 
-                             }];
-            
+            [service runSocialGraphQueryOnNetwork:CMSocialNetworkTwitter
+                                         withVerb:@"GET"
+                                        baseQuery:@"statuses/update.json"
+                                       parameters:nil
+                                      messageData:data
+                                         withUser:user
+                                    successHandler:^(NSString *results, NSDictionary *headers) {
+                                        
+                                    } errorHandler:^(NSError *error) {
+                                        
+                                    }];
+
             
             NSString *finalURLShould = $sprintf(@"https://api.cloudmine.me/v1/app/%@/user/social/twitter/statuses/update.json", appId);
             finalURLShould = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(
