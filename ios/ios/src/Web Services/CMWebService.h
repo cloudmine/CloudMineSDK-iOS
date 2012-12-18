@@ -372,19 +372,11 @@ typedef void (^CMWebServicesSocialQuerySuccessCallback)(NSString *results, NSDic
  * @param user The user object that is attempting the login
  * @param service The social service to be logged into, @see CMSocialNetwork codes
  * @param viewController the current viewController in use when this method is called
-<<<<<<< HEAD
- * @param params The parameters that will be passed through to the authentication request, good for passing through scope.
- * @param callback The block that will be called on completion of the operation
- * @see https://cloudmine.me/docs/api#users_social
- */
-- (void)loginWithSocial:(CMUser *)user withService:(NSString *)service viewController:(UIViewController *)viewController params:(NSString *)params callback:(CMWebServiceUserAccountOperationCallback)callback;
-=======
  * @param params Any extra parameters you want passed in to the authentication request. This dictionary is parsed where each key value pair becomes "&key=value". We do not encode the URL after this, so any encoding will need to be done by the creator. This is a good place to put scope, for example: @{@"scope" : @"gist,repo"}
  * @param callback The block that will be called on completion of the operation
  * @see https://cloudmine.me/docs/api#users_social
  */
 - (void)loginWithSocial:(CMUser *)user withService:(NSString *)service viewController:(UIViewController *)viewController params:(NSDictionary *)params callback:(CMWebServiceUserAccountOperationCallback)callback;
->>>>>>> develop
 
 /**
  * Asynchronously change the password for the given user. For security purposes, you must have the user enter his or her
