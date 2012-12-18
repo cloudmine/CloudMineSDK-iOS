@@ -387,13 +387,13 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     NSString *url = $sprintf(@"%@/app/%@/user/social/%@/%@", self.apiUrl, _appIdentifier, network, base);
     NSURL *finalUrl = [NSURL URLWithString:url];
     
-    if (params != nil && [params count] != 0) {
+    if (params && [params count] != 0) {
         finalUrl = [NSURL URLWithString:[[finalUrl URLByAppendingQueryString:$sprintf(@"params=%@", [params yajl_JSONString])] absoluteString]];
     }
     
-    NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:verb URL:finalUrl appSecret:_appSecret binaryData:(data != nil ? YES : NO) user:user];
+    NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:verb URL:finalUrl appSecret:_appSecret binaryData:(data ? YES : NO) user:user];
     
-    if (data != nil)
+    if (data)
         [request setHTTPBody:data];
     
     [self executeSocialQuery:request successHandler:successHandler errorHandler:errorHandler];
