@@ -192,27 +192,28 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 #pragma mark - Push Notifications
 
-- (void)registerForPushNotifications:(UIRemoteNotificationType)notificationType callback:(CMUserResultCallback)callback {
-    [self registerForPushNotifications:notificationType withUser:self.user callback:callback];
-}
-
-- (void)registerForPushNotifications:(UIRemoteNotificationType)notificationType withUser:(CMUser *)aUser callback:(CMUserResultCallback)callback {
+- (void)registerForPushNotifications:(UIRemoteNotificationType)notificationType callback:(CMWebServiceDeviceTokenCallback)callback {
     NSAssert([[[UIApplication sharedApplication] delegate] isKindOfClass:[CMAppDelegateBase class]], @"Your Application Delegate MUST Inherit for CMAppDelegateBase in order to register for push notifications in this way!\n \
-             If you do not want to inherit from CMAppDelegateBase, you will need to use [CMUser registerDeviceForPushNotificationsWithToken:callback:]");
-    NSAssert(aUser != nil, @"You must set the store user before calling this method!");
-    CMAppDelegateBase *delegate = [[UIApplication sharedApplication] delegate];
-    delegate.user = aUser;
-    delegate.callback = callback;
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:notificationType];
-}
-
-- (void)unRegisterForPushNotificationsWithCallback:(CMUserResultCallback)callback {
-    [self unRegisterForPushNotificationsWithUser:self.user callback:callback];
-}
-
-- (void)unRegisterForPushNotificationsWithUser:(CMUser *)aUser callback:(CMUserResultCallback)callback {
-    NSAssert(aUser, @"You must set a user in the store before calling this method!");
+             If you do not want to inherit from CMAppDelegateBase, you will need to use [CMWebService registerForPushNotificationsWithUser:deviceToken:callback:]");
     
+    
+    void (^reg)() = ^{
+        CMAppDelegateBase *delegate = [[UIApplication sharedApplication] delegate];
+        delegate.callback = callback;
+        delegate.user = self.user;
+        delegate.service = self.webService;
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:notificationType];
+    };
+    
+    if (user) {
+        [self _ensureUserLoggedInWithCallback:reg];
+    } else {
+        reg();
+    }
+}
+
+- (void)unRegisterForPushNotificationsWithCallback:(CMWebServiceDeviceTokenCallback)callback {
+    [self.webService unRegisterForPushNotificationsWithUser:self.user callback:callback];
 }
 
 #pragma mark - Object retrieval
