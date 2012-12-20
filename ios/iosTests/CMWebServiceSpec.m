@@ -687,6 +687,7 @@ describe(@"CMWebService", ^{
                                          withVerb:@"GET"
                                         baseQuery:@"statuses/user_timeline.json"
                                        parameters:@{@"screen_name":@"ethan_mick",@"count":@9}
+                                          headers:nil
                                       messageData:nil
                                          withUser:user
                                     successHandler:^(NSString *results, NSDictionary *headers) {
@@ -721,6 +722,7 @@ describe(@"CMWebService", ^{
                                          withVerb:@"GET"
                                         baseQuery:@"statuses/user_timeline.json"
                                        parameters:@{@"screen_name":@"ethan_mick",@"testing":@[@"Testing111", @"Testing222"]}
+                                          headers:nil
                                       messageData:nil
                                          withUser:user
                                     successHandler:^(NSString *results, NSDictionary *headers) {
@@ -756,6 +758,7 @@ describe(@"CMWebService", ^{
                                          withVerb:@"GET"
                                         baseQuery:@"statuses/update.json"
                                        parameters:nil
+                                          headers:@{@"Content-type" : @"application/x-www-form-urlencoded"}
                                       messageData:data
                                          withUser:user
                                     successHandler:^(NSString *results, NSDictionary *headers) {
@@ -765,7 +768,7 @@ describe(@"CMWebService", ^{
                                     }];
 
             
-            NSString *finalURLShould = $sprintf(@"https://api.cloudmine.me/v1/app/%@/user/social/twitter/statuses/update.json", appId);
+            NSString *finalURLShould = $sprintf(@"https://api.cloudmine.me/v1/app/%@/user/social/twitter/statuses/update.json?headers={\"Content-type\":\"application/x-www-form-urlencoded\"}", appId);
             finalURLShould = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(
                                                                                           kCFAllocatorDefault,
                                                                                           (CFStringRef)finalURLShould,

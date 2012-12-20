@@ -499,6 +499,7 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
                             withVerb:(NSString *)verb
                            baseQuery:(NSString *)base
                           parameters:(NSDictionary *)params
+                             headers:(NSDictionary *)headers
                          messageData:(NSData *)data
                             withUser:(CMUser *)user
                        successHandler:(CMWebServicesSocialQuerySuccessCallback)successHandler
@@ -517,6 +518,7 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
 - (void)runSocialGraphGETQueryOnNetwork:(NSString *)network
                            baseQuery:(NSString *)base
                           parameters:(NSDictionary *)params
+                                headers:(NSDictionary *)headers
                             withUser:(CMUser *)user
                        successHandler:(CMWebServicesSocialQuerySuccessCallback)successHandler
                         errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
