@@ -1,7 +1,11 @@
 HEAD
 =====
-* Added call to register device push notification token with cloudmineb
-* Added CMAppDelegate base which can be used to handle push notification registration for you.
+
+
+v1.4.5 (December 21, 2012)
+======
+* Added call to register device push notification token with CloudMine.
+* Added CMAppDelegateBase which can be used to handle push notification registration for you.
 
 v1.4 (December 18, 2012)
 ======
