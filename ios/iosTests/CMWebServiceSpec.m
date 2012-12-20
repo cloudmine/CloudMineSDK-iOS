@@ -787,7 +787,7 @@ describe(@"CMWebService", ^{
             
             NSString *token = @"<c7e265d1 cbd443b3 ee80fd07 c892a8b8 f20c08c4 91fa11f2 535f2cca ad7f55ef>";
             
-            [service registerForPushNotificationsWithToken:token callback:^(CMDeviceTokenResult result) {}];
+            [service registerForPushNotificationsWithUser:nil token:token callback:^(CMDeviceTokenResult result) {}];
             
             NSURLRequest *request = spy.argument;
             
