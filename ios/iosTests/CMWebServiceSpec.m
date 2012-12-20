@@ -800,9 +800,15 @@ describe(@"CMWebService", ^{
             
         });
         
-//        it(@"correctly sends the deregister request", ^{
-//            //
-//        });
+        it(@"correctly sends the deregister request", ^{
+            
+            [service unRegisterForPushNotificationsWithUser:nil callback:^(CMDeviceTokenResult result) { }];
+            
+            NSURLRequest *request = spy.argument;
+            
+            [[[[request URL] absoluteString] should] equal:$sprintf(@"https://api.cloudmine.me/v1/app/%@/device", appId)];
+            [[[request HTTPMethod] should] equal:@"DELETE"];
+        });
     });
 });
 
