@@ -678,7 +678,26 @@ describe(@"CMWebService", ^{
             [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
         });
     });
-
+    
+    context(@"given a push notification operation", ^{
+        it(@"sends the correct dev token", ^{
+            
+            NSString *token = @"<c7e265d1 cbd443b3 ee80fd07 c892a8b8 f20c08c4 91fa11f2 535f2cca ad7f55ef>";
+            
+            [service registerForPushNotificationsWithToken:token callback:^(CMDeviceTokenResult result) {}];
+            
+            NSURLRequest *request = spy.argument;
+            
+            NSDictionary *requestBody = [[request HTTPBody] yajl_JSON];
+            [[[requestBody valueForKey:@"token"] should] equal:@"c7e265d1cbd443b3ee80fd07c892a8b8f20c08c491fa11f2535f2ccaad7f55ef"];
+            
+            
+        });
+        
+//        it(@"correctly sends the deregister request", ^{
+//            //
+//        });
+    });
 });
 
 SPEC_END
