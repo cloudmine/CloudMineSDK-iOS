@@ -356,6 +356,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 - (void)runSocialGraphGETQueryOnNetwork:(NSString *)network
                               baseQuery:(NSString *)base
                              parameters:(NSDictionary *)params
+                                headers:(NSDictionary *)headers
                                withUser:(CMUser *)user
                           successHandler:(CMWebServicesSocialQuerySuccessCallback)successHandler
                            errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
@@ -363,6 +364,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                               withVerb:@"GET"
                              baseQuery:base
                             parameters:params
+                               headers:headers
                            messageData:nil
                               withUser:user
                          successHandler:successHandler
@@ -374,6 +376,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                             withVerb:(NSString *)verb
                            baseQuery:(NSString *)base
                           parameters:(NSDictionary *)params
+                             headers:(NSDictionary *)headers
                          messageData:(NSData *)data
                             withUser:(CMUser *)user
                        successHandler:(CMWebServicesSocialQuerySuccessCallback)successHandler
@@ -385,9 +388,11 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     NSString *url = $sprintf(@"%@/app/%@/user/social/%@/%@", self.apiUrl, _appIdentifier, network, base);
     NSURL *finalUrl = [NSURL URLWithString:url];
     
-    if (params && [params count] != 0) {
+    if (params && [params count] != 0)
         finalUrl = [NSURL URLWithString:[[finalUrl URLByAppendingQueryString:$sprintf(@"params=%@", [params yajl_JSONString])] absoluteString]];
-    }
+    
+    if (headers && [headers count] != 0)
+        finalUrl = [NSURL URLWithString:[[finalUrl URLByAppendingQueryString:$sprintf(@"headers=%@", [headers yajl_JSONString])] absoluteString]];
     
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:verb URL:finalUrl appSecret:_appSecret binaryData:(data ? YES : NO) user:user];
     
