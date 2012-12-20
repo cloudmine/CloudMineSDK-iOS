@@ -73,12 +73,6 @@ typedef void (^CMUserOperationCallback)(CMUserAccountResult resultCode, NSArray 
 typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
 
 /**
- * Callback block signature for registering the device token that returns the result of the operation. This block
- * returns <tt>void</tt> and take a <tt>CMUserAccountResult</tt> code taht respresents the result of the operation.
- */
-typedef void (^CMUserResultCallback)(CMUserAccountResult result);
-
-/**
  * Representation of an end-user in CloudMine. This class manages session state (i.e. tokens and all that).
  *
  * <strong>Subclassing Notes</strong>
