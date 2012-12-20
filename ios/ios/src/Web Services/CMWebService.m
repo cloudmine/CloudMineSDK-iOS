@@ -354,101 +354,43 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 
 #pragma mark - Push Notifications
 
-- (void)registerForPushNotificationsWithUser:(CMUser *)user deviceToken:(NSData *)devToken callback:(CMWebServiceUserAccountOperationCallback)callback {
-    NSParameterAssert(user);
+- (void)registerForPushNotificationsWithUser:(CMUser *)user token:(NSData *)devToken callback:(CMWebServiceDeviceTokenCallback)callback {
     NSParameterAssert(devToken);
-    NSAssert(user.isLoggedIn, @"Cannot Register a device unless the user is logged in!");
     
     NSString *tokenString = [NSString stringWithFormat:@"%@", devToken];
-    tokenString = [tokenString stringByReplacingOccurrencesOfString:@" " withString:@""];
-    tokenString = [tokenString stringByReplacingOccurrencesOfString:@"<" withString:@""];
-    tokenString = [tokenString stringByReplacingOccurrencesOfString:@">" withString:@""];
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(<|\\s|>)" options:NSRegularExpressionCaseInsensitive error:nil];
+    tokenString = [regex stringByReplacingMatchesInString:tokenString options:0 range:NSMakeRange(0, [tokenString length]) withTemplate:@""];
     
-    NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/device", _appIdentifier]];
+    NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/device", _appIdentifier]];
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:user];
+    [request setHTTPBody:[[@{@"token" : tokenString} yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
     
-    NSDictionary *payload = @{@"device_id" : [[UIDevice currentDevice] uniqueGlobalDeviceIdentifier], @"device_type" : @"ios", @"token" : tokenString};
-    [request setHTTPBody:[[payload yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode, NSError *error) {
-        if (!httpResponseCode && error) {
-            if ([[error domain] isEqualToString:CMErrorDomain]) {
-                if ([error code] == CMErrorUnauthorized) {
-                    return CMUserAccountLoginFailedIncorrectCredentials;
-                } else if ([error code] == CMErrorServerConnectionFailed) {
-                    return CMUserAccountUnknownResult;
-                }
-            }
-        }
+    [self executeRequest:request resultHandler:^(id responseBody, NSError *errors, NSUInteger httpCode) {
         
-        switch (httpResponseCode) {
+        CMDeviceTokenResult result = CMDeviceTokenOperationFailed;
+        switch (httpCode) {
             case 200:
-                return CMUserAccountDeviceTokenReceived;
-            case 401:
-                return CMUserAccountLoginFailedIncorrectCredentials;
-            case 404:
-                return CMUserAccountOperationFailedUnknownAccount;
-            default:
-                return CMUserAccountUnknownResult;
-        }
-        
-    } callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
-        
-        switch (result) {
-            case CMUserAccountLoginFailedIncorrectCredentials:
-                NSLog(@"CloudMine *** User token registration failed because the user could not be authenticated!");
+                result = CMDeviceTokenUpdated;
                 break;
-            case CMUserAccountUnknownResult:
-                NSLog(@"CloudMine *** User token registration failed! The request should send 'ios' as device type! This shouldn't happen, let us know.");
+            case 201:
+                result = CMDeviceTokenUploadSuccess;
             default:
                 break;
         }
-        callback(result, responseBody);
+        callback(result);
     }];
 }
 
-- (void)unRegisterForPushNotificationsWithUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
+- (void)unRegisterForPushNotificationsWithUser:(CMUser *)user callback:(CMWebServiceDeviceTokenCallback)callback {
     
-    NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/CHANGETHISHERE", _appIdentifier]];
-    NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:user];
+    NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/device", _appIdentifier]];
+    NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"DELETE" URL:url appSecret:_appSecret binaryData:NO user:user];
     
-    NSDictionary *payload = @{@"device_id" : [[UIDevice currentDevice] uniqueGlobalDeviceIdentifier], @"device_type" : @"ios"};
-    [request setHTTPBody:[[payload yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode, NSError *error) {
-        if (!httpResponseCode && error) {
-            if ([[error domain] isEqualToString:CMErrorDomain]) {
-                if ([error code] == CMErrorUnauthorized) {
-                    return CMUserAccountLoginFailedIncorrectCredentials;
-                } else if ([error code] == CMErrorServerConnectionFailed) {
-                    return CMUserAccountUnknownResult;
-                }
-            }
-        }
-        
-        switch (httpResponseCode) {
-            case 200:
-                return CMUserAccountDeviceTokenRemoved;
-            case 401:
-                return CMUserAccountLoginFailedIncorrectCredentials;
-            case 404:
-                return CMUserAccountOperationFailedUnknownAccount;
-            default:
-                return CMUserAccountUnknownResult;
-        }
-        
-    } callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
-        
-        switch (result) {
-            case CMUserAccountLoginFailedIncorrectCredentials:
-                NSLog(@"CloudMine *** User token registration failed because the user could not be authenticated!");
-                break;
-            case CMUserAccountUnknownResult:
-                NSLog(@"CloudMine *** User token was not removed!!");
-            default:
-                break;
-        }
-        callback(result, responseBody);
+    [self executeRequest:request resultHandler:^(id responseBody, NSError *errors, NSUInteger httpCode) {
+        CMDeviceTokenResult result = CMDeviceTokenDeleted;
+        if (httpCode == 404)
+            result = CMDeviceTokenOperationFailed;
+        callback(result);
     }];
 }
 
@@ -938,9 +880,9 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         }
     }];
     
-    
     [self enqueueHTTPRequestOperation:requestOperation];
 }
+
 
 - (void)executeRequest:(NSURLRequest *)request
         successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
@@ -1044,6 +986,51 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     }];
     
     [self enqueueHTTPRequestOperation:requestOperation];
+}
+
+- (void)executeRequest:(NSURLRequest *)request
+         resultHandler:(CMWebServiceResultCallback)handler {
+    
+    NSDate *startDate = [NSDate date];
+    
+    AFHTTPRequestOperation *requestOperation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSString *requestId = [[operation.response allHeaderFields] objectForKey:@"X-Request-Id"];
+        if (requestId) {
+            int milliseconds = (int)([[NSDate date] timeIntervalSinceDate:startDate] * 1000.0f);
+            [_responseTimes setObject:[NSNumber numberWithInt:milliseconds] forKey:requestId];
+        }
+        
+        NSString *responseString = [operation responseString];
+        
+        NSError *parseError;
+        id results = [responseString yajl_JSON:&parseError];
+        
+        if ([[parseError domain] isEqualToString:YAJLErrorDomain]) {
+            NSError *error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidResponse userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The response received from the server was malformed.", NSLocalizedDescriptionKey, parseError, YAJLErrorKey, nil]];
+            NSLog(@"CloudMine *** Unexpected error occurred during object request. (%@)", [error localizedDescription]);
+            if (handler != nil) {
+                void (^block)() = ^{ handler(results, error, operation.response.statusCode); };
+                [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
+            }
+            return;
+        }
+        
+        if (handler != nil) {
+            void (^block)() = ^{ handler(results, nil, operation.response.statusCode); };
+            [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (handler != nil) {
+            void (^block)() = ^{ handler([operation responseString], error, operation.response.statusCode); };
+            [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
+        }
+    }];
+    
+    [self enqueueHTTPRequestOperation:requestOperation];
+    
+    
 }
 
 - (void)executeACLUpdateRequest:(NSURLRequest *)request

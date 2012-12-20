@@ -11,6 +11,7 @@
 #import "AFHTTPClient.h"
 
 #import "CMFileUploadResult.h"
+#import "CMDeviceTokenResult.h"
 #import "CMUserAccountResult.h"
 #import "CMSocialLoginViewController.h"
 
@@ -82,6 +83,8 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
  * The contents of the former two map directly to the CloudMine API response format.
  */
 typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDictionary *errors, NSNumber *count);
+
+typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSUInteger httpCode);
 
 /**
  * Base class for all classes concerned with the communication between the client device and the CloudMine
@@ -463,14 +466,19 @@ typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDi
 /**
  * Asynchronously register the device token with CloudMine. On completion, the <tt>callback</tt> will be called with the result of the registration.
  *
- * @param user Required, the user which will have the token registered to him.
+ * @param user The user to which you want the token registered.
  * @param devToken Required, the token Apple has supplied for getting push notifications, this should be unaltered.
  * @param callback The callback called when the result is done.
  */
-- (void)registerForPushNotificationsWithUser:(CMUser *)user deviceToken:(NSData *)devToken callback:(CMWebServiceUserAccountOperationCallback)callback;
+- (void)registerForPushNotificationsWithUser:(CMUser *)user token:(NSData *)devToken callback:(CMWebServiceDeviceTokenCallback)callback;
 
-
-- (void)unRegisterForPushNotificationsWithUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
+/**
+ * Asynchronously unregister the device with CloudMine. The device should be registered already before calling this.
+ *
+ * @param user The user who has the token registered to it
+ * @param callback The callback called when the request has finished.
+ */
+- (void)unRegisterForPushNotificationsWithUser:(CMUser *)user callback:(CMWebServiceDeviceTokenCallback)callback;
 
 
 @end
