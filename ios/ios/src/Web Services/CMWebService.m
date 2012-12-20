@@ -20,7 +20,6 @@
 #import "CMSortDescriptor.h"
 #import "CMActiveUser.h"
 #import "NSURL+QueryParameterAdditions.h"
-#import "UIDevice+IdentifierAddition.h"
 
 #import "CMObjectEncoder.h"
 #import "CMObjectDecoder.h"
