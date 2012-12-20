@@ -7,14 +7,17 @@
 //
 
 #import "CMAppDelegateBase.h"
+#import "CMWebService.h"
 
 @implementation CMAppDelegateBase
 
-@synthesize user, callback;
+@synthesize callback, service, user;
 
 // Delegation methods
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)devToken {
-    [self.user registerDeviceForPushNotificationsWithToken:devToken callback:self.callback];
+    [self.service registerForPushNotificationsWithUser:user token:devToken callback:^(CMDeviceTokenResult result) {
+        callback(result);
+    }];
 }
 
 - (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {

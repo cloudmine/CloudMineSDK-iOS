@@ -7,15 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CMUser.h"
+#import "CMDeviceTokenResult.h"
 
-@class CMUser;
+@class CMWebService, CMUser;
 
 @interface CMAppDelegateBase : UIResponder <UIApplicationDelegate>
 
+@property (atomic, strong) CMWebServiceDeviceTokenCallback callback;
+@property (atomic, strong) CMWebService *service;
 @property (atomic, strong) CMUser *user;
-@property (atomic, strong) CMUserResultCallback callback;
-@property (strong, nonatomic) UIWindow *window;
+@property (nonatomic, strong) UIWindow *window;
 
 
 /**
