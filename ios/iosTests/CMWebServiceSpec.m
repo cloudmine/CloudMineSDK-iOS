@@ -677,6 +677,109 @@ describe(@"CMWebService", ^{
             [[[request HTTPMethod] should] equal:@"GET"];
             [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
         });
+        
+        it(@"Contructs the Social Query Properly", ^{
+            CMUser *user = [[CMUser alloc] initWithUserId:@"test@domain.com" andPassword:@"pass"];
+            user.token = @"token";
+            user.tokenExpiration = [NSDate dateWithTimeIntervalSinceNow:9999];
+            
+            [service runSocialGraphQueryOnNetwork:CMSocialNetworkTwitter
+                                         withVerb:@"GET"
+                                        baseQuery:@"statuses/user_timeline.json"
+                                       parameters:@{@"screen_name":@"ethan_mick",@"count":@9}
+                                      messageData:nil
+                                         withUser:user
+                                    successHandler:^(NSString *results, NSDictionary *headers) {
+                                        
+                                    } errorHandler:^(NSError *error) {
+                                        
+                                    }];
+            
+            NSString *finalURLShould = $sprintf(@"https://api.cloudmine.me/v1/app/%@/user/social/twitter/statuses/user_timeline.json?params={\"count\":9,\"screen_name\":\"ethan_mick\"}", appId);
+            finalURLShould = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(
+                                                                                        kCFAllocatorDefault,
+                                                                                        (CFStringRef)finalURLShould,
+                                                                                        NULL,
+                                                                                        NULL,
+                                                                                        kCFStringEncodingUTF8
+                                                                                        );
+
+            NSURLRequest *request = spy.argument;
+            [[[request HTTPMethod] should] equal:@"GET"];
+            [[[[request URL] absoluteString] should] equal:finalURLShould];
+            
+            
+        });
+        
+        it(@"should properly deal with arrays in social queries", ^{
+            
+            CMUser *user = [[CMUser alloc] initWithUserId:@"test@domain.com" andPassword:@"pass"];
+            user.token = @"token";
+            user.tokenExpiration = [NSDate dateWithTimeIntervalSinceNow:9999];
+            
+            [service runSocialGraphQueryOnNetwork:CMSocialNetworkTwitter
+                                         withVerb:@"GET"
+                                        baseQuery:@"statuses/user_timeline.json"
+                                       parameters:@{@"screen_name":@"ethan_mick",@"testing":@[@"Testing111", @"Testing222"]}
+                                      messageData:nil
+                                         withUser:user
+                                    successHandler:^(NSString *results, NSDictionary *headers) {
+                                        
+                                    } errorHandler:^(NSError *error) {
+                                        
+                                    }];
+            
+            NSString *finalURLShould = $sprintf(@"https://api.cloudmine.me/v1/app/%@/user/social/twitter/statuses/user_timeline.json?params={\"screen_name\":\"ethan_mick\",\"testing\":[\"Testing111\",\"Testing222\"]}", appId);
+            finalURLShould = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(
+                                                                                          kCFAllocatorDefault,
+                                                                                          (CFStringRef)finalURLShould,
+                                                                                          NULL,
+                                                                                          NULL,
+                                                                                          kCFStringEncodingUTF8
+                                                                                          );
+            
+            
+            NSURLRequest *request = spy.argument;
+            [[[request HTTPMethod] should] equal:@"GET"];
+            [[[[request URL] absoluteString] should] equal:finalURLShould];
+        });
+        
+        it(@"should properly encode the POST data in social queries", ^{
+            
+            NSData *data = [@"status=Maybe he'll finally find his keys. #peterfalk" dataUsingEncoding:NSUTF8StringEncoding];
+            
+            CMUser *user = [[CMUser alloc] initWithUserId:@"test@domain.com" andPassword:@"pass"];
+            user.token = @"token";
+            user.tokenExpiration = [NSDate dateWithTimeIntervalSinceNow:9999];
+            
+            [service runSocialGraphQueryOnNetwork:CMSocialNetworkTwitter
+                                         withVerb:@"GET"
+                                        baseQuery:@"statuses/update.json"
+                                       parameters:nil
+                                      messageData:data
+                                         withUser:user
+                                    successHandler:^(NSString *results, NSDictionary *headers) {
+                                        
+                                    } errorHandler:^(NSError *error) {
+                                        
+                                    }];
+
+            
+            NSString *finalURLShould = $sprintf(@"https://api.cloudmine.me/v1/app/%@/user/social/twitter/statuses/update.json", appId);
+            finalURLShould = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(
+                                                                                          kCFAllocatorDefault,
+                                                                                          (CFStringRef)finalURLShould,
+                                                                                          NULL,
+                                                                                          NULL,
+                                                                                          kCFStringEncodingUTF8
+                                                                                          );
+            
+            
+            NSURLRequest *request = spy.argument;
+            [[[request HTTPMethod] should] equal:@"GET"];
+            [[[[request URL] absoluteString] should] equal:finalURLShould];
+            [[[[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding] should] equal:@"status=Maybe he'll finally find his keys. #peterfalk"];
+        });
     });
     
     context(@"given a push notification operation", ^{

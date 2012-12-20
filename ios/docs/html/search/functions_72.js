@@ -10,5 +10,7 @@ var searchData=
   ['removeuserobject_3a',['removeUserObject:',['../interface_c_m_store.html#aa168a5b4763f0ec93eddcec8653468ee',1,'CMStore']]],
   ['resetforgottenpasswordforuser_3acallback_3a',['resetForgottenPasswordForUser:callback:',['../interface_c_m_web_service.html#a6d0e4f4519c9a6ec38160c338af2bf5f',1,'CMWebService']]],
   ['resetforgottenpasswordwithcallback_3a',['resetForgottenPasswordWithCallback:',['../interface_c_m_user.html#a7d923bd10ddc116d5f39c9b64899ec1e',1,'CMUser']]],
-  ['runsnippet_3awithparams_3auser_3asuccesshandler_3aerrorhandler_3a',['runSnippet:withParams:user:successHandler:errorHandler:',['../interface_c_m_web_service.html#aa7293a2925334165e62a0cf59ac0149b',1,'CMWebService']]]
+  ['runsnippet_3awithparams_3auser_3asuccesshandler_3aerrorhandler_3a',['runSnippet:withParams:user:successHandler:errorHandler:',['../interface_c_m_web_service.html#aa7293a2925334165e62a0cf59ac0149b',1,'CMWebService']]],
+  ['runsocialgraphgetqueryonnetwork_3abasequery_3aparameters_3awithuser_3asuccesshandler_3aerrorhandler_3a',['runSocialGraphGETQueryOnNetwork:baseQuery:parameters:withUser:successHandler:errorHandler:',['../interface_c_m_web_service.html#a8feafa17d3a2b04df92100ec36c30732',1,'CMWebService']]],
+  ['runsocialgraphqueryonnetwork_3awithverb_3abasequery_3aparameters_3amessagedata_3awithuser_3asuccesshandler_3aerrorhandler_3a',['runSocialGraphQueryOnNetwork:withVerb:baseQuery:parameters:messageData:withUser:successHandler:errorHandler:',['../interface_c_m_web_service.html#a534948f35f4c2eced2a3fc7ba5e58dda',1,'CMWebService']]]
 ];

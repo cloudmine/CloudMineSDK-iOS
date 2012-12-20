@@ -12,5 +12,7 @@ var searchData=
   ['resetforgottenpasswordwithcallback_3a',['resetForgottenPasswordWithCallback:',['../interface_c_m_user.html#a7d923bd10ddc116d5f39c9b64899ec1e',1,'CMUser']]],
   ['result',['result',['../interface_c_m_file_upload_response.html#ace994679b8fb4b6665a8748f6635a3c2',1,'CMFileUploadResponse']]],
   ['resultonly',['resultOnly',['../interface_c_m_server_function.html#ab1c45b7eff50653fd89fa99e7aa7cec4',1,'CMServerFunction']]],
-  ['runsnippet_3awithparams_3auser_3asuccesshandler_3aerrorhandler_3a',['runSnippet:withParams:user:successHandler:errorHandler:',['../interface_c_m_web_service.html#aa7293a2925334165e62a0cf59ac0149b',1,'CMWebService']]]
+  ['runsnippet_3awithparams_3auser_3asuccesshandler_3aerrorhandler_3a',['runSnippet:withParams:user:successHandler:errorHandler:',['../interface_c_m_web_service.html#aa7293a2925334165e62a0cf59ac0149b',1,'CMWebService']]],
+  ['runsocialgraphgetqueryonnetwork_3abasequery_3aparameters_3awithuser_3asuccesshandler_3aerrorhandler_3a',['runSocialGraphGETQueryOnNetwork:baseQuery:parameters:withUser:successHandler:errorHandler:',['../interface_c_m_web_service.html#a8feafa17d3a2b04df92100ec36c30732',1,'CMWebService']]],
+  ['runsocialgraphqueryonnetwork_3awithverb_3abasequery_3aparameters_3amessagedata_3awithuser_3asuccesshandler_3aerrorhandler_3a',['runSocialGraphQueryOnNetwork:withVerb:baseQuery:parameters:messageData:withUser:successHandler:errorHandler:',['../interface_c_m_web_service.html#a534948f35f4c2eced2a3fc7ba5e58dda',1,'CMWebService']]]
 ];

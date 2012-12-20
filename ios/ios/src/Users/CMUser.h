@@ -183,6 +183,7 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
  */
 - (void)loginWithSocialNetwork:(NSString *)service viewController:(UIViewController *)viewController params:(NSDictionary *)params callback:(CMUserOperationCallback)callback;
 
+
 /**
  * Asynchronously logout the user and clear their session and session token. On completion, the <tt>callback</tt> block will be called with
  * the result of the operation and any messages returned by the server contained in an array. See the CloudMine

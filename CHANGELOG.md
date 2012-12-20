@@ -3,6 +3,12 @@ HEAD
 * Added call to register device push notification token with cloudmineb
 * Added CMAppDelegate base which can be used to handle push notification registration for you.
 
+v1.4 (December 18, 2012)
+======
+* Added runSocialGraphQueryOnNetwork: method to CMWebService for running queries on the services. The user needs to be logged in to the service first.
+* Added RunQueryGETRequestOnNetwork: as a convenience method for running GET requests.
+
+
 v1.3 (December 11, 2012)
 =====
 * Added Social Login. Login via social networks that are supported through CloudMine and Singly.
