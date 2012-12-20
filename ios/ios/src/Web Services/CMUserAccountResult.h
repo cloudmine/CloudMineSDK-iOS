@@ -38,11 +38,7 @@ typedef enum {
     /** The password change for a user failed due to an incorrect password for the given email address */
     CMUserAccountPasswordChangeFailedInvalidCredentials,
     /** The user account operation failed because an account with the given email address could not be found */
-    CMUserAccountOperationFailedUnknownAccount,
-    /** The user's device token has been recieved successfully */
-    CMUserAccountDeviceTokenReceived,
-    /** The user's device token has been removed from CloudMine successfully */
-    CMUserAccountDeviceTokenRemoved
+    CMUserAccountOperationFailedUnknownAccount
 
 } CMUserAccountResult;
 
