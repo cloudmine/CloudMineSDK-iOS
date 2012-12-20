@@ -84,6 +84,8 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
  */
 typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDictionary *errors, NSNumber *count);
 
+typedef void (^CMWebServicesSocialQuerySuccessCallback)(NSString *results, NSDictionary *headers);
+
 typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSUInteger httpCode);
 
 /**
