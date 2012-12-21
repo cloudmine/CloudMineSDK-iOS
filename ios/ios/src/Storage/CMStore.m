@@ -25,6 +25,7 @@
 #import "CMFileFetchResponse.h"
 #import "CMFileUploadResponse.h"
 #import "CMDeleteResponse.h"
+#import "CMAppDelegateBase.h"
 
 #import "SPLowVerbosity.h"
 
@@ -187,6 +188,36 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     } else {
         return CMObjectOwnershipUndefinedLevel;
     }
+}
+
+#pragma mark - Push Notifications
+
+- (void)registerForPushNotifications:(UIRemoteNotificationType)notificationType callback:(CMWebServiceDeviceTokenCallback)callback {
+    [self registerForPushNotifications:notificationType user:self.user callback:callback];
+}
+
+- (void)registerForPushNotifications:(UIRemoteNotificationType)notificationType user:(CMUser *)aUser callback:(CMWebServiceDeviceTokenCallback)callback {
+    NSAssert([[[UIApplication sharedApplication] delegate] isKindOfClass:[CMAppDelegateBase class]], @"Your Application Delegate MUST Inherit for CMAppDelegateBase in order to register for push notifications in this way!\n \
+             If you do not want to inherit from CMAppDelegateBase, you will need to use [CMWebService registerForPushNotificationsWithUser:deviceToken:callback:]");
+    
+    
+    void (^reg)() = ^{
+        CMAppDelegateBase *delegate = [[UIApplication sharedApplication] delegate];
+        delegate.callback = callback;
+        delegate.user = aUser;
+        delegate.service = self.webService;
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:notificationType];
+    };
+    
+    if (aUser) {
+        [self _ensureUserLoggedInWithCallback:reg];
+    } else {
+        reg();
+    }
+}
+
+- (void)unRegisterForPushNotificationsWithCallback:(CMWebServiceDeviceTokenCallback)callback {
+    [self.webService unRegisterForPushNotificationsWithUser:self.user callback:callback];
 }
 
 #pragma mark - Object retrieval

@@ -687,6 +687,7 @@ describe(@"CMWebService", ^{
                                          withVerb:@"GET"
                                         baseQuery:@"statuses/user_timeline.json"
                                        parameters:@{@"screen_name":@"ethan_mick",@"count":@9}
+                                          headers:nil
                                       messageData:nil
                                          withUser:user
                                     successHandler:^(NSString *results, NSDictionary *headers) {
@@ -721,6 +722,7 @@ describe(@"CMWebService", ^{
                                          withVerb:@"GET"
                                         baseQuery:@"statuses/user_timeline.json"
                                        parameters:@{@"screen_name":@"ethan_mick",@"testing":@[@"Testing111", @"Testing222"]}
+                                          headers:nil
                                       messageData:nil
                                          withUser:user
                                     successHandler:^(NSString *results, NSDictionary *headers) {
@@ -756,6 +758,7 @@ describe(@"CMWebService", ^{
                                          withVerb:@"GET"
                                         baseQuery:@"statuses/update.json"
                                        parameters:nil
+                                          headers:@{@"Content-type" : @"application/x-www-form-urlencoded"}
                                       messageData:data
                                          withUser:user
                                     successHandler:^(NSString *results, NSDictionary *headers) {
@@ -765,7 +768,7 @@ describe(@"CMWebService", ^{
                                     }];
 
             
-            NSString *finalURLShould = $sprintf(@"https://api.cloudmine.me/v1/app/%@/user/social/twitter/statuses/update.json", appId);
+            NSString *finalURLShould = $sprintf(@"https://api.cloudmine.me/v1/app/%@/user/social/twitter/statuses/update.json?headers={\"Content-type\":\"application/x-www-form-urlencoded\"}", appId);
             finalURLShould = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(
                                                                                           kCFAllocatorDefault,
                                                                                           (CFStringRef)finalURLShould,
@@ -781,7 +784,32 @@ describe(@"CMWebService", ^{
             [[[[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding] should] equal:@"status=Maybe he'll finally find his keys. #peterfalk"];
         });
     });
-
+    
+    context(@"given a push notification operation", ^{
+        it(@"sends the correct dev token", ^{
+            
+            NSString *token = @"<c7e265d1 cbd443b3 ee80fd07 c892a8b8 f20c08c4 91fa11f2 535f2cca ad7f55ef>";
+            
+            [service registerForPushNotificationsWithUser:nil token:token callback:^(CMDeviceTokenResult result) {}];
+            
+            NSURLRequest *request = spy.argument;
+            
+            NSDictionary *requestBody = [[request HTTPBody] yajl_JSON];
+            [[[requestBody valueForKey:@"token"] should] equal:@"c7e265d1cbd443b3ee80fd07c892a8b8f20c08c491fa11f2535f2ccaad7f55ef"];
+            
+            
+        });
+        
+        it(@"correctly sends the deregister request", ^{
+            
+            [service unRegisterForPushNotificationsWithUser:nil callback:^(CMDeviceTokenResult result) { }];
+            
+            NSURLRequest *request = spy.argument;
+            
+            [[[[request URL] absoluteString] should] equal:$sprintf(@"https://api.cloudmine.me/v1/app/%@/device", appId)];
+            [[[request HTTPMethod] should] equal:@"DELETE"];
+        });
+    });
 });
 
 SPEC_END
