@@ -15,9 +15,16 @@
 
 // Delegation methods
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)devToken {
-    [self.service registerForPushNotificationsWithUser:user token:devToken callback:^(CMDeviceTokenResult result) {
-        callback(result);
-    }];
+    
+    if (self.service != nil) {
+        [self.service registerForPushNotificationsWithUser:user token:devToken callback:^(CMDeviceTokenResult result) {
+            if (callback) {
+                callback(result);
+            }
+        }];
+    } else {
+        NSLog(@"CloudMine *** Error in CMAppDelegate - service was nil when trying to register. You must set service for this to register the token. This happens automatically when you call CMStore registerForPushNotifications:");
+    }
 }
 
 - (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {
