@@ -11,6 +11,7 @@
 #import "AFHTTPClient.h"
 
 #import "CMFileUploadResult.h"
+#import "CMDeviceTokenResult.h"
 #import "CMUserAccountResult.h"
 #import "CMSocialLoginViewController.h"
 
@@ -83,9 +84,9 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
  */
 typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDictionary *errors, NSNumber *count);
 
-
-
 typedef void (^CMWebServicesSocialQuerySuccessCallback)(NSString *results, NSDictionary *headers);
+
+typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSUInteger httpCode);
 
 /**
  * Base class for all classes concerned with the communication between the client device and the CloudMine
@@ -464,6 +465,23 @@ typedef void (^CMWebServicesSocialQuerySuccessCallback)(NSString *results, NSDic
  */
 - (void)runSnippet:(NSString *)snippetName withParams:(NSDictionary *)params user:(CMUser *)user successHandler:(CMWebServiceSnippetRunSuccessCallback)successHandler errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
+/**
+ * Asynchronously register the device token with CloudMine. On completion, the <tt>callback</tt> will be called with the result of the registration.
+ *
+ * @param user The user to which you want the token registered.
+ * @param devToken Required, the token Apple has supplied for getting push notifications, this should be unaltered.
+ * @param callback The callback called when the result is done.
+ */
+- (void)registerForPushNotificationsWithUser:(CMUser *)user token:(NSData *)devToken callback:(CMWebServiceDeviceTokenCallback)callback;
+
+/**
+ * Asynchronously unregister the device with CloudMine. The device should be registered already before calling this.
+ *
+ * @param user The user who has the token registered to it
+ * @param callback The callback called when the request has finished.
+ */
+- (void)unRegisterForPushNotificationsWithUser:(CMUser *)user callback:(CMWebServiceDeviceTokenCallback)callback;
+
 
 /**
  * Asynchronously execute a request on the social network through the singly proxy.
@@ -481,6 +499,7 @@ typedef void (^CMWebServicesSocialQuerySuccessCallback)(NSString *results, NSDic
                             withVerb:(NSString *)verb
                            baseQuery:(NSString *)base
                           parameters:(NSDictionary *)params
+                             headers:(NSDictionary *)headers
                          messageData:(NSData *)data
                             withUser:(CMUser *)user
                        successHandler:(CMWebServicesSocialQuerySuccessCallback)successHandler
@@ -499,10 +518,10 @@ typedef void (^CMWebServicesSocialQuerySuccessCallback)(NSString *results, NSDic
 - (void)runSocialGraphGETQueryOnNetwork:(NSString *)network
                            baseQuery:(NSString *)base
                           parameters:(NSDictionary *)params
+                                headers:(NSDictionary *)headers
                             withUser:(CMUser *)user
                        successHandler:(CMWebServicesSocialQuerySuccessCallback)successHandler
                         errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
-
 
 
 @end

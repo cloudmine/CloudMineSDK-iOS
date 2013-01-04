@@ -3,6 +3,7 @@ var searchData=
   ['cmacl',['CMACL',['../interface_c_m_a_c_l.html',1,'']]],
   ['cmaclfetchresponse',['CMACLFetchResponse',['../interface_c_m_a_c_l_fetch_response.html',1,'']]],
   ['cmapicredentials',['CMAPICredentials',['../interface_c_m_a_p_i_credentials.html',1,'']]],
+  ['cmappdelegatebase',['CMAppDelegateBase',['../interface_c_m_app_delegate_base.html',1,'']]],
   ['cmdate',['CMDate',['../interface_c_m_date.html',1,'']]],
   ['cmdeleteresponse',['CMDeleteResponse',['../interface_c_m_delete_response.html',1,'']]],
   ['cmdistance',['CMDistance',['../interface_c_m_distance.html',1,'']]],

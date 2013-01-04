@@ -1,6 +1,9 @@
 var searchData=
 [
   ['refreshregistry',['refreshRegistry',['../interface_c_m_object_class_name_registry.html#afc34be26b9136a423559256d62713da5',1,'CMObjectClassNameRegistry']]],
+  ['registerforpushnotifications_3acallback_3a',['registerForPushNotifications:callback:',['../interface_c_m_store.html#aceec2a353450f100e2070c25d27c13d8',1,'CMStore']]],
+  ['registerforpushnotifications_3auser_3acallback_3a',['registerForPushNotifications:user:callback:',['../interface_c_m_store.html#ad9181e0c50f2d29a19df62ddc5500cf4',1,'CMStore']]],
+  ['registerforpushnotificationswithuser_3atoken_3acallback_3a',['registerForPushNotificationsWithUser:token:callback:',['../interface_c_m_web_service.html#a1c88fec9c5b5a6acf3206a8356884083',1,'CMWebService']]],
   ['removeacl_3a',['removeACL:',['../interface_c_m_store.html#a40b143c7a387279a7000b6854043bf65',1,'CMStore']]],
   ['removeacl_3acallback_3a',['removeACL:callback:',['../interface_c_m_object.html#afe5958ef86b9a3bcade77b9f902e8826',1,'CMObject']]],
   ['removeacls_3acallback_3a',['removeACLs:callback:',['../interface_c_m_object.html#a7e8f8176e5a14c11ee02eb766ccf9f8b',1,'CMObject']]],
@@ -11,6 +14,6 @@ var searchData=
   ['resetforgottenpasswordforuser_3acallback_3a',['resetForgottenPasswordForUser:callback:',['../interface_c_m_web_service.html#a6d0e4f4519c9a6ec38160c338af2bf5f',1,'CMWebService']]],
   ['resetforgottenpasswordwithcallback_3a',['resetForgottenPasswordWithCallback:',['../interface_c_m_user.html#a7d923bd10ddc116d5f39c9b64899ec1e',1,'CMUser']]],
   ['runsnippet_3awithparams_3auser_3asuccesshandler_3aerrorhandler_3a',['runSnippet:withParams:user:successHandler:errorHandler:',['../interface_c_m_web_service.html#aa7293a2925334165e62a0cf59ac0149b',1,'CMWebService']]],
-  ['runsocialgraphgetqueryonnetwork_3abasequery_3aparameters_3awithuser_3asuccesshandler_3aerrorhandler_3a',['runSocialGraphGETQueryOnNetwork:baseQuery:parameters:withUser:successHandler:errorHandler:',['../interface_c_m_web_service.html#a8feafa17d3a2b04df92100ec36c30732',1,'CMWebService']]],
-  ['runsocialgraphqueryonnetwork_3awithverb_3abasequery_3aparameters_3amessagedata_3awithuser_3asuccesshandler_3aerrorhandler_3a',['runSocialGraphQueryOnNetwork:withVerb:baseQuery:parameters:messageData:withUser:successHandler:errorHandler:',['../interface_c_m_web_service.html#a534948f35f4c2eced2a3fc7ba5e58dda',1,'CMWebService']]]
+  ['runsocialgraphgetqueryonnetwork_3abasequery_3aparameters_3aheaders_3awithuser_3asuccesshandler_3aerrorhandler_3a',['runSocialGraphGETQueryOnNetwork:baseQuery:parameters:headers:withUser:successHandler:errorHandler:',['../interface_c_m_web_service.html#a6f355e5bca0678cc7883fc13e810b504',1,'CMWebService']]],
+  ['runsocialgraphqueryonnetwork_3awithverb_3abasequery_3aparameters_3aheaders_3amessagedata_3awithuser_3asuccesshandler_3aerrorhandler_3a',['runSocialGraphQueryOnNetwork:withVerb:baseQuery:parameters:headers:messageData:withUser:successHandler:errorHandler:',['../interface_c_m_web_service.html#a96921ab8c097f67b30f9bd37d49728f9',1,'CMWebService']]]
 ];

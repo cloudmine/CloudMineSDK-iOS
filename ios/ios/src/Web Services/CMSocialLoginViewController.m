@@ -2,8 +2,8 @@
 //  SocialLoginViewController.m
 //  cloudmine-ios
 //
-//  Created by Nikko Schaff on 11/12/12.
 //  Copyright (c) 2012 CloudMine, LLC. All rights reserved.
+//  See LICENSE file included with SDK for details.
 //
 
 #import "CMUIViewController+Modal.h"

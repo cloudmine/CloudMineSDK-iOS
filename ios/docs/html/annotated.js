@@ -3,6 +3,7 @@ var annotated =
     [ "CMACL", "interface_c_m_a_c_l.html", "interface_c_m_a_c_l" ],
     [ "CMACLFetchResponse", "interface_c_m_a_c_l_fetch_response.html", "interface_c_m_a_c_l_fetch_response" ],
     [ "CMAPICredentials", "interface_c_m_a_p_i_credentials.html", "interface_c_m_a_p_i_credentials" ],
+    [ "CMAppDelegateBase", "interface_c_m_app_delegate_base.html", "interface_c_m_app_delegate_base" ],
     [ "CMDate", "interface_c_m_date.html", "interface_c_m_date" ],
     [ "CMDeleteResponse", "interface_c_m_delete_response.html", "interface_c_m_delete_response" ],
     [ "CMDistance", "interface_c_m_distance.html", "interface_c_m_distance" ],

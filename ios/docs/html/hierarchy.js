@@ -54,6 +54,12 @@ var hierarchy =
         [ "CMWebService", "interface_c_m_web_service.html", null ]
       ] ]
     ] ],
+    [ "<UIApplicationDelegate>", null, [
+      [ "CMAppDelegateBase", "interface_c_m_app_delegate_base.html", null ]
+    ] ],
+    [ "UIResponder", null, [
+      [ "CMAppDelegateBase", "interface_c_m_app_delegate_base.html", null ]
+    ] ],
     [ "UIViewController", null, [
       [ "CMSocialLoginViewController", "interface_c_m_social_login_view_controller.html", null ]
     ] ],

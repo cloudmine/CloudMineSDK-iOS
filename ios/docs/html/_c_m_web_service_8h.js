@@ -6,6 +6,7 @@ var _c_m_web_service_8h =
     [ "CMWebServiceFileFetchSuccessCallback", "_c_m_web_service_8h.html#ae8267288b3502db7c66608bd3a43cc6a", null ],
     [ "CMWebServiceFileUploadSuccessCallback", "_c_m_web_service_8h.html#a5609890cd4b9e8590aaf19c69bf4dc3a", null ],
     [ "CMWebServiceObjectFetchSuccessCallback", "_c_m_web_service_8h.html#a6f4c0d209c5241e677bebc5db592eeea", null ],
+    [ "CMWebServiceResultCallback", "_c_m_web_service_8h.html#a44c0a70a8494afc1d62ad917a2651793", null ],
     [ "CMWebServiceSnippetRunFailureCallback", "_c_m_web_service_8h.html#a790dc44461068242f50fd83ab4e1b83c", null ],
     [ "CMWebServiceSnippetRunSuccessCallback", "_c_m_web_service_8h.html#a1239696f4302896a4eed78e0ec25ea87", null ],
     [ "CMWebServicesSocialQuerySuccessCallback", "_c_m_web_service_8h.html#ab14425e2296a1733ebba28a6e3d3085c", null ],

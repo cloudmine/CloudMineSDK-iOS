@@ -2,6 +2,13 @@ HEAD
 =====
 
 
+v1.4.5 (December 21, 2012)
+======
+* Added Push Notification Support!
+  * Added call to register device push notification token with CloudMine.
+  * Added call to unregister device from push notifications with CloudMine.
+  * Added CMAppDelegateBase which can be used to handle push notification registration for you.
+
 v1.4 (December 18, 2012)
 ======
 * Added runSocialGraphQueryOnNetwork: method to CMWebService for running queries on the services. The user needs to be logged in to the service first.
