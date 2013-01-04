@@ -1,5 +1,7 @@
 #!/bin/bash
 
+SHOULD_GENERATE_DOCS=${1-true}
+
 DEPLOY_DIR="cloudmine-framework-release"
 ARCHIVE_NAME="$DEPLOY_DIR.tgz"
 
@@ -9,10 +11,13 @@ rm -rf "./ios/build"
 echo "Re-building release framework..."
 env CC='' xcodebuild -scheme "CloudMine Universal Framework" -configuration Release -workspace cm-ios.xcworkspace
 
-echo "Beginning documentation generation..."
-cd ./ios
-doxygen ios/Doxyfile
-cd ../
+# Generate File Documentation
+if $SHOULD_GENERATE_DOCS ; then
+  echo "Beginning documentation generation..."
+  cd ./ios
+  doxygen ios/Doxyfile
+  cd ../
+fi
 
 echo "Copying files to deploy..."
 mkdir $DEPLOY_DIR
