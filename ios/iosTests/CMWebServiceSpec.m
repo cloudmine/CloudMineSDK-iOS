@@ -587,6 +587,56 @@ describe(@"CMWebService", ^{
             [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
             [[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-SessionToken"] shouldBeNil];
         });
+        
+        it(@"constructs credentials update URL correctly", ^{
+            
+            NSURL *expectedURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/credentials", appId]];
+            CMUser *user = [[CMUser alloc] initWithUserId:@"test-2@domain.com" andPassword:@"password"];
+            NSString *password = user.password;
+            user.token = @"token";
+            
+            [service updateCredentialsForUser:user password:@"password" newPassword:@"aNewPassword" newUsername:nil newUserId:nil callback:^(CMUserAccountResult result, NSDictionary *responseBody) {}];
+            
+            NSURLRequest *request = spy.argument;
+            [[[request URL] should] equal:expectedURL];
+            [[[request HTTPMethod] should] equal:@"POST"];
+            
+            NSData *authData = [NSData dataFromBase64String:[[[request allHTTPHeaderFields] objectForKey:@"Authorization"] stringByReplacingOccurrencesOfString:@"Basic " withString:@""]];
+            NSArray *components = [[[NSString alloc] initWithData:authData encoding:NSUTF8StringEncoding] componentsSeparatedByString:@":"];
+            [[[NSNumber numberWithUnsignedInteger:components.count] should] equal:[NSNumber numberWithUnsignedInt:2]];
+            
+            [[[components objectAtIndex:0] should] equal:user.userId];
+            [[[components objectAtIndex:1] should] equal:password];
+            
+            [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
+            [[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-SessionToken"] shouldBeNil];
+        });
+        
+        it(@"constructs credentials update URL payload correctly", ^{
+            NSURL *expectedURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/credentials", appId]];
+            CMUser *user = [[CMUser alloc] initWithUsername:@"awesomeUsername" andPassword:@"password"];
+            NSString *password = user.password;
+            user.token = @"token";
+            
+            [service updateCredentialsForUser:user password:@"password" newPassword:nil newUsername:@"aNewUsername" newUserId:@"aNewUserID" callback:^(CMUserAccountResult result, NSDictionary *responseBody) {}];
+            
+            NSURLRequest *request = spy.argument;
+            [[[request URL] should] equal:expectedURL];
+            [[[request HTTPMethod] should] equal:@"POST"];
+            
+            NSData *authData = [NSData dataFromBase64String:[[[request allHTTPHeaderFields] objectForKey:@"Authorization"] stringByReplacingOccurrencesOfString:@"Basic " withString:@""]];
+            NSArray *components = [[[NSString alloc] initWithData:authData encoding:NSUTF8StringEncoding] componentsSeparatedByString:@":"];
+            [[[NSNumber numberWithUnsignedInteger:components.count] should] equal:[NSNumber numberWithUnsignedInt:2]];
+            
+            [[[components objectAtIndex:0] should] equal:user.username];
+            [[[components objectAtIndex:1] should] equal:password];
+            
+            [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
+            [[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-SessionToken"] shouldBeNil];
+            
+            [[[[NSString alloc] initWithData:[request HTTPBody] encoding:NSUTF8StringEncoding] should] equal:[@{@"username" : @"aNewUsername", @"email" : @"aNewUserID"} yajl_JSONString]];
+        });
+
 
         it(@"constructs password reset URL correctly", ^{
             NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/password/reset", appId]];
@@ -790,7 +840,7 @@ describe(@"CMWebService", ^{
             
             NSString *token = @"<c7e265d1 cbd443b3 ee80fd07 c892a8b8 f20c08c4 91fa11f2 535f2cca ad7f55ef>";
             
-            [service registerForPushNotificationsWithUser:nil token:token callback:^(CMDeviceTokenResult result) {}];
+            [service registerForPushNotificationsWithUser:nil token:(NSData *)token callback:^(CMDeviceTokenResult result) {}];
             
             NSURLRequest *request = spy.argument;
             
