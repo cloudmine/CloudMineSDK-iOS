@@ -17,6 +17,8 @@ if $SHOULD_GENERATE_DOCS ; then
   cd ./ios
   doxygen ios/Doxyfile
   cd ../
+else
+  echo "Skipping documentation generation..."
 fi
 
 echo "Copying files to deploy..."
