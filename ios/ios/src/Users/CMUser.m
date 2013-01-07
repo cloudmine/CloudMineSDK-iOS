@@ -50,6 +50,8 @@ static CMWebService *webService;
 @synthesize objectId;
 @synthesize isDirty;
 @synthesize services;
+@synthesize username;
+@synthesize email;
 
 + (NSString *)className {
     return NSStringFromClass([self class]);
@@ -68,13 +70,23 @@ static CMWebService *webService;
 }
 
 - (id)init {
-    return [self initWithUserId:nil andPassword:nil];
+    return [self initWithUserId:nil andUsername:nil andPassword:nil];
+}
+
+- (id)initWithUsername:(NSString *)theUsername andPassword:(NSString *)thePassword {
+    return [self initWithUserId:nil andUsername:theUsername andPassword:thePassword];
 }
 
 - (id)initWithUserId:(NSString *)theUserId andPassword:(NSString *)thePassword {
+    return [self initWithUserId:theUserId andUsername:nil andPassword:thePassword];
+}
+
+- (id)initWithUserId:(NSString *)theUserId andUsername:(NSString *)theUsername andPassword:(NSString *)thePassword {
     if (self = [super init]) {
         self.token = nil;
         self.userId = theUserId;
+        self.email = theUserId;
+        self.username = theUsername;
         self.password = thePassword;
         self.services = nil;
         objectId = @"";
@@ -96,6 +108,8 @@ static CMWebService *webService;
         token = [coder decodeObjectForKey:@"token"];
         tokenExpiration = [coder decodeObjectForKey:@"tokenExpiration"];
         userId = [coder decodeObjectForKey:@"userId"];
+        email = [coder decodeObjectForKey:@"email"];
+        username = [coder decodeObjectForKey:@"username"];
         services = [coder decodeObjectForKey:@"services"];
         if (!webService) {
             webService = [[CMWebService alloc] init];
@@ -154,6 +168,12 @@ static CMWebService *webService;
     [coder encodeObject:self.objectId forKey:CMInternalObjectIdKey];
     [coder encodeObject:self.token forKey:@"token"];
     [coder encodeObject:self.tokenExpiration forKey:@"tokenExpiration"];
+    if (self.email) {
+        [coder encodeObject:self.email forKey:@"email"];
+    }
+    if (self.username) {
+        [coder encodeObject:self.username forKey:@"username"];
+    }
     if (self.userId) {
         [coder encodeObject:self.userId forKey:@"userId"];
     }
@@ -169,6 +189,8 @@ static CMWebService *webService;
 
     if (userId) {
         return ([[object userId] isEqualToString:userId] && [[object password] isEqualToString:password]);
+    } else if (username) {
+        return ([[object username] isEqualToString:username] && [[object password] isEqualToString:password]);
     } else {
         return ([[object token] isEqualToString:token]);
     }
@@ -227,6 +249,8 @@ static CMWebService *webService;
 
 - (void)save:(CMUserOperationCallback)callback {
     [webService saveUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
+        NSLog(@"Response Body: %@", responseBody);
+        NSLog(@"Profile: %@", [responseBody objectForKey:@"profile"]);
         [self copyValuesFromDictionaryIntoState:responseBody];
         if (callback) {
             callback(result, [NSDictionary dictionary]);
@@ -248,6 +272,11 @@ static CMWebService *webService;
 
             NSDictionary *userProfile = [responseBody objectForKey:@"profile"];
             objectId = [userProfile objectForKey:CMInternalObjectIdKey];
+            
+            self.services = [[responseBody objectForKey:@"profile"] objectForKey:@"__services__"];
+            
+            NSLog(@"Response Body: %@", responseBody);
+            NSLog(@"User Profile: %@", userProfile);
 
             if (!self.isDirty) {
                 // Only bring the changes from the server into the object state if there weren't local modifications.
@@ -306,6 +335,7 @@ static CMWebService *webService;
     }];
 }
 
+//TODO: Update so it works
 - (void)changePasswordTo:(NSString *)newPassword from:(NSString *)oldPassword callback:(CMUserOperationCallback)callback {
     [webService changePasswordForUser:self
                            oldPassword:oldPassword
@@ -324,6 +354,58 @@ static CMWebService *webService;
                                   }
                               }
      ];
+    
+//    [self changeUserCredentialsWithPassword:oldPassword newPassword:newPassword newUsername:nil newUserId:nil callback:callback];
+    
+}
+
+- (void)changeUserIdTo:(NSString *)newUserId password:(NSString *)currentPassword callback:(CMUserOperationCallback)callback {
+    [self changeUserCredentialsWithPassword:currentPassword newPassword:nil newUsername:nil newUserId:newUserId callback:callback];
+}
+
+- (void)changeUsernameTo:(NSString *)newUsername password:(NSString *)currentPassword callback:(CMUserOperationCallback)callback {
+    [self changeUserCredentialsWithPassword:currentPassword newPassword:nil newUsername:newUsername newUserId:nil callback:callback];
+}
+
+//private?
+- (void)changeUserCredentialsWithPassword:(NSString *)currentPassword
+                              newPassword:(NSString *)newPassword
+                              newUsername:(NSString *)newUsername
+                                newUserId:(NSString *)newUserId
+                                 callback:(CMUserOperationCallback)callback {
+    
+    [webService updateCredentialsForUser:self
+                                password:currentPassword
+                             newPassword:newPassword
+                             newUsername:newUsername
+                               newUserId:newUserId
+                                callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
+                                    if (result == CMUserAccountCredentialsChangeSucceeded ||
+                                        result == CMUserAccountPasswordChangeSucceeded ||
+                                        result == CMUserAccountUsernameChangeSucceeded ||
+                                        result == CMUserAccountUserIdChangeSucceeded) {
+                                        
+                                        self.password = currentPassword;
+                                        
+                                        if (newPassword) {
+                                            self.password = newPassword;
+                                        }
+                                        if (newUsername) {
+                                            self.username = newUsername;
+                                        }
+                                        if (newUserId) {
+                                            self.userId = newUserId;
+                                        }
+                                        
+                                        [self loginWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
+                                            callback(result, [NSArray array]);
+                                        }];
+                                        
+                                    } else {
+                                        callback(result, [NSArray array]);
+                                    }
+                                }];
+    
 }
 
 - (void)resetForgottenPasswordWithCallback:(CMUserOperationCallback)callback  {

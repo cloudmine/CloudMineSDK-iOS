@@ -89,9 +89,19 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
 @property (atomic, strong) NSString *userId;
 
 /**
+ * The user's email (same as identifier)
+ */
+@property (atomic, strong) NSString *email;
+
+/**
  * The user's plaintext password.
  */
 @property (atomic, strong) NSString *password;
+
+/**
+ * The user's plaintext password
+ */
+@property (atomic, strong) NSString *username;
 
 /**
  * The user's session token, as assigned after a successful login operation.
@@ -132,6 +142,10 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
  * Initialize the user with an email address and password.
  */
 - (id)initWithUserId:(NSString *)userId andPassword:(NSString *)password;
+
+- (id)initWithUsername:(NSString *)theUsername andPassword:(NSString *)thePassword;
+
+- (id)initWithUserId:(NSString *)theUserId andUsername:(NSString *)theUsername andPassword:(NSString *)thePassword;
 
 /**
  * Asynchronously login the user and create a new session. On completion, the <tt>callback</tt> block will be called with
@@ -259,6 +273,10 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
  * @see https://cloudmine.me/developer_zone#ref/password_change
  */
 - (void)changePasswordTo:(NSString *)newPassword from:(NSString *)oldPassword callback:(CMUserOperationCallback)callback;
+
+- (void)changeUserIdTo:(NSString *)newUserId password:(NSString *)currentPassword callback:(CMUserOperationCallback)callback;
+
+- (void)changeUsernameTo:(NSString *)newUsername password:(NSString *)currentPassword callback:(CMUserOperationCallback)callback;
 
 /**
  * Asynchronously reset the password for this user. This method is used to reset a user's password if
