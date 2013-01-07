@@ -24,6 +24,12 @@ typedef enum {
     CMUserAccountProfileUpdateSucceeded,
     /** The password change for a user succeeded */
     CMUserAccountPasswordChangeSucceeded,
+    /** The user ID change for a user succeeded */
+    CMUserAccountUserIdChangeSucceeded,
+    /** The user Username change for a user succeeded */
+    CMUserAccountUsernameChangeSucceeded,
+    /** The user credentials change succeeded */
+    CMUserAccountCredentialsChangeSucceeded,
     /** The forgotten password email was sent for the user */
     CMUserAccountPasswordResetEmailSent,
 
