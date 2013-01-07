@@ -403,6 +403,16 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  */
 - (void)changePasswordForUser:(CMUser *)user oldPassword:(NSString *)oldPassword newPassword:(NSString *)newPassword callback:(CMWebServiceUserAccountOperationCallback)callback;
 
+
+
+
+- (void)updateCredentialsForUser:(CMUser *)user
+                        password:(NSString *)password
+                     newPassword:(NSString *)newPassword
+                     newUsername:(NSString *)newUsername
+                       newUserId:(NSString *)newUserId
+                        callback:(CMWebServiceUserAccountOperationCallback)callback;
+
 /**
  * Asynchronously reset the password for the given user. This method is used to reset a user's password if
  * he or she forgot it. This method of course does not require the user to be logged in in order to function.

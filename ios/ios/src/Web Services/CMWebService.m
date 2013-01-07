@@ -452,9 +452,14 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 
     NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/login", _appIdentifier]];
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
+    
+    NSLog(@"UserID: %@ - User Name: %@", user.userId, user.username);
+    NSLog(@"Pass: %@", user.password);
 
+    NSString *userAuthField = user.userId != nil ? user.userId : user.username;
+    
     CFHTTPMessageRef dummyRequest = CFHTTPMessageCreateRequest(kCFAllocatorDefault, CFSTR("GET"), (__bridge CFURLRef)[request URL], kCFHTTPVersion1_1);
-    CFHTTPMessageAddAuthentication(dummyRequest, nil, (__bridge CFStringRef)user.userId, (__bridge CFStringRef)user.password, kCFHTTPAuthenticationSchemeBasic, FALSE);
+    CFHTTPMessageAddAuthentication(dummyRequest, nil, (__bridge CFStringRef)userAuthField, (__bridge CFStringRef)user.password, kCFHTTPAuthenticationSchemeBasic, FALSE);
     NSString *basicAuthValue = (__bridge_transfer NSString *)CFHTTPMessageCopyHeaderFieldValue(dummyRequest, CFSTR("Authorization"));
     [request setValue:basicAuthValue forHTTPHeaderField:@"Authorization"];
     CFRelease(dummyRequest);
@@ -531,13 +536,21 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 
 - (void)createAccountWithUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
     NSParameterAssert(user);
-    NSAssert(user.userId != nil && user.password != nil, @"CloudMine *** User creation failed because the user object doesn't have a user ID or password set.");
+    NSAssert( (user.username != nil || user.userId != nil) && user.password != nil, @"CloudMine *** User creation failed because the user object doesn't have a user ID/username or password set.");
 
     NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/create", _appIdentifier]];
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
 
-    // The username and password of this account are supplied in the request body.
-    NSMutableDictionary *payload = $mdict(@"credentials", $dict(@"email", user.userId, @"password", user.password));
+    // The userid, username, and password of this account are supplied in the request body.
+    NSMutableDictionary *credentials = [NSMutableDictionary dictionaryWithObjectsAndKeys:user.password, @"password", nil];
+    if (user.userId) {
+        [credentials setValue:user.userId forKey:@"email"];
+    }
+    if (user.username) {
+        [credentials setValue:user.username forKey:@"username"];
+    }
+    
+    NSMutableDictionary *payload = $mdict(@"credentials", credentials);
 
     // Extract other profile fields from the user by serializing it to JSON and removing the "token" and "tokenExpiration" fields (which don't
     // need to be sent over the wire).
@@ -579,7 +592,6 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         callback(resultCode, messages);
     }];
 }
-
 
 - (void)loginWithSocial:(CMUser *)user withService:(NSString *)service viewController:(UIViewController *)viewController params:(NSDictionary *)params callback:(CMWebServiceUserAccountOperationCallback)callback {
     CMSocialLoginViewController *loginViewController = [[CMSocialLoginViewController alloc] initForService:service appID:_appIdentifier apiKey:_appSecret user:user params:params];
@@ -686,7 +698,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         };
 
         if (!user.isLoggedIn) {
-            if (!user.userId && !user.password) {
+            if ( (!user.userId || !user.username) && !user.password) {
                 NSLog(@"CloudMine *** Cannot update a user profile when the user is not logged in and userId and password are not both set.");
                 callback(CMUserAccountLoginFailedIncorrectCredentials, [NSDictionary dictionary]);
             }
@@ -711,6 +723,8 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     }
 }
 
+// TODO: THIS NEEDS TO BE CHANGED FOREVER (make new changeAuth field too?)
+// TODO: Point this at the new changecredentials
 - (void)changePasswordForUser:(CMUser *)user oldPassword:(NSString *)oldPassword newPassword:(NSString *)newPassword callback:(CMWebServiceUserAccountOperationCallback)callback {
     NSParameterAssert(user);
     NSParameterAssert(oldPassword);
@@ -764,9 +778,83 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     }];
 }
 
+- (void)updateCredentialsForUser:(CMUser *)user
+                        password:(NSString *)password
+                     newPassword:(NSString *)newPassword
+                     newUsername:(NSString *)newUsername
+                       newUserId:(NSString *)newUserId
+                        callback:(CMWebServiceUserAccountOperationCallback)callback {
+    NSParameterAssert(user);
+    NSParameterAssert(password);
+    NSAssert( user.username != nil || user.userId != nil, @"CloudMine *** User credential change failed because the user object doesn't have a user ID/username set.");
+    
+    NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/credentials", _appIdentifier]];
+    NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
+    
+    NSString *userAuthField = user.userId != nil ? user.userId : user.username;
+    
+    // This API endpoint doesn't use a session token for security purposes. The user must supply their old password
+    // explicitly in addition to their new password.
+    CFHTTPMessageRef dummyRequest = CFHTTPMessageCreateRequest(kCFAllocatorDefault, CFSTR("GET"), (__bridge CFURLRef)[request URL], kCFHTTPVersion1_1);
+    CFHTTPMessageAddAuthentication(dummyRequest, nil, (__bridge CFStringRef)userAuthField, (__bridge CFStringRef)password, kCFHTTPAuthenticationSchemeBasic, FALSE);
+    NSString *basicAuthValue = (__bridge_transfer NSString *)CFHTTPMessageCopyHeaderFieldValue(dummyRequest, CFSTR("Authorization"));
+    [request setValue:basicAuthValue forHTTPHeaderField:@"Authorization"];
+    CFRelease(dummyRequest);
+    
+    NSMutableDictionary *payload = [NSMutableDictionary dictionary];
+    if (newPassword) { [payload setValue:newPassword forKey:@"password"]; }
+    if (newUsername) { [payload setValue:newUsername forKey:@"username"]; }
+    if (newUserId) { [payload setValue:newUserId forKey:@"email"]; }
+
+    [request setHTTPBody:[[payload yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
+
+    [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode, NSError *error) {
+        if ([[error domain] isEqualToString:CMErrorDomain]) {
+            if ([error code] == CMErrorUnauthorized) {
+                return CMUserAccountPasswordChangeFailedInvalidCredentials;
+            } else if ([error code] == CMErrorServerConnectionFailed) {
+                return CMUserAccountUnknownResult;
+            }
+        }
+        switch (httpResponseCode) {
+            case 200:
+                if ( (newPassword && newUsername && newUserId) || (newPassword && newUsername) || (newPassword && newUserId) || (newUsername && newUserId) ) {
+                    return CMUserAccountCredentialsChangeSucceeded;
+                } else if (newPassword) {
+                    return CMUserAccountPasswordChangeSucceeded;
+                } else if (newUsername) {
+                    return CMUserAccountUsernameChangeSucceeded;
+                } else {
+                    return CMUserAccountUserIdChangeSucceeded;
+                }
+                return CMUserAccountPasswordChangeSucceeded;
+            case 401:
+                return CMUserAccountPasswordChangeFailedInvalidCredentials;
+            case 404:
+                return CMUserAccountOperationFailedUnknownAccount;
+            default:
+                return CMUserAccountUnknownResult;
+        }
+    } callback:^(CMUserAccountResult resultCode, NSDictionary *messages) {
+        switch (resultCode) {
+            case CMUserAccountPasswordChangeFailedInvalidCredentials:
+                NSLog(@"CloudMine *** User Credential change failed because the credentials provided were incorrect");
+                break;
+            case CMUserAccountOperationFailedUnknownAccount:
+                NSLog(@"CloudMine *** User Credential change failed because the application does not exist");
+                break;
+            default:
+                break;
+        }
+        callback(resultCode, messages);
+    }];
+    
+}
+
+
 - (void)resetForgottenPasswordForUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
     NSParameterAssert(user);
-    NSAssert(user.userId, @"CloudMine *** User password reset failed because the user object doesn't have a user ID set.");
+    NSAssert(user.userId, @"CloudMine *** User password reset failed because the user object doesn't have a user ID (email) set.");
 
     NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/password/reset", _appIdentifier]];
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
