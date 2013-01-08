@@ -32,7 +32,8 @@ typedef enum {
     CMUserAccountCredentialsChangeSucceeded,
     /** The forgotten password email was sent for the user */
     CMUserAccountPasswordResetEmailSent,
-
+    /** The credential change for a user failed due to an incorrect password/user */
+    CMUserAccountCredentialChangeFailedInvalidCredentials,
     /** Account creation failed because of an invalid email address or password */
     CMUserAccountCreateFailedInvalidRequest,
     /** The user profile update failed. See the accompanying dictionary for reasons. */
