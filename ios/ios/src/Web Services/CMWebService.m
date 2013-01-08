@@ -827,9 +827,8 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                 } else {
                     return CMUserAccountUserIdChangeSucceeded;
                 }
-                return CMUserAccountPasswordChangeSucceeded;
             case 401:
-                return CMUserAccountPasswordChangeFailedInvalidCredentials;
+                return CMUserAccountCredentialChangeFailedInvalidCredentials;
             case 404:
                 return CMUserAccountOperationFailedUnknownAccount;
             default:
