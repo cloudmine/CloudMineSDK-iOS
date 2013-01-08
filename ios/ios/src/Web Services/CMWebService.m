@@ -809,17 +809,21 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     [request setHTTPBody:[[payload yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
 
     [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode, NSError *error) {
+        NSLog(@"Response Code: %d", httpResponseCode);
         if ([[error domain] isEqualToString:CMErrorDomain]) {
+            NSLog(@"Here");
             if ([error code] == CMErrorUnauthorized) {
+                NSLog(@"Here 2");
                 return CMUserAccountPasswordChangeFailedInvalidCredentials;
             } else if ([error code] == CMErrorServerConnectionFailed) {
+                NSLog(@"Here 3");
                 return CMUserAccountUnknownResult;
             }
         }
         switch (httpResponseCode) {
             case 200:
                 if ( (newPassword && newUsername && newUserId) || (newPassword && newUsername) || (newPassword && newUserId) || (newUsername && newUserId) ) {
-                    return CMUserAccountCredentialsChangeSucceeded;
+                    return CMUserAccountCredentialChangeSucceeded;
                 } else if (newPassword) {
                     return CMUserAccountPasswordChangeSucceeded;
                 } else if (newUsername) {
@@ -831,6 +835,15 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                 return CMUserAccountCredentialChangeFailedInvalidCredentials;
             case 404:
                 return CMUserAccountOperationFailedUnknownAccount;
+            case 409:
+                if (newUserId && newUsername)
+                    return CMUserAccountCredentialChangeFailedDuplicateInfo;
+                if (newUserId)
+                    return CMUserAccountCredentialChangeFailedDuplicateUserId;
+                if (newUsername)
+                    return CMUserAccountCredentialChangeFailedDuplicateUsername;
+                
+                return CMUserAccountCredentialChangeFailedDuplicateInfo;
             default:
                 return CMUserAccountUnknownResult;
         }

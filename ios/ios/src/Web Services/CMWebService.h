@@ -419,6 +419,9 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * - <tt>CMUserAccountUserIdChangeSucceeded</tt>
  * - <tt>CMUserAccountUsernameChangeSucceeded</tt>
  * - <tt>CMUserAccountCredentialsChangeSucceeded</tt> Used if more than one credential field was changed.
+ * - <tt>CMUserAccountCredentialChangeFailedDuplicateUserId</tt>
+ * - <tt>CMUserAccountCredentialChangeFailedDuplicateUsername</tt>
+ * - <tt>CMUserAccountCredentialChangeFailedDuplicateInfo</tt>
  * - <tt>CMUserAccountCredentialChangeFailedInvalidCredentials</tt>
  * - <tt>CMUserAccountOperationFailedUnknownAccount</tt>
  * - <tt>CMUserAccountUnknownResult</tt>
