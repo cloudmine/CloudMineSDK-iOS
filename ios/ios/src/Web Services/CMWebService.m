@@ -730,7 +730,10 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     NSParameterAssert(oldPassword);
     NSParameterAssert(newPassword);
     NSAssert(user.userId, @"CloudMine *** User password change failed because the user object doesn't have a user ID set.");
+    
+    [self changeCredentialsForUser:user password:oldPassword newPassword:newPassword newUsername:nil newUserId:nil callback:callback];
 
+    /*
     NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/password/change", _appIdentifier]];
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
 
@@ -776,6 +779,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         }
         callback(resultCode, messages);
     }];
+     */
 }
 
 - (void)changeCredentialsForUser:(CMUser *)user
