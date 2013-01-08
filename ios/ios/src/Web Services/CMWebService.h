@@ -406,7 +406,7 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
 
 
 
-- (void)updateCredentialsForUser:(CMUser *)user
+- (void)changeCredentialsForUser:(CMUser *)user
                         password:(NSString *)password
                      newPassword:(NSString *)newPassword
                      newUsername:(NSString *)newUsername

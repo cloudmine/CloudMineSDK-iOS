@@ -778,7 +778,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     }];
 }
 
-- (void)updateCredentialsForUser:(CMUser *)user
+- (void)changeCredentialsForUser:(CMUser *)user
                         password:(NSString *)password
                      newPassword:(NSString *)newPassword
                      newUsername:(NSString *)newUsername
