@@ -595,7 +595,7 @@ describe(@"CMWebService", ^{
             NSString *password = user.password;
             user.token = @"token";
             
-            [service updateCredentialsForUser:user password:@"password" newPassword:@"aNewPassword" newUsername:nil newUserId:nil callback:^(CMUserAccountResult result, NSDictionary *responseBody) {}];
+            [service changeCredentialsForUser:user password:@"password" newPassword:@"aNewPassword" newUsername:nil newUserId:nil callback:^(CMUserAccountResult result, NSDictionary *responseBody) {}];
             
             NSURLRequest *request = spy.argument;
             [[[request URL] should] equal:expectedURL];
@@ -618,7 +618,7 @@ describe(@"CMWebService", ^{
             NSString *password = user.password;
             user.token = @"token";
             
-            [service updateCredentialsForUser:user password:@"password" newPassword:nil newUsername:@"aNewUsername" newUserId:@"aNewUserID" callback:^(CMUserAccountResult result, NSDictionary *responseBody) {}];
+            [service changeCredentialsForUser:user password:@"password" newPassword:nil newUsername:@"aNewUsername" newUserId:@"aNewUserID" callback:^(CMUserAccountResult result, NSDictionary *responseBody) {}];
             
             NSURLRequest *request = spy.argument;
             [[[request URL] should] equal:expectedURL];
