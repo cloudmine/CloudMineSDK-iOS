@@ -279,7 +279,7 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
 /**
  * Asynchronously change the User ID for this user. For security purposes, you must have the user enter his or her
  * current password in order to perform this operation. The user does not need to be logged in to change this property. If this method
- * is successful then the user is automatically logged in again to get their new session token.
+ * is successful then the user is automatically logged in again to get their new session token. If it is not successful, the user is not logged out.
  * On completion, the <tt>callback</tt> block will be called with the result of the operation and any messages
  * returned by the server contained in an array. See the CloudMine documentation online for the possible contents of this array.
  *
@@ -288,6 +288,7 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
  * Possible result codes:
  * - <tt>CMUserAccountUserIdChangeSucceeded</tt>
  * - <tt>CMUserAccountCredentialChangeFailedInvalidCredentials</tt>
+ * - <tt>CMUserAccountCredentialChangeFailedDuplicateUserId</tt>
  * - <tt>CMUserAccountOperationFailedUnknownAccount</tt>
  * - <tt>CMUserAccountUnknownResult</tt>
  *
@@ -303,13 +304,14 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
 /**
  * Asynchronously change the Username for this user. For security purposes, you must have the user enter his or her
  * current password in order to perform this operation. The user does not need to be logged in to change this property. If this method
- * is successful then the user is automatically logged in again to get their new session token.
+ * is successful then the user is automatically logged in again to get their new session token. If it is not successful, the user is not logged out.
  * On completion, the <tt>callback</tt> block will be called with the result of the operation and any messages
  * returned by the server contained in an array. See the CloudMine documentation online for the possible contents of this array.
  *
  * Possible result codes:
  * - <tt>CMUserAccountUsernameChangeSucceeded</tt>
  * - <tt>CMUserAccountCredentialChangeFailedInvalidCredentials</tt>
+ * - <tt>CMUserAccountCredentialChangeFailedDuplicateUsername</tt>
  * - <tt>CMUserAccountOperationFailedUnknownAccount</tt>
  * - <tt>CMUserAccountUnknownResult</tt>
  *
@@ -325,7 +327,7 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
  * Asynchronously change the credentials for this user. This method can be called with any combination of new values for the user.
  * It is useful when you want to change more than one value for the user, such as his username, userId, <em>and</em> password.
  * For any operation, the current password must be provided. The user does not need to be logged in to use this method.
- * If this method is successful then the user is automatically logged in again to get their new session token.
+ * If this method is successful then the user is automatically logged in again to get their new session token. If it is not successful, the user is not logged out.
  * On completion, the <tt>callback</tt> block will be called with the result of the operation and any messages
  * returned by the server contained in an array. See the CloudMine documentation online for the possible contents of this array.
  *
@@ -334,6 +336,9 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
  * - <tt>CMUserAccountUserIdChangeSucceeded</tt>
  * - <tt>CMUserAccountUsernameChangeSucceeded</tt>
  * - <tt>CMUserAccountCredentialsChangeSucceeded</tt> Used if more than one credential field was changed.
+ * - <tt>CMUserAccountCredentialChangeFailedDuplicateUserId</tt>
+ * - <tt>CMUserAccountCredentialChangeFailedDuplicateUsername</tt>
+ * - <tt>CMUserAccountCredentialChangeFailedDuplicateInfo</tt>
  * - <tt>CMUserAccountCredentialChangeFailedInvalidCredentials</tt>
  * - <tt>CMUserAccountOperationFailedUnknownAccount</tt>
  * - <tt>CMUserAccountUnknownResult</tt>

@@ -156,7 +156,9 @@ static CMWebService *webService;
         id newValue = [change objectForKey:NSKeyValueChangeNewKey];
         if (![oldValue isEqual:newValue]) {
             // Only apply the change if a change was actually made.
-            NSLog(@"Detected change for property %@. Old value was \"%@\", new value is \"%@\"", keyPath, oldValue, newValue);
+            #ifdef DEBUG
+                NSLog(@"Detected change for property %@. Old value was \"%@\", new value is \"%@\"", keyPath, oldValue, newValue);
+            #endif
             isDirty = YES;
         }
     }
@@ -262,8 +264,6 @@ static CMWebService *webService;
 
 - (void)save:(CMUserOperationCallback)callback {
     [webService saveUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
-        NSLog(@"Response Body: %@", responseBody);
-        NSLog(@"Profile: %@", [responseBody objectForKey:@"profile"]);
         [self copyValuesFromDictionaryIntoState:responseBody];
         if (callback) {
             callback(result, [NSDictionary dictionary]);
@@ -287,9 +287,6 @@ static CMWebService *webService;
             objectId = [userProfile objectForKey:CMInternalObjectIdKey];
             
             self.services = [[responseBody objectForKey:@"profile"] objectForKey:@"__services__"];
-            
-            NSLog(@"Response Body: %@", responseBody);
-            NSLog(@"User Profile: %@", userProfile);
 
             if (!self.isDirty) {
                 // Only bring the changes from the server into the object state if there weren't local modifications.
@@ -393,7 +390,8 @@ static CMWebService *webService;
                              newUsername:newUsername
                                newUserId:newUserId
                                 callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
-                                    if (result == CMUserAccountCredentialsChangeSucceeded ||
+                                    
+                                    if (result == CMUserAccountCredentialChangeSucceeded ||
                                         result == CMUserAccountPasswordChangeSucceeded ||
                                         result == CMUserAccountUsernameChangeSucceeded ||
                                         result == CMUserAccountUserIdChangeSucceeded) {
@@ -410,6 +408,7 @@ static CMWebService *webService;
                                             self.userId = newUserId;
                                         }
                                         
+                                        // Only login if it was successful, otherwise it won't expire the session token.
                                         [self loginWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
                                             callback(result, [NSArray array]);
                                         }];
