@@ -4,7 +4,7 @@ HEAD
 
 v1.4.6 (January 8, 2013)
 =====
-* Fixed a bug in which the *userId* field of CMUser was being sent up to CloudMine.
+* Fixed a bug in which the *userId* field of CMUser was being sent up to CloudMine. This was an oversight, and should not be happening - if you relied on this field (which is generally the user's email), you can still access it, but it will no longer be updated automatically. Rather, you should use a custom field instead of userId.
 
 v1.4.5 (December 21, 2012)
 ======
