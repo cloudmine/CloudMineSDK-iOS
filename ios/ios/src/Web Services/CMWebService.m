@@ -555,7 +555,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     // Extract other profile fields from the user by serializing it to JSON and removing the "token" and "tokenExpiration" fields (which don't
     // need to be sent over the wire).
     NSMutableDictionary *serializedUser = [[[(NSDictionary *)[CMObjectEncoder encodeObjects:$array(user)] allValues] objectAtIndex:0] mutableCopy];
-    [serializedUser removeObjectsForKeys:$array(@"token", @"tokenExpiration")];
+    [serializedUser removeObjectsForKeys:$array(@"token", @"tokenExpiration", @"userId")];
     if ([serializedUser count] > 0) {
         [payload setObject:serializedUser forKey:@"profile"];
     }
@@ -657,7 +657,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
             NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/%@", _appIdentifier, user.objectId]];
             NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:user];
             NSMutableDictionary *payload = [[[CMObjectEncoder encodeObjects:$set(user)] objectForKey:user.objectId] mutableCopy]; // Don't need the outer object wrapping it like with objects
-            [payload removeObjectsForKeys:$array(@"token", @"tokenExpiration")];
+            [payload removeObjectsForKeys:$array(@"token", @"tokenExpiration", @"userId")];
             [request setHTTPBody:[[payload yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
             
             AFHTTPRequestOperation *requestOperation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
