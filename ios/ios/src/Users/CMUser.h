@@ -145,8 +145,14 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
  */
 - (id)initWithUserId:(NSString *)userId andPassword:(NSString *)password;
 
+/**
+ * Initialize the user with a Username and password.
+ */
 - (id)initWithUsername:(NSString *)theUsername andPassword:(NSString *)thePassword;
 
+/**
+ * Initialize the user with an email, username, and password.
+ */
 - (id)initWithUserId:(NSString *)theUserId andUsername:(NSString *)theUsername andPassword:(NSString *)thePassword;
 
 /**
