@@ -29,7 +29,7 @@ typedef enum {
     /** The user Username change for a user succeeded */
     CMUserAccountUsernameChangeSucceeded,
     /** The user credentials change succeeded */
-    CMUserAccountCredentialsChangeSucceeded,
+    CMUserAccountCredentialChangeSucceeded,
     /** The forgotten password email was sent for the user */
     CMUserAccountPasswordResetEmailSent,
     /** The credential change for a user failed due to an incorrect password/user */
@@ -40,6 +40,12 @@ typedef enum {
     CMUserAccountProfileUpdateFailed,
     /** Account creation failed because a user with that email address already exists for the current app */
     CMUserAccountCreateFailedDuplicateAccount,
+    /** The user credential change failed because the new User ID was already taken */
+    CMUserAccountCredentialChangeFailedDuplicateUserId,
+    /** The user credential change failed because the new Username was already taken */
+    CMUserAccountCredentialChangeFailedDuplicateUsername,
+    /** The user credential change failed because the new Username OR User ID was already taken */
+    CMUserAccountCredentialChangeFailedDuplicateInfo,
     /** The login failed due to an incorrect password for the given email address */
     CMUserAccountLoginFailedIncorrectCredentials,
     /** The password change for a user failed due to an incorrect password for the given email address */
