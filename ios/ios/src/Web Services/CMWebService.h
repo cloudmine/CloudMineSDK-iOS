@@ -405,7 +405,32 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
 
 
 
-
+/**
+ * Asynchronously change the credentials for the given user. For security purposes, you must have the user enter his or her password
+ * in order to perform this operation. This operation will succeed regardless of whether the user's <tt>CMUser</tt> instance
+ * is logged in or not.
+ * This method is useful when changing multiple fields for the user, and is the only method to change their username/userId. This
+ * method is generally called from the <tt>CMUser</tt>.
+ * On completion, the <tt>callback</tt> block will be called with the result  of the operation and the body of the
+ * response represented by an <tt>NSDictonary</tt>. See the CloudMine documentation online for the possible contents of this dictionary.
+ *
+ * Possible result codes:
+ * - <tt>CMUserAccountPasswordChangeSucceeded</tt>
+ * - <tt>CMUserAccountUserIdChangeSucceeded</tt>
+ * - <tt>CMUserAccountUsernameChangeSucceeded</tt>
+ * - <tt>CMUserAccountCredentialsChangeSucceeded</tt> Used if more than one credential field was changed.
+ * - <tt>CMUserAccountCredentialChangeFailedInvalidCredentials</tt>
+ * - <tt>CMUserAccountOperationFailedUnknownAccount</tt>
+ * - <tt>CMUserAccountUnknownResult</tt>
+ *
+ * @param user The user who is having their credentials changed.
+ * @param password The current password for the user.
+ * @param newPassword Can be nil. The new password for the user.
+ * @param newUsername Can be nil. The new username for the user.
+ * @param newUserId Can be nil. THe new userId for the user. Must be in the form of an email.
+ *
+ * @see CMUserAccountResult
+ */
 - (void)changeCredentialsForUser:(CMUser *)user
                         password:(NSString *)password
                      newPassword:(NSString *)newPassword
