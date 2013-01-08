@@ -26,6 +26,7 @@ var interface_c_m_web_service =
     [ "setValuesFromDictionary:serverSideFunction:user:extraParameters:successHandler:errorHandler:", "interface_c_m_web_service.html#a4e6f1c17ab00b492687a05be395d9b0e", null ],
     [ "unRegisterForPushNotificationsWithUser:callback:", "interface_c_m_web_service.html#a3fe9cfb742b1f1407a814de214b92812", null ],
     [ "updateACL:user:successHandler:errorHandler:", "interface_c_m_web_service.html#ac71c26f9ba0fd74e482837f1620fe566", null ],
+    [ "updateCredentialsForUser:password:newPassword:newUsername:newUserId:callback:", "interface_c_m_web_service.html#ad3f079e58049c236907b65d0b5089e9c", null ],
     [ "updateValuesFromDictionary:serverSideFunction:user:extraParameters:successHandler:errorHandler:", "interface_c_m_web_service.html#a64e982500022479a7305803515607cbe", null ],
     [ "uploadBinaryData:serverSideFunction:named:ofMimeType:user:extraParameters:successHandler:errorHandler:", "interface_c_m_web_service.html#acc7085e5cb89f4a7b65bdadfcc705554", null ],
     [ "uploadFileAtPath:serverSideFunction:named:ofMimeType:user:extraParameters:successHandler:errorHandler:", "interface_c_m_web_service.html#a9744cf8bb35b49f68608f6269a810a1a", null ],
