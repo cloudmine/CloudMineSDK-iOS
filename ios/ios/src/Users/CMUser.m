@@ -43,7 +43,8 @@ static CMWebService *webService;
 
 @implementation CMUser
 
-@synthesize userId;
+@synthesize userId = _userId;
+@synthesize email = _email;
 @synthesize password;
 @synthesize token;
 @synthesize tokenExpiration;
@@ -51,7 +52,6 @@ static CMWebService *webService;
 @synthesize isDirty;
 @synthesize services;
 @synthesize username;
-@synthesize email;
 
 + (NSString *)className {
     return NSStringFromClass([self class]);
@@ -107,8 +107,8 @@ static CMWebService *webService;
         }
         token = [coder decodeObjectForKey:@"token"];
         tokenExpiration = [coder decodeObjectForKey:@"tokenExpiration"];
-        userId = [coder decodeObjectForKey:@"userId"];
-        email = [coder decodeObjectForKey:@"email"];
+        _userId = [coder decodeObjectForKey:@"userId"];
+        _email = [coder decodeObjectForKey:@"email"];
         username = [coder decodeObjectForKey:@"username"];
         services = [coder decodeObjectForKey:@"services"];
         if (!webService) {
@@ -187,8 +187,8 @@ static CMWebService *webService;
         return NO;
     }
 
-    if (userId) {
-        return ([[object userId] isEqualToString:userId] && [[object password] isEqualToString:password]);
+    if (_userId) {
+        return ([[object userId] isEqualToString:_userId] && [[object password] isEqualToString:password]);
     } else if (username) {
         return ([[object username] isEqualToString:username] && [[object password] isEqualToString:password]);
     } else {
@@ -238,6 +238,19 @@ static CMWebService *webService;
         }
     }
     isDirty = NO;
+}
+
+
+- (NSString *)userId {
+    @synchronized(self) {
+        return _email;
+    }
+}
+
+- (void)setUserId:(NSString *)userId {
+    @synchronized(self) {
+        _email = userId;
+    }
 }
 
 #pragma mark - Remote user account and session operations
