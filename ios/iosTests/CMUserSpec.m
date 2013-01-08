@@ -51,6 +51,16 @@ SPEC_BEGIN(CMUserSpec)
 describe(@"CMUser", ^{
     [[CMAPICredentials sharedInstance] setAppSecret:@"appSecret"];
     [[CMAPICredentials sharedInstance] setAppIdentifier:@"appIdentifier"];
+    
+    context(@"given a user", ^{
+        it(@"should set the userId when setting email", ^{
+            CMUser *user = [[CMUser alloc] init];
+            
+            [user.userId shouldBeNil];
+            user.email = @"test@testing.com";
+            [[user.userId should] equal:@"test@testing.com"];
+        });
+    });
 
     context(@"given a username and password", ^{
         it(@"should record both in memory and return them when the getters are accessed", ^{
