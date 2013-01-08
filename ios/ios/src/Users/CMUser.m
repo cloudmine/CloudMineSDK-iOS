@@ -387,7 +387,7 @@ static CMWebService *webService;
                                 newUserId:(NSString *)newUserId
                                  callback:(CMUserOperationCallback)callback {
     
-    [webService updateCredentialsForUser:self
+    [webService changeCredentialsForUser:self
                                 password:currentPassword
                              newPassword:newPassword
                              newUsername:newUsername
