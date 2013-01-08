@@ -2,6 +2,10 @@ HEAD
 =====
 
 
+v1.4.6 (January 8, 2013)
+=====
+* Fixed a bug in which the *userId* field of CMUser was being sent up to CloudMine.
+
 v1.4.5 (December 21, 2012)
 ======
 * Added Push Notification Support!
