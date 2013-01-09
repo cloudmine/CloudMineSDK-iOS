@@ -723,8 +723,6 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     }
 }
 
-// TODO: THIS NEEDS TO BE CHANGED FOREVER (make new changeAuth field too?)
-// TODO: Point this at the new changecredentials
 - (void)changePasswordForUser:(CMUser *)user oldPassword:(NSString *)oldPassword newPassword:(NSString *)newPassword callback:(CMWebServiceUserAccountOperationCallback)callback {
     NSParameterAssert(user);
     NSParameterAssert(oldPassword);
@@ -788,6 +786,9 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                     return CMUserAccountUserIdChangeSucceeded;
                 }
             case 401:
+                if (newPassword && newUserId == nil && newUsername == nil)
+                    return CMUserAccountPasswordChangeFailedInvalidCredentials;
+
                 return CMUserAccountCredentialChangeFailedInvalidCredentials;
             case 404:
                 return CMUserAccountOperationFailedUnknownAccount;
