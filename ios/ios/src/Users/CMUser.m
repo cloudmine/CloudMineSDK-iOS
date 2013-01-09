@@ -43,7 +43,7 @@ static CMWebService *webService;
 
 @implementation CMUser
 
-@synthesize userId = _userId;
+@synthesize userId = _userId; // Delete in Version 2.0
 @synthesize email = _email;
 @synthesize password;
 @synthesize token;
@@ -70,22 +70,31 @@ static CMWebService *webService;
 }
 
 - (id)init {
-    return [self initWithUserId:nil andUsername:nil andPassword:nil];
+    return [self initWithEmail:nil andUsername:nil andPassword:nil];
 }
 
 - (id)initWithUsername:(NSString *)theUsername andPassword:(NSString *)thePassword {
-    return [self initWithUserId:nil andUsername:theUsername andPassword:thePassword];
+    return [self initWithEmail:nil andUsername:theUsername andPassword:thePassword];
 }
 
+// Delete in Version 2.0
 - (id)initWithUserId:(NSString *)theUserId andPassword:(NSString *)thePassword {
-    return [self initWithUserId:theUserId andUsername:nil andPassword:thePassword];
+    return [self initWithEmail:theUserId andUsername:nil andPassword:thePassword];
 }
 
+- (id)initWithEmail:(NSString *)theEmail andPassword:(NSString *)thePassword {
+    return [self initWithEmail:theEmail andUsername:nil andPassword:thePassword];
+}
+
+// Delete in Version 2.0
 - (id)initWithUserId:(NSString *)theUserId andUsername:(NSString *)theUsername andPassword:(NSString *)thePassword {
+    return [self initWithEmail:theUserId andUsername:theUsername andPassword:thePassword];
+}
+
+- (id)initWithEmail:(NSString *)theEmail andUsername:(NSString *)theUsername andPassword:(NSString *)thePassword {
     if (self = [super init]) {
         self.token = nil;
-        self.userId = theUserId;
-        self.email = theUserId;
+        self.email = theEmail;
         self.username = theUsername;
         self.password = thePassword;
         self.services = nil;
@@ -176,9 +185,7 @@ static CMWebService *webService;
     if (self.username) {
         [coder encodeObject:self.username forKey:@"username"];
     }
-    if (self.userId) {
-        [coder encodeObject:self.userId forKey:@"userId"];
-    }
+
     [coder encodeObject:self.services forKey:@"services"];
 }
 
@@ -189,8 +196,8 @@ static CMWebService *webService;
         return NO;
     }
 
-    if (_userId) {
-        return ([[object userId] isEqualToString:_userId] && [[object password] isEqualToString:password]);
+    if (_email) {
+        return ([[object email] isEqualToString:_email] && [[object password] isEqualToString:password]);
     } else if (username) {
         return ([[object username] isEqualToString:username] && [[object password] isEqualToString:password]);
     } else {
@@ -242,13 +249,13 @@ static CMWebService *webService;
     isDirty = NO;
 }
 
-
+// Delete in Version 2.0
 - (NSString *)userId {
     @synchronized(self) {
         return _email;
     }
 }
-
+// Delete in Version 2.0
 - (void)setUserId:(NSString *)userId {
     @synchronized(self) {
         _email = userId;
@@ -346,34 +353,48 @@ static CMWebService *webService;
 }
 
 - (void)changePasswordTo:(NSString *)newPassword from:(NSString *)oldPassword callback:(CMUserOperationCallback)callback {
-    [self changeUserCredentialsWithPassword:oldPassword newPassword:newPassword newUsername:nil newUserId:nil callback:callback];
+    [self changeUserCredentialsWithPassword:oldPassword newPassword:newPassword newUsername:nil newEmail:nil callback:callback];
 }
 
+// Delete in Version 2.0
 - (void)changeUserIdTo:(NSString *)newUserId password:(NSString *)currentPassword callback:(CMUserOperationCallback)callback {
-    [self changeUserCredentialsWithPassword:currentPassword newPassword:nil newUsername:nil newUserId:newUserId callback:callback];
+    [self changeUserCredentialsWithPassword:currentPassword newPassword:nil newUsername:nil newEmail:newUserId callback:callback];
+}
+
+- (void)changeEmailTo:(NSString *)newEmail password:(NSString *)currentPassword callback:(CMUserOperationCallback)callback {
+    [self changeUserCredentialsWithPassword:currentPassword newPassword:nil newUsername:nil newEmail:newEmail callback:callback];
 }
 
 - (void)changeUsernameTo:(NSString *)newUsername password:(NSString *)currentPassword callback:(CMUserOperationCallback)callback {
-    [self changeUserCredentialsWithPassword:currentPassword newPassword:nil newUsername:newUsername newUserId:nil callback:callback];
+    [self changeUserCredentialsWithPassword:currentPassword newPassword:nil newUsername:newUsername newEmail:nil callback:callback];
+}
+
+// Delete in Version 2.0
+- (void)changeUserCredentialsWithPassword:(NSString *)currentPassword
+                              newPassword:(NSString *)newPassword
+                              newUsername:(NSString *)newUsername
+                                newUserId:(NSString *)newUserId
+                                 callback:(CMUserOperationCallback)callback {
+    [self changeUserCredentialsWithPassword:currentPassword newPassword:newPassword newUsername:newUsername newEmail:newUserId callback:callback];
 }
 
 - (void)changeUserCredentialsWithPassword:(NSString *)currentPassword
                               newPassword:(NSString *)newPassword
                               newUsername:(NSString *)newUsername
-                                newUserId:(NSString *)newUserId
+                                newEmail:(NSString *)newEmail
                                  callback:(CMUserOperationCallback)callback {
     
     [webService changeCredentialsForUser:self
                                 password:currentPassword
                              newPassword:newPassword
                              newUsername:newUsername
-                               newUserId:newUserId
+                               newEmail:newEmail
                                 callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
                                     
                                     if (result == CMUserAccountCredentialChangeSucceeded ||
                                         result == CMUserAccountPasswordChangeSucceeded ||
                                         result == CMUserAccountUsernameChangeSucceeded ||
-                                        result == CMUserAccountUserIdChangeSucceeded) {
+                                        result == CMUserAccountEmailChangeSucceeded) {
                                         
                                         self.password = currentPassword;
                                         
@@ -383,8 +404,8 @@ static CMWebService *webService;
                                         if (newUsername) {
                                             self.username = newUsername;
                                         }
-                                        if (newUserId) {
-                                            self.userId = newUserId;
+                                        if (newEmail) {
+                                            self.email = newEmail;
                                         }
                                         
                                         // Only login if it was successful, otherwise it won't expire the session token.
