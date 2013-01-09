@@ -2,6 +2,7 @@ var interface_c_m_user =
 [
     [ "allUsersWithCallback:", "interface_c_m_user.html#a2129f5b1da4b3bdee69876b3a2e7bc26", null ],
     [ "changePasswordTo:from:callback:", "interface_c_m_user.html#a99b30d2883f01db177619893155308ad", null ],
+    [ "changeUserCredentialsWithPassword:newPassword:newUsername:newUserId:callback:", "interface_c_m_user.html#a7d45f2577294461a05f304a322af337a", null ],
     [ "changeUserIdTo:password:callback:", "interface_c_m_user.html#ac6e32fb31fe5d6b56662873ebe46e06c", null ],
     [ "changeUsernameTo:password:callback:", "interface_c_m_user.html#a5656d9f1c78deaa73ae432af5b3900c9", null ],
     [ "createAccountAndLoginWithCallback:", "interface_c_m_user.html#adc2b15ea9176fb8756ab1492974c79d6", null ],
