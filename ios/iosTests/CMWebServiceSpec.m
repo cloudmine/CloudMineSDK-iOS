@@ -150,7 +150,7 @@ describe(@"CMWebService", ^{
 
         it(@"JSON URLs at the user level correctly", ^{
             NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/text", appId]];
-            CMUser *creds = [[CMUser alloc] initWithUserId:@"user" andPassword:@"pass"];
+            CMUser *creds = [[CMUser alloc] initWithEmail:@"user@test.com" andPassword:@"pass"];
             creds.token = @"token";
 
             [service getValuesForKeys:nil
@@ -173,7 +173,7 @@ describe(@"CMWebService", ^{
         
         it(@"JSON URLs at the user level correctly", ^{
             NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/text", appId]];
-            CMUser *creds = [[CMUser alloc] initWithUserId:@"user" andPassword:@"pass"];
+            CMUser *creds = [[CMUser alloc] initWithEmail:@"user@test.com" andPassword:@"pass"];
             creds.token = @"token";
             
             [service getValuesForKeys:nil
@@ -196,7 +196,7 @@ describe(@"CMWebService", ^{
 
         it(@"JSON URLs at the user level with keys correctly", ^{
             NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/text?keys=k1,k2", appId]];
-            CMUser *creds = [[CMUser alloc] initWithUserId:@"user" andPassword:@"pass"];
+            CMUser *creds = [[CMUser alloc] initWithEmail:@"user@test.com" andPassword:@"pass"];
             creds.token = @"token";
 
             [service getValuesForKeys:[NSArray arrayWithObjects:@"k1", @"k2", nil]
@@ -220,7 +220,7 @@ describe(@"CMWebService", ^{
         
         it(@"ACL URLs correctly", ^{
             NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/access", appId]];
-            CMUser *creds = [[CMUser alloc] initWithUserId:@"user" andPassword:@"pass"];
+            CMUser *creds = [[CMUser alloc] initWithEmail:@"user@test.com" andPassword:@"pass"];
             creds.token = @"token";
             
             [service getACLsForUser:creds
@@ -240,7 +240,7 @@ describe(@"CMWebService", ^{
         it(@"ACL URLs with a search query correctly", ^{
             NSString *query = @"[key=\"value\"]";
             NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/access/search?q=%@", appId, [query stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
-            CMUser *creds = [[CMUser alloc] initWithUserId:@"user" andPassword:@"pass"];
+            CMUser *creds = [[CMUser alloc] initWithEmail:@"user@test.com" andPassword:@"pass"];
             creds.token = @"token";
             
             [service searchACLs:query
@@ -314,7 +314,7 @@ describe(@"CMWebService", ^{
             [dataToPost setObject:@"val1" forKey:@"key1"];
             [dataToPost setObject:@"val2" forKey:@"key2"];
             [dataToPost setObject:[NSArray arrayWithObjects:@"arrVal1", @"arrVal2", nil] forKey:@"arrKey1"];
-            CMUser *creds = [[CMUser alloc] initWithUserId:@"user" andPassword:@"pass"];
+            CMUser *creds = [[CMUser alloc] initWithEmail:@"user@test.com" andPassword:@"pass"];
             creds.token = @"token";
 
             [service updateValuesFromDictionary:dataToPost
@@ -341,7 +341,7 @@ describe(@"CMWebService", ^{
             [aclDict setObject:@"val1" forKey:@"key1"];
             [aclDict setObject:@"val2" forKey:@"key2"];
             [aclDict setObject:[NSArray arrayWithObjects:@"arrVal1", @"arrVal2", nil] forKey:@"arrKey1"];
-            CMUser *creds = [[CMUser alloc] initWithUserId:@"user" andPassword:@"pass"];
+            CMUser *creds = [[CMUser alloc] initWithEmail:@"user@test.com" andPassword:@"pass"];
             creds.token = @"token";
             
             [service updateACL:aclDict
@@ -364,7 +364,7 @@ describe(@"CMWebService", ^{
     it(@"binary data URLs at the user level correctly", ^{
         NSString *binaryKey = @"filename";
         NSData *data = [NSMutableData randomDataWithLength:100];
-        CMUser *creds = [[CMUser alloc] initWithUserId:@"user" andPassword:@"pass"];
+        CMUser *creds = [[CMUser alloc] initWithEmail:@"user@test.com" andPassword:@"pass"];
         creds.token = @"token";
 
         NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/binary/%@", appId, binaryKey]];
@@ -420,7 +420,7 @@ describe(@"CMWebService", ^{
             [dataToPost setObject:@"val1" forKey:@"key1"];
             [dataToPost setObject:@"val2" forKey:@"key2"];
             [dataToPost setObject:[NSArray arrayWithObjects:@"arrVal1", @"arrVal2", nil] forKey:@"arrKey1"];
-            CMUser *creds = [[CMUser alloc] initWithUserId:@"user" andPassword:@"pass"];
+            CMUser *creds = [[CMUser alloc] initWithEmail:@"user@test.com" andPassword:@"pass"];
             creds.token = @"token";
 
             [service setValuesFromDictionary:dataToPost
@@ -481,7 +481,7 @@ describe(@"CMWebService", ^{
 
         it(@"JSON URLs at the user level correctly", ^{
             NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/data?all=true", appId]];
-            CMUser *creds = [[CMUser alloc] initWithUserId:@"user" andPassword:@"pass"];
+            CMUser *creds = [[CMUser alloc] initWithEmail:@"user@test.com" andPassword:@"pass"];
             creds.token = @"token";
 
             [service deleteValuesForKeys:nil
@@ -503,7 +503,7 @@ describe(@"CMWebService", ^{
 
         it(@"JSON URLs at the user level with keys correctly", ^{
             NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/data?keys=k1,k2&all=true", appId]];
-            CMUser *creds = [[CMUser alloc] initWithUserId:@"user" andPassword:@"pass"];
+            CMUser *creds = [[CMUser alloc] initWithEmail:@"user@test.com" andPassword:@"pass"];
             creds.token = @"token";
 
             [service deleteValuesForKeys:[NSArray arrayWithObjects:@"k1", @"k2", nil]
@@ -525,7 +525,7 @@ describe(@"CMWebService", ^{
         
         it(@"JSON URLs at the user level with keys correctly", ^{
             NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/access/k1", appId]];
-            CMUser *creds = [[CMUser alloc] initWithUserId:@"user" andPassword:@"pass"];
+            CMUser *creds = [[CMUser alloc] initWithEmail:@"user@test.com" andPassword:@"pass"];
             creds.token = @"token";
             
             [service deleteACLWithKey:@"k1"
@@ -547,7 +547,7 @@ describe(@"CMWebService", ^{
     context(@"given a user account operation", ^{
         it(@"constructs account creation URL correctly", ^{
             NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/create", appId]];
-            CMUser *user = [[CMUser alloc] initWithUserId:@"test@domain.com" andPassword:@"pass"];
+            CMUser *user = [[CMUser alloc] initWithEmail:@"test@domain.com" andPassword:@"pass"];
 
             [service createAccountWithUser:user callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
             }];
@@ -566,7 +566,7 @@ describe(@"CMWebService", ^{
 
         it(@"constructs password change URL correctly", ^{
             NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/credentials", appId]];
-            CMUser *user = [[CMUser alloc] initWithUserId:@"test@domain.com" andPassword:@"pass"];
+            CMUser *user = [[CMUser alloc] initWithEmail:@"test@domain.com" andPassword:@"pass"];
             NSString *password = user.password;
             user.token = @"token";
 
@@ -581,7 +581,7 @@ describe(@"CMWebService", ^{
             NSArray *components = [[[NSString alloc] initWithData:authData encoding:NSUTF8StringEncoding] componentsSeparatedByString:@":"];
             [[[NSNumber numberWithUnsignedInteger:components.count] should] equal:[NSNumber numberWithUnsignedInt:2]];
             
-            [[[components objectAtIndex:0] should] equal:user.userId];
+            [[[components objectAtIndex:0] should] equal:user.email];
             [[[components objectAtIndex:1] should] equal:password];
             
             [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
@@ -591,11 +591,11 @@ describe(@"CMWebService", ^{
         it(@"constructs credentials update URL correctly", ^{
             
             NSURL *expectedURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/credentials", appId]];
-            CMUser *user = [[CMUser alloc] initWithUserId:@"test-2@domain.com" andPassword:@"password"];
+            CMUser *user = [[CMUser alloc] initWithEmail:@"test-2@domain.com" andPassword:@"password"];
             NSString *password = user.password;
             user.token = @"token";
             
-            [service changeCredentialsForUser:user password:@"password" newPassword:@"aNewPassword" newUsername:nil newUserId:nil callback:^(CMUserAccountResult result, NSDictionary *responseBody) {}];
+            [service changeCredentialsForUser:user password:@"password" newPassword:@"aNewPassword" newUsername:nil newEmail:nil callback:^(CMUserAccountResult result, NSDictionary *responseBody) {}];
             
             NSURLRequest *request = spy.argument;
             [[[request URL] should] equal:expectedURL];
@@ -605,7 +605,7 @@ describe(@"CMWebService", ^{
             NSArray *components = [[[NSString alloc] initWithData:authData encoding:NSUTF8StringEncoding] componentsSeparatedByString:@":"];
             [[[NSNumber numberWithUnsignedInteger:components.count] should] equal:[NSNumber numberWithUnsignedInt:2]];
             
-            [[[components objectAtIndex:0] should] equal:user.userId];
+            [[[components objectAtIndex:0] should] equal:user.email];
             [[[components objectAtIndex:1] should] equal:password];
             
             [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
@@ -618,7 +618,7 @@ describe(@"CMWebService", ^{
             NSString *password = user.password;
             user.token = @"token";
             
-            [service changeCredentialsForUser:user password:@"password" newPassword:nil newUsername:@"aNewUsername" newUserId:@"aNewUserID" callback:^(CMUserAccountResult result, NSDictionary *responseBody) {}];
+            [service changeCredentialsForUser:user password:@"password" newPassword:nil newUsername:@"aNewUsername" newEmail:@"aNewUserID" callback:^(CMUserAccountResult result, NSDictionary *responseBody) {}];
             
             NSURLRequest *request = spy.argument;
             [[[request URL] should] equal:expectedURL];
@@ -640,7 +640,7 @@ describe(@"CMWebService", ^{
 
         it(@"constructs password reset URL correctly", ^{
             NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/password/reset", appId]];
-            CMUser *user = [[CMUser alloc] initWithUserId:@"test@domain.com" andPassword:nil];
+            CMUser *user = [[CMUser alloc] initWithEmail:@"test@domain.com" andPassword:nil];
 
             [service resetForgottenPasswordForUser:user callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
             }];
@@ -653,7 +653,7 @@ describe(@"CMWebService", ^{
 
         it(@"constructs login URL correctly", ^{
             NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/login", appId]];
-            CMUser *user = [[CMUser alloc] initWithUserId:@"test@domain.com" andPassword:@"pass"];
+            CMUser *user = [[CMUser alloc] initWithEmail:@"test@domain.com" andPassword:@"pass"];
             NSString *password = user.password;
             
             [service loginUser:user callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
@@ -669,13 +669,13 @@ describe(@"CMWebService", ^{
             NSArray *components = [[[NSString alloc] initWithData:authData encoding:NSUTF8StringEncoding] componentsSeparatedByString:@":"];
             [[[NSNumber numberWithUnsignedInteger:components.count] should] equal:[NSNumber numberWithUnsignedInt:2]];
             
-            [[[components objectAtIndex:0] should] equal:user.userId];
+            [[[components objectAtIndex:0] should] equal:user.email];
             [[[components objectAtIndex:1] should] equal:password];
         });
 
         it(@"constructs logout URL correctly", ^{
             NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/logout", appId]];
-            CMUser *user = [[CMUser alloc] initWithUserId:@"test@domain.com" andPassword:@"pass"];
+            CMUser *user = [[CMUser alloc] initWithEmail:@"test@domain.com" andPassword:@"pass"];
             user.token = @"token";
             user.tokenExpiration = [NSDate dateWithTimeIntervalSinceNow:9999];
 
@@ -729,7 +729,7 @@ describe(@"CMWebService", ^{
         });
         
         it(@"Contructs the Social Query Properly", ^{
-            CMUser *user = [[CMUser alloc] initWithUserId:@"test@domain.com" andPassword:@"pass"];
+            CMUser *user = [[CMUser alloc] initWithEmail:@"test@domain.com" andPassword:@"pass"];
             user.token = @"token";
             user.tokenExpiration = [NSDate dateWithTimeIntervalSinceNow:9999];
             
@@ -764,7 +764,7 @@ describe(@"CMWebService", ^{
         
         it(@"should properly deal with arrays in social queries", ^{
             
-            CMUser *user = [[CMUser alloc] initWithUserId:@"test@domain.com" andPassword:@"pass"];
+            CMUser *user = [[CMUser alloc] initWithEmail:@"test@domain.com" andPassword:@"pass"];
             user.token = @"token";
             user.tokenExpiration = [NSDate dateWithTimeIntervalSinceNow:9999];
             
@@ -800,7 +800,7 @@ describe(@"CMWebService", ^{
             
             NSData *data = [@"status=Maybe he'll finally find his keys. #peterfalk" dataUsingEncoding:NSUTF8StringEncoding];
             
-            CMUser *user = [[CMUser alloc] initWithUserId:@"test@domain.com" andPassword:@"pass"];
+            CMUser *user = [[CMUser alloc] initWithEmail:@"test@domain.com" andPassword:@"pass"];
             user.token = @"token";
             user.tokenExpiration = [NSDate dateWithTimeIntervalSinceNow:9999];
             

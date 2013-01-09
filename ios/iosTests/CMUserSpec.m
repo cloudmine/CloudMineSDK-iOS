@@ -56,16 +56,16 @@ describe(@"CMUser", ^{
         it(@"should set the userId when setting email", ^{
             CMUser *user = [[CMUser alloc] init];
             
-            [user.userId shouldBeNil];
+            [user.email shouldBeNil];
             user.email = @"test@testing.com";
-            [[user.userId should] equal:@"test@testing.com"];
+            [[user.email should] equal:@"test@testing.com"];
         });
     });
 
     context(@"given a username and password", ^{
         it(@"should record both in memory and return them when the getters are accessed", ^{
-            CMUser *user = [[CMUser alloc] initWithUserId:@"someone@domain.com" andPassword:@"pass"];
-            [[user.userId should] equal:@"someone@domain.com"];
+            CMUser *user = [[CMUser alloc] initWithEmail:@"someone@domain.com" andPassword:@"pass"];
+            [[user.email should] equal:@"someone@domain.com"];
             [[user.password should] equal:@"pass"];
             [user.token shouldBeNil];
         });
@@ -74,10 +74,10 @@ describe(@"CMUser", ^{
 
     context(@"given a session token", ^{
         it(@"should no longer maintain a copy of the password", ^{
-            CMUser *user = [[CMUser alloc] initWithUserId:@"someone@domain.com" andPassword:@"pass"];
+            CMUser *user = [[CMUser alloc] initWithEmail:@"someone@domain.com" andPassword:@"pass"];
             user.token = @"token";
 
-            [[user.userId should] equal:@"someone@domain.com"];
+            [[user.email should] equal:@"someone@domain.com"];
             [user.password shouldBeNil];
             [[user.token should] equal:@"token"];
         });
@@ -88,7 +88,7 @@ describe(@"CMUser", ^{
         __block KWMock *mockWebService = nil;
 
         beforeEach(^{
-            user = [[CustomUser alloc] initWithUserId:@"marc@cloudmine.me" andPassword:@"pass"];
+            user = [[CustomUser alloc] initWithEmail:@"marc@cloudmine.me" andPassword:@"pass"];
             mockWebService = [CMWebService nullMock];
             [user setValue:mockWebService forKey:@"webService"];
 
@@ -126,7 +126,7 @@ describe(@"CMUser", ^{
                 [[CMUser should] receive:@selector(userFromCacheWithIdentifier:) withArguments:user.objectId];
                 [CMUser userWithIdentifier:user.objectId callback:^(NSArray *users, NSDictionary *errors) {
                     [[[[users lastObject] objectId] should] equal:user.objectId];
-                    [[[[users lastObject] userId] should] equal:user.userId];
+                    [[[[users lastObject] email] should] equal:user.email];
                 }];
             });
         });

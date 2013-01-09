@@ -75,7 +75,7 @@ describe(@"CMStore", ^{
 
     context(@"given a user-level store", ^{
         beforeEach(^{
-            user = [[CMUser alloc] initWithUserId:@"userid" andPassword:@"password"];
+            user = [[CMUser alloc] initWithEmail:@"userid@test.com" andPassword:@"password"];
             store = [CMStore storeWithUser:user];
             store.webService = webService;
         });
@@ -204,7 +204,7 @@ describe(@"CMStore", ^{
                 }];
 
                 // Now change the store user and re-validate.
-                CMUser *theOtherUser = [[CMUser alloc] initWithUserId:@"somethingelse" andPassword:@"foobar"];
+                CMUser *theOtherUser = [[CMUser alloc] initWithEmail:@"somethingelse@test.com" andPassword:@"foobar"];
                 store.user = theOtherUser;
                 [aclObjects enumerateObjectsUsingBlock:^(CMACL *acl, NSUInteger idx, BOOL *stop) {
                     [[acl.store should] equal:[CMNullStore nullStore]];

@@ -62,7 +62,7 @@ describe(@"CMFile", ^{
         });
 
         it(@"should throw an exception if the object is subsequently saved with a user", ^{
-            CMUser *user = [[CMUser alloc] initWithUserId:@"test@test.com" andPassword:@"pass"];
+            CMUser *user = [[CMUser alloc] initWithEmail:@"test@test.com" andPassword:@"pass"];
             [file save:nil];
             [[theValue([file ownershipLevel]) should] equal:theValue(CMObjectOwnershipAppLevel)];
             [[theBlock(^{ [file saveWithUser:user callback:nil]; }) should] raise];
@@ -77,7 +77,7 @@ describe(@"CMFile", ^{
             store = [CMStore defaultStore];
             store.webService = [CMWebService nullMock];
 
-            CMUser *user = [[CMUser alloc] initWithUserId:@"uid" andPassword:@"pw"];
+            CMUser *user = [[CMUser alloc] initWithEmail:@"uid" andPassword:@"pw"];
             user.token = @"token";
             user.tokenExpiration = [NSDate dateWithTimeIntervalSinceNow:9999];
             file = [[CMFile alloc] initWithData:[NSMutableData randomDataWithLength:100]
