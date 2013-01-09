@@ -1,6 +1,5 @@
 var interface_c_m_user =
 [
-    [ "allUsersWithCallback:", "interface_c_m_user.html#a2129f5b1da4b3bdee69876b3a2e7bc26", null ],
     [ "changePasswordTo:from:callback:", "interface_c_m_user.html#a99b30d2883f01db177619893155308ad", null ],
     [ "changeUserCredentialsWithPassword:newPassword:newUsername:newUserId:callback:", "interface_c_m_user.html#a7d45f2577294461a05f304a322af337a", null ],
     [ "changeUserIdTo:password:callback:", "interface_c_m_user.html#ac6e32fb31fe5d6b56662873ebe46e06c", null ],
@@ -15,8 +14,6 @@ var interface_c_m_user =
     [ "logoutWithCallback:", "interface_c_m_user.html#aadef7929e7f621df7d08c97b11195e97", null ],
     [ "resetForgottenPasswordWithCallback:", "interface_c_m_user.html#a7d923bd10ddc116d5f39c9b64899ec1e", null ],
     [ "save:", "interface_c_m_user.html#a1eec107ae4482a7b33f91c824686f926", null ],
-    [ "searchUsers:callback:", "interface_c_m_user.html#ae5d87ea90f6e05422f492420c3335cd6", null ],
-    [ "userWithIdentifier:callback:", "interface_c_m_user.html#ae43fccb2db39b33eaf97dae80bf73c96", null ],
     [ "email", "interface_c_m_user.html#afa0cb5ac1578b567e4c463bffd86dec0", null ],
     [ "isCreatedRemotely", "interface_c_m_user.html#a92ba3d7982697465bdac7a9e30ae695b", null ],
     [ "isDirty", "interface_c_m_user.html#aa905d59efc4d6edcc4617e55227943a1", null ],

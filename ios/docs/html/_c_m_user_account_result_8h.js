@@ -21,7 +21,5 @@ var _c_m_user_account_result_8h =
       [ "CMUserAccountLoginFailedIncorrectCredentials", "_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea079196bcb074f6a9b8ccc0d13d264cfe", null ],
       [ "CMUserAccountPasswordChangeFailedInvalidCredentials", "_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea79e1efb15fa7977fb4707ce7e7d451fb", null ],
       [ "CMUserAccountOperationFailedUnknownAccount", "_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eeafb9cf6702ad9ea4ad59c6422625d0720", null ]
-    ] ],
-    [ "CMUserAccountOperationFailed", "_c_m_user_account_result_8h.html#a5aa9fd83164b304babc79fba16715864", null ],
-    [ "CMUserAccountOperationSuccessful", "_c_m_user_account_result_8h.html#af7bd08ac73677fd2e017cefaf8b876ae", null ]
+    ] ]
 ];
