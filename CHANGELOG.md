@@ -1,6 +1,11 @@
 HEAD
 =====
 
+v1.5.0 (January 9, 2013)
+=====
+* Added Username field to CMUser
+* CMUser can be created with either an email or a username.
+* Can now change a user's email, username, and password.
 
 v1.4.6 (January 8, 2013)
 =====

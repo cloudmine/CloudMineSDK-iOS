@@ -730,55 +730,11 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     NSParameterAssert(oldPassword);
     NSParameterAssert(newPassword);
     NSAssert(user.userId, @"CloudMine *** User password change failed because the user object doesn't have a user ID set.");
-
-    NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/password/change", _appIdentifier]];
-    NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
-
-    // This API endpoint doesn't use a session token for security purposes. The user must supply their old password
-    // explicitly in addition to their new password.
-    CFHTTPMessageRef dummyRequest = CFHTTPMessageCreateRequest(kCFAllocatorDefault, CFSTR("GET"), (__bridge CFURLRef)[request URL], kCFHTTPVersion1_1);
-    CFHTTPMessageAddAuthentication(dummyRequest, nil, (__bridge CFStringRef)user.userId, (__bridge CFStringRef)oldPassword, kCFHTTPAuthenticationSchemeBasic, FALSE);
-    NSString *basicAuthValue = (__bridge_transfer NSString *)CFHTTPMessageCopyHeaderFieldValue(dummyRequest, CFSTR("Authorization"));
-    [request setValue:basicAuthValue forHTTPHeaderField:@"Authorization"];
-    CFRelease(dummyRequest);
-
-    NSDictionary *payload = $dict(@"password", newPassword);
-    [request setHTTPBody:[[payload yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
-
-    [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode, NSError *error) {
-        if ([[error domain] isEqualToString:CMErrorDomain]) {
-            if ([error code] == CMErrorUnauthorized) {
-                return CMUserAccountPasswordChangeFailedInvalidCredentials;
-            } else if ([error code] == CMErrorServerConnectionFailed) {
-                return CMUserAccountUnknownResult;
-            }
-        }
-        switch (httpResponseCode) {
-            case 200:
-                return CMUserAccountPasswordChangeSucceeded;
-            case 401:
-                return CMUserAccountPasswordChangeFailedInvalidCredentials;
-            case 404:
-                return CMUserAccountOperationFailedUnknownAccount;
-            default:
-                return CMUserAccountUnknownResult;
-        }
-    } callback:^(CMUserAccountResult resultCode, NSDictionary *messages) {
-        switch (resultCode) {
-            case CMUserAccountPasswordChangeFailedInvalidCredentials:
-                NSLog(@"CloudMine *** User password change failed because the credentials provided were incorrect");
-                break;
-            case CMUserAccountOperationFailedUnknownAccount:
-                NSLog(@"CloudMine *** User password change failed because the application does not exist");
-                break;
-            default:
-                break;
-        }
-        callback(resultCode, messages);
-    }];
+    
+    [self changeCredentialsForUser:user password:oldPassword newPassword:newPassword newUsername:nil newUserId:nil callback:callback];
 }
 
-- (void)updateCredentialsForUser:(CMUser *)user
+- (void)changeCredentialsForUser:(CMUser *)user
                         password:(NSString *)password
                      newPassword:(NSString *)newPassword
                      newUsername:(NSString *)newUsername
@@ -809,17 +765,21 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     [request setHTTPBody:[[payload yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
 
     [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode, NSError *error) {
+        NSLog(@"Response Code: %d", httpResponseCode);
         if ([[error domain] isEqualToString:CMErrorDomain]) {
+            NSLog(@"Here");
             if ([error code] == CMErrorUnauthorized) {
+                NSLog(@"Here 2");
                 return CMUserAccountPasswordChangeFailedInvalidCredentials;
             } else if ([error code] == CMErrorServerConnectionFailed) {
+                NSLog(@"Here 3");
                 return CMUserAccountUnknownResult;
             }
         }
         switch (httpResponseCode) {
             case 200:
                 if ( (newPassword && newUsername && newUserId) || (newPassword && newUsername) || (newPassword && newUserId) || (newUsername && newUserId) ) {
-                    return CMUserAccountCredentialsChangeSucceeded;
+                    return CMUserAccountCredentialChangeSucceeded;
                 } else if (newPassword) {
                     return CMUserAccountPasswordChangeSucceeded;
                 } else if (newUsername) {
@@ -827,11 +787,19 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                 } else {
                     return CMUserAccountUserIdChangeSucceeded;
                 }
-                return CMUserAccountPasswordChangeSucceeded;
             case 401:
-                return CMUserAccountPasswordChangeFailedInvalidCredentials;
+                return CMUserAccountCredentialChangeFailedInvalidCredentials;
             case 404:
                 return CMUserAccountOperationFailedUnknownAccount;
+            case 409:
+                if (newUserId && newUsername)
+                    return CMUserAccountCredentialChangeFailedDuplicateInfo;
+                if (newUserId)
+                    return CMUserAccountCredentialChangeFailedDuplicateUserId;
+                if (newUsername)
+                    return CMUserAccountCredentialChangeFailedDuplicateUsername;
+                
+                return CMUserAccountCredentialChangeFailedDuplicateInfo;
             default:
                 return CMUserAccountUnknownResult;
         }

@@ -15,6 +15,8 @@ var searchData=
   ['initwithobjectid_3a',['initWithObjectId:',['../interface_c_m_object.html#acc946857adb88b3df84c8409dffd06a2',1,'CMObject']]],
   ['initwithuser_3a',['initWithUser:',['../interface_c_m_store.html#a190c8f57daff87592a4c76e7872a001d',1,'CMStore']]],
   ['initwithuserid_3aandpassword_3a',['initWithUserId:andPassword:',['../interface_c_m_user.html#a40e4ab0f15f843df2d9d03be03685762',1,'CMUser']]],
+  ['initwithuserid_3aandusername_3aandpassword_3a',['initWithUserId:andUsername:andPassword:',['../interface_c_m_user.html#ac8b092419429c3ed6bd62abe41bf10f8',1,'CMUser']]],
+  ['initwithusername_3aandpassword_3a',['initWithUsername:andPassword:',['../interface_c_m_user.html#aa9ae318901359d822834c30b9b052922',1,'CMUser']]],
   ['ismodal',['isModal',['../category_u_i_view_controller_07_modal_08.html#a197382e344234db3ac14159964940ba9',1,'UIViewController(Modal)']]],
   ['isuserlevel',['isUserLevel',['../interface_c_m_file.html#a65fa1e84bf6b2d8dd0869c63dd6db996',1,'CMFile']]]
 ];

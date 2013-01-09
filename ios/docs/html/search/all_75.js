@@ -12,6 +12,7 @@ var searchData=
   ['user',['user',['../interface_c_m_file.html#abdc5d48b28aced77a17d18e9bf7e4f47',1,'CMFile::user()'],['../interface_c_m_store.html#a40869eb6333f44b032490fdb9a8f82f0',1,'CMStore::user()']]],
   ['userfilewithname_3aadditionaloptions_3acallback_3a',['userFileWithName:additionalOptions:callback:',['../interface_c_m_store.html#abf65f27fcfb813a67f650c84fa518c45',1,'CMStore']]],
   ['userid',['userId',['../interface_c_m_user.html#aae1ccbb80ad2e0627ea3c0154fe8b822',1,'CMUser']]],
+  ['username',['username',['../interface_c_m_user.html#a54ed749913551bf9a926e64c4f818663',1,'CMUser']]],
   ['userobjectswithkeys_3aadditionaloptions_3acallback_3a',['userObjectsWithKeys:additionalOptions:callback:',['../interface_c_m_store.html#af6bbaa617ad3893bcc76a146d3c9416d',1,'CMStore']]],
   ['userwithidentifier_3acallback_3a',['userWithIdentifier:callback:',['../interface_c_m_user.html#ae43fccb2db39b33eaf97dae80bf73c96',1,'CMUser']]],
   ['uuid',['uuid',['../interface_c_m_file.html#a95a0607f23dad6f50078152ed57561a6',1,'CMFile']]]
