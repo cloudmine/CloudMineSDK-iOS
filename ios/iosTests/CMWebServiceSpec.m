@@ -565,7 +565,7 @@ describe(@"CMWebService", ^{
         });
 
         it(@"constructs password change URL correctly", ^{
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/password/change", appId]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/credentials", appId]];
             CMUser *user = [[CMUser alloc] initWithUserId:@"test@domain.com" andPassword:@"pass"];
             NSString *password = user.password;
             user.token = @"token";
