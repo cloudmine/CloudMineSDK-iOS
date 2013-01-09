@@ -345,28 +345,8 @@ static CMWebService *webService;
     }];
 }
 
-//TODO: Update so it works
 - (void)changePasswordTo:(NSString *)newPassword from:(NSString *)oldPassword callback:(CMUserOperationCallback)callback {
-    [webService changePasswordForUser:self
-                           oldPassword:oldPassword
-                           newPassword:newPassword
-                              callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
-                                  if (result == CMUserAccountPasswordChangeSucceeded) {
-                                      self.password = newPassword;
-
-                                      // Since the password change succeeded, the user needs to be logged back
-                                      // in again to get a new session token since the old one has been expired.
-                                      [self loginWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
-                                          callback(CMUserAccountPasswordChangeSucceeded, [NSArray array]);
-                                      }];
-                                  } else  {
-                                      callback(result, [NSArray array]);
-                                  }
-                              }
-     ];
-    
-//    [self changeUserCredentialsWithPassword:oldPassword newPassword:newPassword newUsername:nil newUserId:nil callback:callback];
-    
+    [self changeUserCredentialsWithPassword:oldPassword newPassword:newPassword newUsername:nil newUserId:nil callback:callback];
 }
 
 - (void)changeUserIdTo:(NSString *)newUserId password:(NSString *)currentPassword callback:(CMUserOperationCallback)callback {
@@ -377,7 +357,6 @@ static CMWebService *webService;
     [self changeUserCredentialsWithPassword:currentPassword newPassword:nil newUsername:newUsername newUserId:nil callback:callback];
 }
 
-//private?
 - (void)changeUserCredentialsWithPassword:(NSString *)currentPassword
                               newPassword:(NSString *)newPassword
                               newUsername:(NSString *)newUsername
