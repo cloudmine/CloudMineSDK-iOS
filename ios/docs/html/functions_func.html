@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">CloudMine iOS SDK
-   &#160;<span id="projectnumber">1.5.0</span>
+   &#160;<span id="projectnumber">1.5.1</span>
    </div>
   </td>
  </tr>
@@ -83,6 +83,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
   <div id="navrow4" class="tabs3">
     <ul class="tablist">
+      <li><a href="#index__"><span>_</span></a></li>
       <li><a href="#index_a"><span>a</span></a></li>
       <li><a href="#index_b"><span>b</span></a></li>
       <li><a href="#index_c"><span>c</span></a></li>
@@ -133,6 +134,13 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 
 <div class="contents">
 &#160;
+
+<h3><a class="anchor" id="index__"></a>- _ -</h3><ul>
+<li>__attribute__
+: <a class="el" href="interface_c_m_user.html#a0f364284d4ffd7490e5e831d0548c525">CMUser</a>
+</li>
+</ul>
+
 
 <h3><a class="anchor" id="index_a"></a>- a -</h3><ul>
 <li>addACL:
@@ -194,8 +202,14 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 
 
 <h3><a class="anchor" id="index_c"></a>- c -</h3><ul>
+<li>changeCredentialsForUser:password:newPassword:newUsername:newEmail:callback:
+: <a class="el" href="interface_c_m_web_service.html#a497ddf7f3a69569709d41b6729aec382">CMWebService</a>
+</li>
 <li>changeCredentialsForUser:password:newPassword:newUsername:newUserId:callback:
-: <a class="el" href="interface_c_m_web_service.html#a9070f82d6d12863f2792df955dc37dd0">CMWebService</a>
+: <a class="el" href="interface_c_m_web_service.html#a646e5b5e93aa85146f3480c560ed43ae">CMWebService</a>
+</li>
+<li>changeEmailTo:password:callback:
+: <a class="el" href="interface_c_m_user.html#a37ada6e73ceb1f55fb60b22f15e13df2">CMUser</a>
 </li>
 <li>changePasswordForUser:oldPassword:newPassword:callback:
 : <a class="el" href="interface_c_m_web_service.html#acd3925c1db193cb08f58c55bb2b678aa">CMWebService</a>
@@ -203,11 +217,14 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 <li>changePasswordTo:from:callback:
 : <a class="el" href="interface_c_m_user.html#a99b30d2883f01db177619893155308ad">CMUser</a>
 </li>
+<li>changeUserCredentialsWithPassword:newPassword:newUsername:newEmail:callback:
+: <a class="el" href="interface_c_m_user.html#abbf6e746e61ff7fb4358134f7323f5d1">CMUser</a>
+</li>
 <li>changeUserCredentialsWithPassword:newPassword:newUsername:newUserId:callback:
-: <a class="el" href="interface_c_m_user.html#a7d45f2577294461a05f304a322af337a">CMUser</a>
+: <a class="el" href="interface_c_m_user.html#acd0929542fecd61fe0290dbf80a22bbc">CMUser</a>
 </li>
 <li>changeUserIdTo:password:callback:
-: <a class="el" href="interface_c_m_user.html#ac6e32fb31fe5d6b56662873ebe46e06c">CMUser</a>
+: <a class="el" href="interface_c_m_user.html#a8c03930cf112d59e6dc4becfc4b0d123">CMUser</a>
 </li>
 <li>changeUsernameTo:password:callback:
 : <a class="el" href="interface_c_m_user.html#a5656d9f1c78deaa73ae432af5b3900c9">CMUser</a>
@@ -341,6 +358,12 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 <li>initWithDate:
 : <a class="el" href="interface_c_m_date.html#af3a79e604aa308b06ff02b5563091b47">CMDate</a>
 </li>
+<li>initWithEmail:andPassword:
+: <a class="el" href="interface_c_m_user.html#ac374ec26e51cba3f480ed7c432af527e">CMUser</a>
+</li>
+<li>initWithEmail:andUsername:andPassword:
+: <a class="el" href="interface_c_m_user.html#a4eb1d359e5de3f8cb5620bd51420a561">CMUser</a>
+</li>
 <li>initWithFunctionName:extraParameters:responseContainsResultOnly:performAsynchronously:
 : <a class="el" href="interface_c_m_server_function.html#a99bb4b0ede33f8f565c47be0e7f42d92">CMServerFunction</a>
 </li>
@@ -357,10 +380,10 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 : <a class="el" href="interface_c_m_store.html#a190c8f57daff87592a4c76e7872a001d">CMStore</a>
 </li>
 <li>initWithUserId:andPassword:
-: <a class="el" href="interface_c_m_user.html#a40e4ab0f15f843df2d9d03be03685762">CMUser</a>
+: <a class="el" href="interface_c_m_user.html#a6b8f02d8c11046e0f9db0ecda30ee349">CMUser</a>
 </li>
 <li>initWithUserId:andUsername:andPassword:
-: <a class="el" href="interface_c_m_user.html#ac8b092419429c3ed6bd62abe41bf10f8">CMUser</a>
+: <a class="el" href="interface_c_m_user.html#a52a1c37330ca8b677635824c6ca667c4">CMUser</a>
 </li>
 <li>initWithUsername:andPassword:
 : <a class="el" href="interface_c_m_user.html#aa9ae318901359d822834c30b9b052922">CMUser</a>
@@ -662,7 +685,7 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Jan 9 2013 12:51:11 for CloudMine iOS SDK by
+    <li class="footer">Generated on Wed Jan 9 2013 17:17:00 for CloudMine iOS SDK by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3 </li>
   </ul>

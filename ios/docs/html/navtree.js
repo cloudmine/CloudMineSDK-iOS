@@ -31,7 +31,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_c_m_a_c_l_8h_source.html",
-"interface_c_m_geo_point.html#abd36c69e324a8022ffee4f022de4a9e5"
+"interface_c_m_geo_point.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
