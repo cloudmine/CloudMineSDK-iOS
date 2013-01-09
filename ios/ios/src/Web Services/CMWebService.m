@@ -1019,6 +1019,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
             }
         }
         
+        // put body of 404 page in teh error. Same for rest.
         switch ([operation.response statusCode]) {
             case 404:
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorNotFound userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The application was not found. Is your application identifier correct? Or perhaps the page you were looking for in the query does not exist.", NSLocalizedDescriptionKey, nil]];
@@ -1037,6 +1038,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                 break;
                 
             default:
+                // Another error message, pass back status code
                 break;
         }
         

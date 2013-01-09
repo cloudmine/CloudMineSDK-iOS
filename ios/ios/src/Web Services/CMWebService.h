@@ -439,7 +439,7 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
                      newPassword:(NSString *)newPassword
                      newUsername:(NSString *)newUsername
                        newUserId:(NSString *)newUserId
-                        callback:(CMWebServiceUserAccountOperationCallback)callback;
+                        callback:(CMWebServiceUserAccountOperationCallback)callback __attribute__((deprecated));
 
 /**
  * Asynchronously reset the password for the given user. This method is used to reset a user's password if

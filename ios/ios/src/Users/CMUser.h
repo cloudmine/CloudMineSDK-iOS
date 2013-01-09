@@ -86,12 +86,14 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
 /**
  * The user's identifier (i.e. email address).
  *
- * <strong>Note:</strong> The CloudMine platform stores this property as "email". Becuase the email may be returned in the profile we have an email field too. The duplication is confusing and unnessary, so userId <em>now returns the email value</em>. Setting/Getting userId changes the email property. You can use either one.
+ * <strong>DEPRECATED:</strong> Now use <tt>email</tt>. This will be removed at a future date.
+ *
+ * <strong>Note:</strong> This variable now maps directly to email, and will be removed at a futre date. Please use email instead.
  */
-@property (atomic, strong) NSString *userId;
+@property (atomic, strong) NSString *userId __attribute__((deprecated));
 
 /**
- * The user's email (same as identifier)
+ * The user's email (the new User ID).
  */
 @property (atomic, strong) NSString *email;
 
@@ -143,7 +145,7 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
 /**
  * Initialize the user with an email address and password.
  */
-- (id)initWithUserId:(NSString *)userId andPassword:(NSString *)password;
+- (id)initWithUserId:(NSString *)userId andPassword:(NSString *)password __attribute__((deprecated));
 
 /**
  * Initialize the user with a Username and password.
@@ -153,7 +155,7 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
 /**
  * Initialize the user with an email, username, and password.
  */
-- (id)initWithUserId:(NSString *)theUserId andUsername:(NSString *)theUsername andPassword:(NSString *)thePassword;
+- (id)initWithUserId:(NSString *)theUserId andUsername:(NSString *)theUsername andPassword:(NSString *)thePassword __attribute__((deprecated));
 
 /**
  * Asynchronously login the user and create a new session. On completion, the <tt>callback</tt> block will be called with
@@ -305,7 +307,7 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
  *
  * @see CMUserAccountResult
  */
-- (void)changeUserIdTo:(NSString *)newUserId password:(NSString *)currentPassword callback:(CMUserOperationCallback)callback;
+- (void)changeUserIdTo:(NSString *)newUserId password:(NSString *)currentPassword callback:(CMUserOperationCallback)callback __attribute__((deprecated));
 
 /**
  * Asynchronously change the Username for this user. For security purposes, you must have the user enter his or her
@@ -361,7 +363,7 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
                               newPassword:(NSString *)newPassword
                               newUsername:(NSString *)newUsername
                                 newUserId:(NSString *)newUserId
-                                 callback:(CMUserOperationCallback)callback;
+                                 callback:(CMUserOperationCallback)callback __attribute__((deprecated)); 
 
 /**
  * Asynchronously reset the password for this user. This method is used to reset a user's password if
