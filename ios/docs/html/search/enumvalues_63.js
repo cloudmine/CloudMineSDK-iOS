@@ -13,11 +13,12 @@ var searchData=
   ['cmuseraccountcreatefailedduplicateaccount',['CMUserAccountCreateFailedDuplicateAccount',['../_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea206cb8d3de756a7918e0d05e217cd522',1,'CMUserAccountResult.h']]],
   ['cmuseraccountcreatefailedinvalidrequest',['CMUserAccountCreateFailedInvalidRequest',['../_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea5670a1fbb118996aab2a55087a745a23',1,'CMUserAccountResult.h']]],
   ['cmuseraccountcreatesucceeded',['CMUserAccountCreateSucceeded',['../_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea2abab18343e3a9fc1ab18df2f6c90fe9',1,'CMUserAccountResult.h']]],
+  ['cmuseraccountcredentialchangefailedduplicateemail',['CMUserAccountCredentialChangeFailedDuplicateEmail',['../_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea28b3456d7e93a8b36e3441cb9bfb7f43',1,'CMUserAccountResult.h']]],
   ['cmuseraccountcredentialchangefailedduplicateinfo',['CMUserAccountCredentialChangeFailedDuplicateInfo',['../_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eeac7dc40298e97b453da3d20d867a4f9d1',1,'CMUserAccountResult.h']]],
-  ['cmuseraccountcredentialchangefailedduplicateuserid',['CMUserAccountCredentialChangeFailedDuplicateUserId',['../_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea32e0bf9fe0ad1bdf2872061698babe48',1,'CMUserAccountResult.h']]],
   ['cmuseraccountcredentialchangefailedduplicateusername',['CMUserAccountCredentialChangeFailedDuplicateUsername',['../_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea3a108016195dd9477fae5ce671b15b8a',1,'CMUserAccountResult.h']]],
   ['cmuseraccountcredentialchangefailedinvalidcredentials',['CMUserAccountCredentialChangeFailedInvalidCredentials',['../_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eeaf90d05d673355c448eb5f6d9f6540c80',1,'CMUserAccountResult.h']]],
   ['cmuseraccountcredentialchangesucceeded',['CMUserAccountCredentialChangeSucceeded',['../_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eeadd127b16c220dc1f0226c028a4346e4b',1,'CMUserAccountResult.h']]],
+  ['cmuseraccountemailchangesucceeded',['CMUserAccountEmailChangeSucceeded',['../_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eead5a09e891489fdac81b91ccfb2208a68',1,'CMUserAccountResult.h']]],
   ['cmuseraccountloginfailedincorrectcredentials',['CMUserAccountLoginFailedIncorrectCredentials',['../_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea079196bcb074f6a9b8ccc0d13d264cfe',1,'CMUserAccountResult.h']]],
   ['cmuseraccountloginsucceeded',['CMUserAccountLoginSucceeded',['../_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea5fc2e7b1014b676800b515f6e3948e98',1,'CMUserAccountResult.h']]],
   ['cmuseraccountlogoutsucceeded',['CMUserAccountLogoutSucceeded',['../_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eeaeecaa9ed84d13cdd5a0fecc6c9d9fbce',1,'CMUserAccountResult.h']]],
@@ -28,6 +29,5 @@ var searchData=
   ['cmuseraccountprofileupdatefailed',['CMUserAccountProfileUpdateFailed',['../_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eeabc796f14eba5f6525bcbf068c108bd4d',1,'CMUserAccountResult.h']]],
   ['cmuseraccountprofileupdatesucceeded',['CMUserAccountProfileUpdateSucceeded',['../_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea62e3edfbefcf4d3a37c3d438f0e20bda',1,'CMUserAccountResult.h']]],
   ['cmuseraccountunknownresult',['CMUserAccountUnknownResult',['../_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eeaf58308f9e2b28eed6ef1facdf1bb2cf5',1,'CMUserAccountResult.h']]],
-  ['cmuseraccountuseridchangesucceeded',['CMUserAccountUserIdChangeSucceeded',['../_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eea7b3d878afbf8afe6fbdbf8fddf73096e',1,'CMUserAccountResult.h']]],
   ['cmuseraccountusernamechangesucceeded',['CMUserAccountUsernameChangeSucceeded',['../_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138eeafca62691448a0cdcfec4fe84c3bc33ff',1,'CMUserAccountResult.h']]]
 ];
