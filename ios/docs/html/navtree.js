@@ -28,8 +28,9 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_8___c_m_app_delegate_base_8h_source.html",
-"interface_c_m_geo_point.html#afc402687531fa01eca8d6746b009d417"
+"_c_m_a_c_l_8h_source.html",
+"interface_c_m_geo_point.html#a7cae5f99c5857a47aa29db0bd42a549f",
+"interface_c_m_web_service.html#adc373387bce4b16ddefe5344bc00fc44"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

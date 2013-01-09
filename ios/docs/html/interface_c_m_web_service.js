@@ -1,5 +1,6 @@
 var interface_c_m_web_service =
 [
+    [ "changeCredentialsForUser:password:newPassword:newUsername:newUserId:callback:", "interface_c_m_web_service.html#a9070f82d6d12863f2792df955dc37dd0", null ],
     [ "changePasswordForUser:oldPassword:newPassword:callback:", "interface_c_m_web_service.html#acd3925c1db193cb08f58c55bb2b678aa", null ],
     [ "createAccountWithUser:callback:", "interface_c_m_web_service.html#a41f9dd0714144cfe0b1ccc0e591e45e4", null ],
     [ "deleteACLWithKey:user:successHandler:errorHandler:", "interface_c_m_web_service.html#ab88e07d8d803025ff25ea5530bf36313", null ],
