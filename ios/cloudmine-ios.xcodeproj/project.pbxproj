@@ -1117,7 +1117,7 @@
 		7AB4AB84145DC5D8006AEF67 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 1.4.5;
+				CURRENT_PROJECT_VERSION = 1.5.0;
 				DSTROOT = /tmp/ios.dst;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1139,7 +1139,7 @@
 		7AB4AB85145DC5D8006AEF67 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 1.4.5;
+				CURRENT_PROJECT_VERSION = 1.5.0;
 				DSTROOT = /tmp/ios.dst;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
