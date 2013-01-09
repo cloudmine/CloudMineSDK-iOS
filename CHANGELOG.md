@@ -1,6 +1,13 @@
 HEAD
 =====
 
+v1.5.1 (January 9, 2013)
+=====
+* Deprecated CMUser userId.
+  * Use CMUser email from now on. All methods have been renamed to suppor this - old methods are deprecated. Online documentation has been updated.
+  * This change makes the iOS Library more consistent with other platforms.
+
+	
 v1.5.0 (January 9, 2013)
 =====
 * Added Username field to CMUser
