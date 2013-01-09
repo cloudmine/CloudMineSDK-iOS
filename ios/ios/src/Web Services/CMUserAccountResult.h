@@ -25,7 +25,9 @@ typedef enum {
     /** The password change for a user succeeded */
     CMUserAccountPasswordChangeSucceeded,
     /** The user ID change for a user succeeded */
-    CMUserAccountUserIdChangeSucceeded,
+    CMUserAccountUserIdChangeSucceeded __attribute__((deprecated)),
+    /** The user email change for a user succeeded */
+    CMUserAccountEmailChangeSucceeded,
     /** The user Username change for a user succeeded */
     CMUserAccountUsernameChangeSucceeded,
     /** The user credentials change succeeded */
@@ -41,7 +43,9 @@ typedef enum {
     /** Account creation failed because a user with that email address already exists for the current app */
     CMUserAccountCreateFailedDuplicateAccount,
     /** The user credential change failed because the new User ID was already taken */
-    CMUserAccountCredentialChangeFailedDuplicateUserId,
+    CMUserAccountCredentialChangeFailedDuplicateUserId __attribute__((deprecated)),
+    /** The user credential change failed because the new email was already taken */
+    CMUserAccountCredentialChangeFailedDuplicateEmail,
     /** The user credential change failed because the new Username was already taken */
     CMUserAccountCredentialChangeFailedDuplicateUsername,
     /** The user credential change failed because the new Username OR User ID was already taken */
