@@ -10,7 +10,7 @@
 #import "CMDate.h"
 
 @implementation CMGenericSerializableObject
-@synthesize string1, string2, simpleInt, arrayOfBooleans, nestedObject, date;
+@synthesize string1, string2, simpleInt, arrayOfBooleans, nestedObject, date, dictionary;
 
 - (void)fillPropertiesWithDefaults {
     self.string1 = @"Hello World";
@@ -22,6 +22,7 @@
                             [NSNumber numberWithBool:YES],
                             [NSNumber numberWithBool:NO], nil];
     self.date = [[CMDate alloc] initWithDate:[NSDate date]];
+    self.dictionary = [NSMutableDictionary dictionary];
 
     //TODO: Uncomment when server-side support for object relationships is done.
 
@@ -40,7 +41,7 @@
             ((!self.string2 && !object.string2) || [self.string2 isEqualToString:object.string2]) &&
             self.simpleInt == object.simpleInt &&
             ((!self.arrayOfBooleans && !object.arrayOfBooleans) || [self.arrayOfBooleans isEqualToArray:object.arrayOfBooleans]) &&
-            [self.date isEqual:object.date]
+            [self.date isEqual:object.date] && [self.dictionary isEqual:object.dictionary]
             /*((!self.nestedObject && !self.nestedObject) || [self.nestedObject isEqual:object.nestedObject])*/);
 }
 
@@ -51,6 +52,7 @@
     [aCoder encodeInt:self.simpleInt forKey:@"simpleInt"];
     [aCoder encodeObject:self.arrayOfBooleans forKey:@"arrayOfBooleans"];
     [aCoder encodeObject:self.date forKey:@"date"];
+    [aCoder encodeObject:self.dictionary forKey:@"dictionary"];
 
     //TODO: Uncomment when server-side support for object relationships is done.
     if (self.nestedObject)
@@ -64,6 +66,7 @@
         self.simpleInt = [aDecoder decodeIntForKey:@"simpleInt"];
         self.arrayOfBooleans = [aDecoder decodeObjectForKey:@"arrayOfBooleans"];
         self.date = [aDecoder decodeObjectForKey:@"date"];
+        self.dictionary = [aDecoder decodeObjectForKey:@"dictionary"];
 
         //TODO: Uncomment when server-side support for object relationships is done.
 //        self.nestedObject = [aDecoder decodeObjectForKey:@"nestedObject"];

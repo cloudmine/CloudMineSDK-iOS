@@ -114,7 +114,7 @@
 }
 
 - (id)serializeContentsOfObject:(id)objv {
-    if (objv == nil) {
+    if (objv == nil || [objv isKindOfClass:[NSNull class]]) {
         return [NSNull null];
     } else if ([objv isKindOfClass:[NSString class]] || [objv isKindOfClass:[NSNumber class]]) {
         // Strings and numbers are natively handled and need no further decomposition.

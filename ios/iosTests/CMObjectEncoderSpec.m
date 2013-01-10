@@ -24,6 +24,7 @@ describe(@"CMObjectEncoder", ^{
         NSString *uuid = [NSString stringWithUUID];
         CMGenericSerializableObject *object = [[CMGenericSerializableObject alloc] initWithObjectId:uuid];
         [object fillPropertiesWithDefaults];
+        [object.dictionary setValue:[NSNull null] forKey:@"testNull"];
 
         // Add a geo field.
         CMGeoPoint *geoPoint = [[CMGeoPoint alloc] initWithLatitude:14.1247 andLongitude:-74.199887];
@@ -47,6 +48,8 @@ describe(@"CMObjectEncoder", ^{
         [[[[theOnlyObject objectForKey:@"arrayOfBooleans"] should] have:5] items];
         [[[theOnlyObject objectForKey:@"nestedObject"] should] beKindOfClass:[NSDictionary class]];
         [[[theOnlyObject objectForKey:@"date"] should] beKindOfClass:[NSDictionary class]];
+        [[[theOnlyObject objectForKey:@"dictionary"] should] beKindOfClass:[NSDictionary class]];
+        [[[[theOnlyObject objectForKey:@"dictionary"] valueForKey:@"testNull"] should] beKindOfClass:[NSNull class]];
 
 
         //TODO: Uncomment when server-side support for object relationships is done.
