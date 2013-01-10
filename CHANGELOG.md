@@ -1,6 +1,10 @@
 HEAD
 =====
 
+v1.5.2 (January 10, 2013)
+* Fixed an issue where NSNull would not be properly encoded as NSNull in Dictionaries, Arrays, or nested objects.
+* Fixed an issue where NSNull would be decoded to nil and set in a dictionary, causing it to crash.
+
 v1.5.1 (January 9, 2013)
 =====
 * Deprecated CMUser userId.
