@@ -190,7 +190,7 @@
 - (NSArray *)decodeAllInList:(NSArray *)list {
     NSMutableArray *decodedArray = [NSMutableArray arrayWithCapacity:[list count]];
     for (id item in list) {
-        [decodedArray addObject:[self deserializeContentsOfObject:item]];
+        [decodedArray addObject:[self nullIfNil:[self deserializeContentsOfObject:item]]];
     }
     return decodedArray;
 }
@@ -199,10 +199,14 @@
     NSMutableDictionary *decodedDictionary = [NSMutableDictionary dictionaryWithCapacity:[dictionary count]];
     for (id key in dictionary) {
         if (![CMInternalKeys containsObject:key]) {
-            [decodedDictionary setObject:[self deserializeContentsOfObject:[dictionary objectForKey:key]] forKey:key];
+            [decodedDictionary setObject:[self nullIfNil:[self deserializeContentsOfObject:[dictionary objectForKey:key]]] forKey:key];
         }
     }
     return decodedDictionary;
+}
+
+- (id)nullIfNil:(id)nilOrObject {
+    return nilOrObject == nil ? [NSNull null] : nilOrObject;
 }
 
 - (id)deserializeContentsOfObject:(id)objv {

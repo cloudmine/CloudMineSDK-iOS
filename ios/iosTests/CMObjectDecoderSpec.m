@@ -28,6 +28,8 @@ describe(@"CMObjectDecoder", ^{
         // Create the original object and serialize it. This will serve as the input for the real test.
         CMGenericSerializableObject *originalObject = [[CMGenericSerializableObject alloc] init];
         [originalObject fillPropertiesWithDefaults];
+        [originalObject.dictionary setValue:[NSNull null] forKey:@"testingNull"];
+        
         NSDictionary *originalObjectDictionaryRepresentation = [CMObjectEncoder encodeObjects:[NSSet setWithObject:originalObject]];
 
         // Create everything needed to decode this representation now.
