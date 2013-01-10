@@ -111,6 +111,22 @@ describe(@"CMObjectDecoder", ^{
             [[[originalObjectsDictionaryRepresentation objectForKey:obj.objectId] shouldNot] beNil];
         }
     });
+    
+    it(@"should decode internal NSDictionary's with no __class__ attribute properly", ^{
+        CMGenericSerializableObject *object = [[CMGenericSerializableObject alloc] init];
+        [object fillPropertiesWithDefaults];
+        [object.dictionary setValue:@"Testing" forKey:@"test"];
+        
+        NSDictionary *originalObjectsDictionaryRepresentation = [CMObjectEncoder encodeObjects:@[object]];
+        
+        [[[originalObjectsDictionaryRepresentation valueForKey:object.objectId] valueForKey:@"dictionary"] removeObjectForKey:@"__class__"];
+        NSLog(@"TEST101: %@", originalObjectsDictionaryRepresentation);
+        
+        NSArray *decodedObjects = [CMObjectDecoder decodeObjects:originalObjectsDictionaryRepresentation];
+        [[[decodedObjects should] have:1] items];
+        
+        [[[decodedObjects lastObject] valueForKey:@"dictionary"] isKindOfClass:[NSDictionary class]];
+    });
 });
 
 SPEC_END
