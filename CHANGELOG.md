@@ -1,9 +1,13 @@
 HEAD
 =====
 
+v1.5.3 (January 10, 2013)
+=====
+* Fixed an issue where internal dictionaries to objects were not parsed into dictionaries if they did not have the __class__ attribute.
+	
 v1.5.2 (January 10, 2013)
 * Fixed an issue where NSNull would not be properly encoded as NSNull in Dictionaries, Arrays, or nested objects.
-* Fixed an issue where NSNull would be decoded to nil and set in a dictionary, causing it to crash.
+* Fixed an issue where NSNull would be decoded to nil and set in a dictionary, causing it to crash.l
 
 v1.5.1 (January 9, 2013)
 =====
