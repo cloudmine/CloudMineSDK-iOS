@@ -23,6 +23,12 @@ describe(@"CMActiveUser", ^{
         [[readUser should] equal:activeUser];
         [[[CMActiveUser currentActiveUser] should] equal:activeUser];
     });
+    
+    it(@"should have same identifier when accessed different times", ^{
+        CMActiveUser *user = [CMActiveUser currentActiveUser];
+        CMActiveUser *anotherUser = [CMActiveUser currentActiveUser];
+        [[user should] equal:anotherUser];
+    });
 });
 
 SPEC_END
