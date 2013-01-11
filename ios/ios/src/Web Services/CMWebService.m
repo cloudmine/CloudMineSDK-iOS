@@ -1027,7 +1027,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         
         if ([[error domain] isEqualToString:NSURLErrorDomain]) {
             if ([error code] == NSURLErrorUserCancelledAuthentication) {
-                [errorInfo setValue:@"The request was unauthorized. Is your API key correct?" forKey:NSLocalizedDescriptionKey];
+                [errorInfo setValue:@"The request was unauthorized. Is your API key correct? Did the receiving service require authentication?" forKey:NSLocalizedDescriptionKey];
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:errorInfo];
             } else {
                 [errorInfo setValue:@"A connection to the server was not able to be established." forKey:NSLocalizedDescriptionKey];
