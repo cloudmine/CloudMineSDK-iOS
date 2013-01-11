@@ -1018,30 +1018,43 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
+        NSMutableDictionary *errorInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                          [NSNumber numberWithInt:operation.response.statusCode], @"httpCode",
+                                          operation.responseData, @"responseData",
+                                          operation.responseString, @"responseString",
+                                          error, NSURLErrorKey,
+                                          nil];
+        
         if ([[error domain] isEqualToString:NSURLErrorDomain]) {
             if ([error code] == NSURLErrorUserCancelledAuthentication) {
-                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was unauthorized. Is your API key correct?", NSLocalizedDescriptionKey, error, NSURLErrorKey, nil]];
+                [errorInfo setValue:@"The request was unauthorized. Is your API key correct?" forKey:NSLocalizedDescriptionKey];
+                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:errorInfo];
             } else {
-                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerConnectionFailed userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"A connection to the server was not able to be established.", NSLocalizedDescriptionKey, error, NSURLErrorKey, nil]];
+                [errorInfo setValue:@"A connection to the server was not able to be established." forKey:NSLocalizedDescriptionKey];
+                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerConnectionFailed userInfo:errorInfo];
             }
         }
         
         // put body of 404 page in teh error. Same for rest.
         switch ([operation.response statusCode]) {
             case 404:
-                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorNotFound userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The application was not found. Is your application identifier correct? Or perhaps the page you were looking for in the query does not exist.", NSLocalizedDescriptionKey, nil]];
+                [errorInfo setValue:@"The application was not found. Is your application identifier correct? Or perhaps the page you were looking for in the query does not exist." forKey:NSLocalizedDescriptionKey];
+                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorNotFound userInfo:errorInfo];
                 break;
                 
             case 401:
-                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was unauthorized. Is your API key correct?", NSLocalizedDescriptionKey, nil]];
+                [errorInfo setValue:@"The request was unauthorized. Is your API key correct? Did the receiving service require authentication?" forKey:NSLocalizedDescriptionKey];
+                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:errorInfo];
                 break;
                 
             case 400:
-                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidRequest userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was malformed.", NSLocalizedDescriptionKey, nil]];
+                [errorInfo setValue:@"The request was malformed." forKey:NSLocalizedDescriptionKey];
+                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidRequest userInfo:errorInfo];
                 break;
                 
             case 500:
-                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The server experienced an error", NSLocalizedDescriptionKey, nil]];
+                [errorInfo setValue:@"The server experienced an error." forKey:NSLocalizedDescriptionKey];
+                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerError userInfo:errorInfo];
                 break;
                 
             default:
