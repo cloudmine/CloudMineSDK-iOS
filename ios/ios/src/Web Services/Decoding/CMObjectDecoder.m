@@ -222,7 +222,7 @@
         // than dictionaries at this point. Once that support is added we can simply use the CMObjectClassNameRegistry
         // to deserialize any class properly.
 
-        if ([objv objectForKey:CMInternalClassStorageKey] == nil || [[objv objectForKey:CMInternalClassStorageKey] isEqualToString:CMInternalHashClassName]) {
+        if ( ([objv objectForKey:CMInternalClassStorageKey] == nil && [objv objectForKey:CMInternalTypeStorageKey] == nil) || [[objv objectForKey:CMInternalClassStorageKey] isEqualToString:CMInternalHashClassName]) {
             return [self decodeAllInDictionary:objv];
         } else {
             CMObjectDecoder *subObjectDecoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:objv];
