@@ -1022,6 +1022,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                                           [NSNumber numberWithInt:operation.response.statusCode], @"httpCode",
                                           operation.responseData, @"responseData",
                                           operation.responseString, @"responseString",
+                                          [operation.response allHeaderFields], @"responseHeaders",
                                           error, NSURLErrorKey,
                                           nil];
         
