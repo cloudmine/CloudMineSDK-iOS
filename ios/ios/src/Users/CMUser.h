@@ -340,8 +340,7 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
  * - <tt>CMUserAccountOperationFailedUnknownAccount</tt>
  * - <tt>CMUserAccountUnknownResult</tt>
  *
- * @param newUserId The new User ID for this user. It needs to be in the form of an email address. If you don't want to use an email
- then you should <tt>username</tt>
+ * @param newEmail The new email for this user.
  * @param currentPassword The current password for the user.
  * @param callback The block that will be called on completion of the operation.
  *
