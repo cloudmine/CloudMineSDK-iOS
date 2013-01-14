@@ -1,10 +1,18 @@
 HEAD
 =====
 
+
+v1.5.4 (January 14, 2013)
+=====
+* Renamed Social Proxy methods too:
+  * runSocialGraphGETQueryOnNetwork:baseQuery:parameters:headers:withUser:successHandler:errorHandler:
+  * runSocialGraphQueryOnNetwork:withVerb:baseQuery:parameters:headers:messageData:withUser:successHandler:errorHandler:
+* Added platform support for Social Proxy
+
 v1.5.3 (January 10, 2013)
 =====
 * Fixed an issue where internal dictionaries to objects were not parsed into dictionaries if they did not have the __class__ attribute.
-	
+
 v1.5.2 (January 10, 2013)
 =====
 * Fixed an issue where NSNull would not be properly encoded as NSNull in Dictionaries, Arrays, or nested objects.
@@ -16,7 +24,6 @@ v1.5.1 (January 9, 2013)
   * Use CMUser email from now on. All methods have been renamed to suppor this - old methods are deprecated. Online documentation has been updated.
   * This change makes the iOS Library more consistent with other platforms.
 
-	
 v1.5.0 (January 9, 2013)
 =====
 * Added Username field to CMUser
