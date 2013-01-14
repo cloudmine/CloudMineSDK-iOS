@@ -1035,7 +1035,6 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
             }
         }
         
-        // put body of 404 page in teh error. Same for rest.
         switch ([operation.response statusCode]) {
             case 404:
                 [errorInfo setValue:@"The application was not found. Is your application identifier correct? Or perhaps the page you were looking for in the query does not exist." forKey:NSLocalizedDescriptionKey];
