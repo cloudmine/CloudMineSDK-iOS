@@ -38,7 +38,7 @@
  *
  * @see CMServerFunction
  * @see https://cloudmine.me/dashboard/apps
- * @see https://cloudmine.me/developer_zone#code/overview
+ * @see https://cloudmine.me/docs/ios/reference#code
  */
 @property (nonatomic, strong) CMServerFunction *serverSideFunction;
 

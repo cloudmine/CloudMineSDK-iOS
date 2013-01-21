@@ -154,7 +154,7 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * Asynchronously search all ACLs associated with the user, using the specified query. On completion, the <tt>successHandler</tt> block
  * will be called with a dictionary of the ACLs retrieved.
  *
- * @param query This is the same syntax as defined at https://cloudmine.me/developer_zone#ref/query_syntax and used by <tt>CMStore</tt>'s search methods.
+ * @param query This is the same syntax as defined at https://cloudmine.me/docs/api#query_syntax and used by <tt>CMStore</tt>'s search methods.
  * @param user The user whose ACLs to query.
  * @param successHandler The block to be called when the objects have been populated.
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
@@ -327,7 +327,7 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * @param callback The block that will be called on completion of the operation.
  *
  * @see CMUserAccountResult
- * @see https://cloudmine.me/developer_zone#ref/account_login
+ * @see https://cloudmine.me/docs/ios/reference#users_login
  */
 - (void)loginUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
 
@@ -344,7 +344,7 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * @param callback The block that will be called on completion of the operation.
  *
  * @see CMUserAccountResult
- * @see https://cloudmine.me/developer_zone#ref/account_logout
+ * @see https://cloudmine.me/docs/ios/reference#users_logout
  */
 - (void)logoutUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
 
@@ -363,7 +363,7 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * @param callback The block that will be called on completion of the operation.
  *
  * @see CMUserAccountResult
- * @see https://cloudmine.me/developer_zone#ref/account_create
+ * @see https://cloudmine.me/docs/ios/reference#users_create
  */
 - (void)createAccountWithUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
 
@@ -399,7 +399,7 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * @param callback The block that will be called on completion of the operation.
  *
  * @see CMUserAccountResult
- * @see https://cloudmine.me/developer_zone#ref/password_change
+ * @see https://cloudmine.me/docs/ios/reference#users_pass_change
  */
 - (void)changePasswordForUser:(CMUser *)user oldPassword:(NSString *)oldPassword newPassword:(NSString *)newPassword callback:(CMWebServiceUserAccountOperationCallback)callback;
 
@@ -496,7 +496,7 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * @param callback The block that will be called on completion of the operation.
  *
  * @see CMUserAccountResult
- * @see https://cloudmine.me/developer_zone#ref/password_reset
+ * @see https://cloudmine.me/docs/ios/reference#users_pass_reset
  */
 - (void)resetForgottenPasswordForUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
 
@@ -523,7 +523,7 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * and is useful for displaying and filtering lists of people to share with or running analytics on your users yourself. On completion, the <tt>callback</tt> block
  * will be called with a dictionary of the objects retrieved as well as a dictionary of the key-related errors returned from the server.
  *
- * @param query The search query to run against all user profiles. This is the same syntax as defined at https://cloudmine.me/developer_zone#ref/query_syntax and used by <tt>CMStore</tt>'s search methods.
+ * @param query The search query to run against all user profiles. This is the same syntax as defined at https://cloudmine.me/docs/api#query_syntax and used by <tt>CMStore</tt>'s search methods.
  * @param callback The block that will be called on completion of the operation.
  */
 - (void)searchUsers:(NSString *)query callback:(CMWebServiceUserFetchSuccessCallback)callback;

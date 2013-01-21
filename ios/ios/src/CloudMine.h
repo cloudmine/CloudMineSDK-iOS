@@ -35,7 +35,7 @@
  * - UIKit
  * - libz
  *
- * The <a href="https://cloudmine.me/developer_zone#ios/tutorials" target="_blank">video walkthrough</a> below shows you how to do this.
+ * The <a href="https://cloudmine.me/docs/ios/tutorial" target="_blank">video walkthrough</a> below shows you how to do this.
  */
 
 #import "CMAPICredentials.h"

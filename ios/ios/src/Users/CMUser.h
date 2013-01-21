@@ -193,7 +193,7 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
  *
  * @see CMUserAccountResult
  * @see isLoggedIn
- * @see https://cloudmine.me/developer_zone#ref/account_login
+ * @see https://cloudmine.me/docs/ios/reference#users_login
  */
 - (void)loginWithCallback:(CMUserOperationCallback)callback;
 
@@ -238,7 +238,7 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
  *
  * @see CMUserAccountResult
  * @see isLoggedIn
- * @see https://cloudmine.me/developer_zone#ref/account_logout
+ * @see https://cloudmine.me/docs/ios/reference#users_logout
  */
 - (void)logoutWithCallback:(CMUserOperationCallback)callback;
 
@@ -258,7 +258,7 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
  * @param callback The block that will be called on completion of the operation.
  *
  * @see CMUserAccountResult
- * @see https://cloudmine.me/developer_zone#ref/account_create
+ * @see https://cloudmine.me/docs/ios/reference#users_create
  */
 - (void)createAccountWithCallback:(CMUserOperationCallback)callback;
 
@@ -294,7 +294,7 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
  * @param callback The block that will be called on completion of the operation.
  *
  * @see CMUserAccountResult
- * @see https://cloudmine.me/developer_zone#ref/password_change
+ * @see https://cloudmine.me/docs/ios/reference#users_pass_change
  */
 - (void)changePasswordTo:(NSString *)newPassword from:(NSString *)oldPassword callback:(CMUserOperationCallback)callback;
 
@@ -456,7 +456,7 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
  * @param callback The block that will be called on completion of the operation.
  *
  * @see CMUserAccountResult
- * @see https://cloudmine.me/developer_zone#ref/password_reset
+ * @see https://cloudmine.me/docs/ios/reference#users_pass_reset
  */
 - (void)resetForgottenPasswordWithCallback:(CMUserOperationCallback)callback;
 
@@ -489,7 +489,7 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
  * and filtering lists of people to share with or running analytics on your users yourself. On completion, the <tt>callback</tt> block will be called with an array
  * of <tt>CMUser</tt> objects (or your custom subclass, if applicable) as well as a dictionary of errors.
  *
- * @param query The search query to run against all user profiles. This is the same syntax as defined at https://cloudmine.me/developer_zone#ref/query_syntax and used by <tt>CMStore</tt>'s search methods.
+ * @param query The search query to run against all user profiles. This is the same syntax as defined at https://cloudmine.me/docs/api#query_syntax and used by <tt>CMStore</tt>'s search methods.
  * @param callback The block that will be called on completion of the operation.
  */
 + (void)searchUsers:(NSString *)query callback:(CMUserFetchCallback)callback;
