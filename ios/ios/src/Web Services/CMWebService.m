@@ -1030,12 +1030,13 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                                           [NSNumber numberWithInt:operation.response.statusCode], @"httpCode",
                                           operation.responseData, @"responseData",
                                           operation.responseString, @"responseString",
+                                          [operation.response allHeaderFields], @"responseHeaders",
                                           error, NSURLErrorKey,
                                           nil];
         
         if ([[error domain] isEqualToString:NSURLErrorDomain]) {
             if ([error code] == NSURLErrorUserCancelledAuthentication) {
-                [errorInfo setValue:@"The request was unauthorized. Is your API key correct?" forKey:NSLocalizedDescriptionKey];
+                [errorInfo setValue:@"The request was unauthorized. Is your API key correct? Did the receiving service require authentication?" forKey:NSLocalizedDescriptionKey];
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:errorInfo];
             } else {
                 [errorInfo setValue:@"A connection to the server was not able to be established." forKey:NSLocalizedDescriptionKey];
@@ -1043,7 +1044,6 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
             }
         }
         
-        // put body of 404 page in teh error. Same for rest.
         switch ([operation.response statusCode]) {
             case 404:
                 [errorInfo setValue:@"The application was not found. Is your application identifier correct? Or perhaps the page you were looking for in the query does not exist." forKey:NSLocalizedDescriptionKey];
