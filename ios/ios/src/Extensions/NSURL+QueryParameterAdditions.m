@@ -11,13 +11,19 @@
 
 @implementation NSURL (QueryParameterAdditions)
 
-- (NSURL *)URLByAppendingQueryString:(NSString *)queryString {
-    if (![queryString length]) {
-        return self;
-    }
+- (NSURL *)URLByAppendingQueryString:(NSString *)queryString {    
+    return [NSURL URLWithString:$urlencode([self addQuery:queryString])];
+}
 
-    NSString *URLString = $sprintf(@"%@%@%@", [self absoluteString], [self query] ? @"&" : @"?", queryString);
-    return [NSURL URLWithString:$urlencode(URLString)];
+- (NSURL *)URLByAppendingQueryStringWithoutEncoding:(NSString *)queryString {
+    return [NSURL URLWithString:[self addQuery:queryString]];
+}
+
+- (NSString *)addQuery:(NSString *)queryString {
+    if (![queryString length]) {
+        return [self absoluteString];
+    }
+    return $sprintf(@"%@%@%@", [self absoluteString], [self query] ? @"&" : @"?", queryString);
 }
 
 @end
