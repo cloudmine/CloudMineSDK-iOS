@@ -15,14 +15,15 @@
     return [NSURL URLWithString:$urlencode([self addQuery:queryString])];
 }
 
-- (NSURL *)URLByAppendingQueryStringWithoutEncoding:(NSString *)queryString {
-    return [NSURL URLWithString:[self addQuery:queryString]];
+- (NSURL *)URLByAppendingAndEncodingQueryString:(NSString *)queryString {
+    return [NSURL URLWithString:[self addQuery:$urlencode(queryString)]];
 }
 
 - (NSString *)addQuery:(NSString *)queryString {
     if (![queryString length]) {
         return [self absoluteString];
     }
+    
     return $sprintf(@"%@%@%@", [self absoluteString], [self query] ? @"&" : @"?", queryString);
 }
 

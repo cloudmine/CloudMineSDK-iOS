@@ -431,19 +431,11 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     NSString *url = $sprintf(@"%@/app/%@/user/social/%@/%@", self.apiUrl, _appIdentifier, network, base);
     NSURL *finalUrl = [NSURL URLWithString:url];
     
-    NSLog(@"Params: %@", params);
-    NSLog(@"JSON: %@", [params yajl_JSONString]);
-    NSLog(@"String: %@", $sprintf(@"params=%@", [params yajl_JSONString]));
-    
     if (params && [params count] != 0)
-        finalUrl = [NSURL URLWithString:[[finalUrl URLByAppendingQueryStringWithoutEncoding:$sprintf(@"params=%@", [params yajl_JSONString])] absoluteString]];
+        finalUrl = [NSURL URLWithString:[[finalUrl URLByAppendingAndEncodingQueryString:$sprintf(@"params=%@", [params yajl_JSONString])] absoluteString]];
     
     if (headers && [headers count] != 0)
-        finalUrl = [NSURL URLWithString:[[finalUrl URLByAppendingQueryStringWithoutEncoding:$sprintf(@"headers=%@", [headers yajl_JSONString])] absoluteString]];
-    
-    finalUrl = $urlencode(finalUrl);
-    
-    NSLog(@"URL: %@", finalUrl);
+        finalUrl = [NSURL URLWithString:[[finalUrl URLByAppendingAndEncodingQueryString:$sprintf(@"headers=%@", [headers yajl_JSONString])] absoluteString]];
     
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:verb URL:finalUrl appSecret:_appSecret binaryData:(data ? YES : NO) user:user];
     
@@ -460,9 +452,6 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 
     NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/login", _appIdentifier]];
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
-    
-    NSLog(@"UserID: %@ - User Name: %@", user.email, user.username);
-    NSLog(@"Pass: %@", user.password);
 
     NSString *userAuthField = user.email != nil ? user.email : user.username;
     
