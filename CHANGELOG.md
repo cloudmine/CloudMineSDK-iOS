@@ -1,6 +1,6 @@
 HEAD
 =====
-
+* Fixed a bug in which URL's in social graphs querying would sometimes be encoded twice.
 
 v1.5.4 (January 14, 2013)
 =====

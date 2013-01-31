@@ -2,7 +2,7 @@
 
 SHOULD_GENERATE_DOCS=${1-true}
 
-DEPLOY_DIR="cloudmine-framework-release"
+DEPLOY_DIR="cloudmine-ios"
 ARCHIVE_NAME="$DEPLOY_DIR.tgz"
 
 echo "Removing old build directory..."
@@ -32,5 +32,5 @@ echo "Tarballing deploy directory..."
 if [ -e $ARCHIVE_NAME ]; then
   rm $ARCHIVE_NAME
 fi
-tar -cvf cloudmine-framework-release.tgz $DEPLOY_DIR
+tar -cvf $ARCHIVE_NAME $DEPLOY_DIR
 rm -rf $DEPLOY_DIR
