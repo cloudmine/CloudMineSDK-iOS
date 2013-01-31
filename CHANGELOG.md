@@ -1,6 +1,7 @@
 HEAD
 =====
 * Fixed a bug in which URL's in social graphs querying would sometimes be encoded twice.
+* Fixed a bug in which Snippet URL's were not encoded properly.
 
 v1.5.4 (January 14, 2013)
 =====
