@@ -158,6 +158,8 @@ Variables</h2></td></tr>
 <tr class="separator:acb80d7659eab66d9bb822d1293cbf754"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac753d9e55c161d1082f7e3f8da2fbe3c"><td class="memItemLeft" align="right" valign="top">NSString *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_m_user_8h.html#ac753d9e55c161d1082f7e3f8da2fbe3c">CMSocialNetworkYammer</a></td></tr>
 <tr class="separator:ac753d9e55c161d1082f7e3f8da2fbe3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae021834cc6c41f688fb3a7622e9cc98d"><td class="memItemLeft" align="right" valign="top">NSString *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_m_user_8h.html#ae021834cc6c41f688fb3a7622e9cc98d">CMSocialNetworkSingly</a></td></tr>
+<tr class="separator:ae021834cc6c41f688fb3a7622e9cc98d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a class="anchor" id="abd3eece586565d4c1866f7a885b269e0"></a>
@@ -171,7 +173,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>The block callback for any user account operation that involves fetching one or more user profiles. The block returns <code>void</code> and takes an <code>NSArray</code> containing all the deserialized <code><a class="el" href="interface_c_m_user.html">CMUser</a></code> (or subclass) instances as well as a dictionary of error messages the server sent back. The second parameter will always be an empty dictionary except when using <a class="el" href="interface_c_m_user.html#ae43fccb2db39b33eaf97dae80bf73c96">userWithIdentifier:callback: (CMUser)</a>, in which case that will be the place where the "not found" error is recorded. </p>
 
-<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00073">73</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00076">76</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
 
 </div>
 </div>
@@ -187,7 +189,7 @@ Variables</h2></td></tr>
 <p>The block callback for all user account and session operations that take place on an instance of <code><a class="el" href="interface_c_m_user.html">CMUser</a></code>. The block returns <code>void</code> and takes a <code>CMUserAccountResult</code> code representing the reuslt of the operation, as well as an array of messages the server sent back. These messages will more often than not be errors.</p>
 <p>Use the convenience functions <code>CMUserAccountOperationSuccessful</code> and <code>CMUserAccountOperationFailed</code> to help you see if <code>resultCode</code> represents success or failure. </p>
 
-<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00065">65</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00068">68</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
 
 </div>
 </div>
@@ -309,6 +311,19 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ae021834cc6c41f688fb3a7622e9cc98d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">NSString* const CMSocialNetworkSingly</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Social network identifier for Singly </p>
+
+</div>
+</div>
 <a class="anchor" id="ac61a44383b8c899f099aa92f8047556c"></a>
 <div class="memitem">
 <div class="memproto">
@@ -380,7 +395,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_8a1a2e85a7267989b33e836a5e4ec2f8.html">ios</a></li><li class="navelem"><a class="el" href="dir_64fca0c987bed127cbba83cd8c15fc64.html">src</a></li><li class="navelem"><a class="el" href="dir_09b9b6059ea6c4c459f624da4a530551.html">Users</a></li><li class="navelem"><a class="el" href="_c_m_user_8h.html">CMUser.h</a></li>
-    <li class="footer">Generated on Mon Jan 14 2013 15:10:07 for CloudMine iOS SDK by
+    <li class="footer">Generated on Tue Feb 12 2013 10:42:25 for CloudMine iOS SDK by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3 </li>
   </ul>

@@ -1,5 +1,9 @@
 HEAD
 =====
+* Added Singly as a network that can be used in Social Graph Queries.
+
+v1.5.5 (January 31, 2013)
+=====
 * Fixed a bug in which URL's in social graphs querying would sometimes be encoded twice.
 * Fixed a bug in which Snippet URL's were not encoded properly.
 

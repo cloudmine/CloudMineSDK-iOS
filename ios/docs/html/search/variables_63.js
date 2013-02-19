@@ -9,6 +9,7 @@ var searchData=
   ['cmsocialnetworklinkedin',['CMSocialNetworkLinkedin',['../_c_m_user_8h.html#a5bb365e29684c4b494df30e99ec33745',1,'CMUser.h']]],
   ['cmsocialnetworkmeetup',['CMSocialNetworkMeetup',['../_c_m_user_8h.html#aba18ac2bafbf3beb4a0a5d86dc54b6c9',1,'CMUser.h']]],
   ['cmsocialnetworkrunkeeper',['CMSocialNetworkRunkeeper',['../_c_m_user_8h.html#aa308ad6bf288ef42466289cc3274bbb5',1,'CMUser.h']]],
+  ['cmsocialnetworksingly',['CMSocialNetworkSingly',['../_c_m_user_8h.html#ae021834cc6c41f688fb3a7622e9cc98d',1,'CMUser.h']]],
   ['cmsocialnetworktumblr',['CMSocialNetworkTumblr',['../_c_m_user_8h.html#ac61a44383b8c899f099aa92f8047556c',1,'CMUser.h']]],
   ['cmsocialnetworktwitter',['CMSocialNetworkTwitter',['../_c_m_user_8h.html#aaaaff597a40da55bfe047d404acdc886',1,'CMUser.h']]],
   ['cmsocialnetworkwhithings',['CMSocialNetworkWhithings',['../_c_m_user_8h.html#a5d2a2d4e80650cb6f57e44c13a648d61',1,'CMUser.h']]],

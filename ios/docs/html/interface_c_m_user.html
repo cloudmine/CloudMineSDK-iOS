@@ -198,7 +198,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="textblock"><p>Representation of an end-user in CloudMine. This class manages session state (i.e. tokens and all that).</p>
 <p><b>Subclassing Notes</b> You can subclass <code><a class="el" href="interface_c_m_user.html">CMUser</a></code> to add your own user profile fields, if you'd like. <code><a class="el" href="interface_c_m_user.html">CMUser</a></code> conforms to <code><a class="el" href="protocol_c_m_serializable-p.html">CMSerializable</a></code>, so you should implement <code>encodeWithCoder:</code> and <code>initWithCoder:</code> in the same way as you would for a <code><a class="el" href="interface_c_m_object.html">CMObject</a></code> subclass. Be sure to call super's implementation from both of those methods! Your custom fields will be pushed to the server when you first call <a class="el" href="interface_c_m_user.html#a75cc2286b78639d55992ee35a5a98ad9">createAccountWithCallback: (CMUser)</a> or <a class="el" href="interface_c_m_user.html#adc2b15ea9176fb8756ab1492974c79d6">createAccountAndLoginWithCallback: (CMUser)</a>. Upon subsequent logins, the custom fields will be updated with those stored on CloudMine. </p>
 
-<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00084">84</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00087">87</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
 </div><h2 class="groupheader">Method Documentation</h2>
 <a class="anchor" id="a0f364284d4ffd7490e5e831d0548c525"></a>
 <div class="memitem">
@@ -339,7 +339,7 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section see"><dt>See Also</dt><dd><a class="el" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138ee">CMUserAccountResult</a> </dd>
 <dd>
-<a href="https://cloudmine.me/developer_zone#ref/password_change">https://cloudmine.me/developer_zone#ref/password_change</a> </dd></dl>
+<a href="https://cloudmine.me/docs/ios/reference#users_pass_change">https://cloudmine.me/docs/ios/reference#users_pass_change</a> </dd></dl>
 
 </div>
 </div>
@@ -629,7 +629,7 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section see"><dt>See Also</dt><dd><a class="el" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138ee">CMUserAccountResult</a> </dd>
 <dd>
-<a href="https://cloudmine.me/developer_zone#ref/account_create">https://cloudmine.me/developer_zone#ref/account_create</a> </dd></dl>
+<a href="https://cloudmine.me/docs/ios/reference#users_create">https://cloudmine.me/docs/ios/reference#users_create</a> </dd></dl>
 
 </div>
 </div>
@@ -798,7 +798,7 @@ Additional Inherited Members</h2></td></tr>
 <dd>
 <a class="el" href="interface_c_m_user.html#a71d8b0ea64535a5b3099da6771b4b160">isLoggedIn</a> </dd>
 <dd>
-<a href="https://cloudmine.me/developer_zone#ref/account_login">https://cloudmine.me/developer_zone#ref/account_login</a> </dd></dl>
+<a href="https://cloudmine.me/docs/ios/reference#users_login">https://cloudmine.me/docs/ios/reference#users_login</a> </dd></dl>
 
 </div>
 </div>
@@ -889,7 +889,7 @@ Additional Inherited Members</h2></td></tr>
 <dd>
 <a class="el" href="interface_c_m_user.html#a71d8b0ea64535a5b3099da6771b4b160">isLoggedIn</a> </dd>
 <dd>
-<a href="https://cloudmine.me/developer_zone#ref/account_logout">https://cloudmine.me/developer_zone#ref/account_logout</a> </dd></dl>
+<a href="https://cloudmine.me/docs/ios/reference#users_logout">https://cloudmine.me/docs/ios/reference#users_logout</a> </dd></dl>
 
 </div>
 </div>
@@ -921,7 +921,7 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section see"><dt>See Also</dt><dd><a class="el" href="_c_m_user_account_result_8h.html#aaf8d3c3117387947ca9c709691b138ee">CMUserAccountResult</a> </dd>
 <dd>
-<a href="https://cloudmine.me/developer_zone#ref/password_reset">https://cloudmine.me/developer_zone#ref/password_reset</a> </dd></dl>
+<a href="https://cloudmine.me/docs/ios/reference#users_pass_reset">https://cloudmine.me/docs/ios/reference#users_pass_reset</a> </dd></dl>
 
 </div>
 </div>
@@ -975,7 +975,7 @@ Additional Inherited Members</h2></td></tr>
 <p>Asynchronously search all profiles of users of this app for matching fields. This will download the profiles of all matching users of your app, and is useful for displaying and filtering lists of people to share with or running analytics on your users yourself. On completion, the <code>callback</code> block will be called with an array of <code><a class="el" href="interface_c_m_user.html">CMUser</a></code> objects (or your custom subclass, if applicable) as well as a dictionary of errors.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">query</td><td>The search query to run against all user profiles. This is the same syntax as defined at <a href="https://cloudmine.me/developer_zone#ref/query_syntax">https://cloudmine.me/developer_zone#ref/query_syntax</a> and used by <code><a class="el" href="interface_c_m_store.html">CMStore</a></code>'s search methods. </td></tr>
+    <tr><td class="paramname">query</td><td>The search query to run against all user profiles. This is the same syntax as defined at <a href="https://cloudmine.me/docs/api#query_syntax">https://cloudmine.me/docs/api#query_syntax</a> and used by <code><a class="el" href="interface_c_m_store.html">CMStore</a></code>'s search methods. </td></tr>
     <tr><td class="paramname">callback</td><td>The block that will be called on completion of the operation. </td></tr>
   </table>
   </dd>
@@ -1037,7 +1037,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>The user's email (the new User ID). </p>
 
-<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00098">98</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00101">101</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
 
 </div>
 </div>
@@ -1060,7 +1060,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p><code>YES</code> when the user's account and profile have been created server-side. If <code>NO</code>, it means the user exists only locally in your app. </p>
 
-<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00124">124</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00127">127</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
 
 </div>
 </div>
@@ -1083,7 +1083,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>The object is dirty if any changes have been made locally that have not yet been persisted to the server. </p>
 
-<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00129">129</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00132">132</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
 
 </div>
 </div>
@@ -1109,7 +1109,7 @@ Additional Inherited Members</h2></td></tr>
 <dd>
 <a class="el" href="interface_c_m_user.html#a63988bb36f7095fa8cc570fff5d77fc3">CMUser::tokenExpiration</a> </dd></dl>
 
-<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00138">138</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00141">141</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
 
 </div>
 </div>
@@ -1132,7 +1132,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>The user's plaintext password. </p>
 
-<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00103">103</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00106">106</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
 
 </div>
 </div>
@@ -1155,7 +1155,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>The social services the user has linked their profile to. </p>
 
-<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00143">143</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00146">146</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
 
 </div>
 </div>
@@ -1178,7 +1178,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>The user's session token, as assigned after a successful login operation. When setting this property, <a class="el" href="interface_c_m_user.html#ac2491f631569e280b4114df4252bb507">CMUser::password</a> will be set to <code>nil</code> for security reasons. </p>
 
-<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00114">114</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00117">117</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
 
 </div>
 </div>
@@ -1201,7 +1201,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>The date and time at which the session token is no longer valid. </p>
 
-<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00119">119</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00122">122</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
 
 </div>
 </div>
@@ -1224,7 +1224,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>The user's plaintext password </p>
 
-<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00108">108</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_user_8h_source.html#l00111">111</a> of file <a class="el" href="_c_m_user_8h_source.html">CMUser.h</a>.</p>
 
 </div>
 </div>
@@ -1237,7 +1237,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="interface_c_m_user.html">CMUser</a></li>
-    <li class="footer">Generated on Mon Jan 14 2013 15:10:07 for CloudMine iOS SDK by
+    <li class="footer">Generated on Tue Feb 12 2013 10:42:25 for CloudMine iOS SDK by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3 </li>
   </ul>
