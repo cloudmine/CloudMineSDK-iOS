@@ -11,5 +11,6 @@
 @interface NSURL (QueryParameterAdditions)
 
 - (NSURL *)URLByAppendingQueryString:(NSString *)queryString;
+- (NSURL *)URLByAppendingAndEncodingQueryString:(NSString *)queryString;
 
 @end

@@ -38,6 +38,7 @@ NSString * const CMSocialNetworkRunkeeper = @"runkeeper";
 NSString * const CMSocialNetworkWhithings = @"whithings";
 NSString * const CMSocialNetworkWordpress = @"wordpress";
 NSString * const CMSocialNetworkYammer = @"yammer";
+NSString * const CMSocialNetworkSingly = @"singly";
 
 static CMWebService *webService;
 

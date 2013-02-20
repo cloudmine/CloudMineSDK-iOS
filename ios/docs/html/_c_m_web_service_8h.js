@@ -2,6 +2,7 @@ var _c_m_web_service_8h =
 [
     [ "CMWebService", "interface_c_m_web_service.html", "interface_c_m_web_service" ],
     [ "CM_BASE_URL", "_c_m_web_service_8h.html#a223a09a15a9261d019c3bb8e10ccb77e", null ],
+    [ "DEBUG", "_c_m_web_service_8h.html#ad72dbcf6d0153db1b8d8a58001feed83", null ],
     [ "CMWebServiceFetchFailureCallback", "_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386", null ],
     [ "CMWebServiceFileFetchSuccessCallback", "_c_m_web_service_8h.html#ae8267288b3502db7c66608bd3a43cc6a", null ],
     [ "CMWebServiceFileUploadSuccessCallback", "_c_m_web_service_8h.html#a5609890cd4b9e8590aaf19c69bf4dc3a", null ],

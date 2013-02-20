@@ -325,26 +325,15 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 #pragma mark - Snippet execution
 
 - (void)runSnippet:(NSString *)snippetName withParams:(NSDictionary *)params user:(CMUser *)user successHandler:(CMWebServiceSnippetRunSuccessCallback)successHandler errorHandler:(CMWebServiceSnippetRunFailureCallback)errorHandler {
-    NSString *baseURL = self.apiUrl;
-    NSString *appId = _appIdentifier;
-    NSString *paramStr = @"";
-
+    
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/app/%@/run/%@", self.apiUrl, _appIdentifier, snippetName]];
+    
     if (params) {
-        NSMutableArray* queryComponents = [NSMutableArray array];
         for (id key in params) {
-            [queryComponents addObject:[NSString stringWithFormat:@"%@=%@", key, [params objectForKey:key]]];
+            url = [NSURL URLWithString:[[url URLByAppendingAndEncodingQueryString:[NSString stringWithFormat:@"%@=%@", key, [params objectForKey:key]]] absoluteString]];
         }
-
-        paramStr = [queryComponents componentsJoinedByString:@"&"];
     }
-
-    NSMutableString* urlStr = [NSMutableString stringWithFormat:@"%@/app/%@/run/%@", baseURL, appId, snippetName];
-
-    if ([paramStr length]) {
-        [urlStr appendFormat:@"?%@", paramStr];
-    }
-
-    NSURL* url = [NSURL URLWithString:urlStr];
+    
     NSMutableURLRequest* request = [self constructHTTPRequestWithVerb:@"GET" URL:url appSecret:_appSecret binaryData:NO user:user];
     [self executeRequest:request successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
         successHandler(snippetResult, headers);
@@ -432,10 +421,10 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     NSURL *finalUrl = [NSURL URLWithString:url];
     
     if (params && [params count] != 0)
-        finalUrl = [NSURL URLWithString:[[finalUrl URLByAppendingQueryString:$sprintf(@"params=%@", [params yajl_JSONString])] absoluteString]];
+        finalUrl = [NSURL URLWithString:[[finalUrl URLByAppendingAndEncodingQueryString:$sprintf(@"params=%@", [params yajl_JSONString])] absoluteString]];
     
     if (headers && [headers count] != 0)
-        finalUrl = [NSURL URLWithString:[[finalUrl URLByAppendingQueryString:$sprintf(@"headers=%@", [headers yajl_JSONString])] absoluteString]];
+        finalUrl = [NSURL URLWithString:[[finalUrl URLByAppendingAndEncodingQueryString:$sprintf(@"headers=%@", [headers yajl_JSONString])] absoluteString]];
     
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:verb URL:finalUrl appSecret:_appSecret binaryData:(data ? YES : NO) user:user];
     
@@ -452,9 +441,6 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 
     NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/login", _appIdentifier]];
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
-    
-    NSLog(@"UserID: %@ - User Name: %@", user.email, user.username);
-    NSLog(@"Pass: %@", user.password);
 
     NSString *userAuthField = user.email != nil ? user.email : user.username;
     
