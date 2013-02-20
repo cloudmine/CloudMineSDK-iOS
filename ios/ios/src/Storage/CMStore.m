@@ -105,6 +105,9 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
         NSDateFormatter *df = [[NSDateFormatter alloc] init];
         [df setLenient:YES];
         df.dateFormat = @"EEE',' dd MMM yyyy HH':'mm':'ss 'GMT'";
+        NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+        [df setLocale:usLocale];
+
         self.dateFormatter = df;
 
         lastError = nil;

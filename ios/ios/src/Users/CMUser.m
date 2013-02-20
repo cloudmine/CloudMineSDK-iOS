@@ -288,6 +288,8 @@ static CMWebService *webService;
             NSDateFormatter *df = [[NSDateFormatter alloc] init];
             [df setLenient:YES];
             df.dateFormat = @"EEE',' dd MMM yyyy HH':'mm':'ss 'GMT'"; // RFC 1123 format
+            NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+            [df setLocale:usLocale];
             self.tokenExpiration = [df dateFromString:[responseBody objectForKey:@"expires"]];
 
             NSDictionary *userProfile = [responseBody objectForKey:@"profile"];
