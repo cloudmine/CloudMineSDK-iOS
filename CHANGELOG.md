@@ -1,6 +1,7 @@
-HEAD
+v1.5.6 (February 20, 2013)
 =====
-* Added Singly as a network that can be used in Social Graph Queries.
+* Added Singly as a network that can be used in Social Graph Queries
+* Fixed a bug where international locales would fail to parse session expiration
 
 v1.5.5 (January 31, 2013)
 =====
