@@ -100,12 +100,12 @@
 		7A91E8D914E6EF85008B7941 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A91E8D814E6EF85008B7941 /* CoreLocation.framework */; };
 		7A934E78150E8CC200A2CAD6 /* CMObjectSerialization.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7A7EDBD9148EBE3800AB5B69 /* CMObjectSerialization.h */; };
 		7AA79D6314DC1FB900F3CA3B /* CMCrossPlatformGenericSerializableObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D6214DC1FB900F3CA3B /* CMCrossPlatformGenericSerializableObject.m */; };
-		7AA79D7A14DC23C700F3CA3B /* MARTNSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D6D14DC23C700F3CA3B /* MARTNSObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		7AA79D7C14DC23C700F3CA3B /* RTIvar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D6F14DC23C700F3CA3B /* RTIvar.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		7AA79D7E14DC23C700F3CA3B /* RTMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D7114DC23C700F3CA3B /* RTMethod.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		7AA79D8014DC23C700F3CA3B /* RTProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D7314DC23C700F3CA3B /* RTProperty.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		7AA79D8214DC23C700F3CA3B /* RTProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D7514DC23C700F3CA3B /* RTProtocol.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		7AA79D8414DC23C700F3CA3B /* RTUnregisteredClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D7714DC23C700F3CA3B /* RTUnregisteredClass.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7AA79D7A14DC23C700F3CA3B /* MARTNSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D6D14DC23C700F3CA3B /* MARTNSObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w"; }; };
+		7AA79D7C14DC23C700F3CA3B /* RTIvar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D6F14DC23C700F3CA3B /* RTIvar.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w"; }; };
+		7AA79D7E14DC23C700F3CA3B /* RTMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D7114DC23C700F3CA3B /* RTMethod.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w"; }; };
+		7AA79D8014DC23C700F3CA3B /* RTProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D7314DC23C700F3CA3B /* RTProperty.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w"; }; };
+		7AA79D8214DC23C700F3CA3B /* RTProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D7514DC23C700F3CA3B /* RTProtocol.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w"; }; };
+		7AA79D8414DC23C700F3CA3B /* RTUnregisteredClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D7714DC23C700F3CA3B /* RTUnregisteredClass.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w"; }; };
 		7AA79DDD14DC5E4D00F3CA3B /* CloudMine.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AA79DDA14DC5E4000F3CA3B /* CloudMine.h */; };
 		7AABA2E51480549A00FD52A0 /* CMObjectEncoderSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AABA2E41480549A00FD52A0 /* CMObjectEncoderSpec.m */; };
 		7AABA2E91480598300FD52A0 /* NSString+UUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AABA2E71480598300FD52A0 /* NSString+UUID.m */; };
@@ -824,6 +824,7 @@
 			buildPhases = (
 				7AB4AB5B145DC5D8006AEF67 /* Sources */,
 				7AB4AB5C145DC5D8006AEF67 /* Frameworks */,
+				AA18E35516DBC683000BC23E /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -933,6 +934,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		AA18E35516DBC683000BC23E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/doxygen ios/Doxyfile\nmake -C $SOURCE_ROOT/docs/html install\n\nrm -f $TEMP_DIR/loadDocSet.scpt\n\necho \"tell application \\\"Xcode\\\"\" >> $TEMP_DIR/loadDocSet.scpt\necho \"load documentation set with path \\\"/Users/$USER/Library/Developer/Shared/Documentation/DocSets/\\\"\"\n>> $TEMP_DIR/loadDocSet.scpt\necho \"end tell\" >> $TEMP_DIR/loadDocSet.scpt\n\n#  Run the load-docset applescript command.\nosascript $TEMP_DIR/loadDocSet.scpt";
 		};
 /* End PBXShellScriptBuildPhase section */
 
