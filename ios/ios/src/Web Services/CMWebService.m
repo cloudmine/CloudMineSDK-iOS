@@ -419,7 +419,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     
     [self executeRequest:request resultHandler:^(id responseBody, NSError *errors, NSUInteger httpCode) {
         CMChannelResponse *result = [[CMChannelResponse alloc] initWithResponseBody:responseBody httpCode:httpCode error:errors];
-        [result setValue:YES forKey:@"subscribe"];
+        [result setValue:@YES forKey:@"subscribe"];
         callback(result);
     }];
 }
@@ -459,7 +459,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     // Right here, we should use a Response Object, encapsulate the HTTP code, give it an enum for happiness, and also catch any errors it may have.
     [self executeRequest:request resultHandler:^(id responseBody, NSError *errors, NSUInteger httpCode) {
         CMChannelResponse *result = [[CMChannelResponse alloc] initWithResponseBody:responseBody httpCode:httpCode error:errors];
-        [result setValue:NO forKey:@"subscribe"];
+        [result setValue:@NO forKey:@"subscribe"];
         callback(result);
     }];
 }
