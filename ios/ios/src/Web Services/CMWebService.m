@@ -50,6 +50,8 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 - (void)executeBinaryDataUploadRequest:(NSURLRequest *)request successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 - (NSURL *)constructAccountUrlWithUserIdentifier:(NSString *)userId query:(NSString *)query;
 - (NSURL *)appendKeys:(NSArray *)keys query:(NSString *)queryString serverSideFunction:(CMServerFunction *)function pagingOptions:(CMPagingDescriptor *)paging sortingOptions:(CMSortDescriptor *)sorting toURL:(NSURL *)theUrl extraParameters:(NSDictionary *)params;
+- (void)_subscribeDevice:(NSString *)deviceID orUser:(CMUser *)user toPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback;
+- (void)_unSubscribeDevice:(NSString *)deviceID orUser:(CMUser *)user toPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback;
 @end
 
 
@@ -381,6 +383,87 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         callback(result);
     }];
 }
+
+
+- (void)subscribeThisDeviceToPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback {
+    [self subscribeDevice:nil toPushChannel:channel callback:callback];
+}
+
+- (void)subscribeDevice:(NSString *)deviceID toPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback {
+    [self _subscribeDevice:deviceID orUser:nil toPushChannel:channel callback:callback];
+}
+
+- (void)subscribeUser:(CMUser *)user toPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback {
+    NSParameterAssert(user);
+    NSAssert(user.isLoggedIn, @"The user must be logged in, in order to subscribe to a channel!");
+    [self _subscribeDevice:nil orUser:user toPushChannel:channel callback:callback];
+}
+
+// Private
+- (void)_subscribeDevice:(NSString *)deviceID orUser:(CMUser *)user toPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback {
+    NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/push/channel/%@/subscribe", _appIdentifier, channel]];
+    NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
+    
+    NSMutableDictionary *subscribers = [NSMutableDictionary dictionary];
+    
+    if (user) {
+        [subscribers setValue:@"true" forKey:@"user"];
+    } else if (!user || deviceID) {
+        [subscribers setValue:@"true" forKey:@"device"];
+    }
+    if (deviceID) {
+        [subscribers setValue:deviceID forKey:@"device_id"];
+    }
+    
+    [request setHTTPBody:[[subscribers yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [self executeRequest:request resultHandler:^(id responseBody, NSError *errors, NSUInteger httpCode) {
+        CMChannelResponse *result = [[CMChannelResponse alloc] initWithResponseBody:responseBody httpCode:httpCode error:errors];
+        [result setValue:YES forKey:@"subscribe"];
+        callback(result);
+    }];
+}
+
+- (void)unSubscribeThisDeviceToPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback {
+    [self unSubscribeDevice:nil toPushChannel:channel callback:callback];
+}
+
+- (void)unSubscribeDevice:(NSString *)deviceID toPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback {
+    [self _unSubscribeDevice:deviceID orUser:nil toPushChannel:channel callback:callback];
+}
+
+- (void)unSubscribeUser:(CMUser *)user toPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback {
+    NSParameterAssert(user);
+    NSAssert(user.isLoggedIn, @"The user must be logged in, in order to subscribe to a channel!");
+    [self _unSubscribeDevice:nil orUser:user toPushChannel:channel callback:callback];
+}
+
+// Private
+- (void)_unSubscribeDevice:(NSString *)deviceID orUser:(CMUser *)user toPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback {
+    NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/push/channel/%@/unsubscribe", _appIdentifier, channel]];
+    NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
+    
+    NSMutableDictionary *unsubscribers = [NSMutableDictionary dictionary];
+    
+    if (user) {
+        [unsubscribers setValue:@"true" forKey:@"user"];
+    } else if (!user || deviceID) {
+        [unsubscribers setValue:@"true" forKey:@"device"];
+    }
+    if (deviceID) {
+        [unsubscribers setValue:deviceID forKey:@"device_id"];
+    }
+    
+    [request setHTTPBody:[[unsubscribers yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    // Right here, we should use a Response Object, encapsulate the HTTP code, give it an enum for happiness, and also catch any errors it may have.
+    [self executeRequest:request resultHandler:^(id responseBody, NSError *errors, NSUInteger httpCode) {
+        CMChannelResponse *result = [[CMChannelResponse alloc] initWithResponseBody:responseBody httpCode:httpCode error:errors];
+        [result setValue:NO forKey:@"subscribe"];
+        callback(result);
+    }];
+}
+
 
 
 #pragma mark - Singly Proxy
