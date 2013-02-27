@@ -10,4 +10,8 @@
 
 @implementation CMGetResponse
 
+- (CMGetRequestResult)result {
+    return 200 <= self.httpResponseCode &&  self.httpResponseCode < 300 ? CMGetRequestSucceeded : CMGetRequestFailed;
+}
+
 @end

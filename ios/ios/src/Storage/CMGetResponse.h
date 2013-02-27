@@ -8,6 +8,18 @@
 
 #import "CMResponse.h"
 
+typedef enum {
+    
+    CMGetRequestFailed = 0,
+    
+    CMGetRequestSucceeded = 1,
+    
+} CMGetRequestResult;
+
 @interface CMGetResponse : CMResponse
 
+- (CMGetRequestResult)result;
+
 @end
+
+typedef void (^CMGetRequestCallback)(CMGetResponse *response);
