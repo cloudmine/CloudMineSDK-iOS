@@ -784,6 +784,10 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                 }
             }];
             
+            [requestOperation setShouldExecuteAsBackgroundTaskWithExpirationHandler:^{
+                
+            }];
+            
             [self enqueueHTTPRequestOperation:requestOperation];
         };
 
@@ -1589,6 +1593,11 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     }];
     
     [self enqueueHTTPRequestOperation:requestOperation];
+}
+
+- (void)enqueueHTTPRequestOperation:(AFHTTPRequestOperation *)operation {
+    [operation setShouldExecuteAsBackgroundTaskWithExpirationHandler:nil];
+    [super enqueueHTTPRequestOperation:operation];
 }
 
 - (void)performBlock:(void (^)())block {
