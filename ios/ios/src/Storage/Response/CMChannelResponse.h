@@ -19,8 +19,6 @@ typedef enum {
     
 } CMDeviceChannelResult;
 
-typedef void (^CMWebServiceDeviceChannelCallback)(CMResponse *result);
-
 
 @interface CMChannelResponse : CMResponse
 
@@ -28,3 +26,5 @@ typedef void (^CMWebServiceDeviceChannelCallback)(CMResponse *result);
 
 @end
 
+
+typedef void (^CMWebServiceDeviceChannelCallback)(CMChannelResponse *response);

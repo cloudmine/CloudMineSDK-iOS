@@ -380,7 +380,9 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                            user:_CMUserOrNil
                 extraParameters:_CMTryMethod(options, buildExtraParameters)
                  successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult, NSNumber *count, NSDictionary *headers) {
+                     NSLog(@"PARSED FROM CMSTORE: %@", results);
                      NSArray *objects = [CMObjectDecoder decodeObjects:results];
+                     NSLog(@"Objects FROM CMSTORE: %@", objects);
                      CMResponseMetadata *metadata = [[CMResponseMetadata alloc] initWithMetadata:meta];
                      CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
                      [self cacheObjectsInMemory:objects atUserLevel:userLevel];

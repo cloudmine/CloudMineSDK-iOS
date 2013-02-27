@@ -15,6 +15,7 @@
 #import "CMUserAccountResult.h"
 #import "CMSocialLoginViewController.h"
 #import "CMChannelResponse.h"
+#import "CMGetResponse.h"
 
 @class CMUser;
 @class CMServerFunction;
@@ -560,17 +561,20 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
 - (void)unRegisterForPushNotificationsWithUser:(CMUser *)user callback:(CMWebServiceDeviceTokenCallback)callback;
 
 
+
 - (void)subscribeThisDeviceToPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback;
 
 - (void)subscribeDevice:(NSString *)deviceID toPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback;
 
 - (void)subscribeUser:(CMUser *)user toPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback;
 
-- (void)unSubscribeThisDeviceToPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback;
+- (void)unSubscribeThisDeviceFromPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback;
 
-- (void)unSubscribeDevice:(NSString *)deviceID toPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback;
+- (void)unSubscribeDevice:(NSString *)deviceID fromPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback;
 
-- (void)unSubscribeUser:(CMUser *)user toPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback;
+- (void)unSubscribeUser:(CMUser *)user fromPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback;
+
+- (void)getChannelsForDevice:(NSString *)deviceID callback:(CMGetRequestCallback)callback;
 
 
 /**

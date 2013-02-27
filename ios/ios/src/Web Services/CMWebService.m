@@ -51,7 +51,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 - (NSURL *)constructAccountUrlWithUserIdentifier:(NSString *)userId query:(NSString *)query;
 - (NSURL *)appendKeys:(NSArray *)keys query:(NSString *)queryString serverSideFunction:(CMServerFunction *)function pagingOptions:(CMPagingDescriptor *)paging sortingOptions:(CMSortDescriptor *)sorting toURL:(NSURL *)theUrl extraParameters:(NSDictionary *)params;
 - (void)_subscribeDevice:(NSString *)deviceID orUser:(CMUser *)user toPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback;
-- (void)_unSubscribeDevice:(NSString *)deviceID orUser:(CMUser *)user toPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback;
+- (void)_unSubscribeDevice:(NSString *)deviceID orUser:(CMUser *)user fromPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback;
 @end
 
 
@@ -424,22 +424,22 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     }];
 }
 
-- (void)unSubscribeThisDeviceToPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback {
-    [self unSubscribeDevice:nil toPushChannel:channel callback:callback];
+- (void)unSubscribeThisDeviceFromPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback {
+    [self unSubscribeDevice:nil fromPushChannel:channel callback:callback];
 }
 
-- (void)unSubscribeDevice:(NSString *)deviceID toPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback {
-    [self _unSubscribeDevice:deviceID orUser:nil toPushChannel:channel callback:callback];
+- (void)unSubscribeDevice:(NSString *)deviceID fromPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback {
+    [self _unSubscribeDevice:deviceID orUser:nil fromPushChannel:channel callback:callback];
 }
 
-- (void)unSubscribeUser:(CMUser *)user toPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback {
+- (void)unSubscribeUser:(CMUser *)user fromPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback {
     NSParameterAssert(user);
     NSAssert(user.isLoggedIn, @"The user must be logged in, in order to subscribe to a channel!");
-    [self _unSubscribeDevice:nil orUser:user toPushChannel:channel callback:callback];
+    [self _unSubscribeDevice:nil orUser:user fromPushChannel:channel callback:callback];
 }
 
 // Private
-- (void)_unSubscribeDevice:(NSString *)deviceID orUser:(CMUser *)user toPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback {
+- (void)_unSubscribeDevice:(NSString *)deviceID orUser:(CMUser *)user fromPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback {
     NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/push/channel/%@/unsubscribe", _appIdentifier, channel]];
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
     
@@ -461,6 +461,16 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         CMChannelResponse *result = [[CMChannelResponse alloc] initWithResponseBody:responseBody httpCode:httpCode error:errors];
         [result setValue:@NO forKey:@"subscribe"];
         callback(result);
+    }];
+}
+
+- (void)getChannelsForDevice:(NSString *)deviceID callback:(CMGetRequestCallback)callback {
+    NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/device/%@/channels", _appIdentifier, deviceID]];
+    NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"GET" URL:url appSecret:_appSecret binaryData:NO user:nil];
+    
+    [self executeRequest:request resultHandler:^(id responseBody, NSError *errors, NSUInteger httpCode) {
+        CMGetResponse *response = [[CMGetResponse alloc] initWithResponseBody:responseBody httpCode:httpCode error:errors];
+        callback(response);
     }];
 }
 
@@ -1159,8 +1169,12 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         
         NSString *responseString = [operation responseString];
         
+        NSLog(@"Response String: %@", responseString);
+        
         NSError *parseError;
         NSDictionary *results = [responseString yajl_JSON:&parseError];
+        
+        NSLog(@"Response PARSED: %@", results);
         
         if ([[parseError domain] isEqualToString:YAJLErrorDomain]) {
             NSError *error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidResponse userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The response received from the server was malformed.", NSLocalizedDescriptionKey, parseError, YAJLErrorKey, nil]];

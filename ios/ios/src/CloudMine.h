@@ -74,3 +74,4 @@
 #import "CMFileFetchResponse.h"
 #import "CMFileUploadResult.h"
 #import "CMDeleteResponse.h"
+#import "CMChannelResponse.h"
