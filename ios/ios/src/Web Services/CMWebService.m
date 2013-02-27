@@ -464,12 +464,21 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     }];
 }
 
-- (void)getChannelsForDevice:(NSString *)deviceID callback:(CMGetRequestCallback)callback {
-    NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/device/%@/channels", _appIdentifier, deviceID]];
+- (void)getChannelsForThisDeviceWithCallback:(CMViewChannelsRequestCallback)callback {
+    [self getChannelsForDevice:nil callback:callback];
+}
+
+- (void)getChannelsForDevice:(NSString *)deviceID callback:(CMViewChannelsRequestCallback)callback {
+    NSURL *url = nil;
+    if (deviceID) {
+        url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/device/%@/channels", _appIdentifier, deviceID]];
+    } else {
+        url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/device/channels", _appIdentifier]];
+    }
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"GET" URL:url appSecret:_appSecret binaryData:NO user:nil];
     
     [self executeRequest:request resultHandler:^(id responseBody, NSError *errors, NSUInteger httpCode) {
-        CMGetResponse *response = [[CMGetResponse alloc] initWithResponseBody:responseBody httpCode:httpCode error:errors];
+        CMViewChannelsResponse *response = [[CMViewChannelsResponse alloc] initWithResponseBody:responseBody httpCode:httpCode error:errors];
         callback(response);
     }];
 }
@@ -1169,12 +1178,8 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         
         NSString *responseString = [operation responseString];
         
-        NSLog(@"Response String: %@", responseString);
-        
         NSError *parseError;
         NSDictionary *results = [responseString yajl_JSON:&parseError];
-        
-        NSLog(@"Response PARSED: %@", results);
         
         if ([[parseError domain] isEqualToString:YAJLErrorDomain]) {
             NSError *error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidResponse userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The response received from the server was malformed.", NSLocalizedDescriptionKey, parseError, YAJLErrorKey, nil]];

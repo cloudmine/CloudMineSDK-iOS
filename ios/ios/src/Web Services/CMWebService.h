@@ -15,7 +15,7 @@
 #import "CMUserAccountResult.h"
 #import "CMSocialLoginViewController.h"
 #import "CMChannelResponse.h"
-#import "CMGetResponse.h"
+#import "CMViewChannelsResponse.h"
 
 @class CMUser;
 @class CMServerFunction;
@@ -574,7 +574,9 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
 
 - (void)unSubscribeUser:(CMUser *)user fromPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback;
 
-- (void)getChannelsForDevice:(NSString *)deviceID callback:(CMGetRequestCallback)callback;
+- (void)getChannelsForThisDeviceWithCallback:(CMViewChannelsRequestCallback)callback;
+
+- (void)getChannelsForDevice:(NSString *)deviceID callback:(CMViewChannelsRequestCallback)callback;
 
 
 /**
