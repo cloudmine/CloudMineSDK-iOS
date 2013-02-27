@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">CloudMine iOS SDK
-   &#160;<span id="projectnumber">1.5.4</span>
+   &#160;<span id="projectnumber">1.5.6</span>
    </div>
   </td>
  </tr>
@@ -180,6 +180,24 @@ Instance Methods</h2></td></tr>
 <tr class="separator:a1c88fec9c5b5a6acf3206a8356884083"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3fe9cfb742b1f1407a814de214b92812"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_web_service.html#a3fe9cfb742b1f1407a814de214b92812">unRegisterForPushNotificationsWithUser:callback:</a></td></tr>
 <tr class="separator:a3fe9cfb742b1f1407a814de214b92812"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0a6edd5151157d82d9aaba371d32acb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa0a6edd5151157d82d9aaba371d32acb"></a>
+(void)&#160;</td><td class="memItemRight" valign="bottom">- <b>subscribeThisDeviceToPushChannel:callback:</b></td></tr>
+<tr class="separator:aa0a6edd5151157d82d9aaba371d32acb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e50d80b5417b8418fed42c62a0bc7ab"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7e50d80b5417b8418fed42c62a0bc7ab"></a>
+(void)&#160;</td><td class="memItemRight" valign="bottom">- <b>subscribeDevice:toPushChannel:callback:</b></td></tr>
+<tr class="separator:a7e50d80b5417b8418fed42c62a0bc7ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4171578dda59ca8604a6433d080ead6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab4171578dda59ca8604a6433d080ead6"></a>
+(void)&#160;</td><td class="memItemRight" valign="bottom">- <b>subscribeUser:toPushChannel:callback:</b></td></tr>
+<tr class="separator:ab4171578dda59ca8604a6433d080ead6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7026f8d12bd5cff471485c888b66849"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa7026f8d12bd5cff471485c888b66849"></a>
+(void)&#160;</td><td class="memItemRight" valign="bottom">- <b>unSubscribeThisDeviceToPushChannel:callback:</b></td></tr>
+<tr class="separator:aa7026f8d12bd5cff471485c888b66849"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfbf2740e53fd6dc617f2719971d68fb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adfbf2740e53fd6dc617f2719971d68fb"></a>
+(void)&#160;</td><td class="memItemRight" valign="bottom">- <b>unSubscribeDevice:toPushChannel:callback:</b></td></tr>
+<tr class="separator:adfbf2740e53fd6dc617f2719971d68fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb1687480d3f9fcb5c9d25829b306ded"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adb1687480d3f9fcb5c9d25829b306ded"></a>
+(void)&#160;</td><td class="memItemRight" valign="bottom">- <b>unSubscribeUser:toPushChannel:callback:</b></td></tr>
+<tr class="separator:adb1687480d3f9fcb5c9d25829b306ded"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a96921ab8c097f67b30f9bd37d49728f9"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_web_service.html#a96921ab8c097f67b30f9bd37d49728f9">runSocialGraphQueryOnNetwork:withVerb:baseQuery:parameters:headers:messageData:withUser:successHandler:errorHandler:</a></td></tr>
 <tr class="separator:a96921ab8c097f67b30f9bd37d49728f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f355e5bca0678cc7883fc13e810b504"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_c_m_web_service.html#a6f355e5bca0678cc7883fc13e810b504">runSocialGraphGETQueryOnNetwork:baseQuery:parameters:headers:withUser:successHandler:errorHandler:</a></td></tr>
@@ -201,7 +219,7 @@ NSString *&#160;</td><td class="memItemRight" valign="bottom"><b>_appIdentifier<
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Base class for all classes concerned with the communication between the client device and the CloudMine web services. </p>
 
-<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00097">97</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00096">96</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
 </div><h2 class="groupheader">Method Documentation</h2>
 <a class="anchor" id="a497ddf7f3a69569709d41b6729aec382"></a>
 <div class="memitem">
@@ -1732,7 +1750,7 @@ NSString *&#160;</td><td class="memItemRight" valign="bottom"><b>_appIdentifier<
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="interface_c_m_web_service.html">CMWebService</a></li>
-    <li class="footer">Generated on Tue Feb 12 2013 10:42:25 for CloudMine iOS SDK by
+    <li class="footer">Generated on Tue Feb 26 2013 15:51:34 for CloudMine iOS SDK by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3 </li>
   </ul>

@@ -1,6 +1,8 @@
 var dir_2cdf3a2adc7bf37cf320f178e750e94c =
 [
     [ "Metadata", "dir_0ae76eb677cc15bc24341f70ef616cd6.html", "dir_0ae76eb677cc15bc24341f70ef616cd6" ],
+    [ "._CMChannelResponse.h", "_8___c_m_channel_response_8h_source.html", null ],
+    [ "CMChannelResponse.h", "_c_m_channel_response_8h_source.html", null ],
     [ "CMDeleteResponse.h", "_c_m_delete_response_8h_source.html", null ],
     [ "CMFileFetchResponse.h", "_c_m_file_fetch_response_8h_source.html", null ],
     [ "CMFileUploadResponse.h", "_c_m_file_upload_response_8h_source.html", null ],

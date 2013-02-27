@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">CloudMine iOS SDK
-   &#160;<span id="projectnumber">1.5.4</span>
+   &#160;<span id="projectnumber">1.5.6</span>
    </div>
   </td>
  </tr>
@@ -115,6 +115,7 @@ $(document).ready(function(){initNavTree('_c_m_web_service_8h.html','');});
 <code>#import &quot;<a class="el" href="_c_m_device_token_result_8h_source.html">CMDeviceTokenResult.h</a>&quot;</code><br/>
 <code>#import &quot;<a class="el" href="_c_m_user_account_result_8h_source.html">CMUserAccountResult.h</a>&quot;</code><br/>
 <code>#import &quot;CMSocialLoginViewController.h&quot;</code><br/>
+<code>#import &quot;CMChannelResponse.h&quot;</code><br/>
 </div>
 <p><a href="_c_m_web_service_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -125,9 +126,6 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ad72dbcf6d0153db1b8d8a58001feed83"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad72dbcf6d0153db1b8d8a58001feed83"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>DEBUG</b>&#160;&#160;&#160;1</td></tr>
-<tr class="separator:ad72dbcf6d0153db1b8d8a58001feed83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a223a09a15a9261d019c3bb8e10ccb77e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_m_web_service_8h.html#a223a09a15a9261d019c3bb8e10ccb77e">CM_BASE_URL</a>&#160;&#160;&#160;@&quot;https://api.cloudmine.me/v1&quot;</td></tr>
 <tr class="separator:a223a09a15a9261d019c3bb8e10ccb77e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -170,7 +168,7 @@ typedef void(^&#160;</td><td class="memItemRight" valign="bottom"><b>CMWebServic
 </div><div class="memdoc">
 <p>Base URL for the current version of the CloudMine API. </p>
 
-<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00031">31</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00030">30</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
 
 </div>
 </div>
@@ -186,7 +184,7 @@ typedef void(^&#160;</td><td class="memItemRight" valign="bottom"><b>CMWebServic
 </div><div class="memdoc">
 <p>Callback block signature for <b>all</b> operations on <code><a class="el" href="interface_c_m_web_service.html">CMWebService</a></code> that can fail. These are general errors that cause the entire call to fail, not key-specific errors (which are reported instead in the <code>errors</code> dictionary in the <code>CMWebServiceObjectFetchSuccessCallback</code> callback block). The block returns <code>void</code> and takes an <code>NSError</code> describing the error as an argument. </p>
 
-<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00048">48</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00047">47</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
 
 </div>
 </div>
@@ -201,7 +199,7 @@ typedef void(^&#160;</td><td class="memItemRight" valign="bottom"><b>CMWebServic
 </div><div class="memdoc">
 <p>Callback block signature for all operations on <code><a class="el" href="interface_c_m_web_service.html">CMWebService</a></code> that download binary files from the CloudMine servers. These blocks return <code>void</code> and take an <code>NSData</code> instance that contains the raw data for the file as well as a string with the content type of the file returned from the server. </p>
 
-<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00071">71</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00070">70</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
 
 </div>
 </div>
@@ -216,7 +214,7 @@ typedef void(^&#160;</td><td class="memItemRight" valign="bottom"><b>CMWebServic
 </div><div class="memdoc">
 <p>Callback block signature for all operations on <code><a class="el" href="interface_c_m_web_service.html">CMWebService</a></code> that upload binary files to the CloudMine servers. These blocks return <code>void</code> and take a <code>CMFileUploadResult</code>, the key of the new file, and a dynamic snippet result as arguments to indicate the final result of the upload operation. </p>
 
-<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00055">55</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00054">54</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
 
 </div>
 </div>
@@ -231,7 +229,7 @@ typedef void(^&#160;</td><td class="memItemRight" valign="bottom"><b>CMWebServic
 </div><div class="memdoc">
 <p>Callback block signature for all operations on <code><a class="el" href="interface_c_m_web_service.html">CMWebService</a></code> that fetch objects from the CloudMine servers. These blocks return <code>void</code> and take a dictionary of results, a dictionary of errors, a dictionary of metadata, and a dynamic snippet result as arguments. These map directly with the CloudMine API response format. </p>
 
-<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00040">40</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00039">39</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
 
 </div>
 </div>
@@ -246,7 +244,7 @@ typedef void(^&#160;</td><td class="memItemRight" valign="bottom"><b>CMWebServic
 </div><div class="memdoc">
 <p>Callback block signature for operations on <code><a class="el" href="interface_c_m_web_service.html">CMWebService</a></code> that directly execute a server-side code snippet on the CloudMine servers. These blocks return <code>void</code> and take the snippet result (the type of which is determined by the type of data you use inside your exit() call in your server-side JavaScript code or what you return from the main method in your server-side Java code) and all the headers of the response. </p>
 
-<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00062">62</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00061">61</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
 
 </div>
 </div>
@@ -261,7 +259,7 @@ typedef void(^&#160;</td><td class="memItemRight" valign="bottom"><b>CMWebServic
 </div><div class="memdoc">
 <p>Callback block signature for all operations on <code><a class="el" href="interface_c_m_web_service.html">CMWebService</a></code> and <code><a class="el" href="interface_c_m_user.html">CMUser</a></code> that involve the management of user accounts and user sessions. These blocks return <code>void</code> and take a <code>CMUserAccountResult</code> code that represents the result of the operation as well as an <code>NSDictionary</code> containing the dictionary representation of the response body from the server. </p>
 
-<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00079">79</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00078">78</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
 
 </div>
 </div>
@@ -276,7 +274,7 @@ typedef void(^&#160;</td><td class="memItemRight" valign="bottom"><b>CMWebServic
 </div><div class="memdoc">
 <p>Callback block signature for all operations that return a list of users for the current app from the CloudMine servers. These blocks return <code>void</code> and take a dictionary of results, a dictionary of errors, and the total number of users returned as arguments. The contents of the former two map directly to the CloudMine API response format. </p>
 
-<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00087">87</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_web_service_8h_source.html#l00086">86</a> of file <a class="el" href="_c_m_web_service_8h_source.html">CMWebService.h</a>.</p>
 
 </div>
 </div>
@@ -286,7 +284,7 @@ typedef void(^&#160;</td><td class="memItemRight" valign="bottom"><b>CMWebServic
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_8a1a2e85a7267989b33e836a5e4ec2f8.html">ios</a></li><li class="navelem"><a class="el" href="dir_64fca0c987bed127cbba83cd8c15fc64.html">src</a></li><li class="navelem"><a class="el" href="dir_c28dce3ecac1891838410a651260745a.html">Web Services</a></li><li class="navelem"><a class="el" href="_c_m_web_service_8h.html">CMWebService.h</a></li>
-    <li class="footer">Generated on Tue Feb 12 2013 10:42:25 for CloudMine iOS SDK by
+    <li class="footer">Generated on Tue Feb 26 2013 15:51:34 for CloudMine iOS SDK by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3 </li>
   </ul>

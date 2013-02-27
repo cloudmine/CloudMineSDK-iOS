@@ -30,6 +30,9 @@ var hierarchy =
       [ "CMObject", "interface_c_m_object.html", null ],
       [ "CMObjectClassNameRegistry", "interface_c_m_object_class_name_registry.html", null ],
       [ "CMPagingDescriptor", "interface_c_m_paging_descriptor.html", null ],
+      [ "CMResponse", "interface_c_m_response.html", [
+        [ "CMChannelResponse", "interface_c_m_channel_response.html", null ]
+      ] ],
       [ "CMResponseMetadata", "interface_c_m_response_metadata.html", null ],
       [ "CMServerFunction", "interface_c_m_server_function.html", null ],
       [ "CMSnippetResult", "interface_c_m_snippet_result.html", null ],
