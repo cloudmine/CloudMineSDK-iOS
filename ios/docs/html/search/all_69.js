@@ -15,6 +15,8 @@ var searchData=
   ['initwithlatitude_3aandlongitude_3a',['initWithLatitude:andLongitude:',['../interface_c_m_geo_point.html#abfd3c514de7ffba9acec0c620d3ea0c0',1,'CMGeoPoint']]],
   ['initwithlatitudeinradians_3aandlongitudeinradians_3a',['initWithLatitudeInRadians:andLongitudeInRadians:',['../interface_c_m_geo_point.html#a73f051f5fb5a63e0b585cd0dbe945556',1,'CMGeoPoint']]],
   ['initwithobjectid_3a',['initWithObjectId:',['../interface_c_m_object.html#acc946857adb88b3df84c8409dffd06a2',1,'CMObject']]],
+  ['initwithresponsebody_3ahttpcode_3aerror_3a',['initWithResponseBody:httpCode:error:',['../interface_c_m_response.html#a130c1b51b81481471f938db6208ad404',1,'CMResponse']]],
+  ['initwithresponsebody_3ahttpcode_3aerrors_3a',['initWithResponseBody:httpCode:errors:',['../interface_c_m_response.html#a7363e287225461b7266349c4cf260f6e',1,'CMResponse']]],
   ['initwithuser_3a',['initWithUser:',['../interface_c_m_store.html#a190c8f57daff87592a4c76e7872a001d',1,'CMStore']]],
   ['initwithuserid_3aandpassword_3a',['initWithUserId:andPassword:',['../interface_c_m_user.html#a6b8f02d8c11046e0f9db0ecda30ee349',1,'CMUser']]],
   ['initwithuserid_3aandusername_3aandpassword_3a',['initWithUserId:andUsername:andPassword:',['../interface_c_m_user.html#a52a1c37330ca8b677635824c6ca667c4',1,'CMUser']]],

@@ -9,6 +9,7 @@ var searchData=
   ['changeusercredentialswithpassword_3anewpassword_3anewusername_3anewuserid_3acallback_3a',['changeUserCredentialsWithPassword:newPassword:newUsername:newUserId:callback:',['../interface_c_m_user.html#acd0929542fecd61fe0290dbf80a22bbc',1,'CMUser']]],
   ['changeuseridto_3apassword_3acallback_3a',['changeUserIdTo:password:callback:',['../interface_c_m_user.html#a8c03930cf112d59e6dc4becfc4b0d123',1,'CMUser']]],
   ['changeusernameto_3apassword_3acallback_3a',['changeUsernameTo:password:callback:',['../interface_c_m_user.html#a5656d9f1c78deaa73ae432af5b3900c9',1,'CMUser']]],
+  ['channels',['channels',['../interface_c_m_view_channels_response.html#acfb2db71a189b582235761ee15acf5a8',1,'CMViewChannelsResponse']]],
   ['classforname_3a',['classForName:',['../interface_c_m_object_class_name_registry.html#a4c2193de95d126842d5337657c520cf4',1,'CMObjectClassNameRegistry']]],
   ['classname',['className',['../protocol_c_m_serializable-p.html#a1fba26b689afa61b794bb4d333b7bc1b',1,'CMSerializable-p']]],
   ['createaccountandloginwithcallback_3a',['createAccountAndLoginWithCallback:',['../interface_c_m_user.html#adc2b15ea9176fb8756ab1492974c79d6',1,'CMUser']]],

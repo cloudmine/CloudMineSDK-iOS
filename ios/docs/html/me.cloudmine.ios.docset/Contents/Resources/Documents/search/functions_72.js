@@ -13,6 +13,7 @@ var searchData=
   ['removeuserobject_3a',['removeUserObject:',['../interface_c_m_store.html#aa168a5b4763f0ec93eddcec8653468ee',1,'CMStore']]],
   ['resetforgottenpasswordforuser_3acallback_3a',['resetForgottenPasswordForUser:callback:',['../interface_c_m_web_service.html#a6d0e4f4519c9a6ec38160c338af2bf5f',1,'CMWebService']]],
   ['resetforgottenpasswordwithcallback_3a',['resetForgottenPasswordWithCallback:',['../interface_c_m_user.html#a7d923bd10ddc116d5f39c9b64899ec1e',1,'CMUser']]],
+  ['result',['result',['../interface_c_m_view_channels_response.html#af054026901869acd113ce26a6907790c',1,'CMViewChannelsResponse']]],
   ['runsnippet_3awithparams_3auser_3asuccesshandler_3aerrorhandler_3a',['runSnippet:withParams:user:successHandler:errorHandler:',['../interface_c_m_web_service.html#aa7293a2925334165e62a0cf59ac0149b',1,'CMWebService']]],
   ['runsocialgraphgetqueryonnetwork_3abasequery_3aparameters_3aheaders_3awithuser_3asuccesshandler_3aerrorhandler_3a',['runSocialGraphGETQueryOnNetwork:baseQuery:parameters:headers:withUser:successHandler:errorHandler:',['../interface_c_m_web_service.html#a6f355e5bca0678cc7883fc13e810b504',1,'CMWebService']]],
   ['runsocialgraphqueryonnetwork_3awithverb_3abasequery_3aparameters_3aheaders_3amessagedata_3awithuser_3asuccesshandler_3aerrorhandler_3a',['runSocialGraphQueryOnNetwork:withVerb:baseQuery:parameters:headers:messageData:withUser:successHandler:errorHandler:',['../interface_c_m_web_service.html#a96921ab8c097f67b30f9bd37d49728f9',1,'CMWebService']]]
