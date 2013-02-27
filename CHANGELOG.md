@@ -1,3 +1,9 @@
+HEAD
+=====
+* Added Ability to subscribe/unsubscribe to push channels.
+* Added ability to list push channels a device is in.
+* Changed all Network Requests to persist in the background if the app is closed during the operation.
+
 v1.5.6 (February 20, 2013)
 =====
 * Added Singly as a network that can be used in Social Graph Queries
