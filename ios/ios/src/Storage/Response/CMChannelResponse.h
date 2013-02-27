@@ -11,10 +11,13 @@
 
 typedef enum {
     
+    /** The channel modification failed */
     CMDeviceChannelOperationFailed = 0,
     
+    /** The device was successfully added to the channel. */
     CMDeviceAddedToChannel = 1,
     
+    /** The device was successfully removed from the channel. */
     CMDeviceRemovedFromChannel = 2
     
 } CMDeviceChannelResult;
