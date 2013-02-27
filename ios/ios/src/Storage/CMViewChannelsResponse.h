@@ -10,16 +10,17 @@
 
 typedef enum {
     
-    CMGetRequestFailed = 0,
+    CMViewChannelsRequestFailed = 0,
     
-    CMGetRequestSucceeded = 1,
+    CMViewChannelsRequestSucceeded = 1,
     
-} CMGetRequestResult;
+} CMViewChannelsResult;
 
-@interface CMGetResponse : CMResponse
+@interface CMViewChannelsResponse : CMResponse
 
-- (CMGetRequestResult)result;
+- (CMViewChannelsResult)result;
+- (NSArray *)channels;
 
 @end
 
-typedef void (^CMGetRequestCallback)(CMGetResponse *response);
+typedef void (^CMViewChannelsRequestCallback)(CMViewChannelsResponse *response);

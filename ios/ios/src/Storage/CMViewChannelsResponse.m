@@ -6,12 +6,19 @@
 //  Copyright (c) 2013 CloudMine, LLC. All rights reserved.
 //
 
-#import "CMGetResponse.h"
+#import "CMViewChannelsResponse.h"
 
-@implementation CMGetResponse
+@implementation CMViewChannelsResponse
 
-- (CMGetRequestResult)result {
-    return 200 <= self.httpResponseCode &&  self.httpResponseCode < 300 ? CMGetRequestSucceeded : CMGetRequestFailed;
+- (CMViewChannelsResult)result {
+    return 200 <= self.httpResponseCode &&  self.httpResponseCode < 300 ? CMViewChannelsRequestSucceeded : CMViewChannelsRequestFailed;
+}
+
+- (NSArray *)channels {
+    if ([self.body isKindOfClass:[NSArray class]]) {
+        return (NSArray *)self.body;
+    }
+    return nil;
 }
 
 @end
