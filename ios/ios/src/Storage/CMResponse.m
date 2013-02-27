@@ -2,8 +2,8 @@
 //  CMResponse.m
 //  cloudmine-ios
 //
-//  Created by Ethan Mick on 2/26/13.
 //  Copyright (c) 2013 CloudMine, LLC. All rights reserved.
+//  See LICENSE file included with SDK for details.
 //
 
 #import "CMResponse.h"
