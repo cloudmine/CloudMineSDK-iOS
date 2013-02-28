@@ -403,7 +403,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 - (void)_subscribeDevice:(NSString *)deviceID orUser:(CMUser *)user toPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback {
     NSParameterAssert(channel);
     NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/push/channel/%@/subscribe", _appIdentifier, channel]];
-    NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
+    NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:user];
     
     NSMutableDictionary *subscribers = [NSMutableDictionary dictionary];
     
@@ -443,7 +443,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
 - (void)_unSubscribeDevice:(NSString *)deviceID orUser:(CMUser *)user fromPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback {
     NSParameterAssert(channel);
     NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/push/channel/%@/unsubscribe", _appIdentifier, channel]];
-    NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
+    NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:user];
     
     NSMutableDictionary *unsubscribers = [NSMutableDictionary dictionary];
     
