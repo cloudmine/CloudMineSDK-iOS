@@ -2209,10 +2209,6 @@
                     </Subnodes>
                    </Node>
                    <Node>
-                    <Name>._CMChannelResponse.h</Name>
-                    <Path>_8___c_m_channel_response_8h_source.html</Path>
-                   </Node>
-                   <Node>
                     <Name>CMChannelResponse.h</Name>
                     <Path>_c_m_channel_response_8h_source.html</Path>
                    </Node>
@@ -2249,14 +2245,6 @@
                     <Path>_c_m_store_response_8h_source.html</Path>
                    </Node>
                   </Subnodes>
-                 </Node>
-                 <Node>
-                  <Name>._CMResponse.h</Name>
-                  <Path>_8___c_m_response_8h_source.html</Path>
-                 </Node>
-                 <Node>
-                  <Name>._CMViewChannelsResponse.h</Name>
-                  <Path>_8___c_m_view_channels_response_8h_source.html</Path>
                  </Node>
                  <Node>
                   <Name>CMACLFetchResponse.h</Name>
