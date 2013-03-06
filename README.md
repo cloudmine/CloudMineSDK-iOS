@@ -24,13 +24,6 @@ Watch the introductory [screencast](http://cloudmine.me/developer_zone#ios/tutor
 
 Please see the [documentation overview](http://cloudmine.me/developer_zone#ios/overview) on our website for more details.
 
-Example
--------
-
-
-
-
-
 Building the Library
 --------------------
 
