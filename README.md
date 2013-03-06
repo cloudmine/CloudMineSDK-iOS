@@ -10,13 +10,13 @@ CloudMine hosts the most recent version of the Library in a packaged format alre
 
 1. Download the library from CloudMine.
 2. Extract the CloudMine.framework and drag it into your Xcode project. Ensure "**Copy items into destination group's folder**" is checked, and to check your **application's target** in the "Targets" section.
-3. The iOS Library has some dependencies which needed to be added to your App:
-    3.1 CFNetwork.framework
-	3.2 CoreGraphics.framework
-	3.3 libz.dylib
-	3.4 MobileCoreServices.framework
-	3.5 SystemConfiguration.framework
-	3.6 UIKit.framework
+3. The iOS Library has some dependencies which needed to be added to your App:  
+  3.1 CFNetwork.framework  
+  3.2 CoreGraphics.framework  
+  3.3 libz.dylib  
+  3.4 MobileCoreServices.framework  
+  3.5 SystemConfiguration.framework  
+  3.6 UIKit.framework  
 4. The iOS Library also requires some linker flags to be set in the project, due to its nature as a static library. From the **project editor**, select your **application's target**, go into the **Build Settings** tab, and add the `-all_load` and `-ObjC` flags to the **Other Linker Flags** section.
 
 
