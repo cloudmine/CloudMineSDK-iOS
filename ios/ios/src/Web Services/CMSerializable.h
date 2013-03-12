@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ * Protocol that all objects must adhere to in order to communicate with CloudMine.
+ */
 @protocol CMSerializable <NSObject, NSCoding>
 
 /**
@@ -23,6 +26,8 @@
  * a two-letter prefix and your Java classes for your Android version do not, you may
  * want to stick with the non-prefixed class name for encoding and decoding purposes so
  * everything matches up in each version of your app).
+ *
+ * @return The name of the class.
  */
 + (NSString *)className;
 

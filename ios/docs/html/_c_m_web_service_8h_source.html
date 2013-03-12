@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">CloudMine iOS SDK
-   &#160;<span id="projectnumber">1.5.4</span>
+   &#160;<span id="projectnumber">1.5.6</span>
    </div>
   </td>
  </tr>
@@ -120,20 +120,20 @@ $(document).ready(function(){initNavTree('_c_m_web_service_8h_source.html','');}
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_c_m_device_token_result_8h.html">CMDeviceTokenResult.h</a>&quot;</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_c_m_user_account_result_8h.html">CMUserAccountResult.h</a>&quot;</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#import &quot;CMSocialLoginViewController.h&quot;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">@class</span> <a class="code" href="interface_c_m_user.html">CMUser</a>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">@class</span> <a class="code" href="interface_c_m_server_function.html">CMServerFunction</a>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">@class</span> <a class="code" href="interface_c_m_paging_descriptor.html">CMPagingDescriptor</a>;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">@class</span> <a class="code" href="interface_c_m_sort_descriptor.html">CMSortDescriptor</a>;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#define DEBUG 1</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">//#ifdef DEBUG</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">//#define CM_BASE_URL @&quot;http://localhost:3001/v1&quot;</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">//#else</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="code" href="_c_m_web_service_8h.html#a223a09a15a9261d019c3bb8e10ccb77e">   31</a></span>&#160;<span class="preprocessor">#define CM_BASE_URL @&quot;https://api.cloudmine.me/v1&quot;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor"></span><span class="comment">//#endif</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#import &quot;CMChannelResponse.h&quot;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#import &quot;CMViewChannelsResponse.h&quot;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">@class</span> <a class="code" href="interface_c_m_user.html">CMUser</a>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">@class</span> <a class="code" href="interface_c_m_server_function.html">CMServerFunction</a>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">@class</span> <a class="code" href="interface_c_m_paging_descriptor.html">CMPagingDescriptor</a>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">@class</span> <a class="code" href="interface_c_m_sort_descriptor.html">CMSortDescriptor</a>;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define CM_BASE_URL @&quot;http://localhost:3001/v1&quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="code" href="_c_m_web_service_8h.html#a223a09a15a9261d019c3bb8e10ccb77e">   31</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define CM_BASE_URL @&quot;https://api.cloudmine.me/v1&quot;</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00040"></a><span class="lineno"><a class="code" href="_c_m_web_service_8h.html#a6f4c0d209c5241e677bebc5db592eeea">   40</a></span>&#160;<span class="keyword">typedef</span> void (^<a class="code" href="_c_m_web_service_8h.html#a6f4c0d209c5241e677bebc5db592eeea">CMWebServiceObjectFetchSuccessCallback</a>)(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, <span class="keywordtype">id</span> snippetResult, NSNumber *count, NSDictionary *headers);</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
 <div class="line"><a name="l00048"></a><span class="lineno"><a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">   48</a></span>&#160;<span class="keyword">typedef</span> void (^<a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a>)(NSError *error);</div>
@@ -289,33 +289,51 @@ $(document).ready(function(){initNavTree('_c_m_web_service_8h_source.html','');}
 <div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160;- (void)unRegisterForPushNotificationsWithUser:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user callback:(<a class="code" href="_c_m_device_token_result_8h.html#ad28e348d87c8c88d5b7cd3fd3e3311c0">CMWebServiceDeviceTokenCallback</a>)callback;</div>
 <div class="line"><a name="l00562"></a><span class="lineno">  562</span>&#160;</div>
 <div class="line"><a name="l00563"></a><span class="lineno">  563</span>&#160;</div>
-<div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160;- (void)runSocialGraphQueryOnNetwork:(NSString *)network</div>
-<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160;                            withVerb:(NSString *)verb</div>
-<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;                           baseQuery:(NSString *)base</div>
-<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160;                          parameters:(NSDictionary *)params</div>
-<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;                             headers:(NSDictionary *)headers</div>
-<div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160;                         messageData:(NSData *)data</div>
-<div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160;                            withUser:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user</div>
-<div class="line"><a name="l00583"></a><span class="lineno">  583</span>&#160;                       successHandler:(CMWebServicesSocialQuerySuccessCallback)successHandler</div>
-<div class="line"><a name="l00584"></a><span class="lineno">  584</span>&#160;                        errorHandler:(<a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a>)errorHandler;</div>
-<div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160;</div>
-<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;- (void)runSocialGraphGETQueryOnNetwork:(NSString *)network</div>
-<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;                           baseQuery:(NSString *)base</div>
-<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;                          parameters:(NSDictionary *)params</div>
-<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;                                headers:(NSDictionary *)headers</div>
+<div class="line"><a name="l00564"></a><span class="lineno">  564</span>&#160;</div>
+<div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160;- (void)subscribeThisDeviceToPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback;</div>
+<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160;</div>
+<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160;- (void)subscribeDevice:(NSString *)deviceID toPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback;</div>
+<div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160;</div>
+<div class="line"><a name="l00569"></a><span class="lineno">  569</span>&#160;- (void)subscribeUser:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user toPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback;</div>
+<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160;</div>
+<div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160;- (void)unSubscribeThisDeviceFromPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback;</div>
+<div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160;</div>
+<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160;- (void)unSubscribeDevice:(NSString *)deviceID fromPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback;</div>
+<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160;</div>
+<div class="line"><a name="l00575"></a><span class="lineno">  575</span>&#160;- (void)unSubscribeUser:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user fromPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback;</div>
+<div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160;</div>
+<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160;- (void)getChannelsForThisDeviceWithCallback:(CMViewChannelsRequestCallback)callback;</div>
+<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;</div>
+<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160;- (void)getChannelsForDevice:(NSString *)deviceID callback:(CMViewChannelsRequestCallback)callback;</div>
+<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;</div>
+<div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160;</div>
+<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;- (void)runSocialGraphQueryOnNetwork:(NSString *)network</div>
+<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;                            withVerb:(NSString *)verb</div>
+<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;                           baseQuery:(NSString *)base</div>
+<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;                          parameters:(NSDictionary *)params</div>
+<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;                             headers:(NSDictionary *)headers</div>
+<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;                         messageData:(NSData *)data</div>
 <div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;                            withUser:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user</div>
 <div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;                       successHandler:(CMWebServicesSocialQuerySuccessCallback)successHandler</div>
 <div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;                        errorHandler:(<a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a>)errorHandler;</div>
 <div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;</div>
-<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;</div>
-<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;<span class="keyword">@end</span></div>
+<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;- (void)runSocialGraphGETQueryOnNetwork:(NSString *)network</div>
+<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;                           baseQuery:(NSString *)base</div>
+<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;                          parameters:(NSDictionary *)params</div>
+<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;                                headers:(NSDictionary *)headers</div>
+<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;                            withUser:(<a class="code" href="interface_c_m_user.html">CMUser</a> *)user</div>
+<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;                       successHandler:(CMWebServicesSocialQuerySuccessCallback)successHandler</div>
+<div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;                        errorHandler:(<a class="code" href="_c_m_web_service_8h.html#a57f23dfaa54b80c1798acee35e45f386">CMWebServiceFetchFailureCallback</a>)errorHandler;</div>
+<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;</div>
+<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;</div>
+<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;<span class="keyword">@end</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_8a1a2e85a7267989b33e836a5e4ec2f8.html">ios</a></li><li class="navelem"><a class="el" href="dir_64fca0c987bed127cbba83cd8c15fc64.html">src</a></li><li class="navelem"><a class="el" href="dir_c28dce3ecac1891838410a651260745a.html">Web Services</a></li><li class="navelem"><a class="el" href="_c_m_web_service_8h.html">CMWebService.h</a></li>
-    <li class="footer">Generated on Tue Feb 12 2013 10:42:25 for CloudMine iOS SDK by
+    <li class="footer">Generated on Thu Feb 28 2013 12:06:20 for CloudMine iOS SDK by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3 </li>
   </ul>

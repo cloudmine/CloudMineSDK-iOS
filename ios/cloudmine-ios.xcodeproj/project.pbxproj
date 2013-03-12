@@ -100,12 +100,12 @@
 		7A91E8D914E6EF85008B7941 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A91E8D814E6EF85008B7941 /* CoreLocation.framework */; };
 		7A934E78150E8CC200A2CAD6 /* CMObjectSerialization.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7A7EDBD9148EBE3800AB5B69 /* CMObjectSerialization.h */; };
 		7AA79D6314DC1FB900F3CA3B /* CMCrossPlatformGenericSerializableObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D6214DC1FB900F3CA3B /* CMCrossPlatformGenericSerializableObject.m */; };
-		7AA79D7A14DC23C700F3CA3B /* MARTNSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D6D14DC23C700F3CA3B /* MARTNSObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		7AA79D7C14DC23C700F3CA3B /* RTIvar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D6F14DC23C700F3CA3B /* RTIvar.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		7AA79D7E14DC23C700F3CA3B /* RTMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D7114DC23C700F3CA3B /* RTMethod.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		7AA79D8014DC23C700F3CA3B /* RTProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D7314DC23C700F3CA3B /* RTProperty.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		7AA79D8214DC23C700F3CA3B /* RTProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D7514DC23C700F3CA3B /* RTProtocol.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		7AA79D8414DC23C700F3CA3B /* RTUnregisteredClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D7714DC23C700F3CA3B /* RTUnregisteredClass.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7AA79D7A14DC23C700F3CA3B /* MARTNSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D6D14DC23C700F3CA3B /* MARTNSObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w"; }; };
+		7AA79D7C14DC23C700F3CA3B /* RTIvar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D6F14DC23C700F3CA3B /* RTIvar.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w"; }; };
+		7AA79D7E14DC23C700F3CA3B /* RTMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D7114DC23C700F3CA3B /* RTMethod.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w"; }; };
+		7AA79D8014DC23C700F3CA3B /* RTProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D7314DC23C700F3CA3B /* RTProperty.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w"; }; };
+		7AA79D8214DC23C700F3CA3B /* RTProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D7514DC23C700F3CA3B /* RTProtocol.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w"; }; };
+		7AA79D8414DC23C700F3CA3B /* RTUnregisteredClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA79D7714DC23C700F3CA3B /* RTUnregisteredClass.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w"; }; };
 		7AA79DDD14DC5E4D00F3CA3B /* CloudMine.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AA79DDA14DC5E4000F3CA3B /* CloudMine.h */; };
 		7AABA2E51480549A00FD52A0 /* CMObjectEncoderSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AABA2E41480549A00FD52A0 /* CMObjectEncoderSpec.m */; };
 		7AABA2E91480598300FD52A0 /* NSString+UUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AABA2E71480598300FD52A0 /* NSString+UUID.m */; };
@@ -148,6 +148,12 @@
 		AAA850ED168271B600C18957 /* CMDeviceTokenResult.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA850EC168271B500C18957 /* CMDeviceTokenResult.h */; };
 		AAB2E0B0167B94CF00D2C699 /* CMAppDelegateBase.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB2E0AF167B94CF00D2C699 /* CMAppDelegateBase.m */; };
 		AAB2E0B4167BA05700D2C699 /* CMAppDelegateBase.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAB2E0AE167B94CF00D2C699 /* CMAppDelegateBase.h */; };
+		AAC1D8F116DD4BCC002A7DC0 /* CMChannelResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC1D8F016DD4BCC002A7DC0 /* CMChannelResponse.m */; };
+		AAC1D8F416DD51FB002A7DC0 /* CMResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC1D8F316DD51FA002A7DC0 /* CMResponse.m */; };
+		AAC1D8F916DD5B34002A7DC0 /* CMResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAC1D8F216DD51F9002A7DC0 /* CMResponse.h */; };
+		AAC1D8FA16DD5B34002A7DC0 /* CMChannelResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAC1D8EF16DD4BCB002A7DC0 /* CMChannelResponse.h */; };
+		AAC1D90916DD6CA6002A7DC0 /* CMViewChannelsResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAC1D90716DD6CA4002A7DC0 /* CMViewChannelsResponse.h */; };
+		AAC1D90A16DD6CA6002A7DC0 /* CMViewChannelsResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC1D90816DD6CA5002A7DC0 /* CMViewChannelsResponse.m */; };
 		D004178E15925DC900B596CC /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = D01DBF591590D36D003CB5BE /* NSData+Base64.m */; };
 		D039C16715BDEB77005CCD33 /* CMACLSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D039C16615BDEB77005CCD33 /* CMACLSpec.m */; };
 		D039C16A15BEEB44005CCD33 /* CMACLFetchResponseSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D039C16915BEEB44005CCD33 /* CMACLFetchResponseSpec.m */; };
@@ -177,6 +183,8 @@
 			dstPath = "${SRCROOT}/build/${CONFIGURATION}-iphoneuniversal/${PRODUCT_NAME}.framework/Headers/";
 			dstSubfolderSpec = 0;
 			files = (
+				AAC1D8F916DD5B34002A7DC0 /* CMResponse.h in CopyFiles */,
+				AAC1D8FA16DD5B34002A7DC0 /* CMChannelResponse.h in CopyFiles */,
 				AAB2E0B4167BA05700D2C699 /* CMAppDelegateBase.h in CopyFiles */,
 				715217581653F5C4007FB0A9 /* CMSocialLoginViewController.h in CopyFiles */,
 				7152175A1653F5C4007FB0A9 /* CMUIViewController+Modal.h in CopyFiles */,
@@ -223,6 +231,7 @@
 				7A87315A14BB0AD0000D6DEA /* CMServerFunction.h in CopyFiles */,
 				7A87315B14BB0AD0000D6DEA /* CMSerializable.h in CopyFiles */,
 				AAA850ED168271B600C18957 /* CMDeviceTokenResult.h in CopyFiles */,
+				AAC1D90916DD6CA6002A7DC0 /* CMViewChannelsResponse.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,6 +380,12 @@
 		AAA850EC168271B500C18957 /* CMDeviceTokenResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMDeviceTokenResult.h; sourceTree = "<group>"; };
 		AAB2E0AE167B94CF00D2C699 /* CMAppDelegateBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMAppDelegateBase.h; sourceTree = "<group>"; };
 		AAB2E0AF167B94CF00D2C699 /* CMAppDelegateBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMAppDelegateBase.m; sourceTree = "<group>"; };
+		AAC1D8EF16DD4BCB002A7DC0 /* CMChannelResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMChannelResponse.h; path = Response/CMChannelResponse.h; sourceTree = "<group>"; };
+		AAC1D8F016DD4BCC002A7DC0 /* CMChannelResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMChannelResponse.m; path = Response/CMChannelResponse.m; sourceTree = "<group>"; };
+		AAC1D8F216DD51F9002A7DC0 /* CMResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMResponse.h; sourceTree = "<group>"; };
+		AAC1D8F316DD51FA002A7DC0 /* CMResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMResponse.m; sourceTree = "<group>"; };
+		AAC1D90716DD6CA4002A7DC0 /* CMViewChannelsResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMViewChannelsResponse.h; sourceTree = "<group>"; };
+		AAC1D90816DD6CA5002A7DC0 /* CMViewChannelsResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMViewChannelsResponse.m; sourceTree = "<group>"; };
 		D01DBF581590D36D003CB5BE /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		D01DBF591590D36D003CB5BE /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		D039C16615BDEB77005CCD33 /* CMACLSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMACLSpec.m; sourceTree = "<group>"; };
@@ -450,6 +465,8 @@
 		65199ECC156A7DB000267EC6 /* Response */ = {
 			isa = PBXGroup;
 			children = (
+				AAC1D8F216DD51F9002A7DC0 /* CMResponse.h */,
+				AAC1D8F316DD51FA002A7DC0 /* CMResponse.m */,
 				65199EAF156A7D9500267EC6 /* CMDeleteResponse.h */,
 				65199EB0156A7D9500267EC6 /* CMDeleteResponse.m */,
 				65199EB1156A7D9500267EC6 /* CMFileFetchResponse.h */,
@@ -468,6 +485,10 @@
 				65199EBC156A7D9500267EC6 /* CMSnippetResult.m */,
 				65199EBD156A7D9500267EC6 /* CMStoreResponse.h */,
 				65199EBE156A7D9500267EC6 /* CMStoreResponse.m */,
+				AAC1D8EF16DD4BCB002A7DC0 /* CMChannelResponse.h */,
+				AAC1D8F016DD4BCC002A7DC0 /* CMChannelResponse.m */,
+				AAC1D90716DD6CA4002A7DC0 /* CMViewChannelsResponse.h */,
+				AAC1D90816DD6CA5002A7DC0 /* CMViewChannelsResponse.m */,
 			);
 			name = Response;
 			sourceTree = "<group>";
@@ -824,6 +845,7 @@
 			buildPhases = (
 				7AB4AB5B145DC5D8006AEF67 /* Sources */,
 				7AB4AB5C145DC5D8006AEF67 /* Frameworks */,
+				AA18E35516DBC683000BC23E /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -859,7 +881,7 @@
 		7AB4AB56145DC5D8006AEF67 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "CloudMine, LLC";
 			};
 			buildConfigurationList = 7AB4AB59145DC5D8006AEF67 /* Build configuration list for PBXProject "cloudmine-ios" */;
@@ -934,6 +956,19 @@
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
+		AA18E35516DBC683000BC23E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/doxygen ios/Doxyfile\nmake -C $SOURCE_ROOT/docs/html install\n\nrm -f $TEMP_DIR/loadDocSet.scpt\n\necho \"tell application \\\"Xcode\\\"\" >> $TEMP_DIR/loadDocSet.scpt\necho \"load documentation set with path \\\"/Users/$USER/Library/Developer/Shared/Documentation/DocSets/\\\"\"\n>> $TEMP_DIR/loadDocSet.scpt\necho \"end tell\" >> $TEMP_DIR/loadDocSet.scpt\n\n#  Run the load-docset applescript command.\nosascript $TEMP_DIR/loadDocSet.scpt";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -989,6 +1024,9 @@
 				71E886B716516C3D0060C217 /* CMSocialLoginViewController.m in Sources */,
 				71E886BA16516F0F0060C217 /* CMUIViewController+Modal.m in Sources */,
 				AAB2E0B0167B94CF00D2C699 /* CMAppDelegateBase.m in Sources */,
+				AAC1D8F116DD4BCC002A7DC0 /* CMChannelResponse.m in Sources */,
+				AAC1D8F416DD51FB002A7DC0 /* CMResponse.m in Sources */,
+				AAC1D90A16DD6CA6002A7DC0 /* CMViewChannelsResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1062,6 +1100,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/ios/Vendor\"/**";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1075,6 +1117,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/**",
@@ -1094,12 +1137,17 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/ios/Vendor\"/**";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/**",
@@ -1117,7 +1165,7 @@
 		7AB4AB84145DC5D8006AEF67 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 1.5.6;
+				CURRENT_PROJECT_VERSION = 1.5.7;
 				DSTROOT = /tmp/ios.dst;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1139,7 +1187,7 @@
 		7AB4AB85145DC5D8006AEF67 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 1.5.6;
+				CURRENT_PROJECT_VERSION = 1.5.7;
 				DSTROOT = /tmp/ios.dst;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

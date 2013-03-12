@@ -14,6 +14,8 @@
 #import "CMDeviceTokenResult.h"
 #import "CMUserAccountResult.h"
 #import "CMSocialLoginViewController.h"
+#import "CMChannelResponse.h"
+#import "CMViewChannelsResponse.h"
 
 @class CMUser;
 @class CMServerFunction;
@@ -558,6 +560,72 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  */
 - (void)unRegisterForPushNotificationsWithUser:(CMUser *)user callback:(CMWebServiceDeviceTokenCallback)callback;
 
+/**
+ * Asynchronously subscribes this device to a named Channel. The device should be registered to receive push notificiations.
+ *
+ * @param channel The Push Channel to register this device too.
+ * @param callback The CMWebServiceDeviceChannelCallback that will be called when the call is finished.
+ */
+- (void)subscribeThisDeviceToPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback;
+
+/**
+ * Asynchronously subscribes a device to a named Channel. The device should be registered to receive push notificiations.
+ *
+ * @param deviceID The deviceID that should be registered to the channel.
+ * @param channel The Push Channel to register this device too.
+ * @param callback The CMWebServiceDeviceChannelCallback that will be called when the call is finished.
+ */
+- (void)subscribeDevice:(NSString *)deviceID toPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback;
+
+/**
+ * Asynchronously subscribes the user to a named Channel. The user needs to be logged in.
+ *
+ * @param user The user who should be subscribed to the channel.
+ * @param channel The Push Channel to register this device too.
+ * @param callback The CMWebServiceDeviceChannelCallback that will be called when the call is finished.
+ */
+- (void)subscribeUser:(CMUser *)user toPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback;
+
+/**
+ * Asynchronously unsubscribes this device from a named Channel.
+ *
+ * @param channel The Push Channel to register this device too.
+ * @param callback The CMWebServiceDeviceChannelCallback that will be called when the call is finished.
+ */
+- (void)unSubscribeThisDeviceFromPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback;
+
+/**
+ * Asynchronously unsubscribes a device from a named Channel. The device should be registered to receive push notificiations.
+ *
+ * @param deviceID The deviceID that should be registered to the channel.
+ * @param channel The Push Channel to register this device too.
+ * @param callback The CMWebServiceDeviceChannelCallback that will be called when the call is finished.
+ */
+- (void)unSubscribeDevice:(NSString *)deviceID fromPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback;
+
+/**
+ * Asynchronously unsubscribes the user from a named Channel. The user needs to be logged in.
+ *
+ * @param user The user who should be subscribed to the channel.
+ * @param channel The Push Channel to register this device too.
+ * @param callback The CMWebServiceDeviceChannelCallback that will be called when the call is finished.
+ */
+- (void)unSubscribeUser:(CMUser *)user fromPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback;
+
+/**
+ * Asynchronously gets the channels this device is registered too.
+ *
+ * @param callback The CMViewChannelsRequestCallback that will be called when the call is finished.
+ */
+- (void)getChannelsForThisDeviceWithCallback:(CMViewChannelsRequestCallback)callback;
+
+/**
+ * Asynchronously gets the channels a device is registered too.
+ *
+ * @param deviceID The deviceID to query.
+ * @param callback The CMViewChannelsRequestCallback that will be called when the call is finished.
+ */
+- (void)getChannelsForDevice:(NSString *)deviceID callback:(CMViewChannelsRequestCallback)callback;
 
 /**
  * Asynchronously execute a request on the social network through the singly proxy.

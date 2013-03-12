@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">CloudMine iOS SDK
-   &#160;<span id="projectnumber">1.5.4</span>
+   &#160;<span id="projectnumber">1.5.6</span>
    </div>
   </td>
  </tr>
@@ -113,6 +113,8 @@ $(document).ready(function(){initNavTree('protocol_c_m_serializable-p.html','');
 </div><!--header-->
 <div class="contents">
 
+<p><code>#import &lt;<a class="el" href="_c_m_serializable_8h_source.html">CMSerializable.h</a>&gt;</code></p>
+
 <p>Inherits &lt;NSObject&gt;, and &lt;NSCoding&gt;.</p>
 
 <p>Inherited by <a class="el" href="interface_c_m_date.html">CMDate</a>, <a class="el" href="interface_c_m_file.html">CMFile</a>, <a class="el" href="interface_c_m_object.html">CMObject</a>, and <a class="el" href="interface_c_m_user.html">CMUser</a>.</p>
@@ -128,8 +130,9 @@ Properties</h2></td></tr>
 <tr class="separator:a030e4239b227f0097e86688b5a4f4947"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p>Definition at line <a class="el" href="_c_m_serializable_8h_source.html#l00011">11</a> of file <a class="el" href="_c_m_serializable_8h_source.html">CMSerializable.h</a>.</p>
+<div class="textblock"><p>Protocol that all objects must adhere to in order to communicate with CloudMine. </p>
+
+<p>Definition at line <a class="el" href="_c_m_serializable_8h_source.html#l00014">14</a> of file <a class="el" href="_c_m_serializable_8h_source.html">CMSerializable.h</a>.</p>
 </div><h2 class="groupheader">Method Documentation</h2>
 <a class="anchor" id="a1fba26b689afa61b794bb4d333b7bc1b"></a>
 <div class="memitem">
@@ -143,7 +146,8 @@ Properties</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The name of this class. This method must be overriden and implemented for cross-platform reasons. Choose a name that is consistent across all the platforms you are writing this app for (i.e. if all your Objective-C classes have a two-letter prefix and your Java classes for your Android version do not, you may want to stick with the non-prefixed class name for encoding and decoding purposes so everything matches up in each version of your app). </p>
+<p>The name of this class. This method must be overriden and implemented for cross-platform reasons. Choose a name that is consistent across all the platforms you are writing this app for (i.e. if all your Objective-C classes have a two-letter prefix and your Java classes for your Android version do not, you may want to stick with the non-prefixed class name for encoding and decoding purposes so everything matches up in each version of your app).</p>
+<dl class="section return"><dt>Returns</dt><dd>The name of the class. </dd></dl>
 
 </div>
 </div>
@@ -167,7 +171,7 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 <p>Every object must have a form of unique identifier. Implement this in the classes that implement this protocol to provide that identifier. </p>
 
-<p>Definition at line <a class="el" href="_c_m_serializable_8h_source.html#l00017">17</a> of file <a class="el" href="_c_m_serializable_8h_source.html">CMSerializable.h</a>.</p>
+<p>Definition at line <a class="el" href="_c_m_serializable_8h_source.html#l00020">20</a> of file <a class="el" href="_c_m_serializable_8h_source.html">CMSerializable.h</a>.</p>
 
 </div>
 </div>
@@ -180,7 +184,7 @@ Properties</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="protocol_c_m_serializable-p.html">CMSerializable</a></li>
-    <li class="footer">Generated on Tue Feb 12 2013 10:42:25 for CloudMine iOS SDK by
+    <li class="footer">Generated on Thu Feb 28 2013 12:06:21 for CloudMine iOS SDK by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3 </li>
   </ul>
