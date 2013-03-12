@@ -39,5 +39,8 @@ var searchData=
   ['sharedinstance',['sharedInstance',['../interface_c_m_object_class_name_registry.html#a0102401d9194e722912c7d83a95b6acb',1,'CMObjectClassNameRegistry::sharedInstance()'],['../interface_c_m_a_p_i_credentials.html#a05506760676a94487f157e8f822ab841',1,'CMAPICredentials::sharedInstance()']]],
   ['store',['store',['../interface_c_m_store.html#a6a0c3d64de0bb30e1e3b914d64608c27',1,'CMStore']]],
   ['storewithuser_3a',['storeWithUser:',['../interface_c_m_store.html#a1ca4aa1d0511e13ea9fdfe0271cf71c8',1,'CMStore']]],
-  ['stringrepresentation',['stringRepresentation',['../interface_c_m_store_options.html#a692f9c37fd790642049992120af1cfc1',1,'CMStoreOptions::stringRepresentation()'],['../interface_c_m_server_function.html#aed0761fc5064797d132e4ef13c0f5d32',1,'CMServerFunction::stringRepresentation()']]]
+  ['stringrepresentation',['stringRepresentation',['../interface_c_m_store_options.html#a692f9c37fd790642049992120af1cfc1',1,'CMStoreOptions::stringRepresentation()'],['../interface_c_m_server_function.html#aed0761fc5064797d132e4ef13c0f5d32',1,'CMServerFunction::stringRepresentation()']]],
+  ['subscribedevice_3atopushchannel_3acallback_3a',['subscribeDevice:toPushChannel:callback:',['../interface_c_m_web_service.html#a7e50d80b5417b8418fed42c62a0bc7ab',1,'CMWebService']]],
+  ['subscribethisdevicetopushchannel_3acallback_3a',['subscribeThisDeviceToPushChannel:callback:',['../interface_c_m_web_service.html#aa0a6edd5151157d82d9aaba371d32acb',1,'CMWebService']]],
+  ['subscribeuser_3atopushchannel_3acallback_3a',['subscribeUser:toPushChannel:callback:',['../interface_c_m_web_service.html#ab4171578dda59ca8604a6433d080ead6',1,'CMWebService']]]
 ];

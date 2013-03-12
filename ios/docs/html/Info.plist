@@ -8,7 +8,7 @@
      <key>CFBundleIdentifier</key>
      <string>me.cloudmine.ios</string>
      <key>CFBundleVersion</key>
-     <string>1.5.6</string>
+     <string>1.5.7</string>
      <key>DocSetFeedName</key>
      <string>Doxygen generated docs</string>
      <key>DocSetPublisherIdentifier</key>

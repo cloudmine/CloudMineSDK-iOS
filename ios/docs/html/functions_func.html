@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">CloudMine iOS SDK
-   &#160;<span id="projectnumber">1.5.6</span>
+   &#160;<span id="projectnumber">1.5.7</span>
    </div>
   </td>
  </tr>
@@ -319,6 +319,12 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 </li>
 <li>getBinaryDataNamed:serverSideFunction:user:extraParameters:successHandler:errorHandler:
 : <a class="el" href="interface_c_m_web_service.html#a8df97991d5fc14444248d14f73d3b1cc">CMWebService</a>
+</li>
+<li>getChannelsForDevice:callback:
+: <a class="el" href="interface_c_m_web_service.html#a23da974696dbf38b58c69ccd9d043049">CMWebService</a>
+</li>
+<li>getChannelsForThisDeviceWithCallback:
+: <a class="el" href="interface_c_m_web_service.html#a8c0585840f3dbab996b0fce29ee4da3e">CMWebService</a>
 </li>
 <li>getUserProfileWithIdentifier:callback:
 : <a class="el" href="interface_c_m_web_service.html#a40442837275d8187bd1a1f191fee79c7">CMWebService</a>
@@ -615,8 +621,8 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 : <a class="el" href="interface_c_m_store.html#a15ef9bfa7002a0650a329024a0432ce9">CMStore</a>
 </li>
 <li>searchUsers:callback:
-: <a class="el" href="interface_c_m_web_service.html#adc373387bce4b16ddefe5344bc00fc44">CMWebService</a>
-, <a class="el" href="interface_c_m_user.html#ae5d87ea90f6e05422f492420c3335cd6">CMUser</a>
+: <a class="el" href="interface_c_m_user.html#ae5d87ea90f6e05422f492420c3335cd6">CMUser</a>
+, <a class="el" href="interface_c_m_web_service.html#adc373387bce4b16ddefe5344bc00fc44">CMWebService</a>
 </li>
 <li>serverFunctionWithName:
 : <a class="el" href="interface_c_m_server_function.html#aa2db5489d1f909314b0955c770f2c682">CMServerFunction</a>
@@ -650,6 +656,15 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 : <a class="el" href="interface_c_m_store_options.html#a692f9c37fd790642049992120af1cfc1">CMStoreOptions</a>
 , <a class="el" href="interface_c_m_server_function.html#aed0761fc5064797d132e4ef13c0f5d32">CMServerFunction</a>
 </li>
+<li>subscribeDevice:toPushChannel:callback:
+: <a class="el" href="interface_c_m_web_service.html#a7e50d80b5417b8418fed42c62a0bc7ab">CMWebService</a>
+</li>
+<li>subscribeThisDeviceToPushChannel:callback:
+: <a class="el" href="interface_c_m_web_service.html#aa0a6edd5151157d82d9aaba371d32acb">CMWebService</a>
+</li>
+<li>subscribeUser:toPushChannel:callback:
+: <a class="el" href="interface_c_m_web_service.html#ab4171578dda59ca8604a6433d080ead6">CMWebService</a>
+</li>
 </ul>
 
 
@@ -659,6 +674,15 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 </li>
 <li>unRegisterForPushNotificationsWithUser:callback:
 : <a class="el" href="interface_c_m_web_service.html#a3fe9cfb742b1f1407a814de214b92812">CMWebService</a>
+</li>
+<li>unSubscribeDevice:fromPushChannel:callback:
+: <a class="el" href="interface_c_m_web_service.html#ad17a05703db3cea7dc5b17fe255590e5">CMWebService</a>
+</li>
+<li>unSubscribeThisDeviceFromPushChannel:callback:
+: <a class="el" href="interface_c_m_web_service.html#aa2268d93015338df672940c035ac235e">CMWebService</a>
+</li>
+<li>unSubscribeUser:fromPushChannel:callback:
+: <a class="el" href="interface_c_m_web_service.html#a44fa3c866686047dfae42e694023c1c4">CMWebService</a>
 </li>
 <li>updateACL:user:successHandler:errorHandler:
 : <a class="el" href="interface_c_m_web_service.html#ac71c26f9ba0fd74e482837f1620fe566">CMWebService</a>
@@ -700,7 +724,7 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Thu Feb 28 2013 12:06:21 for CloudMine iOS SDK by
+    <li class="footer">Generated on Tue Mar 12 2013 12:46:39 for CloudMine iOS SDK by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3 </li>
   </ul>
