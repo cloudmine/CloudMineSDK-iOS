@@ -16,6 +16,11 @@ if $SHOULD_GENERATE_DOCS ; then
   echo "Beginning documentation generation..."
   cd ./ios
   doxygen ios/Doxyfile
+  rm -rf docs/html/me.cloudmine.ios.docset
+  rm docs/html/Makefile
+  rm docs/html/Nodes.xml
+  rm docs/html/Tokens.xml
+  rm docs/html/Info.plist
   cd ../
 else
   echo "Skipping documentation generation..."
