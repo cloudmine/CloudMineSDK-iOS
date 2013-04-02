@@ -1,6 +1,6 @@
 HEAD
 =====
-
+* Fixed a bug in some social Authentications would appear to fail.
 
 v1.5.7 (March 12, 2013)
 =======================
