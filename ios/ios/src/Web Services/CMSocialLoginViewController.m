@@ -1,3 +1,4 @@
+
 //
 //  SocialLoginViewController.m
 //  cloudmine-ios
@@ -22,17 +23,13 @@
 @property (nonatomic, strong) UIWebView *webView;
 @property (nonatomic, strong) UINavigationBar *navigationBar;
 
-- (void)processAccessTokenWithData:(NSData*)data;
-
 @end
 
 @implementation CMSocialLoginViewController
 
-- (id)initForService:(NSString *)service appID:(NSString *)appID apiKey:(NSString *)apiKey user:(CMUser *)user params:(NSDictionary *)params
-{
-    self = [super init];
-    if (self)
-    {
+- (id)initForService:(NSString *)service appID:(NSString *)appID apiKey:(NSString *)apiKey user:(CMUser *)user params:(NSDictionary *)params {
+    
+    if ( (self = [super init]) ) {
         _user = user;
         _targetService = service;
         _appID = appID;
@@ -40,11 +37,11 @@
         _params = params;
         _challenge = [[NSUUID UUID] UUIDString];
     }
+    
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     _webView = [[UIWebView alloc] initWithFrame:self.view.frame];
@@ -53,13 +50,11 @@
     [self.view addSubview:_webView];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation { //deprecated in iOS6
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)viewWillAppear:(BOOL)animated;
-{
+- (void)viewWillAppear:(BOOL)animated {
     // Clear Cookies
     NSHTTPCookie *cookie;
     NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
@@ -98,49 +93,51 @@
     }
     
     NSString *urlStr = [NSString stringWithFormat:@"%@/app/%@/account/social/login?service=%@&apikey=%@&challenge=%@",
-                                    CM_BASE_URL, _appID, _targetService, _apiKey, _challenge];
+                        CM_BASE_URL, _appID, _targetService, _apiKey, _challenge];
     
-    //Link accounts if user is logged in. If you don't want the accounts linked, log out the user.
+    ///
+    /// Link accounts if user is logged in. If you don't want the accounts linked, log out the user.
+    ///
     if ( _user && _user.isLoggedIn)
         urlStr = [urlStr stringByAppendingFormat:@"&session_token=%@", _user.token];
     
-    // Add any additional params to the request
+    ///
+    /// Add any additional params to the request
+    ///
     if ( _params != nil && [_params count] > 0 ) {
         for (NSString *key in _params) {
             urlStr = [urlStr stringByAppendingFormat:@"&%@=%@", key, [_params valueForKey:key]];
         }
     }
     
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]]];
-}
-
-
-- (void)processAccessTokenWithData:(NSData*)data;
-{
+#ifdef DEBUG
+    NSLog(@"Webview Loading: %@", urlStr);
+#endif
     
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]]];
 }
 
 
 #pragma mark - UIWebViewDelegate
 
-- (void)webViewDidStartLoad:(UIWebView *)webView;
-{
-    
-}
+- (void)webViewDidStartLoad:(UIWebView *)webView { }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView;
-{
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
     
     NSString *currentURLstr = [[[webView request] URL] absoluteString];
-        
+    
     NSString *baseURLstr = [NSString stringWithFormat:@"%@/app/%@/account/social/login/complete", CM_BASE_URL, _appID];
     
     if (currentURLstr.length >= baseURLstr.length) {
         NSString *comparableRequestStr = [currentURLstr substringToIndex:baseURLstr.length];
-
+        
         // If at the challenge complete URL, prepare and send GET request for session token info
         if ([baseURLstr isEqualToString:comparableRequestStr]) {
-        
+            
+            ///
+            /// Probably rebuild all this too
+            ///
+            
             // Display pending login view during request/processing
             pendingLoginView = [[UIView alloc] initWithFrame:self.webView.bounds];
             pendingLoginView.center = self.webView.center;
@@ -153,30 +150,42 @@
             [self.view addSubview:pendingLoginView];
             [self.view bringSubviewToFront:pendingLoginView];
             
-            // Call WebService function to establish GET for session token and user profile
-            [self.delegate cmSocialLoginViewController:self completeSocialLoginWithChallenge:_challenge];
+            if ([self.delegate respondsToSelector:@selector(cmSocialLoginViewController:completeSocialLoginWithChallenge:)]) {
+                [self.delegate cmSocialLoginViewController:self completeSocialLoginWithChallenge:_challenge];
+            }
         }
     }
-    ///
-    /// Else, we got some sort of error. Handle responsibly.
-    //TODO: Add in.
+    /// Else, this is an internal page we don't care about
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    /**
+     * Interesting enough, this method is called sometimes when authenticating with Facebook - but the page continuous to load, and
+     * does so sucessfully. The user can actually login. Other time though, the request may fail and be an actual failure.
+     *
+     * Because we don't really know the nature of this error, nor can we assume, we need to call the delegate and inform them of the error.
+     */
     NSLog(@"WebView error. This sometimes happens when the User is logging into a social network where cookies have been stored and is already logged in. %@", [error description]);
-    [self.delegate cmSocialLoginViewController:self completeSocialLoginWithChallenge:_challenge];
+    if ([self.delegate respondsToSelector:@selector(cmSocialLoginViewController:hadError:)]) {
+        [self.delegate cmSocialLoginViewController:self hadError:error];
+    }
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark -
 
-- (void)dismiss
-{
+- (void)dismiss {
+    /**
+     * The User may dismiss the dialog, but we still need to inform the delegate.
+     *
+     */
+    if ([self.delegate respondsToSelector:@selector(cmSocialLoginViewControllerWasDismissed:)]) {
+        [self.delegate cmSocialLoginViewControllerWasDismissed:self];
+    }
+    
     [self dismissModalViewControllerAnimated:YES];
 }
 

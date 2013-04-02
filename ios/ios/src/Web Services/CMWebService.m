@@ -590,6 +590,8 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     }];
 }
 
+
+
 - (void)logoutUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
     NSParameterAssert(user);
     NSAssert(user.isLoggedIn, @"Cannot logout a user that hasn't been logged in.");
@@ -736,6 +738,16 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         temporaryCallback(resultCode, messages);
     }]; 
 }
+
+
+- (void)cmSocialLoginViewController:(CMSocialLoginViewController *)controller hadError:(NSError *)error {
+    temporaryCallback(CMUserAccountSocialLoginErrorOccurred, @{CMErrorDomain: error});
+}
+
+- (void)cmSocialLoginViewControllerWasDismissed:(CMSocialLoginViewController *)controller {
+    temporaryCallback(CMUserAccountSocialLoginDismissed, nil);
+}
+
 
 - (void)saveUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
     NSParameterAssert(user);
