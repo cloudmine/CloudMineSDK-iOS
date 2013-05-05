@@ -54,6 +54,10 @@ typedef enum {
     CMUserAccountLoginFailedIncorrectCredentials,
     /** The password change for a user failed due to an incorrect password for the given email address */
     CMUserAccountPasswordChangeFailedInvalidCredentials,
+    /** A (potentially recoverable) error occured while socially logging in */
+    CMUserAccountSocialLoginErrorOccurred,
+    /** The Social Login OAuth window was dismissed by the user */
+    CMUserAccountSocialLoginDismissed,
     /** The user account operation failed because an account with the given email address could not be found */
     CMUserAccountOperationFailedUnknownAccount
 
