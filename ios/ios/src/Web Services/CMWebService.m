@@ -342,6 +342,22 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     } errorHandler:errorHandler];
 }
 
+- (void)runPOSTSnippet:(NSString *)snippetName withBody:(NSData *)body user:(CMUser *)user successHandler:(CMWebServiceSnippetRunSuccessCallback)successHandler errorHandler:(CMWebServiceSnippetRunFailureCallback)errorHandler {
+
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/app/%@/run/%@", self.apiUrl, _appIdentifier, snippetName]];
+    
+    NSMutableURLRequest* request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:user];
+    
+    if (body != nil) {
+        [request setHTTPBody:body];
+    }
+    
+    [self executeRequest:request successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
+        successHandler(snippetResult, headers);
+    } errorHandler:errorHandler];
+    
+}
+
 #pragma mark - Push Notifications
 
 - (void)registerForPushNotificationsWithUser:(CMUser *)user token:(NSData *)devToken callback:(CMWebServiceDeviceTokenCallback)callback {
