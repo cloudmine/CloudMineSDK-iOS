@@ -120,7 +120,6 @@ describe(@"CMObjectDecoder", ^{
         NSDictionary *originalObjectsDictionaryRepresentation = [CMObjectEncoder encodeObjects:@[object]];
         
         [[[originalObjectsDictionaryRepresentation valueForKey:object.objectId] valueForKey:@"dictionary"] removeObjectForKey:@"__class__"];
-        NSLog(@"TEST101: %@", originalObjectsDictionaryRepresentation);
         
         NSArray *decodedObjects = [CMObjectDecoder decodeObjects:originalObjectsDictionaryRepresentation];
         [[[decodedObjects should] have:1] items];
