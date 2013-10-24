@@ -138,7 +138,7 @@ static CMWebService *webService;
 
 - (void)executeBlockForAllUserDefinedProperties:(void (^)(RTProperty *property))block {
     NSArray *properties = [[self class] rt_properties];
-    NSArray *ignoredProperties = [NSSet setWithArray:[CMUser rt_properties]]; // none of these are user profile fields, so ignore them
+    NSArray *ignoredProperties = [CMUser rt_properties]; // none of these are user profile fields, so ignore them
     for (RTProperty *property in properties) {
         if (![ignoredProperties containsObject:property]) {
             block(property);
@@ -274,7 +274,7 @@ static CMWebService *webService;
     [webService saveUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         [self copyValuesFromDictionaryIntoState:responseBody];
         if (callback) {
-            callback(result, [NSDictionary dictionary]);
+            callback(result, [NSArray array]);
         }
     }];
 }
