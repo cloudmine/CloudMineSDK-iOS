@@ -6,6 +6,8 @@
 //  See LICENSE file included with SDK for details.
 //
 
+#define CM_VERSION @"1.5.8"
+
 #import <AFNetworking/AFNetworking.h>
 
 #import "SPLowVerbosity.h"
