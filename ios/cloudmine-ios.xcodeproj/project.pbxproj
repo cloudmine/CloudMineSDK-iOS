@@ -151,6 +151,9 @@
 		AAA92FF8181967A20064F773 /* NSArray+CMJSON.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA92FF6181967A20064F773 /* NSArray+CMJSON.h */; };
 		AAA92FF9181967A20064F773 /* NSArray+CMJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA92FF7181967A20064F773 /* NSArray+CMJSON.m */; };
 		AAA92FFA181967A20064F773 /* NSArray+CMJSON.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA92FF7181967A20064F773 /* NSArray+CMJSON.m */; };
+		AAA92FFD181972DA0064F773 /* CMTools.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA92FFB181972DA0064F773 /* CMTools.h */; };
+		AAA92FFE181972DA0064F773 /* CMTools.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA92FFC181972DA0064F773 /* CMTools.m */; };
+		AAA92FFF181972DA0064F773 /* CMTools.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA92FFC181972DA0064F773 /* CMTools.m */; };
 		AAB2E0B0167B94CF00D2C699 /* CMAppDelegateBase.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB2E0AF167B94CF00D2C699 /* CMAppDelegateBase.m */; };
 		AAB2E0B4167BA05700D2C699 /* CMAppDelegateBase.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAB2E0AE167B94CF00D2C699 /* CMAppDelegateBase.h */; };
 		AAC1D8F116DD4BCC002A7DC0 /* CMChannelResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC1D8F016DD4BCC002A7DC0 /* CMChannelResponse.m */; };
@@ -192,6 +195,7 @@
 				AAC1D8FA16DD5B34002A7DC0 /* CMChannelResponse.h in CopyFiles */,
 				AAB2E0B4167BA05700D2C699 /* CMAppDelegateBase.h in CopyFiles */,
 				715217581653F5C4007FB0A9 /* CMSocialLoginViewController.h in CopyFiles */,
+				AAA92FFF181972DA0064F773 /* CMTools.m in CopyFiles */,
 				7152175A1653F5C4007FB0A9 /* CMUIViewController+Modal.h in CopyFiles */,
 				7A3DCEEF15EECBB600AC4890 /* AFHTTPClient.h in CopyFiles */,
 				D03A4D5C15B48D2200A956BC /* CMACLFetchResponse.h in CopyFiles */,
@@ -202,6 +206,7 @@
 				7A28002715922364002C504A /* CMFile.h in CopyFiles */,
 				7A28002815922364002C504A /* CMGeoPoint.h in CopyFiles */,
 				7A28002915922364002C504A /* CMObject.h in CopyFiles */,
+				AAA92FFD181972DA0064F773 /* CMTools.h in CopyFiles */,
 				7A28002A15922364002C504A /* CMObjectClassNameRegistry.h in CopyFiles */,
 				7A28002B15922364002C504A /* CMUntypedObject.h in CopyFiles */,
 				AAA92FF8181967A20064F773 /* NSArray+CMJSON.h in CopyFiles */,
@@ -388,6 +393,8 @@
 		AAA92FF2181966370064F773 /* NSDictionary+CMJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+CMJSON.m"; sourceTree = "<group>"; };
 		AAA92FF6181967A20064F773 /* NSArray+CMJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+CMJSON.h"; sourceTree = "<group>"; };
 		AAA92FF7181967A20064F773 /* NSArray+CMJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+CMJSON.m"; sourceTree = "<group>"; };
+		AAA92FFB181972DA0064F773 /* CMTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMTools.h; sourceTree = "<group>"; };
+		AAA92FFC181972DA0064F773 /* CMTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMTools.m; sourceTree = "<group>"; };
 		AAB2E0AE167B94CF00D2C699 /* CMAppDelegateBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMAppDelegateBase.h; sourceTree = "<group>"; };
 		AAB2E0AF167B94CF00D2C699 /* CMAppDelegateBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMAppDelegateBase.m; sourceTree = "<group>"; };
 		AAC1D8EF16DD4BCB002A7DC0 /* CMChannelResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMChannelResponse.h; path = Response/CMChannelResponse.h; sourceTree = "<group>"; };
@@ -738,6 +745,8 @@
 				7AABA2E61480598300FD52A0 /* NSString+UUID.h */,
 				7AABA2E71480598300FD52A0 /* NSString+UUID.m */,
 				7A70DE5814E33DA000EC137E /* math+floats.h */,
+				AAA92FFB181972DA0064F773 /* CMTools.h */,
+				AAA92FFC181972DA0064F773 /* CMTools.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1027,6 +1036,7 @@
 				7AF00BA015A8DC650070442A /* CMACL.m in Sources */,
 				7AF00BA115A8DC650070442A /* CMUser.m in Sources */,
 				D042C2EB15AF41F100A88888 /* CMACLFetchResponse.m in Sources */,
+				AAA92FFE181972DA0064F773 /* CMTools.m in Sources */,
 				D088F5B015E3FDF1005062BD /* AFHTTPClient.m in Sources */,
 				D088F5B115E3FDF1005062BD /* AFHTTPRequestOperation.m in Sources */,
 				D088F5B515E3FDF1005062BD /* AFNetworkActivityIndicatorManager.m in Sources */,

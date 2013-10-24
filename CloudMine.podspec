@@ -16,8 +16,8 @@ Pod::Spec.new do |s|
   #  summary should be tweet-length, and the description more in depth.
   #
 
-  s.name         = "CloudMine iOS Framework"
-  s.version      = "1.6.0"
+  s.name         = "CloudMine"
+  s.version      = "1.5.8"
   s.summary      = "The iOS Framework for interacting with the CloudMine platform."
 
   s.description  = <<-DESC
@@ -69,7 +69,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/cloudmine/cloudmine-ios.git", :tag => "v1.5.7" }
+  s.source       = { :git => "https://github.com/Wayfarer247/CloudMine-iOS-Testbed.git", :tag => "v1.5.8" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -107,7 +107,7 @@ Pod::Spec.new do |s|
   #
 
   # s.framework  = 'SomeFramework'
-  s.frameworks = 'UIKit', 'CoreGraphics', 'MobileCoreServices', 'SystemConfiguration', 'CFNetwork', 'Foundation', 'CoreFoundation', 'SenTestingKit'
+  s.frameworks = 'UIKit', 'CoreGraphics', 'MobileCoreServices', 'SystemConfiguration', 'CFNetwork', 'Foundation', 'CoreFoundation', 'SenTestingKit', 'CoreLocation'
 
   # s.library   = 'iconv'
   s.libraries = 'z'
@@ -125,7 +125,6 @@ Pod::Spec.new do |s|
   s.xcconfig = { 'OTHER_LDFLAGS' => '-all_load', 'FRAMEWORK_SEARCH_PATHS' => '"$(SRCROOT)/ios/Vendor"/**' }
   s.dependency 'AFNetworking', '~> 1.3.3'
   s.dependency 'MAObjCRuntime', '~> 0.0.1'
-  s.dependency 'yajl-objc', '~> 0.2.27'
   s.dependency 'SPSuccinct', '~> 1.0.1'
 
 end
