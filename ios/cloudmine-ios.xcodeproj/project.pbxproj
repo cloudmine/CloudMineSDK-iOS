@@ -967,7 +967,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/doxygen ios/Doxyfile\nmake -C $SOURCE_ROOT/docs/html install\n\nrm -f $TEMP_DIR/loadDocSet.scpt\n\necho \"tell application \\\"Xcode\\\"\" >> $TEMP_DIR/loadDocSet.scpt\necho \"load documentation set with path \\\"/Users/$USER/Library/Developer/Shared/Documentation/DocSets/\\\"\"\n>> $TEMP_DIR/loadDocSet.scpt\necho \"end tell\" >> $TEMP_DIR/loadDocSet.scpt\n\n#  Run the load-docset applescript command.\nosascript $TEMP_DIR/loadDocSet.scpt";
+			shellScript = "#/usr/local/bin/doxygen ios/Doxyfile\n#make -C $SOURCE_ROOT/docs/html install\n\n#rm -f $TEMP_DIR/loadDocSet.scpt\n\n#echo \"tell application \\\"Xcode\\\"\" >> $TEMP_DIR/loadDocSet.scpt\n#echo \"load documentation set with path \\\"/Users/$USER/Library/Developer/Shared/Documentation/DocSets/\\\"\"\n#>> $TEMP_DIR/loadDocSet.scpt\n#echo \"end tell\" >> $TEMP_DIR/loadDocSet.scpt\n\n#  Run the load-docset applescript command.\n#osascript $TEMP_DIR/loadDocSet.scpt";
 		};
 /* End PBXShellScriptBuildPhase section */
 
