@@ -213,7 +213,7 @@
     NSAssert([self.store objectOwnershipLevel:self] == CMObjectOwnershipUserLevel, @"*** Error: Object %@ is not at the user level. It must be a user level object in order for it to have ACLs.", self);
 
     if (self.sharedACL) {
-        CMACLFetchResponse *response = [[CMACLFetchResponse alloc] initWithACLs:[NSArray arrayWithObject:self.sharedACL] errors:nil];
+        CMACLFetchResponse *response = [[CMACLFetchResponse alloc] initWithACLs:[NSSet setWithObject:self.sharedACL] errors:nil];
         callback(response);
         return;
     }
