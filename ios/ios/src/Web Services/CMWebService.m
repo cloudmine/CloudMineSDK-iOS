@@ -7,10 +7,8 @@
 //
 
 #import <AFNetworking/AFNetworking.h>
-#import <YAJLiOS/YAJL.h>
 
 #import "SPLowVerbosity.h"
-
 #import "CMWebService.h"
 #import "CMStore.h"
 #import "CMAPICredentials.h"
@@ -20,6 +18,7 @@
 #import "CMSortDescriptor.h"
 #import "CMActiveUser.h"
 #import "NSURL+QueryParameterAdditions.h"
+#import "NSDictionary+CMJSON.h"
 
 #import "CMObjectEncoder.h"
 #import "CMObjectDecoder.h"
@@ -33,7 +32,7 @@ typedef CMUserAccountResult (^_CMWebServiceAccountResponseCodeMapper)(NSUInteger
 
 NSString * const CMErrorDomain = @"CMErrorDomain";
 NSString * const NSURLErrorKey = @"NSURLErrorKey";
-NSString * const YAJLErrorKey = @"YAJLErrorKey";
+NSString * const JSONErrorKey = @"JSONErrorKey";
 
 @interface CMWebService () {
     NSMutableDictionary *_responseTimes;
@@ -198,7 +197,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                                                           appSecret:_appSecret
                                                       binaryData:NO
                                                             user:user];
-    [request setHTTPBody:[[data yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
+    [request setHTTPBody:[data jsonData]];
     [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
 }
 
@@ -211,7 +210,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                                                             appSecret:_appSecret
                                                            binaryData:NO
                                                                  user:user];
-    [request setHTTPBody:[[acl yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
+    [request setHTTPBody:[acl jsonData]];
     [self executeACLUpdateRequest:request successHandler:successHandler errorHandler:errorHandler];
 }
 
@@ -289,7 +288,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                                                           appSecret:_appSecret
                                                       binaryData:NO
                                                             user:user];
-    [request setHTTPBody:[[data yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
+    [request setHTTPBody:[data jsonData]];
     [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
 }
 
@@ -369,7 +368,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     
     NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/device", _appIdentifier]];
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:user];
-    [request setHTTPBody:[[@{@"token" : tokenString} yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
+    [request setHTTPBody:[@{@"token" : tokenString} jsonData]];
     
     [self executeRequest:request resultHandler:^(id responseBody, NSError *errors, NSUInteger httpCode) {
         
@@ -432,7 +431,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         [subscribers setValue:deviceID forKey:@"device_id"];
     }
     
-    [request setHTTPBody:[[subscribers yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
+    [request setHTTPBody:[subscribers jsonData]];
     
     [self executeRequest:request resultHandler:^(id responseBody, NSError *errors, NSUInteger httpCode) {
         CMChannelResponse *result = [[CMChannelResponse alloc] initWithResponseBody:responseBody httpCode:httpCode error:errors];
@@ -472,7 +471,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         [unsubscribers setValue:deviceID forKey:@"device_id"];
     }
     
-    [request setHTTPBody:[[unsubscribers yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
+    [request setHTTPBody:[unsubscribers jsonData]];
     
     // Right here, we should use a Response Object, encapsulate the HTTP code, give it an enum for happiness, and also catch any errors it may have.
     [self executeRequest:request resultHandler:^(id responseBody, NSError *errors, NSUInteger httpCode) {
@@ -541,10 +540,10 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     NSURL *finalUrl = [NSURL URLWithString:url];
     
     if (params && [params count] != 0)
-        finalUrl = [NSURL URLWithString:[[finalUrl URLByAppendingAndEncodingQueryString:$sprintf(@"params=%@", [params yajl_JSONString])] absoluteString]];
+        finalUrl = [NSURL URLWithString:[[finalUrl URLByAppendingAndEncodingQueryString:$sprintf(@"params=%@", [params jsonString])] absoluteString]];
     
     if (headers && [headers count] != 0)
-        finalUrl = [NSURL URLWithString:[[finalUrl URLByAppendingAndEncodingQueryString:$sprintf(@"headers=%@", [headers yajl_JSONString])] absoluteString]];
+        finalUrl = [NSURL URLWithString:[[finalUrl URLByAppendingAndEncodingQueryString:$sprintf(@"headers=%@", [headers jsonString])] absoluteString]];
     
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:verb URL:finalUrl appSecret:_appSecret binaryData:(data ? YES : NO) user:user];
     
@@ -668,7 +667,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         [payload setObject:serializedUser forKey:@"profile"];
     }
 
-    [request setHTTPBody:[[payload yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
+    [request setHTTPBody:[payload jsonData]];
 
     [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode, NSError *error) {
         if ([[error domain] isEqualToString:CMErrorDomain]) {
@@ -776,7 +775,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
             NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:user];
             NSMutableDictionary *payload = [[[CMObjectEncoder encodeObjects:$set(user)] objectForKey:user.objectId] mutableCopy]; // Don't need the outer object wrapping it like with objects
             [payload removeObjectsForKeys:$array(@"token", @"tokenExpiration", @"userId")];
-            [request setHTTPBody:[[payload yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
+            [request setHTTPBody:[payload jsonData]];
             
             AFHTTPRequestOperation *requestOperation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSString *responseString = [operation responseString];
@@ -785,7 +784,9 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
                 NSError *parseErr = nil;
                 NSDictionary *results = [NSDictionary dictionary];
                 if (responseString != nil) {
-                    NSDictionary *parsedResults = [responseString yajl_JSON:&parseErr];
+                    NSDictionary *parsedResults = [NSJSONSerialization JSONObjectWithData:operation.responseData
+                                                                                  options:0
+                                                                                    error:&parseErr];
                     if (!parseErr && parsedResults) {
                         results = parsedResults;
                     }
@@ -892,7 +893,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     if (newUsername) { [payload setValue:newUsername forKey:@"username"]; }
     if (newEmail) { [payload setValue:newEmail forKey:@"email"]; }
     
-    [request setHTTPBody:[[payload yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
+    [request setHTTPBody:[payload jsonData]];
     
     [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode, NSError *error) {
         if ([[error domain] isEqualToString:CMErrorDomain]) {
@@ -958,7 +959,7 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
 
     NSDictionary *payload = $dict(@"email", user.email);
-    [request setHTTPBody:[[payload yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
+    [request setHTTPBody:[payload jsonData]];
 
     [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode, NSError *error) {
         if ([[error domain] isEqualToString:CMErrorDomain]) {
@@ -1028,7 +1029,9 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         NSError *parseErr = nil;
         NSDictionary *responseBody = [NSDictionary dictionary];
         if (responseString != nil) {
-            NSDictionary *parsedResponseBody = [responseString yajl_JSON:&parseErr];
+            NSDictionary *parsedResponseBody = [NSJSONSerialization JSONObjectWithData:operation.responseData
+                                                                               options:0
+                                                                                 error:&parseErr];
             if (!parseErr && parsedResponseBody) {
                 responseBody = parsedResponseBody;
             }
@@ -1085,7 +1088,9 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
         NSError *parseErr = nil;
         NSDictionary *responseBody = [NSDictionary dictionary];
         if (responseString != nil) {
-            NSDictionary *parsedResponseBody = [responseString yajl_JSON:&parseErr];
+            NSDictionary *parsedResponseBody = [NSJSONSerialization JSONObjectWithData:operation.responseData
+                                                                               options:0
+                                                                                 error:&parseErr];
             if (!parseErr && parsedResponseBody) {
                 responseBody = parsedResponseBody;
             }
@@ -1210,13 +1215,13 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
             [_responseTimes setObject:[NSNumber numberWithInt:milliseconds] forKey:requestId];
         }
         
-        NSString *responseString = [operation responseString];
-        
         NSError *parseError;
-        NSDictionary *results = [responseString yajl_JSON:&parseError];
+        NSDictionary *results = [NSJSONSerialization JSONObjectWithData:operation.responseData
+                                                                options:0
+                                                                  error:&parseError];
         
-        if ([[parseError domain] isEqualToString:YAJLErrorDomain]) {
-            NSError *error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidResponse userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The response received from the server was malformed.", NSLocalizedDescriptionKey, parseError, YAJLErrorKey, nil]];
+        if ([[parseError domain] isEqualToString:NSCocoaErrorDomain]) {
+            NSError *error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidResponse userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The response received from the server was malformed.", NSLocalizedDescriptionKey, parseError, JSONErrorKey, nil]];
             NSLog(@"CloudMine *** Unexpected error occurred during object request. (%@)", [error localizedDescription]);
             if (errorHandler != nil) {
                 void (^block)() = ^{ errorHandler(error); };
@@ -1313,13 +1318,13 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
             [_responseTimes setObject:[NSNumber numberWithInt:milliseconds] forKey:requestId];
         }
         
-        NSString *responseString = [operation responseString];
-        
         NSError *parseError;
-        id results = [responseString yajl_JSON:&parseError];
+        NSDictionary *results = [NSJSONSerialization JSONObjectWithData:operation.responseData
+                                                                options:0
+                                                                  error:&parseError];
         
-        if ([[parseError domain] isEqualToString:YAJLErrorDomain]) {
-            NSError *error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidResponse userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The response received from the server was malformed.", NSLocalizedDescriptionKey, parseError, YAJLErrorKey, nil]];
+        if ([[parseError domain] isEqualToString:NSCocoaErrorDomain]) {
+            NSError *error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidResponse userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The response received from the server was malformed.", NSLocalizedDescriptionKey, parseError, JSONErrorKey, nil]];
             NSLog(@"CloudMine *** Unexpected error occurred during object request. (%@)", [error localizedDescription]);
             if (handler != nil) {
                 void (^block)() = ^{ handler(results, error, operation.response.statusCode); };
@@ -1358,13 +1363,13 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
             [_responseTimes setObject:[NSNumber numberWithInt:milliseconds] forKey:requestId];
         }
         
-        NSString *responseString = [operation responseString];
-        
         NSError *parseError;
-        NSDictionary *results = [responseString yajl_JSON:&parseError];
+        NSDictionary *results = [NSJSONSerialization JSONObjectWithData:operation.responseData
+                                                                options:0
+                                                                  error:&parseError];
         
-        if ([[parseError domain] isEqualToString:YAJLErrorDomain]) {
-            NSError *error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidResponse userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The response received from the server was malformed.", NSLocalizedDescriptionKey, parseError, YAJLErrorKey, nil]];
+        if ([[parseError domain] isEqualToString:NSCocoaErrorDomain]) {
+            NSError *error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidResponse userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The response received from the server was malformed.", NSLocalizedDescriptionKey, parseError, JSONErrorKey, nil]];
             NSLog(@"CloudMine *** Unexpected error occurred during object request. (%@)", [error localizedDescription]);
             if (errorHandler != nil) {
                 void (^block)() = ^{ errorHandler(error); };
@@ -1548,13 +1553,13 @@ NSString * const YAJLErrorKey = @"YAJLErrorKey";
             [_responseTimes setObject:[NSNumber numberWithInt:milliseconds] forKey:requestId];
         }
         
-        NSString *responseString = [operation responseString];
-        
         NSError *parseError;
-        NSDictionary *results = [responseString yajl_JSON:&parseError];
+        NSDictionary *results = [NSJSONSerialization JSONObjectWithData:operation.responseData
+                                                                options:0
+                                                                  error:&parseError];
         
-        if ([[parseError domain] isEqualToString:YAJLErrorDomain]) {
-            NSError *error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidResponse userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The response received from the server was malformed.", NSLocalizedDescriptionKey, parseError, YAJLErrorKey, nil]];
+        if ([[parseError domain] isEqualToString:NSCocoaErrorDomain]) {
+            NSError *error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidResponse userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The response received from the server was malformed.", NSLocalizedDescriptionKey, parseError, JSONErrorKey, nil]];
             NSLog(@"CloudMine *** Unexpected error occurred during object request. (%@)", [error localizedDescription]);
             if (errorHandler != nil) {
                 void (^block)() = ^{ errorHandler(error); };
