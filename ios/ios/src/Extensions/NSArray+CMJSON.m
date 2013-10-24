@@ -7,6 +7,7 @@
 //
 
 #import "NSArray+CMJSON.h"
+#import "CMTools.h"
 
 @implementation NSArray (CMJSON)
 

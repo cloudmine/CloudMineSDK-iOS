@@ -7,6 +7,7 @@
 //
 
 #import "NSDictionary+CMJSON.h"
+#import "CMTools.h"
 
 @implementation NSDictionary (CMJSON)
 
