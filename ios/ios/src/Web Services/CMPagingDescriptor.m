@@ -55,7 +55,7 @@ NSString * const CMPagingDescriptorCountKey = @"count";
 - (NSDictionary *)dictionaryRepresentation {
     return $dict(CMPagingDescriptorLimitKey, $num(self.limit),
                  CMPagingDescriptorSkipKey, $num(self.skip),
-                 CMPagingDescriptorCountKey, $numb(self.includeCount));
+                 CMPagingDescriptorCountKey, $num(self.includeCount));
 }
 
 - (NSString *)stringRepresentation {
