@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.platform     = :ios, '7.0'
   s.source       = { :git => "https://github.com/Wayfarer247/CloudMine-iOS-Testbed.git", :tag => "v1.5.10" }
   s.source_files  = 'ios/ios/src/**/*.{h,m}'
-  s.exclude_files = 'math+floats.h', 'NSString+UUID.h', 'NSURL+QueryParameterAdditions.h', 'CMObject+Private.h', 'CMObjectClassNameRegistry.h'
+  s.exclude_files = 'NSString+UUID.h', 'NSURL+QueryParameterAdditions.h', 'CMObject+Private.h', 'CMObjectClassNameRegistry.h'
   s.frameworks = 'UIKit', 'CoreGraphics', 'MobileCoreServices', 'SystemConfiguration', 'CFNetwork', 'Foundation', 'CoreFoundation', 'CoreLocation'
   s.libraries = 'z'
   s.requires_arc = true

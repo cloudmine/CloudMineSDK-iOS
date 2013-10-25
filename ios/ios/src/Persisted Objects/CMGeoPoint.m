@@ -8,7 +8,9 @@
 
 #import "CMGeoPoint.h"
 #import "CMObjectSerialization.h"
-#import "math+floats.h"
+
+#define fequal(a,b) (fabs((a) - (b)) < FLT_EPSILON)
+#define fequalzero(a) (fabs(a) < FLT_EPSILON)
 
 NSString * const CMGeoPointClassName = @"geopoint";
 
