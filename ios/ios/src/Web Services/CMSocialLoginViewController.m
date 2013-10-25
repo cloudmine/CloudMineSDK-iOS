@@ -180,7 +180,6 @@
 - (void)dismiss {
     /**
      * The User may dismiss the dialog, but we still need to inform the delegate.
-     *
      */
     if ([self.delegate respondsToSelector:@selector(cmSocialLoginViewControllerWasDismissed:)]) {
         [self.delegate cmSocialLoginViewControllerWasDismissed:self];
