@@ -7,7 +7,6 @@
 //
 
 #import <objc/runtime.h>
-#import "SPLowVerbosity.h"
 
 #import "CMStore.h"
 #import "CMObject+Private.h"
@@ -26,8 +25,6 @@
 #import "CMFileUploadResponse.h"
 #import "CMDeleteResponse.h"
 #import "CMAppDelegateBase.h"
-
-#import "SPLowVerbosity.h"
 
 #define _CMAssertAPICredentialsInitialized NSAssert([[CMAPICredentials sharedInstance] appSecret] != nil && [[[CMAPICredentials sharedInstance] appSecret] length] > 0 && [[CMAPICredentials sharedInstance] appIdentifier] != nil && [[[CMAPICredentials sharedInstance] appIdentifier] length] > 0, @"The CMAPICredentials singleton must be initialized before using a CloudMine Store")
 #define _CMAssertUserConfigured NSAssert(user, @"You must set the user of this store to a CMUser before querying for user-level objects.")
@@ -347,7 +344,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     _CMAssertAPICredentialsInitialized;
 
     [self _searchObjects:callback
-                   query:$sprintf(@"[%@ = \"%@\"]", CMInternalClassStorageKey, [klass className])
+                   query:[NSString stringWithFormat:@"[%@ = \"%@\"]", CMInternalClassStorageKey, [klass className]]
                userLevel:userLevel
        additionalOptions:options];
 }
@@ -501,7 +498,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (void)saveUserObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback {
     _CMAssertUserConfigured;
     [self _ensureUserLoggedInWithCallback:^{
-        [self _saveObjects:$array(theObject) userLevel:YES callback:callback additionalOptions:options];
+        [self _saveObjects:@[theObject] userLevel:YES callback:callback additionalOptions:options];
     }];
 }
 
@@ -514,7 +511,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 }
 
 - (void)saveObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback {
-    [self _saveObjects:$array(theObject) userLevel:NO callback:callback additionalOptions:options];
+    [self _saveObjects:@[theObject] userLevel:NO callback:callback additionalOptions:options];
 }
 
 - (void)_saveObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreObjectUploadCallback)callback additionalOptions:(CMStoreOptions *)options {
@@ -621,7 +618,10 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                 acl = [acls objectAtIndex:index];
                 NSDictionary *aclDict = [[CMObjectEncoder encodeObjects:[NSSet setWithObject:acl]] objectForKey:acl.objectId];
                 if (acl.dirty)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-retain-cycles"
                     [webService updateACL:aclDict user:user successHandler:successHandler errorHandler:errorHandler];
+#pragma clang diagnostic pop
                 else
                     successHandler([NSDictionary dictionaryWithObject:aclDict forKey:acl.objectId], nil, nil, nil, [NSNumber numberWithUnsignedInt:1], nil);
             } else {
@@ -777,14 +777,14 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 - (void)deleteObject:(id<CMSerializable>)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback {
     NSParameterAssert(theObject);
-    [self _deleteObjects:$array(theObject) additionalOptions:options userLevel:NO callback:callback];
+    [self _deleteObjects:@[theObject] additionalOptions:options userLevel:NO callback:callback];
 }
 
 - (void)deleteUserObject:(id<CMSerializable>)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback {
     NSParameterAssert(theObject);
     _CMAssertUserConfigured;
     [self _ensureUserLoggedInWithCallback:^{
-        [self _deleteObjects:$array(theObject) additionalOptions:options userLevel:YES callback:callback];
+        [self _deleteObjects:@[theObject] additionalOptions:options userLevel:YES callback:callback];
     }];
 }
 
@@ -818,7 +818,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     NSParameterAssert(name);
     _CMAssertAPICredentialsInitialized;
 
-    [webService deleteValuesForKeys:$array(name)
+    [webService deleteValuesForKeys:@[name]
                  serverSideFunction:_CMTryMethod(options, serverSideFunction)
                                user:_CMUserOrNil
                     extraParameters:_CMTryMethod(options, buildExtraParameters)
@@ -929,7 +929,10 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
             index++;
             if (index < acls.count) {
                 CMACL *acl = [acls objectAtIndex:index];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-retain-cycles"
                 [webService deleteACLWithKey:acl.objectId user:user successHandler:successHandler errorHandler:errorHandler];
+#pragma clang diagnostic pop
             } else {
                 CMDeleteResponse *response = [[CMDeleteResponse alloc] initWithSuccess:allSuccess errors:allErrors];
                 if (callback)
@@ -1121,7 +1124,9 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
         [user loginWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
             if (CMUserAccountOperationFailed(resultCode)) {
                 NSLog(@"CloudMine *** Failed to login user during store operation");
-                lastError = $makeErr(@"CloudMineUserLoginErrorDomain", 0, $dict(@"user", user, @"resultCode", $num(resultCode)));
+                lastError = [NSError errorWithDomain:@"CloudMineUserLoginErrorDomain"
+                                                code:0
+                                            userInfo:@{@"user" : user, @"resultCode" : @(resultCode)}];
             } else {
                 callback();
             }

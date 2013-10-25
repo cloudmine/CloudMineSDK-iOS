@@ -6,8 +6,6 @@
 //  See LICENSE file included with SDK for details.
 //
 
-#import "SPLowVerbosity.h"
-
 #import "CMFile.h"
 #import "CMUser.h"
 #import "NSString+UUID.h"
@@ -202,7 +200,8 @@ NSString * const _mimeTypeKey = @"mime";
                                  withIntermediateDirectories:YES
                                                   attributes:nil
                                                        error:nil];
-        NSString *cacheFileName = $sprintf(@"%@_%@", uuid, fileName);
+        
+        NSString *cacheFileName = [NSString stringWithFormat:@"%@_%@", uuid, fileName];
         cacheLocation = [cacheDirUrl URLByAppendingPathComponent:cacheFileName];
     }
 

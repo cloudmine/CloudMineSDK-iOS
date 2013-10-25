@@ -16,4 +16,6 @@
 
 @interface CMTools : NSObject
 
++ (NSString *)urlEncode:(NSString *)string;
+
 @end

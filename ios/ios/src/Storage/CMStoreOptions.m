@@ -6,8 +6,6 @@
 //  See LICENSE file included with SDK for details.
 //
 
-#import "SPLowVerbosity.h"
-
 #import "CMStoreOptions.h"
 #import "CMPagingDescriptor.h"
 #import "CMServerFunction.h"

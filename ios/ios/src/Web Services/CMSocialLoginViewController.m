@@ -185,7 +185,7 @@
         [self.delegate cmSocialLoginViewControllerWasDismissed:self];
     }
     
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

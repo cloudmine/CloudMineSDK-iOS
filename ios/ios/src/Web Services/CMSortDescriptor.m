@@ -90,7 +90,7 @@ NSString * const CMSortDescending = @"desc";
     NSMutableArray *pairs = [NSMutableArray array];
 
     [fieldToDirectionMapping enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        NSString *descString = $sprintf(@"sort=%@", key);
+        NSString *descString = [NSString stringWithFormat:@"sort=%@", key];
         if (![obj isEqual:[NSNull null]]) {
             descString = [descString stringByAppendingFormat:@":%@", obj];
         }

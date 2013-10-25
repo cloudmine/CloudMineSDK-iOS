@@ -7,9 +7,8 @@
 //
 
 #import "CMNullStore.h"
-#import "SPLowVerbosity.h"
 
-#define THROW_NULLSTORE_EXCEPTION [[NSException exceptionWithName:@"CMInvalidStoreException" reason:$sprintf(@"You cannot call %@ on a null store.", NSStringFromSelector(_cmd)) userInfo:nil] raise];
+#define THROW_NULLSTORE_EXCEPTION [[NSException exceptionWithName:@"CMInvalidStoreException" reason:[NSString stringWithFormat:@"You cannot call %@ on a null store.", NSStringFromSelector(_cmd)] userInfo:nil] raise];
 
 @implementation CMNullStore
 

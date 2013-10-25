@@ -5,7 +5,6 @@
 //  Copyright (c) 2012 CloudMine, LLC. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
-#import "SPLowVerbosity.h"
 
 #import "CMObjectEncoder.h"
 #import "CMSerializable.h"
@@ -30,14 +29,14 @@
         if (![object conformsToProtocol:@protocol(CMSerializable)]) {
             [[NSException exceptionWithName:NSInvalidArgumentException
                                      reason:@"All objects to be serialized to CloudMine must conform to CMSerializable"
-                                   userInfo:$dict(@"object", object)]
+                                   userInfo:@{@"object": object}]
              raise];
         }
 
         if (![object respondsToSelector:@selector(objectId)] || object.objectId == nil) {
             [[NSException exceptionWithName:NSInvalidArgumentException
                                      reason:@"All objects must supply their own unique, non-nil object identifier"
-                                   userInfo:$dict(@"object", object)]
+                                   userInfo:@{@"object": object}]
              raise];
         }
 

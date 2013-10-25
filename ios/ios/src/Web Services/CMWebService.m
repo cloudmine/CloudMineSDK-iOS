@@ -10,7 +10,6 @@
 
 #import <AFNetworking/AFNetworking.h>
 
-#import "SPLowVerbosity.h"
 #import "CMWebService.h"
 #import "CMStore.h"
 #import "CMAPICredentials.h"
@@ -73,7 +72,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     NSParameterAssert(appIdentifier);
 
     if (!_validHTTPVerbs) {
-        _validHTTPVerbs = $set(@"GET", @"POST", @"PUT", @"DELETE");
+        _validHTTPVerbs = [NSSet setWithObjects:@"GET", @"POST", @"PUT", @"DELETE", nil];
     }
 
     if ((self = [super initWithBaseURL:nil])) {
@@ -538,14 +537,16 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     NSParameterAssert(user);
     NSAssert(user.isLoggedIn, @"Cannot send a query of a user who is not logged in!");
     
-    NSString *url = $sprintf(@"%@/app/%@/user/social/%@/%@", self.apiUrl, _appIdentifier, network, base);
+    NSString *url = [NSString stringWithFormat:@"%@/app/%@/user/social/%@/%@", self.apiUrl, _appIdentifier, network, base];
     NSURL *finalUrl = [NSURL URLWithString:url];
     
     if (params && [params count] != 0)
-        finalUrl = [NSURL URLWithString:[[finalUrl URLByAppendingAndEncodingQueryString:$sprintf(@"params=%@", [params jsonString])] absoluteString]];
+        finalUrl = [NSURL URLWithString:[[finalUrl URLByAppendingAndEncodingQueryString:
+                                          [NSString stringWithFormat:@"params=%@", [params jsonString]]] absoluteString]];
     
     if (headers && [headers count] != 0)
-        finalUrl = [NSURL URLWithString:[[finalUrl URLByAppendingAndEncodingQueryString:$sprintf(@"headers=%@", [headers jsonString])] absoluteString]];
+        finalUrl = [NSURL URLWithString:[[finalUrl URLByAppendingAndEncodingQueryString:
+                                          [NSString stringWithFormat:@"headers=%@", [headers jsonString]]] absoluteString]];
     
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:verb URL:finalUrl appSecret:_appSecret binaryData:(data ? YES : NO) user:user];
     
@@ -659,12 +660,12 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
         [credentials setValue:user.username forKey:@"username"];
     }
     
-    NSMutableDictionary *payload = $mdict(@"credentials", credentials);
+    NSMutableDictionary *payload = [NSMutableDictionary dictionaryWithObjectsAndKeys:credentials, @"credentials", nil];
 
     // Extract other profile fields from the user by serializing it to JSON and removing the "token" and "tokenExpiration" fields (which don't
     // need to be sent over the wire).
-    NSMutableDictionary *serializedUser = [[[(NSDictionary *)[CMObjectEncoder encodeObjects:$array(user)] allValues] objectAtIndex:0] mutableCopy];
-    [serializedUser removeObjectsForKeys:$array(@"token", @"tokenExpiration", @"userId")];
+    NSMutableDictionary *serializedUser = [[[(NSDictionary *)[CMObjectEncoder encodeObjects:@[user]] allValues] objectAtIndex:0] mutableCopy];
+    [serializedUser removeObjectsForKeys:@[@"token", @"tokenExpiration", @"userId"]];
     if ([serializedUser count] > 0) {
         [payload setObject:serializedUser forKey:@"profile"];
     }
@@ -775,8 +776,8 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
         void (^save)() = ^{
             NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/%@", _appIdentifier, user.objectId]];
             NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:user];
-            NSMutableDictionary *payload = [[[CMObjectEncoder encodeObjects:$set(user)] objectForKey:user.objectId] mutableCopy]; // Don't need the outer object wrapping it like with objects
-            [payload removeObjectsForKeys:$array(@"token", @"tokenExpiration", @"userId")];
+            NSMutableDictionary *payload = [[[CMObjectEncoder encodeObjects:[NSSet setWithObject:user]] objectForKey:user.objectId] mutableCopy]; // Don't need the outer object wrapping it like with objects
+            [payload removeObjectsForKeys:@[@"token", @"tokenExpiration", @"userId"]];
             [request setHTTPBody:[payload jsonData]];
             
             AFHTTPRequestOperation *requestOperation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -795,7 +796,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
                 }
 
                 // Handle any service errors, or report success
-                if ([[operation response] statusCode] == 200 && [[results objectForKey:@"errors"] count] == 0) {
+                if ([[operation response] statusCode] == 200 && [(NSArray *)results[@"errors"] count] == 0) {
                     callback(CMUserAccountProfileUpdateSucceeded, results);
                 } else {
                     callback(CMUserAccountProfileUpdateFailed, [results objectForKey:@"errors"]);
@@ -960,7 +961,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/password/reset", _appIdentifier]];
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
 
-    NSDictionary *payload = $dict(@"email", user.email);
+    NSDictionary *payload = @{@"email" : user.email};
     [request setHTTPBody:[payload jsonData]];
 
     [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode, NSError *error) {
@@ -1040,7 +1041,9 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
         }
 
         if (callback != nil) {
-            void (^block)() = ^{ callback([responseBody objectForKey:@"success"], [responseBody objectForKey:@"errors"], $num([[responseBody objectForKey:@"success"] count])); };
+            void (^block)() = ^{ callback(responseBody[@"success"],
+                                          responseBody[@"errors"],
+                                          @([(NSArray *)responseBody[@"success"] count])); };
             [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1099,7 +1102,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
         }
 
         if (resultCode == CMUserAccountUnknownResult) {
-            NSLog(@"CloudMine *** Unexpected response received from server during user account operation. (%@) (Code %d) Body: %@", [parseErr localizedDescription], [operation.response statusCode], responseString);
+            NSLog(@"CloudMine *** Unexpected response received from server during user account operation. (%@) (Code %ld) Body: %@", [parseErr localizedDescription], (long)[operation.response statusCode], responseString);
         }
 
         if (callback != nil) {
@@ -1148,7 +1151,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
         NSMutableDictionary *errorInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                          [NSNumber numberWithInt:operation.response.statusCode], @"httpCode",
+                                          @(operation.response.statusCode), @"httpCode",
                                           operation.responseData, @"responseData",
                                           operation.responseString, @"responseString",
                                           [operation.response allHeaderFields], @"responseHeaders",

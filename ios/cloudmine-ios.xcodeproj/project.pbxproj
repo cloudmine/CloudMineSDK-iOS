@@ -118,7 +118,6 @@
 		7AB4AB74145DC5D8006AEF67 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB62145DC5D8006AEF67 /* Foundation.framework */; };
 		7AB4AB77145DC5D8006AEF67 /* libcloudmine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB5F145DC5D8006AEF67 /* libcloudmine.a */; };
 		7AB4AB7D145DC5D8006AEF67 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7AB4AB7B145DC5D8006AEF67 /* InfoPlist.strings */; };
-		7AB8BAFA1521066F00860081 /* SPLowVerbosity.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AF02D521507B36D005F03FD /* SPLowVerbosity.h */; };
 		7AD36F7F146C650500DD4734 /* CMWebService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD36F7D146C650500DD4734 /* CMWebService.m */; };
 		7AD36F81146C656600DD4734 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AD36F80146C656600DD4734 /* UIKit.framework */; };
 		7AD36F85146CA4AC00DD4734 /* CMAPICredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD36F83146CA4AC00DD4734 /* CMAPICredentials.m */; };
@@ -135,7 +134,6 @@
 		7AF00BA115A8DC650070442A /* CMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF00B9F15A8DC650070442A /* CMUser.m */; };
 		7AF00BA215A8DC7C0070442A /* CMACL.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AF00B9C15A8DC650070442A /* CMACL.h */; };
 		7AF00BA315A8DC7C0070442A /* CMUser.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7AF00B9E15A8DC650070442A /* CMUser.h */; };
-		7AF02D5B1507B36D005F03FD /* SPLowVerbosity.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF02D531507B36D005F03FD /* SPLowVerbosity.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7AFDFE42158E959B00388D6E /* CMDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE37158E959B00388D6E /* CMDate.m */; };
 		7AFDFE43158E959B00388D6E /* CMFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE39158E959B00388D6E /* CMFile.m */; };
 		7AFDFE44158E959B00388D6E /* CMGeoPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE3B158E959B00388D6E /* CMGeoPoint.m */; };
@@ -222,7 +220,6 @@
 				65199ED3156A847A00267EC6 /* CMSnippetResult.h in CopyFiles */,
 				65199ED4156A847A00267EC6 /* CMStoreResponse.h in CopyFiles */,
 				7A87A3351563FF2700D788E2 /* CMSortDescriptor.h in CopyFiles */,
-				7AB8BAFA1521066F00860081 /* SPLowVerbosity.h in CopyFiles */,
 				7A934E78150E8CC200A2CAD6 /* CMObjectSerialization.h in CopyFiles */,
 				7A4A6FB91500474500B95D13 /* CMUserAccountResult.h in CopyFiles */,
 				7AE355D714F1B896006AF903 /* CMFileUploadResult.h in CopyFiles */,
@@ -365,14 +362,6 @@
 		7AF00B9D15A8DC650070442A /* CMACL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMACL.m; sourceTree = "<group>"; };
 		7AF00B9E15A8DC650070442A /* CMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMUser.h; sourceTree = "<group>"; };
 		7AF00B9F15A8DC650070442A /* CMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUser.m; sourceTree = "<group>"; };
-		7AF02D4C1507B36D005F03FD /* SPDepends.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPDepends.h; path = SPSuccinct/src/SPDepends.h; sourceTree = "<group>"; };
-		7AF02D4D1507B36D005F03FD /* SPDepends.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPDepends.m; path = SPSuccinct/src/SPDepends.m; sourceTree = "<group>"; };
-		7AF02D4E1507B36D005F03FD /* SPFunctional.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPFunctional.h; path = SPSuccinct/src/SPFunctional.h; sourceTree = "<group>"; };
-		7AF02D4F1507B36D005F03FD /* SPFunctional.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPFunctional.m; path = SPSuccinct/src/SPFunctional.m; sourceTree = "<group>"; };
-		7AF02D501507B36D005F03FD /* SPKVONotificationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPKVONotificationCenter.h; path = SPSuccinct/src/SPKVONotificationCenter.h; sourceTree = "<group>"; };
-		7AF02D511507B36D005F03FD /* SPKVONotificationCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPKVONotificationCenter.m; path = SPSuccinct/src/SPKVONotificationCenter.m; sourceTree = "<group>"; };
-		7AF02D521507B36D005F03FD /* SPLowVerbosity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPLowVerbosity.h; path = SPSuccinct/src/SPLowVerbosity.h; sourceTree = "<group>"; };
-		7AF02D531507B36D005F03FD /* SPLowVerbosity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPLowVerbosity.m; path = SPSuccinct/src/SPLowVerbosity.m; sourceTree = "<group>"; };
 		7AFDFE36158E959B00388D6E /* CMDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMDate.h; sourceTree = "<group>"; };
 		7AFDFE37158E959B00388D6E /* CMDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMDate.m; sourceTree = "<group>"; };
 		7AFDFE38158E959B00388D6E /* CMFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMFile.h; sourceTree = "<group>"; };
@@ -526,7 +515,6 @@
 				D01DBF581590D36D003CB5BE /* NSData+Base64.h */,
 				D01DBF591590D36D003CB5BE /* NSData+Base64.m */,
 				D088F59A15E3FDF1005062BD /* AFNetworking */,
-				7AF02D4B1507B35B005F03FD /* SPSuccinct */,
 				7AA79D6914DC23C700F3CA3B /* MAObjCRuntime */,
 			);
 			path = Vendor;
@@ -771,21 +759,6 @@
 			path = ACLs;
 			sourceTree = "<group>";
 		};
-		7AF02D4B1507B35B005F03FD /* SPSuccinct */ = {
-			isa = PBXGroup;
-			children = (
-				7AF02D4C1507B36D005F03FD /* SPDepends.h */,
-				7AF02D4D1507B36D005F03FD /* SPDepends.m */,
-				7AF02D4E1507B36D005F03FD /* SPFunctional.h */,
-				7AF02D4F1507B36D005F03FD /* SPFunctional.m */,
-				7AF02D501507B36D005F03FD /* SPKVONotificationCenter.h */,
-				7AF02D511507B36D005F03FD /* SPKVONotificationCenter.m */,
-				7AF02D521507B36D005F03FD /* SPLowVerbosity.h */,
-				7AF02D531507B36D005F03FD /* SPLowVerbosity.m */,
-			);
-			name = SPSuccinct;
-			sourceTree = "<group>";
-		};
 		7AFDFE35158E953200388D6E /* Persisted Objects */ = {
 			isa = PBXGroup;
 			children = (
@@ -1013,7 +986,6 @@
 				7AA79D8214DC23C700F3CA3B /* RTProtocol.m in Sources */,
 				7AA79D8414DC23C700F3CA3B /* RTUnregisteredClass.m in Sources */,
 				7A58CC2214F1B544003E864B /* CMMimeType.m in Sources */,
-				7AF02D5B1507B36D005F03FD /* SPLowVerbosity.m in Sources */,
 				7AE2848B1562C3C8003E8A8F /* CMSortDescriptor.m in Sources */,
 				65199EC2156A7D9500267EC6 /* CMDeleteResponse.m in Sources */,
 				65199EC3156A7D9500267EC6 /* CMFileFetchResponse.m in Sources */,

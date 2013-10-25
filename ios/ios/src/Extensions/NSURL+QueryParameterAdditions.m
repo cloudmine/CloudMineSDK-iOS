@@ -6,17 +6,17 @@
 //  See LICENSE file included with SDK for details.
 //
 
-#import "SPLowVerbosity.h"
 #import "NSURL+QueryParameterAdditions.h"
+#import "CMTools.h"
 
 @implementation NSURL (QueryParameterAdditions)
 
-- (NSURL *)URLByAppendingQueryString:(NSString *)queryString {    
-    return [NSURL URLWithString:$urlencode([self addQuery:queryString])];
+- (NSURL *)URLByAppendingQueryString:(NSString *)queryString {
+    return [NSURL URLWithString:[CMTools urlEncode:[self addQuery:queryString]]];
 }
 
 - (NSURL *)URLByAppendingAndEncodingQueryString:(NSString *)queryString {
-    return [NSURL URLWithString:[self addQuery:$urlencode(queryString)]];
+    return [NSURL URLWithString:[self addQuery:[CMTools urlEncode:queryString]]];
 }
 
 - (NSString *)addQuery:(NSString *)queryString {
@@ -24,7 +24,7 @@
         return [self absoluteString];
     }
     
-    return $sprintf(@"%@%@%@", [self absoluteString], [self query] ? @"&" : @"?", queryString);
+    return [NSString stringWithFormat:@"%@%@%@", [self absoluteString], [self query] ? @"&" : @"?", queryString];
 }
 
 @end

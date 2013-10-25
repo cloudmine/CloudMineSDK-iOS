@@ -30,7 +30,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%@: HTTP Code: %d\nErrors: %@, Body: %@", NSStringFromClass([self class]), self.httpResponseCode, self.errors, self.body];
+    return [NSString stringWithFormat:@"%@: HTTP Code: %lu\nErrors: %@, Body: %@", NSStringFromClass([self class]), (unsigned long)self.httpResponseCode, self.errors, self.body];
 }
 
 @end

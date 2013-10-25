@@ -6,8 +6,6 @@
 //  See LICENSE file included with SDK for details.
 //
 
-#import "SPLowVerbosity.h"
-
 /**
  * Constants and enums used across the various encoding and decoding classes.
  */
@@ -52,4 +50,4 @@
 /**
  * A set of all the object keys used internally by this framework for (de)serialization purposes.
  */
-#define CMInternalKeys $set(CMInternalTypeStorageKey, CMInternalClassStorageKey, CMInternalObjectIdKey, CMInternalObjectACLsKey, CMInternalServiceStorageKey)
+#define CMInternalKeys [NSSet setWithObjects:CMInternalTypeStorageKey, CMInternalClassStorageKey, CMInternalObjectIdKey, CMInternalObjectACLsKey, CMInternalServiceStorageKey, nil]

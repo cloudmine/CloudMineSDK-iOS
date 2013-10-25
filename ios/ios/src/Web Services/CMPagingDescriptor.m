@@ -6,8 +6,6 @@
 //  See LICENSE file included with SDK for details.
 //
 
-#import "SPLowVerbosity.h"
-
 #import "CMPagingDescriptor.h"
 
 NSString * const CMPagingDescriptorLimitKey = @"limit";
@@ -19,9 +17,6 @@ NSString * const CMPagingDescriptorCountKey = @"count";
 #define DEFAULT_INCLUDE_COUNT NO
 
 @implementation CMPagingDescriptor
-@synthesize skip;
-@synthesize limit;
-@synthesize includeCount;
 
 #pragma mark - Initializers
 
@@ -53,17 +48,17 @@ NSString * const CMPagingDescriptorCountKey = @"count";
 #pragma mark - Consumable representations
 
 - (NSDictionary *)dictionaryRepresentation {
-    return $dict(CMPagingDescriptorLimitKey, $num(self.limit),
-                 CMPagingDescriptorSkipKey, $num(self.skip),
-                 CMPagingDescriptorCountKey, $num(self.includeCount));
+    return @{CMPagingDescriptorLimitKey: @(self.limit),
+             CMPagingDescriptorSkipKey: @(self.skip),
+             CMPagingDescriptorCountKey: @(self.includeCount)};
 }
 
 - (NSString *)stringRepresentation {
-    NSString *limitString = $sprintf(@"%@=%i", CMPagingDescriptorLimitKey, limit);
-    NSString *skipString = $sprintf(@"%@=%i", CMPagingDescriptorSkipKey, skip);
-    NSString *countString = $sprintf(@"%@=%@", CMPagingDescriptorCountKey, includeCount ? @"true" : @"false");
+    NSString *limitString = [NSString stringWithFormat:@"%@=%li", CMPagingDescriptorLimitKey, (long)_limit];
+    NSString *skipString = [NSString stringWithFormat:@"%@=%lu", CMPagingDescriptorSkipKey, (unsigned long)_skip];
+    NSString *countString = [NSString stringWithFormat:@"%@=%@", CMPagingDescriptorCountKey, _includeCount ? @"true" : @"false"];
 
-    return [$array(limitString, skipString, countString) componentsJoinedByString:@"&"];
+    return [@[limitString, skipString, countString] componentsJoinedByString:@"&"];
 }
 
 @end

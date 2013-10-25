@@ -6,8 +6,6 @@
 //  See LICENSE file included with SDK for details.
 //
 
-#import "SPLowVerbosity.h"
-
 extern NSString * const CMSortAscending;
 extern NSString * const CMSortDescending;
 #define CMSortDefault [NSNull null]

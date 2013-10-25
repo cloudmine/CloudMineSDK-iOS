@@ -488,7 +488,7 @@ static CMWebService *webService;
 
     CMUser *cachedUser = [self userFromCacheWithIdentifier:identifier];
     if (cachedUser) {
-        callback($array(cachedUser), [NSDictionary dictionary]);
+        callback(@[cachedUser], [NSDictionary dictionary]);
     } else {
         [webService getUserProfileWithIdentifier:identifier callback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
             if (errors.count > 0) {
@@ -526,7 +526,7 @@ static CMWebService *webService;
 }
 
 - (void)writeToCache {
-    [CMUser cacheMultipleUsers:$array(self)];
+    [CMUser cacheMultipleUsers:@[self]];
 }
 
 + (void)cacheMultipleUsers:(NSArray *)users {

@@ -33,8 +33,9 @@
 
 - (BOOL)isModal
 {
-    BOOL isModal = ((self.presentingViewController && self.presentingViewController.modalViewController == self) \
-                    || (self.navigationController && self.navigationController.presentingViewController && self.navigationController.presentingViewController.modalViewController == self.navigationController) \
+    
+    BOOL isModal = ((self.presentingViewController && self.presentingViewController.presentedViewController == self) \
+                    || (self.navigationController && self.navigationController.presentingViewController && self.navigationController.presentingViewController.presentedViewController == self.navigationController) \
                     || [[[self tabBarController] presentingViewController] isKindOfClass:[UITabBarController class]]);
     
     return isModal;
