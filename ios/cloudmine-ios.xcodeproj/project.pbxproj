@@ -1187,12 +1187,14 @@
 		7AB4AB84145DC5D8006AEF67 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CURRENT_PROJECT_VERSION = 1.5.7;
 				DSTROOT = /tmp/ios.dst;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ios/cloudmine-ios-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/ios/Vendor/YAJL/YAJLiOS.framework/Versions/A\"",
@@ -1209,11 +1211,13 @@
 		7AB4AB85145DC5D8006AEF67 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CURRENT_PROJECT_VERSION = 1.5.7;
 				DSTROOT = /tmp/ios.dst;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ios/cloudmine-ios-Prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/ios/Vendor/YAJL/YAJLiOS.framework/Versions/A\"",
