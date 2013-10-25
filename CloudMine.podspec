@@ -19,5 +19,4 @@ Pod::Spec.new do |s|
 
   s.dependency 'AFNetworking', '~> 1.3.3'
   s.dependency 'MAObjCRuntime', '~> 0.0.1'
-  s.dependency 'SPSuccinct', '~> 1.0.1'
 end
