@@ -854,7 +854,11 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     [objects enumerateObjectsUsingBlock:^(CMObject *obj, NSUInteger idx, BOOL *stop) {
         SEL delMethod = userLevel ? @selector(removeUserObject:) : @selector(removeObject:);
         [deletedObjects setObject:obj forKey:obj.objectId];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
         [self performSelector:delMethod withObject:obj];
+#pragma clang diagnostic pop
+        
     }];
 
     NSArray *keys = [deletedObjects allKeys];
@@ -1003,7 +1007,10 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     @synchronized(self) {
         SEL addMethod = userLevel ? @selector(addUserObject:) : @selector(addObject:);
         for (CMObject *obj in objects) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
             [self performSelector:addMethod withObject:obj];
+#pragma clang diagnostic pop
         }
     }
 }

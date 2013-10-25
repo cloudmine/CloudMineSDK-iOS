@@ -16,4 +16,11 @@ Pod::Spec.new do |s|
 
   s.dependency 'AFNetworking', '~> 1.3.3'
   s.dependency 'MAObjCRuntime', '~> 0.0.1'
+
+  s.post_install do |library_representation|
+    prefix_header = library_representation.prefix_header_path
+    prefix_header.open('a') do |file|
+      file.puts('#ifdef __OBJC__\n#import <UIKit/UIKit.h>\n#import <SystemConfiguration/SystemConfiguration.h>\n#import <MobileCoreServices/MobileCoreServices.h>\n#endif')
+    end
+  end
 end
