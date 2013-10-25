@@ -12,15 +12,10 @@ Pod::Spec.new do |s|
   s.frameworks = 'UIKit', 'CoreGraphics', 'MobileCoreServices', 'SystemConfiguration', 'CFNetwork', 'Foundation', 'CoreFoundation', 'CoreLocation'
   s.libraries = 'z'
   s.requires_arc = true
-  s.xcconfig = { 'OTHER_LDFLAGS' => '-all_load, -ObjC', 'FRAMEWORK_SEARCH_PATHS' => '"$(SRCROOT)/ios/Vendor"/**' }
+  s.xcconfig = { 'OTHER_LDFLAGS' => '-ObjC' }
 
   s.dependency 'AFNetworking', '~> 1.3.3'
   s.dependency 'MAObjCRuntime', '~> 0.0.1'
 
-  s.post_install do |library_representation|
-    prefix_header = library_representation.prefix_header_path
-    prefix_header.open('a') do |file|
-      file.puts('#ifdef __OBJC__\n#import <UIKit/UIKit.h>\n#import <SystemConfiguration/SystemConfiguration.h>\n#import <MobileCoreServices/MobileCoreServices.h>\n#endif')
-    end
-  end
+  s.prefix_header_contents = '#import <SystemConfiguration/SystemConfiguration.h>', '#import <MobileCoreServices/MobileCoreServices.h>'
 end
