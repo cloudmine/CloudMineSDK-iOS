@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "CloudMine"
-  s.version      = "1.5.11"
+  s.version      = "1.5.12"
   s.summary      = "The iOS Framework for interacting with the CloudMine platform."
   s.homepage     = "https://cloudmine.me/docs/ios/reference"
   s.license      = 'MIT'
