@@ -10,7 +10,21 @@
 
 @interface NSURL (QueryParameterAdditions)
 
-- (NSURL *)URLByAppendingQueryString:(NSString *)queryString;
-- (NSURL *)URLByAppendingAndEncodingQueryString:(NSString *)queryString;
+/**
+ * Appends a key value to a query string url encoding the value
+ * @param key: The key of the query string item
+ * @param value: The value of the query string item
+ * @returns A new URL
+ */
+-(NSURL *)URLByAppendingAndEncodingQueryParameter:(NSString *)key andValue:(NSString *)value;
+
+/**
+ * Appends a collection of key value pairs to a query string url encoding the values
+ * @param queryParameters: the key values to add
+ * @return A new URL
+ */
+-(NSURL *)URLByAppendingAndEncodingQueryParameters:(NSDictionary *)queryParameters;
+
+-(NSURL *)URLByAppendingAndEncodingQuery:(NSString *)query;
 
 @end

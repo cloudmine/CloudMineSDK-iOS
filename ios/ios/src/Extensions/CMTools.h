@@ -18,4 +18,6 @@
 
 + (NSString *)urlEncode:(NSString *)string;
 
++ (NSString *)urlEncodeButLeaveQuery:(NSString *)string;
+
 @end

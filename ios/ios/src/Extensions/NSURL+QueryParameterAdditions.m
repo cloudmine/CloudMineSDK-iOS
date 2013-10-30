@@ -11,20 +11,44 @@
 
 @implementation NSURL (QueryParameterAdditions)
 
-- (NSURL *)URLByAppendingQueryString:(NSString *)queryString {
-    return [NSURL URLWithString:[CMTools urlEncode:[self addQuery:queryString]]];
-}
-
-- (NSURL *)URLByAppendingAndEncodingQueryString:(NSString *)queryString {
-    return [NSURL URLWithString:[self addQuery:[CMTools urlEncode:queryString]]];
-}
-
-- (NSString *)addQuery:(NSString *)queryString {
-    if (![queryString length]) {
-        return [self absoluteString];
+-(NSURL *)URLByAppendingAndEncodingQueryParameter:(NSString *)key andValue:(NSString *)value;
+{
+    if (!key || !value || ![key length])
+    {
+        return [self copy];
     }
     
-    return [NSString stringWithFormat:@"%@%@%@", [self absoluteString], [self query] ? @"&" : @"?", queryString];
+    NSString *finalURL = [NSString stringWithFormat:@"%@%@%@=%@", [self absoluteString], [self query] ? @"&" : @"?", [CMTools urlEncode:key], [CMTools urlEncode:value]];
+    return [NSURL URLWithString:finalURL];
 }
+
+-(NSURL *)URLByAppendingAndEncodingQueryParameters:(NSDictionary *)queryParameters
+{
+    if (!queryParameters)
+    {
+        return [self copy];
+    }
+    
+    NSURL *finalURL = [self copy];
+    
+    for (id key in queryParameters)
+    {
+        finalURL = [finalURL URLByAppendingAndEncodingQueryParameter:key andValue:queryParameters[key]];
+    }
+    
+    return finalURL;
+}
+
+-(NSURL *)URLByAppendingAndEncodingQuery:(NSString *)query;
+{
+    
+    if (![query length]) {
+        return [self copy];
+    }
+    
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@", [self absoluteString], [self query] ? @"&" : @"?", [CMTools urlEncodeButLeaveQuery:query]]];
+    
+}
+
 
 @end

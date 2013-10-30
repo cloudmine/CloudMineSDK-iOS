@@ -25,11 +25,7 @@
 /**
  * Base URL for the current version of the CloudMine API.
  */
-#ifdef DEBUG
-#define CM_BASE_URL @"http://localhost:3001/v1"
-#else
 #define CM_BASE_URL @"https://api.cloudmine.me/v1"
-#endif
 
 /**
  * Callback block signature for all operations on <tt>CMWebService</tt> that fetch objects

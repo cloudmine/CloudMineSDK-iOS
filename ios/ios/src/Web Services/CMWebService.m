@@ -6,7 +6,7 @@
 //  See LICENSE file included with SDK for details.
 //
 
-#define CM_VERSION @"1.5.8"
+#define CM_VERSION @"1.6.1"
 
 #import <AFNetworking/AFNetworking.h>
 
@@ -70,14 +70,14 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
 - (id)initWithAppSecret:(NSString *)appSecret appIdentifier:(NSString *)appIdentifier {
     NSParameterAssert(appSecret);
     NSParameterAssert(appIdentifier);
-
+    
     if (!_validHTTPVerbs) {
         _validHTTPVerbs = [NSSet setWithObjects:@"GET", @"POST", @"PUT", @"DELETE", nil];
     }
-
-    if ((self = [super initWithBaseURL:nil])) {
+    
+    if ((self = [super initWithBaseURL:[NSURL URLWithString:CM_BASE_URL]])) {
         self.apiUrl = CM_BASE_URL;
-
+        
         _appSecret = appSecret;
         _appIdentifier = appIdentifier;
         _responseTimes = [NSMutableDictionary dictionary];
@@ -99,16 +99,16 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
           successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
             errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
     NSURLRequest *request = [self constructHTTPRequestWithVerb:@"GET"
-                                                             URL:[self constructTextUrlAtUserLevel:(user != nil)
-                                                                                          withKeys:keys
-                                                                                             query:nil
-                                                                                     pagingOptions:paging
-                                                                                    sortingOptions:sorting
-                                                                            withServerSideFunction:function
-                                                                                   extraParameters:params]
-                                                          appSecret:_appSecret
-                                                      binaryData:NO
-                                                            user:user];
+                                                           URL:[self constructTextUrlAtUserLevel:(user != nil)
+                                                                                        withKeys:keys
+                                                                                           query:nil
+                                                                                   pagingOptions:paging
+                                                                                  sortingOptions:sorting
+                                                                          withServerSideFunction:function
+                                                                                 extraParameters:params]
+                                                     appSecret:_appSecret
+                                                    binaryData:NO
+                                                          user:user];
     [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
 }
 
@@ -134,16 +134,16 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
          successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
            errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
     NSURLRequest *request = [self constructHTTPRequestWithVerb:@"GET"
-                                                             URL:[self constructTextUrlAtUserLevel:(user != nil)
-                                                                                          withKeys:nil
-                                                                                             query:searchQuery
-                                                                                     pagingOptions:paging
-                                                                                    sortingOptions:sorting
-                                                                            withServerSideFunction:function
-                                                                                   extraParameters:params]
-                                                          appSecret:_appSecret
-                                                      binaryData:NO
-                                                            user:user];
+                                                           URL:[self constructTextUrlAtUserLevel:(user != nil)
+                                                                                        withKeys:nil
+                                                                                           query:searchQuery
+                                                                                   pagingOptions:paging
+                                                                                  sortingOptions:sorting
+                                                                          withServerSideFunction:function
+                                                                                 extraParameters:params]
+                                                     appSecret:_appSecret
+                                                    binaryData:NO
+                                                          user:user];
     [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
 }
 
@@ -151,7 +151,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
               user:(CMUser *)user
     successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
       errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
-
+    
     NSURLRequest *request = [self constructHTTPRequestWithVerb:@"GET"
                                                            URL:[self constructACLUrlWithKey:nil query:query extraParameters:nil]
                                                      appSecret:_appSecret
@@ -169,13 +169,13 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
             successHandler:(CMWebServiceFileFetchSuccessCallback)successHandler
               errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
     NSURLRequest *request = [self constructHTTPRequestWithVerb:@"GET"
-                                                             URL:[self constructBinaryUrlAtUserLevel:(user != nil)
-                                                                                             withKey:key
-                                                                              withServerSideFunction:function
-                                                                                     extraParameters:params]
-                                                          appSecret:_appSecret
-                                                      binaryData:NO
-                                                            user:user];
+                                                           URL:[self constructBinaryUrlAtUserLevel:(user != nil)
+                                                                                           withKey:key
+                                                                            withServerSideFunction:function
+                                                                                   extraParameters:params]
+                                                     appSecret:_appSecret
+                                                    binaryData:NO
+                                                          user:user];
     [self executeBinaryDataFetchRequest:request successHandler:successHandler errorHandler:errorHandler];
 }
 
@@ -188,16 +188,16 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
                     successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
                       errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST"
-                                                             URL:[self constructTextUrlAtUserLevel:(user != nil)
-                                                                                          withKeys:nil
-                                                                                             query:nil
-                                                                                     pagingOptions:nil
-                                                                                    sortingOptions:nil
-                                                                            withServerSideFunction:function
-                                                                                   extraParameters:params]
-                                                          appSecret:_appSecret
-                                                      binaryData:NO
-                                                            user:user];
+                                                                  URL:[self constructTextUrlAtUserLevel:(user != nil)
+                                                                                               withKeys:nil
+                                                                                                  query:nil
+                                                                                          pagingOptions:nil
+                                                                                         sortingOptions:nil
+                                                                                 withServerSideFunction:function
+                                                                                        extraParameters:params]
+                                                            appSecret:_appSecret
+                                                           binaryData:NO
+                                                                 user:user];
     [request setHTTPBody:[data jsonData]];
     [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
 }
@@ -226,13 +226,13 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
           successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler
             errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"PUT"
-                                                             URL:[self constructBinaryUrlAtUserLevel:(user != nil)
-                                                                                             withKey:key
-                                                                              withServerSideFunction:function
-                                                                                     extraParameters:params]
-                                                          appSecret:_appSecret
-                                                      binaryData:YES
-                                                            user:user];
+                                                                  URL:[self constructBinaryUrlAtUserLevel:(user != nil)
+                                                                                                  withKey:key
+                                                                                   withServerSideFunction:function
+                                                                                          extraParameters:params]
+                                                            appSecret:_appSecret
+                                                           binaryData:YES
+                                                                 user:user];
     if (mimeType.length > 0) {
         [request setValue:mimeType forHTTPHeaderField:@"Content-Type"];
     }
@@ -249,24 +249,24 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
           successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler
             errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"PUT"
-                                                             URL:[self constructBinaryUrlAtUserLevel:(user != nil)
-                                                                                             withKey:key
-                                                                              withServerSideFunction:function
-                                                                                     extraParameters:params]
-                                                       appSecret:_appSecret
-                                                      binaryData:YES
-                                                            user:user];
+                                                                  URL:[self constructBinaryUrlAtUserLevel:(user != nil)
+                                                                                                  withKey:key
+                                                                                   withServerSideFunction:function
+                                                                                          extraParameters:params]
+                                                            appSecret:_appSecret
+                                                           binaryData:YES
+                                                                 user:user];
     if (mimeType.length > 0) {
         [request setValue:mimeType forHTTPHeaderField:@"Content-Type"];
     }
-
+    
     // If file does not exist, all will just be nil
     NSError *error;
     NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:&error];
     unsigned long long fileSize = [[fileAttributes objectForKey:NSFileSize] unsignedLongLongValue];
     [request setValue:[NSString stringWithFormat:@"%llu", fileSize] forHTTPHeaderField:@"Content-Length"];
     [request setHTTPBodyStream:[NSInputStream inputStreamWithFileAtPath:path]];
-
+    
     [self executeBinaryDataUploadRequest:request successHandler:successHandler errorHandler:errorHandler];
 }
 
@@ -279,16 +279,16 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
                  successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
                    errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"PUT"
-                                                             URL:[self constructTextUrlAtUserLevel:(user != nil)
-                                                                                          withKeys:nil
-                                                                                             query:nil
-                                                                                     pagingOptions:nil
-                                                                                    sortingOptions:nil
-                                                                            withServerSideFunction:function
-                                                                                   extraParameters:params]
-                                                          appSecret:_appSecret
-                                                      binaryData:NO
-                                                            user:user];
+                                                                  URL:[self constructTextUrlAtUserLevel:(user != nil)
+                                                                                               withKeys:nil
+                                                                                                  query:nil
+                                                                                          pagingOptions:nil
+                                                                                         sortingOptions:nil
+                                                                                 withServerSideFunction:function
+                                                                                        extraParameters:params]
+                                                            appSecret:_appSecret
+                                                           binaryData:NO
+                                                                 user:user];
     [request setHTTPBody:[data jsonData]];
     [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
 }
@@ -302,13 +302,13 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
              successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
                errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
     NSURLRequest *request = [self constructHTTPRequestWithVerb:@"DELETE" URL:[[self constructDataUrlAtUserLevel:(user != nil)
-                                                                                                        withKeys:keys
-                                                                                           withServerSideFunction:function
-                                                                                                  extraParameters:params]
-                                                                                URLByAppendingQueryString:@"all=true"]
-                                                          appSecret:_appSecret
-                                                      binaryData:NO
-                                                            user:user];
+                                                                                                       withKeys:keys
+                                                                                         withServerSideFunction:function
+                                                                                                extraParameters:params]
+                                                                              URLByAppendingAndEncodingQueryParameter:@"all" andValue:@"true"]
+                                                     appSecret:_appSecret
+                                                    binaryData:NO
+                                                          user:user];
     [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
 }
 
@@ -329,12 +329,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
 - (void)runSnippet:(NSString *)snippetName withParams:(NSDictionary *)params user:(CMUser *)user successHandler:(CMWebServiceSnippetRunSuccessCallback)successHandler errorHandler:(CMWebServiceSnippetRunFailureCallback)errorHandler {
     
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/app/%@/run/%@", self.apiUrl, _appIdentifier, snippetName]];
-    
-    if (params) {
-        for (id key in params) {
-            url = [NSURL URLWithString:[[url URLByAppendingAndEncodingQueryString:[NSString stringWithFormat:@"%@=%@", key, [params objectForKey:key]]] absoluteString]];
-        }
-    }
+    url = [url URLByAppendingAndEncodingQueryParameters:params];
     
     NSMutableURLRequest* request = [self constructHTTPRequestWithVerb:@"GET" URL:url appSecret:_appSecret binaryData:NO user:user];
     [self executeRequest:request successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
@@ -343,7 +338,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
 }
 
 - (void)runPOSTSnippet:(NSString *)snippetName withBody:(NSData *)body user:(CMUser *)user successHandler:(CMWebServiceSnippetRunSuccessCallback)successHandler errorHandler:(CMWebServiceSnippetRunFailureCallback)errorHandler {
-
+    
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/app/%@/run/%@", self.apiUrl, _appIdentifier, snippetName]];
     
     NSMutableURLRequest* request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:user];
@@ -510,7 +505,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
                              parameters:(NSDictionary *)params
                                 headers:(NSDictionary *)headers
                                withUser:(CMUser *)user
-                          successHandler:(CMWebServicesSocialQuerySuccessCallback)successHandler
+                         successHandler:(CMWebServicesSocialQuerySuccessCallback)successHandler
                            errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
     [self runSocialGraphQueryOnNetwork:network
                               withVerb:@"GET"
@@ -519,7 +514,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
                                headers:headers
                            messageData:nil
                               withUser:user
-                         successHandler:successHandler
+                        successHandler:successHandler
                           errorHandler:errorHandler];
     
 }
@@ -531,7 +526,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
                              headers:(NSDictionary *)headers
                          messageData:(NSData *)data
                             withUser:(CMUser *)user
-                       successHandler:(CMWebServicesSocialQuerySuccessCallback)successHandler
+                      successHandler:(CMWebServicesSocialQuerySuccessCallback)successHandler
                         errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
     
     NSParameterAssert(user);
@@ -541,12 +536,11 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     NSURL *finalUrl = [NSURL URLWithString:url];
     
     if (params && [params count] != 0)
-        finalUrl = [NSURL URLWithString:[[finalUrl URLByAppendingAndEncodingQueryString:
-                                          [NSString stringWithFormat:@"params=%@", [params jsonString]]] absoluteString]];
+        finalUrl = [finalUrl URLByAppendingAndEncodingQueryParameter:@"params" andValue:[params jsonString]];
     
     if (headers && [headers count] != 0)
-        finalUrl = [NSURL URLWithString:[[finalUrl URLByAppendingAndEncodingQueryString:
-                                          [NSString stringWithFormat:@"headers=%@", [headers jsonString]]] absoluteString]];
+        finalUrl = [finalUrl URLByAppendingAndEncodingQueryParameter:@"headers" andValue:[headers jsonString]];
+    
     
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:verb URL:finalUrl appSecret:_appSecret binaryData:(data ? YES : NO) user:user];
     
@@ -560,10 +554,10 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
 
 - (void)loginUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
     NSParameterAssert(user);
-
+    
     NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/login", _appIdentifier]];
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
-
+    
     NSString *userAuthField = user.email != nil ? user.email : user.username;
     
     CFHTTPMessageRef dummyRequest = CFHTTPMessageCreateRequest(kCFAllocatorDefault, CFSTR("GET"), (__bridge CFURLRef)[request URL], kCFHTTPVersion1_1);
@@ -571,7 +565,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     NSString *basicAuthValue = (__bridge_transfer NSString *)CFHTTPMessageCopyHeaderFieldValue(dummyRequest, CFSTR("Authorization"));
     [request setValue:basicAuthValue forHTTPHeaderField:@"Authorization"];
     CFRelease(dummyRequest);
-
+    
     [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode, NSError *error) {
         if (!httpResponseCode && error) {
             if ([[error domain] isEqualToString:CMErrorDomain]) {
@@ -582,7 +576,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
                 }
             }
         }
-
+        
         switch (httpResponseCode) {
             case 200:
                 return CMUserAccountLoginSucceeded;
@@ -613,11 +607,11 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
 - (void)logoutUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
     NSParameterAssert(user);
     NSAssert(user.isLoggedIn, @"Cannot logout a user that hasn't been logged in.");
-
+    
     NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/logout", _appIdentifier]];
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
     [request setValue:user.token forHTTPHeaderField:CM_SESSIONTOKEN_HEADER];
-
+    
     [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode, NSError *error) {
         if ([[error domain] isEqualToString:CMErrorDomain]) {
             if ([error code] == CMErrorServerConnectionFailed) {
@@ -647,10 +641,10 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
 - (void)createAccountWithUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
     NSParameterAssert(user);
     NSAssert( (user.username != nil || user.email != nil) && user.password != nil, @"CloudMine *** User creation failed because the user object doesn't have a email/username or password set.");
-
+    
     NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/create", _appIdentifier]];
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
-
+    
     // The userid, username, and password of this account are supplied in the request body.
     NSMutableDictionary *credentials = [NSMutableDictionary dictionaryWithObjectsAndKeys:user.password, @"password", nil];
     if (user.email) {
@@ -661,7 +655,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     }
     
     NSMutableDictionary *payload = [NSMutableDictionary dictionaryWithObjectsAndKeys:credentials, @"credentials", nil];
-
+    
     // Extract other profile fields from the user by serializing it to JSON and removing the "token" and "tokenExpiration" fields (which don't
     // need to be sent over the wire).
     NSMutableDictionary *serializedUser = [[[(NSDictionary *)[CMObjectEncoder encodeObjects:@[user]] allValues] objectAtIndex:0] mutableCopy];
@@ -669,9 +663,9 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     if ([serializedUser count] > 0) {
         [payload setObject:serializedUser forKey:@"profile"];
     }
-
+    
     [request setHTTPBody:[payload jsonData]];
-
+    
     [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode, NSError *error) {
         if ([[error domain] isEqualToString:CMErrorDomain]) {
             if ([error code] == CMErrorServerConnectionFailed) {
@@ -715,7 +709,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     // Request the session token info
     NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/social/login/status/%@", _appIdentifier, challenge]];
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"GET" URL:url appSecret:_appSecret binaryData:NO user:nil];
-
+    
     [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode, NSError *error) {
         if (!httpResponseCode && error) {
             if ([[error domain] isEqualToString:CMErrorDomain]) {
@@ -754,7 +748,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
         }
         
         temporaryCallback(resultCode, messages);
-    }]; 
+    }];
 }
 
 
@@ -769,10 +763,10 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
 
 - (void)saveUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
     NSParameterAssert(user);
-
+    
     if (user.isCreatedRemotely) {
         // The user has already been saved, so just update the profile. In order for this to work, the user must be logged in.
-
+        
         void (^save)() = ^{
             NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/%@", _appIdentifier, user.objectId]];
             NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:user];
@@ -794,7 +788,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
                         results = parsedResults;
                     }
                 }
-
+                
                 // Handle any service errors, or report success
                 if ([[operation response] statusCode] == 200 && [(NSArray *)results[@"errors"] count] == 0) {
                     callback(CMUserAccountProfileUpdateSucceeded, results);
@@ -810,7 +804,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
                     }
                 }
                 NSLog(@"CloudMine *** User profile save operation failed (%@)", [error localizedDescription]);
-
+                
                 if (callback) {
                     callback(CMUserAccountProfileUpdateFailed, nil);
                 }
@@ -822,13 +816,13 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
             
             [self enqueueHTTPRequestOperation:requestOperation];
         };
-
+        
         if (!user.isLoggedIn) {
             if ( (!user.email || !user.username) && !user.password) {
                 NSLog(@"CloudMine *** Cannot update a user profile when the user is not logged in and userId and password are not both set.");
                 callback(CMUserAccountLoginFailedIncorrectCredentials, [NSDictionary dictionary]);
             }
-
+            
             // User must be logged in for this to work, so try logging them in.
             [user loginWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
                 if (CMUserAccountOperationFailed(resultCode)) {
@@ -957,13 +951,13 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
 - (void)resetForgottenPasswordForUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
     NSParameterAssert(user);
     NSAssert(user.email, @"CloudMine *** User password reset failed because the user object doesn't have an email set.");
-
+    
     NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/password/reset", _appIdentifier]];
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
-
+    
     NSDictionary *payload = @{@"email" : user.email};
     [request setHTTPBody:[payload jsonData]];
-
+    
     [self executeUserAccountActionRequest:request codeMapper:^CMUserAccountResult(NSUInteger httpResponseCode, NSError *error) {
         if ([[error domain] isEqualToString:CMErrorDomain]) {
             if ([error code] == CMErrorServerConnectionFailed) {
@@ -979,35 +973,35 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
                 return CMUserAccountUnknownResult;
         }
     }
-                           callback:callback];
+                                 callback:callback];
 }
 
 - (void)getAllUsersWithCallback:(CMWebServiceUserFetchSuccessCallback)callback {
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"GET"
-                                                             URL:[self constructAccountUrlWithUserIdentifier:nil query:nil]
-                                                       appSecret:_appSecret
-                                                      binaryData:NO
-                                                            user:nil];
+                                                                  URL:[self constructAccountUrlWithUserIdentifier:nil query:nil]
+                                                            appSecret:_appSecret
+                                                           binaryData:NO
+                                                                 user:nil];
     [self executeUserProfileFetchRequest:request callback:callback];
-
+    
 }
 
 - (void)getUserProfileWithIdentifier:(NSString *)identifier
                             callback:(CMWebServiceUserFetchSuccessCallback)callback {
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"GET"
-                                                             URL:[self constructAccountUrlWithUserIdentifier:identifier query:nil]
-                                                       appSecret:_appSecret
-                                                      binaryData:NO
-                                                            user:nil];
+                                                                  URL:[self constructAccountUrlWithUserIdentifier:identifier query:nil]
+                                                            appSecret:_appSecret
+                                                           binaryData:NO
+                                                                 user:nil];
     [self executeUserProfileFetchRequest:request callback:callback];
 }
 
 - (void)searchUsers:(NSString *)query callback:(CMWebServiceUserFetchSuccessCallback)callback {
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"GET"
-                                                             URL:[self constructAccountUrlWithUserIdentifier:nil query:query]
-                                                       appSecret:_appSecret
-                                                      binaryData:NO
-                                                            user:nil];
+                                                                  URL:[self constructAccountUrlWithUserIdentifier:nil query:query]
+                                                            appSecret:_appSecret
+                                                           binaryData:NO
+                                                                 user:nil];
     [self executeUserProfileFetchRequest:request callback:callback];
 }
 
@@ -1017,9 +1011,9 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
                               callback:(CMWebServiceUserFetchSuccessCallback)callback {
     // TODO: Let this switch between MsgPack and GZIP'd JSON.
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-
+    
     NSDate *startDate = [NSDate date];
-
+    
     AFHTTPRequestOperation *requestOperation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString *requestId = [[operation.response allHeaderFields] objectForKey:@"X-Request-Id"];
         if (requestId) {
@@ -1039,7 +1033,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
                 responseBody = parsedResponseBody;
             }
         }
-
+        
         if (callback != nil) {
             void (^block)() = ^{ callback(responseBody[@"success"],
                                           responseBody[@"errors"],
@@ -1073,12 +1067,12 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
 - (void)executeUserAccountActionRequest:(NSMutableURLRequest *)request
                              codeMapper:(_CMWebServiceAccountResponseCodeMapper)codeMapper
                                callback:(CMWebServiceUserAccountOperationCallback)callback {
-
+    
     // TODO: Let this switch between MsgPack and GZIP'd JSON.
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-
+    
     NSDate *startDate = [NSDate date];
-
+    
     AFHTTPRequestOperation *requestOperation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString *requestId = [[operation.response allHeaderFields] objectForKey:@"X-Request-Id"];
         if (requestId) {
@@ -1089,7 +1083,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
         NSString *responseString = [operation responseString];
         
         CMUserAccountResult resultCode = codeMapper([operation.response statusCode], nil);
-
+        
         NSError *parseErr = nil;
         NSDictionary *responseBody = [NSDictionary dictionary];
         if (responseString != nil) {
@@ -1100,23 +1094,23 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
                 responseBody = parsedResponseBody;
             }
         }
-
+        
         if (resultCode == CMUserAccountUnknownResult) {
             NSLog(@"CloudMine *** Unexpected response received from server during user account operation. (%@) (Code %ld) Body: %@", [parseErr localizedDescription], (long)[operation.response statusCode], responseString);
         }
-
+        
         if (callback != nil) {
             void (^block)() = ^{ callback(resultCode, responseBody); };
             [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-
+        
         NSString *requestId = [[operation.response allHeaderFields] objectForKey:@"X-Request-Id"];
         if (requestId) {
             int milliseconds = (int)([[NSDate date] timeIntervalSinceDate:startDate] * 1000.0f);
             [_responseTimes setObject:[NSNumber numberWithInt:milliseconds] forKey:requestId];
         }
-
+        
         CMUserAccountResult resultCode = codeMapper([operation.response statusCode], error);
         
         if (callback != nil) {
@@ -1209,9 +1203,9 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
 - (void)executeRequest:(NSURLRequest *)request
         successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
           errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
-
+    
     NSDate *startDate = [NSDate date];
-
+    
     AFHTTPRequestOperation *requestOperation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSString *requestId = [[operation.response allHeaderFields] objectForKey:@"X-Request-Id"];
@@ -1264,7 +1258,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
             
             count = [results objectForKey:@"count"];
         }
-
+        
         if (successHandler != nil) {
             void (^block)() = ^{ successHandler(successes, errors, meta, snippetResult, count, [operation.response allHeaderFields]); };
             [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
@@ -1406,19 +1400,19 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
             case 404:
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorNotFound userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Either the ACL or the entire application was not found. Does the ACL exist? Is your application identifier correct?", NSLocalizedDescriptionKey, nil]];
                 break;
-
+                
             case 401:
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was unauthorized. Are you authoried to do this? Is your API key correct?", NSLocalizedDescriptionKey, nil]];
                 break;
-
+                
             case 400:
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidRequest userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was malformed.", NSLocalizedDescriptionKey, nil]];
                 break;
-
+                
             case 500:
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The server experienced an error", NSLocalizedDescriptionKey, nil]];
                 break;
-
+                
             default:
                 break;
         }
@@ -1455,19 +1449,19 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
             case 404:
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorNotFound userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Either the ACL or the entire application was not found. Does the ACL exist? Is your application identifier correct?", NSLocalizedDescriptionKey, nil]];
                 break;
-
+                
             case 401:
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was unauthorized. Are you authoried to do this? Is your API key correct?", NSLocalizedDescriptionKey, nil]];
                 break;
-
+                
             case 400:
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidRequest userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was malformed.", NSLocalizedDescriptionKey, nil]];
                 break;
-
+                
             case 500:
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The server experienced an error", NSLocalizedDescriptionKey, nil]];
                 break;
-
+                
             default:
                 break;
         }
@@ -1483,18 +1477,18 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
 }
 
 - (void)executeBinaryDataFetchRequest:(NSURLRequest *)request
-        successHandler:(CMWebServiceFileFetchSuccessCallback)successHandler
-          errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
-
+                       successHandler:(CMWebServiceFileFetchSuccessCallback)successHandler
+                         errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
+    
     NSDate *startDate = [NSDate date];
-
+    
     AFHTTPRequestOperation *requestOperation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString *requestId = [[operation.response allHeaderFields] objectForKey:@"X-Request-Id"];
         if (requestId) {
             int milliseconds = (int)([[NSDate date] timeIntervalSinceDate:startDate] * 1000.0f);
             [_responseTimes setObject:[NSNumber numberWithInt:milliseconds] forKey:requestId];
         }
-
+        
         if (successHandler != nil) {
             void (^block)() = ^{ successHandler([operation responseData], [[operation.response allHeaderFields] objectForKey:@"Content-Type"], [operation.response allHeaderFields]); };
             [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
@@ -1546,9 +1540,9 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
 }
 
 - (void)executeBinaryDataUploadRequest:(NSURLRequest *)request
-                       successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler
-                         errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
-
+                        successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler
+                          errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
+    
     NSDate *startDate = [NSDate date];
     
     AFHTTPRequestOperation *requestOperation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -1606,19 +1600,19 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
             case 404:
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorNotFound userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The application was not found. Is your application identifier correct?", NSLocalizedDescriptionKey, nil]];
                 break;
-
+                
             case 401:
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was unauthorized. Is your API key correct?", NSLocalizedDescriptionKey, nil]];
                 break;
-
+                
             case 400:
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidRequest userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The request was malformed.", NSLocalizedDescriptionKey, nil]];
                 break;
-
+                
             case 500:
                 error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The server experienced an error", NSLocalizedDescriptionKey, nil]];
                 break;
-
+                
             default:
                 break;
         }
@@ -1645,12 +1639,12 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
 #pragma - Request construction
 
 - (NSMutableURLRequest *)constructHTTPRequestWithVerb:(NSString *)verb
-                                             URL:(NSURL *)url
-                                          appSecret:(NSString *)appSecret
-                                      binaryData:(BOOL)isForBinaryData
-                                            user:(CMUser *)user {
+                                                  URL:(NSURL *)url
+                                            appSecret:(NSString *)appSecret
+                                           binaryData:(BOOL)isForBinaryData
+                                                 user:(CMUser *)user {
     NSAssert([_validHTTPVerbs containsObject:verb], @"You must pass in a valid HTTP verb. Possible choices are: GET, POST, PUT, and DELETE");
-
+    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:verb];
     if (user) {
@@ -1661,15 +1655,15 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
         [request setValue:user.token forHTTPHeaderField:CM_SESSIONTOKEN_HEADER];
     }
     [request setValue:appSecret forHTTPHeaderField:CM_APIKEY_HEADER];
-
+    
     // TODO: This should be customizable to change between JSON, GZIP'd JSON, and MsgPack.
-
+    
     // Don't do this for binary data since that requires further intervention by the developer.
     if (!isForBinaryData) {
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     }
-
+    
     // Add response times to user token string
     NSMutableArray *times = [NSMutableArray array];
     [_responseTimes enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSNumber *obj, BOOL *stop) {
@@ -1680,15 +1674,15 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
         [times removeObjectsInRange:NSMakeRange(20, times.count - 20)];
     NSString *activeIdentifier = [[CMActiveUser currentActiveUser] identifier];
     NSString *userToken = times.count ? [NSString stringWithFormat:@"%@;%@", activeIdentifier, [times componentsJoinedByString:@","]] : activeIdentifier;
-
+    
     // Add user agent and user tracking headers
     [request setValue:[NSString stringWithFormat:@"CM-iOS/%@", CM_VERSION] forHTTPHeaderField:@"X-CloudMine-Agent"];
     [request setValue:userToken forHTTPHeaderField:@"X-CloudMine-UT"];
-
-    #ifdef DEBUG
-        NSLog(@"Constructed CloudMine URL: %@\nHeaders:%@", [request URL], [request allHTTPHeaderFields]);
-    #endif
-
+    
+#ifdef DEBUG
+    NSLog(@"Constructed CloudMine URL: %@\nHeaders:%@", [request URL], [request allHTTPHeaderFields]);
+#endif
+    
     return [request copy];
 }
 
@@ -1696,15 +1690,15 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
 
 - (NSURL *)constructACLUrlWithKey:(NSString *)key query:(NSString *)query extraParameters:(NSDictionary *)params {
     NSAssert(key == nil || query == nil, @"When constructing CM URLs, 'key' and 'query' are mutually exclusive");
-
+    
     NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/user/access", _appIdentifier]];
-
+    
     if (query)
         url = [url URLByAppendingPathComponent:@"search"];
-
+    
     if (key)
         url = [url URLByAppendingPathComponent:key];
-
+    
     return [self appendKeys:nil query:query serverSideFunction:nil pagingOptions:nil sortingOptions:nil toURL:url extraParameters:params];
 }
 
@@ -1715,23 +1709,23 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
                         sortingOptions:(CMSortDescriptor *)sorting
                 withServerSideFunction:(CMServerFunction *)function
                        extraParameters:params {
-
+    
     NSAssert(keys == nil || searchString == nil, @"When constructing CM URLs, 'keys' and 'searchString' are mutually exclusive");
-
+    
     NSString *endpoint = nil;
     if (searchString != nil) {
         endpoint = @"search";
     } else {
         endpoint = @"text";
     }
-
+    
     NSURL *url;
     if (atUserLevel) {
         url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/user/%@", _appIdentifier, endpoint]];
     } else {
         url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/%@", _appIdentifier, endpoint]];
     }
-
+    
     return [self appendKeys:keys query:searchString serverSideFunction:function pagingOptions:paging sortingOptions:sorting toURL:url extraParameters:params];
 }
 
@@ -1745,11 +1739,11 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     } else {
         url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/binary", _appIdentifier]];
     }
-
+    
     if (key) {
         url = [url URLByAppendingPathComponent:key];
     }
-
+    
     return [self appendKeys:nil query:nil serverSideFunction:function pagingOptions:nil sortingOptions:nil toURL:url extraParameters:params];
 }
 
@@ -1763,21 +1757,21 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     } else {
         url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/data", _appIdentifier]];
     }
-
+    
     return [self appendKeys:keys query:nil serverSideFunction:function pagingOptions:nil sortingOptions:nil toURL:url extraParameters:params];
 }
 
 - (NSURL *)constructAccountUrlWithUserIdentifier:(NSString *)userId
-                                            query:(NSString *)query {
-
+                                           query:(NSString *)query {
+    
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/app/%@/account", self.apiUrl, _appIdentifier]];
     if (userId) {
         url = [url URLByAppendingPathComponent:userId];
     } else if (query) {
         url = [url URLByAppendingPathComponent:@"search"];
-        url = [url URLByAppendingQueryString:[NSString stringWithFormat:@"p=%@", query]];
+        url = [url URLByAppendingAndEncodingQueryParameter:@"p" andValue:query];
     }
-
+    
     return url;
 }
 
@@ -1788,10 +1782,10 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
        sortingOptions:(CMSortDescriptor *)sorting
                 toURL:(NSURL *)theUrl
       extraParameters:(NSDictionary *)params {
-
+    
     NSAssert(keys == nil || searchString == nil, @"When constructing CM URLs, 'keys' and 'searchString' are mutually exclusive");
-
-    NSMutableArray *queryComponents = [NSMutableArray arrayWithCapacity:2];
+    
+    NSMutableArray *queryComponents = [NSMutableArray array];
     if (keys && [keys count] > 0) {
         [queryComponents addObject:[NSString stringWithFormat:@"keys=%@", [keys componentsJoinedByString:@","]]];
     }
@@ -1812,7 +1806,8 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
             [queryComponents addObject:[NSString stringWithFormat:@"%@=%@", key, [params objectForKey:key]]];
         }
     }
-    return [theUrl URLByAppendingQueryString:[queryComponents componentsJoinedByString:@"&"]];
+    
+    return [theUrl URLByAppendingAndEncodingQuery:[queryComponents componentsJoinedByString:@"&"]];
 }
 
 @end

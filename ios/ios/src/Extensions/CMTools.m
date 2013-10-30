@@ -22,6 +22,19 @@
     return (__bridge NSString *)(ret);
 }
 
++ (NSString *)urlEncodeButLeaveQuery:(NSString *)string;
+{
+    CFStringRef ret = CFURLCreateStringByAddingPercentEscapes(
+                                                              kCFAllocatorDefault,
+                                                              (CFStringRef)string,
+                                                              NULL,
+                                                              (CFStringRef)@";/:@+$,",
+                                                              kCFStringEncodingUTF8
+                                                              );
+    return (__bridge NSString *)(ret);
+    
+}
+
 
 
 @end
