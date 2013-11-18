@@ -133,6 +133,8 @@
         NSMutableDictionary *serializedRepresentation = [NSMutableDictionary dictionaryWithDictionary:newEncoder.encodedRepresentation];
         [serializedRepresentation setObject:[[objv class] className] forKey:CMInternalClassStorageKey];
         return serializedRepresentation;
+    } else if ([objv isKindOfClass:[CMObject class]]) {
+        return [CMObjectEncoder encodeObjects:@[objv]];
     } else {
         [[NSException exceptionWithName:@"CMInternalInconsistencyException"
                                  reason:@"You can only store simple values, dictionaries, and arrays in CMObject instance variables."
@@ -140,22 +142,6 @@
          raise];
 
         return nil;
-
-//TODO: When server-side support is implemented for object references, re-enable all this stuff.
-
-//        NSAssert([objv conformsToProtocol:@protocol(CMSerializable)],
-//                 @"Trying to serialize unknown object %@ (must be collection, scalar, or conform to CMSerializable)",
-//                  objv);
-//
-//        // A new encoder is needed as we are digging down further into a custom object
-//        // and we don't want to flatten the data in all the sub-objects.
-//        CMObjectEncoder *newEncoder = [[CMObjectEncoder alloc] init];
-//        [objv encodeWithCoder:newEncoder];
-//
-//        // Must encode the type of this object for decoding purposes.
-//        NSMutableDictionary *serializedRepresentation = [NSMutableDictionary dictionaryWithDictionary:newEncoder.encodedRepresentation];
-//        [serializedRepresentation setObject:[[objv class] className] forKey:CMInternalClassStorageKey];
-//        return serializedRepresentation;
     }
 }
 

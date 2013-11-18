@@ -221,7 +221,19 @@
         // For now we need to special-case CMGeoPoint and CMDate since we don't support nested objects other
         // than dictionaries at this point. Once that support is added we can simply use the CMObjectClassNameRegistry
         // to deserialize any class properly.
-
+        ///
+        /// First thing, see if we can deserialzie the object into a CMObject
+        ///
+        @try {
+            NSArray *result = [CMObjectDecoder decodeObjects:objv];
+            return result[0];
+        }
+        @catch (NSException *exception) {
+            ///
+            /// Apparently NOT a CMObject subclass
+            ///
+        }
+        
         if ( ([objv objectForKey:CMInternalClassStorageKey] == nil && [objv objectForKey:CMInternalTypeStorageKey] == nil) || [[objv objectForKey:CMInternalClassStorageKey] isEqualToString:CMInternalHashClassName]) {
             return [self decodeAllInDictionary:objv];
         } else {
