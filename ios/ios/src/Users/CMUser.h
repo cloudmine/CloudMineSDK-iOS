@@ -11,6 +11,9 @@
 #import "CMSerializable.h"
 #import "CMUserAccountResult.h"
 #import "CMSocialLoginViewController.h"
+#import "CMPaymentResponse.h"
+
+@class CMCardPayment;
 
 /** Social network identifier for Facebook */
 extern NSString * const CMSocialNetworkFacebook;
@@ -504,5 +507,14 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
  * @param callback The block that will be called on completion of the operation.
  */
 + (void)userWithIdentifier:(NSString *)identifier callback:(CMUserFetchCallback)callback;
+
+
+- (void)addPaymentMethod:(CMCardPayment *)paymentMethod callback:(CMPaymentServiceCallback)callback;
+
+- (void)addPaymentMethods:(NSArray *)paymentMethods callback:(CMPaymentServiceCallback)callback;
+
+- (void)removePaymentMethodAtIndex:(NSUInteger)index callback:(CMPaymentServiceCallback)callback;
+
+- (void)paymentMethods:(CMPaymentServiceCallback)callback;
 
 @end
