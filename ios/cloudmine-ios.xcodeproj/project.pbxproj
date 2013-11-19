@@ -142,6 +142,15 @@
 		7AFDFE47158E959B00388D6E /* CMUntypedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE41158E959B00388D6E /* CMUntypedObject.m */; };
 		7AFDFE4A158E965400388D6E /* CMActiveUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE49158E965400388D6E /* CMActiveUser.m */; };
 		7AFDFE4C158E9EB400388D6E /* CMActiveUserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE4B158E9EB400388D6E /* CMActiveUserSpec.m */; };
+		AAA05FB9183A756B009652C9 /* CMPaymentService.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA05FB3183A756B009652C9 /* CMPaymentService.m */; };
+		AAA05FBA183A756B009652C9 /* CMPaymentService.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB3183A756B009652C9 /* CMPaymentService.m */; };
+		AAA05FBB183A756B009652C9 /* CMPaymentService.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB4183A756B009652C9 /* CMPaymentService.h */; };
+		AAA05FBC183A756B009652C9 /* CMCardPayment.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB5183A756B009652C9 /* CMCardPayment.h */; };
+		AAA05FBD183A756B009652C9 /* CMPaymentResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB6183A756B009652C9 /* CMPaymentResponse.h */; };
+		AAA05FBE183A756B009652C9 /* CMCardPayment.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA05FB7183A756B009652C9 /* CMCardPayment.m */; };
+		AAA05FBF183A756B009652C9 /* CMCardPayment.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB7183A756B009652C9 /* CMCardPayment.m */; };
+		AAA05FC0183A756B009652C9 /* CMPaymentResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA05FB8183A756B009652C9 /* CMPaymentResponse.m */; };
+		AAA05FC1183A756B009652C9 /* CMPaymentResponse.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB8183A756B009652C9 /* CMPaymentResponse.m */; };
 		AAA850ED168271B600C18957 /* CMDeviceTokenResult.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA850EC168271B500C18957 /* CMDeviceTokenResult.h */; };
 		AAA92FF3181966370064F773 /* NSDictionary+CMJSON.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA92FF1181966370064F773 /* NSDictionary+CMJSON.h */; };
 		AAA92FF4181966370064F773 /* NSDictionary+CMJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA92FF2181966370064F773 /* NSDictionary+CMJSON.m */; };
@@ -196,6 +205,8 @@
 				AAA92FFF181972DA0064F773 /* CMTools.m in CopyFiles */,
 				7152175A1653F5C4007FB0A9 /* CMUIViewController+Modal.h in CopyFiles */,
 				7A3DCEEF15EECBB600AC4890 /* AFHTTPClient.h in CopyFiles */,
+				AAA05FC1183A756B009652C9 /* CMPaymentResponse.m in CopyFiles */,
+				AAA05FBB183A756B009652C9 /* CMPaymentService.h in CopyFiles */,
 				D03A4D5C15B48D2200A956BC /* CMACLFetchResponse.h in CopyFiles */,
 				7AF00BA215A8DC7C0070442A /* CMACL.h in CopyFiles */,
 				7AF00BA315A8DC7C0070442A /* CMUser.h in CopyFiles */,
@@ -220,6 +231,7 @@
 				65199ED3156A847A00267EC6 /* CMSnippetResult.h in CopyFiles */,
 				65199ED4156A847A00267EC6 /* CMStoreResponse.h in CopyFiles */,
 				7A87A3351563FF2700D788E2 /* CMSortDescriptor.h in CopyFiles */,
+				AAA05FBF183A756B009652C9 /* CMCardPayment.m in CopyFiles */,
 				7A934E78150E8CC200A2CAD6 /* CMObjectSerialization.h in CopyFiles */,
 				7A4A6FB91500474500B95D13 /* CMUserAccountResult.h in CopyFiles */,
 				7AE355D714F1B896006AF903 /* CMFileUploadResult.h in CopyFiles */,
@@ -235,9 +247,12 @@
 				7A87315514BB0AD0000D6DEA /* CMObjectEncoder.h in CopyFiles */,
 				7A87315614BB0AD0000D6DEA /* CMJSONEncoder.h in CopyFiles */,
 				7A87315714BB0AD0000D6DEA /* CMWebService.h in CopyFiles */,
+				AAA05FBA183A756B009652C9 /* CMPaymentService.m in CopyFiles */,
 				7A87315914BB0AD0000D6DEA /* CMAPICredentials.h in CopyFiles */,
 				7A87315A14BB0AD0000D6DEA /* CMServerFunction.h in CopyFiles */,
+				AAA05FBC183A756B009652C9 /* CMCardPayment.h in CopyFiles */,
 				7A87315B14BB0AD0000D6DEA /* CMSerializable.h in CopyFiles */,
+				AAA05FBD183A756B009652C9 /* CMPaymentResponse.h in CopyFiles */,
 				AAA850ED168271B600C18957 /* CMDeviceTokenResult.h in CopyFiles */,
 				AAC1D90916DD6CA6002A7DC0 /* CMViewChannelsResponse.h in CopyFiles */,
 				AAA92FF5181966370064F773 /* NSDictionary+CMJSON.m in CopyFiles */,
@@ -376,6 +391,12 @@
 		7AFDFE48158E965400388D6E /* CMActiveUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMActiveUser.h; sourceTree = "<group>"; };
 		7AFDFE49158E965400388D6E /* CMActiveUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMActiveUser.m; sourceTree = "<group>"; };
 		7AFDFE4B158E9EB400388D6E /* CMActiveUserSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMActiveUserSpec.m; sourceTree = "<group>"; };
+		AAA05FB3183A756B009652C9 /* CMPaymentService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPaymentService.m; sourceTree = "<group>"; };
+		AAA05FB4183A756B009652C9 /* CMPaymentService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPaymentService.h; sourceTree = "<group>"; };
+		AAA05FB5183A756B009652C9 /* CMCardPayment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMCardPayment.h; sourceTree = "<group>"; };
+		AAA05FB6183A756B009652C9 /* CMPaymentResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPaymentResponse.h; sourceTree = "<group>"; };
+		AAA05FB7183A756B009652C9 /* CMCardPayment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMCardPayment.m; sourceTree = "<group>"; };
+		AAA05FB8183A756B009652C9 /* CMPaymentResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPaymentResponse.m; sourceTree = "<group>"; };
 		AAA850EC168271B500C18957 /* CMDeviceTokenResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMDeviceTokenResult.h; sourceTree = "<group>"; };
 		AAA92FF1181966370064F773 /* NSDictionary+CMJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+CMJSON.h"; sourceTree = "<group>"; };
 		AAA92FF2181966370064F773 /* NSDictionary+CMJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+CMJSON.m"; sourceTree = "<group>"; };
@@ -697,6 +718,7 @@
 		7AD36F7B146C64F300DD4734 /* Web Services */ = {
 			isa = PBXGroup;
 			children = (
+				AAA05FB2183A7558009652C9 /* Payment */,
 				AAB2E0A8167B935C00D2C699 /* Push Notifications */,
 				71E886B3165161050060C217 /* Social Login */,
 				7AABA2FA14818DCA00FD52A0 /* Decoding */,
@@ -775,6 +797,19 @@
 				7AFDFE41158E959B00388D6E /* CMUntypedObject.m */,
 			);
 			path = "Persisted Objects";
+			sourceTree = "<group>";
+		};
+		AAA05FB2183A7558009652C9 /* Payment */ = {
+			isa = PBXGroup;
+			children = (
+				AAA05FB4183A756B009652C9 /* CMPaymentService.h */,
+				AAA05FB3183A756B009652C9 /* CMPaymentService.m */,
+				AAA05FB5183A756B009652C9 /* CMCardPayment.h */,
+				AAA05FB7183A756B009652C9 /* CMCardPayment.m */,
+				AAA05FB6183A756B009652C9 /* CMPaymentResponse.h */,
+				AAA05FB8183A756B009652C9 /* CMPaymentResponse.m */,
+			);
+			name = Payment;
 			sourceTree = "<group>";
 		};
 		AAA92FEB181965F80064F773 /* JSON */ = {
@@ -871,7 +906,7 @@
 		7AB4AB56145DC5D8006AEF67 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "CloudMine, LLC";
 			};
 			buildConfigurationList = 7AB4AB59145DC5D8006AEF67 /* Build configuration list for PBXProject "cloudmine-ios" */;
@@ -977,6 +1012,7 @@
 				7A7E31C914C88F8A0091F1E3 /* CMStore.m in Sources */,
 				7AD9221D14CF47360032DDDE /* CMPagingDescriptor.m in Sources */,
 				7AD9222414D06B9A0032DDDE /* CMStoreOptions.m in Sources */,
+				AAA05FC0183A756B009652C9 /* CMPaymentResponse.m in Sources */,
 				7AA79D7A14DC23C700F3CA3B /* MARTNSObject.m in Sources */,
 				7AA79D7C14DC23C700F3CA3B /* RTIvar.m in Sources */,
 				7AA79D7E14DC23C700F3CA3B /* RTMethod.m in Sources */,
@@ -1002,8 +1038,10 @@
 				7AFDFE46158E959B00388D6E /* CMObjectClassNameRegistry.m in Sources */,
 				7AFDFE47158E959B00388D6E /* CMUntypedObject.m in Sources */,
 				7A0D7CFC1581479000C7C476 /* CMNullStore.m in Sources */,
+				AAA05FBE183A756B009652C9 /* CMCardPayment.m in Sources */,
 				7AFDFE4A158E965400388D6E /* CMActiveUser.m in Sources */,
 				7AF00BA015A8DC650070442A /* CMACL.m in Sources */,
+				AAA05FB9183A756B009652C9 /* CMPaymentService.m in Sources */,
 				7AF00BA115A8DC650070442A /* CMUser.m in Sources */,
 				D042C2EB15AF41F100A88888 /* CMACLFetchResponse.m in Sources */,
 				AAA92FFE181972DA0064F773 /* CMTools.m in Sources */,
@@ -1090,9 +1128,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1107,9 +1146,12 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/**",
@@ -1117,6 +1159,7 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "";
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-all_load";
 				SDKROOT = iphoneos;
 				WARNING_CFLAGS = "-Wno-arc-performSelector-leaks";
@@ -1127,9 +1170,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1137,9 +1181,12 @@
 				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/ios/Vendor\"/**";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/**",
@@ -1157,7 +1204,6 @@
 		7AB4AB84145DC5D8006AEF67 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CURRENT_PROJECT_VERSION = 1.6.1;
 				DSTROOT = /tmp/ios.dst;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -1181,7 +1227,6 @@
 		7AB4AB85145DC5D8006AEF67 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CURRENT_PROJECT_VERSION = 1.6.1;
 				DSTROOT = /tmp/ios.dst;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
