@@ -25,6 +25,17 @@
     return self;
 }
 
+- (id)initWithResponseBody:(id)responseBody httpCode:(NSUInteger)code headers:(NSDictionary *)theHeaders errors:(NSDictionary *)theErrors {
+    
+    if ( (self = [super init]) ) {
+        self.body = responseBody;
+        self.httpResponseCode = code;
+        self.errors = @[theErrors];
+        self.headers = headers;
+    }
+    return self;
+}
+
 - (BOOL)wasSuccess {
     return 200 <= self.httpResponseCode && self.httpResponseCode < 300;
 }

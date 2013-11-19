@@ -55,6 +55,17 @@
 - (id)initWithResponseBody:(id)responseBody httpCode:(NSUInteger)code errors:(NSArray *)theErrors;
 
 /**
+ * Returns a new CMReponse object
+ *
+ * @param responseBody The Body of the HTTP response.
+ * @param code The HTTP response code.
+ * @param theHeaders The headers from the response.
+ * @param theErrors An Array of NSError objects.
+ * @return A CMResponse Object
+ */
+- (id)initWithResponseBody:(id)responseBody httpCode:(NSUInteger)code headers:(NSDictionary *)theHeaders errors:(NSDictionary *)theErrors;
+
+/**
  * Returns if the Response was successful or not, defined by the httpResponseCode being
  * in between 200 and 300.
  * @return A BOOL if it was successful or not.

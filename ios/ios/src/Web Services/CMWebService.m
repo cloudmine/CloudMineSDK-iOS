@@ -60,6 +60,17 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
 
 #pragma mark - Service initialization
 
++ (CMWebService *)sharedWebService {
+    static CMWebService *_sharedWebService;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _sharedWebService = [[CMWebService alloc] init];
+    });
+    
+    return _sharedWebService;
+}
+
 - (id)init {
     CMAPICredentials *credentials = [CMAPICredentials sharedInstance];
     NSAssert([credentials appSecret] && [credentials appIdentifier],
@@ -72,7 +83,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     NSParameterAssert(appIdentifier);
     
     if (!_validHTTPVerbs) {
-        _validHTTPVerbs = [NSSet setWithObjects:@"GET", @"POST", @"PUT", @"DELETE", nil];
+        _validHTTPVerbs = [NSSet setWithObjects:@"GET", @"POST", @"PUT", @"DELETE", @"PATCH", nil];
     }
     
     if ((self = [super initWithBaseURL:[NSURL URLWithString:CM_BASE_URL]])) {
@@ -1199,6 +1210,102 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     
 }
 
+- (void)executeGenericRequest:(NSURLRequest *)request successHandler:(CMWebServiceGenericRequestCallback)successHandler errorHandler:(CMWebServiceErorCallack)errorHandler {
+    
+        NSDate *startDate = [NSDate date];
+    
+        AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+                NSString *requestId = [[operation.response allHeaderFields] objectForKey:@"X-Request-Id"];
+                if (requestId) {
+                        int milliseconds = (int)([[NSDate date] timeIntervalSinceDate:startDate] * 1000.0f);
+                        [_responseTimes setObject:[NSNumber numberWithInt:milliseconds] forKey:requestId];
+                }
+
+            NSError *parseError;
+            NSDictionary *results = [NSJSONSerialization JSONObjectWithData:operation.responseData
+                                                                    options:0
+                                                                      error:&parseError];
+            
+            if ([[parseError domain] isEqualToString:NSCocoaErrorDomain]) {
+                NSError *error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidResponse userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The response received from the server was malformed and could not be parsed.", NSLocalizedDescriptionKey, parseError, JSONErrorKey, nil]];
+                NSLog(@"CloudMine *** Unexpected error occurred during object request. (%@)", [error localizedDescription]);
+                if (errorHandler != nil) {
+                    NSMutableDictionary *errorInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                                      @(operation.response.statusCode), @"httpCode",
+                                                      operation.responseData, @"responseData",
+                                                      operation.responseString, @"responseString",
+                                                      [operation.response allHeaderFields], @"responseHeaders",
+                                                      error, NSURLErrorKey,
+                                                      nil];
+                    
+                    void (^block)() = ^{ errorHandler(operation.responseData, operation.response.statusCode, operation.response.allHeaderFields, error, errorInfo); };
+                    [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
+                }
+                return;
+            }
+            
+            
+            if (successHandler != nil) {
+                void (^block)() = ^{ successHandler(results, operation.response.statusCode, operation.response.allHeaderFields); };
+                [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
+            }
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+            NSMutableDictionary *errorInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                              @(operation.response.statusCode), @"httpCode",
+                                              operation.responseData, @"responseData",
+                                              operation.responseString, @"responseString",
+                                              [operation.response allHeaderFields], @"responseHeaders",
+                                              error, NSURLErrorKey,
+                                              nil];
+            
+            if ([[error domain] isEqualToString:NSURLErrorDomain]) {
+                if ([error code] == NSURLErrorUserCancelledAuthentication) {
+                    [errorInfo setValue:@"The request was unauthorized. Is your API key correct? Did the receiving service require authentication?" forKey:NSLocalizedDescriptionKey];
+                    error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:errorInfo];
+                } else {
+                    [errorInfo setValue:@"A connection to the server was not able to be established." forKey:NSLocalizedDescriptionKey];
+                    error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerConnectionFailed userInfo:errorInfo];
+                }
+            }
+            
+            switch ([operation.response statusCode]) {
+                case 404:
+                    [errorInfo setValue:@"The application was not found. Is your application identifier correct? Or perhaps the page you were looking for in the query does not exist." forKey:NSLocalizedDescriptionKey];
+                    error = [NSError errorWithDomain:CMErrorDomain code:CMErrorNotFound userInfo:errorInfo];
+                    break;
+                    
+                case 401:
+                    [errorInfo setValue:@"The request was unauthorized. Is your API key correct? Did the receiving service require authentication?" forKey:NSLocalizedDescriptionKey];
+                    error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:errorInfo];
+                    break;
+                    
+                case 400:
+                    [errorInfo setValue:@"The request was malformed." forKey:NSLocalizedDescriptionKey];
+                    error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidRequest userInfo:errorInfo];
+                    break;
+                    
+                case 500:
+                    [errorInfo setValue:@"The server experienced an error." forKey:NSLocalizedDescriptionKey];
+                    error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerError userInfo:errorInfo];
+                    break;
+                    
+                default:
+                    // Another error message, pass back status code
+                    break;
+            }
+            
+            if (errorHandler != nil) {
+                void (^block)() = ^{ errorHandler(operation.responseData, operation.response.statusCode, operation.response.allHeaderFields, error, errorInfo); };
+                [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
+            }
+            
+        }];
+    [self enqueueHTTPRequestOperation:operation];
+}
+
 
 - (void)executeRequest:(NSURLRequest *)request
         successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
@@ -1642,7 +1749,8 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
                                                   URL:(NSURL *)url
                                             appSecret:(NSString *)appSecret
                                            binaryData:(BOOL)isForBinaryData
-                                                 user:(CMUser *)user {
+                                                 user:(CMUser *)user;
+{
     NSAssert([_validHTTPVerbs containsObject:verb], @"You must pass in a valid HTTP verb. Possible choices are: GET, POST, PUT, and DELETE");
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
@@ -1684,9 +1792,30 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
 #endif
     
     return [request copy];
+    
+    
+}
+
+- (NSMutableURLRequest *)constructHTTPRequestWithVerb:(NSString *)verb
+                                                  URL:(NSURL *)url
+                                           binaryData:(BOOL)isForBinaryData
+                                                 user:(CMUser *)user {
+    return [self constructHTTPRequestWithVerb:verb URL:url appSecret:_appSecret binaryData:isForBinaryData user:user];
+    
 }
 
 #pragma mark - General URL construction
+
+- (NSURL *)constructAppURLWithString:(NSString *)url andDescriptors:(NSArray *)descriptors {
+    NSURL *returnURL = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/%@", _appIdentifier, url]];
+    
+    for (id descriptor in descriptors) {
+        returnURL = [returnURL URLByAppendingAndEncodingQuery:[descriptor stringRepresentation]];
+    }
+    
+    return returnURL;
+}
+
 
 - (NSURL *)constructACLUrlWithKey:(NSString *)key query:(NSString *)query extraParameters:(NSDictionary *)params {
     NSAssert(key == nil || query == nil, @"When constructing CM URLs, 'key' and 'query' are mutually exclusive");

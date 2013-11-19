@@ -27,6 +27,11 @@
  */
 #define CM_BASE_URL @"https://api.cloudmine.me/v1"
 
+typedef void (^CMWebServiceGenericRequestCallback)(id parsedBody, NSUInteger httpCode, NSDictionary *headers);
+
+typedef void (^CMWebServiceErorCallack)(id responseBody, NSUInteger httpCode, NSDictionary *headers, NSError *error, NSDictionary *errorInfo );
+
+
 /**
  * Callback block signature for all operations on <tt>CMWebService</tt> that fetch objects
  * from the CloudMine servers. These blocks return <tt>void</tt> and take a dictionary of results,
@@ -94,6 +99,9 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
     NSString *_appSecret;
     NSString *_appIdentifier;
 }
+
++ (CMWebService *)sharedWebService;
+
 
 /**
  * Default initializer for the web service connector. You <strong>must</strong> have already configured the
@@ -664,6 +672,13 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
                             withUser:(CMUser *)user
                        successHandler:(CMWebServicesSocialQuerySuccessCallback)successHandler
                         errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
+
+
+- (void)executeGenericRequest:(NSURLRequest *)request successHandler:(CMWebServiceGenericRequestCallback)successHandler errorHandler:(CMWebServiceErorCallack)errorHandler;
+
+- (NSMutableURLRequest *)constructHTTPRequestWithVerb:(NSString *)verb URL:(NSURL *)url binaryData:(BOOL)isForBinaryData user:(CMUser *)user;
+
+- (NSURL *)constructAppURLWithString:(NSString *)url andDescriptors:(NSArray *)descriptors;
 
 
 @end
