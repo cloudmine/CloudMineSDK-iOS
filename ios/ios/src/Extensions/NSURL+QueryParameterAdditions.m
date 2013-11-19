@@ -41,13 +41,11 @@
 
 -(NSURL *)URLByAppendingAndEncodingQuery:(NSString *)query;
 {
-    
     if (![query length]) {
         return [self copy];
     }
     
     return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@", [self absoluteString], [self query] ? @"&" : @"?", [CMTools urlEncodeButLeaveQuery:query]]];
-    
 }
 
 
