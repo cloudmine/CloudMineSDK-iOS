@@ -30,7 +30,12 @@
     if ( (self = [super init]) ) {
         self.body = responseBody;
         self.httpResponseCode = code;
-        self.errors = @[theErrors];
+        if (theErrors) {
+            self.errors = @[theErrors];
+        } else {
+            self.errors = @[];
+        }
+
         self.headers = headers;
     }
     return self;
