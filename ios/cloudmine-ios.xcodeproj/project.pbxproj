@@ -142,25 +142,21 @@
 		7AFDFE47158E959B00388D6E /* CMUntypedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE41158E959B00388D6E /* CMUntypedObject.m */; };
 		7AFDFE4A158E965400388D6E /* CMActiveUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE49158E965400388D6E /* CMActiveUser.m */; };
 		7AFDFE4C158E9EB400388D6E /* CMActiveUserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE4B158E9EB400388D6E /* CMActiveUserSpec.m */; };
+		AA00CED21886E1C700F9958C /* UIImageView+CloudMine.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA00CED01886E1C700F9958C /* UIImageView+CloudMine.h */; };
+		AA00CED31886E1C700F9958C /* UIImageView+CloudMine.m in Sources */ = {isa = PBXBuildFile; fileRef = AA00CED11886E1C700F9958C /* UIImageView+CloudMine.m */; };
 		AAA05FB9183A756B009652C9 /* CMPaymentService.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA05FB3183A756B009652C9 /* CMPaymentService.m */; };
-		AAA05FBA183A756B009652C9 /* CMPaymentService.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB3183A756B009652C9 /* CMPaymentService.m */; };
 		AAA05FBB183A756B009652C9 /* CMPaymentService.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB4183A756B009652C9 /* CMPaymentService.h */; };
 		AAA05FBC183A756B009652C9 /* CMCardPayment.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB5183A756B009652C9 /* CMCardPayment.h */; };
 		AAA05FBD183A756B009652C9 /* CMPaymentResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB6183A756B009652C9 /* CMPaymentResponse.h */; };
 		AAA05FBE183A756B009652C9 /* CMCardPayment.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA05FB7183A756B009652C9 /* CMCardPayment.m */; };
-		AAA05FBF183A756B009652C9 /* CMCardPayment.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB7183A756B009652C9 /* CMCardPayment.m */; };
 		AAA05FC0183A756B009652C9 /* CMPaymentResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA05FB8183A756B009652C9 /* CMPaymentResponse.m */; };
-		AAA05FC1183A756B009652C9 /* CMPaymentResponse.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB8183A756B009652C9 /* CMPaymentResponse.m */; };
 		AAA850ED168271B600C18957 /* CMDeviceTokenResult.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA850EC168271B500C18957 /* CMDeviceTokenResult.h */; };
 		AAA92FF3181966370064F773 /* NSDictionary+CMJSON.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA92FF1181966370064F773 /* NSDictionary+CMJSON.h */; };
 		AAA92FF4181966370064F773 /* NSDictionary+CMJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA92FF2181966370064F773 /* NSDictionary+CMJSON.m */; };
-		AAA92FF5181966370064F773 /* NSDictionary+CMJSON.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA92FF2181966370064F773 /* NSDictionary+CMJSON.m */; };
 		AAA92FF8181967A20064F773 /* NSArray+CMJSON.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA92FF6181967A20064F773 /* NSArray+CMJSON.h */; };
 		AAA92FF9181967A20064F773 /* NSArray+CMJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA92FF7181967A20064F773 /* NSArray+CMJSON.m */; };
-		AAA92FFA181967A20064F773 /* NSArray+CMJSON.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA92FF7181967A20064F773 /* NSArray+CMJSON.m */; };
 		AAA92FFD181972DA0064F773 /* CMTools.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA92FFB181972DA0064F773 /* CMTools.h */; };
 		AAA92FFE181972DA0064F773 /* CMTools.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA92FFC181972DA0064F773 /* CMTools.m */; };
-		AAA92FFF181972DA0064F773 /* CMTools.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA92FFC181972DA0064F773 /* CMTools.m */; };
 		AAB2E0B0167B94CF00D2C699 /* CMAppDelegateBase.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB2E0AF167B94CF00D2C699 /* CMAppDelegateBase.m */; };
 		AAB2E0B4167BA05700D2C699 /* CMAppDelegateBase.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAB2E0AE167B94CF00D2C699 /* CMAppDelegateBase.h */; };
 		AAC1D8F116DD4BCC002A7DC0 /* CMChannelResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC1D8F016DD4BCC002A7DC0 /* CMChannelResponse.m */; };
@@ -202,10 +198,8 @@
 				AAC1D8FA16DD5B34002A7DC0 /* CMChannelResponse.h in CopyFiles */,
 				AAB2E0B4167BA05700D2C699 /* CMAppDelegateBase.h in CopyFiles */,
 				715217581653F5C4007FB0A9 /* CMSocialLoginViewController.h in CopyFiles */,
-				AAA92FFF181972DA0064F773 /* CMTools.m in CopyFiles */,
 				7152175A1653F5C4007FB0A9 /* CMUIViewController+Modal.h in CopyFiles */,
 				7A3DCEEF15EECBB600AC4890 /* AFHTTPClient.h in CopyFiles */,
-				AAA05FC1183A756B009652C9 /* CMPaymentResponse.m in CopyFiles */,
 				AAA05FBB183A756B009652C9 /* CMPaymentService.h in CopyFiles */,
 				D03A4D5C15B48D2200A956BC /* CMACLFetchResponse.h in CopyFiles */,
 				7AF00BA215A8DC7C0070442A /* CMACL.h in CopyFiles */,
@@ -231,7 +225,6 @@
 				65199ED3156A847A00267EC6 /* CMSnippetResult.h in CopyFiles */,
 				65199ED4156A847A00267EC6 /* CMStoreResponse.h in CopyFiles */,
 				7A87A3351563FF2700D788E2 /* CMSortDescriptor.h in CopyFiles */,
-				AAA05FBF183A756B009652C9 /* CMCardPayment.m in CopyFiles */,
 				7A934E78150E8CC200A2CAD6 /* CMObjectSerialization.h in CopyFiles */,
 				7A4A6FB91500474500B95D13 /* CMUserAccountResult.h in CopyFiles */,
 				7AE355D714F1B896006AF903 /* CMFileUploadResult.h in CopyFiles */,
@@ -247,17 +240,15 @@
 				7A87315514BB0AD0000D6DEA /* CMObjectEncoder.h in CopyFiles */,
 				7A87315614BB0AD0000D6DEA /* CMJSONEncoder.h in CopyFiles */,
 				7A87315714BB0AD0000D6DEA /* CMWebService.h in CopyFiles */,
-				AAA05FBA183A756B009652C9 /* CMPaymentService.m in CopyFiles */,
 				7A87315914BB0AD0000D6DEA /* CMAPICredentials.h in CopyFiles */,
 				7A87315A14BB0AD0000D6DEA /* CMServerFunction.h in CopyFiles */,
 				AAA05FBC183A756B009652C9 /* CMCardPayment.h in CopyFiles */,
 				7A87315B14BB0AD0000D6DEA /* CMSerializable.h in CopyFiles */,
 				AAA05FBD183A756B009652C9 /* CMPaymentResponse.h in CopyFiles */,
 				AAA850ED168271B600C18957 /* CMDeviceTokenResult.h in CopyFiles */,
+				AA00CED21886E1C700F9958C /* UIImageView+CloudMine.h in CopyFiles */,
 				AAC1D90916DD6CA6002A7DC0 /* CMViewChannelsResponse.h in CopyFiles */,
-				AAA92FF5181966370064F773 /* NSDictionary+CMJSON.m in CopyFiles */,
 				AAA92FF3181966370064F773 /* NSDictionary+CMJSON.h in CopyFiles */,
-				AAA92FFA181967A20064F773 /* NSArray+CMJSON.m in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,6 +382,8 @@
 		7AFDFE48158E965400388D6E /* CMActiveUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMActiveUser.h; sourceTree = "<group>"; };
 		7AFDFE49158E965400388D6E /* CMActiveUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMActiveUser.m; sourceTree = "<group>"; };
 		7AFDFE4B158E9EB400388D6E /* CMActiveUserSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMActiveUserSpec.m; sourceTree = "<group>"; };
+		AA00CED01886E1C700F9958C /* UIImageView+CloudMine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+CloudMine.h"; sourceTree = "<group>"; };
+		AA00CED11886E1C700F9958C /* UIImageView+CloudMine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+CloudMine.m"; sourceTree = "<group>"; };
 		AAA05FB3183A756B009652C9 /* CMPaymentService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPaymentService.m; sourceTree = "<group>"; };
 		AAA05FB4183A756B009652C9 /* CMPaymentService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPaymentService.h; sourceTree = "<group>"; };
 		AAA05FB5183A756B009652C9 /* CMCardPayment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMCardPayment.h; sourceTree = "<group>"; };
@@ -711,6 +704,7 @@
 				7AD36F8A146CB69000DD4734 /* Extensions */,
 				7AD36F7B146C64F300DD4734 /* Web Services */,
 				7A7E31C514C88F760091F1E3 /* Storage */,
+				AA00CECF1886E19700F9958C /* UIAdditions */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -797,6 +791,15 @@
 				7AFDFE41158E959B00388D6E /* CMUntypedObject.m */,
 			);
 			path = "Persisted Objects";
+			sourceTree = "<group>";
+		};
+		AA00CECF1886E19700F9958C /* UIAdditions */ = {
+			isa = PBXGroup;
+			children = (
+				AA00CED01886E1C700F9958C /* UIImageView+CloudMine.h */,
+				AA00CED11886E1C700F9958C /* UIImageView+CloudMine.m */,
+			);
+			name = UIAdditions;
 			sourceTree = "<group>";
 		};
 		AAA05FB2183A7558009652C9 /* Payment */ = {
@@ -1031,6 +1034,7 @@
 				65199EC9156A7D9500267EC6 /* CMStoreResponse.m in Sources */,
 				65199ECA156A7D9500267EC6 /* CMDistance.m in Sources */,
 				AAA92FF9181967A20064F773 /* NSArray+CMJSON.m in Sources */,
+				AA00CED31886E1C700F9958C /* UIImageView+CloudMine.m in Sources */,
 				7AFDFE42158E959B00388D6E /* CMDate.m in Sources */,
 				7AFDFE43158E959B00388D6E /* CMFile.m in Sources */,
 				7AFDFE44158E959B00388D6E /* CMGeoPoint.m in Sources */,
