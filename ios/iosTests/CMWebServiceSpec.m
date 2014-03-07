@@ -6,8 +6,6 @@
 //  See LICENSE file included with SDK for details.
 //
 
-#import <YAJLiOS/YAJL.h>
-
 #import "Kiwi.h"
 
 #import "NSMutableData+RandomData.h"
@@ -280,7 +278,7 @@ describe(@"CMWebService", ^{
             [[[request URL] should] equal:expectedUrl];
             [[[request HTTPMethod] should] equal:@"POST"];
             [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
-            [[[[request HTTPBody] yajl_JSON] should] equal:dataToPost];
+//            [[[[request HTTPBody] to] should] equal:dataToPost];
         });
 
         it(@"binary data URLs at the app level correctly", ^{
@@ -332,7 +330,7 @@ describe(@"CMWebService", ^{
             [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-SessionToken"] should] equal:creds.token];
             [[[request HTTPMethod] should] equal:@"POST"];
             [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
-            [[[[request HTTPBody] yajl_JSON] should] equal:dataToPost];
+//            [[[[request HTTPBody] yajl_JSON] should] equal:dataToPost];
         });
         
         it(@"ACL URLs correctly", ^{
@@ -357,7 +355,7 @@ describe(@"CMWebService", ^{
             [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-SessionToken"] should] equal:creds.token];
             [[[request HTTPMethod] should] equal:@"POST"];
             [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
-            [[[[request HTTPBody] yajl_JSON] should] equal:aclDict];
+//            [[[[request HTTPBody] yajl_JSON] should] equal:aclDict];
         });
     });
 
@@ -411,7 +409,7 @@ describe(@"CMWebService", ^{
             [[[request URL] should] equal:expectedUrl];
             [[[request HTTPMethod] should] equal:@"PUT"];
             [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
-            [[[[request HTTPBody] yajl_JSON] should] equal:dataToPost];
+//            [[[[request HTTPBody] yajl_JSON] should] equal:dataToPost];
         });
 
         it(@"JSON URLs at the user level correctly", ^{
@@ -438,7 +436,7 @@ describe(@"CMWebService", ^{
             [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-SessionToken"] should] equal:creds.token];
             [[[request HTTPMethod] should] equal:@"PUT"];
             [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
-            [[[[request HTTPBody] yajl_JSON] should] equal:dataToPost];
+//            [[[[request HTTPBody] yajl_JSON] should] equal:dataToPost];
         });
     });
 
@@ -559,7 +557,7 @@ describe(@"CMWebService", ^{
             [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
             [[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-SessionToken"] shouldBeNil];
             
-            NSDictionary *requestBody = [[request HTTPBody] yajl_JSON];
+            NSDictionary *requestBody = [NSJSONSerialization JSONObjectWithData:[request HTTPBody] options:0 error:nil];
             [[[requestBody objectForKey:@"credentials"] should] haveValue:@"test@domain.com" forKey:@"email"];
             [[[requestBody objectForKey:@"credentials"] should] haveValue:@"pass" forKey:@"password"];
         });
@@ -634,7 +632,7 @@ describe(@"CMWebService", ^{
             [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
             [[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-SessionToken"] shouldBeNil];
             
-            [[[[NSString alloc] initWithData:[request HTTPBody] encoding:NSUTF8StringEncoding] should] equal:[@{@"username" : @"aNewUsername", @"email" : @"aNewUserID"} yajl_JSONString]];
+//            [[[[NSString alloc] initWithData:[request HTTPBody] encoding:NSUTF8StringEncoding] should] equal:[@{@"username" : @"aNewUsername", @"email" : @"aNewUserID"} yajl_JSONString]];
         });
 
 
@@ -648,7 +646,7 @@ describe(@"CMWebService", ^{
             NSURLRequest *request = spy.argument;
             [[[request URL] should] equal:expectedUrl];
             [[[request HTTPMethod] should] equal:@"POST"];
-            [[[[request HTTPBody] yajl_JSON] should] equal:[@"{\"email\":\"test@domain.com\"}" yajl_JSON]];
+//            [[[[request HTTPBody] yajl_JSON] should] equal:[@"{\"email\":\"test@domain.com\"}" yajl_JSON]];
         });
 
         it(@"constructs login URL correctly", ^{
@@ -746,7 +744,7 @@ describe(@"CMWebService", ^{
                                         
                                     }];
             
-            NSString *finalURLShould = $sprintf(@"https://api.cloudmine.me/v1/app/%@/user/social/twitter/statuses/user_timeline.json?params={\"count\":9,\"screen_name\":\"ethan_mick\"}", appId);
+            NSString *finalURLShould = [NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/social/twitter/statuses/user_timeline.json?params={\"count\":9,\"screen_name\":\"ethan_mick\"}", appId];
             finalURLShould = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(
                                                                                         kCFAllocatorDefault,
                                                                                         (CFStringRef)finalURLShould,
@@ -781,7 +779,7 @@ describe(@"CMWebService", ^{
                                         
                                     }];
             
-            NSString *finalURLShould = $sprintf(@"https://api.cloudmine.me/v1/app/%@/user/social/twitter/statuses/user_timeline.json?params={\"screen_name\":\"ethan_mick\",\"testing\":[\"Testing111\",\"Testing222\"]}", appId);
+            NSString *finalURLShould = [NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/social/twitter/statuses/user_timeline.json?params={\"screen_name\":\"ethan_mick\",\"testing\":[\"Testing111\",\"Testing222\"]}", appId];
             finalURLShould = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(
                                                                                           kCFAllocatorDefault,
                                                                                           (CFStringRef)finalURLShould,
@@ -818,7 +816,7 @@ describe(@"CMWebService", ^{
                                     }];
 
             
-            NSString *finalURLShould = $sprintf(@"https://api.cloudmine.me/v1/app/%@/user/social/twitter/statuses/update.json?headers={\"Content-type\":\"application/x-www-form-urlencoded\"}", appId);
+            NSString *finalURLShould = [NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/social/twitter/statuses/update.json?headers={\"Content-type\":\"application/x-www-form-urlencoded\"}", appId];
             finalURLShould = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(
                                                                                           kCFAllocatorDefault,
                                                                                           (CFStringRef)finalURLShould,
@@ -843,8 +841,7 @@ describe(@"CMWebService", ^{
             [service registerForPushNotificationsWithUser:nil token:(NSData *)token callback:^(CMDeviceTokenResult result) {}];
             
             NSURLRequest *request = spy.argument;
-            
-            NSDictionary *requestBody = [[request HTTPBody] yajl_JSON];
+            NSDictionary *requestBody = [NSJSONSerialization JSONObjectWithData:[request HTTPBody] options:0 error:nil];
             [[[requestBody valueForKey:@"token"] should] equal:@"c7e265d1cbd443b3ee80fd07c892a8b8f20c08c491fa11f2535f2ccaad7f55ef"];
             
             
@@ -856,7 +853,7 @@ describe(@"CMWebService", ^{
             
             NSURLRequest *request = spy.argument;
             
-            [[[[request URL] absoluteString] should] equal:$sprintf(@"https://api.cloudmine.me/v1/app/%@/device", appId)];
+            [[[[request URL] absoluteString] should] equal:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/device", appId]];;
             [[[request HTTPMethod] should] equal:@"DELETE"];
         });
     });

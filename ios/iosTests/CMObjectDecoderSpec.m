@@ -6,7 +6,6 @@
 //  See LICENSE file included with SDK for details.
 //
 
-#import <YAJLiOS/YAJL.h>
 #import "Kiwi.h"
 
 #import "CMObjectEncoder.h"
@@ -73,7 +72,8 @@ describe(@"CMObjectDecoder", ^{
     });
 
     it(@"should NOT be able to deserialize a dictionary when it's at the top-level", ^{
-        NSDictionary *dictionary = [@"{ \"1234\": { \"__id__\": \"1234\", \"__class__\": \"map\", \"name\": \"foo\" } }" yajl_JSON];
+        
+        NSDictionary *dictionary = @{@"1234": @{@"__id__": @"1234", @"__class__" : @"map", @"name": @"foo"}};
         [[theBlock(^{
             [CMObjectDecoder decodeObjects:dictionary];
         }) should] raiseWithName:@"CMInternalInconsistencyException"];

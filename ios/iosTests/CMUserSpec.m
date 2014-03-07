@@ -7,7 +7,6 @@
 //
 
 #import "Kiwi.h"
-#import "SPLowVerbosity.h"
 
 #import "CMUser.h"
 #import "CMWebService.h"
@@ -119,8 +118,8 @@ describe(@"CMUser", ^{
                 }];
                 
                 CMWebServiceUserFetchSuccessCallback callback = callbackBlockSpy.argument;
-                NSDictionary *userState = [CMObjectEncoder encodeObjects:$set(user)];
-                callback(userState, [NSDictionary dictionary], $num(1));
+                NSDictionary *userState = [CMObjectEncoder encodeObjects:[NSSet setWithObject:user]];
+                callback(userState, [NSDictionary dictionary], @1);
                 
                 // Now let's do the same thing again, but this time it should read from the cache.
                 [[CMUser should] receive:@selector(userFromCacheWithIdentifier:) withArguments:user.objectId];
@@ -141,7 +140,7 @@ describe(@"CMUser", ^{
                 }];
                 
                 CMWebServiceUserAccountOperationCallback callback = callbackBlockSpy.argument;
-                NSDictionary *userState = [[CMObjectEncoder encodeObjects:$set(user)] objectForKey:user.objectId];
+                NSDictionary *userState = [[CMObjectEncoder encodeObjects:[NSSet setWithObject:user]] objectForKey:user.objectId];
                 callback(CMUserAccountProfileUpdateSucceeded, userState);
                 
                 // Object has just been saved, so it should not be dirty.
@@ -169,7 +168,9 @@ describe(@"CMUser", ^{
                 [user loginWithCallback:nil];
                 
                 // Make a mock response from the web server with changes we haven't seen yet.
-                NSMutableDictionary *userState = $mdict(@"session_token", @"5555", @"expires", @"Mon 01 Jun 2020 01:00:00 GMT", @"profile", $dict(@"name", @"Philip", @"age", $num(30)));
+                NSMutableDictionary *userState = [NSMutableDictionary dictionaryWithDictionary:@{@"session_token": @"5555",
+                                                                                                 @"expires": @"Mon 01 Jun 2020 01:00:00 GMT",
+                                                                                                 @"profile": @{@"name": @"Philip", @"age": @30}}];
                 
                 CMWebServiceUserAccountOperationCallback callback = callbackBlockSpy.argument;
                 callback(CMUserAccountLoginSucceeded, userState);
@@ -197,7 +198,9 @@ describe(@"CMUser", ^{
                 [user loginWithCallback:nil];
                 
                 // Make a mock response from the web server with changes we haven't seen yet.
-                NSMutableDictionary *userState = $mdict(@"session_token", @"5555", @"expires", @"Mon 01 Jun 2020 01:00:00 GMT", @"profile", $dict(@"name", @"Philip", @"age", $num(30)));
+                NSMutableDictionary *userState = [NSMutableDictionary dictionaryWithDictionary:@{@"session_token": @"5555",
+                                                                                                 @"expires": @"Mon 01 Jun 2020 01:00:00 GMT",
+                                                                                                 @"profile": @{@"name": @"Philip", @"age": @30}}];
                 
                 CMWebServiceUserAccountOperationCallback callback = callbackBlockSpy.argument;
                 callback(CMUserAccountLoginSucceeded, userState);
@@ -242,7 +245,7 @@ describe(@"CMUser", ^{
                 user.name = nil;
                 user.age = 0;
         
-                NSDictionary *serializedUser = [CMObjectEncoder encodeObjects:$set(user)];
+                NSDictionary *serializedUser = [CMObjectEncoder encodeObjects:[NSSet setWithObject:user]];
                 NSDictionary *theUser = [serializedUser objectForKey:user.objectId];
                 
                 [[[theUser valueForKey:@"name"] should] beIdenticalTo:[NSNull null]];
@@ -258,7 +261,7 @@ describe(@"CMUser", ^{
                 [user setValue:@"1234" forKey:@"objectId"];
                 user.name = NULL;
                 
-                NSDictionary *serializedUser = [CMObjectEncoder encodeObjects:$set(user)];
+                NSDictionary *serializedUser = [CMObjectEncoder encodeObjects:[NSSet setWithObject:user]];
                 NSDictionary *theUser = [serializedUser objectForKey:user.objectId];
                 NSLog(@"Result: %@", serializedUser);
                 

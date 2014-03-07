@@ -49,7 +49,6 @@
 		7A0413D4146C5B5C00EF537A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D3146C5B5C00EF537A /* SystemConfiguration.framework */; };
 		7A0413D6146C5B6900EF537A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D5146C5B6900EF537A /* MobileCoreServices.framework */; };
 		7A0413D8146C5B7000EF537A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D7146C5B7000EF537A /* CoreGraphics.framework */; };
-		7A0413DA146C5B7400EF537A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D9146C5B7400EF537A /* libz.dylib */; };
 		7A04E86C147D8435006E00AB /* CMServerFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A04E86A147D8435006E00AB /* CMServerFunction.m */; };
 		7A04E86F147D90F5006E00AB /* CMServerFunctionSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A04E86E147D90F5006E00AB /* CMServerFunctionSpec.m */; };
 		7A0D7CD41581097200C7C476 /* CMObjectSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0D7CD31581097200C7C476 /* CMObjectSpec.m */; };
@@ -73,7 +72,6 @@
 		7A308A3B14798F1D008ADD3C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D1146C5B5200EF537A /* CFNetwork.framework */; };
 		7A308A3C14798F29008ADD3C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D9146C5B7400EF537A /* libz.dylib */; };
 		7A308A4414799134008ADD3C /* CMWebServiceSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A308A4314799134008ADD3C /* CMWebServiceSpec.m */; };
-		7A308A4C14799471008ADD3C /* libKiwi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A308A4B14799471008ADD3C /* libKiwi.a */; };
 		7A4A6FB91500474500B95D13 /* CMUserAccountResult.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7A4A6F2B14FFF3CF00B95D13 /* CMUserAccountResult.h */; };
 		7A58CC2214F1B544003E864B /* CMMimeType.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A58CC2014F1B544003E864B /* CMMimeType.m */; };
 		7A58CC2314F1B54E003E864B /* CMMimeType.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7A58CC1F14F1B544003E864B /* CMMimeType.h */; };
@@ -169,6 +167,8 @@
 		D039C16A15BEEB44005CCD33 /* CMACLFetchResponseSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D039C16915BEEB44005CCD33 /* CMACLFetchResponseSpec.m */; };
 		D03A4D5C15B48D2200A956BC /* CMACLFetchResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D042C2E915AF41F100A88888 /* CMACLFetchResponse.h */; };
 		D042C2EB15AF41F100A88888 /* CMACLFetchResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = D042C2EA15AF41F100A88888 /* CMACLFetchResponse.m */; };
+		D603907A9479491EA91CF59B /* libPods-cloudmine-iosTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E89859B8B6B3450D8754B649 /* libPods-cloudmine-iosTests.a */; };
+		EF5570352ED84A85873D86DB /* libPods-cloudmine-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 10E9C54988A94B3FAD882A84 /* libPods-cloudmine-ios.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -248,6 +248,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0FD1BF4A50414FD8B55246BB /* Pods-cloudmine-ios.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cloudmine-ios.xcconfig"; path = "../Pods/Pods-cloudmine-ios.xcconfig"; sourceTree = "<group>"; };
+		10E9C54988A94B3FAD882A84 /* libPods-cloudmine-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-cloudmine-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		65199EAF156A7D9500267EC6 /* CMDeleteResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMDeleteResponse.h; path = Response/CMDeleteResponse.h; sourceTree = "<group>"; };
 		65199EB0156A7D9500267EC6 /* CMDeleteResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMDeleteResponse.m; path = Response/CMDeleteResponse.m; sourceTree = "<group>"; };
 		65199EB1156A7D9500267EC6 /* CMFileFetchResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMFileFetchResponse.h; path = Response/CMFileFetchResponse.h; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 		65199EBE156A7D9500267EC6 /* CMStoreResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMStoreResponse.m; path = Response/CMStoreResponse.m; sourceTree = "<group>"; };
 		65199EC0156A7D9500267EC6 /* CMDistance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMDistance.h; sourceTree = "<group>"; };
 		65199EC1156A7D9500267EC6 /* CMDistance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMDistance.m; sourceTree = "<group>"; };
+		6AE298297FB5425097E1D0EA /* Pods-cloudmine-iosTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cloudmine-iosTests.xcconfig"; path = "../Pods/Pods-cloudmine-iosTests.xcconfig"; sourceTree = "<group>"; };
 		71E886B516516C3D0060C217 /* CMSocialLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMSocialLoginViewController.h; sourceTree = "<group>"; };
 		71E886B616516C3D0060C217 /* CMSocialLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMSocialLoginViewController.m; sourceTree = "<group>"; };
 		71E886B816516F0F0060C217 /* CMUIViewController+Modal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CMUIViewController+Modal.h"; sourceTree = "<group>"; };
@@ -404,6 +407,7 @@
 		D039C16915BEEB44005CCD33 /* CMACLFetchResponseSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMACLFetchResponseSpec.m; sourceTree = "<group>"; };
 		D042C2E915AF41F100A88888 /* CMACLFetchResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMACLFetchResponse.h; sourceTree = "<group>"; };
 		D042C2EA15AF41F100A88888 /* CMACLFetchResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMACLFetchResponse.m; sourceTree = "<group>"; };
+		E89859B8B6B3450D8754B649 /* libPods-cloudmine-iosTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-cloudmine-iosTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -412,13 +416,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A91E8D914E6EF85008B7941 /* CoreLocation.framework in Frameworks */,
-				7A0413DA146C5B7400EF537A /* libz.dylib in Frameworks */,
 				7AD36F81146C656600DD4734 /* UIKit.framework in Frameworks */,
 				7A0413D8146C5B7000EF537A /* CoreGraphics.framework in Frameworks */,
 				7A0413D6146C5B6900EF537A /* MobileCoreServices.framework in Frameworks */,
 				7A0413D4146C5B5C00EF537A /* SystemConfiguration.framework in Frameworks */,
 				7A0413D2146C5B5200EF537A /* CFNetwork.framework in Frameworks */,
 				7AB4AB63145DC5D8006AEF67 /* Foundation.framework in Frameworks */,
+				EF5570352ED84A85873D86DB /* libPods-cloudmine-ios.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -426,7 +430,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A308A4C14799471008ADD3C /* libKiwi.a in Frameworks */,
 				7A308A3C14798F29008ADD3C /* libz.dylib in Frameworks */,
 				7A308A3B14798F1D008ADD3C /* CFNetwork.framework in Frameworks */,
 				7A308A3A14798F19008ADD3C /* CoreGraphics.framework in Frameworks */,
@@ -436,6 +439,7 @@
 				7AB4AB71145DC5D8006AEF67 /* SenTestingKit.framework in Frameworks */,
 				7AB4AB74145DC5D8006AEF67 /* Foundation.framework in Frameworks */,
 				7AB4AB77145DC5D8006AEF67 /* libcloudmine.a in Frameworks */,
+				D603907A9479491EA91CF59B /* libPods-cloudmine-iosTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -499,7 +503,6 @@
 			children = (
 				D01DBF581590D36D003CB5BE /* NSData+Base64.h */,
 				D01DBF591590D36D003CB5BE /* NSData+Base64.m */,
-				D088F59A15E3FDF1005062BD /* AFNetworking */,
 				7AA79D6914DC23C700F3CA3B /* MAObjCRuntime */,
 			);
 			path = Vendor;
@@ -583,6 +586,8 @@
 				7AB4AB78145DC5D8006AEF67 /* iosTests */,
 				7AB4AB61145DC5D8006AEF67 /* Frameworks */,
 				7AB4AB60145DC5D8006AEF67 /* Products */,
+				0FD1BF4A50414FD8B55246BB /* Pods-cloudmine-ios.xcconfig */,
+				6AE298297FB5425097E1D0EA /* Pods-cloudmine-iosTests.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -609,6 +614,8 @@
 				7AB4AB62145DC5D8006AEF67 /* Foundation.framework */,
 				7AB4AB70145DC5D8006AEF67 /* SenTestingKit.framework */,
 				7A0A2F0714BB039800F9D024 /* CoreFoundation.framework */,
+				10E9C54988A94B3FAD882A84 /* libPods-cloudmine-ios.a */,
+				E89859B8B6B3450D8754B649 /* libPods-cloudmine-iosTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -807,14 +814,6 @@
 			name = "Push Notifications";
 			sourceTree = "<group>";
 		};
-		D088F59A15E3FDF1005062BD /* AFNetworking */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = AFNetworking;
-			path = AFNetworking/AFNetworking;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -822,9 +821,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7AB4AB83145DC5D8006AEF67 /* Build configuration list for PBXNativeTarget "cloudmine-ios" */;
 			buildPhases = (
+				39173848ACD743EFAB994158 /* Check Pods Manifest.lock */,
 				7AB4AB5B145DC5D8006AEF67 /* Sources */,
 				7AB4AB5C145DC5D8006AEF67 /* Frameworks */,
 				AA18E35516DBC683000BC23E /* ShellScript */,
+				8C31EF5B445C4144A496AB8A /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -839,10 +840,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7AB4AB86145DC5D8006AEF67 /* Build configuration list for PBXNativeTarget "cloudmine-iosTests" */;
 			buildPhases = (
+				B69C6AAB646B4A35B1E18DD4 /* Check Pods Manifest.lock */,
 				7AB4AB6A145DC5D8006AEF67 /* Sources */,
 				7AB4AB6B145DC5D8006AEF67 /* Frameworks */,
 				7AB4AB6C145DC5D8006AEF67 /* Resources */,
 				7AB4AB6D145DC5D8006AEF67 /* ShellScript */,
+				BAA7BC150F1A4FDD944A2FD4 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -894,6 +897,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		39173848ACD743EFAB994158 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		7A87314F14BB0A0A000D6DEA /* Build Static Libs */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -935,6 +953,21 @@
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
+		8C31EF5B445C4144A496AB8A /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Pods-cloudmine-ios-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		AA18E35516DBC683000BC23E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -947,6 +980,36 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "#/usr/local/bin/doxygen ios/Doxyfile\n#make -C $SOURCE_ROOT/docs/html install\n\n#rm -f $TEMP_DIR/loadDocSet.scpt\n\n#echo \"tell application \\\"Xcode\\\"\" >> $TEMP_DIR/loadDocSet.scpt\n#echo \"load documentation set with path \\\"/Users/$USER/Library/Developer/Shared/Documentation/DocSets/\\\"\"\n#>> $TEMP_DIR/loadDocSet.scpt\n#echo \"end tell\" >> $TEMP_DIR/loadDocSet.scpt\n\n#  Run the load-docset applescript command.\n#osascript $TEMP_DIR/loadDocSet.scpt";
+		};
+		B69C6AAB646B4A35B1E18DD4 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		BAA7BC150F1A4FDD944A2FD4 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Pods-cloudmine-iosTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1153,6 +1216,7 @@
 		};
 		7AB4AB84145DC5D8006AEF67 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0FD1BF4A50414FD8B55246BB /* Pods-cloudmine-ios.xcconfig */;
 			buildSettings = {
 				CURRENT_PROJECT_VERSION = 1.6.1;
 				DSTROOT = /tmp/ios.dst;
@@ -1176,6 +1240,7 @@
 		};
 		7AB4AB85145DC5D8006AEF67 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0FD1BF4A50414FD8B55246BB /* Pods-cloudmine-ios.xcconfig */;
 			buildSettings = {
 				CURRENT_PROJECT_VERSION = 1.6.1;
 				DSTROOT = /tmp/ios.dst;
@@ -1198,50 +1263,38 @@
 		};
 		7AB4AB87145DC5D8006AEF67 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6AE298297FB5425097E1D0EA /* Pods-cloudmine-iosTests.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-					"\"$(SRCROOT)/ios/Vendor/YAJL\"",
-					"\"$(SRCROOT)/ios/Vendor/SinglySDK\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ios/cloudmine-ios-Prefix.pch";
 				INFOPLIST_FILE = "iosTests/cloudmine-iosTests-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/kiwi/build/Debug-iphonesimulator",
-					"\"$(SRCROOT)/ios/Vendor/YAJL/YAJLiOS.framework/Versions/A\"",
-					"\"$(SRCROOT)/ios/Vendor/SinglySDK\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "cloudmine-iosTests";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/kiwi/Kiwi";
+				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
 		7AB4AB88145DC5D8006AEF67 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6AE298297FB5425097E1D0EA /* Pods-cloudmine-iosTests.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-					"\"$(SRCROOT)/ios/Vendor/YAJL\"",
-					"\"$(SRCROOT)/ios/Vendor/SinglySDK\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ios/cloudmine-ios-Prefix.pch";
 				INFOPLIST_FILE = "iosTests/cloudmine-iosTests-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/kiwi/build/Debug-iphonesimulator",
-					"\"$(SRCROOT)/ios/Vendor/YAJL/YAJLiOS.framework/Versions/A\"",
-					"\"$(SRCROOT)/ios/Vendor/SinglySDK\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "cloudmine-iosTests";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/kiwi/Kiwi";
+				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
