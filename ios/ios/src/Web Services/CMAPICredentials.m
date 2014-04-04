@@ -8,10 +8,13 @@
 
 #import "CMAPICredentials.h"
 
+#define CM_BASE_URL @"https://api.cloudmine.me/v1"
+
 @implementation CMAPICredentials
 @synthesize apiKey = _apiKey, appIdentifier = _appIdentifier;
 
-+ (id)sharedInstance {
++ (id)sharedInstance;
+{
     __strong static id _sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -20,18 +23,35 @@
     return _sharedInstance;
 }
 
-- (void)setAppIdentifier:(NSString *)appId andApiKey:(NSString *)apiKey {
+- (void)setAppIdentifier:(NSString *)appId andApiKey:(NSString *)apiKey;
+{
+    [self setAppIdentifier:appId apiKey:apiKey andBaseURL:nil];
+}
+
+- (void)setAppIdentifier:(NSString *)appId apiKey:(NSString *)apiKey andBaseURL:(NSString *)baseURL;
+{
     self.appIdentifier = appId;
     self.apiKey = apiKey;
+    self.baseURL = baseURL;
+}
+
+- (NSString *)baseURL;
+{
+    if (!_baseURL) {
+        return CM_BASE_URL;
+    }
+    return _baseURL;
 }
 
 #pragma mark - Backwards compatibility
 
-- (NSString *)appSecret {
+- (NSString *)appSecret;
+{
     return self.apiKey;
 }
 
-- (void)setAppSecret:(NSString *)appSecret {
+- (void)setAppSecret:(NSString *)appSecret;
+{
     self.apiKey = appSecret;
 }
 

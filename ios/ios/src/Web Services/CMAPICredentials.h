@@ -26,21 +26,33 @@
 - (void)setAppIdentifier:(NSString *)appId andApiKey:(NSString *)apiKey;
 
 /**
+ * Convenience method to set both the App ID, API Key, and baseURL simultaneously.
+ */
+- (void)setAppIdentifier:(NSString *)appId apiKey:(NSString *)apiKey andBaseURL:(NSString *)baseURL;
+
+
+/**
  * The API Key from your CloudMine dashboard.
  * @see https://cloudmine.me/dashboard
  */
-@property (strong) NSString *apiKey;
+@property (nonatomic, copy) NSString *apiKey;
 
 /**
  * @deprecated
  * @see apiKey
  */
-@property (strong) NSString *appSecret;
+@property (nonatomic, copy) NSString *appSecret;
 
 /**
  * The App Identifier from your CloudMine dashboard.
  * @see https://cloudmine.me/dashboard
  */
-@property (strong) NSString *appIdentifier;
+@property (nonatomic, copy) NSString *appIdentifier;
+
+/**
+ * The Base URL you want to use. This will default to the CloudMine main base URL,
+ * but if you are using a different stack you can set this to be your stack.
+ */
+@property (nonatomic, copy) NSString *baseURL;
 
 @end
