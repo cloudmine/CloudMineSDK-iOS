@@ -71,22 +71,31 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     return _sharedWebService;
 }
 
-- (id)init {
+- (id)init;
+{
     CMAPICredentials *credentials = [CMAPICredentials sharedInstance];
     NSAssert([credentials appSecret] && [credentials appIdentifier],
              @"You must configure CMAPICredentials before using this method. If you don't want to use CMAPICredentials, you must call [CMWebService initWithAppSecret:appIdentifier:] instead of this method.");
     return [self initWithAppSecret:[credentials appSecret] appIdentifier:[credentials appIdentifier]];
 }
 
-- (id)initWithAppSecret:(NSString *)appSecret appIdentifier:(NSString *)appIdentifier {
+- (id)initWithAppSecret:(NSString *)appSecret appIdentifier:(NSString *)appIdentifier;
+{
+    CMAPICredentials *credentials = [CMAPICredentials sharedInstance];
+    return [self initWithAppSecret:appSecret appIdentifier:appIdentifier baseURL:credentials.baseURL];
+}
+
+- (id)initWithAppSecret:(NSString *)appSecret appIdentifier:(NSString *)appIdentifier baseURL:(NSString *)baseURL;
+{
     NSParameterAssert(appSecret);
     NSParameterAssert(appIdentifier);
+    NSParameterAssert(baseURL);
     
     if (!_validHTTPVerbs) {
         _validHTTPVerbs = [NSSet setWithObjects:@"GET", @"POST", @"PUT", @"DELETE", @"PATCH", nil];
     }
     
-    if ((self = [super initWithBaseURL:[NSURL URLWithString:CM_BASE_URL]])) {
+    if ((self = [super initWithBaseURL:[NSURL URLWithString:baseURL]])) {
         self.apiUrl = CM_BASE_URL;
         
         _appSecret = appSecret;
