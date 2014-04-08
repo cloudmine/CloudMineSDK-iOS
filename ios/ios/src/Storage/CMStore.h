@@ -113,6 +113,15 @@ extern NSString * const CMStoreObjectDeletedNotification;
 
 /**
  * Convenience method to return a newly initialized CMStore instance.
+ * Note that, like when using <tt>init</tt>, you must have already initialized the
+ * <tt>CMAPICredentials</tt> singleton with your app identifier and secret key.
+ *
+ * @see CMAPICredentials
+ */
++ (CMStore *)storeWithBaseURL:(NSString *)url;
+
+/**
+ * Convenience method to return a newly initialized CMStore instance.
  * Note that, like when using <tt>initWithUser:</tt>, you must have already initialized the
  * <tt>CMAPICredentials</tt> singleton with your app identifier and secret key.
  *
@@ -124,14 +133,40 @@ extern NSString * const CMStoreObjectDeletedNotification;
 + (CMStore *)storeWithUser:(CMUser *)theUser;
 
 /**
- * Default constructor. Note that you must have already initialized the
+ * Convenience method to return a newly initialized CMStore instance.
+ * Note that, like when using <tt>initWithUser:</tt>, you must have already initialized the
+ * <tt>CMAPICredentials</tt> singleton with your app identifier and secret key.
+ *
+ * @param theUser The user to configure the store with.
+ * @param baseURL The base URL you want this instance to point to.
+ *
+ * @see CMAPICredentials
+ * @see CMUser
+ */
++ (CMStore *)storeWithUser:(CMUser *)theUser baseURL:(NSString *)url;
+
+/**
+ * Note that you must have already initialized the
  * <tt>CMAPICredentials</tt> singleton with your app identifier and secret key.
  * Using this method will not tie this store to any particular user, and all objects
- * you retrieve and upload will be app-level.
+ * you retrieve and upload will be app-level. This will default to the CloudMine base URL
+ * by default.
  *
  * @see CMAPICredentials
  */
 - (id)init;
+
+/**
+ * Note that you must have already initialized the
+ * <tt>CMAPICredentials</tt> singleton with your app identifier and secret key.
+ * Using this method will not tie this store to any particular user, and all objects
+ * you retrieve and upload will be app-level.
+ *
+ * @param url The base URL you want this CMStore to interact with. This defaults to the CloudMine
+ * base URL by default.
+ * @see CMAPICredentials
+ */
+- (id)initWithBaseURL:(NSString *)url;
 
 /**
  * Constructor that configures this store with a user.
@@ -144,6 +179,20 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * @see CMUser
  */
 - (id)initWithUser:(CMUser *)theUser;
+
+/**
+ * Constructor that configures this store with a user.
+ * Note that you must have already initialized the <tt>CMAPICredentials</tt> singleton
+ * with your app identifier and secret key.
+ *
+ * @param theUser The user to configure the store with.
+ * @param url The base URL you want this CMStore to interact with. This defaults to the CloudMine
+ * base URL by default.
+ *
+ * @see CMAPICredentials
+ * @see CMUser
+ */
+- (id)initWithUser:(CMUser *)theUser baseURL:(NSString *)url;
 
 /**
  * Registers your application for push notifications. This method will contact Apple, request a token, handle the token

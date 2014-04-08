@@ -86,27 +86,47 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     return [[CMStore alloc] init];
 }
 
++ (CMStore *)storeWithBaseURL:(NSString *)url;
+{
+    return [[CMStore alloc] initWithBaseURL:url];
+}
+
 + (CMStore *)storeWithUser:(CMUser *)theUser {
     return [[CMStore alloc] initWithUser:theUser];
+}
+
++ (CMStore *)storeWithUser:(CMUser *)theUser baseURL:(NSString *)url;
+{
+    return [[CMStore alloc] initWithUser:theUser baseURL:url];
 }
 
 - (id)init {
     return [self initWithUser:nil];
 }
 
-- (id)initWithUser:(CMUser *)theUser {
-    if (self = [super init]) {
-        self.webService = [[CMWebService alloc] init];
-        self.user = theUser;
+- (id)initWithBaseURL:(NSString *)url;
+{
+    return [self initWithUser:nil baseURL:url];
+}
 
+- (id)initWithUser:(CMUser *)theUser {
+    return [self initWithUser:theUser baseURL:nil];
+}
+
+- (id)initWithUser:(CMUser *)theUser baseURL:(NSString *)url;
+{
+    if (self = [super init]) {
+        self.webService = [[CMWebService alloc] initWithBaseURL:[NSURL URLWithString:url]];
+        self.user = theUser;
+        
         NSDateFormatter *df = [[NSDateFormatter alloc] init];
         [df setLenient:YES];
         df.dateFormat = @"EEE',' dd MMM yyyy HH':'mm':'ss 'GMT'";
         NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
         [df setLocale:usLocale];
-
+        
         self.dateFormatter = df;
-
+        
         lastError = nil;
         _cachedAppObjects = [[NSMutableDictionary alloc] init];
         _cachedACLs = theUser ? [[NSMutableDictionary alloc] init] : nil;

@@ -113,6 +113,16 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
 - (id)init;
 
 /**
+ * Default initializer for the web service connector. You <strong>must</strong> have already configured the
+ * <tt>CMUserCredentials</tt> singleton or an exception will be thrown.
+ * The baseURL will be to CloudMine, or whatever is last configured in CMAPICredentials.
+ *
+ * @param url The base URL you want to point this web service to. Defaults to CloudMine.
+ * @throws NSInternalInconsistencyException <tt>CMUserCredentials</tt> has not been configured.
+ */
+- (id)initWithBaseURL:(NSURL *)url;
+
+/**
  * Initializes an instance of a web service connector with the given API key and secret app key. The baseURL for
  * this WebService will be to CloudMine, or whatever is last configured in CMAPICredentials.
  * 
@@ -127,9 +137,9 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  *
  * @param appSecret The App Secret for your application
  * @param appIdentifier The App ID for your application
- * @param baseURL The Base URL you want this Web Service to point to.
+ * @param url The Base URL you want this Web Service to point to.
  */
-- (id)initWithAppSecret:(NSString *)appSecret appIdentifier:(NSString *)appIdentifier baseURL:(NSString *)baseURL;
+- (id)initWithAppSecret:(NSString *)appSecret appIdentifier:(NSString *)appIdentifier baseURL:(NSURL *)url;
 
 /**
  * Asynchronously retrieve all ACLs associated with the named user. On completion, the <tt>successHandler</tt> block
