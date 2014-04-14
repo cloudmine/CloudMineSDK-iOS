@@ -42,9 +42,7 @@
 		65199ED4156A847A00267EC6 /* CMStoreResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65199EBD156A7D9500267EC6 /* CMStoreResponse.h */; };
 		65199ED5156A84D600267EC6 /* CMDistance.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65199EC0156A7D9500267EC6 /* CMDistance.h */; };
 		715217581653F5C4007FB0A9 /* CMSocialLoginViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 71E886B516516C3D0060C217 /* CMSocialLoginViewController.h */; };
-		7152175A1653F5C4007FB0A9 /* CMUIViewController+Modal.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 71E886B816516F0F0060C217 /* CMUIViewController+Modal.h */; };
 		71E886B716516C3D0060C217 /* CMSocialLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71E886B616516C3D0060C217 /* CMSocialLoginViewController.m */; };
-		71E886BA16516F0F0060C217 /* CMUIViewController+Modal.m in Sources */ = {isa = PBXBuildFile; fileRef = 71E886B916516F0F0060C217 /* CMUIViewController+Modal.m */; };
 		7A0413D2146C5B5200EF537A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D1146C5B5200EF537A /* CFNetwork.framework */; };
 		7A0413D4146C5B5C00EF537A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D3146C5B5C00EF537A /* SystemConfiguration.framework */; };
 		7A0413D6146C5B6900EF537A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0413D5146C5B6900EF537A /* MobileCoreServices.framework */; };
@@ -192,7 +190,6 @@
 				AAC1D8FA16DD5B34002A7DC0 /* CMChannelResponse.h in CopyFiles */,
 				AAB2E0B4167BA05700D2C699 /* CMAppDelegateBase.h in CopyFiles */,
 				715217581653F5C4007FB0A9 /* CMSocialLoginViewController.h in CopyFiles */,
-				7152175A1653F5C4007FB0A9 /* CMUIViewController+Modal.h in CopyFiles */,
 				AAA05FBB183A756B009652C9 /* CMPaymentService.h in CopyFiles */,
 				D03A4D5C15B48D2200A956BC /* CMACLFetchResponse.h in CopyFiles */,
 				7AF00BA215A8DC7C0070442A /* CMACL.h in CopyFiles */,
@@ -271,8 +268,6 @@
 		6AE298297FB5425097E1D0EA /* Pods-cloudmine-iosTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cloudmine-iosTests.xcconfig"; path = "../Pods/Pods-cloudmine-iosTests.xcconfig"; sourceTree = "<group>"; };
 		71E886B516516C3D0060C217 /* CMSocialLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMSocialLoginViewController.h; sourceTree = "<group>"; };
 		71E886B616516C3D0060C217 /* CMSocialLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMSocialLoginViewController.m; sourceTree = "<group>"; };
-		71E886B816516F0F0060C217 /* CMUIViewController+Modal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CMUIViewController+Modal.h"; sourceTree = "<group>"; };
-		71E886B916516F0F0060C217 /* CMUIViewController+Modal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CMUIViewController+Modal.m"; sourceTree = "<group>"; };
 		7A0413D1146C5B5200EF537A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		7A0413D3146C5B5C00EF537A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		7A0413D5146C5B6900EF537A /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -322,7 +317,7 @@
 		7AA79D7514DC23C700F3CA3B /* RTProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTProtocol.m; sourceTree = "<group>"; };
 		7AA79D7614DC23C700F3CA3B /* RTUnregisteredClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTUnregisteredClass.h; sourceTree = "<group>"; };
 		7AA79D7714DC23C700F3CA3B /* RTUnregisteredClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTUnregisteredClass.m; sourceTree = "<group>"; };
-		7AA79DDA14DC5E4000F3CA3B /* CloudMine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CloudMine.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		7AA79DDA14DC5E4000F3CA3B /* CloudMine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CloudMine.h; sourceTree = "<group>"; };
 		7AABA2E21480513500FD52A0 /* CMSerializable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMSerializable.h; sourceTree = "<group>"; };
 		7AABA2E41480549A00FD52A0 /* CMObjectEncoderSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectEncoderSpec.m; sourceTree = "<group>"; };
 		7AABA2E61480598300FD52A0 /* NSString+UUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+UUID.h"; sourceTree = "<group>"; };
@@ -492,8 +487,6 @@
 			children = (
 				71E886B516516C3D0060C217 /* CMSocialLoginViewController.h */,
 				71E886B616516C3D0060C217 /* CMSocialLoginViewController.m */,
-				71E886B816516F0F0060C217 /* CMUIViewController+Modal.h */,
-				71E886B916516F0F0060C217 /* CMUIViewController+Modal.m */,
 			);
 			name = "Social Login";
 			sourceTree = "<group>";
@@ -1064,7 +1057,6 @@
 				D042C2EB15AF41F100A88888 /* CMACLFetchResponse.m in Sources */,
 				AAA92FFE181972DA0064F773 /* CMTools.m in Sources */,
 				71E886B716516C3D0060C217 /* CMSocialLoginViewController.m in Sources */,
-				71E886BA16516F0F0060C217 /* CMUIViewController+Modal.m in Sources */,
 				AAB2E0B0167B94CF00D2C699 /* CMAppDelegateBase.m in Sources */,
 				AAC1D8F116DD4BCC002A7DC0 /* CMChannelResponse.m in Sources */,
 				AAC1D8F416DD51FB002A7DC0 /* CMResponse.m in Sources */,
