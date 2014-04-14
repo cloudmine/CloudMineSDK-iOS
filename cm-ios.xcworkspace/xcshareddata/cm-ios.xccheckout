@@ -5,13 +5,11 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>DE8DC053-FAFA-4EC8-8FE1-944FEB78B8D9</string>
+	<string>3D7837B6-8C0D-47DB-96DA-5620ED2B7BD7</string>
 	<key>IDESourceControlProjectName</key>
 	<string>cm-ios</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>D2407A7B-FAF5-4877-A132-BF35A7EF2B7A</key>
-		<string>git://github.com/AFNetworking/AFNetworking.git</string>
 		<key>FD23ED16-7109-4EE2-BB30-2C7334AD7546</key>
 		<string>ssh://github.com/cloudmine/iOS-SDK-Private.git</string>
 	</dict>
@@ -19,8 +17,6 @@
 	<string>cm-ios.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>D2407A7B-FAF5-4877-A132-BF35A7EF2B7A</key>
-		<string>../ios/ios/Vendor/AFNetworking</string>
 		<key>FD23ED16-7109-4EE2-BB30-2C7334AD7546</key>
 		<string>..</string>
 	</dict>
@@ -32,14 +28,6 @@
 	<string>FD23ED16-7109-4EE2-BB30-2C7334AD7546</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>D2407A7B-FAF5-4877-A132-BF35A7EF2B7A</string>
-			<key>IDESourceControlWCCName</key>
-			<string>AFNetworking</string>
-		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
