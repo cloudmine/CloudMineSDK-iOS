@@ -525,9 +525,17 @@ static CMWebService *webService;
 #pragma mark - Social login with Singly
 
 // This code is very similar to login above, perhaps we can refactor.
-- (void)loginWithSocialNetwork:(NSString *)service viewController:(UIViewController *)viewController params:(NSDictionary *)params callback:(CMUserOperationCallback)callback {
+- (CMSocialLoginViewController *)loginWithSocialNetwork:(NSString *)service
+                                         viewController:(UIViewController *)viewController
+                                                 params:(NSDictionary *)params
+                                               callback:(CMUserOperationCallback)callback;
+{
     
-    [webService loginWithSocial:self withService:service viewController:viewController params:params callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
+    CMSocialLoginViewController *login = [webService loginWithSocial:self
+                                                         withService:service
+                                                      viewController:viewController
+                                                              params:params
+                                                            callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         NSArray *messages = [NSArray array];
         
         if (result == CMUserAccountLoginSucceeded) {
@@ -552,6 +560,8 @@ static CMWebService *webService;
             callback(result, messages);
         }
     }];
+    
+    return login;
 }
 
 #pragma mark - Discovering other users
