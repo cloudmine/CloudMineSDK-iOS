@@ -5,30 +5,40 @@
 //
 //  Copyright (c) 2012 CloudMine, LLC. All rights reserved.
 //  See LICENSE file included with SDK for details.
+//  Using some code of Stephane Copin, created on 3/28/14.
 //
 
-#import "CMUIViewController+Modal.h"
 #import "CMSocialLoginViewController.h"
 #import "CMWebService.h"
 #import "CMStore.h"
 #import "CMUser.h"
 
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+#define IS_IOS7 SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")
+#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+#define kStatusBarHeight (IS_IPAD ? 0 : (IS_IOS7 ? 20 : 0) )
+#define kNavigationBarHeight 44.0f
+
+#define kWebViewTag 1
+#define kNavigationBarViewTag 2
+
 @interface CMSocialLoginViewController ()
-{
-    NSMutableData* responseData;
-    UIView* pendingLoginView;
-    UIActivityIndicatorView* activityView;
-}
+
+@property (nonatomic, strong) NSMutableData *responseData;
+@property (nonatomic, strong) UIView *pendingLoginView;
+@property (nonatomic, strong) UIActivityIndicatorView *activityView;
 
 @property (nonatomic, strong) UIWebView *webView;
-@property (nonatomic, strong) UINavigationBar *navigationBar;
+
+@property (nonatomic, strong) UINavigationBar *presentedNavigationBar;
+@property (nonatomic, strong) UINavigationItem *presentedNavigationItem;
 
 @end
 
 @implementation CMSocialLoginViewController
 
-- (id)initForService:(NSString *)service appID:(NSString *)appID apiKey:(NSString *)apiKey user:(CMUser *)user params:(NSDictionary *)params {
-    
+- (id)initForService:(NSString *)service appID:(NSString *)appID apiKey:(NSString *)apiKey user:(CMUser *)user params:(NSDictionary *)params;
+{
     if ( (self = [super init]) ) {
         _user = user;
         _targetService = service;
@@ -41,21 +51,28 @@
     return self;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad;
+{
     [super viewDidLoad];
     
     _webView = [[UIWebView alloc] initWithFrame:self.view.frame];
+    _webView.tag = kWebViewTag;
     _webView.scalesPageToFit = YES;
     _webView.delegate = self;
     [self.view addSubview:_webView];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation { //deprecated in iOS6
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation;
+{
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    // Clear Cookies
+- (void)viewWillAppear:(BOOL)animated;
+{
+    ///
+    /// Clear the cookies from the cache, so websites won't remember if you have logged in before.
+    ///
     NSHTTPCookie *cookie;
     NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
     for (cookie in [storage cookies]) {
@@ -63,37 +80,34 @@
     }
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    if (self.isModal)
-    {
-        self.webView.frame = CGRectMake(0, 44, self.view.frame.size.width, self.view.frame.size.height - 44);
-        self.navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
-        UINavigationItem *navigationItem = [[UINavigationItem alloc] initWithTitle:self.targetService];
-        navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(dismiss)];
-        self.navigationBar.items = @[navigationItem];
+    if([self isBeingPresented]) {
         
-        //
-        // Set the tint color of our navigation bar to match the tint of the
-        // view controller's navigation bar that is responsible for presenting
-        // us modally.
-        //
-        if ([self.presentingViewController respondsToSelector:@selector(navigationBar)])
-        {
-            UIColor *presentingTintColor = ((UINavigationController *)self.presentingViewController).navigationBar.tintColor;
-            self.navigationBar.tintColor = presentingTintColor;
-        }
-        [self.view addSubview:self.navigationBar];
-    }
-    else
-    {
-        if (self.navigationBar)
-        {
-            [self.navigationBar removeFromSuperview];
-            self.navigationBar = nil;
-        }
+        UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0.0f,
+                                                                                           0.0f,
+                                                                                           self.view.frame.size.width,
+                                                                                           kNavigationBarHeight + kStatusBarHeight)];
+        
+        navigationBar.tag = kNavigationBarViewTag;
+        [self.view addSubview:navigationBar];
+        
+        UINavigationItem * navigationItem = [[UINavigationItem alloc] initWithTitle:self.targetService];
+        navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel"
+                                                                            style:UIBarButtonItemStyleBordered
+                                                                           target:self
+                                                                           action:@selector(dismiss)];
+        navigationBar.items = @[navigationItem];
+        
+        self.presentedNavigationBar = navigationBar;
+        self.presentedNavigationItem = navigationItem;
+        
+        self.webView.frame = CGRectMake(0,
+                                        navigationBar.frame.size.height,
+                                        self.view.frame.size.width,
+                                        self.view.frame.size.height - navigationBar.frame.size.height);
     }
     
     NSString *urlStr = [NSString stringWithFormat:@"%@/app/%@/account/social/login?service=%@&apikey=%@&challenge=%@",
-                        CM_BASE_URL, _appID, _targetService, _apiKey, _challenge];
+                        _baseURL, _appID, _targetService, _apiKey, _challenge];
     
     ///
     /// Link accounts if user is logged in. If you don't want the accounts linked, log out the user.
@@ -120,13 +134,16 @@
 
 #pragma mark - UIWebViewDelegate
 
-- (void)webViewDidStartLoad:(UIWebView *)webView { }
+- (void)webViewDidStartLoad:(UIWebView *)webView;
+{
+}
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
+- (void)webViewDidFinishLoad:(UIWebView *)webView;
+{
     
     NSString *currentURLstr = [[[webView request] URL] absoluteString];
     
-    NSString *baseURLstr = [NSString stringWithFormat:@"%@/app/%@/account/social/login/complete", CM_BASE_URL, _appID];
+    NSString *baseURLstr = [NSString stringWithFormat:@"%@/app/%@/account/social/login/complete", _baseURL, _appID];
     
     if (currentURLstr.length >= baseURLstr.length) {
         NSString *comparableRequestStr = [currentURLstr substringToIndex:baseURLstr.length];
@@ -139,16 +156,20 @@
             ///
             
             // Display pending login view during request/processing
-            pendingLoginView = [[UIView alloc] initWithFrame:self.webView.bounds];
-            pendingLoginView.center = self.webView.center;
-            pendingLoginView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.8];
-            activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-            activityView.frame = CGRectMake(pendingLoginView.frame.size.width / 2, pendingLoginView.frame.size.height / 2, activityView.bounds.size.width, activityView.bounds.size.height);
-            activityView.center = self.webView.center;
-            [pendingLoginView addSubview:activityView];
-            [activityView startAnimating];
-            [self.view addSubview:pendingLoginView];
-            [self.view bringSubviewToFront:pendingLoginView];
+            _pendingLoginView = [[UIView alloc] initWithFrame:self.webView.bounds];
+            _pendingLoginView.center = self.webView.center;
+            _pendingLoginView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.8];
+            _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+            _activityView.frame = CGRectMake(_pendingLoginView.frame.size.width / 2,
+                                             _pendingLoginView.frame.size.height / 2,
+                                             _activityView.bounds.size.width,
+                                             _activityView.bounds.size.height);
+
+            _activityView.center = self.webView.center;
+            [_pendingLoginView addSubview:_activityView];
+            [_activityView startAnimating];
+            [self.view addSubview:_pendingLoginView];
+            [self.view bringSubviewToFront:_pendingLoginView];
             
             if ([self.delegate respondsToSelector:@selector(cmSocialLoginViewController:completeSocialLoginWithChallenge:)]) {
                 [self.delegate cmSocialLoginViewController:self completeSocialLoginWithChallenge:_challenge];
@@ -158,7 +179,8 @@
     /// Else, this is an internal page we don't care about
 }
 
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error;
+{
     /**
      * Interesting enough, this method is called sometimes when authenticating with Facebook - but the page continuous to load, and
      * does so sucessfully. The user can actually login. Other time though, the request may fail and be an actual failure.
@@ -171,13 +193,10 @@
     }
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
 #pragma mark -
 
-- (void)dismiss {
+- (void)dismiss;
+{
     /**
      * The User may dismiss the dialog, but we still need to inform the delegate.
      */
@@ -187,6 +206,46 @@
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+#pragma mark -
+
+- (void)viewDidDisappear:(BOOL)animated;
+{
+    [super viewDidDisappear:animated];
+    
+    if([self isBeingDismissed]) {
+        [self.presentedNavigationBar removeFromSuperview];
+        self.presentedNavigationBar = nil;
+    }
+}
+
+- (NSString *)title;
+{
+    if(self.presentedNavigationItem != nil) {
+        return self.presentedNavigationItem.title;
+    }
+    
+    return [super title];
+}
+
+- (void)setTitle:(NSString *)title;
+{
+    if(self.presentedNavigationItem != nil) {
+        self.presentedNavigationItem.title = title;
+    } else {
+        [super setTitle:title];
+    }
+}
+
+- (UINavigationItem *)navigationItem;
+{
+    if(self.presentedNavigationItem != nil) {
+        return self.presentedNavigationItem;
+    } else {
+        return [super navigationItem];
+    }
+}
+
 
 
 @end
