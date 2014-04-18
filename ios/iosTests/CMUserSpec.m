@@ -264,7 +264,6 @@ describe(@"CMUser", ^{
                 
                 NSDictionary *serializedUser = [CMObjectEncoder encodeObjects:[NSSet setWithObject:user]];
                 NSDictionary *theUser = [serializedUser objectForKey:user.objectId];
-                NSLog(@"Result: %@", serializedUser);
                 
                 [[[theUser valueForKey:@"name"] should] beIdenticalTo:[NSNull null]];
                 
