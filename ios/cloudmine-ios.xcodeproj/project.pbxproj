@@ -1217,6 +1217,8 @@
 				CURRENT_PROJECT_VERSION = 1.6.1;
 				DSTROOT = /tmp/ios.dst;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ios/cloudmine-ios-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
@@ -1241,6 +1243,7 @@
 				CURRENT_PROJECT_VERSION = 1.6.1;
 				DSTROOT = /tmp/ios.dst;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ios/cloudmine-ios-Prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
@@ -1266,6 +1269,7 @@
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ios/cloudmine-ios-Prefix.pch";
 				INFOPLIST_FILE = "iosTests/cloudmine-iosTests-Info.plist";
@@ -1285,6 +1289,7 @@
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ios/cloudmine-ios-Prefix.pch";
 				INFOPLIST_FILE = "iosTests/cloudmine-iosTests-Info.plist";

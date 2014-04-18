@@ -11,6 +11,11 @@
 #import "CMACL.h"
 #import "CMACLFetchResponse.h"
 
+extern void __gcov_flush();
+
+#import <XCTest/XCTest.h>
+#import <objc/runtime.h>
+
 SPEC_BEGIN(CMACLFetchResponseSpec)
 
 describe(@"CMACLFetchResponse", ^{
@@ -50,6 +55,10 @@ describe(@"CMACLFetchResponse", ^{
         it(@"should return a set of members with a specific permission correctly", ^{
             [[[response membersWithPermissions:[NSSet setWithObject:CMACLUpdatePermission]] should] equal:[NSSet setWithObjects:@"Derek", @"Ilya", @"Brendan", @"John", @"Conrad", nil]];
         });
+    });
+    
+    afterAll(^{
+        __gcov_flush();
     });
 });
 

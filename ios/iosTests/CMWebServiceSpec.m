@@ -18,6 +18,11 @@
 #import "CMAPICredentials.h"
 #import "CMConstants.h"
 
+extern void __gcov_flush();
+
+#import <XCTest/XCTest.h>
+#import <objc/runtime.h>
+
 SPEC_BEGIN(CMWebServiceSpec)
 
 describe(@"CMWebService", ^{
@@ -716,14 +721,13 @@ describe(@"CMWebService", ^{
 
         it(@"searches user profiles properly", ^{
             NSString *query = @"[name = /Marc/i]";
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/search?p=%@", appId, [query stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+            NSURL *expected = [NSURL URLWithString:@"https://api.cloudmine.me/v1/app/appId123/account/search?p=%5Bname%20%3D%20%2FMarc%2Fi%5D"];
             
             [service searchUsers:query callback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
             }];
             
             NSURLRequest *request = spy.argument;
-#warning Fix
-//            [[[request URL] should] equal:expectedUrl];
+            [[[request URL] should] equal:expected];
             [[[request HTTPMethod] should] equal:@"GET"];
             [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
         });
@@ -746,19 +750,11 @@ describe(@"CMWebService", ^{
                                         
                                     }];
             
-            NSString *finalURLShould = [NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/social/twitter/statuses/user_timeline.json?params={\"count\":9,\"screen_name\":\"ethan_mick\"}", appId];
-            finalURLShould = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(
-                                                                                        kCFAllocatorDefault,
-                                                                                        (CFStringRef)finalURLShould,
-                                                                                        NULL,
-                                                                                        NULL,
-                                                                                        kCFStringEncodingUTF8
-                                                                                        );
-
+            NSString *finalURLShould = @"https://api.cloudmine.me/v1/app/appId123/user/social/twitter/statuses/user_timeline.json?params=%7B%22count%22%3A9%2C%22screen_name%22%3A%22ethan_mick%22%7D";
+            
             NSURLRequest *request = spy.argument;
             [[[request HTTPMethod] should] equal:@"GET"];
-#warning Fix
-//            [[[[request URL] absoluteString] should] equal:finalURLShould];
+            [[[[request URL] absoluteString] should] equal:finalURLShould];
             
             
         });
@@ -782,20 +778,11 @@ describe(@"CMWebService", ^{
                                         
                                     }];
             
-            NSString *finalURLShould = [NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/social/twitter/statuses/user_timeline.json?params={\"screen_name\":\"ethan_mick\",\"testing\":[\"Testing111\",\"Testing222\"]}", appId];
-            finalURLShould = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(
-                                                                                          kCFAllocatorDefault,
-                                                                                          (CFStringRef)finalURLShould,
-                                                                                          NULL,
-                                                                                          NULL,
-                                                                                          kCFStringEncodingUTF8
-                                                                                          );
-            
+            NSString *finalURLShould = @"https://api.cloudmine.me/v1/app/appId123/user/social/twitter/statuses/user_timeline.json?params=%7B%22screen_name%22%3A%22ethan_mick%22%2C%22testing%22%3A%5B%22Testing111%22%2C%22Testing222%22%5D%7D";
             
             NSURLRequest *request = spy.argument;
             [[[request HTTPMethod] should] equal:@"GET"];
-#warning Fix
-//            [[[[request URL] absoluteString] should] equal:finalURLShould];
+            [[[[request URL] absoluteString] should] equal:finalURLShould];
         });
         
         it(@"should properly encode the POST data in social queries", ^{
@@ -820,20 +807,10 @@ describe(@"CMWebService", ^{
                                     }];
 
             
-            NSString *finalURLShould = [NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/social/twitter/statuses/update.json?headers={\"Content-type\":\"application/x-www-form-urlencoded\"}", appId];
-            finalURLShould = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(
-                                                                                          kCFAllocatorDefault,
-                                                                                          (CFStringRef)finalURLShould,
-                                                                                          NULL,
-                                                                                          NULL,
-                                                                                          kCFStringEncodingUTF8
-                                                                                          );
-            
-            
+            NSString *finalURLShould = @"https://api.cloudmine.me/v1/app/appId123/user/social/twitter/statuses/update.json?headers=%7B%22Content-type%22%3A%22application%5C%2Fx-www-form-urlencoded%22%7D";
             NSURLRequest *request = spy.argument;
             [[[request HTTPMethod] should] equal:@"GET"];
-#warning Fix
-//            [[[[request URL] absoluteString] should]  equal:finalURLShould];
+            [[[[request URL] absoluteString] should]  equal:finalURLShould];
             [[[[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding] should] equal:@"status=Maybe he'll finally find his keys. #peterfalk"];
         });
     });
@@ -862,6 +839,10 @@ describe(@"CMWebService", ^{
             [[[request HTTPMethod] should] equal:@"DELETE"];
         });
     });
+    
+    afterAll(^{
+        __gcov_flush();
+    });
 });
 
 describe(@"CMWebServiceBaseUrl", ^{
@@ -886,6 +867,10 @@ describe(@"CMWebServiceBaseUrl", ^{
             [[[newService valueForKey:@"apiUrl"] shouldNot] beNil];
             [[[newService valueForKey:@"apiUrl"] should] equal:expected];
         });
+    });
+    
+    afterAll(^{
+        __gcov_flush();
     });
 });
 

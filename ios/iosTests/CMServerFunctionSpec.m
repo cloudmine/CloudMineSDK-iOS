@@ -10,6 +10,11 @@
 
 #import "CMServerFunction.h"
 
+extern void __gcov_flush();
+
+#import <XCTest/XCTest.h>
+#import <objc/runtime.h>
+
 SPEC_BEGIN(CMServerFunctionSpec)
 
 describe(@"CMServerFunction", ^{
@@ -53,6 +58,10 @@ describe(@"CMServerFunction", ^{
                                        responseContainsResultOnly:YES
                                             performAsynchronously:YES];
         [[[serverFunction stringRepresentation] should] equal:expectedString];
+    });
+    
+    afterAll(^{
+        __gcov_flush();
     });
 });
 
