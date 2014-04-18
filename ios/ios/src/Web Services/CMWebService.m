@@ -38,7 +38,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     __strong CMWebServiceUserAccountOperationCallback temporaryCallback;
 }
 
-@property (nonatomic, strong) NSString *apiUrl;
+@property (nonatomic, copy) NSString *apiUrl;
 
 - (NSURL *)constructTextUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys query:(NSString *)searchString pagingOptions:(CMPagingDescriptor *)paging sortingOptions:(CMSortDescriptor *)sorting withServerSideFunction:(CMServerFunction *)function extraParameters:(NSDictionary *)params;
 - (NSURL *)constructBinaryUrlAtUserLevel:(BOOL)atUserLevel withKey:(NSString *)key withServerSideFunction:(CMServerFunction *)function extraParameters:(NSDictionary *)params;
@@ -108,7 +108,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     }
     
     if ((self = [super initWithBaseURL:url])) {
-        self.apiUrl = url.baseURL.absoluteString;
+        self.apiUrl = url.absoluteString;
         
         _appSecret = appSecret;
         _appIdentifier = appIdentifier;
@@ -122,6 +122,9 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
 
 - (void)setApiUrl:(NSString *)apiUrl;
 {
+    if (![apiUrl hasSuffix:@"/"]) {
+        apiUrl = [apiUrl stringByAppendingString:@"/"];
+    }
     _apiUrl = [apiUrl stringByAppendingString:CM_DEFAULT_API_VERSION];
 }
 

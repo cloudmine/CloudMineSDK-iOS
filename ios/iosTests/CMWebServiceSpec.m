@@ -16,6 +16,7 @@
 #import "CMUser.h"
 #import "CMServerFunction.h"
 #import "CMAPICredentials.h"
+#import "CMConstants.h"
 
 SPEC_BEGIN(CMWebServiceSpec)
 
@@ -860,6 +861,24 @@ describe(@"CMWebService", ^{
             [[[[request URL] absoluteString] should] equal:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/device", appId]];;
             [[[request HTTPMethod] should] equal:@"DELETE"];
         });
+    });
+});
+
+describe(@"CMWebServiceBaseUrl", ^{
+    context(@"base url changing", ^{
+        it(@"should let the base URL be correctly set", ^{
+            
+            NSURL *newBaseUrl = [NSURL URLWithString:@"https://test.api.cloudmine.me"];
+            CMWebService *newService = [[CMWebService alloc] initWithAppSecret:@"test" appIdentifier:@"testing" baseURL:newBaseUrl];
+            
+            NSString *expected = [[newBaseUrl URLByAppendingPathComponent:CM_DEFAULT_API_VERSION] absoluteString];
+            
+            NSLog(@"HALP: %@", [newService valueForKey:@"apiUrl"]);
+            NSLog(@"HALP2: %@", newService);
+            [[[newService valueForKey:@"apiUrl"] shouldNot] beNil];
+            [[[newService valueForKey:@"apiUrl"] should] equal:expected];
+        });
+        
     });
 });
 
