@@ -66,7 +66,6 @@
 #import "CMAppDelegateBase.h"
 
 #import "CMSocialLoginViewController.h"
-#import "CMUIViewController+Modal.h"
 
 #import "CMACLFetchResponse.h"
 #import "CMObjectFetchResponse.h"

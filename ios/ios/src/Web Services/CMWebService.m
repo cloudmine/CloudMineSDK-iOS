@@ -39,7 +39,9 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     NSMutableDictionary *_responseTimes;
     __strong CMWebServiceUserAccountOperationCallback temporaryCallback;
 }
+
 @property (nonatomic, strong) NSString *apiUrl;
+
 - (NSURL *)constructTextUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys query:(NSString *)searchString pagingOptions:(CMPagingDescriptor *)paging sortingOptions:(CMSortDescriptor *)sorting withServerSideFunction:(CMServerFunction *)function extraParameters:(NSDictionary *)params;
 - (NSURL *)constructBinaryUrlAtUserLevel:(BOOL)atUserLevel withKey:(NSString *)key withServerSideFunction:(CMServerFunction *)function extraParameters:(NSDictionary *)params;
 - (NSURL *)constructDataUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys withServerSideFunction:(CMServerFunction *)function extraParameters:(NSDictionary *)params;
@@ -730,12 +732,23 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     }];
 }
 
-- (void)loginWithSocial:(CMUser *)user withService:(NSString *)service viewController:(UIViewController *)viewController params:(NSDictionary *)params callback:(CMWebServiceUserAccountOperationCallback)callback {
-    CMSocialLoginViewController *loginViewController = [[CMSocialLoginViewController alloc] initForService:service appID:_appIdentifier apiKey:_appSecret user:user params:params];
+- (CMSocialLoginViewController *)loginWithSocial:(CMUser *)user
+                                     withService:(NSString *)service
+                                  viewController:(UIViewController *)viewController
+                                          params:(NSDictionary *)params
+                                        callback:(CMWebServiceUserAccountOperationCallback)callback;
+{
+    CMSocialLoginViewController *loginViewController = [[CMSocialLoginViewController alloc] initForService:service
+                                                                                                     appID:_appIdentifier
+                                                                                                    apiKey:_appSecret
+                                                                                                      user:user
+                                                                                                    params:params];
+    loginViewController.baseURL = self.apiUrl;
     loginViewController.modalPresentationStyle = UIModalPresentationFormSheet;
     loginViewController.delegate = self;
     temporaryCallback = callback;
     [viewController presentViewController:loginViewController animated:YES completion:NULL];
+    return loginViewController;
 }
 
 - (void)cmSocialLoginViewController:(CMSocialLoginViewController *)controller completeSocialLoginWithChallenge:(NSString *)challenge {

@@ -51,37 +51,43 @@
 /**
  * The CMSocialLoginViewControllerDelegate delegates which is used in the callbacks.
  */
-@property (nonatomic,strong) id<CMSocialLoginViewControllerDelegate> delegate;
+@property (nonatomic, weak) id<CMSocialLoginViewControllerDelegate> delegate;
 
 /**
  * The Social Service which is being logged into, such as "facebook" or "twitter".
  */
-@property (strong, nonatomic) NSString *targetService;
+@property (nonatomic, copy) NSString *targetService;
 
 /**
  * The App ID for the CloudMine App.
  */
-@property (strong, nonatomic) NSString *appID;
+@property (nonatomic, copy) NSString *appID;
 
 /**
  * The App Secret for the CloudMine App.
  */
-@property (strong, nonatomic) NSString *apiKey;
+@property (nonatomic, copy) NSString *apiKey;
 
 /**
  * The Challenge used in the request.
  */
-@property (strong, nonatomic) NSString *challenge;
+@property (nonatomic, copy) NSString *challenge;
 
 /**
  * An optional dictionary of parameters to pass in with the URL.
  */
-@property (strong, nonatomic) NSDictionary *params;
+@property (nonatomic, copy) NSDictionary *params;
 
 /**
  * A CMUser to associate to this social login account.
  */
-@property (strong, nonatomic) CMUser *user;
+@property (nonatomic, strong) CMUser *user;
+
+/**
+ * The base URL in which to send th request. This is important because you could be
+ * working with one of many stacks.
+ */
+@property (nonatomic, copy) NSString *baseURL;
 
 /**
  *

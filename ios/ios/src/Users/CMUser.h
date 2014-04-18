@@ -225,7 +225,10 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
  * @param callback The block that will be called on completion of the operation.
  * @see https://cloudmine.me/docs/api#users_social
  */
-- (void)loginWithSocialNetwork:(NSString *)service viewController:(UIViewController *)viewController params:(NSDictionary *)params callback:(CMUserOperationCallback)callback;
+- (CMSocialLoginViewController *)loginWithSocialNetwork:(NSString *)service
+                                         viewController:(UIViewController *)viewController
+                                                 params:(NSDictionary *)params
+                                               callback:(CMUserOperationCallback)callback;
 
 
 /**

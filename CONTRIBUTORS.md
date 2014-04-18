@@ -5,3 +5,4 @@ Conrad Kramer
 Dan Morrow
 Nikko Schaff
 Howard Swope
+Stephane Copin
