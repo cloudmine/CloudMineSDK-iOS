@@ -109,7 +109,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     }
     
     if ((self = [super initWithBaseURL:url])) {
-        self.apiUrl = CM_BASE_URL;
+        self.apiUrl = url.baseURL.absoluteString;
         
         _appSecret = appSecret;
         _appIdentifier = appIdentifier;

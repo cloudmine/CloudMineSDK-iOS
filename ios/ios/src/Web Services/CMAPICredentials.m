@@ -7,8 +7,7 @@
 //
 
 #import "CMAPICredentials.h"
-
-#define CM_BASE_URL @"https://api.cloudmine.me/v1"
+#import "CMConstants.h"
 
 @implementation CMAPICredentials
 @synthesize apiKey = _apiKey, appIdentifier = _appIdentifier;

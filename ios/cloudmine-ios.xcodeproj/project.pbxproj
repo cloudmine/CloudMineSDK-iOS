@@ -141,6 +141,7 @@
 		7AFDFE4C158E9EB400388D6E /* CMActiveUserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE4B158E9EB400388D6E /* CMActiveUserSpec.m */; };
 		AA00CED21886E1C700F9958C /* UIImageView+CloudMine.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA00CED01886E1C700F9958C /* UIImageView+CloudMine.h */; };
 		AA00CED31886E1C700F9958C /* UIImageView+CloudMine.m in Sources */ = {isa = PBXBuildFile; fileRef = AA00CED11886E1C700F9958C /* UIImageView+CloudMine.m */; };
+		AA5693C31901790300C4A15A /* CMConstants.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA5693C21901790300C4A15A /* CMConstants.h */; };
 		AAA05FB9183A756B009652C9 /* CMPaymentService.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA05FB3183A756B009652C9 /* CMPaymentService.m */; };
 		AAA05FBB183A756B009652C9 /* CMPaymentService.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB4183A756B009652C9 /* CMPaymentService.h */; };
 		AAA05FBC183A756B009652C9 /* CMCardPayment.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB5183A756B009652C9 /* CMCardPayment.h */; };
@@ -239,6 +240,7 @@
 				7A87315B14BB0AD0000D6DEA /* CMSerializable.h in CopyFiles */,
 				AAA05FBD183A756B009652C9 /* CMPaymentResponse.h in CopyFiles */,
 				AAA850ED168271B600C18957 /* CMDeviceTokenResult.h in CopyFiles */,
+				AA5693C31901790300C4A15A /* CMConstants.h in CopyFiles */,
 				AA00CED21886E1C700F9958C /* UIImageView+CloudMine.h in CopyFiles */,
 				AAC1D90916DD6CA6002A7DC0 /* CMViewChannelsResponse.h in CopyFiles */,
 				AAA92FF3181966370064F773 /* NSDictionary+CMJSON.h in CopyFiles */,
@@ -380,6 +382,7 @@
 		7AFDFE4B158E9EB400388D6E /* CMActiveUserSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMActiveUserSpec.m; sourceTree = "<group>"; };
 		AA00CED01886E1C700F9958C /* UIImageView+CloudMine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+CloudMine.h"; sourceTree = "<group>"; };
 		AA00CED11886E1C700F9958C /* UIImageView+CloudMine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+CloudMine.m"; sourceTree = "<group>"; };
+		AA5693C21901790300C4A15A /* CMConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMConstants.h; sourceTree = "<group>"; };
 		AAA05FB3183A756B009652C9 /* CMPaymentService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPaymentService.m; sourceTree = "<group>"; };
 		AAA05FB4183A756B009652C9 /* CMPaymentService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPaymentService.h; sourceTree = "<group>"; };
 		AAA05FB5183A756B009652C9 /* CMCardPayment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMCardPayment.h; sourceTree = "<group>"; };
@@ -676,6 +679,7 @@
 			isa = PBXGroup;
 			children = (
 				7AA79DDA14DC5E4000F3CA3B /* CloudMine.h */,
+				AA5693C21901790300C4A15A /* CMConstants.h */,
 				7A58CC1F14F1B544003E864B /* CMMimeType.h */,
 				7A58CC2014F1B544003E864B /* CMMimeType.m */,
 				7AFDFE35158E953200388D6E /* Persisted Objects */,

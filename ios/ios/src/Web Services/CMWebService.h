@@ -22,11 +22,6 @@
 @class CMPagingDescriptor;
 @class CMSortDescriptor;
 
-/**
- * Base URL for the current version of the CloudMine API.
- */
-#define CM_BASE_URL @"https://api.cloudmine.me/v1"
-
 typedef void (^CMWebServiceGenericRequestCallback)(id parsedBody, NSUInteger httpCode, NSDictionary *headers);
 
 typedef void (^CMWebServiceErorCallack)(id responseBody, NSUInteger httpCode, NSDictionary *headers, NSError *error, NSDictionary *errorInfo );
