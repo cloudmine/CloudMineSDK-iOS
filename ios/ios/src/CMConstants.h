@@ -12,8 +12,10 @@
 /**
  * Base URL for the current version of the CloudMine API.
  */
-#define CM_BASE_URL @"https://api.cloudmine.me/v1"
+#define CM_BASE_URL @"https://api.cloudmine.me/"
 
-#define CM_DEFAULT_VERSION @"v1"
+#define CM_DEFAULT_API_VERSION @"v1"
+
+#define CM_VERSION @"1.6.4"
 
 #endif

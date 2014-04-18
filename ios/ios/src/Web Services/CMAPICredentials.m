@@ -10,7 +10,6 @@
 #import "CMConstants.h"
 
 @implementation CMAPICredentials
-@synthesize apiKey = _apiKey, appIdentifier = _appIdentifier;
 
 + (id)sharedInstance;
 {

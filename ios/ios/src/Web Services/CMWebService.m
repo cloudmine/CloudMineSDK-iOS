@@ -6,8 +6,6 @@
 //  See LICENSE file included with SDK for details.
 //
 
-#define CM_VERSION @"1.6.1"
-
 #import <AFNetworking/AFNetworking.h>
 
 #import "CMWebService.h"
@@ -20,7 +18,7 @@
 #import "CMActiveUser.h"
 #import "NSURL+QueryParameterAdditions.h"
 #import "NSDictionary+CMJSON.h"
-
+#import "CMConstants.h"
 #import "CMObjectEncoder.h"
 #import "CMObjectDecoder.h"
 #import "CMObjectSerialization.h"
@@ -58,7 +56,6 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
 
 
 @implementation CMWebService
-@synthesize apiUrl;
 
 #pragma mark - Service initialization
 
@@ -121,6 +118,11 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
         [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     }
     return self;
+}
+
+- (void)setApiUrl:(NSString *)apiUrl;
+{
+    _apiUrl = [apiUrl stringByAppendingString:CM_DEFAULT_API_VERSION];
 }
 
 #pragma mark - GET requests for non-binary data
