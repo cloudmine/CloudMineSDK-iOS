@@ -11,7 +11,6 @@ target "cloudmine-ios" do
 end
 
 
-
 target 'cloudmine-iosTests', :exclusive => true do
-  pod 'Kiwi'
+  pod 'Kiwi', '~> 2.2'
 end

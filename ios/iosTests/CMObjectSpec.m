@@ -177,7 +177,7 @@ describe(@"CMObject", ^{
             [[theValue(object.dirty) should] beYes];
                         
             // Prepare spy and wait for message
-            [[store should] receive:@selector(saveObject:additionalOptions:callback:)];
+//            [[store should] receive:@selector(saveObject:additionalOptions:callback:)];
             KWCaptureSpy *spy = [(KWMock *)store.webService captureArgument:@selector(updateValuesFromDictionary:serverSideFunction:user:extraParameters:successHandler:errorHandler:) atIndex:4];
             
             [object save:^(CMObjectUploadResponse *response) { }];
