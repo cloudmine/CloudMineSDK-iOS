@@ -872,13 +872,20 @@ describe(@"CMWebServiceBaseUrl", ^{
             CMWebService *newService = [[CMWebService alloc] initWithAppSecret:@"test" appIdentifier:@"testing" baseURL:newBaseUrl];
             
             NSString *expected = [[newBaseUrl URLByAppendingPathComponent:CM_DEFAULT_API_VERSION] absoluteString];
-            
-            NSLog(@"HALP: %@", [newService valueForKey:@"apiUrl"]);
-            NSLog(@"HALP2: %@", newService);
             [[[newService valueForKey:@"apiUrl"] shouldNot] beNil];
             [[[newService valueForKey:@"apiUrl"] should] equal:expected];
         });
         
+        it(@"should properly get the base URL from CMAPICredentials", ^{
+            
+            NSURL *newBaseUrl = [NSURL URLWithString:@"https://test.api.cloudmine.me"];
+            [[CMAPICredentials sharedInstance] setBaseURL:newBaseUrl.absoluteString];
+            CMWebService *newService = [[CMWebService alloc] initWithAppSecret:@"test" appIdentifier:@"testing"];
+            
+            NSString *expected = [[newBaseUrl URLByAppendingPathComponent:CM_DEFAULT_API_VERSION] absoluteString];
+            [[[newService valueForKey:@"apiUrl"] shouldNot] beNil];
+            [[[newService valueForKey:@"apiUrl"] should] equal:expected];
+        });
     });
 });
 
