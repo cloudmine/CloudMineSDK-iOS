@@ -91,3 +91,24 @@
 
 @end
 
+
+@implementation CMTestEncoderNSCodingDeeper
+
+- (id)initWithCoder:(NSCoder *)aDecoder;
+{
+    if ( self = ([super init]) ) {
+        self.aString = [aDecoder decodeObjectForKey:@"aString"];
+        self.anInt = [aDecoder decodeIntegerForKey:@"anInt"];
+        self.nestedCMObject = [aDecoder decodeObjectForKey:@"nestedCMObject"];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder;
+{
+    [aCoder encodeObject:self.aString forKey:@"aString"];
+    [aCoder encodeInteger:self.anInt forKey:@"anInt"];
+    [aCoder encodeObject:self.nestedCMObject forKey:@"nestedCMObject"];
+}
+
+@end

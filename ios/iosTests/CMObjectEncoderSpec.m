@@ -112,7 +112,7 @@ describe(@"CMObjectEncoder", ^{
         [[object[@"aFloat"] should] equal:@10.5];
     });
     
-    it(@"should encode an object that adheres to NSCoding properly", ^{
+    it(@"should encode an object that adheres to NSCoding is encoded properly", ^{
         NSString *uuid = [NSString stringWithUUID];
         CMTestEncoderNSCodingParent *test = [[CMTestEncoderNSCodingParent alloc] initWithObjectId:uuid];
         
@@ -126,6 +126,39 @@ describe(@"CMObjectEncoder", ^{
         NSDictionary *something = object[@"something"];
         [[something[@"aString"] should] equal:@"Test!"];
         [[something[@"anInt"] should] equal:@11];
+        [[something[@"__class__"] should] equal:@"CMTestEncoderNSCoding"];
+    });
+    
+    it(@"should encode an object that adheres to NSCoding and has nested objects encodes properly", ^{
+        NSString *uuid = [NSString stringWithUUID];
+        NSString *uuid2 = [NSString stringWithUUID];
+        CMTestEncoderNSCodingParent *test = [[CMTestEncoderNSCodingParent alloc] initWithObjectId:uuid];
+        CMTestEncoderNSCodingDeeper *deeper = [[CMTestEncoderNSCodingDeeper alloc] init];
+        deeper.aString = @"Testing!";
+        deeper.anInt = 12;
+        deeper.nestedCMObject = [[CMTestEncoderFloat alloc] initWithObjectId:uuid2];
+        deeper.nestedCMObject.aFloat = 42.5;
+        test.something = deeper;
+        
+        // Run the serialization.
+        NSDictionary *result = [CMObjectEncoder encodeObjects:@[test]];
+        
+        NSLog(@"TEST1: %@", result);
+        
+        [[result shouldNot] beNil];
+        [[[result should] have:1] items];
+        [[result should] haveValueForKey:uuid];
+        NSDictionary *object = result[uuid];
+        [[object[@"something"] should] beKindOfClass:[NSDictionary class]];
+        NSDictionary *something = object[@"something"];
+        [[something[@"aString"] should] equal:@"Testing!"];
+        [[something[@"anInt"] should] equal:@12];
+        [[something[@"nestedCMObject"] shouldNot] beNil];
+        [[something[@"nestedCMObject"][uuid2] shouldNot] beNil];
+        [[[something[@"nestedCMObject"] should] have:1] items];
+        NSDictionary *deeperNested = something[@"nestedCMObject"][uuid2];
+        [[deeperNested[@"aFloat"] should] equal:@42.5];
+        [[deeperNested[@"__class__"] should] equal:@"CMTestEncoderFloat"];
     });
     
     

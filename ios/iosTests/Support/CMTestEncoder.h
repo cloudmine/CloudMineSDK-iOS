@@ -32,3 +32,9 @@
 @property (nonatomic, strong) CMTestEncoderNSCoding *something;
 
 @end
+
+@interface CMTestEncoderNSCodingDeeper : CMTestEncoderNSCoding
+
+@property (nonatomic, strong) CMTestEncoderFloat *nestedCMObject;
+
+@end
