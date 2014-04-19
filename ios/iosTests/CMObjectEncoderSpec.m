@@ -142,9 +142,6 @@ describe(@"CMObjectEncoder", ^{
         
         // Run the serialization.
         NSDictionary *result = [CMObjectEncoder encodeObjects:@[test]];
-        
-        NSLog(@"TEST1: %@", result);
-        
         [[result shouldNot] beNil];
         [[[result should] have:1] items];
         [[result should] haveValueForKey:uuid];

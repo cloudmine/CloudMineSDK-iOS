@@ -14,6 +14,7 @@
 #import "NSString+UUID.h"
 #import "CMGenericSerializableObject.h"
 #import "CMCrossPlatformGenericSerializableObject.h"
+#import "CMTestEncoder.h"
 
 SPEC_BEGIN(CMObjectDecoderSpec)
 
@@ -125,6 +126,59 @@ describe(@"CMObjectDecoder", ^{
         [[[decodedObjects should] have:1] items];
         
         [[[decodedObjects lastObject] valueForKey:@"dictionary"] isKindOfClass:[NSDictionary class]];
+    });
+    
+    it(@"should decode NSCoded dictionaries properly", ^{
+        ///
+        /// This works fine and has been tested
+        ///
+        NSString *uuid = [NSString stringWithUUID];
+        CMTestEncoderNSCodingParent *test = [[CMTestEncoderNSCodingParent alloc] initWithObjectId:uuid];
+        NSDictionary *result = [CMObjectEncoder encodeObjects:@[test]];
+        
+        ///
+        /// This is being tested
+        ///
+        NSArray *decoded = [CMObjectDecoder decodeObjects:result];
+        [[[decoded should] have:1] items];
+        CMTestEncoderNSCodingParent *final = [decoded firstObject];
+        [[final should] beKindOfClass:[CMTestEncoderNSCodingParent class]];
+        [[final.something shouldNot] beNil];
+        [[final.something should] beKindOfClass:[CMTestEncoderNSCoding class]];
+        CMTestEncoderNSCoding *coding = final.something;
+        [[coding.aString should] equal:@"Test!"];
+        [[theValue(coding.anInt) should] equal:@11];
+    });
+    
+    it(@"should decode an object that adheres to NSCoding and has nested objects properly", ^{
+        NSString *uuid = [NSString stringWithUUID];
+        NSString *uuid2 = [NSString stringWithUUID];
+        CMTestEncoderNSCodingParent *test = [[CMTestEncoderNSCodingParent alloc] initWithObjectId:uuid];
+        CMTestEncoderNSCodingDeeper *deeper = [[CMTestEncoderNSCodingDeeper alloc] init];
+        deeper.aString = @"Testing!";
+        deeper.anInt = 12;
+        deeper.nestedCMObject = [[CMTestEncoderFloat alloc] initWithObjectId:uuid2];
+        deeper.nestedCMObject.aFloat = 42.5;
+        test.something = deeper;
+        NSDictionary *result = [CMObjectEncoder encodeObjects:@[test]];
+        
+        ///
+        /// This is being tested
+        ///
+        NSArray *decoded = [CMObjectDecoder decodeObjects:result];
+        [[[decoded should] have:1] items];
+        CMTestEncoderNSCodingParent *final = [decoded firstObject];
+        [[final should] beKindOfClass:[CMTestEncoderNSCodingParent class]];
+        [[final.something shouldNot] beNil];
+        [[final.something should] beKindOfClass:[CMTestEncoderNSCodingDeeper class]];
+        CMTestEncoderNSCodingDeeper *coding = (CMTestEncoderNSCodingDeeper *)final.something;
+        [[coding.aString should] equal:@"Testing!"];
+        [[theValue(coding.anInt) should] equal:@12];
+        [[coding.nestedCMObject shouldNot] beNil];
+        [[coding.nestedCMObject should] beKindOfClass:[CMTestEncoderFloat class]];
+        CMTestEncoderFloat *last = coding.nestedCMObject;
+        [[theValue(last.aFloat) should] equal:@42.5];
+        
     });
 });
 

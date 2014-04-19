@@ -76,13 +76,13 @@
     return self;
 }
 
-/// we make a new method for kicking off, that's interal use only!
-
-/*
- CMObjectDecoder *decoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:objectRepresentation];
- decodedObject = [[klass alloc] initWithCoder:decoder];
- return decoded;
- */
+- (id)decodeNSCoding:(NSDictionary *)object;
+{
+    CMObjectDecoder *decoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:object];
+    Class klass = NSClassFromString(object[CMInternalClassStorageKey]);
+    id decodedObject = [[klass alloc] initWithCoder:decoder];
+    return decodedObject;
+}
 
 #pragma mark - Keyed archiving methods defined by NSCoder
 
@@ -258,7 +258,7 @@
             } else if ([[objv objectForKey:CMInternalClassStorageKey] isEqualToString:CMDateClassName]) {
                 return [[CMDate alloc] initWithCoder:subObjectDecoder];
             } else if (objv[CMInternalClassStorageKey] != nil) {
-                // fuck
+                return [self decodeNSCoding:objv];
             }
         }
     }
