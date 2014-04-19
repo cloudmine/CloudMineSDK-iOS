@@ -122,7 +122,7 @@ describe(@"CMObjectEncoder", ^{
         [[[result should] have:1] items];
         [[result should] haveValueForKey:uuid];
         NSDictionary *object = result[uuid];
-        [[object[@"something"] should] beMemberOfClass:[NSDictionary class]];
+        [[object[@"something"] should] beKindOfClass:[NSDictionary class]];
         NSDictionary *something = object[@"something"];
         [[something[@"aString"] should] equal:@"Test!"];
         [[something[@"anInt"] should] equal:@11];
