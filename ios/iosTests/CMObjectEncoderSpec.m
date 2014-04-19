@@ -16,6 +16,7 @@
 #import "CMObjectSerialization.h"
 #import "CMGeoPoint.h"
 #import "CMDate.h"
+#import "CMTestEncoder.h"
 
 SPEC_BEGIN(CMObjectEncoderSpec)
 
@@ -82,6 +83,52 @@ describe(@"CMObjectEncoder", ^{
         NSDictionary *theOnlyObject = [dictionaryOfData objectForKey:uuid];
         [[[theOnlyObject objectForKey:CMInternalClassStorageKey] should] equal:@"genericObject"];
     });
+    
+    it(@"should encode an Integer properly", ^{
+        NSString *uuid = [NSString stringWithUUID];
+        CMTestEncoderInt *test = [[CMTestEncoderInt alloc] initWithObjectId:uuid];
+        test.anInt = 10;
+        
+        // Run the serialization.
+        NSDictionary *result = [CMObjectEncoder encodeObjects:@[test]];
+        [[result shouldNot] beNil];
+        [[[result should] have:1] items];
+        [[result should] haveValueForKey:uuid];
+        NSDictionary *object = result[uuid];
+        [[object[@"anInt"] should] equal:@10];
+    });
+    
+    it(@"should encode a float properly", ^{
+        NSString *uuid = [NSString stringWithUUID];
+        CMTestEncoderFloat *test = [[CMTestEncoderFloat alloc] initWithObjectId:uuid];
+        test.aFloat = 10.5;
+        
+        // Run the serialization.
+        NSDictionary *result = [CMObjectEncoder encodeObjects:@[test]];
+        [[result shouldNot] beNil];
+        [[[result should] have:1] items];
+        [[result should] haveValueForKey:uuid];
+        NSDictionary *object = result[uuid];
+        [[object[@"aFloat"] should] equal:@10.5];
+    });
+    
+    it(@"should encode an object that adheres to NSCoding properly", ^{
+        NSString *uuid = [NSString stringWithUUID];
+        CMTestEncoderNSCodingParent *test = [[CMTestEncoderNSCodingParent alloc] initWithObjectId:uuid];
+        
+        // Run the serialization.
+        NSDictionary *result = [CMObjectEncoder encodeObjects:@[test]];
+        [[result shouldNot] beNil];
+        [[[result should] have:1] items];
+        [[result should] haveValueForKey:uuid];
+        NSDictionary *object = result[uuid];
+        [[object[@"something"] should] beMemberOfClass:[NSDictionary class]];
+        NSDictionary *something = object[@"something"];
+        [[something[@"aString"] should] equal:@"Test!"];
+        [[something[@"anInt"] should] equal:@11];
+    });
+    
+    
 });
 
 SPEC_END

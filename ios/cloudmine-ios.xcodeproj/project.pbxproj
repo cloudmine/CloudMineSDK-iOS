@@ -140,6 +140,7 @@
 		AA00CED21886E1C700F9958C /* UIImageView+CloudMine.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA00CED01886E1C700F9958C /* UIImageView+CloudMine.h */; };
 		AA00CED31886E1C700F9958C /* UIImageView+CloudMine.m in Sources */ = {isa = PBXBuildFile; fileRef = AA00CED11886E1C700F9958C /* UIImageView+CloudMine.m */; };
 		AA5693C31901790300C4A15A /* CMConstants.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA5693C21901790300C4A15A /* CMConstants.h */; };
+		AA5693C71902E90500C4A15A /* CMTestEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5693C61902E90500C4A15A /* CMTestEncoder.m */; };
 		AAA05FB9183A756B009652C9 /* CMPaymentService.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA05FB3183A756B009652C9 /* CMPaymentService.m */; };
 		AAA05FBB183A756B009652C9 /* CMPaymentService.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB4183A756B009652C9 /* CMPaymentService.h */; };
 		AAA05FBC183A756B009652C9 /* CMCardPayment.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB5183A756B009652C9 /* CMCardPayment.h */; };
@@ -378,6 +379,8 @@
 		AA00CED01886E1C700F9958C /* UIImageView+CloudMine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+CloudMine.h"; sourceTree = "<group>"; };
 		AA00CED11886E1C700F9958C /* UIImageView+CloudMine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+CloudMine.m"; sourceTree = "<group>"; };
 		AA5693C21901790300C4A15A /* CMConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMConstants.h; sourceTree = "<group>"; };
+		AA5693C51902E90500C4A15A /* CMTestEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMTestEncoder.h; sourceTree = "<group>"; };
+		AA5693C61902E90500C4A15A /* CMTestEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMTestEncoder.m; sourceTree = "<group>"; };
 		AAA05FB3183A756B009652C9 /* CMPaymentService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPaymentService.m; sourceTree = "<group>"; };
 		AAA05FB4183A756B009652C9 /* CMPaymentService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPaymentService.h; sourceTree = "<group>"; };
 		AAA05FB5183A756B009652C9 /* CMCardPayment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMCardPayment.h; sourceTree = "<group>"; };
@@ -515,6 +518,8 @@
 				7AA79D6214DC1FB900F3CA3B /* CMCrossPlatformGenericSerializableObject.m */,
 				7A87316414BB309F000D6DEA /* NSMutableData+RandomData.h */,
 				7A87316514BB309F000D6DEA /* NSMutableData+RandomData.m */,
+				AA5693C51902E90500C4A15A /* CMTestEncoder.h */,
+				AA5693C61902E90500C4A15A /* CMTestEncoder.m */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -1089,6 +1094,7 @@
 				7A766209156307DF009840EE /* CMSortDescriptorSpec.m in Sources */,
 				7A0D7CD41581097200C7C476 /* CMObjectSpec.m in Sources */,
 				7AAFB49B158017450066B4A4 /* CMMimeTypeSpec.m in Sources */,
+				AA5693C71902E90500C4A15A /* CMTestEncoder.m in Sources */,
 				7AFDFE4C158E9EB400388D6E /* CMActiveUserSpec.m in Sources */,
 				D004178E15925DC900B596CC /* NSData+Base64.m in Sources */,
 				7A28003D15923446002C504A /* CMUserSpec.m in Sources */,
