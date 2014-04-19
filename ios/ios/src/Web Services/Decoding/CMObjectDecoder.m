@@ -76,6 +76,14 @@
     return self;
 }
 
+- (id)decodeNSCoding:(NSDictionary *)object;
+{
+    CMObjectDecoder *decoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:object];
+    Class klass = NSClassFromString(object[CMInternalClassStorageKey]);
+    id decodedObject = [[klass alloc] initWithCoder:decoder];
+    return decodedObject;
+}
+
 #pragma mark - Keyed archiving methods defined by NSCoder
 
 - (BOOL)containsValueForKey:(NSString *)key {
@@ -234,7 +242,10 @@
             ///
         }
         
-        if ( ([objv objectForKey:CMInternalClassStorageKey] == nil && [objv objectForKey:CMInternalTypeStorageKey] == nil) || [[objv objectForKey:CMInternalClassStorageKey] isEqualToString:CMInternalHashClassName]) {
+        if ( ([objv objectForKey:CMInternalClassStorageKey] == nil &&
+              [objv objectForKey:CMInternalTypeStorageKey] == nil) ||
+             [[objv objectForKey:CMInternalClassStorageKey] isEqualToString:CMInternalHashClassName] ) {
+            
             return [self decodeAllInDictionary:objv];
         } else {
             CMObjectDecoder *subObjectDecoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:objv];
@@ -246,6 +257,8 @@
                 return [[CMACL alloc] initWithCoder:subObjectDecoder];
             } else if ([[objv objectForKey:CMInternalClassStorageKey] isEqualToString:CMDateClassName]) {
                 return [[CMDate alloc] initWithCoder:subObjectDecoder];
+            } else if (objv[CMInternalClassStorageKey] != nil) {
+                return [self decodeNSCoding:objv];
             }
         }
     }

@@ -52,6 +52,23 @@
     return topLevelObjectsDictionary;
 }
 
+- (NSDictionary *)encodeNSCoding:(id<NSObject, NSCoding>)object;
+{
+    CMObjectEncoder *objectEncoder = [[CMObjectEncoder alloc] init];
+    [object encodeWithCoder:objectEncoder];
+    NSMutableDictionary *encodedRepresentation = [NSMutableDictionary dictionaryWithDictionary:objectEncoder.encodedRepresentation];
+    
+    NSString *className = nil;
+    if ([[object class] respondsToSelector:@selector(className)]) {
+        className = [[object class] className];
+    } else {
+        className = NSStringFromClass([object class]);
+    }
+    
+    [encodedRepresentation setObject:className forKey:CMInternalClassStorageKey];
+    return encodedRepresentation;
+}
+
 - (id)init {
     if (self = [super init]) {
         _encodedData = [NSMutableDictionary dictionary];
@@ -135,6 +152,10 @@
         return serializedRepresentation;
     } else if ([objv isKindOfClass:[CMObject class]]) {
         return [CMObjectEncoder encodeObjects:@[objv]];
+    } else if ([[objv class] conformsToProtocol:@protocol(NSCoding)]) {
+        CMObjectEncoder *newEncoder = [[CMObjectEncoder alloc] init];
+        NSDictionary *serializedRepresentation = [newEncoder encodeNSCoding:objv];
+        return serializedRepresentation;
     } else {
         [[NSException exceptionWithName:@"CMInternalInconsistencyException"
                                  reason:@"You can only store simple values, dictionaries, and arrays in CMObject instance variables."
