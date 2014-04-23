@@ -162,6 +162,7 @@
 		AAC1D8FA16DD5B34002A7DC0 /* CMChannelResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAC1D8EF16DD4BCB002A7DC0 /* CMChannelResponse.h */; };
 		AAC1D90916DD6CA6002A7DC0 /* CMViewChannelsResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAC1D90716DD6CA4002A7DC0 /* CMViewChannelsResponse.h */; };
 		AAC1D90A16DD6CA6002A7DC0 /* CMViewChannelsResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC1D90816DD6CA5002A7DC0 /* CMViewChannelsResponse.m */; };
+		AAD4AD161908104B006B93F2 /* CMUserIntegrationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD4AD151908104B006B93F2 /* CMUserIntegrationSpec.m */; };
 		D004178E15925DC900B596CC /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = D01DBF591590D36D003CB5BE /* NSData+Base64.m */; };
 		D039C16715BDEB77005CCD33 /* CMACLSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D039C16615BDEB77005CCD33 /* CMACLSpec.m */; };
 		D039C16A15BEEB44005CCD33 /* CMACLFetchResponseSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D039C16915BEEB44005CCD33 /* CMACLFetchResponseSpec.m */; };
@@ -402,6 +403,7 @@
 		AAC1D8F316DD51FA002A7DC0 /* CMResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMResponse.m; sourceTree = "<group>"; };
 		AAC1D90716DD6CA4002A7DC0 /* CMViewChannelsResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMViewChannelsResponse.h; sourceTree = "<group>"; };
 		AAC1D90816DD6CA5002A7DC0 /* CMViewChannelsResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMViewChannelsResponse.m; sourceTree = "<group>"; };
+		AAD4AD151908104B006B93F2 /* CMUserIntegrationSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUserIntegrationSpec.m; sourceTree = "<group>"; };
 		D01DBF581590D36D003CB5BE /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		D01DBF591590D36D003CB5BE /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		D039C16615BDEB77005CCD33 /* CMACLSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMACLSpec.m; sourceTree = "<group>"; };
@@ -642,6 +644,7 @@
 		7AB4AB78145DC5D8006AEF67 /* iosTests */ = {
 			isa = PBXGroup;
 			children = (
+				AAD4AD131908102D006B93F2 /* integration */,
 				7AFDFE4B158E9EB400388D6E /* CMActiveUserSpec.m */,
 				7A308A4314799134008ADD3C /* CMWebServiceSpec.m */,
 				D039C16915BEEB44005CCD33 /* CMACLFetchResponseSpec.m */,
@@ -816,6 +819,14 @@
 			name = "Push Notifications";
 			sourceTree = "<group>";
 		};
+		AAD4AD131908102D006B93F2 /* integration */ = {
+			isa = PBXGroup;
+			children = (
+				AAD4AD151908104B006B93F2 /* CMUserIntegrationSpec.m */,
+			);
+			name = integration;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -848,6 +859,7 @@
 				7AB4AB6C145DC5D8006AEF67 /* Resources */,
 				7AB4AB6D145DC5D8006AEF67 /* ShellScript */,
 				BAA7BC150F1A4FDD944A2FD4 /* Copy Pods Resources */,
+				AABEE9F719081815007A26BA /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -983,6 +995,19 @@
 			shellPath = /bin/sh;
 			shellScript = "#/usr/local/bin/doxygen ios/Doxyfile\n#make -C $SOURCE_ROOT/docs/html install\n\n#rm -f $TEMP_DIR/loadDocSet.scpt\n\n#echo \"tell application \\\"Xcode\\\"\" >> $TEMP_DIR/loadDocSet.scpt\n#echo \"load documentation set with path \\\"/Users/$USER/Library/Developer/Shared/Documentation/DocSets/\\\"\"\n#>> $TEMP_DIR/loadDocSet.scpt\n#echo \"end tell\" >> $TEMP_DIR/loadDocSet.scpt\n\n#  Run the load-docset applescript command.\n#osascript $TEMP_DIR/loadDocSet.scpt";
 		};
+		AABEE9F719081815007A26BA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "ruby \"${SRCROOT}/scripts/delete_all_users.rb\"";
+		};
 		B69C6AAB646B4A35B1E18DD4 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1088,6 +1113,7 @@
 				7A7E31C414C603780091F1E3 /* CMGeoPointTest.m in Sources */,
 				7A7E31CB14C88F980091F1E3 /* CMStoreSpec.m in Sources */,
 				7AD9222014CF5B9B0032DDDE /* CMPagingDescriptorSpec.m in Sources */,
+				AAD4AD161908104B006B93F2 /* CMUserIntegrationSpec.m in Sources */,
 				7AD9222614D06EB10032DDDE /* CMStoreOptionsSpec.m in Sources */,
 				7AD93BAF14D1CCFE00CC1CC9 /* CMFileSpec.m in Sources */,
 				7AA79D6314DC1FB900F3CA3B /* CMCrossPlatformGenericSerializableObject.m in Sources */,

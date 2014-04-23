@@ -49,6 +49,7 @@
 SPEC_BEGIN(CMUserSpec)
 
 describe(@"CMUser", ^{
+    
     [[CMAPICredentials sharedInstance] setAppSecret:@"appSecret"];
     [[CMAPICredentials sharedInstance] setAppIdentifier:@"appIdentifier"];
     
@@ -91,7 +92,7 @@ describe(@"CMUser", ^{
             user = [[CustomUser alloc] initWithEmail:@"marc@cloudmine.me" andPassword:@"pass"];
             mockWebService = [CMWebService nullMock];
             [user setValue:mockWebService forKey:@"webService"];
-
+            
             // Setting these two values should not make the object dirty because it hasn't been persisted remotely yet.
             user.name = @"Marc";
             user.age = 24;
@@ -274,5 +275,6 @@ describe(@"CMUser", ^{
         });
     });
 });
+
 
 SPEC_END

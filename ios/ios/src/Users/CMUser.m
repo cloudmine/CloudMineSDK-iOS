@@ -17,6 +17,9 @@
 #import "RTProperty.h"
 
 @interface CMUser ()
+
+@property (nonatomic, strong) CMWebService *webService;
+
 + (NSURL *)cacheLocation;
 + (NSMutableDictionary *)cachedUsers;
 + (CMUser *)userFromCacheWithIdentifier:(NSString *)objectId;
@@ -41,8 +44,6 @@ NSString * const CMSocialNetworkWordpress = @"wordpress";
 NSString * const CMSocialNetworkYammer = @"yammer";
 NSString * const CMSocialNetworkSingly = @"singly";
 
-static CMWebService *webService;
-
 @implementation CMUser
 
 @synthesize userId = _userId; // Delete in Version 2.0
@@ -54,22 +55,13 @@ static CMWebService *webService;
 @synthesize isDirty;
 @synthesize services;
 @synthesize username;
+@synthesize webService = _webService;
 
 + (NSString *)className {
     return NSStringFromClass([self class]);
 }
 
 #pragma mark - Constructors
-
-+ (void)initialize {
-    if (!webService) {
-        @try {
-            webService = [[CMWebService alloc] init];
-        } @catch (NSException *e) {
-            webService = nil;
-        }
-    }
-}
 
 - (id)init {
     return [self initWithEmail:nil andUsername:nil andPassword:nil];
@@ -101,8 +93,8 @@ static CMWebService *webService;
         self.password = thePassword;
         self.services = nil;
         objectId = @"";
-        if (!webService) {
-            webService = [[CMWebService alloc] init];
+        if (!_webService) {
+            _webService = [[CMWebService alloc] init];
         }
         isDirty = NO;
         [self registerAllPropertiesForKVO];
@@ -122,8 +114,8 @@ static CMWebService *webService;
         _email = [coder decodeObjectForKey:@"email"];
         username = [coder decodeObjectForKey:@"username"];
         services = [coder decodeObjectForKey:@"services"];
-        if (!webService) {
-            webService = [[CMWebService alloc] init];
+        if (!_webService) {
+            _webService = [[CMWebService alloc] init];
         }
         isDirty = NO;
         [self registerAllPropertiesForKVO];
@@ -272,7 +264,7 @@ static CMWebService *webService;
 }
 
 - (void)save:(CMUserOperationCallback)callback {
-    [webService saveUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
+    [_webService saveUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         [self copyValuesFromDictionaryIntoState:responseBody];
         if (callback) {
             callback(result, [NSArray array]);
@@ -281,7 +273,7 @@ static CMWebService *webService;
 }
 
 - (void)loginWithCallback:(CMUserOperationCallback)callback {
-    [webService loginUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
+    [_webService loginUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         NSArray *messages = [NSArray array];
 
         if (result == CMUserAccountLoginSucceeded) {            
@@ -312,7 +304,7 @@ static CMWebService *webService;
 }
 
 - (void)logoutWithCallback:(CMUserOperationCallback)callback {
-    [webService logoutUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
+    [_webService logoutUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         NSArray *messages = [NSArray array];
         if (result == CMUserAccountLogoutSucceeded) {
             self.token = nil;
@@ -328,7 +320,7 @@ static CMWebService *webService;
 }
 
 - (void)createAccountWithCallback:(CMUserOperationCallback)callback {
-    [webService createAccountWithUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
+    [_webService createAccountWithUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         NSArray *messages = [NSArray array];
 
         if (result != CMUserAccountCreateSucceeded) {
@@ -388,7 +380,7 @@ static CMWebService *webService;
                                 newEmail:(NSString *)newEmail
                                  callback:(CMUserOperationCallback)callback {
     
-    [webService changeCredentialsForUser:self
+    [_webService changeCredentialsForUser:self
                                 password:currentPassword
                              newPassword:newPassword
                              newUsername:newUsername
@@ -425,7 +417,7 @@ static CMWebService *webService;
 }
 
 - (void)resetForgottenPasswordWithCallback:(CMUserOperationCallback)callback  {
-    [webService resetForgottenPasswordForUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
+    [_webService resetForgottenPasswordForUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         if (callback) {
             callback(result, [NSArray array]);
         }
@@ -444,8 +436,8 @@ static CMWebService *webService;
     //serialize payment method
     NSString *urlString = @"payments/account/methods/card";
     
-    NSURL *url = [webService constructAppURLWithString:urlString andDescriptors:nil];
-    NSMutableURLRequest *request = [webService constructHTTPRequestWithVerb:@"POST" URL:url binaryData:NO user:self];
+    NSURL *url = [_webService constructAppURLWithString:urlString andDescriptors:nil];
+    NSMutableURLRequest *request = [_webService constructHTTPRequestWithVerb:@"POST" URL:url binaryData:NO user:self];
     
     NSMutableArray *payments = [NSMutableArray array];
     NSDictionary *encoded = [CMObjectEncoder encodeObjects:paymentMethods];
@@ -463,7 +455,7 @@ static CMWebService *webService;
     
     [request setHTTPBody:data];
     
-    [webService executeGenericRequest:request successHandler:^(id parsedBody, NSUInteger httpCode, NSDictionary *headers) {
+    [_webService executeGenericRequest:request successHandler:^(id parsedBody, NSUInteger httpCode, NSDictionary *headers) {
         NSLog(@"Result %@", parsedBody);
         CMPaymentResponse *response = [[CMPaymentResponse alloc] initWithResponseBody:parsedBody httpCode:httpCode headers:headers errors:nil];
         if (callback) callback(response);
@@ -477,10 +469,10 @@ static CMWebService *webService;
 {
     NSString *urlString = [NSString stringWithFormat:@"payments/account/methods/card/%d", index];
     
-    NSURL *url = [webService constructAppURLWithString:urlString andDescriptors:nil];
-    NSMutableURLRequest *request = [webService constructHTTPRequestWithVerb:@"DELETE" URL:url binaryData:NO user:self];
+    NSURL *url = [_webService constructAppURLWithString:urlString andDescriptors:nil];
+    NSMutableURLRequest *request = [_webService constructHTTPRequestWithVerb:@"DELETE" URL:url binaryData:NO user:self];
     
-    [webService executeGenericRequest:request successHandler:^(id parsedBody, NSUInteger httpCode, NSDictionary *headers) {
+    [_webService executeGenericRequest:request successHandler:^(id parsedBody, NSUInteger httpCode, NSDictionary *headers) {
         NSLog(@"Result %@", parsedBody);
         CMPaymentResponse *response = [[CMPaymentResponse alloc] initWithResponseBody:parsedBody httpCode:httpCode headers:headers errors:nil];
         if (callback) callback(response);
@@ -494,10 +486,10 @@ static CMWebService *webService;
 {
     NSString *urlString = @"payments/account/methods";
     
-    NSURL *url = [webService constructAppURLWithString:urlString andDescriptors:nil];
-    NSMutableURLRequest *request = [webService constructHTTPRequestWithVerb:@"GET" URL:url binaryData:NO user:self];
+    NSURL *url = [_webService constructAppURLWithString:urlString andDescriptors:nil];
+    NSMutableURLRequest *request = [_webService constructHTTPRequestWithVerb:@"GET" URL:url binaryData:NO user:self];
     
-    [webService executeGenericRequest:request successHandler:^(id parsedBody, NSUInteger httpCode, NSDictionary *headers) {
+    [_webService executeGenericRequest:request successHandler:^(id parsedBody, NSUInteger httpCode, NSDictionary *headers) {
         
         NSLog(@"Result %@", parsedBody);
         NSMutableArray *finishedObjects = [NSMutableArray array];
@@ -531,7 +523,7 @@ static CMWebService *webService;
                                                callback:(CMUserOperationCallback)callback;
 {
     
-    CMSocialLoginViewController *login = [webService loginWithSocial:self
+    CMSocialLoginViewController *login = [_webService loginWithSocial:self
                                                          withService:service
                                                       viewController:viewController
                                                               params:params
@@ -568,7 +560,7 @@ static CMWebService *webService;
 
 + (void)allUsersWithCallback:(CMUserFetchCallback)callback {
     NSParameterAssert(callback);
-    [webService getAllUsersWithCallback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
+    [[CMWebService sharedWebService] getAllUsersWithCallback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
         NSArray *users = [CMObjectDecoder decodeObjects:results];
         [self cacheMultipleUsers:users];
         callback(users, errors);
@@ -577,7 +569,7 @@ static CMWebService *webService;
 
 + (void)searchUsers:(NSString *)query callback:(CMUserFetchCallback)callback {
     NSParameterAssert(callback);
-    [webService searchUsers:query callback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
+    [[CMWebService sharedWebService] searchUsers:query callback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
         NSArray *users = [CMObjectDecoder decodeObjects:results];
         [self cacheMultipleUsers:users];
         callback(users, errors);
@@ -591,7 +583,7 @@ static CMWebService *webService;
     if (cachedUser) {
         callback(@[cachedUser], [NSDictionary dictionary]);
     } else {
-        [webService getUserProfileWithIdentifier:identifier callback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
+        [[CMWebService sharedWebService] getUserProfileWithIdentifier:identifier callback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
             if (errors.count > 0) {
                 callback([NSArray array], errors);
             } else {
@@ -646,11 +638,11 @@ static CMWebService *webService;
 #pragma mark - Private stuff
 
 - (void)setWebService:(CMWebService *)newWebService {
-    webService = newWebService;
+    _webService = newWebService;
 }
 
 - (CMWebService *)webService {
-    return webService;
+    return _webService;
 }
 
 @end
