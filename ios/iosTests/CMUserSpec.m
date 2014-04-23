@@ -271,9 +271,71 @@ describe(@"CMUser", ^{
                 CustomUser *customUser = [[CMObjectDecoder decodeObjects:serializedUser] lastObject];
                 [customUser.name shouldBeNil];
             });
-            
         });
     });
+    
+    context(@"given a CMUser operation code", ^{
+        it(@"should be properly return true or false", ^{
+            [[theValue(CMUserAccountOperationSuccessful(CMUserAccountUnknownResult)) should] equal:theValue(NO)];
+            [[theValue(CMUserAccountOperationSuccessful(CMUserAccountLoginSucceeded)) should] equal:theValue(YES)];
+            [[theValue(CMUserAccountOperationSuccessful(CMUserAccountLogoutSucceeded)) should] equal:theValue(YES)];
+            [[theValue(CMUserAccountOperationSuccessful(CMUserAccountCreateSucceeded)) should] equal:theValue(YES)];
+            [[theValue(CMUserAccountOperationSuccessful(CMUserAccountProfileUpdateSucceeded)) should] equal:theValue(YES)];
+            [[theValue(CMUserAccountOperationSuccessful(CMUserAccountPasswordChangeSucceeded)) should] equal:theValue(YES)];
+            [[theValue(CMUserAccountOperationSuccessful(CMUserAccountEmailChangeSucceeded)) should] equal:theValue(YES)];
+            [[theValue(CMUserAccountOperationSuccessful(CMUserAccountUsernameChangeSucceeded)) should] equal:theValue(YES)];
+            [[theValue(CMUserAccountOperationSuccessful(CMUserAccountCredentialChangeSucceeded)) should] equal:theValue(YES)];
+            [[theValue(CMUserAccountOperationSuccessful(CMUserAccountPasswordResetEmailSent)) should] equal:theValue(YES)];
+            [[theValue(CMUserAccountOperationSuccessful(CMUserAccountCredentialChangeFailedDuplicateEmail)) should] equal:theValue(NO)];
+            [[theValue(CMUserAccountOperationSuccessful(CMUserAccountCredentialChangeFailedInvalidCredentials)) should] equal:theValue(NO)];
+            [[theValue(CMUserAccountOperationSuccessful(CMUserAccountCreateFailedInvalidRequest)) should] equal:theValue(NO)];
+            [[theValue(CMUserAccountOperationSuccessful(CMUserAccountProfileUpdateFailed)) should] equal:theValue(NO)];
+            [[theValue(CMUserAccountOperationSuccessful(CMUserAccountCreateFailedDuplicateAccount)) should] equal:theValue(NO)];
+            [[theValue(CMUserAccountOperationSuccessful(CMUserAccountCredentialChangeFailedDuplicateUsername)) should] equal:theValue(NO)];
+            [[theValue(CMUserAccountOperationSuccessful(CMUserAccountCredentialChangeFailedDuplicateInfo)) should] equal:theValue(NO)];
+            [[theValue(CMUserAccountOperationSuccessful(CMUserAccountLoginFailedIncorrectCredentials)) should] equal:theValue(NO)];
+            [[theValue(CMUserAccountOperationSuccessful(CMUserAccountPasswordChangeFailedInvalidCredentials)) should] equal:theValue(NO)];
+            [[theValue(CMUserAccountOperationSuccessful(CMUserAccountSocialLoginErrorOccurred)) should] equal:theValue(NO)];
+            [[theValue(CMUserAccountOperationSuccessful(CMUserAccountSocialLoginDismissed)) should] equal:theValue(NO)];
+            [[theValue(CMUserAccountOperationSuccessful(CMUserAccountOperationFailedUnknownAccount)) should] equal:theValue(NO)];
+            
+            
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+            [[theValue(CMUserAccountOperationSuccessful(CMUserAccountUserIdChangeSucceeded)) should] equal:theValue(YES)];
+            [[theValue(CMUserAccountOperationSuccessful(CMUserAccountCredentialChangeFailedDuplicateUserId)) should] equal:theValue(NO)];
+#pragma clang diagnostic pop
+        });
+        
+        it(@"should be an properly work with the fail command", ^{
+            [[theValue(CMUserAccountOperationFailed(CMUserAccountUnknownResult)) should] equal:theValue(YES)];
+            [[theValue(CMUserAccountOperationFailed(CMUserAccountLoginSucceeded)) should] equal:theValue(NO)];
+            [[theValue(CMUserAccountOperationFailed(CMUserAccountLogoutSucceeded)) should] equal:theValue(NO)];
+            [[theValue(CMUserAccountOperationFailed(CMUserAccountCreateSucceeded)) should] equal:theValue(NO)];
+            [[theValue(CMUserAccountOperationFailed(CMUserAccountProfileUpdateSucceeded)) should] equal:theValue(NO)];
+            [[theValue(CMUserAccountOperationFailed(CMUserAccountPasswordChangeSucceeded)) should] equal:theValue(NO)];
+            [[theValue(CMUserAccountOperationFailed(CMUserAccountEmailChangeSucceeded)) should] equal:theValue(NO)];
+            [[theValue(CMUserAccountOperationFailed(CMUserAccountUsernameChangeSucceeded)) should] equal:theValue(NO)];
+            [[theValue(CMUserAccountOperationFailed(CMUserAccountCredentialChangeSucceeded)) should] equal:theValue(NO)];
+            [[theValue(CMUserAccountOperationFailed(CMUserAccountPasswordResetEmailSent)) should] equal:theValue(NO)];
+            [[theValue(CMUserAccountOperationFailed(CMUserAccountCredentialChangeFailedDuplicateEmail)) should] equal:theValue(YES)];
+            [[theValue(CMUserAccountOperationFailed(CMUserAccountCredentialChangeFailedInvalidCredentials)) should] equal:theValue(YES)];
+            [[theValue(CMUserAccountOperationFailed(CMUserAccountCreateFailedInvalidRequest)) should] equal:theValue(YES)];
+            [[theValue(CMUserAccountOperationFailed(CMUserAccountProfileUpdateFailed)) should] equal:theValue(YES)];
+            [[theValue(CMUserAccountOperationFailed(CMUserAccountCreateFailedDuplicateAccount)) should] equal:theValue(YES)];
+            [[theValue(CMUserAccountOperationFailed(CMUserAccountCredentialChangeFailedDuplicateUsername)) should] equal:theValue(YES)];
+            [[theValue(CMUserAccountOperationFailed(CMUserAccountCredentialChangeFailedDuplicateInfo)) should] equal:theValue(YES)];
+            [[theValue(CMUserAccountOperationFailed(CMUserAccountLoginFailedIncorrectCredentials)) should] equal:theValue(YES)];
+            [[theValue(CMUserAccountOperationFailed(CMUserAccountPasswordChangeFailedInvalidCredentials)) should] equal:theValue(YES)];
+            [[theValue(CMUserAccountOperationFailed(CMUserAccountSocialLoginErrorOccurred)) should] equal:theValue(YES)];
+            [[theValue(CMUserAccountOperationFailed(CMUserAccountSocialLoginDismissed)) should] equal:theValue(YES)];
+            [[theValue(CMUserAccountOperationFailed(CMUserAccountOperationFailedUnknownAccount)) should] equal:theValue(YES)];
+            
+            
+        });
+        
+    });
+    
 });
 
 

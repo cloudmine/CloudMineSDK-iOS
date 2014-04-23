@@ -70,7 +70,7 @@ typedef enum {
  * @return <tt>YES</tt> if the operation was successful, <tt>NO</tt> otherwise.
  */
 static inline BOOL CMUserAccountOperationSuccessful(CMUserAccountResult resultCode) {
-    return (resultCode >= 0 && resultCode <= 4);
+    return (resultCode >= 0 && resultCode <= 9);
 }
 
 /**
