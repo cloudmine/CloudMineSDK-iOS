@@ -859,7 +859,7 @@
 				7AB4AB6C145DC5D8006AEF67 /* Resources */,
 				7AB4AB6D145DC5D8006AEF67 /* ShellScript */,
 				BAA7BC150F1A4FDD944A2FD4 /* Copy Pods Resources */,
-				AABEE9F719081815007A26BA /* ShellScript */,
+				AABEE9F719081815007A26BA /* Delete All Users and Objects */,
 			);
 			buildRules = (
 			);
@@ -995,18 +995,19 @@
 			shellPath = /bin/sh;
 			shellScript = "#/usr/local/bin/doxygen ios/Doxyfile\n#make -C $SOURCE_ROOT/docs/html install\n\n#rm -f $TEMP_DIR/loadDocSet.scpt\n\n#echo \"tell application \\\"Xcode\\\"\" >> $TEMP_DIR/loadDocSet.scpt\n#echo \"load documentation set with path \\\"/Users/$USER/Library/Developer/Shared/Documentation/DocSets/\\\"\"\n#>> $TEMP_DIR/loadDocSet.scpt\n#echo \"end tell\" >> $TEMP_DIR/loadDocSet.scpt\n\n#  Run the load-docset applescript command.\n#osascript $TEMP_DIR/loadDocSet.scpt";
 		};
-		AABEE9F719081815007A26BA /* ShellScript */ = {
+		AABEE9F719081815007A26BA /* Delete All Users and Objects */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Delete All Users and Objects";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "ruby \"${SRCROOT}/scripts/delete_all_users.rb\"";
+			shellScript = "ruby \"${SRCROOT}/../scripts/delete_all_users.rb\" 9977f87e6ae54815b32a663902c3ca65 B93006AC1B3E40209B4477383B150CF2 true\ncat << EOM\nDeleted All users\nEOM";
 		};
 		B69C6AAB646B4A35B1E18DD4 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

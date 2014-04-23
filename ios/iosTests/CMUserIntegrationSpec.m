@@ -23,19 +23,19 @@ describe(@"CMUser Integration", ^{
         
         it(@"it should successfully create the user on the server", ^{
             
-            __block CMUserAccountResult code = -1;
+            __block CMUserAccountResult code = NSNotFound;
             __block NSArray *mes = nil;
             
             CMUser *user = [[CMUser alloc] initWithEmail:@"test@test.com" andPassword:@"testing"];
             
             [user createAccountWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
-                NSLog(@"FINISHED ASYNC:");
+                NSLog(@"FINISHED ASYNC: %d", resultCode);
                 code = resultCode;
                 mes = messages;
             }];
             
-            [[theValue(code) shouldEventuallyBeforeTimingOutAfter(5.0)] equal:theValue(2)];
-            [[mes shouldEventuallyBeforeTimingOutAfter(5.0)] beEmpty];
+            [[expectFutureValue(theValue(code)) shouldEventuallyBeforeTimingOutAfter(5.0)] equal:theValue(2)];
+            [[expectFutureValue(mes) shouldEventuallyBeforeTimingOutAfter(5.0)] beEmpty];
         });
     });
 });

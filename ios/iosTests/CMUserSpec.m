@@ -110,8 +110,8 @@ describe(@"CMUser", ^{
             it(@"should cache the user returned when searching by a specific identifier", ^{
                 [[NSFileManager defaultManager] removeItemAtURL:[CMUser cacheLocation] error:nil];
                 
-                KWCaptureSpy *callbackBlockSpy = [mockWebService captureArgument:@selector(getUserProfileWithIdentifier:callback:) atIndex:1];
-                [[mockWebService should] receive:@selector(getUserProfileWithIdentifier:callback:) withCount:2];
+                KWCaptureSpy *callbackBlockSpy = [[CMWebService sharedWebService] captureArgument:@selector(getUserProfileWithIdentifier:callback:) atIndex:1];
+                [[[CMWebService sharedWebService] should] receive:@selector(getUserProfileWithIdentifier:callback:) withCount:2];
                 [[CMUser should] receive:@selector(cacheMultipleUsers:) withCount:1];
                 
                 // This first call should trigger the web service call.

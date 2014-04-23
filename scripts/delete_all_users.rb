@@ -1,7 +1,9 @@
 #
 # Requires you to run 'gem install httparty'
 #
-require 'httparty'
+require 'net/http'
+require 'uri'
+require 'json'
 
 def main
   appId = ARGV[0]
@@ -13,28 +15,43 @@ def main
   url = "https://api.cloudmine.me/v1/app/" + appId.to_s
   accountUrl = url + "/account"
   
-  response = HTTParty.get(accountUrl, :headers => {"X-CloudMine-ApiKey" => masterKey})
-  
+  response = cm_get(accountUrl, masterKey)
   puts "response: #{response}"
 
   response["success"].each_key do |user|
-    delete = HTTParty.delete(accountUrl + "/" + user, :headers => {"X-CloudMine-ApiKey" => masterKey})
-    delete_data = HTTParty.delete(url + "/user/" + user + "/data?all=true" + user, :headers => {"X-CloudMine-ApiKey" => masterKey})
-
+    
+    delete = cm_delete(accountUrl + "/" + user, masterKey)
+    delete_data = cm_delete(url + "/user/" + user + "/data?all=true", masterKey)
     puts "Data? #{delete_data}"
-
-#/user/data
-
     puts "Deleted user: #{user}"
-
   end
 
 
   if delete_data
-    data = HTTParty.delete(url + "/data?all=true", :headers => {"X-CloudMine-ApiKey" => masterKey})
+    data = cm_delete(url + "/data?all=true" , masterKey)
     puts "Deleted all app data. #{data}"
   end
 
+end
+
+def cm_get(urlString, masterKey)
+  url = URI.parse(urlString)
+  req = Net::HTTP::Get.new(url.to_s)
+  req.add_field("X-CloudMine-ApiKey", masterKey)
+  http = Net::HTTP.new(url.host, url.port)
+  http.use_ssl = true
+  res = http.request(req)
+  JSON.parse(res.body)
+end
+
+def cm_delete(urlString, masterKey)
+  url = URI.parse(urlString)
+  req = Net::HTTP::Delete.new(url.to_s)
+  req.add_field("X-CloudMine-ApiKey", masterKey)
+  http = Net::HTTP.new(url.host, url.port)
+  http.use_ssl = true
+  res = http.request(req)
+  unless res.body.strip.empty? then JSON.parse(res.body) else "" end
 end
 
 def usage
