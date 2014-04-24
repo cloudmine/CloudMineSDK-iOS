@@ -156,6 +156,7 @@
 		AAA92FFE181972DA0064F773 /* CMTools.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA92FFC181972DA0064F773 /* CMTools.m */; };
 		AAB2E0B0167B94CF00D2C699 /* CMAppDelegateBase.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB2E0AF167B94CF00D2C699 /* CMAppDelegateBase.m */; };
 		AAB2E0B4167BA05700D2C699 /* CMAppDelegateBase.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAB2E0AE167B94CF00D2C699 /* CMAppDelegateBase.h */; };
+		AABEE9FB19088809007A26BA /* CMDateSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AABEE9FA19088809007A26BA /* CMDateSpec.m */; };
 		AAC1D8F116DD4BCC002A7DC0 /* CMChannelResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC1D8F016DD4BCC002A7DC0 /* CMChannelResponse.m */; };
 		AAC1D8F416DD51FB002A7DC0 /* CMResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC1D8F316DD51FA002A7DC0 /* CMResponse.m */; };
 		AAC1D8F916DD5B34002A7DC0 /* CMResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAC1D8F216DD51F9002A7DC0 /* CMResponse.h */; };
@@ -397,6 +398,7 @@
 		AAA92FFC181972DA0064F773 /* CMTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMTools.m; sourceTree = "<group>"; };
 		AAB2E0AE167B94CF00D2C699 /* CMAppDelegateBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMAppDelegateBase.h; sourceTree = "<group>"; };
 		AAB2E0AF167B94CF00D2C699 /* CMAppDelegateBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMAppDelegateBase.m; sourceTree = "<group>"; };
+		AABEE9FA19088809007A26BA /* CMDateSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMDateSpec.m; sourceTree = "<group>"; };
 		AAC1D8EF16DD4BCB002A7DC0 /* CMChannelResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMChannelResponse.h; path = Response/CMChannelResponse.h; sourceTree = "<group>"; };
 		AAC1D8F016DD4BCC002A7DC0 /* CMChannelResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMChannelResponse.m; path = Response/CMChannelResponse.m; sourceTree = "<group>"; };
 		AAC1D8F216DD51F9002A7DC0 /* CMResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMResponse.h; sourceTree = "<group>"; };
@@ -658,6 +660,7 @@
 				7AAFB49A158017450066B4A4 /* CMMimeTypeSpec.m */,
 				7AD93BAE14D1CCFE00CC1CC9 /* CMFileSpec.m */,
 				7A0D7CD31581097200C7C476 /* CMObjectSpec.m */,
+				AABEE9FA19088809007A26BA /* CMDateSpec.m */,
 				D039C16615BDEB77005CCD33 /* CMACLSpec.m */,
 				7A4A6F2814FFF08100B95D13 /* CMUserSpec.m */,
 				7A766208156307DF009840EE /* CMSortDescriptorSpec.m */,
@@ -839,6 +842,7 @@
 				7AB4AB5C145DC5D8006AEF67 /* Frameworks */,
 				AA18E35516DBC683000BC23E /* ShellScript */,
 				8C31EF5B445C4144A496AB8A /* Copy Pods Resources */,
+				AABEE9F81908788F007A26BA /* Code Generation */,
 			);
 			buildRules = (
 			);
@@ -1009,6 +1013,20 @@
 			shellPath = /bin/sh;
 			shellScript = "ruby \"${SRCROOT}/../scripts/delete_all_users.rb\" 9977f87e6ae54815b32a663902c3ca65 B93006AC1B3E40209B4477383B150CF2 true\ncat << EOM\nDeleted All users\nEOM";
 		};
+		AABEE9F81908788F007A26BA /* Code Generation */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Code Generation";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/XcodeCoverage/exportenv.sh\"";
+		};
 		B69C6AAB646B4A35B1E18DD4 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1120,6 +1138,7 @@
 				7AA79D6314DC1FB900F3CA3B /* CMCrossPlatformGenericSerializableObject.m in Sources */,
 				7A766209156307DF009840EE /* CMSortDescriptorSpec.m in Sources */,
 				7A0D7CD41581097200C7C476 /* CMObjectSpec.m in Sources */,
+				AABEE9FB19088809007A26BA /* CMDateSpec.m in Sources */,
 				7AAFB49B158017450066B4A4 /* CMMimeTypeSpec.m in Sources */,
 				AA5693C71902E90500C4A15A /* CMTestEncoder.m in Sources */,
 				7AFDFE4C158E9EB400388D6E /* CMActiveUserSpec.m in Sources */,
@@ -1181,6 +1200,8 @@
 				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/ios/Vendor\"/**";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1222,6 +1243,7 @@
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/ios/Vendor\"/**";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;

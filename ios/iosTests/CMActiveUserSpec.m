@@ -6,10 +6,6 @@
 //  See LICENSE file included with SDK for details.
 //
 
-extern void __gcov_flush();
-
-#import <XCTest/XCTest.h>
-#import <objc/runtime.h>
 #import "Kiwi.h"
 #import "CMActiveUser.h"
 
@@ -31,10 +27,6 @@ describe(@"CMActiveUser", ^{
         CMActiveUser *user = [CMActiveUser currentActiveUser];
         CMActiveUser *anotherUser = [CMActiveUser currentActiveUser];
         [[user should] equal:anotherUser];
-    });
-    
-    afterAll(^{
-        __gcov_flush();
     });
 });
 
