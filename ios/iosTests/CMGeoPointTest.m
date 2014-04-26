@@ -12,6 +12,7 @@
 #import "CMObjectEncoder.h"
 #import "CMObjectDecoder.h"
 #import "CMAPICredentials.h"
+#import <CoreLocation/CoreLocation.h>
 
 @interface CMGeoTestingObject : CMObject
 @property (strong) NSString *name;
@@ -83,6 +84,25 @@ describe(@"CMGeoPoint", ^{
         CMGeoPoint *point = [[[CMObjectDecoder decodeObjects:encodedObj] objectAtIndex:0] loc];
         [[theValue(point.latitude) should] equal:theValue(47.33)];
         [[theValue(point.longitude) should] equal: theValue(-72.394)];
+    });
+    
+    it(@"should initialize properly from a CLLocation", ^{
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:10.0 longitude:11.0];
+        CMGeoPoint *point = [[CMGeoPoint alloc] initWithCLLocation:location];
+        [[theValue(point.latitude) should] equal:@10];
+        [[theValue(point.longitude) should] equal:@11];
+    });
+    
+    it(@"should know when two points are equal", ^{
+        CMGeoPoint *point1 = [[CMGeoPoint alloc] initWithLatitude:12.5 andLongitude:16.5];
+        [[point1 shouldNot] equal:@"String"];
+        
+        CMGeoPoint *point2 = [[CMGeoPoint alloc] initWithLatitude:22.55 andLongitude:35.64];
+        [[point1 shouldNot] equal:point2];
+        
+        CMGeoPoint *point3 = [[CMGeoPoint alloc] initWithLatitude:12.5 andLongitude:16.5];
+        [[point1 should] equal:point3];
+        
     });
 });
 

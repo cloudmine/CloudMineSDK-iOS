@@ -142,6 +142,7 @@
 		AA5693C31901790300C4A15A /* CMConstants.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA5693C21901790300C4A15A /* CMConstants.h */; };
 		AA5693C71902E90500C4A15A /* CMTestEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5693C61902E90500C4A15A /* CMTestEncoder.m */; };
 		AA5C462B190BFDF60086FBD6 /* cloudmine.png in Resources */ = {isa = PBXBuildFile; fileRef = AA5C462A190BFDF60086FBD6 /* cloudmine.png */; };
+		AA5C462C190C12B30086FBD6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A91E8D814E6EF85008B7941 /* CoreLocation.framework */; };
 		AAA05FB9183A756B009652C9 /* CMPaymentService.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA05FB3183A756B009652C9 /* CMPaymentService.m */; };
 		AAA05FBB183A756B009652C9 /* CMPaymentService.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB4183A756B009652C9 /* CMPaymentService.h */; };
 		AAA05FBC183A756B009652C9 /* CMCardPayment.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB5183A756B009652C9 /* CMCardPayment.h */; };
@@ -437,6 +438,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA5C462C190C12B30086FBD6 /* CoreLocation.framework in Frameworks */,
 				7A308A3C14798F29008ADD3C /* libz.dylib in Frameworks */,
 				7A308A3B14798F1D008ADD3C /* CFNetwork.framework in Frameworks */,
 				7A308A3A14798F19008ADD3C /* CoreGraphics.framework in Frameworks */,
