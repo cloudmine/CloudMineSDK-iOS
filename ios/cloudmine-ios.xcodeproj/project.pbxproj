@@ -143,6 +143,8 @@
 		AA5693C71902E90500C4A15A /* CMTestEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5693C61902E90500C4A15A /* CMTestEncoder.m */; };
 		AA5C462B190BFDF60086FBD6 /* cloudmine.png in Resources */ = {isa = PBXBuildFile; fileRef = AA5C462A190BFDF60086FBD6 /* cloudmine.png */; };
 		AA5C462C190C12B30086FBD6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A91E8D814E6EF85008B7941 /* CoreLocation.framework */; };
+		AA5C462F190C154C0086FBD6 /* CMObjectClassNameRegistrySpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5C462E190C154C0086FBD6 /* CMObjectClassNameRegistrySpec.m */; };
+		AA5C4632190C19990086FBD6 /* CMCoding.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA5C4631190C19990086FBD6 /* CMCoding.h */; };
 		AAA05FB9183A756B009652C9 /* CMPaymentService.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA05FB3183A756B009652C9 /* CMPaymentService.m */; };
 		AAA05FBB183A756B009652C9 /* CMPaymentService.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB4183A756B009652C9 /* CMPaymentService.h */; };
 		AAA05FBC183A756B009652C9 /* CMCardPayment.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB5183A756B009652C9 /* CMCardPayment.h */; };
@@ -199,6 +201,7 @@
 				AAA05FBB183A756B009652C9 /* CMPaymentService.h in CopyFiles */,
 				D03A4D5C15B48D2200A956BC /* CMACLFetchResponse.h in CopyFiles */,
 				7AF00BA215A8DC7C0070442A /* CMACL.h in CopyFiles */,
+				AA5C4632190C19990086FBD6 /* CMCoding.h in CopyFiles */,
 				7AF00BA315A8DC7C0070442A /* CMUser.h in CopyFiles */,
 				7A28005515929AEC002C504A /* CMObjectOwnershipLevel.h in CopyFiles */,
 				7A28002615922364002C504A /* CMDate.h in CopyFiles */,
@@ -386,6 +389,8 @@
 		AA5693C51902E90500C4A15A /* CMTestEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMTestEncoder.h; sourceTree = "<group>"; };
 		AA5693C61902E90500C4A15A /* CMTestEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMTestEncoder.m; sourceTree = "<group>"; };
 		AA5C462A190BFDF60086FBD6 /* cloudmine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloudmine.png; sourceTree = "<group>"; };
+		AA5C462E190C154C0086FBD6 /* CMObjectClassNameRegistrySpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectClassNameRegistrySpec.m; sourceTree = "<group>"; };
+		AA5C4631190C19990086FBD6 /* CMCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMCoding.h; sourceTree = "<group>"; };
 		AAA05FB3183A756B009652C9 /* CMPaymentService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPaymentService.m; sourceTree = "<group>"; };
 		AAA05FB4183A756B009652C9 /* CMPaymentService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPaymentService.h; sourceTree = "<group>"; };
 		AAA05FB5183A756B009652C9 /* CMCardPayment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMCardPayment.h; sourceTree = "<group>"; };
@@ -652,6 +657,7 @@
 			isa = PBXGroup;
 			children = (
 				AAD4AD131908102D006B93F2 /* integration */,
+				AA5C4630190C17000086FBD6 /* Persisted Object Tests */,
 				7AFDFE4B158E9EB400388D6E /* CMActiveUserSpec.m */,
 				7A308A4314799134008ADD3C /* CMWebServiceSpec.m */,
 				D039C16915BEEB44005CCD33 /* CMACLFetchResponseSpec.m */,
@@ -663,9 +669,6 @@
 				7AD9221F14CF5B9B0032DDDE /* CMPagingDescriptorSpec.m */,
 				7AD9222514D06EB10032DDDE /* CMStoreOptionsSpec.m */,
 				7AAFB49A158017450066B4A4 /* CMMimeTypeSpec.m */,
-				7AD93BAE14D1CCFE00CC1CC9 /* CMFileSpec.m */,
-				7A0D7CD31581097200C7C476 /* CMObjectSpec.m */,
-				AABEE9FA19088809007A26BA /* CMDateSpec.m */,
 				D039C16615BDEB77005CCD33 /* CMACLSpec.m */,
 				7A4A6F2814FFF08100B95D13 /* CMUserSpec.m */,
 				7A766208156307DF009840EE /* CMSortDescriptorSpec.m */,
@@ -721,6 +724,7 @@
 				7A04E869147D8435006E00AB /* CMServerFunction.h */,
 				7A04E86A147D8435006E00AB /* CMServerFunction.m */,
 				7AABA2E21480513500FD52A0 /* CMSerializable.h */,
+				AA5C4631190C19990086FBD6 /* CMCoding.h */,
 				7A7EDBD9148EBE3800AB5B69 /* CMObjectSerialization.h */,
 				7AE284891562C3C8003E8A8F /* CMSortDescriptor.h */,
 				7AE2848A1562C3C8003E8A8F /* CMSortDescriptor.m */,
@@ -792,6 +796,17 @@
 				AA00CED11886E1C700F9958C /* UIImageView+CloudMine.m */,
 			);
 			name = UIAdditions;
+			sourceTree = "<group>";
+		};
+		AA5C4630190C17000086FBD6 /* Persisted Object Tests */ = {
+			isa = PBXGroup;
+			children = (
+				7AD93BAE14D1CCFE00CC1CC9 /* CMFileSpec.m */,
+				7A0D7CD31581097200C7C476 /* CMObjectSpec.m */,
+				AABEE9FA19088809007A26BA /* CMDateSpec.m */,
+				AA5C462E190C154C0086FBD6 /* CMObjectClassNameRegistrySpec.m */,
+			);
+			name = "Persisted Object Tests";
 			sourceTree = "<group>";
 		};
 		AAA05FB2183A7558009652C9 /* Payment */ = {
@@ -1128,6 +1143,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA5C462F190C154C0086FBD6 /* CMObjectClassNameRegistrySpec.m in Sources */,
 				7A308A4414799134008ADD3C /* CMWebServiceSpec.m in Sources */,
 				7A0DB1BC147B016B007F482C /* CMBlockValidationMessageSpy.m in Sources */,
 				7A04E86F147D90F5006E00AB /* CMServerFunctionSpec.m in Sources */,

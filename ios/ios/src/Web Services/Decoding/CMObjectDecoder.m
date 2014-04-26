@@ -79,7 +79,7 @@
 - (id)decodeNSCoding:(NSDictionary *)object;
 {
     CMObjectDecoder *decoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:object];
-    Class klass = NSClassFromString(object[CMInternalClassStorageKey]);
+    Class klass = [CMObjectDecoder typeFromDictionaryRepresentation:object];
     id decodedObject = [[klass alloc] initWithCoder:decoder];
     return decodedObject;
 }

@@ -7,6 +7,7 @@
 //
 
 #import "CMObject.h"
+#import "CMCoding.h"
 
 @interface CMTestEncoderInt : CMObject
 
@@ -20,7 +21,7 @@
 
 @end
 
-@interface CMTestEncoderNSCoding : NSObject <NSCoding>
+@interface CMTestEncoderNSCoding : NSObject <CMCoding>
 
 @property (nonatomic, copy) NSString *aString;
 @property (nonatomic, assign) NSInteger anInt;
@@ -33,7 +34,7 @@
 
 @end
 
-@interface CMTestEncoderNSCodingDeeper : CMTestEncoderNSCoding
+@interface CMTestEncoderNSCodingDeeper : CMTestEncoderNSCoding <CMCoding>
 
 @property (nonatomic, strong) CMTestEncoderFloat *nestedCMObject;
 

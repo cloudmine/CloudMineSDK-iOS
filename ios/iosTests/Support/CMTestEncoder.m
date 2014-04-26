@@ -111,4 +111,9 @@
     [aCoder encodeObject:self.nestedCMObject forKey:@"nestedCMObject"];
 }
 
++ (NSString *)className;
+{
+    return @"TestEncoderDeeper";
+}
+
 @end

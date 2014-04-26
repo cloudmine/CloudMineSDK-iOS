@@ -7,9 +7,10 @@
 //
 
 #import "CMObjectClassNameRegistry.h"
-
 #import "CMObject.h"
+#import "CMCoding.h"
 #import "MARTNSObject.h"
+#import <objc/runtime.h>
 
 @interface CMObjectClassNameRegistry (Private)
 - (void)discoverCMObjectSubclasses;
@@ -42,6 +43,7 @@
 - (void)refreshRegistry {
     [classNameMappings removeAllObjects];
     [self discoverCMObjectSubclasses];
+    [self discoverCMCodingImplementors];
 }
 
 #pragma mark - Private initializers
@@ -49,7 +51,7 @@
 - (id)init {
     if (self = [super init]) {
         classNameMappings = [[NSMutableDictionary alloc] init];
-        [self discoverCMObjectSubclasses];
+        [self refreshRegistry];
     }
     return self;
 }
@@ -60,6 +62,32 @@
     NSArray *cmObjectSubclasses = [CMObject rt_subclasses];
     for (Class klass in cmObjectSubclasses) {
         [classNameMappings setObject:NSStringFromClass(klass) forKey:[klass className]];
+    }
+}
+
+- (void)discoverCMCodingImplementors;
+{
+    int numClasses;
+    Class *classes = NULL;
+    
+    classes = NULL;
+    numClasses = objc_getClassList(NULL, 0);
+    
+    if (numClasses > 0 )
+    {
+        classes = (__unsafe_unretained Class *)malloc(sizeof(Class) * numClasses);
+        numClasses = objc_getClassList(classes, numClasses);
+        for (int i = 0; i < numClasses; i++) {
+            Class nextClass = classes[i];
+            if (class_conformsToProtocol(nextClass, @protocol(CMCoding))) {
+                NSString *className = NSStringFromClass(nextClass);
+                if ([nextClass respondsToSelector:@selector(className)]) {
+                    className = [nextClass className];
+                }
+                [classNameMappings setObject:NSStringFromClass(nextClass) forKey:className];
+            }
+        }
+        free(classes);
     }
 }
 

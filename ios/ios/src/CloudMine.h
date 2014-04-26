@@ -54,6 +54,7 @@
 #import "CMObjectSerialization.h"
 #import "CMPagingDescriptor.h"
 #import "CMSerializable.h"
+#import "CMCoding.h"
 #import "CMServerFunction.h"
 #import "CMSortDescriptor.h"
 #import "CMStore.h"
