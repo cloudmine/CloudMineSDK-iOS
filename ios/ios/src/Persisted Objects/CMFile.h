@@ -87,13 +87,13 @@
  *
  * The non-deprecated constructor to use is CMFile#initWithData:named:mimeType:.
  */
-- (id)initWithData:(NSData *)theFileData named:(NSString *)theName belongingToUser:(CMUser *)theUser mimeType:(NSString *)theMimeType;
+- (id)initWithData:(NSData *)theFileData named:(NSString *)theName belongingToUser:(CMUser *)theUser mimeType:(NSString *)theMimeType __attribute__((deprecated));
 
 /**
  * @deprecated
  * Use CMFile#ownershipLevel instead.
  */
-- (BOOL)isUserLevel;
+- (BOOL)isUserLevel __attribute__((deprecated));
 
 /**
  * Writes this object to a specific filesystem location. <strong>You typically shouldn't need to invoke this method yourself.</strong>

@@ -60,6 +60,47 @@ describe(@"CMFile", ^{
             [file save:nil];
             [[theValue([file ownershipLevel]) should] equal:theValue(CMObjectOwnershipAppLevel)];
         });
+        
+        it(@"should default the mimetype to 'application/octet-stream'", ^{
+            [[file.mimeType should] equal:@"application/octet-stream"];
+        });
+        
+        it(@"should throw an exception when calling className", ^{
+            [[theBlock(^{ [[file class] className]; }) should] raise];
+        });
+        
+        it(@"should have an objectId equal to it's name", ^{
+            [[file.objectId should] equal:@"foofile"];
+        });
+        
+        it(@"should have no user associated with it", ^{
+            [[file.user should] beNil];
+        });
+        
+        it(@"should properly show the user level (even though it's deprecated)", ^{
+            #pragma clang diagnostic push
+            #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+            [[theValue([file isUserLevel]) should] equal:@NO];
+            #pragma clang diagnostic pop
+        });
+        
+        it(@"should create the same CMFile if you call the deprecated method", ^{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+            CMFile *newFile = [[CMFile alloc] initWithData:[NSMutableData randomDataWithLength:100]
+                                                     named:@"foofile"
+                                           belongingToUser:nil
+                                                  mimeType:@"application/octet-stream"];
+#pragma clang diagnostic pop
+            
+            [[newFile.objectId should] equal:file.objectId];
+            [[newFile.mimeType should] equal:file.mimeType];
+            [[newFile.fileName should] equal:file.fileName];
+            [[newFile.fileData shouldNot] beNil];
+            //Data is random, so won't equal each other
+            
+        });
+        
 
         it(@"should throw an exception if the object is subsequently saved with a user", ^{
             CMUser *user = [[CMUser alloc] initWithEmail:@"test@test.com" andPassword:@"pass"];
