@@ -95,36 +95,51 @@ NSString * const _mimeTypeKey = @"mime";
         } else if(!store || store == [CMNullStore nullStore]) {
             switch ([newStore objectOwnershipLevel:self]) {
                 case CMObjectOwnershipAppLevel:
+                {
                     store = newStore;
                     [store addFile:self];
                     break;
+                }
                 case CMObjectOwnershipUserLevel:
+                {
                     store = newStore;
                     [store addUserFile:self];
                     break;
+                }
                 default:
+                {
                     store = newStore;
                     [store addFile:self];
                     break;
+                }
             }
 
             return;
         } else if (newStore != store) {
             switch ([store objectOwnershipLevel:self]) {
                 case CMObjectOwnershipAppLevel:
+                {
+                    // Code Coverage says this line is not executed. But it is.
                     [store removeFile:self];
                     store = newStore;
                     [newStore addFile:self];
                     break;
+                }
                 case CMObjectOwnershipUserLevel:
+                {
+                    // Code Coverage says this line is not executed. But it is.
                     [store removeUserFile:self];
                     store = newStore;
                     [newStore addUserFile:self];
                     break;
+                }
                 default:
+                {
+                    // I don't think we can actually ever get here.
                     store = newStore;
                     [store addFile:self];
                     break;
+                }
             }
         }
     }
@@ -147,14 +162,20 @@ NSString * const _mimeTypeKey = @"mime";
 
     switch ([self.store objectOwnershipLevel:self]) {
         case CMObjectOwnershipAppLevel:
+        {
             [self.store saveFileWithData:self.fileData named:self.fileName additionalOptions:nil callback:callback];
             break;
+        }
         case CMObjectOwnershipUserLevel:
+        {
             [self.store saveUserFileWithData:self.fileData named:self.fileName additionalOptions:nil callback:callback];
             break;
+        }
         default:
+        {
             NSLog(@"*** Error: Could not save file (%@) because no store was set. This should never happen!", self);
             break;
+        }
     }
 }
 

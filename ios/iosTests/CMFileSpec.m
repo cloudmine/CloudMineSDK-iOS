@@ -15,6 +15,7 @@
 #import "CMStore.h"
 #import "CMWebService.h"
 #import "CMNullStore.h"
+#import "CMObjectEncoder.h"
 
 SPEC_BEGIN(CMFileSpec)
 
@@ -109,6 +110,56 @@ describe(@"CMFile", ^{
             [[theBlock(^{ [file saveWithUser:user callback:nil]; }) should] raise];
         });
     });
+    
+    context(@"given a CMFile loaded with a real file", ^{
+        
+        __block CMFile *realFile = nil;
+        __block NSString *fileName = @"cloudmine.png";
+        
+        beforeEach(^{
+            NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"cloudmine" ofType:@"png"];
+            UIImage *image = [UIImage imageWithContentsOfFile:path];
+            NSData *data = UIImagePNGRepresentation(image);
+            realFile = [[CMFile alloc] initWithData:data named:fileName mimeType:@"image/png"];
+        });
+        
+        it(@"should properly have all the file information", ^{
+            
+            NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"cloudmine" ofType:@"png"];
+            UIImage *image = [UIImage imageWithContentsOfFile:path];
+            NSData *data = UIImagePNGRepresentation(image);
+            
+            [[realFile.mimeType should] equal:@"image/png"];
+            [[realFile.fileData should] equal:data];
+            [[realFile.fileName should] equal:fileName];
+            [[realFile.objectId should] equal:fileName];
+        });
+        
+        it(@"should be encoded and decoded properly", ^{
+            NSData *data = [NSKeyedArchiver archivedDataWithRootObject:realFile];
+            CMFile *remade = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+            
+            NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"cloudmine" ofType:@"png"];
+            UIImage *image = [UIImage imageWithContentsOfFile:path];
+            NSData *fileData = UIImagePNGRepresentation(image);
+            
+            [[remade.mimeType should] equal:@"image/png"];
+            [[remade.fileData should] equal:fileData];
+            [[remade.fileName should] equal:fileName];
+            [[remade.objectId should] equal:fileName];
+        });
+        
+        it(@"should not crash when you write to a location", ^{
+            [[ theBlock(^{
+                [realFile writeToCache];
+            }) shouldNot] raise];
+        });
+        
+        it(@"should properly get the object from the cache", ^{
+            //uhhhh.... what.
+        });
+        
+    });
 
     context(@"given a user-level CMFile instance", ^{
         beforeEach(^{
@@ -180,6 +231,69 @@ describe(@"CMFile", ^{
             [[file.store should] equal:[CMStore defaultStore]];
             file.store = nil;
             [[file.store should] equal:[CMNullStore nullStore]];
+            [[theValue(file.ownershipLevel) should] equal:@(CMObjectOwnershipUndefinedLevel)];
+        });
+        
+        it(@"should properly set the ownership level", ^{
+            CMFile *file = [[CMFile alloc] initWithData:nil named:@"foo"];
+            [[file.store should] equal:[CMStore defaultStore]];
+            file.store = nil;
+            [[file.store should] equal:[CMNullStore nullStore]];
+            file.store = [CMStore defaultStore];
+            [[file.store should] equal:[CMStore defaultStore]];
+        });
+        
+        it(@"should properly set the ownership level if being set to a different, but not null, store", ^{
+            CMFile *file = [[CMFile alloc] initWithData:nil named:@"foo"];
+            [[file.store should] equal:[CMStore defaultStore]];
+            
+            CMStore *firstNewStore = [CMStore store];
+            [firstNewStore addFile:file];
+            
+            CMStore *newStore = [CMStore store];
+            [newStore addFile:file];
+            
+            [[theValue(file.ownershipLevel) should] equal:@(CMObjectOwnershipAppLevel)];
+            [[file.store should] equal:newStore];
+            NSDictionary *cached = [firstNewStore valueForKey:@"_cachedAppFiles"];
+            [[cached shouldNot] beNil];
+            [[cached[file.uuid] should] beNil];
+        });
+        
+        it(@"should properly set the ownership level if being set to a different, but not null, store for a user", ^{
+            CMFile *file = [[CMFile alloc] initWithData:nil named:@"foo"];
+            [[file.store should] equal:[CMStore defaultStore]];
+            
+            CMUser *fakeUser = [[CMUser alloc] init];
+            
+            CMStore *firstNewStore = [CMStore store];
+            firstNewStore.user = fakeUser;
+            [firstNewStore addUserFile:file];
+            
+            CMStore *newStore = [CMStore store];
+            newStore.user = fakeUser;
+            [newStore addUserFile:file];
+            
+            [[theValue(file.ownershipLevel) should] equal:@(CMObjectOwnershipUserLevel)];
+            [[file.store should] equal:newStore];
+            NSDictionary *cached = [firstNewStore valueForKey:@"_cachedUserFiles"];
+            [[cached shouldNot] beNil];
+            [[cached[file.uuid] should] beNil];
+
+        });
+        
+        it(@"should properly set the ownership level if being set to a different, but not null, store without setting the file first", ^{
+            CMFile *file = [[CMFile alloc] initWithData:nil named:@"foo"];
+            [[file.store should] equal:[CMStore defaultStore]];
+
+            CMStore *firstNewStore = [CMStore store];
+            [firstNewStore addFile:file];
+            
+            CMStore *newStore = [CMStore store];
+            [file setStore:newStore];
+            
+            [[theValue(file.ownershipLevel) should] equal:@(CMObjectOwnershipAppLevel)];
+            [[file.store should] equal:newStore];
         });
     });
 });
