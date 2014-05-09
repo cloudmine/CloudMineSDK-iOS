@@ -146,6 +146,9 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView;
 {
+    if ([self.appDelegate respondsToSelector:@selector(cmSocialWebViewDidFinishLoad:)]) {
+        [self.appDelegate cmSocialWebViewDidFinishLoad:self];
+    }
     
     NSString *currentURLstr = [[[webView request] URL] absoluteString];
     
@@ -178,10 +181,6 @@
                 [_activityView startAnimating];
                 [self.view addSubview:_pendingLoginView];
                 [self.view bringSubviewToFront:_pendingLoginView];
-            }
-            
-            if ([self.appDelegate respondsToSelector:@selector(cmSocialWebViewDidFinishLoad:)]) {
-                [self.appDelegate cmSocialWebViewDidFinishLoad:self];
             }
             
             if ([self.delegate respondsToSelector:@selector(cmSocialLoginViewController:completeSocialLoginWithChallenge:)]) {
