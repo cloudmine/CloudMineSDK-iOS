@@ -12,6 +12,51 @@
 @class CMUser;
 
 /**
+ * Protocol which allows for the app to know when certain events are happening
+ * inside the login controller.
+ */
+@protocol CMSocialWebViewDelegate <NSObject>
+@optional
+
+/**
+ * Called when the viewDidLoad.
+ * @param controller The CMSocialLoginViewController that is being presented.
+ */
+- (void)cmSocialViewDidLoad:(CMSocialLoginViewController *)controller;
+
+/**
+ * Called when the webView calls webViewDidStartLoad.
+ * @param controller The CMSocialLoginViewController that is being presented.
+ */
+- (void)cmSocialWebViewDidStartLoad:(CMSocialLoginViewController *)controller;
+
+/**
+ * Called when the webView calls didFailLoadWithError. Implementing this method will not override any default behavior.
+ * Note that implementing this method will have no impact on whether CMUserAccountSocialLoginErrorOccurred is sent to
+ * the login callback.
+ * @param controller The CMSocialLoginViewController that is being presented.
+ */
+- (void)cmSocial:(CMSocialLoginViewController *)controller webViewDidError:(NSError *)error;
+
+/**
+ * Called when the WebView Did finish loading. Implementing this will not stop the authentication process, but you can
+ * use it as a hook to perform your own custom UI work.
+ * @param controller The CMSocialLoginViewController that is being presented.
+ */
+- (void)cmSocialWebViewDidFinishLoad:(CMSocialLoginViewController *)controller;
+
+/**
+ * Return NO if you do not want the default indicator shown after the user attempts to login. Return YES or
+ * do not implement this method if you want it shown.
+ * @param controller The CMSocialLoginViewController that is being presented.
+ * @return bool No if you do not want the default to show. YES otherwise.
+ */
+- (BOOL)cmSocialWebViewShouldShowDefaultIndicator:(CMSocialLoginViewController *)controller;
+
+@end
+
+
+/**
  * The Protocol which defines the method required for working with Social Login.
  *
  */
@@ -54,6 +99,11 @@
 @property (nonatomic, weak) id<CMSocialLoginViewControllerDelegate> delegate;
 
 /**
+ * The delegate that can be set by the Application to be used for customization.
+ */
+@property (nonatomic, weak) id<CMSocialWebViewDelegate> appDelegate;
+
+/**
  * The Social Service which is being logged into, such as "facebook" or "twitter".
  */
 @property (nonatomic, copy) NSString *targetService;
@@ -88,6 +138,12 @@
  * working with one of many stacks.
  */
 @property (nonatomic, copy) NSString *baseURL;
+
+/**
+ * WebView is public for customization. Be careful when modifying this as to not
+ * break social login.
+ */
+@property (nonatomic, strong) UIWebView *webView;
 
 /**
  *

@@ -28,8 +28,6 @@
 @property (nonatomic, strong) UIView *pendingLoginView;
 @property (nonatomic, strong) UIActivityIndicatorView *activityView;
 
-@property (nonatomic, strong) UIWebView *webView;
-
 @property (nonatomic, strong) UINavigationBar *presentedNavigationBar;
 @property (nonatomic, strong) UINavigationItem *presentedNavigationItem;
 
@@ -60,6 +58,10 @@
     _webView.scalesPageToFit = YES;
     _webView.delegate = self;
     [self.view addSubview:_webView];
+    
+    if ([self.appDelegate respondsToSelector:@selector(cmSocialViewDidLoad:)]) {
+        [self.appDelegate cmSocialViewDidLoad:self];
+    }
 }
 
 
@@ -70,6 +72,7 @@
 
 - (void)viewWillAppear:(BOOL)animated;
 {
+    [super viewWillAppear:animated];
     ///
     /// Clear the cookies from the cache, so websites won't remember if you have logged in before.
     ///
@@ -136,6 +139,9 @@
 
 - (void)webViewDidStartLoad:(UIWebView *)webView;
 {
+    if ([self.appDelegate respondsToSelector:@selector(cmSocialWebViewDidStartLoad:)]) {
+        [self.appDelegate cmSocialWebViewDidStartLoad:self];
+    }
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView;
@@ -151,25 +157,32 @@
         // If at the challenge complete URL, prepare and send GET request for session token info
         if ([baseURLstr isEqualToString:comparableRequestStr]) {
             
-            ///
-            /// Probably rebuild all this too
-            ///
+            BOOL shouldShow = YES;
+            if ([self.appDelegate respondsToSelector:@selector(cmSocialWebViewShouldShowDefaultIndicator:)]) {
+                shouldShow = [self.appDelegate cmSocialWebViewShouldShowDefaultIndicator:self];
+            }
             
-            // Display pending login view during request/processing
-            _pendingLoginView = [[UIView alloc] initWithFrame:self.webView.bounds];
-            _pendingLoginView.center = self.webView.center;
-            _pendingLoginView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.8];
-            _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-            _activityView.frame = CGRectMake(_pendingLoginView.frame.size.width / 2,
-                                             _pendingLoginView.frame.size.height / 2,
-                                             _activityView.bounds.size.width,
-                                             _activityView.bounds.size.height);
-
-            _activityView.center = self.webView.center;
-            [_pendingLoginView addSubview:_activityView];
-            [_activityView startAnimating];
-            [self.view addSubview:_pendingLoginView];
-            [self.view bringSubviewToFront:_pendingLoginView];
+            if (shouldShow) {
+                // Display pending login view during request/processing
+                _pendingLoginView = [[UIView alloc] initWithFrame:self.webView.bounds];
+                _pendingLoginView.center = self.webView.center;
+                _pendingLoginView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.8];
+                _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+                _activityView.frame = CGRectMake(_pendingLoginView.frame.size.width / 2,
+                                                 _pendingLoginView.frame.size.height / 2,
+                                                 _activityView.bounds.size.width,
+                                                 _activityView.bounds.size.height);
+                
+                _activityView.center = self.webView.center;
+                [_pendingLoginView addSubview:_activityView];
+                [_activityView startAnimating];
+                [self.view addSubview:_pendingLoginView];
+                [self.view bringSubviewToFront:_pendingLoginView];
+            }
+            
+            if ([self.appDelegate respondsToSelector:@selector(cmSocialWebViewDidFinishLoad:)]) {
+                [self.appDelegate cmSocialWebViewDidFinishLoad:self];
+            }
             
             if ([self.delegate respondsToSelector:@selector(cmSocialLoginViewController:completeSocialLoginWithChallenge:)]) {
                 [self.delegate cmSocialLoginViewController:self completeSocialLoginWithChallenge:_challenge];
@@ -188,9 +201,15 @@
      * Because we don't really know the nature of this error, nor can we assume, we need to call the delegate and inform them of the error.
      */
     NSLog(@"WebView error. This sometimes happens when the User is logging into a social network where cookies have been stored and is already logged in. %@", [error description]);
+    
+    if ([self.appDelegate respondsToSelector:@selector(cmSocial:webViewDidError:)]) {
+        [self.appDelegate cmSocial:self webViewDidError:error];
+    }
+    
     if ([self.delegate respondsToSelector:@selector(cmSocialLoginViewController:hadError:)]) {
         [self.delegate cmSocialLoginViewController:self hadError:error];
     }
+    
 }
 
 #pragma mark -
