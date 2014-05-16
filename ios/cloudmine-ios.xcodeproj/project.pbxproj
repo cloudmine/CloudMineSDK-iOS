@@ -151,6 +151,7 @@
 		AAA05FBD183A756B009652C9 /* CMPaymentResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB6183A756B009652C9 /* CMPaymentResponse.h */; };
 		AAA05FBE183A756B009652C9 /* CMCardPayment.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA05FB7183A756B009652C9 /* CMCardPayment.m */; };
 		AAA05FC0183A756B009652C9 /* CMPaymentResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA05FB8183A756B009652C9 /* CMPaymentResponse.m */; };
+		AAA102D519265AEC00A11BC4 /* CMObjectIntegrationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA102D419265AEC00A11BC4 /* CMObjectIntegrationSpec.m */; };
 		AAA850ED168271B600C18957 /* CMDeviceTokenResult.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA850EC168271B500C18957 /* CMDeviceTokenResult.h */; };
 		AAA92FF3181966370064F773 /* NSDictionary+CMJSON.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA92FF1181966370064F773 /* NSDictionary+CMJSON.h */; };
 		AAA92FF4181966370064F773 /* NSDictionary+CMJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA92FF2181966370064F773 /* NSDictionary+CMJSON.m */; };
@@ -397,6 +398,7 @@
 		AAA05FB6183A756B009652C9 /* CMPaymentResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPaymentResponse.h; sourceTree = "<group>"; };
 		AAA05FB7183A756B009652C9 /* CMCardPayment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMCardPayment.m; sourceTree = "<group>"; };
 		AAA05FB8183A756B009652C9 /* CMPaymentResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPaymentResponse.m; sourceTree = "<group>"; };
+		AAA102D419265AEC00A11BC4 /* CMObjectIntegrationSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectIntegrationSpec.m; sourceTree = "<group>"; };
 		AAA850EC168271B500C18957 /* CMDeviceTokenResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMDeviceTokenResult.h; sourceTree = "<group>"; };
 		AAA92FF1181966370064F773 /* NSDictionary+CMJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+CMJSON.h"; sourceTree = "<group>"; };
 		AAA92FF2181966370064F773 /* NSDictionary+CMJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+CMJSON.m"; sourceTree = "<group>"; };
@@ -846,6 +848,7 @@
 			isa = PBXGroup;
 			children = (
 				AAD4AD151908104B006B93F2 /* CMUserIntegrationSpec.m */,
+				AAA102D419265AEC00A11BC4 /* CMObjectIntegrationSpec.m */,
 			);
 			name = integration;
 			sourceTree = "<group>";
@@ -1161,6 +1164,7 @@
 				7A766209156307DF009840EE /* CMSortDescriptorSpec.m in Sources */,
 				7A0D7CD41581097200C7C476 /* CMObjectSpec.m in Sources */,
 				AABEE9FB19088809007A26BA /* CMDateSpec.m in Sources */,
+				AAA102D519265AEC00A11BC4 /* CMObjectIntegrationSpec.m in Sources */,
 				7AAFB49B158017450066B4A4 /* CMMimeTypeSpec.m in Sources */,
 				AA5693C71902E90500C4A15A /* CMTestEncoder.m in Sources */,
 				7AFDFE4C158E9EB400388D6E /* CMActiveUserSpec.m in Sources */,

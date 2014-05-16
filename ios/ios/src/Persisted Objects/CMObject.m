@@ -312,4 +312,17 @@
     }
 }
 
+- (NSString *)description;
+{
+    NSString *string = [[NSString alloc] init];
+    
+    NSArray *properties = [[self class] rt_properties];
+    
+    for (RTProperty *prop in properties) {
+        string = [string stringByAppendingFormat:@"\n%@: %@", prop.name, [self valueForKey:prop.name]];
+    }
+    
+    return string;
+}
+
 @end
