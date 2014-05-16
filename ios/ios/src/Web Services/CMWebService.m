@@ -1814,9 +1814,9 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     
     // Add response times to user token string
     NSMutableArray *times = [NSMutableArray array];
-    [_responseTimes enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSNumber *obj, BOOL *stop) {
-        [times addObject:[NSString stringWithFormat:@"%@:%@", key, [obj stringValue]]];
-    }];
+    for (NSString *key in [_responseTimes allKeys]) {
+        [times addObject:[NSString stringWithFormat:@"%@:%@", key, [_responseTimes[key] stringValue]]];
+    }
     [_responseTimes removeAllObjects];
     if (times.count > 20)
         [times removeObjectsInRange:NSMakeRange(20, times.count - 20)];
