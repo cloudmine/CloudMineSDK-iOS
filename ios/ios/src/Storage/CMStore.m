@@ -71,7 +71,8 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 #pragma mark - Shared store
 
-+ (CMStore *)defaultStore {
++ (CMStore *)defaultStore;
+{
     static CMStore *_defaultStore;
 
     static dispatch_once_t onceToken;
@@ -84,7 +85,8 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 #pragma mark - Initializers
 
-+ (CMStore *)store {
++ (CMStore *)store;
+{
     return [[CMStore alloc] init];
 }
 
@@ -93,7 +95,8 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     return [[CMStore alloc] initWithBaseURL:url];
 }
 
-+ (CMStore *)storeWithUser:(CMUser *)theUser {
++ (CMStore *)storeWithUser:(CMUser *)theUser;
+{
     return [[CMStore alloc] initWithUser:theUser];
 }
 
@@ -102,7 +105,8 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     return [[CMStore alloc] initWithUser:theUser baseURL:url];
 }
 
-- (id)init {
+- (id)init;
+{
     return [self initWithUser:nil];
 }
 
@@ -111,7 +115,8 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     return [self initWithUser:nil baseURL:url];
 }
 
-- (id)initWithUser:(CMUser *)theUser {
+- (id)initWithUser:(CMUser *)theUser;
+{
     return [self initWithUser:theUser baseURL:nil];
 }
 
@@ -139,7 +144,8 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     return self;
 }
 
-- (void)setUser:(CMUser *)theUser {
+- (void)setUser:(CMUser *)theUser;
+{
     @synchronized(self) {
         if (_cachedUserObjects) {
             [_cachedUserObjects enumerateKeysAndObjectsUsingBlock:^(id key, CMObject *obj, BOOL *stop) {
@@ -174,7 +180,8 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 #pragma mark - Store state
 
-- (CMObjectOwnershipLevel)objectOwnershipLevel:(id)theObject {
+- (CMObjectOwnershipLevel)objectOwnershipLevel:(id)theObject;
+{
     if ([theObject respondsToSelector:@selector(uuid)]) {
         return [self _fileOwnershipLevel:theObject];
     } else if ([theObject isKindOfClass:[CMACL class]]) {
@@ -184,7 +191,8 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     }
 }
 
-- (CMObjectOwnershipLevel)_objectOwnershipLevel:(CMObject *)theObject {
+- (CMObjectOwnershipLevel)_objectOwnershipLevel:(CMObject *)theObject;
+{
     if ([_cachedAppObjects objectForKey:[theObject objectId]] != nil) {
         return CMObjectOwnershipAppLevel;
     } else if ([_cachedUserObjects objectForKey:[theObject objectId]] != nil) {
@@ -194,7 +202,8 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     }
 }
 
-- (CMObjectOwnershipLevel)_aclOwnershipLevel:(CMACL *)acl {
+- (CMObjectOwnershipLevel)_aclOwnershipLevel:(CMACL *)acl;
+{
     if ([_cachedACLs objectForKey:acl.objectId] != nil) {
         return CMObjectOwnershipUserLevel;
     } else {
@@ -202,7 +211,8 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     }
 }
 
-- (CMObjectOwnershipLevel)_fileOwnershipLevel:(CMFile *)theFile {
+- (CMObjectOwnershipLevel)_fileOwnershipLevel:(CMFile *)theFile;
+{
     if ([_cachedAppFiles objectForKey:[theFile uuid]] != nil) {
         return CMObjectOwnershipAppLevel;
     } else if ([_cachedUserFiles objectForKey:[theFile uuid]] != nil) {
@@ -214,11 +224,13 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 #pragma mark - Push Notifications
 
-- (void)registerForPushNotifications:(UIRemoteNotificationType)notificationType callback:(CMWebServiceDeviceTokenCallback)callback {
+- (void)registerForPushNotifications:(UIRemoteNotificationType)notificationType callback:(CMWebServiceDeviceTokenCallback)callback;
+{
     [self registerForPushNotifications:notificationType user:self.user callback:callback];
 }
 
-- (void)registerForPushNotifications:(UIRemoteNotificationType)notificationType user:(CMUser *)aUser callback:(CMWebServiceDeviceTokenCallback)callback {
+- (void)registerForPushNotifications:(UIRemoteNotificationType)notificationType user:(CMUser *)aUser callback:(CMWebServiceDeviceTokenCallback)callback;
+{
     NSAssert([[[UIApplication sharedApplication] delegate] isKindOfClass:[CMAppDelegateBase class]], @"Your Application Delegate MUST Inherit for CMAppDelegateBase in order to register for push notifications in this way!\n \
              If you do not want to inherit from CMAppDelegateBase, you will need to use [CMWebService registerForPushNotificationsWithUser:deviceToken:callback:]");
     
@@ -236,26 +248,31 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:notificationType];
 }
 
-- (void)unRegisterForPushNotificationsWithCallback:(CMWebServiceDeviceTokenCallback)callback {
+- (void)unRegisterForPushNotificationsWithCallback:(CMWebServiceDeviceTokenCallback)callback;
+{
     [self.webService unRegisterForPushNotificationsWithUser:self.user callback:callback];
 }
 
 #pragma mark - Object retrieval
 
-- (void)allObjectsWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback {
+- (void)allObjectsWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
+{
     [self _allObjects:callback userLevel:NO additionalOptions:options];
 }
 
-- (void)allUserObjectsWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback {
+- (void)allUserObjectsWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
+{
     _CMAssertUserConfigured;
     [self _allObjects:callback userLevel:YES additionalOptions:options];
 }
 
-- (void)_allObjects:(CMStoreObjectFetchCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options {
+- (void)_allObjects:(CMStoreObjectFetchCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
+{
     [self _objectsWithKeys:nil callback:callback userLevel:userLevel additionalOptions:options];
 }
 
-- (void)allACLs:(CMStoreACLFetchCallback)callback {
+- (void)allACLs:(CMStoreACLFetchCallback)callback;
+{
     _CMAssertUserConfigured;
     [webService getACLsForUser:user successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
         // Reset expiration date to the one received in the headers
@@ -283,15 +300,19 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     }];
 }
 
-- (void)objectsWithKeys:(NSArray *)keys additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback {
+- (void)objectsWithKeys:(NSArray *)keys additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
+{
     [self _objectsWithKeys:keys callback:callback userLevel:NO additionalOptions:options];
 }
 
-- (void)userObjectsWithKeys:(NSArray *)keys additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback {
+- (void)userObjectsWithKeys:(NSArray *)keys additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
+{
     _CMAssertUserConfigured;
     [self _objectsWithKeys:keys callback:callback userLevel:YES additionalOptions:options];
 }
-- (void)_objectsWithKeys:(NSArray *)keys callback:(CMStoreObjectFetchCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options {
+
+- (void)_objectsWithKeys:(NSArray *)keys callback:(CMStoreObjectFetchCallback)callback userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
+{
     _CMAssertAPICredentialsInitialized;
 
     [webService getValuesForKeys:keys
@@ -340,16 +361,19 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 #pragma mark Object querying by type
 
-- (void)allObjectsOfClass:(Class)klass additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback {
+- (void)allObjectsOfClass:(Class)klass additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
+{
     [self _allObjects:callback ofClass:klass userLevel:NO additionalOptions:options];
 }
 
-- (void)allUserObjectsOfClass:(Class)klass additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback {
+- (void)allUserObjectsOfClass:(Class)klass additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
+{
     _CMAssertUserConfigured;
     [self _allObjects:callback ofClass:klass userLevel:YES additionalOptions:options];
 }
 
-- (void)_allObjects:(CMStoreObjectFetchCallback)callback ofClass:(Class)klass userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options {
+- (void)_allObjects:(CMStoreObjectFetchCallback)callback ofClass:(Class)klass userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
+{
     NSParameterAssert(klass);
     NSAssert([klass respondsToSelector:@selector(className)], @"You must pass a class (%@) that extends CMObject and responds to +className.", klass);
     _CMAssertAPICredentialsInitialized;
@@ -362,16 +386,19 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 #pragma mark General object querying
 
-- (void)searchObjects:(NSString *)query additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback {
+- (void)searchObjects:(NSString *)query additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
+{
     [self _searchObjects:callback query:query userLevel:NO additionalOptions:options];
 }
 
-- (void)searchUserObjects:(NSString *)query additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback {
+- (void)searchUserObjects:(NSString *)query additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
+{
     _CMAssertUserConfigured;
     [self _searchObjects:callback query:query userLevel:YES additionalOptions:options];
 }
 
-- (void)_searchObjects:(CMStoreObjectFetchCallback)callback query:(NSString *)query userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options {
+- (void)_searchObjects:(CMStoreObjectFetchCallback)callback query:(NSString *)query userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options;
+{
     _CMAssertAPICredentialsInitialized;
 
     if (!query || [query length] == 0) {
@@ -453,11 +480,13 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 #pragma mark Object uploading
 
-- (void)saveAll:(CMStoreObjectUploadCallback)callback {
+- (void)saveAll:(CMStoreObjectUploadCallback)callback;
+{
     [self saveAllWithOptions:nil callback:callback];
 }
 
-- (void)saveAllWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback {
+- (void)saveAllWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+{
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
 
     dispatch_async(queue, ^{
@@ -474,48 +503,59 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     }
 }
 
-- (void)saveAllAppObjects:(CMStoreObjectUploadCallback)callback {
+- (void)saveAllAppObjects:(CMStoreObjectUploadCallback)callback;
+{
     [self saveAllAppObjectsWithOptions:nil callback:callback];
 }
 
-- (void)saveAllAppObjectsWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback {
+- (void)saveAllAppObjectsWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+{
     [self _saveObjects:[_cachedAppObjects allValues] userLevel:NO callback:callback additionalOptions:options];
 }
 
-- (void)saveAllUserObjects:(CMStoreObjectUploadCallback)callback {
+- (void)saveAllUserObjects:(CMStoreObjectUploadCallback)callback;
+{
     [self saveAllUserObjectsWithOptions:nil callback:callback];
 }
 
-- (void)saveAllUserObjectsWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback {
+- (void)saveAllUserObjectsWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+{
     [self _saveObjects:[_cachedUserObjects allValues] userLevel:YES callback:callback additionalOptions:options];
 }
 
-- (void)saveAllACLs:(CMStoreObjectUploadCallback)callback {
+- (void)saveAllACLs:(CMStoreObjectUploadCallback)callback;
+{
     [self saveACLs:[_cachedACLs allValues] callback:callback];
 }
 
-- (void)saveUserObject:(CMObject *)theObject callback:(CMStoreObjectUploadCallback)callback {
+- (void)saveUserObject:(CMObject *)theObject callback:(CMStoreObjectUploadCallback)callback;
+{
     [self saveUserObject:theObject additionalOptions:nil callback:callback];
 }
 
-- (void)saveUserObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback {
+- (void)saveUserObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+{
     _CMAssertUserConfigured;
     [self _saveObjects:@[theObject] userLevel:YES callback:callback additionalOptions:options];
 }
 
-- (void)saveACL:(id<CMSerializable>)acl callback:(CMStoreObjectUploadCallback)callback {
+- (void)saveACL:(id<CMSerializable>)acl callback:(CMStoreObjectUploadCallback)callback;
+{
     [self saveACLs:[NSArray arrayWithObject:acl] callback:callback];
 }
 
-- (void)saveObject:(CMObject *)theObject callback:(CMStoreObjectUploadCallback)callback {
+- (void)saveObject:(CMObject *)theObject callback:(CMStoreObjectUploadCallback)callback;
+{
     [self saveObject:theObject additionalOptions:nil callback:callback];
 }
 
-- (void)saveObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback {
+- (void)saveObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+{
     [self _saveObjects:@[theObject] userLevel:NO callback:callback additionalOptions:options];
 }
 
-- (void)_saveObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreObjectUploadCallback)callback additionalOptions:(CMStoreOptions *)options {
+- (void)_saveObjects:(NSArray *)objects userLevel:(BOOL)userLevel callback:(CMStoreObjectUploadCallback)callback additionalOptions:(CMStoreOptions *)options;
+{
     NSParameterAssert(objects);
     _CMAssertAPICredentialsInitialized;
     [self cacheObjectsInMemory:objects atUserLevel:userLevel];
@@ -571,7 +611,8 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
      ];
 }
 
-- (void)saveACLsOnObject:(CMObject *)object callback:(CMStoreObjectUploadCallback)callback {
+- (void)saveACLsOnObject:(CMObject *)object callback:(CMStoreObjectUploadCallback)callback;
+{
     NSMutableArray *acls = [NSMutableArray array];
     [object.aclIds enumerateObjectsUsingBlock:^(id key, NSUInteger idx, BOOL *stop) {
         id obj = [_cachedACLs objectForKey:key];
@@ -582,7 +623,8 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     [self saveACLs:acls callback:callback];
 }
 
-- (void)saveACLs:(NSArray *)acls callback:(CMStoreObjectUploadCallback)callback {
+- (void)saveACLs:(NSArray *)acls callback:(CMStoreObjectUploadCallback)callback;
+{
     _CMAssertUserConfigured;
     _CMAssertAPICredentialsInitialized;
     if (!acls.count) {
@@ -641,26 +683,34 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 #pragma mark File uploading
 
-- (void)saveFileAtURL:(NSURL *)url additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback {
+- (void)saveFileAtURL:(NSURL *)url additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
+{
     [self _saveFileAtURL:url named:nil userLevel:NO additionalOptions:options callback:callback];
 }
 
-- (void)saveFileAtURL:(NSURL *)url named:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback {
+- (void)saveFileAtURL:(NSURL *)url named:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
+{
     [self _saveFileAtURL:url named:name userLevel:NO additionalOptions:options callback:callback];
 }
 
-- (void)saveUserFileAtURL:(NSURL *)url additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback {
+- (void)saveUserFileAtURL:(NSURL *)url additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
+{
     _CMAssertUserConfigured;
     [self _saveFileAtURL:url named:nil userLevel:YES additionalOptions:options callback:callback];
 }
 
-- (void)saveUserFileAtURL:(NSURL *)url named:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback {
+- (void)saveUserFileAtURL:(NSURL *)url named:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
+{
     _CMAssertUserConfigured;
     [self _saveFileAtURL:url named:name userLevel:YES additionalOptions:options callback:callback];
-
 }
 
-- (void)_saveFileAtURL:(NSURL *)url named:(NSString *)name userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback {
+- (void)_saveFileAtURL:(NSURL *)url
+                 named:(NSString *)name
+             userLevel:(BOOL)userLevel
+     additionalOptions:(CMStoreOptions *)options
+              callback:(CMStoreFileUploadCallback)callback;
+{
     NSParameterAssert(url);
     _CMAssertAPICredentialsInitialized;
 
@@ -693,25 +743,34 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
      ];
 }
 
-- (void)saveFileWithData:(NSData *)data additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback {
+- (void)saveFileWithData:(NSData *)data additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
+{
     [self _saveFileWithData:data named:nil userLevel:NO additionalOptions:options callback:callback];
 }
 
-- (void)saveFileWithData:(NSData *)data named:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback {
+- (void)saveFileWithData:(NSData *)data named:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
+{
     [self _saveFileWithData:data named:name userLevel:NO additionalOptions:options callback:callback];
 }
 
-- (void)saveUserFileWithData:(NSData *)data additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback {
+- (void)saveUserFileWithData:(NSData *)data additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
+{
     _CMAssertUserConfigured;
     [self _saveFileWithData:data named:nil userLevel:YES additionalOptions:options callback:callback];
 }
 
-- (void)saveUserFileWithData:(NSData *)data named:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback {
+- (void)saveUserFileWithData:(NSData *)data named:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
+{
     _CMAssertUserConfigured;
     [self _saveFileWithData:data named:name userLevel:YES additionalOptions:options callback:callback];
 }
 
-- (void)_saveFileWithData:(NSData *)data named:(NSString *)name userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback {
+- (void)_saveFileWithData:(NSData *)data
+                    named:(NSString *)name
+                userLevel:(BOOL)userLevel
+        additionalOptions:(CMStoreOptions *)options
+                 callback:(CMStoreFileUploadCallback)callback;
+{
     NSParameterAssert(data);
     _CMAssertAPICredentialsInitialized;
 
@@ -767,40 +826,48 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 #pragma mark Object and file deletion
 
-- (void)deleteObject:(id<CMSerializable>)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback {
+- (void)deleteObject:(id<CMSerializable>)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback;
+{
     NSParameterAssert(theObject);
     [self _deleteObjects:@[theObject] additionalOptions:options userLevel:NO callback:callback];
 }
 
-- (void)deleteUserObject:(id<CMSerializable>)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback {
+- (void)deleteUserObject:(id<CMSerializable>)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback;
+{
     NSParameterAssert(theObject);
     _CMAssertUserConfigured;
     [self _deleteObjects:@[theObject] additionalOptions:options userLevel:YES callback:callback];
 }
 
-- (void)deleteACL:(id<CMSerializable>)acl callback:(CMStoreDeleteCallback)callback {
+- (void)deleteACL:(id<CMSerializable>)acl callback:(CMStoreDeleteCallback)callback;
+{
     [self deleteACLs:[NSArray arrayWithObject:acl] callback:callback];
 }
 
-- (void)deleteObjects:(NSArray *)objects additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback {
+- (void)deleteObjects:(NSArray *)objects additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback;
+{
     [self _deleteObjects:objects additionalOptions:options userLevel:NO callback:callback];
 }
 
-- (void)deleteUserObjects:(NSArray *)objects additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback {
+- (void)deleteUserObjects:(NSArray *)objects additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback;
+{
     _CMAssertUserConfigured;
     [self _deleteObjects:objects additionalOptions:options userLevel:YES callback:callback];
 }
 
-- (void)deleteFileNamed:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback {
+- (void)deleteFileNamed:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback;
+{
     [self _deleteFileNamed:name additionalOptions:options userLevel:NO callback:callback];
 }
 
-- (void)deleteUserFileNamed:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback {
+- (void)deleteUserFileNamed:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback;
+{
     _CMAssertUserConfigured;
     [self _deleteFileNamed:name additionalOptions:options userLevel:YES callback:callback];
 }
 
-- (void)_deleteFileNamed:(NSString *)name additionalOptions:(CMStoreOptions *)options userLevel:(BOOL)userLevel callback:(CMStoreDeleteCallback)callback {
+- (void)_deleteFileNamed:(NSString *)name additionalOptions:(CMStoreOptions *)options userLevel:(BOOL)userLevel callback:(CMStoreDeleteCallback)callback;
+{
     NSParameterAssert(name);
     _CMAssertAPICredentialsInitialized;
 
@@ -831,7 +898,8 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
      ];
 }
 
-- (void)_deleteObjects:(NSArray *)objects additionalOptions:(CMStoreOptions *)options userLevel:(BOOL)userLevel callback:(CMStoreDeleteCallback)callback {
+- (void)_deleteObjects:(NSArray *)objects additionalOptions:(CMStoreOptions *)options userLevel:(BOOL)userLevel callback:(CMStoreDeleteCallback)callback;
+{
     NSParameterAssert(objects);
     _CMAssertAPICredentialsInitialized;
 
@@ -879,7 +947,8 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                                                       userInfo:deletedObjects];
 }
 
-- (void)deleteACLs:(NSArray *)acls callback:(CMStoreDeleteCallback)callback {
+- (void)deleteACLs:(NSArray *)acls callback:(CMStoreDeleteCallback)callback;
+{
     _CMAssertUserConfigured;
     _CMAssertAPICredentialsInitialized;
     if (!acls.count) {
@@ -935,16 +1004,19 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 #pragma mark Binary file loading
 
-- (void)fileWithName:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileFetchCallback)callback {
+- (void)fileWithName:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileFetchCallback)callback;
+{
     [self _fileWithName:name userLevel:NO additionalOptions:options callback:callback];
 }
 
-- (void)userFileWithName:(NSString *)name additionalOptions:options callback:(CMStoreFileFetchCallback)callback {
+- (void)userFileWithName:(NSString *)name additionalOptions:options callback:(CMStoreFileFetchCallback)callback;
+{
     _CMAssertUserConfigured;
     [self _fileWithName:name userLevel:YES additionalOptions:options callback:callback];
 }
 
-- (void)_fileWithName:(NSString *)name userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileFetchCallback)callback {
+- (void)_fileWithName:(NSString *)name userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileFetchCallback)callback;
+{
     NSParameterAssert(name);
     [webService getBinaryDataNamed:name
                 serverSideFunction:_CMTryMethod(options, serverSideFunction)
@@ -983,7 +1055,8 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 #pragma mark - In-memory caching
 
-- (void)cacheObjectsInMemory:(NSArray *)objects atUserLevel:(BOOL)userLevel {
+- (void)cacheObjectsInMemory:(NSArray *)objects atUserLevel:(BOOL)userLevel;
+{
     NSAssert(userLevel ? (user != nil) : true, @"Failed trying to cache remote objects in-memory for user when user is not configured (%@)", self);
 
     @synchronized(self) {
@@ -997,7 +1070,8 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     }
 }
 
-- (void)addACL:(CMACL *)acl {
+- (void)addACL:(CMACL *)acl;
+{
     NSAssert(user != nil, @"Attempted to add ACL (%@) to store (%@) belonging to user when user is not set.", acl, self);
     NSAssert([acl isKindOfClass:[CMACL class]], @"Attempted to add object (%@) to store (%@) as an ACL.", acl, self);
     @synchronized(self) {
@@ -1009,7 +1083,8 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     }
 }
 
-- (void)addUserObject:(CMObject *)theObject {
+- (void)addUserObject:(CMObject *)theObject;
+{
     NSAssert(user != nil, @"Attempted to add object (%@) to store (%@) belonging to user when user is not set.", theObject, self);
     NSAssert((![theObject isKindOfClass:[CMACL class]] && [theObject isKindOfClass:[CMObject class]]), @"Attempted to add ACL (%@) to store (%@) as a user-level object.", theObject, self);
     @synchronized(self) {
@@ -1021,7 +1096,8 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     }
 }
 
-- (void)addObject:(CMObject *)theObject {
+- (void)addObject:(CMObject *)theObject;
+{
     NSAssert((![theObject isKindOfClass:[CMACL class]] && [theObject isKindOfClass:[CMObject class]]), @"Attempted to add ACL (%@) to store (%@) as an app-level object.", theObject, self);
     @synchronized(self) {
         [_cachedAppObjects setObject:theObject forKey:theObject.objectId];
@@ -1032,7 +1108,8 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     }
 }
 
-- (void)removeObject:(CMObject *)theObject {
+- (void)removeObject:(CMObject *)theObject;
+{
     @synchronized(self) {
         [_cachedAppObjects removeObjectForKey:theObject.objectId];
     }
@@ -1042,7 +1119,8 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     }
 }
 
-- (void)removeUserObject:(CMObject *)theObject {
+- (void)removeUserObject:(CMObject *)theObject;
+{
     @synchronized(self) {
         [_cachedUserObjects removeObjectForKey:theObject.objectId];
     }
@@ -1052,7 +1130,8 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     }
 }
 
-- (void)removeACL:(CMACL *)acl {
+- (void)removeACL:(CMACL *)acl;
+{
     @synchronized(self) {
         [_cachedACLs removeObjectForKey:acl.objectId];
     }
@@ -1062,7 +1141,8 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     }
 }
 
-- (void)addUserFile:(CMFile *)theFile {
+- (void)addUserFile:(CMFile *)theFile;
+{
     NSAssert(user != nil, @"Attempted to add File (%@) to store (%@) belonging to user when user is not set.", theFile, self);
     NSAssert([theFile isKindOfClass:[CMFile class]], @"Attempted to add object (%@) to store (%@) as a file.", theFile, self);
     @synchronized(self) {
@@ -1074,7 +1154,8 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     }
 }
 
-- (void)addFile:(CMFile *)theFile {
+- (void)addFile:(CMFile *)theFile;
+{
     NSAssert([theFile isKindOfClass:[CMFile class]], @"Attempted to add object (%@) to store (%@) as a file.", theFile, self);
     @synchronized(self) {
         [_cachedAppFiles setObject:theFile forKey:theFile.uuid];
@@ -1085,7 +1166,8 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     }
 }
 
-- (void)removeFile:(CMFile *)theFile {
+- (void)removeFile:(CMFile *)theFile;
+{
     @synchronized(self) {
         [_cachedAppFiles removeObjectForKey:theFile.uuid];
     }
@@ -1095,7 +1177,8 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     }
 }
 
-- (void)removeUserFile:(CMFile *)theFile {
+- (void)removeUserFile:(CMFile *)theFile;
+{
     @synchronized(self) {
         [_cachedUserFiles removeObjectForKey:theFile.uuid];
     }
@@ -1104,7 +1187,5 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
         theFile.store = nil;
     }
 }
-
-#pragma mark - Helper functions
 
 @end
