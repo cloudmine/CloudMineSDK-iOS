@@ -1200,6 +1200,7 @@
 		7A87314D14BB09E3000D6DEA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1207,6 +1208,7 @@
 		7A87314E14BB09E3000D6DEA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -1295,7 +1297,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0FD1BF4A50414FD8B55246BB /* Pods-cloudmine-ios.xcconfig */;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 1.6.4;
+				CURRENT_PROJECT_VERSION = 1.6.5;
 				DSTROOT = /tmp/ios.dst;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
@@ -1321,7 +1323,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0FD1BF4A50414FD8B55246BB /* Pods-cloudmine-ios.xcconfig */;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 1.6.4;
+				CURRENT_PROJECT_VERSION = 1.6.5;
 				DSTROOT = /tmp/ios.dst;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = NO;
