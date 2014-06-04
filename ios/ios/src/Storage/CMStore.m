@@ -30,6 +30,7 @@
 #define _CMAssertUserConfigured NSAssert(user, @"You must set the user of this store to a CMUser before querying for user-level objects.")
 #define _CMUserOrNil (userLevel ? user : nil)
 #define _CMTryMethod(obj, method) (obj ? [obj method] : nil)
+#define Error401 [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:@{NSLocalizedDescriptionKey: @"The request was unauthorized. Is your API key correct?"}]
 
 #define CM_TOKENEXPIRATION_HEADER @"X-CloudMine-TE"
 
@@ -235,7 +236,9 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
              If you do not want to inherit from CMAppDelegateBase, you will need to use [CMWebService registerForPushNotificationsWithUser:deviceToken:callback:]");
 
     if (!user.isLoggedIn) {
-        callback(CMDeviceTokenOperationFailed);
+        if (callback) {
+            callback(CMDeviceTokenOperationFailed);
+        }
         return;
     }
     
@@ -262,6 +265,14 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (void)allUserObjectsWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
 {
     _CMAssertUserConfigured;
+    
+    if (!user.isLoggedIn) {
+        if (callback) {
+            callback([[CMObjectFetchResponse alloc] initWithError:Error401]);
+        }
+        return;
+    }
+    
     [self _allObjects:callback userLevel:YES additionalOptions:options];
 }
 
@@ -273,6 +284,14 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (void)allACLs:(CMStoreACLFetchCallback)callback;
 {
     _CMAssertUserConfigured;
+    
+    if (!user.isLoggedIn) {
+        if (callback) {
+            callback([[CMACLFetchResponse alloc] initWithError:Error401]);
+        }
+        return;
+    }
+    
     [webService getACLsForUser:user successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
         // Reset expiration date to the one received in the headers
         NSDate *expirationDate = [self.dateFormatter dateFromString:[headers objectForKey:CM_TOKENEXPIRATION_HEADER]];
@@ -307,6 +326,14 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (void)userObjectsWithKeys:(NSArray *)keys additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
 {
     _CMAssertUserConfigured;
+    
+    if (!user.isLoggedIn) {
+        if (callback) {
+            callback([[CMObjectFetchResponse alloc] initWithError:Error401]);
+        }
+        return;
+    }
+    
     [self _objectsWithKeys:keys callback:callback userLevel:YES additionalOptions:options];
 }
 
@@ -368,6 +395,12 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (void)allUserObjectsOfClass:(Class)klass additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
 {
     _CMAssertUserConfigured;
+    if (!user.isLoggedIn) {
+        if (callback) {
+            callback([[CMObjectFetchResponse alloc] initWithError:Error401]);
+        }
+        return;
+    }
     [self _allObjects:callback ofClass:klass userLevel:YES additionalOptions:options];
 }
 
@@ -393,6 +426,12 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (void)searchUserObjects:(NSString *)query additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
 {
     _CMAssertUserConfigured;
+    if (!user.isLoggedIn) {
+        if (callback) {
+            callback([[CMObjectFetchResponse alloc] initWithError:Error401]);
+        }
+        return;
+    }
     [self _searchObjects:callback query:query userLevel:YES additionalOptions:options];
 }
 
@@ -451,6 +490,14 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 - (void)searchACLs:(NSString *)query callback:(CMStoreACLFetchCallback)callback {
     _CMAssertUserConfigured;
+    
+    if (!user.isLoggedIn) {
+        if (callback) {
+            callback([[CMACLFetchResponse alloc] initWithError:Error401]);
+        }
+        return;
+    }
+    
     [webService searchACLs:query user:user successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers) {
         // Reset expiration date to the one received in the headers
         NSDate *expirationDate = [self.dateFormatter dateFromString:[headers objectForKey:CM_TOKENEXPIRATION_HEADER]];
@@ -519,6 +566,13 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 - (void)saveAllUserObjectsWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
 {
+    if (!user.isLoggedIn) {
+        if (callback) {
+            callback([[CMObjectUploadResponse alloc] initWithError:Error401]);
+        }
+        return;
+    }
+    
     [self _saveObjects:[_cachedUserObjects allValues] userLevel:YES callback:callback additionalOptions:options];
 }
 
@@ -535,6 +589,14 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (void)saveUserObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
 {
     _CMAssertUserConfigured;
+    
+    if (!user.isLoggedIn) {
+        if (callback) {
+            callback([[CMObjectUploadResponse alloc] initWithError:Error401]);
+        }
+        return;
+    }
+    
     [self _saveObjects:@[theObject] userLevel:YES callback:callback additionalOptions:options];
 }
 
@@ -627,7 +689,16 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     _CMAssertUserConfigured;
     _CMAssertAPICredentialsInitialized;
     if (!acls.count) {
-        callback([[CMObjectUploadResponse alloc] init]);
+        if (callback) {
+            callback([[CMObjectUploadResponse alloc] init]);
+        }
+        return;
+    }
+    
+    if (!user.isLoggedIn) {
+        if (callback) {
+            callback([[CMObjectUploadResponse alloc] initWithError:Error401]);
+        }
         return;
     }
     
@@ -695,12 +766,24 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (void)saveUserFileAtURL:(NSURL *)url additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
 {
     _CMAssertUserConfigured;
+    if (!user.isLoggedIn) {
+        if (callback) {
+            callback([[CMFileUploadResponse alloc] initWithError:Error401]);
+        }
+        return;
+    }
     [self _saveFileAtURL:url named:nil userLevel:YES additionalOptions:options callback:callback];
 }
 
 - (void)saveUserFileAtURL:(NSURL *)url named:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
 {
     _CMAssertUserConfigured;
+    if (!user.isLoggedIn) {
+        if (callback) {
+            callback([[CMFileUploadResponse alloc] initWithError:Error401]);
+        }
+        return;
+    }
     [self _saveFileAtURL:url named:name userLevel:YES additionalOptions:options callback:callback];
 }
 
@@ -755,12 +838,24 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (void)saveUserFileWithData:(NSData *)data additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
 {
     _CMAssertUserConfigured;
+    if (!user.isLoggedIn) {
+        if (callback) {
+            callback([[CMFileUploadResponse alloc] initWithError:Error401]);
+        }
+        return;
+    }
     [self _saveFileWithData:data named:nil userLevel:YES additionalOptions:options callback:callback];
 }
 
 - (void)saveUserFileWithData:(NSData *)data named:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
 {
     _CMAssertUserConfigured;
+    if (!user.isLoggedIn) {
+        if (callback) {
+            callback([[CMFileUploadResponse alloc] initWithError:Error401]);
+        }
+        return;
+    }
     [self _saveFileWithData:data named:name userLevel:YES additionalOptions:options callback:callback];
 }
 
@@ -835,6 +930,12 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 {
     NSParameterAssert(theObject);
     _CMAssertUserConfigured;
+    if (!user.isLoggedIn) {
+        if (callback) {
+            callback([[CMDeleteResponse alloc] initWithError:Error401]);
+        }
+        return;
+    }
     [self _deleteObjects:@[theObject] additionalOptions:options userLevel:YES callback:callback];
 }
 
@@ -851,6 +952,14 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (void)deleteUserObjects:(NSArray *)objects additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback;
 {
     _CMAssertUserConfigured;
+    
+    if (!user.isLoggedIn) {
+        if (callback) {
+            callback([[CMDeleteResponse alloc] initWithError:Error401]);
+        }
+        return;
+    }
+    
     [self _deleteObjects:objects additionalOptions:options userLevel:YES callback:callback];
 }
 
@@ -862,6 +971,12 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (void)deleteUserFileNamed:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback;
 {
     _CMAssertUserConfigured;
+    if (!user.isLoggedIn) {
+        if (callback) {
+            callback([[CMDeleteResponse alloc] initWithError:Error401]);
+        }
+        return;
+    }
     [self _deleteFileNamed:name additionalOptions:options userLevel:YES callback:callback];
 }
 
@@ -951,7 +1066,16 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     _CMAssertUserConfigured;
     _CMAssertAPICredentialsInitialized;
     if (!acls.count) {
-        callback([[CMDeleteResponse alloc] init]);
+        if (callback) {
+            callback([[CMDeleteResponse alloc] init]);
+        }
+        return;
+    }
+    
+    if (!user.isLoggedIn) {
+        if (callback) {
+            callback([[CMDeleteResponse alloc] initWithError:Error401]);
+        }
         return;
     }
     
@@ -1011,6 +1135,12 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (void)userFileWithName:(NSString *)name additionalOptions:options callback:(CMStoreFileFetchCallback)callback;
 {
     _CMAssertUserConfigured;
+    if (!user.isLoggedIn) {
+        if (callback) {
+            callback([[CMFileFetchResponse alloc] initWithError:Error401]);
+        }
+        return;
+    }
     [self _fileWithName:name userLevel:YES additionalOptions:options callback:callback];
 }
 

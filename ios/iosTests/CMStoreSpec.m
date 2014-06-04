@@ -120,7 +120,7 @@ describe(@"CMStore", ^{
         context(@"when performing a remote operation", ^{
             it(@"should not log the user in if they aren't already logged in before saving an object", ^{
                 CMObject *obj = [[CMObject alloc] init];
-                [[user shouldNot] receive:@selector(isLoggedIn)];
+                [[user should] receive:@selector(isLoggedIn)];
                 [[user shouldNot] receive:@selector(loginWithCallback:)];
                 [webService captureArgument:@selector(updateValuesFromDictionary:serverSideFunction:user:extraParameters:successHandler:errorHandler:) atIndex:0];
                 [store saveUserObject:obj callback:nil];
@@ -128,21 +128,21 @@ describe(@"CMStore", ^{
 
             it(@"should log the user in if they aren't already logged in before deleting an object", ^{
                 CMObject *obj = [[CMObject alloc] init];
-                [[user shouldNot] receive:@selector(isLoggedIn)];
+                [[user should] receive:@selector(isLoggedIn)];
                 [[user shouldNot] receive:@selector(loginWithCallback:)];
                 [webService captureArgument:@selector(deleteValuesForKeys:serverSideFunction:user:extraParameters:successHandler:errorHandler:) atIndex:0];
                 [store deleteUserObject:obj additionalOptions:nil callback:nil];
             });
 
             it(@"should log the user in if they aren't already logged in before searching for objects", ^{
-                [[user shouldNot] receive:@selector(isLoggedIn)];
+                [[user should] receive:@selector(isLoggedIn)];
                 [[user shouldNot] receive:@selector(loginWithCallback:)];
                 [webService captureArgument:@selector(getValuesForKeys:serverSideFunction:pagingOptions:sortingOptions:user:extraParameters:successHandler:errorHandler:) atIndex:0];
                 [store searchUserObjects:@"" additionalOptions:nil callback:nil];
             });
 
             it(@"should log the user in if they aren't already logged in before getting objects by key", ^{
-                [[user shouldNot] receive:@selector(isLoggedIn)];
+                [[user should] receive:@selector(isLoggedIn)];
                 [[user shouldNot] receive:@selector(loginWithCallback:)];
                 [webService captureArgument:@selector(getValuesForKeys:serverSideFunction:pagingOptions:sortingOptions:user:extraParameters:successHandler:errorHandler:) atIndex:0];
                 [store allUserObjectsWithOptions:nil callback:nil];
@@ -150,7 +150,7 @@ describe(@"CMStore", ^{
             
             it(@"should log the user in if they aren't already logged in before saving an ACL", ^{
                 CMACL *acl = [[CMACL alloc] init];
-                [[user shouldNot] receive:@selector(isLoggedIn)];
+                [[user should] receive:@selector(isLoggedIn)];
                 [[user shouldNot] receive:@selector(loginWithCallback:)];
                 [webService captureArgument:@selector(updateACL:user:successHandler:errorHandler:) atIndex:0];
                 [store saveACL:acl callback:nil];
@@ -158,21 +158,21 @@ describe(@"CMStore", ^{
             
             it(@"should log the user in if they aren't already logged in before deleting an ACLs", ^{
                 CMACL *acl = [[CMACL alloc] init];
-                [[user shouldNot] receive:@selector(isLoggedIn)];
+                [[user should] receive:@selector(isLoggedIn)];
                 [[user shouldNot] receive:@selector(loginWithCallback:)];
                 [webService captureArgument:@selector(deleteACLWithKey:user:successHandler:errorHandler:) atIndex:0];
                 [store deleteACL:acl callback:nil];
             });
             
             it(@"should log the user in if they aren't already logged in before searching for ACLs", ^{
-                [[user shouldNot] receive:@selector(isLoggedIn)];
+                [[user should] receive:@selector(isLoggedIn)];
                 [[user shouldNot] receive:@selector(loginWithCallback:)];
                 [webService captureArgument:@selector(searchACLs:user:successHandler:errorHandler:) atIndex:0];
                 [store searchACLs:@"" callback:nil];
             });
             
             it(@"should log the user in if they aren't already logged in before getting all ACLs", ^{
-                [[user shouldNot] receive:@selector(isLoggedIn)];
+                [[user should] receive:@selector(isLoggedIn)];
                 [[user shouldNot] receive:@selector(loginWithCallback:)];
                 [webService captureArgument:@selector(getACLsForUser:successHandler:errorHandler:) atIndex:0];
                 [store allACLs:nil];
