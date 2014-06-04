@@ -17,7 +17,6 @@ describe(@"CMObjectClassNameRegistry", ^{
     it(@"should refresh properly after being instantiated", ^{
         CMObjectClassNameRegistry *registry = [CMObjectClassNameRegistry sharedInstance];
         NSDictionary *mappings = [registry valueForKey:@"classNameMappings"];
-        NSLog(@"Mappings: %@", mappings);
         [[mappings shouldNot] beNil];
         NSInteger count = [mappings count];
         [registry refreshRegistry];

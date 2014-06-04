@@ -29,7 +29,6 @@ describe(@"CMUser Integration", ^{
             CMUser *user = [[CMUser alloc] initWithEmail:@"test@test.com" andPassword:@"testing"];
             
             [user createAccountWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
-                NSLog(@"FINISHED ASYNC: %d", resultCode);
                 code = resultCode;
                 mes = messages;
             }];

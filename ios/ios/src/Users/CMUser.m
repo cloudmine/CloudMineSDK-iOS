@@ -456,7 +456,6 @@ NSString * const CMSocialNetworkSingly = @"singly";
     [request setHTTPBody:data];
     
     [_webService executeGenericRequest:request successHandler:^(id parsedBody, NSUInteger httpCode, NSDictionary *headers) {
-        NSLog(@"Result %@", parsedBody);
         CMPaymentResponse *response = [[CMPaymentResponse alloc] initWithResponseBody:parsedBody httpCode:httpCode headers:headers errors:nil];
         if (callback) callback(response);
     } errorHandler:^(id responseBody, NSUInteger httpCode, NSDictionary *headers, NSError *error, NSDictionary *errorInfo) {
@@ -473,7 +472,6 @@ NSString * const CMSocialNetworkSingly = @"singly";
     NSMutableURLRequest *request = [_webService constructHTTPRequestWithVerb:@"DELETE" URL:url binaryData:NO user:self];
     
     [_webService executeGenericRequest:request successHandler:^(id parsedBody, NSUInteger httpCode, NSDictionary *headers) {
-        NSLog(@"Result %@", parsedBody);
         CMPaymentResponse *response = [[CMPaymentResponse alloc] initWithResponseBody:parsedBody httpCode:httpCode headers:headers errors:nil];
         if (callback) callback(response);
     } errorHandler:^(id responseBody, NSUInteger httpCode, NSDictionary *headers, NSError *error, NSDictionary *errorInfo) {
@@ -491,7 +489,6 @@ NSString * const CMSocialNetworkSingly = @"singly";
     
     [_webService executeGenericRequest:request successHandler:^(id parsedBody, NSUInteger httpCode, NSDictionary *headers) {
         
-        NSLog(@"Result %@", parsedBody);
         NSMutableArray *finishedObjects = [NSMutableArray array];
         for (NSDictionary *dictionary in parsedBody[@"card"]) {
             CMCardPayment *newPayment = [[CMCardPayment alloc] init];

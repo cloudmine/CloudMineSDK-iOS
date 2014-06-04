@@ -1361,14 +1361,10 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
             [_responseTimes setObject:[NSNumber numberWithInt:milliseconds] forKey:requestId];
         }
         
-        NSLog(@"Response String: %@", [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
-        
         NSError *parseError;
         NSDictionary *results = [NSJSONSerialization JSONObjectWithData:operation.responseData
                                                                 options:0
                                                                   error:&parseError];
-        
-        NSLog(@"Parsed JSON: %@", results);
         
         if ([[parseError domain] isEqualToString:NSCocoaErrorDomain]) {
             NSError *error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidResponse userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The response received from the server was malformed.", NSLocalizedDescriptionKey, parseError, JSONErrorKey, nil]];
