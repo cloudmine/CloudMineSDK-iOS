@@ -101,6 +101,7 @@ describe(@"CMACL", ^{
             newACL.permissions = [NSSet setWithObject:CMACLReadPermission];
             
             NSDictionary *dictionary = [CMObjectEncoder encodeObjects:@[newACL]];
+            
             CMACL *remade = [[CMObjectDecoder decodeObjects:dictionary] lastObject];
             [[remade.objectId should] equal:@"id"];
             [[remade.permissions should] haveCountOf:1];

@@ -143,6 +143,7 @@
 		AA5C462C190C12B30086FBD6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A91E8D814E6EF85008B7941 /* CoreLocation.framework */; };
 		AA5C462F190C154C0086FBD6 /* CMObjectClassNameRegistrySpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5C462E190C154C0086FBD6 /* CMObjectClassNameRegistrySpec.m */; };
 		AA5C4632190C19990086FBD6 /* CMCoding.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA5C4631190C19990086FBD6 /* CMCoding.h */; };
+		AA61F6CC1940DA5A00A545A0 /* CMACLIntegrationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA61F6CB1940DA5A00A545A0 /* CMACLIntegrationSpec.m */; };
 		AAA05FB9183A756B009652C9 /* CMPaymentService.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA05FB3183A756B009652C9 /* CMPaymentService.m */; };
 		AAA05FBB183A756B009652C9 /* CMPaymentService.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB4183A756B009652C9 /* CMPaymentService.h */; };
 		AAA05FBC183A756B009652C9 /* CMCardPayment.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB5183A756B009652C9 /* CMCardPayment.h */; };
@@ -387,6 +388,7 @@
 		AA5C462A190BFDF60086FBD6 /* cloudmine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloudmine.png; sourceTree = "<group>"; };
 		AA5C462E190C154C0086FBD6 /* CMObjectClassNameRegistrySpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectClassNameRegistrySpec.m; sourceTree = "<group>"; };
 		AA5C4631190C19990086FBD6 /* CMCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMCoding.h; sourceTree = "<group>"; };
+		AA61F6CB1940DA5A00A545A0 /* CMACLIntegrationSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMACLIntegrationSpec.m; sourceTree = "<group>"; };
 		AAA05FB3183A756B009652C9 /* CMPaymentService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPaymentService.m; sourceTree = "<group>"; };
 		AAA05FB4183A756B009652C9 /* CMPaymentService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPaymentService.h; sourceTree = "<group>"; };
 		AAA05FB5183A756B009652C9 /* CMCardPayment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMCardPayment.h; sourceTree = "<group>"; };
@@ -842,6 +844,7 @@
 			children = (
 				AAD4AD151908104B006B93F2 /* CMUserIntegrationSpec.m */,
 				AAA102D419265AEC00A11BC4 /* CMObjectIntegrationSpec.m */,
+				AA61F6CB1940DA5A00A545A0 /* CMACLIntegrationSpec.m */,
 			);
 			name = integration;
 			sourceTree = "<group>";
@@ -1147,6 +1150,7 @@
 				7A6B800D14871BCA00D8B211 /* CMObjectDecoderSpec.m in Sources */,
 				7A6B801114871E3700D8B211 /* CMGenericSerializableObject.m in Sources */,
 				7A87316614BB309F000D6DEA /* NSMutableData+RandomData.m in Sources */,
+				AA61F6CC1940DA5A00A545A0 /* CMACLIntegrationSpec.m in Sources */,
 				7A7E31C414C603780091F1E3 /* CMGeoPointTest.m in Sources */,
 				7A7E31CB14C88F980091F1E3 /* CMStoreSpec.m in Sources */,
 				7AD9222014CF5B9B0032DDDE /* CMPagingDescriptorSpec.m in Sources */,

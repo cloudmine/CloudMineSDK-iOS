@@ -117,6 +117,7 @@ describe(@"CMObject", ^{
         it(@"it should always belong to a store", ^{
             [[theValue([obj belongsToStore]) should] equal:@YES];
         });
+
     });
 
     context(@"given an object that doesn't belong to a store yet", ^{
@@ -280,6 +281,7 @@ describe(@"CMObject", ^{
             [object.something shouldBeNil];
             [object.somethingElse shouldBeNil];
         });
+        
 
     });
 });
