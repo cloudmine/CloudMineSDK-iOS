@@ -111,6 +111,16 @@ describe(@"CMACL", ^{
             [[[remade.members allObjects][0] should] equal:@"testing"];
         });
     });
+    
+    context(@"given an ACL that could be saved", ^{
+        
+        it(@"should be able to be saved if the store has a user", ^{
+            [acl saveWithUser:nil callback:nil];
+            [store.webService captureArgument:@selector(updateACL:user:successHandler:errorHandler:) atIndex:1];
+            [[acl.store should] equal:[CMStore defaultStore]];
+        });
+        
+    });
 });
 
 SPEC_END

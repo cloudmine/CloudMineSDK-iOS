@@ -1,5 +1,5 @@
 //
-//  CMJSONEncoder.h
+//  CMObjectDecoder.h
 //  cloudmine-ios
 //
 //  Copyright (c) 2012 CloudMine, LLC. All rights reserved.
