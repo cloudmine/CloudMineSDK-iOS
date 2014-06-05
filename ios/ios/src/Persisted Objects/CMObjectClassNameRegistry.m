@@ -12,15 +12,12 @@
 #import "MARTNSObject.h"
 #import <objc/runtime.h>
 
-@interface CMObjectClassNameRegistry (Private)
-- (void)discoverCMObjectSubclasses;
-@end
-
 @implementation CMObjectClassNameRegistry
 
 #pragma mark - Singleton methods
 
-+ (id)sharedInstance {
++ (id)sharedInstance;
+{
     static dispatch_once_t pred = 0;
     __strong static id _sharedObject = nil;
     dispatch_once(&pred, ^{
@@ -31,7 +28,8 @@
 
 #pragma mark - Public interface
 
-- (Class)classForName:(NSString *)name {
+- (Class)classForName:(NSString *)name;
+{
     NSString *className = [classNameMappings objectForKey:name];
     if (className) {
         return NSClassFromString(className);
@@ -40,7 +38,8 @@
     }
 }
 
-- (void)refreshRegistry {
+- (void)refreshRegistry;
+{
     [classNameMappings removeAllObjects];
     [self discoverCMObjectSubclasses];
     [self discoverCMCodingImplementors];
@@ -48,7 +47,8 @@
 
 #pragma mark - Private initializers
 
-- (id)init {
+- (id)init;
+{
     if (self = [super init]) {
         classNameMappings = [[NSMutableDictionary alloc] init];
         [self refreshRegistry];
@@ -58,7 +58,8 @@
 
 #pragma mark - Private workhorse methods
 
-- (void)discoverCMObjectSubclasses {
+- (void)discoverCMObjectSubclasses;
+{
     NSArray *cmObjectSubclasses = [CMObject rt_subclasses];
     for (Class klass in cmObjectSubclasses) {
         [classNameMappings setObject:NSStringFromClass(klass) forKey:[klass className]];

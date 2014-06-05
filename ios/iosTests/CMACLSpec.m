@@ -12,6 +12,8 @@
 #import "CMWebService.h"
 #import "CMAPICredentials.h"
 #import "CMWebService.h"
+#import "CMObjectDecoder.h"
+#import "CMObjectEncoder.h"
 
 SPEC_BEGIN(CMACLSpec)
 
@@ -47,6 +49,12 @@ describe(@"CMACL", ^{
             [[theValue([acl ownershipLevel]) should] equal:theValue(CMObjectOwnershipUserLevel)];
         });
         
+        it(@"should have a no ownership with a null store", ^{
+            [[theValue([acl ownershipLevel]) should] equal:theValue(CMObjectOwnershipUndefinedLevel)];
+            acl.store = nil;
+            [[theValue([acl ownershipLevel]) should] equal:theValue(CMObjectOwnershipUndefinedLevel)];
+        });
+        
         it(@"it should save with the web service if cached", ^{
             [store addACL:acl];
             [[theValue([acl ownershipLevel]) should] equal:theValue(CMObjectOwnershipUserLevel)];
@@ -59,9 +67,49 @@ describe(@"CMACL", ^{
             [[theBlock(^{ [acl getACLs:nil]; }) should] raiseWithName:NSInternalInconsistencyException];
             [[theBlock(^{ [acl saveACLs:nil]; }) should] raiseWithName:NSInternalInconsistencyException];
             [[theBlock(^{ [acl addACLs:nil callback:nil]; }) should] raiseWithName:NSInternalInconsistencyException];
+            [[theBlock(^{ [acl addACL:nil callback:nil]; }) should] raiseWithName:NSInternalInconsistencyException];
             [[theBlock(^{ [acl removeACLs:nil callback:nil]; }) should] raiseWithName:NSInternalInconsistencyException];
+            [[theBlock(^{ [acl removeACL:nil callback:nil]; }) should] raiseWithName:NSInternalInconsistencyException];
         });
-
+    });
+    
+    context(@"given an ACL that can be serialized and deserialized", ^{
+        it(@"should serialize properly", ^{
+            CMACL *newACL = [[CMACL alloc] initWithObjectId:@"id"];
+            newACL.members = [NSSet setWithObject:@"testing"];
+            newACL.permissions = [NSSet setWithObject:CMACLReadPermission];
+            
+            NSDictionary *dictionary = [CMObjectEncoder encodeObjects:@[newACL]];
+            [[dictionary should] haveCountOf:1];
+            NSDictionary *inside = dictionary[@"id"];
+            NSLog(@"JUNE %@", inside);
+            [[inside shouldNot] beNil];
+            [[inside should] haveCountOf:6];
+            [[inside[@"__id__"] should] equal:@"id"];
+            [[inside[@"__class__"] should] equal:@"acl"];
+            [[inside[@"members"] should] haveCountOf:1];
+            NSLog(@"what: %@", inside[@"members"]);
+            NSLog(@"what: %d", [inside[@"members"] count]);
+            [[inside[@"members"][0] should] equal:@"testing"];
+            [[inside[@"permissions"] should] haveCountOf:1];
+            [[inside[@"permissions"][0] should] equal:@"r"];
+        });
+        
+        it(@"should deserialize properly", ^{
+            CMACL *newACL = [[CMACL alloc] initWithObjectId:@"id"];
+            newACL.members = [NSSet setWithObject:@"testing"];
+            newACL.permissions = [NSSet setWithObject:CMACLReadPermission];
+            
+            NSDictionary *dictionary = [CMObjectEncoder encodeObjects:@[newACL]];
+            CMACL *remade = [[CMObjectDecoder decodeObjects:dictionary] lastObject];
+            [[remade.objectId should] equal:@"id"];
+            [[remade.permissions should] haveCountOf:1];
+            [[remade.members should] haveCountOf:1];
+            NSLog(@"JUNE 2 %@", remade);
+            NSLog(@"whattttt: %@", [remade.permissions allObjects]);
+            [[[remade.permissions allObjects][0] should] equal:CMACLReadPermission];
+            [[[remade.members allObjects][0] should] equal:@"testing"];
+        });
     });
 });
 

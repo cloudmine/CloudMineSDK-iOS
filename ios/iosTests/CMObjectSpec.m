@@ -146,6 +146,7 @@ describe(@"CMObject", ^{
             [[obj.store should] equal:[CMStore defaultStore]];
             obj.store = nil;
             [[obj.store should] equal:[CMNullStore nullStore]];
+            [[theValue(obj.ownershipLevel) should] equal:@(CMObjectOwnershipUndefinedLevel)];
         });
         
         it(@"should properly set the ownership level if being set to a different, but not null, store", ^{

@@ -20,7 +20,24 @@ describe(@"CMObjectClassNameRegistry", ^{
         [[mappings shouldNot] beNil];
         NSInteger count = [mappings count];
         [registry refreshRegistry];
-        NSInteger newCount = [[registry valueForKey:@"classNameMappings"] count];
+        NSMutableDictionary *newMapping = [registry valueForKey:@"classNameMappings"];
+        
+        ///
+        /// This is intersting. At runtime, cocoa will create subclasses of objects for
+        /// key-value observing and accessing, depending on what is going on. Since we cannot
+        /// predict (nor should we, nor do we care) these objects, we go through and remove them
+        /// from the count.
+        /// They have the prefix "NSKVONotifying_"
+        ///
+        NSMutableArray *toRemove = [NSMutableArray array];
+        [newMapping enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+            if ([key hasPrefix:@"NSKVONotifying_"])
+                [toRemove addObject:key];
+        }];
+        
+        [newMapping removeObjectsForKeys:toRemove];
+        
+        NSInteger newCount = [newMapping count];
         [[theValue(count) should] equal:@(newCount)];
     });
     
