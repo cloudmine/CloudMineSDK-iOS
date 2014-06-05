@@ -279,12 +279,7 @@ NSString * const CMSocialNetworkSingly = @"singly";
         if (result == CMUserAccountLoginSucceeded) {            
             self.token = [responseBody objectForKey:@"session_token"];
             
-            NSDateFormatter *df = [[NSDateFormatter alloc] init];
-            [df setLenient:YES];
-            df.dateFormat = @"EEE',' dd MMM yyyy HH':'mm':'ss 'GMT'"; // RFC 1123 format
-            NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-            [df setLocale:usLocale];
-            self.tokenExpiration = [df dateFromString:[responseBody objectForKey:@"expires"]];
+            self.tokenExpiration = [[self dateFormatter] dateFromString:[responseBody objectForKey:@"expires"]];
 
             NSDictionary *userProfile = [responseBody objectForKey:@"profile"];
             objectId = [userProfile objectForKey:CMInternalObjectIdKey];
@@ -530,10 +525,7 @@ NSString * const CMSocialNetworkSingly = @"singly";
         if (result == CMUserAccountLoginSucceeded) {
             self.token = [responseBody objectForKey:@"session_token"];
             
-            NSDateFormatter *df = [[NSDateFormatter alloc] init];
-            [df setLenient:YES];
-            df.dateFormat = @"EEE',' dd MMM yyyy HH':'mm':'ss 'GMT'"; // RFC 1123 format
-            self.tokenExpiration = [df dateFromString:[responseBody objectForKey:@"expires"]];
+            self.tokenExpiration = [[self dateFormatter] dateFromString:[responseBody objectForKey:@"expires"]];
             NSDictionary *userProfile = [responseBody objectForKey:@"profile"];
             objectId = [userProfile objectForKey:CMInternalObjectIdKey];
             
@@ -593,6 +585,19 @@ NSString * const CMSocialNetworkSingly = @"singly";
 }
 
 #pragma mark - Caching
+
+- (NSDateFormatter *)dateFormatter;
+{
+    static NSDateFormatter *df = nil;
+    if (df == nil) {
+        df = [[NSDateFormatter alloc] init];
+        [df setLenient:YES];
+        NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+        [df setLocale:usLocale];
+        df.dateFormat = @"EEE',' dd MMM yyyy HH':'mm':'ss 'GMT'"; // RFC 1123 format
+    }
+    return df;
+}
 
 + (NSURL *)cacheLocation {
     static NSURL *_cacheLocation = nil;
