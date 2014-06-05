@@ -12,6 +12,7 @@
 #import "CMGeoPoint.h"
 #import "CMDate.h"
 #import "CMACL.h"
+#import "CMCoding.h"
 
 @interface CMObjectEncoder (Private)
 - (NSArray *)encodeAllInList:(NSArray *)list;
@@ -23,7 +24,8 @@
 
 #pragma mark - Kickoff methods
 
-+ (NSDictionary *)encodeObjects:(id<NSFastEnumeration>)objects {
++ (NSDictionary *)encodeObjects:(id<NSFastEnumeration>)objects;
+{
     NSMutableDictionary *topLevelObjectsDictionary = [NSMutableDictionary dictionary];
     for (id<NSObject,CMSerializable> object in objects) {
         if (![object conformsToProtocol:@protocol(CMSerializable)]) {
@@ -52,7 +54,7 @@
     return topLevelObjectsDictionary;
 }
 
-- (NSDictionary *)encodeNSCoding:(id<NSObject, NSCoding>)object;
+- (NSDictionary *)encodeCMCoding:(id<CMCoding>)object;
 {
     CMObjectEncoder *objectEncoder = [[CMObjectEncoder alloc] init];
     [object encodeWithCoder:objectEncoder];
@@ -69,7 +71,8 @@
     return encodedRepresentation;
 }
 
-- (id)init {
+- (id)init;
+{
     if (self = [super init]) {
         _encodedData = [NSMutableDictionary dictionary];
     }
@@ -78,41 +81,50 @@
 
 #pragma mark - Keyed archiving methods defined by NSCoder
 
-- (BOOL)containsValueForKey:(NSString *)key {
+- (BOOL)containsValueForKey:(NSString *)key;
+{
     return ([_encodedData objectForKey:key] != nil);
 }
 
-- (void)encodeBool:(BOOL)boolv forKey:(NSString *)key {
+- (void)encodeBool:(BOOL)boolv forKey:(NSString *)key;
+{
     [_encodedData setObject:[NSNumber numberWithBool:boolv] forKey:key];
 }
 
-- (void)encodeDouble:(double)realv forKey:(NSString *)key {
+- (void)encodeDouble:(double)realv forKey:(NSString *)key;
+{
     [_encodedData setObject:[NSNumber numberWithDouble:realv] forKey:key];
 }
 
-- (void)encodeFloat:(float)realv forKey:(NSString *)key {
+- (void)encodeFloat:(float)realv forKey:(NSString *)key;
+{
     [_encodedData setObject:[NSNumber numberWithFloat:realv] forKey:key];
 }
 
-- (void)encodeInt:(int)intv forKey:(NSString *)key {
+- (void)encodeInt:(int)intv forKey:(NSString *)key;
+{
     [_encodedData setObject:[NSNumber numberWithInt:intv] forKey:key];
 }
 
-- (void)encodeInteger:(NSInteger)intv forKey:(NSString *)key {
+- (void)encodeInteger:(NSInteger)intv forKey:(NSString *)key;
+{
     [_encodedData setObject:[NSNumber numberWithInteger:intv] forKey:key];
 }
 
-- (void)encodeInt32:(int32_t)intv forKey:(NSString *)key {
+- (void)encodeInt32:(int32_t)intv forKey:(NSString *)key;
+{
     [_encodedData setObject:[NSNumber numberWithInt:intv] forKey:key];
 }
 
-- (void)encodeObject:(id)objv forKey:(NSString *)key {
+- (void)encodeObject:(id)objv forKey:(NSString *)key;
+{
     [_encodedData setObject:[self serializeContentsOfObject:objv] forKey:key];
 }
 
 #pragma mark - Private encoding methods
 
-- (NSArray *)encodeAllInList:(NSArray *)list {
+- (NSArray *)encodeAllInList:(NSArray *)list;
+{
     NSMutableArray *encodedArray = [NSMutableArray arrayWithCapacity:[list count]];
     for (id item in list) {
         [encodedArray addObject:[self serializeContentsOfObject:item]];
@@ -120,7 +132,8 @@
     return encodedArray;
 }
 
-- (NSDictionary *)encodeAllInDictionary:(NSDictionary *)dictionary {
+- (NSDictionary *)encodeAllInDictionary:(NSDictionary *)dictionary;
+{
     NSMutableDictionary *encodedDictionary = [NSMutableDictionary dictionaryWithCapacity:[dictionary count]];
     for (id key in dictionary) {
         [encodedDictionary setObject:[self serializeContentsOfObject:[dictionary objectForKey:key]] forKey:key];
@@ -129,7 +142,8 @@
     return encodedDictionary;
 }
 
-- (id)serializeContentsOfObject:(id)objv {
+- (id)serializeContentsOfObject:(id)objv;
+{
     if (objv == NULL || [objv isKindOfClass:[NSNull class]]) {
         return [NSNull null];
     } else if ([objv isKindOfClass:[NSString class]] || [objv isKindOfClass:[NSNumber class]]) {
@@ -152,9 +166,9 @@
         return serializedRepresentation;
     } else if ([objv isKindOfClass:[CMObject class]]) {
         return [CMObjectEncoder encodeObjects:@[objv]];
-    } else if ([[objv class] conformsToProtocol:@protocol(NSCoding)]) {
+    } else if ([[objv class] conformsToProtocol:@protocol(CMCoding)]) {
         CMObjectEncoder *newEncoder = [[CMObjectEncoder alloc] init];
-        NSDictionary *serializedRepresentation = [newEncoder encodeNSCoding:objv];
+        NSDictionary *serializedRepresentation = [newEncoder encodeCMCoding:objv];
         return serializedRepresentation;
     } else {
         [[NSException exceptionWithName:@"CMInternalInconsistencyException"
@@ -168,19 +182,22 @@
 
 #pragma mark - Required methods (metadata and base serialization methods)
 
-- (BOOL)allowsKeyedCoding {
+- (BOOL)allowsKeyedCoding;
+{
     return YES;
 }
 
 #pragma mark - Translation methods
 
-- (NSDictionary *)encodedRepresentation {
+- (NSDictionary *)encodedRepresentation;
+{
     return [_encodedData copy];
 }
 
 #pragma mark - Unimplemented methods
 
-- (id)decodeObject {
+- (id)decodeObject;
+{
     [[NSException exceptionWithName:NSInvalidArgumentException
                              reason:@"Cannot call decode methods on an encoder"
                            userInfo:nil]
@@ -189,7 +206,8 @@
     return nil;
 }
 
-- (void)encodeInt64:(int64_t)intv forKey:(NSString *)key {
+- (void)encodeInt64:(int64_t)intv forKey:(NSString *)key;
+{
     [[NSException exceptionWithName:NSInvalidArgumentException
                              reason:@"64-bit integers are not supported. Use 32-bit or a string instead."
                            userInfo:nil]

@@ -15,6 +15,18 @@
 
 @end
 
+@interface CMTestEncoderInt32 : CMObject
+
+@property (nonatomic, assign) int32_t anInt;
+
+@end
+
+@interface CMTestEncoderBool : CMObject
+
+@property (nonatomic, assign) BOOL aBool;
+
+@end
+
 @interface CMTestEncoderFloat : CMObject
 
 @property (nonatomic, assign) CGFloat aFloat;

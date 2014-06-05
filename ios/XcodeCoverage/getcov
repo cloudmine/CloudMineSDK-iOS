@@ -33,6 +33,8 @@ exclude_data()
 {
     LCOV --remove ${LCOV_INFO} "Applications/Xcode.app/*" -d "${OBJ_DIR}" -o ${LCOV_INFO}
     LCOV --remove ${LCOV_INFO} "main.m" -d "${OBJ_DIR}" -o ${LCOV_INFO}
+    LCOV --remove ${LCOV_INFO} "Vendor/" -d "${OBJ_DIR}" -o ${LCOV_INFO}
+    LCOV --remove ${LCOV_INFO} "./Vendor/MAObjCRuntime" -d "${OBJ_DIR}" -o ${LCOV_INFO}
     # Remove other patterns here...
 }
 

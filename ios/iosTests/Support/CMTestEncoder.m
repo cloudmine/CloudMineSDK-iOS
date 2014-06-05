@@ -26,6 +26,42 @@
 
 @end
 
+@implementation CMTestEncoderInt32
+
+- (id)initWithCoder:(NSCoder *)aDecoder;
+{
+    if ( self = ([super initWithCoder:aDecoder]) ) {
+        self.anInt = [aDecoder decodeIntegerForKey:@"anInt"];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder;
+{
+    [super encodeWithCoder:aCoder];
+    [aCoder encodeInt32:_anInt forKey:@"anInt"];
+}
+
+@end
+
+@implementation CMTestEncoderBool
+
+- (id)initWithCoder:(NSCoder *)aDecoder;
+{
+    if ( self = ([super initWithCoder:aDecoder]) ) {
+        self.aBool = [aDecoder decodeBoolForKey:@"aBool"];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder;
+{
+    [super encodeWithCoder:aCoder];
+    [aCoder encodeBool:_aBool forKey:@"aBool"];
+}
+
+@end
+
 @implementation CMTestEncoderFloat
 
 - (id)initWithCoder:(NSCoder *)aDecoder;

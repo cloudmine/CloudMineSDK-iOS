@@ -167,7 +167,7 @@
 		AAC1D90916DD6CA6002A7DC0 /* CMViewChannelsResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAC1D90716DD6CA4002A7DC0 /* CMViewChannelsResponse.h */; };
 		AAC1D90A16DD6CA6002A7DC0 /* CMViewChannelsResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC1D90816DD6CA5002A7DC0 /* CMViewChannelsResponse.m */; };
 		AAD4AD161908104B006B93F2 /* CMUserIntegrationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD4AD151908104B006B93F2 /* CMUserIntegrationSpec.m */; };
-		D004178E15925DC900B596CC /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = D01DBF591590D36D003CB5BE /* NSData+Base64.m */; };
+		AAF9B5C61940C2B1008C5367 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = D01DBF591590D36D003CB5BE /* NSData+Base64.m */; };
 		D039C16715BDEB77005CCD33 /* CMACLSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D039C16615BDEB77005CCD33 /* CMACLSpec.m */; };
 		D039C16A15BEEB44005CCD33 /* CMACLFetchResponseSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D039C16915BEEB44005CCD33 /* CMACLFetchResponseSpec.m */; };
 		D03A4D5C15B48D2200A956BC /* CMACLFetchResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D042C2E915AF41F100A88888 /* CMACLFetchResponse.h */; };
@@ -1119,6 +1119,7 @@
 				7AFDFE47158E959B00388D6E /* CMUntypedObject.m in Sources */,
 				7A0D7CFC1581479000C7C476 /* CMNullStore.m in Sources */,
 				AAA05FBE183A756B009652C9 /* CMCardPayment.m in Sources */,
+				AAF9B5C61940C2B1008C5367 /* NSData+Base64.m in Sources */,
 				7AFDFE4A158E965400388D6E /* CMActiveUser.m in Sources */,
 				7AF00BA015A8DC650070442A /* CMACL.m in Sources */,
 				AAA05FB9183A756B009652C9 /* CMPaymentService.m in Sources */,
@@ -1160,7 +1161,6 @@
 				7AAFB49B158017450066B4A4 /* CMMimeTypeSpec.m in Sources */,
 				AA5693C71902E90500C4A15A /* CMTestEncoder.m in Sources */,
 				7AFDFE4C158E9EB400388D6E /* CMActiveUserSpec.m in Sources */,
-				D004178E15925DC900B596CC /* NSData+Base64.m in Sources */,
 				7A28003D15923446002C504A /* CMUserSpec.m in Sources */,
 				D039C16715BDEB77005CCD33 /* CMACLSpec.m in Sources */,
 				D039C16A15BEEB44005CCD33 /* CMACLFetchResponseSpec.m in Sources */,

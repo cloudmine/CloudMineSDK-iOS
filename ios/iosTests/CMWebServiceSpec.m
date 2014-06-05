@@ -18,11 +18,6 @@
 #import "CMAPICredentials.h"
 #import "CMConstants.h"
 
-extern void __gcov_flush();
-
-#import <XCTest/XCTest.h>
-#import <objc/runtime.h>
-
 SPEC_BEGIN(CMWebServiceSpec)
 
 describe(@"CMWebService", ^{
@@ -839,10 +834,6 @@ describe(@"CMWebService", ^{
             [[[request HTTPMethod] should] equal:@"DELETE"];
         });
     });
-    
-    afterAll(^{
-        __gcov_flush();
-    });
 });
 
 describe(@"CMWebServiceBaseUrl", ^{
@@ -869,9 +860,6 @@ describe(@"CMWebServiceBaseUrl", ^{
         });
     });
     
-    afterAll(^{
-        __gcov_flush();
-    });
 });
 
 SPEC_END

@@ -21,6 +21,31 @@
 SPEC_BEGIN(CMObjectEncoderSpec)
 
 describe(@"CMObjectEncoder", ^{
+    
+    it(@"should not be able to decode at all", ^{
+         [[theBlock(^{ [[CMObjectEncoder new] decodeObject]; }) should] raiseWithName:NSInvalidArgumentException];
+    });
+    
+    it(@"cannot encode 64 bit integers", ^{
+        [[theBlock(^{ [[CMObjectEncoder new] encodeInt64:1 forKey:@"something"]; }) should] raiseWithName:NSInvalidArgumentException];
+    });
+    
+    it(@"should allow key value pairing", ^{
+        [[ theValue([[CMObjectEncoder new] allowsKeyedCoding]) should] equal:@YES];
+    });
+    
+    it(@"should have nothing at first", ^{
+        CMObjectEncoder *encoder = [CMObjectEncoder new];
+        [[theValue([encoder containsValueForKey:@"something"]) should] equal:@NO];
+    });
+    
+    it(@"should contain a value after encoding it", ^{
+        CMObjectEncoder *encoder = [CMObjectEncoder new];
+        [[theValue([encoder containsValueForKey:@"something"]) should] equal:@NO];
+        [encoder encodeInt:10 forKey:@"int"];
+        [[theValue([encoder containsValueForKey:@"int"]) should] equal:@YES];
+    });
+    
     it(@"should encode a single object correctly", ^{
         NSString *uuid = [NSString stringWithUUID];
         CMGenericSerializableObject *object = [[CMGenericSerializableObject alloc] initWithObjectId:uuid];
@@ -98,6 +123,34 @@ describe(@"CMObjectEncoder", ^{
         [[object[@"anInt"] should] equal:@10];
     });
     
+    it(@"should encode a 32 bit integer properly", ^{
+        NSString *uuid = [NSString stringWithUUID];
+        CMTestEncoderInt32 *test = [[CMTestEncoderInt32 alloc] initWithObjectId:uuid];
+        test.anInt = 10;
+        
+        // Run the serialization.
+        NSDictionary *result = [CMObjectEncoder encodeObjects:@[test]];
+        [[result shouldNot] beNil];
+        [[[result should] have:1] items];
+        [[result should] haveValueForKey:uuid];
+        NSDictionary *object = result[uuid];
+        [[object[@"anInt"] should] equal:@10];
+    });
+    
+    it(@"should encode a BOOL properly", ^{
+        NSString *uuid = [NSString stringWithUUID];
+        CMTestEncoderBool *test = [[CMTestEncoderBool alloc] initWithObjectId:uuid];
+        test.aBool = YES;
+        
+        // Run the serialization.
+        NSDictionary *result = [CMObjectEncoder encodeObjects:@[test]];
+        [[result shouldNot] beNil];
+        [[[result should] have:1] items];
+        [[result should] haveValueForKey:uuid];
+        NSDictionary *object = result[uuid];
+        [[object[@"aBool"] should] equal:@YES];
+    });
+    
     it(@"should encode a float properly", ^{
         NSString *uuid = [NSString stringWithUUID];
         CMTestEncoderFloat *test = [[CMTestEncoderFloat alloc] initWithObjectId:uuid];
@@ -110,6 +163,46 @@ describe(@"CMObjectEncoder", ^{
         [[result should] haveValueForKey:uuid];
         NSDictionary *object = result[uuid];
         [[object[@"aFloat"] should] equal:@10.5];
+    });
+    
+    it(@"should encode an NSDate into a CMDate", ^{
+        CMObjectEncoder *encoder = [CMObjectEncoder new];
+        [encoder encodeObject:[NSDate dateWithTimeIntervalSince1970:0] forKey:@"date"];
+        NSDictionary *encoded = encoder.encodedRepresentation;
+        [[encoded should] haveCountOf:1];
+        [[encoded[@"date"] shouldNot] beNil];
+        NSDictionary *date = encoded[@"date"];
+        [[date should] haveCountOf:2];
+        [[date[CMInternalClassStorageKey] shouldNot] beNil];
+        [[date[CMInternalClassStorageKey] should] equal:@"datetime"];
+        [[date[@"timestamp"] shouldNot] beNil];
+        [[date[@"timestamp"] should] equal:@0];
+    });
+    
+    it(@"should encode a NSSet into an NSArray", ^{
+        CMObjectEncoder *encoder = [CMObjectEncoder new];
+        NSSet *set = [NSSet setWithArray:@[@0, @1, @4, @10, @2]];
+        [encoder encodeObject:set forKey:@"set"];
+        
+        NSDictionary *encoded = encoder.encodedRepresentation;
+        [[encoded should] haveCountOf:1];
+        [[encoded[@"set"] shouldNot] beNil];
+        NSArray *final = encoded[@"set"];
+        [[final should] haveCountOf:5];
+    });
+    
+    it(@"should raise an exception when given a non-serializable object", ^{
+        CMObjectEncoder *encoder = [CMObjectEncoder new];
+        [[theBlock(^{ [encoder encodeObject:[NSObject new] forKey:@"object"]; }) should] raiseWithName:@"CMInternalInconsistencyException"];
+    });
+    
+    it(@"should raise an exception when given a non-serializable object from class method", ^{
+        [[theBlock(^{ [CMObjectEncoder encodeObjects:@[[NSObject new]]]; }) should] raiseWithName:NSInvalidArgumentException];
+    });
+    
+    it(@"should raise an exception if the object has no ObjectId", ^{
+        CMObject *randomObject = [[CMObject alloc] initWithObjectId:nil];
+        [[theBlock(^{ [CMObjectEncoder encodeObjects:@[randomObject]]; }) should] raiseWithName:NSInvalidArgumentException];
     });
     
     it(@"should encode an object that adheres to NSCoding is encoded properly", ^{

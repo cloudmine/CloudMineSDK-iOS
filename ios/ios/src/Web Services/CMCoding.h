@@ -11,7 +11,7 @@
 /**
  * Protocol that all objects must adhere to in order to communicate with CloudMine.
  */
-@protocol CMCoding <NSCoding>
+@protocol CMCoding <NSObject, NSCoding>
 
 @optional
 /**
