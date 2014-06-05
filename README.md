@@ -18,6 +18,12 @@ The CloudMine library now uses [Cocoapods](http://cocoapods.org/) to manage it's
 * Installing pods is as easy as `pod 'CloudMine'`, with a great website to help support them.
 * Pushing and installing updates is super fast and easy. CloudMine simply update the main repo with our new version (which points to the CloudMine Repo), and then you simply run "pod update" and you get the new update.
 
+Code Coverage
+-------------
+To view the code coverage, you should do the following from the root project directory:
+`./ios/XcodeCoverage/cleancov`
+Then, run the tests (see Testing).
+`./ios/XcodeCoverage/getcov`
 
 Documentation
 -------------

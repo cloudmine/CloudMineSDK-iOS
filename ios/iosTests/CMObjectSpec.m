@@ -95,6 +95,10 @@ describe(@"CMObject", ^{
             [[theValue([obj ownershipLevel]) should] equal:theValue(CMObjectOwnershipAppLevel)];
             [[theBlock(^{ [obj addACL:acl callback:nil]; }) should] raise];
         });
+        
+        it(@"it should always belong to a store", ^{
+            [[theValue([obj belongsToStore]) should] equal:@YES];
+        });
     });
 
     context(@"given an object that belongs to a user-level store", ^{
@@ -109,9 +113,18 @@ describe(@"CMObject", ^{
             [obj save:nil];
             [[theValue(obj.ownershipLevel) should] equal:theValue(CMObjectOwnershipUserLevel)];
         });
+        
+        it(@"it should always belong to a store", ^{
+            [[theValue([obj belongsToStore]) should] equal:@YES];
+        });
     });
 
     context(@"given an object that doesn't belong to a store yet", ^{
+        
+        it(@"it should always belong to a store", ^{
+            [[theValue([obj belongsToStore]) should] equal:@YES];
+        });
+        
         it(@"should save to the app-level when save: is called on the object", ^{
             [obj save:nil];
             [[theValue(obj.ownershipLevel) should] equal:theValue(CMObjectOwnershipAppLevel)];
@@ -133,6 +146,52 @@ describe(@"CMObject", ^{
             [[obj.store should] equal:[CMStore defaultStore]];
             obj.store = nil;
             [[obj.store should] equal:[CMNullStore nullStore]];
+        });
+        
+        it(@"should properly set the ownership level if being set to a different, but not null, store", ^{
+            CMObject *obj = [[CMObject alloc] init];
+            [[obj.store should] equal:[CMStore defaultStore]];
+            
+            CMStore *firstNewStore = [CMStore store];
+            [firstNewStore addObject:obj];
+            
+            CMStore *newStore = [CMStore store];
+            [newStore addObject:obj];
+            
+            [[theValue(obj.ownershipLevel) should] equal:@(CMObjectOwnershipAppLevel)];
+            [[obj.store should] equal:newStore];
+        });
+        
+        it(@"should properly set the ownership level if being set to a different, but not null, store for a user", ^{
+            CMObject *obj = [[CMObject alloc] init];
+            [[obj.store should] equal:[CMStore defaultStore]];
+            
+            CMUser *fakeUser = [[CMUser alloc] init];
+            
+            CMStore *firstNewStore = [CMStore store];
+            firstNewStore.user = fakeUser;
+            [firstNewStore addUserObject:obj];
+            
+            CMStore *newStore = [CMStore store];
+            newStore.user = fakeUser;
+            [newStore addUserObject:obj];
+            
+            [[theValue(obj.ownershipLevel) should] equal:@(CMObjectOwnershipUserLevel)];
+            [[obj.store should] equal:newStore];
+        });
+        
+        it(@"should properly set the ownership level if being set to a different, but not null, store without setting the obj first", ^{
+            CMObject *obj = [[CMObject alloc] init];
+            [[obj.store should] equal:[CMStore defaultStore]];
+            
+            CMStore *firstNewStore = [CMStore store];
+            [firstNewStore addObject:obj];
+            
+            CMStore *newStore = [CMStore store];
+            [obj setStore:newStore];
+            
+            [[theValue(obj.ownershipLevel) should] equal:@(CMObjectOwnershipAppLevel)];
+            [[obj.store should] equal:newStore];
         });
     });
     
