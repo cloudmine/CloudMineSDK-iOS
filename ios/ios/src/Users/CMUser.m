@@ -466,7 +466,7 @@ NSString * const CMSocialNetworkSingly = @"singly";
 
 - (void)removePaymentMethodAtIndex:(NSUInteger)index callback:(CMPaymentServiceCallback)callback;
 {
-    NSString *urlString = [NSString stringWithFormat:@"payments/account/methods/card/%d", index];
+    NSString *urlString = [NSString stringWithFormat:@"payments/account/methods/card/%lu", (unsigned long)index];
     
     NSURL *url = [_webService constructAppURLWithString:urlString andDescriptors:nil];
     NSMutableURLRequest *request = [_webService constructHTTPRequestWithVerb:@"DELETE" URL:url binaryData:NO user:self];
