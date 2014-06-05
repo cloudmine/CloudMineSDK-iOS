@@ -9,7 +9,7 @@
 #import "Kiwi.h"
 #import "CMAPICredentials.h"
 
-SPEC_BEGIN(CMUserIntegrationSpec)
+SPEC_BEGIN(CMACLIntegrationSpec)
 
 describe(@"CMACL Integration", ^{
     
