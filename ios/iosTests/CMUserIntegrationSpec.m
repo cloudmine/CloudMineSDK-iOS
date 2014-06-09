@@ -33,8 +33,25 @@ describe(@"CMUser Integration", ^{
                 mes = messages;
             }];
             
-            [[expectFutureValue(theValue(code)) shouldEventuallyBeforeTimingOutAfter(5.0)] equal:theValue(2)];
-            [[expectFutureValue(mes) shouldEventuallyBeforeTimingOutAfter(5.0)] beEmpty];
+            [[expectFutureValue(theValue(code)) shouldEventuallyBeforeTimingOutAfter(2.0)] equal:theValue(CMUserAccountCreateSucceeded)];
+            [[expectFutureValue(mes) shouldEventuallyBeforeTimingOutAfter(2.0)] beEmpty];
+        });
+        
+        it(@"should successfully login them in", ^{
+            __block CMUserAccountResult code = NSNotFound;
+            __block NSArray *mes = nil;
+            
+            CMUser *user = [[CMUser alloc] initWithEmail:@"test@test.com" andPassword:@"testing"];
+            
+            [user loginWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
+                code = resultCode;
+                mes = messages;
+            }];
+            
+            [[expectFutureValue(theValue(code)) shouldEventuallyBeforeTimingOutAfter(2.0)] equal:theValue(CMUserAccountLoginSucceeded)];
+            [[expectFutureValue(user.token) shouldEventuallyBeforeTimingOutAfter(2.0)] beNonNil];
+            [[expectFutureValue(user.tokenExpiration) shouldEventuallyBeforeTimingOutAfter(2.0)] beNonNil];
+            [[expectFutureValue(mes) shouldEventuallyBeforeTimingOutAfter(2.0)] beEmpty];
         });
     });
 });
