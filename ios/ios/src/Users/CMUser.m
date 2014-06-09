@@ -586,17 +586,17 @@ NSString * const CMSocialNetworkSingly = @"singly";
 
 #pragma mark - Caching
 
+/// RFC1123 Format
 - (NSDateFormatter *)dateFormatter;
 {
-    static NSDateFormatter *df = nil;
-    if (df == nil) {
-        df = [[NSDateFormatter alloc] init];
-        [df setLenient:YES];
-        NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-        [df setLocale:usLocale];
-        df.dateFormat = @"EEE',' dd MMM yyyy HH':'mm':'ss 'GMT'"; // RFC 1123 format
+    static NSDateFormatter *rfc1123 = nil;
+    if (rfc1123 == nil) {
+        rfc1123 = [[NSDateFormatter alloc] init];
+        rfc1123.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+        rfc1123.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+        rfc1123.dateFormat = @"EEE',' dd MMM yyyy HH':'mm':'ss z";
     }
-    return df;
+    return rfc1123;
 }
 
 + (NSURL *)cacheLocation {
