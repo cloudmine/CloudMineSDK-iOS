@@ -138,6 +138,7 @@
 		AA5C462F190C154C0086FBD6 /* CMObjectClassNameRegistrySpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5C462E190C154C0086FBD6 /* CMObjectClassNameRegistrySpec.m */; };
 		AA5C4632190C19990086FBD6 /* CMCoding.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA5C4631190C19990086FBD6 /* CMCoding.h */; };
 		AA61F6CC1940DA5A00A545A0 /* CMACLIntegrationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA61F6CB1940DA5A00A545A0 /* CMACLIntegrationSpec.m */; };
+		AA7345C91949185F007AAEB0 /* CMExtensionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7345C81949185F007AAEB0 /* CMExtensionsSpec.m */; };
 		AAA05FB9183A756B009652C9 /* CMPaymentService.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA05FB3183A756B009652C9 /* CMPaymentService.m */; };
 		AAA05FBB183A756B009652C9 /* CMPaymentService.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB4183A756B009652C9 /* CMPaymentService.h */; };
 		AAA05FBC183A756B009652C9 /* CMCardPayment.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB5183A756B009652C9 /* CMCardPayment.h */; };
@@ -369,6 +370,7 @@
 		AA5C462E190C154C0086FBD6 /* CMObjectClassNameRegistrySpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectClassNameRegistrySpec.m; sourceTree = "<group>"; };
 		AA5C4631190C19990086FBD6 /* CMCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMCoding.h; sourceTree = "<group>"; };
 		AA61F6CB1940DA5A00A545A0 /* CMACLIntegrationSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMACLIntegrationSpec.m; sourceTree = "<group>"; };
+		AA7345C81949185F007AAEB0 /* CMExtensionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMExtensionsSpec.m; sourceTree = "<group>"; };
 		AAA05FB3183A756B009652C9 /* CMPaymentService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPaymentService.m; sourceTree = "<group>"; };
 		AAA05FB4183A756B009652C9 /* CMPaymentService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPaymentService.h; sourceTree = "<group>"; };
 		AAA05FB5183A756B009652C9 /* CMCardPayment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMCardPayment.h; sourceTree = "<group>"; };
@@ -615,6 +617,7 @@
 				7AAFB49A158017450066B4A4 /* CMMimeTypeSpec.m */,
 				7A4A6F2814FFF08100B95D13 /* CMUserSpec.m */,
 				7A766208156307DF009840EE /* CMSortDescriptorSpec.m */,
+				AA7345C81949185F007AAEB0 /* CMExtensionsSpec.m */,
 				7A0DB1B8147B0153007F482C /* Support */,
 				7AB4AB79145DC5D8006AEF67 /* Supporting Files */,
 			);
@@ -1099,6 +1102,7 @@
 				7AD93BAF14D1CCFE00CC1CC9 /* CMFileSpec.m in Sources */,
 				7AA79D6314DC1FB900F3CA3B /* CMCrossPlatformGenericSerializableObject.m in Sources */,
 				7A766209156307DF009840EE /* CMSortDescriptorSpec.m in Sources */,
+				AA7345C91949185F007AAEB0 /* CMExtensionsSpec.m in Sources */,
 				7A0D7CD41581097200C7C476 /* CMObjectSpec.m in Sources */,
 				AABEE9FB19088809007A26BA /* CMDateSpec.m in Sources */,
 				AAA102D519265AEC00A11BC4 /* CMObjectIntegrationSpec.m in Sources */,

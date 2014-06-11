@@ -19,11 +19,7 @@
 - (NSData *)jsonData;
 {
     NSError *error = nil;
-    NSData *data = [NSJSONSerialization dataWithJSONObject:self options:0 error:&error];
-    if (error) {
-        DLog(@"Error Serializing %@. Error: %@", self, error);
-    }
-    return data;
+    return [NSJSONSerialization dataWithJSONObject:self options:0 error:&error];
 }
 
 @end
