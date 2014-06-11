@@ -8,6 +8,7 @@ inhibit_all_warnings!
 
 target "cloudmine-ios" do 
   pod 'AFNetworking', '~> 1.3.3'
+  pod 'MAObjCRuntime', '~> 0.0'
 end
 
 
