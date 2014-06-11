@@ -14,4 +14,5 @@ end
 
 target 'cloudmine-iosTests', :exclusive => true do
   pod 'Kiwi', '~> 2.2'
+  pod 'NSData+Base64', '~> 1.0'
 end

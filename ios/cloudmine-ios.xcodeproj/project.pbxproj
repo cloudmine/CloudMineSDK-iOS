@@ -162,7 +162,6 @@
 		AAC1D90916DD6CA6002A7DC0 /* CMViewChannelsResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAC1D90716DD6CA4002A7DC0 /* CMViewChannelsResponse.h */; };
 		AAC1D90A16DD6CA6002A7DC0 /* CMViewChannelsResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC1D90816DD6CA5002A7DC0 /* CMViewChannelsResponse.m */; };
 		AAD4AD161908104B006B93F2 /* CMUserIntegrationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD4AD151908104B006B93F2 /* CMUserIntegrationSpec.m */; };
-		AAF9B5C61940C2B1008C5367 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = D01DBF591590D36D003CB5BE /* NSData+Base64.m */; };
 		D039C16715BDEB77005CCD33 /* CMACLSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D039C16615BDEB77005CCD33 /* CMACLSpec.m */; };
 		D039C16A15BEEB44005CCD33 /* CMACLFetchResponseSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D039C16915BEEB44005CCD33 /* CMACLFetchResponseSpec.m */; };
 		D03A4D5C15B48D2200A956BC /* CMACLFetchResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D042C2E915AF41F100A88888 /* CMACLFetchResponse.h */; };
@@ -394,8 +393,6 @@
 		AAC1D90716DD6CA4002A7DC0 /* CMViewChannelsResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMViewChannelsResponse.h; sourceTree = "<group>"; };
 		AAC1D90816DD6CA5002A7DC0 /* CMViewChannelsResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMViewChannelsResponse.m; sourceTree = "<group>"; };
 		AAD4AD151908104B006B93F2 /* CMUserIntegrationSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUserIntegrationSpec.m; sourceTree = "<group>"; };
-		D01DBF581590D36D003CB5BE /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
-		D01DBF591590D36D003CB5BE /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		D039C16615BDEB77005CCD33 /* CMACLSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMACLSpec.m; sourceTree = "<group>"; };
 		D039C16915BEEB44005CCD33 /* CMACLFetchResponseSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMACLFetchResponseSpec.m; sourceTree = "<group>"; };
 		D042C2E915AF41F100A88888 /* CMACLFetchResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMACLFetchResponse.h; sourceTree = "<group>"; };
@@ -488,15 +485,6 @@
 				71E886B616516C3D0060C217 /* CMSocialLoginViewController.m */,
 			);
 			name = "Social Login";
-			sourceTree = "<group>";
-		};
-		7A04139F146C5B3A00EF537A /* Vendor */ = {
-			isa = PBXGroup;
-			children = (
-				D01DBF581590D36D003CB5BE /* NSData+Base64.h */,
-				D01DBF591590D36D003CB5BE /* NSData+Base64.m */,
-			);
-			path = Vendor;
 			sourceTree = "<group>";
 		};
 		7A0DB1B8147B0153007F482C /* Support */ = {
@@ -596,7 +584,6 @@
 			isa = PBXGroup;
 			children = (
 				7AD36F76146C642900DD4734 /* src */,
-				7A04139F146C5B3A00EF537A /* Vendor */,
 				7AB4AB65145DC5D8006AEF67 /* Supporting Files */,
 			);
 			path = ios;
@@ -1076,7 +1063,6 @@
 				7AFDFE47158E959B00388D6E /* CMUntypedObject.m in Sources */,
 				7A0D7CFC1581479000C7C476 /* CMNullStore.m in Sources */,
 				AAA05FBE183A756B009652C9 /* CMCardPayment.m in Sources */,
-				AAF9B5C61940C2B1008C5367 /* NSData+Base64.m in Sources */,
 				7AFDFE4A158E965400388D6E /* CMActiveUser.m in Sources */,
 				7AF00BA015A8DC650070442A /* CMACL.m in Sources */,
 				AAA05FB9183A756B009652C9 /* CMPaymentService.m in Sources */,
