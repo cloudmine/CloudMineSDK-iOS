@@ -82,8 +82,9 @@ describe(@"UIImageWithCloudMineIntegrationSpec", ^{
         __block CMFileUploadResponse *resp = nil;
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
         
-        CMUser *user = [[CMUser alloc] initWithEmail:@"test@test.com" andPassword:@"testing"];
+        CMUser *user = [[CMUser alloc] initWithEmail:@"testUserImage@test.com" andPassword:@"testing"];
         [user createAccountAndLoginWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
+            
             [[CMStore defaultStore] setUser:user];
             [[CMStore defaultStore] saveUserFileWithData:UIImagePNGRepresentation(image) additionalOptions:nil callback:^(CMFileUploadResponse *response) {
                 resp = response;
@@ -92,7 +93,7 @@ describe(@"UIImageWithCloudMineIntegrationSpec", ^{
             }];
         }];
         
-        [[expectFutureValue(UIImagePNGRepresentation(imageView.image)) shouldEventually] equal:UIImagePNGRepresentation(image)];        
+        [[expectFutureValue(UIImagePNGRepresentation(imageView.image)) shouldEventuallyBeforeTimingOutAfter(5.0)] equal:UIImagePNGRepresentation(image)];
     });
     
 });

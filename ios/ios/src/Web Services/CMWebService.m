@@ -982,6 +982,8 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
                 return CMUserAccountUnknownResult;
         }
     } callback:^(CMUserAccountResult resultCode, NSDictionary *messages) {
+        
+        NSLog(@"MESSAGES: %@", messages);
         switch (resultCode) {
             case CMUserAccountPasswordChangeFailedInvalidCredentials:
                 NSLog(@"CloudMine *** User Credential change failed because the credentials provided were incorrect");

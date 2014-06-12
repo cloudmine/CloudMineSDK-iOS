@@ -12,6 +12,7 @@
 #import "CMAPICredentials.h"
 #import "CMObjectEncoder.h"
 #import "CMObjectDecoder.h"
+#import "CMCardPayment.h"
 
 #pragma GCC diagnostic ignored "-Wundeclared-selector"
 
@@ -60,6 +61,19 @@ describe(@"CMUser", ^{
             [user.email shouldBeNil];
             user.email = @"test@testing.com";
             [[user.email should] equal:@"test@testing.com"];
+        });
+        
+        it(@"should set the objectId to '' if it doesn't exist", ^{
+            
+            CMUser *use = [[CMUser alloc] init];
+            [use setValue:@"test" forKey:@"objectId"];
+            NSDictionary *serializedUser = [CMObjectEncoder encodeObjects:@[use]];
+            [serializedUser[@"test"] removeObjectForKey:@"__id__"];
+            
+            NSLog(@"What: %@", serializedUser);
+            CMObjectDecoder *decoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:serializedUser];
+            CMUser *randomUser = [[CMUser alloc] initWithCoder:decoder];
+            [[randomUser.objectId should] equal:@""];
         });
         
         context(@"deprecated methods", ^{
@@ -190,6 +204,120 @@ describe(@"CMUser", ^{
             [[user.tokenExpiration should] beNil];
         });
         
+        it(@"should not logout properly if the result is bad", ^{
+            user.token = @"1234";
+            user.tokenExpiration = [NSDate dateWithTimeIntervalSinceNow:1000];
+            
+            KWCaptureSpy *callbackBlockSpy = [[user valueForKey:@"webService"] captureArgument:@selector(logoutUser:callback:) atIndex:1];
+            [[[user valueForKey:@"webService"] should] receive:@selector(logoutUser:callback:) withCount:1];
+            
+            // This first call should trigger the web service call.
+            [user logoutWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
+                [[theValue(resultCode) should] equal:@(CMUserAccountUnknownResult)];
+                [[messages should] haveCountOf:1];
+            }];
+            
+            void (^callback)(CMUserAccountResult result, NSDictionary *messages) = callbackBlockSpy.argument;
+            callback(CMUserAccountUnknownResult, @{@"error": @"info about the error"});
+            
+            [[user.token shouldNot] beNil];
+            [[user.tokenExpiration shouldNot] beNil];
+        });
+        
+        it(@"should send a password reset email", ^{
+            
+            KWCaptureSpy *callbackBlockSpy = [[user valueForKey:@"webService"] captureArgument:@selector(resetForgottenPasswordForUser:callback:) atIndex:1];
+            [[[user valueForKey:@"webService"] should] receive:@selector(resetForgottenPasswordForUser:callback:) withCount:1];
+            
+            // This first call should trigger the web service call.
+            [user resetForgottenPasswordWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
+                [[theValue(resultCode) should] equal:@(CMUserAccountPasswordResetEmailSent)];
+            }];
+            
+            CMWebServiceUserAccountOperationCallback callback = callbackBlockSpy.argument;
+            callback(CMUserAccountPasswordResetEmailSent, @{});
+            
+            [[user.token should] beNil];
+            [[user.tokenExpiration should] beNil];
+        });
+        
+        it(@"should let the user login with a social network", ^{
+            
+            KWCaptureSpy *callbackBlockSpy = [[user valueForKey:@"webService"]
+                                              captureArgument:@selector(loginWithSocial:withService:viewController:params:callback:) atIndex:4];
+            [[[user valueForKey:@"webService"] should] receive:@selector(loginWithSocial:withService:viewController:params:callback:) withCount:1];
+            
+            
+            // This first call should trigger the web service call.
+            [user loginWithSocialNetwork:CMSocialNetworkTwitter
+                          viewController:nil
+                                  params:nil
+                                callback:^(CMUserAccountResult resultCode, NSArray *messages) {
+                                    [[@(resultCode) should] equal:@(CMUserAccountLoginSucceeded)];
+                                }];
+            
+            void (^callback)(CMUserAccountResult result, NSDictionary *messages) = callbackBlockSpy.argument;
+            callback(CMUserAccountLoginSucceeded, @{@"session_token": @"5555",
+                                                    @"expires": @"Mon, 01 Jun 2020 01:00:00 GMT",
+                                                    @"profile": @{@"name": @"Philip", @"age": @30}});
+            
+            [[user.token should] equal:@"5555"];
+            [[user.tokenExpiration shouldNot] beNil];
+            [[user.name should] equal:@"Philip"];
+            [[@(user.age) should] equal:@30];
+        });
+        
+        it(@"should return the correct failure when getting payment fails", ^{
+
+            KWCaptureSpy *callbackBlockSpy = [[user valueForKey:@"webService"]
+                                              captureArgument:@selector(executeGenericRequest:successHandler:errorHandler:) atIndex:2];
+            [[[user valueForKey:@"webService"] should] receive:@selector(executeGenericRequest:successHandler:errorHandler:) withCount:1];
+            
+            // This first call should trigger the web service call.
+
+            [user paymentMethods:^(CMPaymentResponse *response) {
+                [[@([response wasSuccess]) should] equal:@NO];
+                [[@(response.result) should] equal:@(CMPaymentResultFailed)];
+            }];
+            
+            CMWebServiceErorCallack callback = callbackBlockSpy.argument;
+            callback(@{@"Error": @"error message"}, 400, @{}, [NSError new], @{});
+        });
+        
+        it(@"should return the correct failure when removing payment fails", ^{
+            
+            KWCaptureSpy *callbackBlockSpy = [[user valueForKey:@"webService"]
+                                              captureArgument:@selector(executeGenericRequest:successHandler:errorHandler:) atIndex:2];
+            [[[user valueForKey:@"webService"] should] receive:@selector(executeGenericRequest:successHandler:errorHandler:) withCount:1];
+            
+            // This first call should trigger the web service call.
+            
+            [user removePaymentMethodAtIndex:0 callback:^(CMPaymentResponse *response) {
+                [[@([response wasSuccess]) should] equal:@NO];
+                [[@(response.result) should] equal:@(CMPaymentResultFailed)];
+            }];
+            
+            CMWebServiceErorCallack callback = callbackBlockSpy.argument;
+            callback(@{@"Error": @"error message"}, 400, @{}, [NSError new], @{});
+        });
+        
+        it(@"should return the correct failure when adding payment fails", ^{
+            
+            KWCaptureSpy *callbackBlockSpy = [[user valueForKey:@"webService"]
+                                              captureArgument:@selector(executeGenericRequest:successHandler:errorHandler:) atIndex:2];
+            [[[user valueForKey:@"webService"] should] receive:@selector(executeGenericRequest:successHandler:errorHandler:) withCount:1];
+            
+            // This first call should trigger the web service call.
+            
+            [user addPaymentMethod:[CMCardPayment new] callback:^(CMPaymentResponse *response) {
+                [[@([response wasSuccess]) should] equal:@NO];
+                [[@(response.result) should] equal:@(CMPaymentResultFailed)];
+            }];
+            
+            CMWebServiceErorCallack callback = callbackBlockSpy.argument;
+            callback(@{@"Error": @"error message"}, 400, @{}, [NSError new], @{});
+        });
+        
         context(@"when accessing other users of the app", ^{
             beforeEach(^{
                 [user setValue:@"abc123" forKey:@"objectId"];
@@ -259,7 +387,7 @@ describe(@"CMUser", ^{
                 
                 // Make a mock response from the web server with changes we haven't seen yet.
                 NSMutableDictionary *userState = [NSMutableDictionary dictionaryWithDictionary:@{@"session_token": @"5555",
-                                                                                                 @"expires": @"Mon 01 Jun 2020 01:00:00 GMT",
+                                                                                                 @"expires": @"Mon, 01 Jun 2020 01:00:00 GMT",
                                                                                                  @"profile": @{@"name": @"Philip", @"age": @30}}];
                 
                 CMWebServiceUserAccountOperationCallback callback = callbackBlockSpy.argument;
@@ -289,7 +417,7 @@ describe(@"CMUser", ^{
                 
                 // Make a mock response from the web server with changes we haven't seen yet.
                 NSMutableDictionary *userState = [NSMutableDictionary dictionaryWithDictionary:@{@"session_token": @"5555",
-                                                                                                 @"expires": @"Mon 01 Jun 2020 01:00:00 GMT",
+                                                                                                 @"expires": @"Mon, 01 Jun 2020 01:00:00 GMT",
                                                                                                  @"profile": @{@"name": @"Philip", @"age": @30}}];
                 
                 CMWebServiceUserAccountOperationCallback callback = callbackBlockSpy.argument;

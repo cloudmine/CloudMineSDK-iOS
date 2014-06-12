@@ -275,6 +275,7 @@ NSString * const CMSocialNetworkSingly = @"singly";
 - (void)loginWithCallback:(CMUserOperationCallback)callback {
     [_webService loginUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         NSArray *messages = [NSArray array];
+        NSLog(@"Real Response: %@", responseBody);
 
         if (result == CMUserAccountLoginSucceeded) {            
             self.token = [responseBody objectForKey:@"session_token"];
@@ -326,7 +327,7 @@ NSString * const CMSocialNetworkSingly = @"singly";
         }
 
         if (callback) {
-            callback(result, messages);
+            callback(result, (messages ? messages : [NSArray array]) );
         }
     }];
 }
@@ -401,11 +402,15 @@ NSString * const CMSocialNetworkSingly = @"singly";
                                         
                                         // Only login if it was successful, otherwise it won't expire the session token.
                                         [self loginWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
-                                            callback(result, [NSArray array]);
+                                            if (callback) {
+                                                callback(result, [NSArray array]);
+                                            }
                                         }];
                                         
                                     } else {
-                                        callback(result, [NSArray array]);
+                                        if (callback) {
+                                            callback(result, [NSArray array]);
+                                        }
                                     }
                                 }];
     
@@ -452,9 +457,11 @@ NSString * const CMSocialNetworkSingly = @"singly";
     
     [_webService executeGenericRequest:request successHandler:^(id parsedBody, NSUInteger httpCode, NSDictionary *headers) {
         CMPaymentResponse *response = [[CMPaymentResponse alloc] initWithResponseBody:parsedBody httpCode:httpCode headers:headers errors:nil];
+        response.result = CMPaymentResultSuccessful;
         if (callback) callback(response);
     } errorHandler:^(id responseBody, NSUInteger httpCode, NSDictionary *headers, NSError *error, NSDictionary *errorInfo) {
         CMPaymentResponse *response = [[CMPaymentResponse alloc] initWithResponseBody:responseBody httpCode:httpCode headers:headers errors:errorInfo];
+        response.result = CMPaymentResultFailed;
         if (callback) callback(response);
     }];
 }
@@ -468,9 +475,11 @@ NSString * const CMSocialNetworkSingly = @"singly";
     
     [_webService executeGenericRequest:request successHandler:^(id parsedBody, NSUInteger httpCode, NSDictionary *headers) {
         CMPaymentResponse *response = [[CMPaymentResponse alloc] initWithResponseBody:parsedBody httpCode:httpCode headers:headers errors:nil];
+        response.result = CMPaymentResultSuccessful;
         if (callback) callback(response);
     } errorHandler:^(id responseBody, NSUInteger httpCode, NSDictionary *headers, NSError *error, NSDictionary *errorInfo) {
         CMPaymentResponse *response = [[CMPaymentResponse alloc] initWithResponseBody:responseBody httpCode:httpCode headers:headers errors:errorInfo];
+        response.result = CMPaymentResultFailed;
         if (callback) callback(response);
     }];
 }
@@ -496,9 +505,11 @@ NSString * const CMSocialNetworkSingly = @"singly";
         }
         
         CMPaymentResponse *response = [[CMPaymentResponse alloc] initWithResponseBody:finishedObjects httpCode:httpCode headers:headers errors:nil];
+        response.result = CMPaymentResultSuccessful;
         if (callback) callback(response);
     } errorHandler:^(id responseBody, NSUInteger httpCode, NSDictionary *headers, NSError *error, NSDictionary *errorInfo) {
         CMPaymentResponse *response = [[CMPaymentResponse alloc] initWithResponseBody:responseBody httpCode:httpCode headers:headers errors:errorInfo];
+        response.result = CMPaymentResultFailed;
         if (callback) callback(response);
     }];
 }
