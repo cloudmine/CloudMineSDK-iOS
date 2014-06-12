@@ -61,6 +61,40 @@ describe(@"CMUser", ^{
             user.email = @"test@testing.com";
             [[user.email should] equal:@"test@testing.com"];
         });
+        
+        context(@"deprecated methods", ^{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+            it(@"should make the userId the email", ^{
+                NSString *email = @"testing@test.com";
+                CMUser *user = [[CMUser alloc] initWithUserId:email andPassword:@"testing"];
+                [[user.email should] equal:email];
+                [[user.userId should] equal:email];
+                [[user.username should] beNil];
+            });
+            
+            it(@"should make the userid an email with a username too", ^{
+                NSString *email = @"testing@test.com";
+                NSString *username = @"ausername";
+                CMUser *user = [[CMUser alloc] initWithUserId:email andUsername:username andPassword:@"testing"];
+                [[user.email should] equal:email];
+                [[user.userId should] equal:email];
+                [[user.username should] equal:username];
+            });
+            
+            it(@"should let you set the userid and change the email", ^{
+                NSString *email = @"testing@test.com";
+                CMUser *user = [[CMUser alloc] initWithUserId:email andPassword:@"testing"];
+                [[user.email should] equal:email];
+                NSString *newEmail = @"somethingelse@test.com";
+                [user setUserId:newEmail];
+                [[user.email should] equal:newEmail];
+            });
+            
+            
+#pragma clang diagnostic pop
+        });
+        
     });
 
     context(@"given a username and password", ^{
@@ -70,6 +104,41 @@ describe(@"CMUser", ^{
             [[user.password should] equal:@"pass"];
             [user.token shouldBeNil];
         });
+        
+        it(@"should know if two users are equal", ^{
+           CMUser *user1 = [[CMUser alloc] initWithEmail:@"someone@domain.com" andPassword:@"pass"];
+           CMUser *user2 = [[CMUser alloc] initWithEmail:@"someone@domain.com" andPassword:@"pass"];
+            [[user1 should] equal:user2];
+        });
+        
+        it(@"should know if two users are equal with usernames", ^{
+            CMUser *user1 = [[CMUser alloc] initWithUsername:@"someone" andPassword:@"pass"];
+            CMUser *user2 = [[CMUser alloc] initWithUsername:@"someone" andPassword:@"pass"];
+            [[user1 should] equal:user2];
+        });
+        
+        it(@"should know if two users are not equal with different passwords", ^{
+            CMUser *user1 = [[CMUser alloc] initWithEmail:@"someone@domain.com" andPassword:@"pass1"];
+            CMUser *user2 = [[CMUser alloc] initWithEmail:@"someone@domain.com" andPassword:@"pass2"];
+            [[user1 shouldNot] equal:user2];
+            
+            user1 = [[CMUser alloc] initWithUsername:@"someone" andPassword:@"pass1"];
+            user2 = [[CMUser alloc] initWithUsername:@"someone" andPassword:@"pass2"];
+            [[user1 shouldNot] equal:user2];
+        });
+        
+        it(@"should know an object is not equal to a CMUser", ^{
+            CMUser *user1 = [[CMUser alloc] initWithEmail:@"someone@domain.com" andPassword:@"pass"];
+            NSObject *object = [NSObject new];
+            [[user1 shouldNot] equal:object];
+        });
+        
+        it(@"should know that two users are equal with their tokens", ^{
+            CMUser *user1 = [[CMUser alloc] init]; user1.token = @"123";
+            CMUser *user2 = [[CMUser alloc] init]; user2.token = @"123";
+            [[user1 should] equal:user2];
+        });
+        
     });
 
 
@@ -100,6 +169,25 @@ describe(@"CMUser", ^{
 
         it(@"should not be dirty", ^{
             [[theValue(user.isDirty) should] beNo];
+        });
+        
+        it(@"should logout properly", ^{
+            user.token = @"1234";
+            user.tokenExpiration = [NSDate dateWithTimeIntervalSinceNow:1000];
+            
+            KWCaptureSpy *callbackBlockSpy = [[user valueForKey:@"webService"] captureArgument:@selector(logoutUser:callback:) atIndex:1];
+            [[[user valueForKey:@"webService"] should] receive:@selector(logoutUser:callback:) withCount:1];
+            
+            // This first call should trigger the web service call.
+            [user logoutWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
+                [[theValue(resultCode) should] equal:@(CMUserAccountLogoutSucceeded)];
+            }];
+            
+            void (^callback)(CMUserAccountResult result, NSDictionary *messages) = callbackBlockSpy.argument;
+            callback(CMUserAccountLogoutSucceeded, @{});
+            
+            [[user.token should] beNil];
+            [[user.tokenExpiration should] beNil];
         });
         
         context(@"when accessing other users of the app", ^{
@@ -270,6 +358,13 @@ describe(@"CMUser", ^{
                 
                 CustomUser *customUser = [[CMObjectDecoder decodeObjects:serializedUser] lastObject];
                 [customUser.name shouldBeNil];
+            });
+            
+            it(@"should encode the username properly", ^{
+                user.username = @"aUsername";
+                NSDictionary *serializedUser = [CMObjectEncoder encodeObjects:[NSSet setWithObject:user]];
+                NSDictionary *theUser = [serializedUser objectForKey:user.objectId];
+                [[theUser[@"username"] should] equal:@"aUsername"];
             });
         });
     });

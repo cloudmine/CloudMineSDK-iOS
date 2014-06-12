@@ -300,6 +300,49 @@ describe(@"CMObject Integration", ^{
                 [[expectFutureValue(theValue(aclResponse.error.code)) shouldEventually] equal:@(CMErrorInvalidRequest)];
                 [[newStore.webService shouldNot] receive:@selector(updateACL:user:successHandler:errorHandler:)];
             });
+            
+            it(@"should not let another user remove the ACL", ^{
+                
+                CMStore *newStore = [CMStore store];
+                [newStore setUser:wantr];
+                
+                __block CMObjectFetchResponse *resp = nil;
+                __block CMObjectUploadResponse *aclResponse = nil;
+                [newStore userObjectsWithKeys:@[testingID] additionalOptions:nil callback:^(CMObjectFetchResponse *response) {
+                    resp = response;
+                    
+                    [[resp.objects should] haveCountOf:1];
+                    CMTestClass *object = [resp.objects lastObject];
+                    
+                    [object removeACL:theACL callback:^(CMObjectUploadResponse *response) {
+                        aclResponse = response;
+                    }];
+                }];
+                
+                [[expectFutureValue(resp) shouldEventually] beNonNil];
+                [[expectFutureValue(resp.objects) shouldEventually] haveCountOf:1];
+                [[expectFutureValue(aclResponse) shouldEventually] beNonNil];
+                [[expectFutureValue(aclResponse.error.domain) shouldEventually] equal:CMErrorDomain];
+                [[expectFutureValue(theValue(aclResponse.error.code)) shouldEventually] equal:@(CMErrorInvalidRequest)];
+                [[newStore.webService shouldNot] receive:@selector(updateValuesFromDictionary:serverSideFunction:user:extraParameters:successHandler:errorHandler:)];
+            });
+            
+            it(@"should let the original user remove the acl", ^{
+                __block CMObjectUploadResponse *resp = nil;
+                __block CMACLFetchResponse *fetchResponse = nil;
+                
+                [testing removeACL:theACL callback:^(CMObjectUploadResponse *response) {
+                    resp = response;
+                    
+                    [testing getACLs:^(CMACLFetchResponse *response) {
+                        fetchResponse = response;
+                    }];
+                }];
+                
+                [[expectFutureValue(resp) shouldEventually] beNonNil];
+                [[expectFutureValue(resp.uploadStatuses) shouldEventually] haveCountOf:1];
+                [[expectFutureValue(fetchResponse.acls) shouldEventually] beEmpty];
+            });
         });
     });
 });

@@ -116,6 +116,24 @@ describe(@"CMACL", ^{
             [[acl.store should] equal:[CMStore defaultStore]];
         });
         
+        it(@"should be able to switch stores", ^{
+            CMStore *newStore = [CMStore store];
+            newStore.user = [[CMUser alloc] init];
+            newStore.user.token = @"1234";
+            newStore.user.tokenExpiration = [NSDate dateWithTimeIntervalSinceNow:1000.0];
+            
+            [newStore addACL:acl];
+            [[acl.store should] equal:newStore];
+            
+            CMStore *another = [CMStore store];
+            another.user = [[CMUser alloc] init];
+            another.user.token = @"1234";
+            another.user.tokenExpiration = [NSDate dateWithTimeIntervalSinceNow:1000.0];
+            
+            [another addACL:acl];
+            [[acl.store should] equal:another];
+        });
+        
     });
 });
 

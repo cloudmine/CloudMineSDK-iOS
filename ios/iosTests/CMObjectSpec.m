@@ -138,6 +138,25 @@ describe(@"CMObject", ^{
         it(@"it should always belong to a store", ^{
             [[theValue([obj belongsToStore]) should] equal:@YES];
         });
+        
+        it(@"should be able to change stores", ^{
+            
+            CMStore *newStore = [CMStore store];
+            newStore.user = [[CMUser alloc] init];
+            newStore.user.token = @"1234";
+            newStore.user.tokenExpiration = [NSDate dateWithTimeIntervalSinceNow:1000.0];
+            
+            [newStore addUserObject:obj];
+            [[obj.store should] equal:newStore];
+            
+            CMStore *another = [CMStore store];
+            another.user = [[CMUser alloc] init];
+            another.user.token = @"1234";
+            another.user.tokenExpiration = [NSDate dateWithTimeIntervalSinceNow:1000.0];
+            
+            [another addUserObject:obj];
+            [[obj.store should] equal:another];
+        });
 
     });
 
