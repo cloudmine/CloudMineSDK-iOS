@@ -139,6 +139,9 @@
 		AA5C4632190C19990086FBD6 /* CMCoding.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA5C4631190C19990086FBD6 /* CMCoding.h */; };
 		AA61F6CC1940DA5A00A545A0 /* CMACLIntegrationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA61F6CB1940DA5A00A545A0 /* CMACLIntegrationSpec.m */; };
 		AA7345C91949185F007AAEB0 /* CMExtensionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7345C81949185F007AAEB0 /* CMExtensionsSpec.m */; };
+		AA7345CC19491F16007AAEB0 /* UIImageWithCloudMineIntegrationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7345CB19491F16007AAEB0 /* UIImageWithCloudMineIntegrationSpec.m */; };
+		AA7345CE19493BF7007AAEB0 /* mobile.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7345CD19493BF7007AAEB0 /* mobile.png */; };
+		AA7345D11949E138007AAEB0 /* CMUntypedObjectSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7345D01949E138007AAEB0 /* CMUntypedObjectSpec.m */; };
 		AAA05FB9183A756B009652C9 /* CMPaymentService.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA05FB3183A756B009652C9 /* CMPaymentService.m */; };
 		AAA05FBB183A756B009652C9 /* CMPaymentService.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB4183A756B009652C9 /* CMPaymentService.h */; };
 		AAA05FBC183A756B009652C9 /* CMCardPayment.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB5183A756B009652C9 /* CMCardPayment.h */; };
@@ -371,6 +374,9 @@
 		AA5C4631190C19990086FBD6 /* CMCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMCoding.h; sourceTree = "<group>"; };
 		AA61F6CB1940DA5A00A545A0 /* CMACLIntegrationSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMACLIntegrationSpec.m; sourceTree = "<group>"; };
 		AA7345C81949185F007AAEB0 /* CMExtensionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMExtensionsSpec.m; sourceTree = "<group>"; };
+		AA7345CB19491F16007AAEB0 /* UIImageWithCloudMineIntegrationSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageWithCloudMineIntegrationSpec.m; sourceTree = "<group>"; };
+		AA7345CD19493BF7007AAEB0 /* mobile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mobile.png; sourceTree = "<group>"; };
+		AA7345D01949E138007AAEB0 /* CMUntypedObjectSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUntypedObjectSpec.m; sourceTree = "<group>"; };
 		AAA05FB3183A756B009652C9 /* CMPaymentService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPaymentService.m; sourceTree = "<group>"; };
 		AAA05FB4183A756B009652C9 /* CMPaymentService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPaymentService.h; sourceTree = "<group>"; };
 		AAA05FB5183A756B009652C9 /* CMCardPayment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMCardPayment.h; sourceTree = "<group>"; };
@@ -492,6 +498,7 @@
 		7A0DB1B8147B0153007F482C /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				AA7345CD19493BF7007AAEB0 /* mobile.png */,
 				AA5C462A190BFDF60086FBD6 /* cloudmine.png */,
 				7A0DB1BA147B016B007F482C /* CMBlockValidationMessageSpy.h */,
 				7A0DB1BB147B016B007F482C /* CMBlockValidationMessageSpy.m */,
@@ -752,6 +759,7 @@
 				7A0D7CD31581097200C7C476 /* CMObjectSpec.m */,
 				AABEE9FA19088809007A26BA /* CMDateSpec.m */,
 				AA5C462E190C154C0086FBD6 /* CMObjectClassNameRegistrySpec.m */,
+				AA7345D01949E138007AAEB0 /* CMUntypedObjectSpec.m */,
 			);
 			name = "Persisted Object Tests";
 			sourceTree = "<group>";
@@ -795,6 +803,7 @@
 				AAD4AD151908104B006B93F2 /* CMUserIntegrationSpec.m */,
 				AAA102D419265AEC00A11BC4 /* CMObjectIntegrationSpec.m */,
 				AA61F6CB1940DA5A00A545A0 /* CMACLIntegrationSpec.m */,
+				AA7345CB19491F16007AAEB0 /* UIImageWithCloudMineIntegrationSpec.m */,
 			);
 			name = integration;
 			sourceTree = "<group>";
@@ -877,6 +886,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA7345CE19493BF7007AAEB0 /* mobile.png in Resources */,
 				AA5C462B190BFDF60086FBD6 /* cloudmine.png in Resources */,
 				7AB4AB7D145DC5D8006AEF67 /* InfoPlist.strings in Resources */,
 			);
@@ -981,7 +991,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "ruby \"${SRCROOT}/../scripts/delete_all_users.rb\" 9977f87e6ae54815b32a663902c3ca65 B93006AC1B3E40209B4477383B150CF2 true\ncat << EOM\nDeleted All users\nEOM";
+			shellScript = "ruby \"${SRCROOT}/../scripts/delete_all_users.rb\" 9977f87e6ae54815b32a663902c3ca65 B93006AC1B3E40209B4477383B150CF2 true\nruby \"${SRCROOT}/../scripts/delete_all_objects.rb\" 9977f87e6ae54815b32a663902c3ca65 B93006AC1B3E40209B4477383B150CF2 true\ncat << EOM\nDeleted All users\nEOM";
 		};
 		AABEE9F81908788F007A26BA /* Code Generation */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1085,8 +1095,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA7345CC19491F16007AAEB0 /* UIImageWithCloudMineIntegrationSpec.m in Sources */,
 				AA5C462F190C154C0086FBD6 /* CMObjectClassNameRegistrySpec.m in Sources */,
 				7A308A4414799134008ADD3C /* CMWebServiceSpec.m in Sources */,
+				AA7345D11949E138007AAEB0 /* CMUntypedObjectSpec.m in Sources */,
 				7A0DB1BC147B016B007F482C /* CMBlockValidationMessageSpy.m in Sources */,
 				7A04E86F147D90F5006E00AB /* CMServerFunctionSpec.m in Sources */,
 				7AABA2E51480549A00FD52A0 /* CMObjectEncoderSpec.m in Sources */,

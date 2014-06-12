@@ -82,14 +82,11 @@ describe(@"CMACL", ^{
             NSDictionary *dictionary = [CMObjectEncoder encodeObjects:@[newACL]];
             [[dictionary should] haveCountOf:1];
             NSDictionary *inside = dictionary[@"id"];
-            NSLog(@"JUNE %@", inside);
             [[inside shouldNot] beNil];
             [[inside should] haveCountOf:6];
             [[inside[@"__id__"] should] equal:@"id"];
             [[inside[@"__class__"] should] equal:@"acl"];
             [[inside[@"members"] should] haveCountOf:1];
-            NSLog(@"what: %@", inside[@"members"]);
-            NSLog(@"what: %d", [inside[@"members"] count]);
             [[inside[@"members"][0] should] equal:@"testing"];
             [[inside[@"permissions"] should] haveCountOf:1];
             [[inside[@"permissions"][0] should] equal:@"r"];
@@ -106,8 +103,6 @@ describe(@"CMACL", ^{
             [[remade.objectId should] equal:@"id"];
             [[remade.permissions should] haveCountOf:1];
             [[remade.members should] haveCountOf:1];
-            NSLog(@"JUNE 2 %@", remade);
-            NSLog(@"whattttt: %@", [remade.permissions allObjects]);
             [[[remade.permissions allObjects][0] should] equal:CMACLReadPermission];
             [[[remade.members allObjects][0] should] equal:@"testing"];
         });

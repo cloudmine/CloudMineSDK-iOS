@@ -82,6 +82,12 @@ describe(@"CMExtensions", ^{
             [[url.absoluteString should] equal:final];
         });
         
+        it(@"should return a copy of itself if there is no dictionary", ^{
+            NSURL *url = [NSURL URLWithString:CM_BASE_URL];
+            [url URLByAppendingAndEncodingQueryParameters:nil];
+            [[[url absoluteString] should] equal:CM_BASE_URL];
+        });
+        
     });
     
 });

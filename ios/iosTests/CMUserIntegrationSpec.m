@@ -12,6 +12,11 @@
 
 SPEC_BEGIN(CMUserIntegrationSpec)
 
+///
+/// If this assertion fails, command click the macro, and change the default to 2.0
+///
+assert(kKW_DEFAULT_PROBE_TIMEOUT == 2.0);
+
 describe(@"CMUser Integration", ^{
     
     beforeAll(^{
@@ -33,8 +38,8 @@ describe(@"CMUser Integration", ^{
                 mes = messages;
             }];
             
-            [[expectFutureValue(theValue(code)) shouldEventuallyBeforeTimingOutAfter(2.0)] equal:theValue(CMUserAccountCreateSucceeded)];
-            [[expectFutureValue(mes) shouldEventuallyBeforeTimingOutAfter(2.0)] beEmpty];
+            [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountCreateSucceeded)];
+            [[expectFutureValue(mes) shouldEventually] beEmpty];
         });
         
         it(@"should successfully login them in", ^{
@@ -48,10 +53,10 @@ describe(@"CMUser Integration", ^{
                 mes = messages;
             }];
             
-            [[expectFutureValue(theValue(code)) shouldEventuallyBeforeTimingOutAfter(2.0)] equal:theValue(CMUserAccountLoginSucceeded)];
-            [[expectFutureValue(user.token) shouldEventuallyBeforeTimingOutAfter(2.0)] beNonNil];
-            [[expectFutureValue(user.tokenExpiration) shouldEventuallyBeforeTimingOutAfter(2.0)] beNonNil];
-            [[expectFutureValue(mes) shouldEventuallyBeforeTimingOutAfter(2.0)] beEmpty];
+            [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountLoginSucceeded)];
+            [[expectFutureValue(user.token) shouldEventually] beNonNil];
+            [[expectFutureValue(user.tokenExpiration) shouldEventually] beNonNil];
+            [[expectFutureValue(mes) shouldEventually] beEmpty];
         });
     });
 });

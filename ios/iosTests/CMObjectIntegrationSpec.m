@@ -60,7 +60,7 @@ describe(@"CMObject Integration", ^{
             [test1 save:^(CMObjectUploadResponse *response) {
                 response1 = response;
             }];
-            [[expectFutureValue(response1) shouldEventuallyBeforeTimingOutAfter(2.0)] beNonNil];
+            [[expectFutureValue(response1) shouldEventually] beNonNil];
             [[expectFutureValue(response1.uploadStatuses) shouldEventuallyBeforeTimingOutAfter(5.0)] haveCountOf:1];
             [[expectFutureValue(response1.uploadStatuses[objectID]) shouldEventuallyBeforeTimingOutAfter(5.0)] equal:@"created"];
         });
@@ -82,8 +82,8 @@ describe(@"CMObject Integration", ^{
                 response1 = response;
             }];
             
-            [[expectFutureValue(response1) shouldEventuallyBeforeTimingOutAfter(2.0)] beNonNil];
-            [[expectFutureValue(response1.uploadStatuses) shouldEventuallyBeforeTimingOutAfter(2.0)] haveLengthOf:6];
+            [[expectFutureValue(response1) shouldEventually] beNonNil];
+            [[expectFutureValue(response1.uploadStatuses) shouldEventually] haveLengthOf:6];
             
         });
         
@@ -95,8 +95,6 @@ describe(@"CMObject Integration", ^{
             [store allObjectsOfClass:[CMTestClass class] additionalOptions:options callback:^(CMObjectFetchResponse *response) {
                 objects = response.objects;
                 
-                NSLog(@"Objects 5 16 %@", objects);
-                
                 NSArray *names = @[@"aaa", @"bbb", @"ccc", @"ddd", @"eee", @"fff"]; //sorted
                 for (NSInteger i = 0; i < objects.count; i++) {
                     CMTestClass *obj = objects[i];
@@ -104,9 +102,53 @@ describe(@"CMObject Integration", ^{
                 }
             }];
             
-            [[expectFutureValue(objects) shouldEventuallyBeforeTimingOutAfter(2.0)] beNonNil];
-            [[expectFutureValue(objects) shouldEventuallyBeforeTimingOutAfter(2.0)] haveLengthOf:6];
+            [[expectFutureValue(objects) shouldEventually] beNonNil];
+            [[expectFutureValue(objects) shouldEventually] haveLengthOf:6];
             
+        });
+        
+        context(@"given a CMObject and some ACL's", ^{
+            
+            __block CMUser *owner = nil;
+            __block CMUser *wantr = nil;
+            __block CMTestClass *testing = nil;
+            __block NSString *testingID = nil;
+            beforeAll(^{
+                
+                testingID = [[NSUUID UUID] UUIDString];
+                owner = [[CMUser alloc] initWithUsername:@"the_owner" andPassword:@"testing"];
+                wantr = [[CMUser alloc] initWithUsername:@"the_wantr" andPassword:@"testing"];
+
+                __block CMObjectUploadResponse *resp = nil;
+                [owner createAccountAndLoginWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
+                    [store setUser:owner];
+                    testing = [[CMTestClass alloc] initWithObjectId:testingID];
+                    [store addUserObject:testing];
+                    [testing saveWithUser:owner callback:^(CMObjectUploadResponse *response) {
+                        resp = response;
+                    }];
+                }];
+                
+                [wantr createAccountAndLoginWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
+                    
+                }];
+                
+                [[expectFutureValue(resp.uploadStatuses[testingID]) shouldEventually] equal:@"created"];
+                [[expectFutureValue(theValue(owner.isLoggedIn)) shouldEventually] equal:@YES];
+                [[expectFutureValue(theValue(wantr.isLoggedIn)) shouldEventually] equal:@YES];
+            });
+            
+            
+            it(@"should have no acl's to begin with", ^{
+                
+                __block CMACLFetchResponse *resp = nil;
+                [testing getACLs:^(CMACLFetchResponse *response) {
+                    resp = response;
+                }];
+                
+                [[expectFutureValue(resp) shouldEventually] beNonNil];
+                [[expectFutureValue(resp.acls) shouldEventually] beEmpty];
+            });
         });
     });
 });

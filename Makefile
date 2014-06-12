@@ -19,7 +19,7 @@ clean:
 	-scheme libcloudmine \
 	clean | xcpretty -c
 
-test-cov:
+cov:
 	./ios/XcodeCoverage/cleancov
 	$(MAKE) test
 	./ios/XcodeCoverage/getcov
