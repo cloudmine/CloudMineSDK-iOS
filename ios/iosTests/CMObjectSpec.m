@@ -99,6 +99,27 @@ describe(@"CMObject", ^{
         it(@"it should always belong to a store", ^{
             [[theValue([obj belongsToStore]) should] equal:@YES];
         });
+        
+        it(@"should properly make the objectId a string if not given a string", ^{
+            NSDictionary *badDict = @{@"something": @"aValue", @"__id__" : @3424};
+            CMObjectDecoder *decoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:badDict];
+            CustomObject *custom = [[CustomObject alloc] initWithCoder:decoder];
+            [[custom.objectId should] equal:@"3424"];
+            [[custom.something should] equal:@"aValue"];
+        });
+        
+        it(@"should be equal to another object with the same id", ^{
+            CMObject *obj = [[CMObject alloc] initWithObjectId:@"1"];
+            CMObject *obj2 = [[CMObject alloc] initWithObjectId:@"1"];
+            [[obj should] equal:obj2];
+        });
+        
+        it(@"should not be equal if the two objects are different class though", ^{
+            CMObject *obj = [[CMObject alloc] initWithObjectId:@"1"];
+            CMUser *obj2 = [[CMUser alloc] init];
+            [obj2 setValue:@"1" forKey:@"objectId"];
+            [[obj shouldNot] equal:obj2];
+        });
     });
 
     context(@"given an object that belongs to a user-level store", ^{

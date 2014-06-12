@@ -348,6 +348,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                             user:_CMUserOrNil
                  extraParameters:_CMTryMethod(options, buildExtraParameters)
                   successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult, NSNumber *count, NSDictionary *headers) {
+                      NSLog(@"ERROR: %@", errors);
                       NSArray *objects = [CMObjectDecoder decodeObjects:results];
                       [self cacheObjectsInMemory:objects atUserLevel:userLevel];
                       CMResponseMetadata *metadata = [[CMResponseMetadata alloc] initWithMetadata:meta];
