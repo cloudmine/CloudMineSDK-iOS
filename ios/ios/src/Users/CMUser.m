@@ -490,12 +490,8 @@ NSString * const CMSocialNetworkSingly = @"singly";
         
         NSMutableArray *finishedObjects = [NSMutableArray array];
         for (NSDictionary *dictionary in parsedBody[@"card"]) {
-            CMCardPayment *newPayment = [[CMCardPayment alloc] init];
-            newPayment.expirationDate = dictionary[@"expirationDate"];
-            newPayment.last4Digits = dictionary[@"last4Digits"];
-            newPayment.nameOnCard = dictionary[@"nameOnCard"];
-            newPayment.token = dictionary[@"token"];
-            newPayment.type = dictionary[@"type"];
+            CMObjectDecoder *decoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:dictionary];
+            CMCardPayment *newPayment = [[CMCardPayment alloc] initWithCoder:decoder];
             [finishedObjects addObject:newPayment];
         }
         

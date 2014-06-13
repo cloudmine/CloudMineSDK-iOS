@@ -811,6 +811,7 @@ describe(@"CMWebService", ^{
     });
     
     context(@"given a push notification operation", ^{
+        
         it(@"sends the correct dev token", ^{
             
             NSString *token = @"<c7e265d1 cbd443b3 ee80fd07 c892a8b8 f20c08c4 91fa11f2 535f2cca ad7f55ef>";
@@ -820,8 +821,6 @@ describe(@"CMWebService", ^{
             NSURLRequest *request = spy.argument;
             NSDictionary *requestBody = [NSJSONSerialization JSONObjectWithData:[request HTTPBody] options:0 error:nil];
             [[[requestBody valueForKey:@"token"] should] equal:@"c7e265d1cbd443b3ee80fd07c892a8b8f20c08c491fa11f2535f2ccaad7f55ef"];
-            
-            
         });
         
         it(@"correctly sends the deregister request", ^{
@@ -832,6 +831,45 @@ describe(@"CMWebService", ^{
             
             [[[[request URL] absoluteString] should] equal:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/device", appId]];;
             [[[request HTTPMethod] should] equal:@"DELETE"];
+        });
+        
+        
+        context(@"given push channels", ^{
+            
+            __block CMWebService *pushService = nil;
+            __block KWCaptureSpy *pushSpy = nil;
+            beforeEach(^{
+                pushService = [[CMWebService alloc] init];
+                pushSpy = [[KWCaptureSpy alloc] initWithArgumentIndex:1];
+                [pushService addMessageSpy:pushSpy forMessagePattern:[KWMessagePattern messagePatternWithSelector:@selector(getChannelsForDevice:callback:)]];
+            });
+            
+            it(@"shows the user channels as nil", ^{
+
+                [pushService getChannelsForDevice:@"device" callback:^(CMViewChannelsResponse *response) {
+                    [[response.channels should] beNil];
+                }];
+                
+                CMViewChannelsRequestCallback callback = pushSpy.argument;
+                CMViewChannelsResponse *response = [[CMViewChannelsResponse alloc] initWithResponseBody:@{} httpCode:200 error:nil];
+                callback(response);
+                [service enqueueHTTPRequestOperation:nil];
+            });
+            
+            it(@"shows the user channels as empty if it's an array", ^{
+                
+                [pushService getChannelsForDevice:@"device" callback:^(CMViewChannelsResponse *response) {
+                }];
+                
+                CMViewChannelsRequestCallback callback = pushSpy.argument;
+                CMViewChannelsResponse *response = [[CMViewChannelsResponse alloc] initWithResponseBody:@[] httpCode:200 error:nil];
+                callback(response);
+                [service enqueueHTTPRequestOperation:nil];
+            });
+            
+            afterEach(^{
+                [pushService removeMessageSpy:pushSpy forMessagePattern:[KWMessagePattern messagePatternWithSelector:@selector(getChannelsForDevice:callback:)]];
+            });
         });
     });
 });

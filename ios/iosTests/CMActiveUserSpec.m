@@ -28,6 +28,10 @@ describe(@"CMActiveUser", ^{
         CMActiveUser *anotherUser = [CMActiveUser currentActiveUser];
         [[user should] equal:anotherUser];
     });
+    
+    it(@"should not equal something of another class", ^{
+        [[CMActiveUser currentActiveUser] isEqual:[NSObject new]];
+    });
 });
 
 SPEC_END

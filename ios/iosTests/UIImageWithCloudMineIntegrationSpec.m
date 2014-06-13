@@ -25,7 +25,7 @@ describe(@"UIImageWithCloudMineIntegrationSpec", ^{
                                                      apiKey:@"c701d73554594315948c8d3cc0711ac1"
                                                  andBaseURL:nil];
         
-        [[CMStore defaultStore] setWebService:[CMWebService sharedWebService]];
+        [[CMStore defaultStore] setWebService:[[CMWebService alloc] init]];
         store = [CMStore store];
         
         //send image to CloudMine

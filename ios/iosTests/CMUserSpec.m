@@ -13,6 +13,7 @@
 #import "CMObjectEncoder.h"
 #import "CMObjectDecoder.h"
 #import "CMCardPayment.h"
+#import "CMUserAccountResult.h"
 
 #pragma GCC diagnostic ignored "-Wundeclared-selector"
 
@@ -70,7 +71,6 @@ describe(@"CMUser", ^{
             NSDictionary *serializedUser = [CMObjectEncoder encodeObjects:@[use]];
             [serializedUser[@"test"] removeObjectForKey:@"__id__"];
             
-            NSLog(@"What: %@", serializedUser);
             CMObjectDecoder *decoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:serializedUser];
             CMUser *randomUser = [[CMUser alloc] initWithCoder:decoder];
             [[randomUser.objectId should] equal:@""];

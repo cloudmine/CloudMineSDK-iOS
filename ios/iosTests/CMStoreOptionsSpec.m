@@ -12,6 +12,7 @@
 #import "CMPagingDescriptor.h"
 #import "CMServerFunction.h"
 #import "CMSortDescriptor.h"
+#import "CMDistance.h"
 
 SPEC_BEGIN(CMStoreOptionsSpec)
 
@@ -43,6 +44,34 @@ describe(@"CMStoreOptions", ^{
             [[[options stringRepresentation] should] equal:[paging stringRepresentation]];
         });
     });
+    
+    context(@"given distance options", ^{
+        beforeEach(^{
+            sorting = [[CMSortDescriptor alloc] initWithFieldsAndDirections:@"field1", CMSortAscending, nil];
+            options = [[CMStoreOptions alloc] initWithSortDescriptor:sorting];
+            options.includeDistance = YES;
+            options.distanceUnits = CMDistanceUnitsMi;
+        });
+        
+        it(@"should properly add the values to the query", ^{
+            NSDictionary *result = [options buildExtraParameters];
+            [[result[CMIncludeDistanceKey] should] beTrue];
+            [[result[CMDistanceUnitsKey] should] equal:@"mi"];
+        });
+    });
+    
+    context(@"given shared only", ^{
+        beforeEach(^{
+            options = [[CMStoreOptions alloc] init];
+            options.sharedOnly = YES;
+        });
+        
+        it(@"should properly add the values to the query", ^{
+            NSDictionary *result = [options buildExtraParameters];
+            [[result[@"shared_only"] should] beTrue];
+        });
+    });
+
 
     context(@"given a server-side function and no paging options", ^{
         beforeEach(^{

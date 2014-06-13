@@ -13,7 +13,7 @@
 @synthesize httpResponseCode, headers, body, errors;
 
 - (id)initWithResponseBody:(id)responseBody httpCode:(NSUInteger)code error:(NSError *)anError {
-    return [self initWithResponseBody:responseBody httpCode:code errors:(anError ? @[anError] : nil)];
+    return [self initWithResponseBody:responseBody httpCode:code errors:(anError ? @[anError] : @[])];
 }
 
 - (id)initWithResponseBody:(id)responseBody httpCode:(NSUInteger)code errors:(NSArray *)theErrors {

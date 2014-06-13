@@ -15,6 +15,7 @@
 #import "CMGenericSerializableObject.h"
 #import "CMAPICredentials.h"
 #import "CMBlockValidationMessageSpy.h"
+#import "CMAppDelegateBase.h"
 
 SPEC_BEGIN(CMStoreSpec)
 
@@ -38,6 +39,23 @@ describe(@"CMStore", ^{
             store = [CMStore store];
             store.webService = webService;
         });
+        
+        it(@"should have no error to start out", ^{
+            [[store.lastError should] beNil];
+        });
+        
+        it(@"should be able to change the base URL of the webservice", ^{
+            CMStore *newStore = [CMStore storeWithBaseURL:@"http://www.example.com"];
+            [[newStore.webService.baseURL.absoluteString should] equal:@"http://www.example.com"];
+        });
+        
+        it(@"should have a user and a different base url", ^{
+            CMUser *newUser = [[CMUser alloc] initWithUsername:@"username" andPassword:@"password"];
+            CMStore *newStore = [CMStore storeWithUser:newUser baseURL:@"http://www.example.com"];
+            [[newStore.webService.baseURL.absoluteString should] equal:@"http://www.example.com"];
+            [[newStore.user should] beNonNil];
+        });
+        
 
         it(@"should nullify the object's store reference when removed from the store", ^{
             CMObject *obj = [[CMObject alloc] init];
@@ -115,6 +133,28 @@ describe(@"CMStore", ^{
                 [[theValue([store objectOwnershipLevel:acl]) should] equal:theValue(CMObjectOwnershipUserLevel)];
                 [[acl.store should] equal:store];
             });
+            
+            it(@"should assert that the delegate is a CMAppBase", ^{
+                [[theBlock(^{ [store registerForPushNotifications:0 callback:nil]; }) should] raise];
+            });
+            
+            it(@"should let the user unregister for push notifications", ^{
+                
+                store.user.token = @"something";
+                store.user.tokenExpiration = [NSDate dateWithTimeIntervalSinceNow:1000];
+                
+                KWCaptureSpy *callbackBlockSpy = [store.webService captureArgument:@selector(unRegisterForPushNotificationsWithUser:callback:) atIndex:1];
+                [[store.webService should] receive:@selector(unRegisterForPushNotificationsWithUser:callback:) withCount:1];
+                
+                // This first call should trigger the web service call.
+                [store unRegisterForPushNotificationsWithCallback:^(CMDeviceTokenResult result) {
+                    [[@(result) should] equal:@(CMDeviceTokenDeleted)];
+                }];
+                
+                CMWebServiceDeviceTokenCallback callback = callbackBlockSpy.argument;
+                callback(CMDeviceTokenDeleted);
+            });
+            
         });
 
         context(@"when performing a remote operation", ^{

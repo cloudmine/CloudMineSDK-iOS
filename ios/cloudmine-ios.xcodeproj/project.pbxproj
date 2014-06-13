@@ -131,6 +131,8 @@
 		7AFDFE4C158E9EB400388D6E /* CMActiveUserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE4B158E9EB400388D6E /* CMActiveUserSpec.m */; };
 		AA00CED21886E1C700F9958C /* UIImageView+CloudMine.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA00CED01886E1C700F9958C /* UIImageView+CloudMine.h */; };
 		AA00CED31886E1C700F9958C /* UIImageView+CloudMine.m in Sources */ = {isa = PBXBuildFile; fileRef = AA00CED11886E1C700F9958C /* UIImageView+CloudMine.m */; };
+		AA095166194B6C09008602DB /* CMAPICredentialsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA095165194B6C09008602DB /* CMAPICredentialsSpec.m */; };
+		AA095168194B6CB4008602DB /* CMAppDelegateBaseSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA095167194B6CB4008602DB /* CMAppDelegateBaseSpec.m */; };
 		AA5693C31901790300C4A15A /* CMConstants.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA5693C21901790300C4A15A /* CMConstants.h */; };
 		AA5693C71902E90500C4A15A /* CMTestEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5693C61902E90500C4A15A /* CMTestEncoder.m */; };
 		AA5C462B190BFDF60086FBD6 /* cloudmine.png in Resources */ = {isa = PBXBuildFile; fileRef = AA5C462A190BFDF60086FBD6 /* cloudmine.png */; };
@@ -142,6 +144,8 @@
 		AA7345CC19491F16007AAEB0 /* UIImageWithCloudMineIntegrationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7345CB19491F16007AAEB0 /* UIImageWithCloudMineIntegrationSpec.m */; };
 		AA7345CE19493BF7007AAEB0 /* mobile.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7345CD19493BF7007AAEB0 /* mobile.png */; };
 		AA7345D11949E138007AAEB0 /* CMUntypedObjectSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7345D01949E138007AAEB0 /* CMUntypedObjectSpec.m */; };
+		AA9528D2194B3FBA00AEB90D /* CMDistanceSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9528D1194B3FBA00AEB90D /* CMDistanceSpec.m */; };
+		AA9528D4194B422800AEB90D /* CMNullStoreSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9528D3194B422800AEB90D /* CMNullStoreSpec.m */; };
 		AAA05FB9183A756B009652C9 /* CMPaymentService.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA05FB3183A756B009652C9 /* CMPaymentService.m */; };
 		AAA05FBB183A756B009652C9 /* CMPaymentService.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB4183A756B009652C9 /* CMPaymentService.h */; };
 		AAA05FBC183A756B009652C9 /* CMCardPayment.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB5183A756B009652C9 /* CMCardPayment.h */; };
@@ -166,6 +170,7 @@
 		AAC1D90916DD6CA6002A7DC0 /* CMViewChannelsResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAC1D90716DD6CA4002A7DC0 /* CMViewChannelsResponse.h */; };
 		AAC1D90A16DD6CA6002A7DC0 /* CMViewChannelsResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC1D90816DD6CA5002A7DC0 /* CMViewChannelsResponse.m */; };
 		AAD4AD161908104B006B93F2 /* CMUserIntegrationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD4AD151908104B006B93F2 /* CMUserIntegrationSpec.m */; };
+		AAFB0B8D194B45D5008F2B68 /* CMResponseSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AAFB0B8C194B45D5008F2B68 /* CMResponseSpec.m */; };
 		D039C16715BDEB77005CCD33 /* CMACLSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D039C16615BDEB77005CCD33 /* CMACLSpec.m */; };
 		D039C16A15BEEB44005CCD33 /* CMACLFetchResponseSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D039C16915BEEB44005CCD33 /* CMACLFetchResponseSpec.m */; };
 		D03A4D5C15B48D2200A956BC /* CMACLFetchResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D042C2E915AF41F100A88888 /* CMACLFetchResponse.h */; };
@@ -366,6 +371,8 @@
 		7AFDFE4B158E9EB400388D6E /* CMActiveUserSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMActiveUserSpec.m; sourceTree = "<group>"; };
 		AA00CED01886E1C700F9958C /* UIImageView+CloudMine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+CloudMine.h"; sourceTree = "<group>"; };
 		AA00CED11886E1C700F9958C /* UIImageView+CloudMine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+CloudMine.m"; sourceTree = "<group>"; };
+		AA095165194B6C09008602DB /* CMAPICredentialsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMAPICredentialsSpec.m; sourceTree = "<group>"; };
+		AA095167194B6CB4008602DB /* CMAppDelegateBaseSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMAppDelegateBaseSpec.m; sourceTree = "<group>"; };
 		AA5693C21901790300C4A15A /* CMConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMConstants.h; sourceTree = "<group>"; };
 		AA5693C51902E90500C4A15A /* CMTestEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMTestEncoder.h; sourceTree = "<group>"; };
 		AA5693C61902E90500C4A15A /* CMTestEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMTestEncoder.m; sourceTree = "<group>"; };
@@ -377,6 +384,8 @@
 		AA7345CB19491F16007AAEB0 /* UIImageWithCloudMineIntegrationSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageWithCloudMineIntegrationSpec.m; sourceTree = "<group>"; };
 		AA7345CD19493BF7007AAEB0 /* mobile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mobile.png; sourceTree = "<group>"; };
 		AA7345D01949E138007AAEB0 /* CMUntypedObjectSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUntypedObjectSpec.m; sourceTree = "<group>"; };
+		AA9528D1194B3FBA00AEB90D /* CMDistanceSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMDistanceSpec.m; sourceTree = "<group>"; };
+		AA9528D3194B422800AEB90D /* CMNullStoreSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMNullStoreSpec.m; sourceTree = "<group>"; };
 		AAA05FB3183A756B009652C9 /* CMPaymentService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPaymentService.m; sourceTree = "<group>"; };
 		AAA05FB4183A756B009652C9 /* CMPaymentService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPaymentService.h; sourceTree = "<group>"; };
 		AAA05FB5183A756B009652C9 /* CMCardPayment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMCardPayment.h; sourceTree = "<group>"; };
@@ -401,6 +410,7 @@
 		AAC1D90716DD6CA4002A7DC0 /* CMViewChannelsResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMViewChannelsResponse.h; sourceTree = "<group>"; };
 		AAC1D90816DD6CA5002A7DC0 /* CMViewChannelsResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMViewChannelsResponse.m; sourceTree = "<group>"; };
 		AAD4AD151908104B006B93F2 /* CMUserIntegrationSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUserIntegrationSpec.m; sourceTree = "<group>"; };
+		AAFB0B8C194B45D5008F2B68 /* CMResponseSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMResponseSpec.m; sourceTree = "<group>"; };
 		D039C16615BDEB77005CCD33 /* CMACLSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMACLSpec.m; sourceTree = "<group>"; };
 		D039C16915BEEB44005CCD33 /* CMACLFetchResponseSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMACLFetchResponseSpec.m; sourceTree = "<group>"; };
 		D042C2E915AF41F100A88888 /* CMACLFetchResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMACLFetchResponse.h; sourceTree = "<group>"; };
@@ -609,6 +619,7 @@
 		7AB4AB78145DC5D8006AEF67 /* iosTests */ = {
 			isa = PBXGroup;
 			children = (
+				AA095164194B6BD0008602DB /* Responses */,
 				AAD4AD131908102D006B93F2 /* integration */,
 				AA5C4630190C17000086FBD6 /* Persisted Object Tests */,
 				7AFDFE4B158E9EB400388D6E /* CMActiveUserSpec.m */,
@@ -622,9 +633,13 @@
 				7AD9221F14CF5B9B0032DDDE /* CMPagingDescriptorSpec.m */,
 				7AD9222514D06EB10032DDDE /* CMStoreOptionsSpec.m */,
 				7AAFB49A158017450066B4A4 /* CMMimeTypeSpec.m */,
-				7A4A6F2814FFF08100B95D13 /* CMUserSpec.m */,
 				7A766208156307DF009840EE /* CMSortDescriptorSpec.m */,
 				AA7345C81949185F007AAEB0 /* CMExtensionsSpec.m */,
+				AA9528D1194B3FBA00AEB90D /* CMDistanceSpec.m */,
+				AA9528D3194B422800AEB90D /* CMNullStoreSpec.m */,
+				AAFB0B8C194B45D5008F2B68 /* CMResponseSpec.m */,
+				AA095165194B6C09008602DB /* CMAPICredentialsSpec.m */,
+				AA095167194B6CB4008602DB /* CMAppDelegateBaseSpec.m */,
 				7A0DB1B8147B0153007F482C /* Support */,
 				7AB4AB79145DC5D8006AEF67 /* Supporting Files */,
 			);
@@ -751,6 +766,13 @@
 			name = UIAdditions;
 			sourceTree = "<group>";
 		};
+		AA095164194B6BD0008602DB /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Responses;
+			sourceTree = "<group>";
+		};
 		AA5C4630190C17000086FBD6 /* Persisted Object Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -760,6 +782,7 @@
 				AABEE9FA19088809007A26BA /* CMDateSpec.m */,
 				AA5C462E190C154C0086FBD6 /* CMObjectClassNameRegistrySpec.m */,
 				AA7345D01949E138007AAEB0 /* CMUntypedObjectSpec.m */,
+				7A4A6F2814FFF08100B95D13 /* CMUserSpec.m */,
 			);
 			name = "Persisted Object Tests";
 			sourceTree = "<group>";
@@ -1110,10 +1133,13 @@
 				7A7E31CB14C88F980091F1E3 /* CMStoreSpec.m in Sources */,
 				7AD9222014CF5B9B0032DDDE /* CMPagingDescriptorSpec.m in Sources */,
 				AAD4AD161908104B006B93F2 /* CMUserIntegrationSpec.m in Sources */,
+				AA9528D4194B422800AEB90D /* CMNullStoreSpec.m in Sources */,
 				7AD9222614D06EB10032DDDE /* CMStoreOptionsSpec.m in Sources */,
 				7AD93BAF14D1CCFE00CC1CC9 /* CMFileSpec.m in Sources */,
 				7AA79D6314DC1FB900F3CA3B /* CMCrossPlatformGenericSerializableObject.m in Sources */,
 				7A766209156307DF009840EE /* CMSortDescriptorSpec.m in Sources */,
+				AA9528D2194B3FBA00AEB90D /* CMDistanceSpec.m in Sources */,
+				AAFB0B8D194B45D5008F2B68 /* CMResponseSpec.m in Sources */,
 				AA7345C91949185F007AAEB0 /* CMExtensionsSpec.m in Sources */,
 				7A0D7CD41581097200C7C476 /* CMObjectSpec.m in Sources */,
 				AABEE9FB19088809007A26BA /* CMDateSpec.m in Sources */,
@@ -1121,8 +1147,10 @@
 				7AAFB49B158017450066B4A4 /* CMMimeTypeSpec.m in Sources */,
 				AA5693C71902E90500C4A15A /* CMTestEncoder.m in Sources */,
 				7AFDFE4C158E9EB400388D6E /* CMActiveUserSpec.m in Sources */,
+				AA095166194B6C09008602DB /* CMAPICredentialsSpec.m in Sources */,
 				7A28003D15923446002C504A /* CMUserSpec.m in Sources */,
 				D039C16715BDEB77005CCD33 /* CMACLSpec.m in Sources */,
+				AA095168194B6CB4008602DB /* CMAppDelegateBaseSpec.m in Sources */,
 				D039C16A15BEEB44005CCD33 /* CMACLFetchResponseSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

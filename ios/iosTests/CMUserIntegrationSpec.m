@@ -90,7 +90,6 @@ describe(@"CMUser Integration", ^{
             [user createAccountAndLoginWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
                 code = resultCode;
                 mes = messages;
-                NSLog(@"WHAT: %@", messages);
             }];
             
             [[expectFutureValue(theValue(code)) shouldEventually] equal:@(CMUserAccountCreateFailedInvalidRequest)];
