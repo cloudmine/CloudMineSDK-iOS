@@ -9,6 +9,9 @@
 #import "Kiwi.h"
 #import "CMResponse.h"
 #import "CMViewChannelsResponse.h"
+#import "CMFileUploadResponse.h"
+#import "CMObjectFetchResponse.h"
+#import "CMObjectUploadResponse.h"
 
 SPEC_BEGIN(CMResponseSpec)
 
@@ -59,7 +62,45 @@ describe(@"CMResponse", ^{
             CMViewChannelsResponse *response = [[CMViewChannelsResponse alloc] initWithResponseBody:@[] httpCode:400 error:nil];
             [[response.channels should] beEmpty];
         });
+    });
+    
+    context(@"CMFileUploadResponse", ^{
+        it(@"should create a response with just the result and key", ^{
+            CMFileUploadResponse *response = [[CMFileUploadResponse alloc] initWithResult:CMFileCreated key:@"okay"];
+            [[response.key should] equal:@"okay"];
+            [[theValue(response.result) should] equal:@(CMFileCreated)];
+            [[response.snippetResult should] beNil];
+            [[response.metadata should] beNil];
+        });
+    });
+    
+    context(@"CMObjectFetchResponse", ^{
         
+        it(@"should create a response with just the objects and errors", ^{
+            CMObjectFetchResponse *response = [[CMObjectFetchResponse alloc] initWithObjects:@[] errors:nil];
+            [[response.objects should] beEmpty];
+            [[response.error should] beNil];
+            [[response.snippetResult should] beNil];
+            [[response.metadata should] beNil];
+        });
+        
+        it(@"should create a response with just the result and key", ^{
+            CMObjectFetchResponse *response = [[CMObjectFetchResponse alloc] initWithObjects:@[] errors:nil snippetResult:nil];
+            [[response.objects should] beEmpty];
+            [[response.error should] beNil];
+            [[response.snippetResult should] beNil];
+            [[response.metadata should] beNil];
+        });
+    });
+    
+    context(@"CMObjectUploadResponse", ^{
+        it(@"should create a response with just the upload status and snippet", ^{
+            CMObjectUploadResponse *response = [[CMObjectUploadResponse alloc] initWithUploadStatuses:@{@"key": @"success"} snippetResult:nil];
+            [[response.uploadStatuses should] haveCountOf:1];
+            [[response.error should] beNil];
+            [[response.snippetResult should] beNil];
+            [[response.metadata should] beNil];
+        });
     });
 });
 

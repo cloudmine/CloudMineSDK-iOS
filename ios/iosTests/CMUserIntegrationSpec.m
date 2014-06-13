@@ -308,9 +308,9 @@ describe(@"CMUser Integration", ^{
                 error = errors;
             }];
             
-            [[expectFutureValue(all) shouldEventually] beNonNil];
-            [[expectFutureValue(all) shouldEventually] haveCountOf:4];
-            [[expectFutureValue(error) shouldEventually] beEmpty];
+            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(4.0)] beNonNil];
+            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(4.0)] haveCountOf:4];
+            [[expectFutureValue(error) shouldEventuallyBeforeTimingOutAfter(4.0)] beNil];
         });
         
         __block NSString *identifier = nil;
@@ -321,15 +321,17 @@ describe(@"CMUser Integration", ^{
             [CMUser searchUsers:@"[email=\"testcard@cloudmine.me\"]" callback:^(NSArray *users, NSDictionary *errors) {
                 all = users;
                 error = errors;
-                CMUser *found = all[0];
-                identifier = found.objectId;
+                [[all should] haveCountOf:1];
+                if (all.count > 0) {
+                    CMUser *found = all[0];
+                    identifier = found.objectId;
+                }
             }];
             
             [[expectFutureValue(all) shouldEventually] beNonNil];
             [[expectFutureValue(all) shouldEventually] haveCountOf:1];
             [[expectFutureValue(error) shouldEventually] beEmpty];
-            CMUser *found = all[0];
-            [[expectFutureValue(found.email) shouldEventually] equal:@"testcard@cloudmine.me"];
+            [[expectFutureValue(((CMUser *)all[0]).email) shouldEventually] equal:@"testcard@cloudmine.me"];
         });
         
         it(@"should get a cached user once we have gotten them all", ^{

@@ -17,6 +17,12 @@ describe(@"CMServerFunction", ^{
     afterEach(^{
         serverFunction = nil;
     });
+    
+    it(@"should not be created with just init", ^{
+        [[theBlock(^{
+            serverFunction = [[CMServerFunction alloc] init];
+        }) should] raiseWithName:@"NotImplemented"];
+    });
 
     it(@"should serialize into a proper query string with only a function name", ^{
         NSString *expectedString = @"f=my_function";

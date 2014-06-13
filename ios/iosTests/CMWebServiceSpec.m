@@ -17,6 +17,7 @@
 #import "CMServerFunction.h"
 #import "CMAPICredentials.h"
 #import "CMConstants.h"
+#import "NSDictionary+CMJSON.h"
 
 SPEC_BEGIN(CMWebServiceSpec)
 
@@ -279,7 +280,6 @@ describe(@"CMWebService", ^{
             [[[request URL] should] equal:expectedUrl];
             [[[request HTTPMethod] should] equal:@"POST"];
             [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
-//            [[[[request HTTPBody] to] should] equal:dataToPost];
         });
 
         it(@"binary data URLs at the app level correctly", ^{
@@ -331,7 +331,6 @@ describe(@"CMWebService", ^{
             [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-SessionToken"] should] equal:creds.token];
             [[[request HTTPMethod] should] equal:@"POST"];
             [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
-//            [[[[request HTTPBody] yajl_JSON] should] equal:dataToPost];
         });
         
         it(@"ACL URLs correctly", ^{
@@ -356,7 +355,6 @@ describe(@"CMWebService", ^{
             [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-SessionToken"] should] equal:creds.token];
             [[[request HTTPMethod] should] equal:@"POST"];
             [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
-//            [[[[request HTTPBody] yajl_JSON] should] equal:aclDict];
         });
     });
 
@@ -410,7 +408,6 @@ describe(@"CMWebService", ^{
             [[[request URL] should] equal:expectedUrl];
             [[[request HTTPMethod] should] equal:@"PUT"];
             [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
-//            [[[[request HTTPBody] yajl_JSON] should] equal:dataToPost];
         });
 
         it(@"JSON URLs at the user level correctly", ^{
@@ -437,7 +434,6 @@ describe(@"CMWebService", ^{
             [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-SessionToken"] should] equal:creds.token];
             [[[request HTTPMethod] should] equal:@"PUT"];
             [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
-//            [[[[request HTTPBody] yajl_JSON] should] equal:dataToPost];
         });
     });
 
@@ -633,7 +629,7 @@ describe(@"CMWebService", ^{
             [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
             [[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-SessionToken"] shouldBeNil];
             
-//            [[[[NSString alloc] initWithData:[request HTTPBody] encoding:NSUTF8StringEncoding] should] equal:[@{@"username" : @"aNewUsername", @"email" : @"aNewUserID"} yajl_JSONString]];
+            [[[[NSString alloc] initWithData:[request HTTPBody] encoding:NSUTF8StringEncoding] should] equal:[@{@"username" : @"aNewUsername", @"email" : @"aNewUserID"} jsonString]];
         });
 
 
@@ -647,7 +643,6 @@ describe(@"CMWebService", ^{
             NSURLRequest *request = spy.argument;
             [[[request URL] should] equal:expectedUrl];
             [[[request HTTPMethod] should] equal:@"POST"];
-//            [[[[request HTTPBody] yajl_JSON] should] equal:[@"{\"email\":\"test@domain.com\"}" yajl_JSON]];
         });
 
         it(@"constructs login URL correctly", ^{

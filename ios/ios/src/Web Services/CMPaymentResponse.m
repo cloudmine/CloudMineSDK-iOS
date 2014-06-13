@@ -10,4 +10,9 @@
 
 @implementation CMPaymentResponse
 
+- (CMPaymentResult)result;
+{
+    return [self wasSuccess] ? CMPaymentResultSuccessful : CMPaymentResultFailed;
+}
+
 @end

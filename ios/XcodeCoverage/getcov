@@ -33,9 +33,13 @@ exclude_data()
 {
     LCOV --remove ${LCOV_INFO} "Applications/Xcode.app/*" -d "${OBJ_DIR}" -o ${LCOV_INFO}
     LCOV --remove ${LCOV_INFO} "main.m" -d "${OBJ_DIR}" -o ${LCOV_INFO}
+# While I would love to test these, without a UI it is super hard, and not worth it.
     LCOV --remove ${LCOV_INFO} "CMSocialLoginViewController.h" -d "${OBJ_DIR}" -o ${LCOV_INFO}
     LCOV --remove ${LCOV_INFO} "CMSocialLoginViewController.m" -d "${OBJ_DIR}" -o ${LCOV_INFO}
-    # Remove other patterns here...
+# This is actually tested, but the Code Coverage doesn't recognize the header file has
+# Been tested, so it shows up as 0%... and that won't do.
+    LCOV --remove ${LCOV_INFO} "CMUserAccountResult.h" -d "${OBJ_DIR}" -o ${LCOV_INFO}
+
 }
 
 generate_report()
