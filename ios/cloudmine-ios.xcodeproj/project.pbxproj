@@ -622,18 +622,14 @@
 				AA095164194B6BD0008602DB /* Responses */,
 				AAD4AD131908102D006B93F2 /* integration */,
 				AA5C4630190C17000086FBD6 /* Persisted Object Tests */,
+				AA095169194B72DC008602DB /* Web Services */,
 				7AFDFE4B158E9EB400388D6E /* CMActiveUserSpec.m */,
-				7A308A4314799134008ADD3C /* CMWebServiceSpec.m */,
 				D039C16915BEEB44005CCD33 /* CMACLFetchResponseSpec.m */,
-				7A04E86E147D90F5006E00AB /* CMServerFunctionSpec.m */,
 				7AABA2E41480549A00FD52A0 /* CMObjectEncoderSpec.m */,
 				7A6B800C14871BCA00D8B211 /* CMObjectDecoderSpec.m */,
 				7A7E31C314C603780091F1E3 /* CMGeoPointTest.m */,
 				7A7E31CA14C88F970091F1E3 /* CMStoreSpec.m */,
-				7AD9221F14CF5B9B0032DDDE /* CMPagingDescriptorSpec.m */,
-				7AD9222514D06EB10032DDDE /* CMStoreOptionsSpec.m */,
 				7AAFB49A158017450066B4A4 /* CMMimeTypeSpec.m */,
-				7A766208156307DF009840EE /* CMSortDescriptorSpec.m */,
 				AA7345C81949185F007AAEB0 /* CMExtensionsSpec.m */,
 				AA9528D1194B3FBA00AEB90D /* CMDistanceSpec.m */,
 				AA9528D3194B422800AEB90D /* CMNullStoreSpec.m */,
@@ -771,6 +767,18 @@
 			children = (
 			);
 			name = Responses;
+			sourceTree = "<group>";
+		};
+		AA095169194B72DC008602DB /* Web Services */ = {
+			isa = PBXGroup;
+			children = (
+				7A308A4314799134008ADD3C /* CMWebServiceSpec.m */,
+				7A04E86E147D90F5006E00AB /* CMServerFunctionSpec.m */,
+				7AD9221F14CF5B9B0032DDDE /* CMPagingDescriptorSpec.m */,
+				7AD9222514D06EB10032DDDE /* CMStoreOptionsSpec.m */,
+				7A766208156307DF009840EE /* CMSortDescriptorSpec.m */,
+			);
+			name = "Web Services";
 			sourceTree = "<group>";
 		};
 		AA5C4630190C17000086FBD6 /* Persisted Object Tests */ = {

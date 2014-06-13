@@ -13,11 +13,24 @@
 SPEC_BEGIN(CMSortDescriptorSpec)
 
 describe(@"CMSortDescriptor", ^{
+    
     context(@"when constructing a new instance", ^{
         it(@"should accept a nil-terminated list of field-direction pairs and allow access to them later", ^{
             CMSortDescriptor *desc = [[CMSortDescriptor alloc] initWithFieldsAndDirections:@"field1", CMSortAscending, @"field2", CMSortDescending, nil];
             [[[desc directionOfField:@"field1"] should] equal:CMSortAscending];
             [[[desc directionOfField:@"field2"] should] equal:CMSortDescending];
+        });
+        
+        it(@"should create an empty descriptor", ^{
+            CMSortDescriptor *sort = [CMSortDescriptor emptyDescriptor];
+            [[theValue(sort.count) should] beZero];
+        });
+        
+        it(@"should throw an exception if an odd number of fields is given", ^{
+            [[theBlock(^{
+                CMSortDescriptor *desc = [[CMSortDescriptor alloc] initWithFieldsAndDirections:@"field1", CMSortAscending, @"field2", nil];
+                [[theValue(desc.count) should] beGreaterThan:@0];
+            }) should] raiseWithName:NSInternalInconsistencyException];
         });
     });
 
@@ -31,6 +44,18 @@ describe(@"CMSortDescriptor", ^{
         it(@"should store a field and direction pair for later retrieval", ^{
             [[[desc directionOfField:@"field1"] should] equal:CMSortAscending];
             [[theValue([desc count]) should] equal:theValue(1)];
+        });
+        
+        it(@"should sort a field by the default", ^{
+            [desc sortByField:@"field1" direction:CMSortDescending];
+            [[[desc directionOfField:@"field1"] should] equal:CMSortDescending];
+            [desc sortByField:@"field1"];
+            [[[desc directionOfField:@"field1"] should] equal:CMSortDefault];
+        });
+        
+        it(@"should sort by the default if no direction is passed", ^{
+            [desc sortByField:@"field1" direction:nil];
+            [[[desc directionOfField:@"field1"] should] equal:CMSortDefault];
         });
 
         it(@"should properly remove a field", ^{
