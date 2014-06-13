@@ -10,6 +10,7 @@
 #import "CMAPICredentials.h"
 #import "CMUser.h"
 #import "CMCardPayment.h"
+#import "CMWebService.h"
 
 SPEC_BEGIN(CMUserIntegrationSpec)
 
@@ -295,6 +296,63 @@ describe(@"CMUser Integration", ^{
             });
             
         });
+    });
+    
+    context(@"searching for users", ^{
+        
+        it(@"should find all users", ^{
+            __block NSArray *all = nil;
+            __block NSDictionary *error = nil;
+            
+            [CMUser allUsersWithCallback:^(NSArray *users, NSDictionary *errors) {
+                all = users;
+                error = errors;
+            }];
+            
+            [[expectFutureValue(all) shouldEventually] beNonNil];
+            [[expectFutureValue(all) shouldEventually] haveCountOf:4];
+            [[expectFutureValue(error) shouldEventually] beEmpty];
+        });
+        
+        __block NSString *identifier = nil;
+        it(@"should search for a particular user", ^{
+            __block NSArray *all = nil;
+            __block NSDictionary *error = nil;
+            
+            [CMUser searchUsers:@"[email=\"testcard@cloudmine.me\"]" callback:^(NSArray *users, NSDictionary *errors) {
+                all = users;
+                error = errors;
+                CMUser *found = all[0];
+                identifier = found.objectId;
+            }];
+            
+            [[expectFutureValue(all) shouldEventually] beNonNil];
+            [[expectFutureValue(all) shouldEventually] haveCountOf:1];
+            [[expectFutureValue(error) shouldEventually] beEmpty];
+            CMUser *found = all[0];
+            [[expectFutureValue(found.email) shouldEventually] equal:@"testcard@cloudmine.me"];
+        });
+        
+        it(@"should get a cached user once we have gotten them all", ^{
+            
+            __block NSArray *all = nil;
+            __block NSDictionary *error = nil;
+            
+            [[identifier should] beNonNil];
+            [CMUser userWithIdentifier:identifier callback:^(NSArray *users, NSDictionary *errors) {
+                all = users;
+                error = errors;
+            }];
+            
+            [[expectFutureValue(all) shouldEventually] beNonNil];
+            [[expectFutureValue(all) shouldEventually] haveCountOf:1];
+            [[expectFutureValue(error) shouldEventually] beEmpty];
+            CMUser *found = all[0];
+            [[expectFutureValue(found.email) shouldEventually] equal:@"testcard@cloudmine.me"];
+            [[[CMWebService sharedWebService] shouldNotEventually] receive:@selector(getUserProfileWithIdentifier:callback:)];
+        });
+       
+        
     });
     
 });

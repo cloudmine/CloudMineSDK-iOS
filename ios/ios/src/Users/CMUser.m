@@ -20,11 +20,6 @@
 
 @property (nonatomic, strong) CMWebService *webService;
 
-+ (NSURL *)cacheLocation;
-+ (NSMutableDictionary *)cachedUsers;
-+ (CMUser *)userFromCacheWithIdentifier:(NSString *)objectId;
-+ (void)cacheMultipleUsers:(NSArray *)users;
-- (void)writeToCache;
 @end
 
 
@@ -629,10 +624,6 @@ NSString * const CMSocialNetworkSingly = @"singly";
         return [NSMutableDictionary dictionary];
     }
     return [[NSKeyedUnarchiver unarchiveObjectWithData:[NSData dataWithContentsOfURL:cacheLocation]] mutableCopy];
-}
-
-- (void)writeToCache {
-    [CMUser cacheMultipleUsers:@[self]];
 }
 
 + (void)cacheMultipleUsers:(NSArray *)users {
