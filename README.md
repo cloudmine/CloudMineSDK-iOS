@@ -18,6 +18,16 @@ The CloudMine library now uses [Cocoapods](http://cocoapods.org/) to manage it's
 * Installing pods is as easy as `pod 'CloudMine'`, with a great website to help support them.
 * Pushing and installing updates is super fast and easy. CloudMine simply update the main repo with our new version (which points to the CloudMine Repo), and then you simply run "pod update" and you get the new update.
 
+Building the Library
+--------------------
+
+1. Install Cococapods: `sudo gem install cocoapods`
+1. Download the repository to your local machine: `git clone git://github.com/cloudmine/cloudmine-ios.git;cd cloudmine-ios`
+2. Get the dependenices: `pod install`.
+3. At this point, the framework can be modified and edited. To do so, open the `cm-ios.xcworkspace` file in XCode. Do not open any of the project files in the `ios/` directory directly, as things won't work properly.
+4. If you want to use your local version of the library in your application, you can use: `pod 'CloudMine', :path => '~/path/to/iOS-SDK/'` to checkout the local version.
+
+
 Code Coverage
 -------------
 To view the code coverage, you should do the following from the root project directory:
@@ -29,15 +39,6 @@ Documentation
 -------------
 
 CloudMine has documentation [here](https://cloudmine.me/docs/ios). The library also has documentation in the header files. There is also the [documentation overview](http://cloudmine.me/developer_zone#ios/overview) on our website for more details.
-
-Building the Library
---------------------
-
-1. Install Cococapods: `sudo gem install cocoapods`
-1. Download the repository to your local machine: `git clone git://github.com/cloudmine/cloudmine-ios.git;cd cloudmine-ios`
-2. Get the dependenices: `pod install`.
-3. At this point, the framework can be modified and edited. To do so, open the `cm-ios.xcworkspace` file in XCode. Do not open any of the project files in the `ios/` directory directly, as things won't work properly.
-4. If you want to use your local version of the library in your application, you can use: `pod 'CloudMine', :path => '~/path/to/iOS-SDK/'` to checkout the local version.
 
 ## Testing ##
 Use the `libcloudmine` scheme for development work and for running the unit tests. To run the tests, select the libcloudmine scheme and do **Product -> Test** (⌘U). All the unit tests are written using [Kiwi](https://github.com/allending/Kiwi/wiki), a nice BDD-style unit testing framework.

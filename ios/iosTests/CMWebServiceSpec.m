@@ -18,6 +18,7 @@
 #import "CMAPICredentials.h"
 #import "CMConstants.h"
 #import "NSDictionary+CMJSON.h"
+#import "CMStore.h"
 
 SPEC_BEGIN(CMWebServiceSpec)
 
@@ -540,6 +541,15 @@ describe(@"CMWebService", ^{
     });
 
     context(@"given a user account operation", ^{
+        
+        __block CMUser *testUser = nil;
+        beforeEach(^{
+            testUser = [[CMUser alloc] initWithEmail:@"a_test_email@cloudmine.me" andPassword:@"testing"];
+            testUser.token = @"token";
+            testUser.tokenExpiration = [NSDate dateWithTimeIntervalSinceNow:1000];
+            testUser.password = @"testing";
+        });
+        
         it(@"constructs account creation URL correctly", ^{
             NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/create", appId]];
             CMUser *user = [[CMUser alloc] initWithEmail:@"test@domain.com" andPassword:@"pass"];
@@ -605,6 +615,26 @@ describe(@"CMWebService", ^{
             
             [[[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-ApiKey"] should] equal:appSecret];
             [[[request allHTTPHeaderFields] objectForKey:@"X-CloudMine-SessionToken"] shouldBeNil];
+        });
+        
+        it(@"should call the correct credentials method", ^{
+            
+            CMUser *user = [[CMUser alloc] initWithEmail:@"test-2@domain.com" andPassword:@"password"];
+            
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+            [[theBlock(^{
+                [service changeCredentialsForUser:user
+                                         password:@"password"
+                                      newPassword:@"password2"
+                                      newUsername:nil
+                                        newUserId:nil
+                                         callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
+                                             
+                                         }];
+            }) shouldNot] raise];
+           
+#pragma clang diagnostic pop
         });
         
         it(@"constructs credentials update URL payload correctly", ^{
@@ -745,8 +775,25 @@ describe(@"CMWebService", ^{
             NSURLRequest *request = spy.argument;
             [[[request HTTPMethod] should] equal:@"GET"];
             [[[[request URL] absoluteString] should] equal:finalURLShould];
+        });
+        
+        it(@"should call the social query correctly", ^{
+            CMUser *user = [[CMUser alloc] initWithEmail:@"test@domain.com" andPassword:@"pass"];
+            user.token = @"token";
+            user.tokenExpiration = [NSDate dateWithTimeIntervalSinceNow:9999];
             
+            KWCaptureSpy *spy = [service captureArgument:@selector(runSocialGraphQueryOnNetwork:withVerb:baseQuery:parameters:headers:messageData:withUser:successHandler:errorHandler:) atIndex:1];
             
+            [service runSocialGraphGETQueryOnNetwork:CMSocialNetworkTwitter
+                                           baseQuery:@"feed.json"
+                                          parameters:nil
+                                             headers:nil
+                                            withUser:user
+                                      successHandler:nil
+                                        errorHandler:nil];
+            
+            [[spy.argument should] equal:@"GET"];
+            [service enqueueHTTPRequestOperation:nil];
         });
         
         it(@"should properly deal with arrays in social queries", ^{
@@ -803,6 +850,232 @@ describe(@"CMWebService", ^{
             [[[[request URL] absoluteString] should]  equal:finalURLShould];
             [[[[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding] should] equal:@"status=Maybe he'll finally find his keys. #peterfalk"];
         });
+        
+        it(@"should properly look at the error domain on login", ^{
+            
+            KWCaptureSpy *spy = [service captureArgument:NSSelectorFromString(@"executeUserAccountActionRequest:codeMapper:callback:") atIndex:1];
+            
+            [service loginUser:testUser callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
+                
+            }];
+            
+            CMUserAccountResult (^callback) (NSUInteger httpResponseCode, NSError *error) = spy.argument;
+            CMUserAccountResult res = callback(0, [NSError errorWithDomain:@"CMErrorDomain" code:CMErrorUnauthorized userInfo:@{}]);
+            [[ theValue(res) should] equal:theValue(CMUserAccountLoginFailedIncorrectCredentials)];
+            
+            CMUserAccountResult res2 = callback(0, [NSError errorWithDomain:@"CMErrorDomain" code:CMErrorServerConnectionFailed userInfo:@{}]);
+            [[ theValue(res2) should] equal:theValue(CMUserAccountUnknownResult)];
+            
+            [service enqueueHTTPRequestOperation:nil];
+        });
+        
+        it(@"should properly look at the error domain on logout", ^{
+            
+            KWCaptureSpy *spy = [service captureArgument:NSSelectorFromString(@"executeUserAccountActionRequest:codeMapper:callback:") atIndex:1];
+            
+            [service logoutUser:testUser callback:^(CMUserAccountResult result, NSDictionary *responseBody) { }];
+            
+            CMUserAccountResult (^callback) (NSUInteger httpResponseCode, NSError *error) = spy.argument;
+            CMUserAccountResult res2 = callback(0, [NSError errorWithDomain:@"CMErrorDomain" code:CMErrorServerConnectionFailed userInfo:@{}]);
+            [[ theValue(res2) should] equal:theValue(CMUserAccountUnknownResult)];
+            [service enqueueHTTPRequestOperation:nil];
+        });
+        
+        it(@"should properly look at the error domain on create account", ^{
+            
+            KWCaptureSpy *spy = [service captureArgument:NSSelectorFromString(@"executeUserAccountActionRequest:codeMapper:callback:") atIndex:1];
+            
+            CMUser *user = [[CMUser alloc] initWithEmail:@"randomer@cloudmine.me" andPassword:@"testing"];
+            [service createAccountWithUser:user callback:^(CMUserAccountResult result, NSDictionary *responseBody) { }];
+            
+            CMUserAccountResult (^callback) (NSUInteger httpResponseCode, NSError *error) = spy.argument;
+            CMUserAccountResult res2 = callback(0, [NSError errorWithDomain:@"CMErrorDomain" code:CMErrorServerConnectionFailed userInfo:@{}]);
+            [[ theValue(res2) should] equal:theValue(CMUserAccountUnknownResult)];
+            [service enqueueHTTPRequestOperation:nil];
+        });
+        
+        it(@"should properly look at the error domain on social login", ^{
+            
+            KWCaptureSpy *spy = [service captureArgument:NSSelectorFromString(@"executeUserAccountActionRequest:codeMapper:callback:") atIndex:1];
+            
+            [service cmSocialLoginViewController:nil completeSocialLoginWithChallenge:@"challenge"];
+            
+            CMUserAccountResult (^callback) (NSUInteger httpResponseCode, NSError *error) = spy.argument;
+            CMUserAccountResult res = callback(0, [NSError errorWithDomain:@"CMErrorDomain" code:CMErrorUnauthorized userInfo:@{}]);
+            [[ theValue(res) should] equal:theValue(CMUserAccountLoginFailedIncorrectCredentials)];
+            
+            CMUserAccountResult res2 = callback(0, [NSError errorWithDomain:@"CMErrorDomain" code:CMErrorServerConnectionFailed userInfo:@{}]);
+            [[ theValue(res2) should] equal:theValue(CMUserAccountUnknownResult)];
+            
+            CMUserAccountResult res3 = callback(200, nil);
+            [[ theValue(res3) should] equal:theValue(CMUserAccountLoginSucceeded)];
+            
+            [service enqueueHTTPRequestOperation:nil];
+        });
+        
+        it(@"should properly look at the error domain on change credentials", ^{
+            
+            KWCaptureSpy *spy = [service captureArgument:NSSelectorFromString(@"executeUserAccountActionRequest:codeMapper:callback:") atIndex:1];
+            
+            [service changeCredentialsForUser:testUser
+                                     password:@"testing"
+                                  newPassword:@"testing2"
+                                  newUsername:@"user"
+                                     newEmail:@"email@cloudmine.me"
+                                     callback:^(CMUserAccountResult result, NSDictionary *responseBody) { }];
+            
+            CMUserAccountResult (^callback) (NSUInteger httpResponseCode, NSError *error) = spy.argument;
+            CMUserAccountResult res = callback(0, [NSError errorWithDomain:@"CMErrorDomain" code:CMErrorUnauthorized userInfo:@{}]);
+            [[ theValue(res) should] equal:theValue(CMUserAccountPasswordChangeFailedInvalidCredentials)];
+            
+            CMUserAccountResult res2 = callback(0, [NSError errorWithDomain:@"CMErrorDomain" code:CMErrorServerConnectionFailed userInfo:@{}]);
+            [[ theValue(res2) should] equal:theValue(CMUserAccountUnknownResult)];
+            
+            [service enqueueHTTPRequestOperation:nil];
+        });
+        
+        it(@"should properly map the error codes on credential change for password", ^{
+            
+            KWCaptureSpy *spy = [service captureArgument:NSSelectorFromString(@"executeUserAccountActionRequest:codeMapper:callback:") atIndex:1];
+            
+            [service changeCredentialsForUser:testUser
+                                     password:@"testing"
+                                  newPassword:@"testing2"
+                                  newUsername:nil
+                                     newEmail:nil
+                                     callback:^(CMUserAccountResult result, NSDictionary *responseBody) { }];
+            
+            CMUserAccountResult (^callback) (NSUInteger httpResponseCode, NSError *error) = spy.argument;
+            CMUserAccountResult res = callback(401, nil);
+            [[ theValue(res) should] equal:theValue(CMUserAccountPasswordChangeFailedInvalidCredentials)];
+            [service enqueueHTTPRequestOperation:nil];
+        });
+        
+        it(@"should properly map the error codes on credential change for credentials", ^{
+            
+            KWCaptureSpy *spy = [service captureArgument:NSSelectorFromString(@"executeUserAccountActionRequest:codeMapper:callback:") atIndex:1];
+            
+            [service changeCredentialsForUser:testUser
+                                     password:@"testing"
+                                  newPassword:@"testing2"
+                                  newUsername:@"newemail@cloudmine.me"
+                                     newEmail:nil
+                                     callback:^(CMUserAccountResult result, NSDictionary *responseBody) { }];
+            
+            CMUserAccountResult (^callback) (NSUInteger httpResponseCode, NSError *error) = spy.argument;
+            CMUserAccountResult res = callback(401, nil);
+            [[ theValue(res) should] equal:theValue(CMUserAccountCredentialChangeFailedInvalidCredentials)];
+            [service enqueueHTTPRequestOperation:nil];
+        });
+        
+        it(@"should properly map the error codes on credential change for unknown account", ^{
+            
+            KWCaptureSpy *spy = [service captureArgument:NSSelectorFromString(@"executeUserAccountActionRequest:codeMapper:callback:") atIndex:1];
+            
+            [service changeCredentialsForUser:testUser
+                                     password:@"testing"
+                                  newPassword:@"testing2"
+                                  newUsername:@"newemail@cloudmine.me"
+                                     newEmail:nil
+                                     callback:^(CMUserAccountResult result, NSDictionary *responseBody) { }];
+            
+            CMUserAccountResult (^callback) (NSUInteger httpResponseCode, NSError *error) = spy.argument;
+            CMUserAccountResult res = callback(404, nil);
+            [[ theValue(res) should] equal:theValue(CMUserAccountOperationFailedUnknownAccount)];
+            [service enqueueHTTPRequestOperation:nil];
+        });
+        
+        it(@"should properly map the error codes on credential change for duplicate info", ^{
+            
+            KWCaptureSpy *spy = [service captureArgument:NSSelectorFromString(@"executeUserAccountActionRequest:codeMapper:callback:") atIndex:1];
+            
+            [service changeCredentialsForUser:testUser
+                                     password:@"testing"
+                                  newPassword:nil
+                                  newUsername:@"newemail@cloudmine.me"
+                                     newEmail:@"username"
+                                     callback:^(CMUserAccountResult result, NSDictionary *responseBody) { }];
+            
+            CMUserAccountResult (^callback) (NSUInteger httpResponseCode, NSError *error) = spy.argument;
+            CMUserAccountResult res = callback(409, nil);
+            [[ theValue(res) should] equal:theValue(CMUserAccountCredentialChangeFailedDuplicateInfo)];
+            [service enqueueHTTPRequestOperation:nil];
+        });
+        
+        it(@"should properly map the error codes on credential change for duplicate email", ^{
+            
+            KWCaptureSpy *spy = [service captureArgument:NSSelectorFromString(@"executeUserAccountActionRequest:codeMapper:callback:") atIndex:1];
+            
+            [service changeCredentialsForUser:testUser
+                                     password:@"testing"
+                                  newPassword:nil
+                                  newUsername:nil
+                                     newEmail:@"newemail@cloudmine.me"
+                                     callback:^(CMUserAccountResult result, NSDictionary *responseBody) { }];
+            
+            CMUserAccountResult (^callback) (NSUInteger httpResponseCode, NSError *error) = spy.argument;
+            CMUserAccountResult res = callback(409, nil);
+            [[ theValue(res) should] equal:theValue(CMUserAccountCredentialChangeFailedDuplicateEmail)];
+            [service enqueueHTTPRequestOperation:nil];
+        });
+        
+        it(@"should properly map the error codes on credential change for duplicate username", ^{
+            
+            KWCaptureSpy *spy = [service captureArgument:NSSelectorFromString(@"executeUserAccountActionRequest:codeMapper:callback:") atIndex:1];
+            
+            [service changeCredentialsForUser:testUser
+                                     password:@"testing"
+                                  newPassword:nil
+                                  newUsername:@"username"
+                                     newEmail:nil
+                                     callback:^(CMUserAccountResult result, NSDictionary *responseBody) { }];
+            
+            CMUserAccountResult (^callback) (NSUInteger httpResponseCode, NSError *error) = spy.argument;
+            CMUserAccountResult res = callback(409, nil);
+            [[ theValue(res) should] equal:theValue(CMUserAccountCredentialChangeFailedDuplicateUsername)];
+            [service enqueueHTTPRequestOperation:nil];
+        });
+        
+        it(@"should properly map the error codes on credential change for password", ^{
+            
+            KWCaptureSpy *spy = [service captureArgument:NSSelectorFromString(@"executeUserAccountActionRequest:codeMapper:callback:") atIndex:1];
+            
+            [service changeCredentialsForUser:testUser
+                                     password:@"testing"
+                                  newPassword:@"conflict"
+                                  newUsername:nil
+                                     newEmail:nil
+                                     callback:^(CMUserAccountResult result, NSDictionary *responseBody) { }];
+            
+            CMUserAccountResult (^callback) (NSUInteger httpResponseCode, NSError *error) = spy.argument;
+            CMUserAccountResult res = callback(409, nil);
+            [[ theValue(res) should] equal:theValue(CMUserAccountCredentialChangeFailedDuplicateInfo)];
+            [service enqueueHTTPRequestOperation:nil];
+        });
+        
+        it(@"should properly look at the error domain on reset password email", ^{
+            
+            KWCaptureSpy *spy = [service captureArgument:NSSelectorFromString(@"executeUserAccountActionRequest:codeMapper:callback:") atIndex:1];
+            
+            [service resetForgottenPasswordForUser:testUser callback:^(CMUserAccountResult result, NSDictionary *responseBody) { }];
+            
+            CMUserAccountResult (^callback) (NSUInteger httpResponseCode, NSError *error) = spy.argument;
+            
+            CMUserAccountResult res2 = callback(0, [NSError errorWithDomain:@"CMErrorDomain" code:CMErrorServerConnectionFailed userInfo:@{}]);
+            [[ theValue(res2) should] equal:theValue(CMUserAccountUnknownResult)];
+            
+            CMUserAccountResult res3 = callback(200, nil);
+            [[theValue(res3) should] equal:theValue(CMUserAccountPasswordResetEmailSent)];
+            
+            CMUserAccountResult res4 = callback(404, nil);
+            [[theValue(res4) should] equal:theValue(CMUserAccountOperationFailedUnknownAccount)];
+            
+            CMUserAccountResult res5 = callback(500, nil);
+            [[theValue(res5) should] equal:theValue(CMUserAccountUnknownResult)];
+            
+            [service enqueueHTTPRequestOperation:nil];
+        });
+        
     });
     
     context(@"given a push notification operation", ^{
@@ -816,6 +1089,21 @@ describe(@"CMWebService", ^{
             NSURLRequest *request = spy.argument;
             NSDictionary *requestBody = [NSJSONSerialization JSONObjectWithData:[request HTTPBody] options:0 error:nil];
             [[[requestBody valueForKey:@"token"] should] equal:@"c7e265d1cbd443b3ee80fd07c892a8b8f20c08c491fa11f2535f2ccaad7f55ef"];
+        });
+        
+        it(@"should return an error enum when a bad request is received", ^{
+            
+            KWCaptureSpy *callbackBlockSpy = [service captureArgument:NSSelectorFromString(@"executeRequest:resultHandler:") atIndex:1];
+            [[service should] receive:NSSelectorFromString(@"executeRequest:resultHandler:") withCount:1];
+            
+            NSString *token = @"<c7e265d1 cbd443b3 ee80fd07 c892a8b8 f20c08c4 91fa11f2 535f2cca ad7f55ef>";
+            [service registerForPushNotificationsWithUser:nil token:(NSData *)token callback:^(CMDeviceTokenResult result) {
+                [[theValue(result) should] equal:theValue(CMDeviceTokenOperationFailed)];
+            }];
+            
+            CMWebServiceResultCallback callback = callbackBlockSpy.argument;
+            callback(@{}, nil, 400);
+            [service enqueueHTTPRequestOperation:nil]; //so it doesn't fail
         });
         
         it(@"correctly sends the deregister request", ^{

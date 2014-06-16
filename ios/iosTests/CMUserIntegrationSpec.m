@@ -45,6 +45,34 @@ describe(@"CMUser Integration", ^{
             [[expectFutureValue(mes) shouldEventually] beEmpty];
         });
         
+        it(@"should create an account with a username", ^{
+            __block CMUserAccountResult code = NSNotFound;
+            __block NSArray *mes = nil;
+            
+            CMUser *user = [[CMUser alloc] initWithUsername:@"MyGreatName" andPassword:@"testing"];
+            [user createAccountWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
+                code = resultCode;
+                mes = messages;
+            }];
+            
+            [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountCreateSucceeded)];
+            [[expectFutureValue(mes) shouldEventually] beEmpty];
+        });
+        
+        it(@"should fail to create an account with the same username", ^{
+            __block CMUserAccountResult code = NSNotFound;
+            __block NSArray *mes = nil;
+            
+            CMUser *user = [[CMUser alloc] initWithUsername:@"MyGreatName" andPassword:@"testing"];
+            [user createAccountWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
+                code = resultCode;
+                mes = messages;
+            }];
+            
+            [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountCreateFailedDuplicateAccount)];
+            [[expectFutureValue(mes) shouldEventually] beEmpty];
+        });
+        
         it(@"should successfully login them in", ^{
             __block CMUserAccountResult code = NSNotFound;
             __block NSArray *mes = nil;
@@ -99,6 +127,64 @@ describe(@"CMUser Integration", ^{
             [[expectFutureValue(mes) shouldEventually] beEmpty];
         });
         
+        it(@"should fail to login with the wrong credentials", ^{
+            CMUser *user = [[CMUser alloc] initWithEmail:@"test@test.com" andPassword:@"testingbad"];
+            
+            __block CMUserAccountResult code = NSNotFound;
+            __block NSArray *mes = nil;
+            [user loginWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
+                code = resultCode;
+                mes = messages;
+            }];
+            
+            [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountLoginFailedIncorrectCredentials)];
+            [[expectFutureValue(mes) shouldEventually] beEmpty];
+        });
+        
+        it(@"should fail to save the user when they are not logged in", ^{
+            CMUser *user = [[CMUser alloc] initWithEmail:@"test@test.com" andPassword:nil];
+            [user setValue:@"random" forKey:@"objectId"];
+            
+            __block CMUserAccountResult code = NSNotFound;
+            __block NSArray *mes = nil;
+            [user save:^(CMUserAccountResult resultCode, NSArray *messages) {
+                code = resultCode;
+                mes = messages;
+            }];
+            
+            [[theValue(code) should] equal:theValue(CMUserAccountLoginFailedIncorrectCredentials)];
+            [[mes should] beEmpty];
+        });
+        
+        it(@"should attempt to login them in on a save", ^{
+            CMUser *user = [[CMUser alloc] initWithEmail:@"test@test.com" andPassword:@"wrongpassword"];
+            [user setValue:@"random" forKey:@"objectId"];
+            
+            __block CMUserAccountResult code = NSNotFound;
+            __block NSArray *mes = nil;
+            [user save:^(CMUserAccountResult resultCode, NSArray *messages) {
+                code = resultCode;
+                mes = messages;
+            }];
+            
+            [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountLoginFailedIncorrectCredentials)];
+            [[expectFutureValue(mes) shouldEventually] beEmpty];
+        });
+        
+        it(@"should create the user on a save if they haven't been created", ^{
+            CMUser *user = [[CMUser alloc] initWithEmail:@"test_save_remote@cloudmine.me" andPassword:@"testing"];
+
+            __block CMUserAccountResult code = NSNotFound;
+            __block NSArray *mes = nil;
+            [user save:^(CMUserAccountResult resultCode, NSArray *messages) {
+                code = resultCode;
+                mes = messages;
+            }];
+            
+            [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountCreateSucceeded)];
+            [[expectFutureValue(mes) shouldEventually] beEmpty];
+        });
+        
         __block CMUser *testUser = nil;
         it(@"should successfully login them in again", ^{
             __block CMUserAccountResult code = NSNotFound;
@@ -115,6 +201,38 @@ describe(@"CMUser Integration", ^{
             [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountLoginSucceeded)];
             [[expectFutureValue(user.token) shouldEventually] beNonNil];
             [[expectFutureValue(user.tokenExpiration) shouldEventually] beNonNil];
+            [[expectFutureValue(mes) shouldEventually] beEmpty];
+        });
+        
+        it(@"should login the user if they have the correct username set", ^{
+            
+            __block CMUserAccountResult code = NSNotFound;
+            __block NSArray *mes = nil;
+
+            [testUser logoutWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
+                testUser.password = @"testing";
+                [testUser save:^(CMUserAccountResult resultCode, NSArray *messages) {
+                    code = resultCode;
+                    mes = messages;
+                }];
+            }];
+            
+            [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountProfileUpdateSucceeded)];
+            [[expectFutureValue(testUser.token) shouldEventually] beNonNil];
+            [[expectFutureValue(testUser.tokenExpiration) shouldEventually] beNonNil];
+            [[expectFutureValue(mes) shouldEventually] beEmpty];
+        });
+        
+        it(@"should let the user save", ^{
+            __block CMUserAccountResult code = NSNotFound;
+            __block NSArray *mes = nil;
+            
+            [testUser save:^(CMUserAccountResult resultCode, NSArray *messages) {
+                code = resultCode;
+                mes = messages;
+            }];
+            
+            [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountProfileUpdateSucceeded)];
             [[expectFutureValue(mes) shouldEventually] beEmpty];
         });
         
@@ -330,7 +448,7 @@ describe(@"CMUser Integration", ^{
             }];
             
             [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(4.0)] beNonNil];
-            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(4.0)] haveCountOf:6];
+            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(4.0)] haveCountOf:8];
             [[expectFutureValue(error) shouldEventuallyBeforeTimingOutAfter(4.0)] beEmpty];
         });
         
@@ -373,8 +491,56 @@ describe(@"CMUser Integration", ^{
             [[expectFutureValue(error) shouldEventually] beEmpty];
             [[[CMWebService sharedWebService] shouldNotEventually] receive:@selector(getUserProfileWithIdentifier:callback:)];
         });
-       
+    });
+    
+    context(@"with a wrong appid", ^{
+        beforeAll(^{
+            [[CMAPICredentials sharedInstance] setAppIdentifier:@"9977f87e6ae99915b32a663902c3ca65"];
+            [[CMAPICredentials sharedInstance] setAppSecret:@"c701d73554594315948c8d3cc0711ac1"];
+        });
+
+        it(@"should fail to login a user", ^{
+            CMUser *user = [[CMUser alloc] initWithEmail:@"test@test.com" andPassword:@"testing"];
+            
+            __block CMUserAccountResult code = NSNotFound;
+            __block NSArray *mes = nil;
+            [user loginWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
+                code = resultCode;
+                mes = messages;
+            }];
+            
+            [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountOperationFailedUnknownAccount)];
+            [[expectFutureValue(mes) shouldEventually] beEmpty];
+        });
         
+        it(@"should fail to logout the user", ^{
+            CMUser *user = [[CMUser alloc] initWithEmail:@"test@test.com" andPassword:@"testing"];
+            user.token = @"token";
+            user.tokenExpiration = [NSDate dateWithTimeIntervalSinceNow:1000];
+            
+            __block CMUserAccountResult code = NSNotFound;
+            __block NSArray *mes = nil;
+            [user logoutWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
+                code = resultCode;
+                mes = messages;
+            }];
+            
+            [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountOperationFailedUnknownAccount)];
+            [[expectFutureValue(mes) shouldEventually] beEmpty];
+        });
+        
+        it(@"should fail to fetch the profile", ^{
+            [[CMWebService sharedWebService] setValue:@"9988f87e6ae54815b32a663902c3ca65" forKey:@"_appIdentifier"];
+            __block NSArray *use = [NSArray arrayWithObject:[NSObject new]];
+            __block NSDictionary *err = [NSDictionary dictionary];
+            [CMUser allUsersWithCallback:^(NSArray *users, NSDictionary *errors) {
+                use = users;
+                err = errors;
+            }];
+            
+            [[expectFutureValue(use) shouldEventually] beEmpty];
+            [[expectFutureValue(err) shouldEventually] beNil];
+        });
     });
     
 });

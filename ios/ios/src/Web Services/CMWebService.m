@@ -798,17 +798,23 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
             resultCode = CMUserAccountLoginFailedIncorrectCredentials;
         }
         
-        temporaryCallback(resultCode, messages);
+        if (temporaryCallback) {
+            temporaryCallback(resultCode, messages);
+        }
     }];
 }
 
 
 - (void)cmSocialLoginViewController:(CMSocialLoginViewController *)controller hadError:(NSError *)error {
-    temporaryCallback(CMUserAccountSocialLoginErrorOccurred, @{CMErrorDomain: error});
+    if (temporaryCallback) {
+        temporaryCallback(CMUserAccountSocialLoginErrorOccurred, @{CMErrorDomain: error});
+    }
 }
 
 - (void)cmSocialLoginViewControllerWasDismissed:(CMSocialLoginViewController *)controller {
-    temporaryCallback(CMUserAccountSocialLoginDismissed, nil);
+    if (temporaryCallback) {
+        temporaryCallback(CMUserAccountSocialLoginDismissed, nil);
+    }
 }
 
 
@@ -822,6 +828,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
             NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/%@", _appIdentifier, user.objectId]];
             NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:user];
             NSMutableDictionary *payload = [[[CMObjectEncoder encodeObjects:[NSSet setWithObject:user]] objectForKey:user.objectId] mutableCopy]; // Don't need the outer object wrapping it like with objects
+            // This should include all blacklisted keys
             [payload removeObjectsForKeys:@[@"token", @"tokenExpiration", @"userId"]];
             [request setHTTPBody:[payload jsonData]];
             
@@ -871,14 +878,19 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
         if (!user.isLoggedIn) {
             if ( (!user.email || !user.username) && !user.password) {
                 NSLog(@"CloudMine *** Cannot update a user profile when the user is not logged in and userId and password are not both set.");
-                callback(CMUserAccountLoginFailedIncorrectCredentials, [NSDictionary dictionary]);
+                if (callback) {
+                    callback(CMUserAccountLoginFailedIncorrectCredentials, [NSDictionary dictionary]);
+                }
+                return;
             }
             
             // User must be logged in for this to work, so try logging them in.
             [user loginWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
                 if (CMUserAccountOperationFailed(resultCode)) {
                     // If login failed, pass the error through.
-                    callback(resultCode, [NSDictionary dictionary]);
+                    if (callback) {
+                        callback(resultCode, [NSDictionary dictionary]);
+                    }
                 } else {
                     // Otherwise continue with saving the updates.
                     save(callback);

@@ -304,6 +304,19 @@ describe(@"CMStoreIntegration", ^{
             [[res shouldNot] beNil];
         });
         
+        it(@"should delete a user object", ^{
+            Venue *v = venues[3];
+            
+            __block CMDeleteResponse *res = nil;
+            [store deleteUserObject:v additionalOptions:nil callback:^(CMDeleteResponse *response) {
+                res = response;
+            }];
+            
+            [[expectFutureValue(res) shouldEventually] beNonNil];
+            [[expectFutureValue(res.success) shouldEventually] haveCountOf:1];
+            [[expectFutureValue(res.success[v.objectId]) shouldEventually] equal:@"deleted"];
+        });
+        
         context(@"with ACL's", ^{
 
             __block CMStore *otherStore = nil;
