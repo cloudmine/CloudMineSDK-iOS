@@ -12,6 +12,8 @@
 #import "CMFileUploadResponse.h"
 #import "CMObjectFetchResponse.h"
 #import "CMObjectUploadResponse.h"
+#import "CMDeleteResponse.h"
+#import "CMChannelResponse.h"
 
 SPEC_BEGIN(CMResponseSpec)
 
@@ -100,6 +102,24 @@ describe(@"CMResponse", ^{
             [[response.error should] beNil];
             [[response.snippetResult should] beNil];
             [[response.metadata should] beNil];
+        });
+    });
+    
+    context(@"CMDeleteResponse", ^{
+        it(@"should create a response with just status and errors", ^{
+            CMDeleteResponse *response = [[CMDeleteResponse alloc] initWithSuccess:@{@"id":@"success"} errors:nil];
+            [[response.success should] haveCountOf:1];
+            [[response.error should] beNil];
+            [[response.snippetResult should] beNil];
+            [[response.metadata should] beNil];
+        });
+    });
+    
+    context(@"CMChannelResponse", ^{
+        it(@"should allow you to set the result", ^{
+            CMChannelResponse *response = [[CMChannelResponse alloc] init];
+            response.result = CMDeviceChannelOperationFailed;
+            [[theValue(response.result) should] equal:@(CMDeviceChannelOperationFailed)];
         });
     });
 });

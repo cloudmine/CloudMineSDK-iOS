@@ -270,7 +270,6 @@ NSString * const CMSocialNetworkSingly = @"singly";
 - (void)loginWithCallback:(CMUserOperationCallback)callback {
     [_webService loginUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         NSArray *messages = [NSArray array];
-        NSLog(@"Real Response: %@", responseBody);
 
         if (result == CMUserAccountLoginSucceeded) {            
             self.token = [responseBody objectForKey:@"session_token"];
@@ -397,6 +396,20 @@ NSString * const CMSocialNetworkSingly = @"singly";
                                         
                                         // Only login if it was successful, otherwise it won't expire the session token.
                                         [self loginWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
+                                            ///
+                                            /// The email may be overriden if you changed it and had it in your profile,
+                                            /// so set it again to whatever the new email is.
+                                            ///
+                                            /// However, if the user logs in again, this will remove their email/username
+                                            /// and that is very bad. We should blaclist both.
+                                            ///
+                                            if (newUsername) {
+                                                self.username = newUsername;
+                                            }
+                                            if (newEmail) {
+                                                self.email = newEmail;
+                                            }
+                                            
                                             if (callback) {
                                                 callback(result, [NSArray array]);
                                             }
@@ -643,6 +656,21 @@ NSString * const CMSocialNetworkSingly = @"singly";
 
 - (CMWebService *)webService {
     return _webService;
+}
+
+#pragma mark - NSObject
+
+- (NSString *)description;
+{
+    NSString *string = [[NSString alloc] init];
+    
+    NSArray *properties = [[self class] rt_properties];
+    
+    for (RTProperty *prop in properties) {
+        string = [string stringByAppendingFormat:@"\n%@: %@", prop.name, [self valueForKey:prop.name]];
+    }
+    
+    return string;
 }
 
 @end

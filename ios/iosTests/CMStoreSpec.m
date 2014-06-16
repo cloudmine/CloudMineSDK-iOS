@@ -65,6 +65,184 @@ describe(@"CMStore", ^{
             [[theValue([store objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipUndefinedLevel)];
             [[obj.store should] equal:[CMNullStore nullStore]];
         });
+        
+        it(@"should return an error for getting objects if the webservice has an issue", ^{
+            KWCaptureSpy *callbackBlockSpy = [store.webService
+                                              captureArgument:@selector(getValuesForKeys:serverSideFunction:pagingOptions:sortingOptions:user:extraParameters:successHandler:errorHandler:) atIndex:7];
+            [[store.webService should] receive:@selector(getValuesForKeys:serverSideFunction:pagingOptions:sortingOptions:user:extraParameters:successHandler:errorHandler:) withCount:1];
+            
+            // This first call should trigger the web service call.
+            [store objectsWithKeys:@[@"akey"] additionalOptions:nil callback:^(CMObjectFetchResponse *response) {
+                [[response.error shouldNot] beNil];
+                [[theValue(response.error.code) should] equal:@(CMErrorServerConnectionFailed)];
+            }];
+            
+            NSError *error = [NSError errorWithDomain:CMErrorDomain
+                                                 code:CMErrorServerConnectionFailed
+                                             userInfo:@{NSLocalizedDescriptionKey: @"A connection to the server was not able to be established."}];
+            
+            CMWebServiceFetchFailureCallback callback = callbackBlockSpy.argument;
+            callback(error);
+            [[store.lastError shouldNot] beNil];
+
+        });
+        
+        it(@"should return an error for saving a file if the webserver has issues", ^{
+            KWCaptureSpy *callbackBlockSpy = [store.webService
+                                              captureArgument:@selector(uploadFileAtPath:serverSideFunction:named:ofMimeType:user:extraParameters:successHandler:errorHandler:) atIndex:7];
+            [[store.webService should] receive:@selector(uploadFileAtPath:serverSideFunction:named:ofMimeType:user:extraParameters:successHandler:errorHandler:) withCount:1];
+            
+            NSURL *url = [NSURL URLWithString:[[NSBundle bundleForClass:[self class]] pathForResource:@"cloudmine" ofType:@"png"]];
+            // This first call should trigger the web service call.
+            [store saveFileAtURL:url additionalOptions:nil callback:^(CMFileUploadResponse *response) {
+                [[response.error shouldNot] beNil];
+                [[theValue(response.error.code) should] equal:@(CMErrorServerConnectionFailed)];
+            }];
+            
+            NSError *error = [NSError errorWithDomain:CMErrorDomain
+                                                 code:CMErrorServerConnectionFailed
+                                             userInfo:@{NSLocalizedDescriptionKey: @"A connection to the server was not able to be established."}];
+            
+            CMWebServiceFetchFailureCallback callback = callbackBlockSpy.argument;
+            callback(error);
+            [[store.lastError shouldNot] beNil];
+        });
+        
+        it(@"should return an error for saving a file(data) if the webserver has issues", ^{
+            KWCaptureSpy *callbackBlockSpy = [store.webService
+                                              captureArgument:@selector(uploadBinaryData:serverSideFunction:named:ofMimeType:user:extraParameters:successHandler:errorHandler:) atIndex:7];
+            [[store.webService should] receive:@selector(uploadBinaryData:serverSideFunction:named:ofMimeType:user:extraParameters:successHandler:errorHandler:) withCount:1];
+            
+            NSData *data = [[NSData alloc] init];
+            // This first call should trigger the web service call.
+            [store saveFileWithData:data additionalOptions:nil callback:^(CMFileUploadResponse *response) {
+                [[response.error shouldNot] beNil];
+                [[theValue(response.error.code) should] equal:@(CMErrorServerConnectionFailed)];
+            }];
+            
+            NSError *error = [NSError errorWithDomain:CMErrorDomain
+                                                 code:CMErrorServerConnectionFailed
+                                             userInfo:@{NSLocalizedDescriptionKey: @"A connection to the server was not able to be established."}];
+            
+            CMWebServiceFetchFailureCallback callback = callbackBlockSpy.argument;
+            callback(error);
+            [[store.lastError shouldNot] beNil];
+        });
+        
+        it(@"should return an error for deleting a file", ^{
+            KWCaptureSpy *callbackBlockSpy = [store.webService
+                                              captureArgument:@selector(deleteValuesForKeys:serverSideFunction:user:extraParameters:successHandler:errorHandler:) atIndex:5];
+            [[store.webService should] receive:@selector(deleteValuesForKeys:serverSideFunction:user:extraParameters:successHandler:errorHandler:) withCount:1];
+            
+            // This first call should trigger the web service call.
+            [store deleteFileNamed:@"name" additionalOptions:nil callback:^(CMDeleteResponse *response) {
+                [[response.error shouldNot] beNil];
+                [[theValue(response.error.code) should] equal:@(CMErrorServerConnectionFailed)];
+            }];
+            
+            NSError *error = [NSError errorWithDomain:CMErrorDomain
+                                                 code:CMErrorServerConnectionFailed
+                                             userInfo:@{NSLocalizedDescriptionKey: @"A connection to the server was not able to be established."}];
+            
+            CMWebServiceFetchFailureCallback callback = callbackBlockSpy.argument;
+            callback(error);
+            [[store.lastError shouldNot] beNil];
+        });
+        
+        it(@"should return an error for deleting a file", ^{
+            KWCaptureSpy *callbackBlockSpy = [store.webService
+                                              captureArgument:@selector(deleteValuesForKeys:serverSideFunction:user:extraParameters:successHandler:errorHandler:) atIndex:5];
+            [[store.webService should] receive:@selector(deleteValuesForKeys:serverSideFunction:user:extraParameters:successHandler:errorHandler:) withCount:1];
+            
+            // This first call should trigger the web service call.
+            [store deleteObjects:@[[CMObject new]] additionalOptions:nil callback:^(CMDeleteResponse *response) {
+                [[response.error shouldNot] beNil];
+                [[theValue(response.error.code) should] equal:@(CMErrorServerConnectionFailed)];
+            }];
+            
+            NSError *error = [NSError errorWithDomain:CMErrorDomain
+                                                 code:CMErrorServerConnectionFailed
+                                             userInfo:@{NSLocalizedDescriptionKey: @"A connection to the server was not able to be established."}];
+            
+            CMWebServiceFetchFailureCallback callback = callbackBlockSpy.argument;
+            callback(error);
+            [[store.lastError shouldNot] beNil];
+        });
+        
+        it(@"should return an error for fetching a file", ^{
+            KWCaptureSpy *callbackBlockSpy = [store.webService
+                                              captureArgument:@selector(getBinaryDataNamed:serverSideFunction:user:extraParameters:successHandler:errorHandler:) atIndex:5];
+            [[store.webService should] receive:@selector(getBinaryDataNamed:serverSideFunction:user:extraParameters:successHandler:errorHandler:) withCount:1];
+            
+            // This first call should trigger the web service call.
+            [store fileWithName:@"something" additionalOptions:nil callback:^(CMFileFetchResponse *response) {
+                [[response.error shouldNot] beNil];
+                [[theValue(response.error.code) should] equal:@(CMErrorServerConnectionFailed)];
+            }];
+            
+            NSError *error = [NSError errorWithDomain:CMErrorDomain
+                                                 code:CMErrorServerConnectionFailed
+                                             userInfo:@{NSLocalizedDescriptionKey: @"A connection to the server was not able to be established."}];
+            
+            CMWebServiceFetchFailureCallback callback = callbackBlockSpy.argument;
+            callback(error);
+            [[store.lastError shouldNot] beNil];
+        });
+        
+        it(@"should return an error for searching objects", ^{
+            KWCaptureSpy *callbackBlockSpy = [store.webService
+                                              captureArgument:@selector(searchValuesFor:serverSideFunction:pagingOptions:sortingOptions:user:extraParameters:successHandler:errorHandler:) atIndex:7];
+            [[store.webService should] receive:@selector(searchValuesFor:serverSideFunction:pagingOptions:sortingOptions:user:extraParameters:successHandler:errorHandler:) withCount:1];
+            
+            // This first call should trigger the web service call.
+            [store searchObjects:@"[__class__=\"Venue\"]" additionalOptions:nil callback:^(CMObjectFetchResponse *response) {
+                [[response.error shouldNot] beNil];
+                [[theValue(response.error.code) should] equal:@(CMErrorServerConnectionFailed)];
+            }];
+            
+            NSError *error = [NSError errorWithDomain:CMErrorDomain
+                                                 code:CMErrorServerConnectionFailed
+                                             userInfo:@{NSLocalizedDescriptionKey: @"A connection to the server was not able to be established."}];
+            
+            CMWebServiceFetchFailureCallback callback = callbackBlockSpy.argument;
+            callback(error);
+            [[store.lastError shouldNot] beNil];
+        });
+        
+        it(@"should return an error for saving objects", ^{
+            KWCaptureSpy *callbackBlockSpy = [store.webService
+                                              captureArgument:@selector(updateValuesFromDictionary:serverSideFunction:user:extraParameters:successHandler:errorHandler:) atIndex:5];
+            [[store.webService should] receive:@selector(updateValuesFromDictionary:serverSideFunction:user:extraParameters:successHandler:errorHandler:) withCount:1];
+            
+            // This first call should trigger the web service call.
+            [store saveObject:[CMObject new] additionalOptions:nil callback:^(CMObjectUploadResponse *response) {
+                [[response.error shouldNot] beNil];
+                [[theValue(response.error.code) should] equal:@(CMErrorServerConnectionFailed)];
+            }];
+            
+            NSError *error = [NSError errorWithDomain:CMErrorDomain
+                                                 code:CMErrorServerConnectionFailed
+                                             userInfo:@{NSLocalizedDescriptionKey: @"A connection to the server was not able to be established."}];
+            
+            CMWebServiceFetchFailureCallback callback = callbackBlockSpy.argument;
+            callback(error);
+            [[store.lastError shouldNot] beNil];
+        });
+        
+        it(@"should guess the mime type from the name if no url is given", ^{
+            KWCaptureSpy *callbackBlockSpy = [store.webService
+                                              captureArgument:@selector(uploadBinaryData:serverSideFunction:named:ofMimeType:user:extraParameters:successHandler:errorHandler:) atIndex:3];
+            [[store.webService should] receive:@selector(uploadBinaryData:serverSideFunction:named:ofMimeType:user:extraParameters:successHandler:errorHandler:) withCount:1];
+            
+            // This first call should trigger the web service call.
+            [store saveFileWithData:[NSData new] named:@"file.png" additionalOptions:nil callback:^(CMFileUploadResponse *response) {
+
+            }];
+            
+            NSString *mime = callbackBlockSpy.argument;
+            [[mime should] equal:@"image/png"];
+        });
+
 
         context(@"when computing object ownership level", ^{
             it(@"should be an unknown level when the object doesn't exist in the store", ^{
@@ -94,8 +272,11 @@ describe(@"CMStore", ^{
     context(@"given a user-level store", ^{
         beforeEach(^{
             user = [[CMUser alloc] initWithEmail:@"userid@test.com" andPassword:@"password"];
+            user.token = @"token";
+            user.tokenExpiration = [NSDate dateWithTimeIntervalSinceNow:1000];
             store = [CMStore storeWithUser:user];
             store.webService = webService;
+            [store setValue:nil forKey:@"lastError"];
         });
 
         it(@"should nullify the object's store reference when removed from the store", ^{
@@ -105,6 +286,78 @@ describe(@"CMStore", ^{
             [store removeUserObject:obj];
             [[theValue([store objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipUndefinedLevel)];
             [[obj.store should] equal:[CMNullStore nullStore]];
+        });
+        
+        it(@"should return the proper error for getting ACL's", ^{
+            KWCaptureSpy *callbackBlockSpy = [store.webService
+                                              captureArgument:@selector(getACLsForUser:successHandler:errorHandler:) atIndex:2];
+            [[store.webService should] receive:@selector(getACLsForUser:successHandler:errorHandler:) withCount:1];
+            
+            // This first call should trigger the web service call.
+            [store allACLs:^(CMACLFetchResponse *response) {
+                [[response.error shouldNot] beNil];
+                [[theValue(response.error.code) should] equal:@(CMErrorServerConnectionFailed)];
+            }];
+            
+            NSError *error = [NSError errorWithDomain:CMErrorDomain
+                                                 code:CMErrorServerConnectionFailed
+                                             userInfo:@{NSLocalizedDescriptionKey: @"A connection to the server was not able to be established."}];
+
+            CMWebServiceFetchFailureCallback callback = callbackBlockSpy.argument;
+            callback(error);
+            [[store.lastError shouldNot] beNil];
+        });
+        
+        it(@"should return the proper error for getting ACL's", ^{
+            KWCaptureSpy *callbackBlockSpy = [store.webService
+                                              captureArgument:@selector(searchACLs:user:successHandler:errorHandler:) atIndex:3];
+            [[store.webService should] receive:@selector(searchACLs:user:successHandler:errorHandler:) withCount:1];
+            
+            // This first call should trigger the web service call.
+            [store searchACLs:@"query" callback:^(CMACLFetchResponse *response) {
+                [[response.error shouldNot] beNil];
+                [[theValue(response.error.code) should] equal:@(CMErrorServerConnectionFailed)];
+            }];
+            
+            NSError *error = [NSError errorWithDomain:CMErrorDomain
+                                                 code:CMErrorServerConnectionFailed
+                                             userInfo:@{NSLocalizedDescriptionKey: @"A connection to the server was not able to be established."}];
+            
+            CMWebServiceFetchFailureCallback callback = callbackBlockSpy.argument;
+            callback(error);
+            [[store.lastError shouldNot] beNil];
+        });
+        
+        it(@"should return a 401 when getting ACL's for a not logged in user", ^{
+            
+            [[store.webService shouldNot] receive:@selector(getACLsForUser:successHandler:errorHandler:)];
+
+            NSError *error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:@{NSLocalizedDescriptionKey: @"The request was unauthorized. Is your API key correct?"}];
+            store.user.tokenExpiration = nil;
+            // This first call should trigger the web service call.
+            [store allACLs:^(CMACLFetchResponse *response) {
+                [[response.error shouldNot] beNil];
+                [[theValue(response.error.code) should] equal:@(error.code)];
+                [[response.error.domain should] equal:error.domain];
+            }];
+            
+            [[store.lastError should] beNil];
+        });
+        
+        it(@"should return a 401 when getting user objects for a not logged in user", ^{
+            [[store.webService shouldNot]
+             receive:@selector(getValuesForKeys:serverSideFunction:pagingOptions:sortingOptions:user:extraParameters:successHandler:errorHandler:)];
+            
+            NSError *error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:@{NSLocalizedDescriptionKey: @"The request was unauthorized. Is your API key correct?"}];
+            store.user.tokenExpiration = nil;
+            // This first call should trigger the web service call.
+            [store userObjectsWithKeys:@[@"objectkey"] additionalOptions:nil callback:^(CMObjectFetchResponse *response) {
+                [[response.error shouldNot] beNil];
+                [[theValue(response.error.code) should] equal:@(error.code)];
+                [[response.error.domain should] equal:error.domain];
+            }];
+            
+            [[store.lastError should] beNil];
         });
 
         context(@"when computing object ownership level", ^{
@@ -139,10 +392,7 @@ describe(@"CMStore", ^{
             });
             
             it(@"should let the user unregister for push notifications", ^{
-                
-                store.user.token = @"something";
-                store.user.tokenExpiration = [NSDate dateWithTimeIntervalSinceNow:1000];
-                
+
                 KWCaptureSpy *callbackBlockSpy = [store.webService captureArgument:@selector(unRegisterForPushNotificationsWithUser:callback:) atIndex:1];
                 [[store.webService should] receive:@selector(unRegisterForPushNotificationsWithUser:callback:) withCount:1];
                 

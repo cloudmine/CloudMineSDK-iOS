@@ -175,6 +175,7 @@
 		AAE9220A194B89EC004DA1AC /* CMStoreIntegrationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE92209194B89EC004DA1AC /* CMStoreIntegrationSpec.m */; };
 		AAE9220D194B8A88004DA1AC /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE9220C194B8A88004DA1AC /* Venue.m */; };
 		AAE9220F194B8B7B004DA1AC /* venues.plist in Resources */ = {isa = PBXBuildFile; fileRef = AAE9220E194B8B7B004DA1AC /* venues.plist */; };
+		AAE92211194B923D004DA1AC /* CMWebServiceIntegrationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE92210194B923D004DA1AC /* CMWebServiceIntegrationSpec.m */; };
 		AAFB0B8D194B45D5008F2B68 /* CMResponseSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AAFB0B8C194B45D5008F2B68 /* CMResponseSpec.m */; };
 		D039C16715BDEB77005CCD33 /* CMACLSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D039C16615BDEB77005CCD33 /* CMACLSpec.m */; };
 		D039C16A15BEEB44005CCD33 /* CMACLFetchResponseSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D039C16915BEEB44005CCD33 /* CMACLFetchResponseSpec.m */; };
@@ -354,7 +355,7 @@
 		7AD93BAE14D1CCFE00CC1CC9 /* CMFileSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMFileSpec.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7AE284891562C3C8003E8A8F /* CMSortDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMSortDescriptor.h; sourceTree = "<group>"; };
 		7AE2848A1562C3C8003E8A8F /* CMSortDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMSortDescriptor.m; sourceTree = "<group>"; };
-		7AE355D414F1B850006AF903 /* CMFileUploadResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMFileUploadResult.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		7AE355D414F1B850006AF903 /* CMFileUploadResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMFileUploadResult.h; sourceTree = "<group>"; };
 		7AF00B9C15A8DC650070442A /* CMACL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMACL.h; sourceTree = "<group>"; };
 		7AF00B9D15A8DC650070442A /* CMACL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMACL.m; sourceTree = "<group>"; };
 		7AF00B9E15A8DC650070442A /* CMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMUser.h; sourceTree = "<group>"; };
@@ -421,6 +422,7 @@
 		AAE9220B194B8A88004DA1AC /* Venue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Venue.h; sourceTree = "<group>"; };
 		AAE9220C194B8A88004DA1AC /* Venue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Venue.m; sourceTree = "<group>"; };
 		AAE9220E194B8B7B004DA1AC /* venues.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = venues.plist; sourceTree = "<group>"; };
+		AAE92210194B923D004DA1AC /* CMWebServiceIntegrationSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMWebServiceIntegrationSpec.m; sourceTree = "<group>"; };
 		AAFB0B8C194B45D5008F2B68 /* CMResponseSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMResponseSpec.m; sourceTree = "<group>"; };
 		D039C16615BDEB77005CCD33 /* CMACLSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMACLSpec.m; sourceTree = "<group>"; };
 		D039C16915BEEB44005CCD33 /* CMACLFetchResponseSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMACLFetchResponseSpec.m; sourceTree = "<group>"; };
@@ -852,6 +854,7 @@
 				AA61F6CB1940DA5A00A545A0 /* CMACLIntegrationSpec.m */,
 				AA7345CB19491F16007AAEB0 /* UIImageWithCloudMineIntegrationSpec.m */,
 				AAE92209194B89EC004DA1AC /* CMStoreIntegrationSpec.m */,
+				AAE92210194B923D004DA1AC /* CMWebServiceIntegrationSpec.m */,
 			);
 			name = integration;
 			sourceTree = "<group>";
@@ -1161,6 +1164,7 @@
 				AAD4AD161908104B006B93F2 /* CMUserIntegrationSpec.m in Sources */,
 				AA9528D4194B422800AEB90D /* CMNullStoreSpec.m in Sources */,
 				AA09516D194B7AA7008602DB /* CMPaymentServiceSpec.m in Sources */,
+				AAE92211194B923D004DA1AC /* CMWebServiceIntegrationSpec.m in Sources */,
 				7AD9222614D06EB10032DDDE /* CMStoreOptionsSpec.m in Sources */,
 				7AD93BAF14D1CCFE00CC1CC9 /* CMFileSpec.m in Sources */,
 				7AA79D6314DC1FB900F3CA3B /* CMCrossPlatformGenericSerializableObject.m in Sources */,
