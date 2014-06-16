@@ -41,6 +41,8 @@ clean: Cleans the library
 cov: Cleans, builds, tests, and generates the code coverage HTML document.
 test: Cleans, builds, and then tests the library.
 
+So to get code coverage, run `make cov`
+
 Before any pull requests are accepted, your code must be covered and all tests must pass.
 
 Documentation
