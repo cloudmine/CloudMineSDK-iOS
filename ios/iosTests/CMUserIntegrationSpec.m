@@ -330,7 +330,7 @@ describe(@"CMUser Integration", ^{
             }];
             
             [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(4.0)] beNonNil];
-            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(4.0)] haveCountOf:5];
+            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(4.0)] haveCountOf:6];
             [[expectFutureValue(error) shouldEventuallyBeforeTimingOutAfter(4.0)] beEmpty];
         });
         

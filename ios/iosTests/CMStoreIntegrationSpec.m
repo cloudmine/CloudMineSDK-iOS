@@ -190,6 +190,18 @@ describe(@"CMStoreIntegration", ^{
         [[expectFutureValue(res.objects) shouldEventually] haveCountOfAtLeast:2];
     });
     
+    it(@"should delete an object", ^{
+        Venue *v1 = venues[1];
+        
+        __block CMDeleteResponse *res = nil;
+        [store deleteObject:v1 additionalOptions:nil callback:^(CMDeleteResponse *response) {
+            res = response;
+        }];
+        
+        [[expectFutureValue(res) shouldEventually] beNonNil];
+        [[expectFutureValue(res.success) shouldEventually] haveCountOf:1];
+    });
+    
     context(@"with a CMUser", ^{
         
         beforeAll(^{
@@ -230,9 +242,6 @@ describe(@"CMStoreIntegration", ^{
         
         it(@"should save all user objects with a save all", ^{
             
-//            [[store should] receive:@selector(saveAllUserObjectsWithOptions:callback:)];
-//            [[store should] receive:@selector(saveAllACLs:)];
-            
             __block NSInteger called = 0;
             __block CMObjectUploadResponse * res = nil;
             [store saveAll:^(CMObjectUploadResponse *response) {
@@ -271,6 +280,16 @@ describe(@"CMStoreIntegration", ^{
             [[expectFutureValue(theValue(res.result)) shouldEventually] equal:@(CMFileCreated)];
         });
         
+        it(@"should delete a user file", ^{
+            __block CMDeleteResponse *res = nil;
+            [store deleteUserFileNamed:@"my_wonderful_key" additionalOptions:nil callback:^(CMDeleteResponse *response) {
+                res = response;
+            }];
+            [[expectFutureValue(res) shouldEventually] beNonNil];
+            [[expectFutureValue(res.success) shouldEventually] haveCountOf:1];
+            [[expectFutureValue(res.success[@"my_wonderful_key"]) shouldEventually] equal:@"deleted"];
+        });
+        
         it(@"should fail to save any ACL's when none are passed", ^{
             [[store.webService shouldNot]
              receive:@selector(updateACL:user:successHandler:errorHandler:)];
@@ -284,6 +303,96 @@ describe(@"CMStoreIntegration", ^{
             
             [[res shouldNot] beNil];
         });
+        
+        context(@"with ACL's", ^{
+
+            __block CMStore *otherStore = nil;
+            __block CMUser *aclUser = nil;
+            beforeAll(^{
+                CMUser *newUser = [[CMUser alloc] initWithEmail:@"test_acl_user@cloudmine.me" andPassword:@"testing"];
+                [newUser createAccountAndLoginWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
+                    [[theValue(resultCode) should] equal:@(CMUserAccountLoginSucceeded)];
+                    aclUser = newUser;
+                    otherStore = [CMStore storeWithUser:aclUser];
+                }];
+                
+                [[expectFutureValue(theValue([newUser isLoggedIn])) shouldEventually] beTrue];
+                
+                ///
+                /// Create an object for ACL testing
+                ///
+                __block CMObjectUploadResponse *res = nil;
+                [store saveUserObject:venues[5] callback:^(CMObjectUploadResponse *response) {
+                    res = response;
+                }];
+                
+                [[expectFutureValue(res) shouldEventually] beNonNil];
+                [[expectFutureValue(res.uploadStatuses) shouldEventually] haveCountOf:1];
+            });
+            
+            __block NSString *aclID = nil;
+            __block CMACL *testACL = nil;
+            it(@"should allow the user to add an ACL to an object", ^{
+                Venue *v = venues[5];
+                
+                CMACL *acl = [[CMACL alloc] init];
+                acl.permissions = [NSSet setWithObjects:CMACLReadPermission, CMACLUpdatePermission, CMACLDeletePermission, nil];
+                acl.members = [NSSet setWithObject:aclUser.objectId];
+                aclID = acl.objectId;
+                testACL = acl;
+                
+                __block CMObjectUploadResponse *res = nil;
+                [v addACL:acl callback:^(CMObjectUploadResponse *response) {
+                    res = response;
+                }];
+                
+                [[expectFutureValue(res) shouldEventually] beNonNil];
+                [[expectFutureValue(res.error) shouldEventually] beNil];
+                [[expectFutureValue(res.uploadStatuses[v.objectId]) shouldEventually] equal:@"updated"];
+            });
+            
+            it(@"should add the ACL when a user fetches the objects", ^{
+                CMStoreOptions *options = [[CMStoreOptions alloc] init];
+                options.shared = YES;
+                
+                __block CMObjectFetchResponse *resp = nil;
+                [otherStore allUserObjectsOfClass:[Venue class] additionalOptions:options callback:^(CMObjectFetchResponse *response) {
+                    resp = response;
+                    NSLog(@"Objects? %@", response.objects);
+                    Venue *v = [response.objects lastObject];
+                    [[[v valueForKey:@"sharedACL"] shouldNot] beNil];
+                }];
+                
+                [[expectFutureValue(resp) shouldEventually] beNonNil];
+                [[expectFutureValue(resp.objects) shouldEventually] haveCountOf:1];
+            });
+            
+            it(@"should allow the user to search for ACL's", ^{
+                NSString *query = [NSString stringWithFormat:@"[objectId=\"%@\"]", aclID];
+                
+                __block CMACLFetchResponse *res = nil;
+                [store searchACLs:query callback:^(CMACLFetchResponse *response) {
+                    res = response;
+                    NSLog(@"Something: %@", res.acls);
+                }];
+#warning How do?
+                [[expectFutureValue(res) shouldEventually] beNonNil];
+                [[expectFutureValue(res.acls) shouldEventually] beEmpty];
+//                [[expectFutureValue([res permissionsForMember:aclUser.objectId]) shouldEventually] beNil];
+            });
+            
+            it(@"should delete the ACL", ^{
+                __block CMDeleteResponse *res;
+                [store deleteACL:testACL callback:^(CMDeleteResponse *response) {
+                    res = response;
+                }];
+                
+                [[expectFutureValue(res) shouldEventually] beNonNil];
+                [[expectFutureValue(res.success) shouldEventually] haveCountOf:1];
+            });
+        });
+        
+
         
         context(@"with a CMUser that is set but not logged in", ^{
             

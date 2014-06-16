@@ -127,13 +127,13 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
         self.webService = [[CMWebService alloc] initWithBaseURL:[NSURL URLWithString:url]];
         self.user = theUser;
         
-        NSDateFormatter *df = [[NSDateFormatter alloc] init];
-        [df setLenient:YES];
-        df.dateFormat = @"EEE',' dd MMM yyyy HH':'mm':'ss 'GMT'";
-        NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-        [df setLocale:usLocale];
         
-        self.dateFormatter = df;
+        NSDateFormatter *rfc1123 = [[NSDateFormatter alloc] init];
+        rfc1123.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+        rfc1123.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+        rfc1123.dateFormat = @"EEE',' dd MMM yyyy HH':'mm':'ss z";
+        
+        self.dateFormatter = rfc1123;
         
         lastError = nil;
         _cachedAppObjects = [[NSMutableDictionary alloc] init];
