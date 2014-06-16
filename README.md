@@ -34,12 +34,18 @@ If you have added any functionality to the library, ensure that it is well teste
 
 Code Coverage
 -------------
-With over 425 tests (unit and integration), the library has excellent code coverage, with 92.4% line coverage and 99.5% function coverage. The library uses XcodeCoverage to generate the code coverage docs. However, to make this all easier there is a Makefile to do the magic for you. The Makefile lets you build, clean, test, and generate code coverage.
+With over 425 tests (unit and integration), the library has excellent code coverage, with 92.4% line coverage and 99.5% function coverage. The library uses XcodeCoverage to generate the code coverage docs. However, to make this all easier there is a Makefile to do the magic for you.
 
-build: Cleans and builds the library
-clean: Cleans the library
-cov: Cleans, builds, tests, and generates the code coverage HTML document.
-test: Cleans, builds, and then tests the library.
+Since the Makefile runs on the command line, we use the gem *xcpretty* to make the output more readable. Before using the Makefile, you must install this gem (or remove the command from the Makefile).
+
+To install: `gem install xcpretty`
+
+The Makefile lets you build, clean, test, and generate code coverage:
+
+**build**: Cleans and builds the library  
+**clean**: Cleans the library  
+**cov**: Cleans, builds, tests, and generates the code coverage HTML document.  
+**test**: Cleans, builds, and then tests the library.  
 
 So to get code coverage, run `make cov`
 
