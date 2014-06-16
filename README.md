@@ -20,34 +20,37 @@ The CloudMine library now uses [Cocoapods](http://cocoapods.org/) to manage it's
 
 Building the Library
 --------------------
+If you are interested in doing some development on the library:
 
 1. Install Cococapods: `sudo gem install cocoapods`
 1. Download the repository to your local machine: `git clone git://github.com/cloudmine/cloudmine-ios.git;cd cloudmine-ios`
 2. Get the dependenices: `pod install`.
-3. At this point, the framework can be modified and edited. To do so, open the `cm-ios.xcworkspace` file in XCode. Do not open any of the project files in the `ios/` directory directly, as things won't work properly.
-4. If you want to use your local version of the library in your application, you can use: `pod 'CloudMine', :path => '~/path/to/iOS-SDK/'` to checkout the local version.
+3. At this point, the framework can be modified and edited. To do so, open the `cm-ios.xcworkspace` file in XCode.
+4. If you want to use your local version of the library in your application, you can use: `pod 'CloudMine', :path => '~/path/to/iOS-SDK/'` in your Podfile to checkout the local version.
 
+Testing
+-------
+If you have added any functionality to the library, ensure that it is well tested. To run the tests, use the `libcloudmine` scheme. To run the tests, select the libcloudmine scheme and do **Product -> Test** (⌘U). All the unit tests are written using [Kiwi](https://github.com/allending/Kiwi/wiki), a nice BDD-style unit testing framework.
 
 Code Coverage
 -------------
-To view the code coverage, you should do the following from the root project directory:
-`./ios/XcodeCoverage/cleancov`
-Then, run the tests (see Testing).
-`./ios/XcodeCoverage/getcov`
+With over 425 tests (unit and integration), the library has excellent code coverage, with 92.4% line coverage and 99.5% function coverage. The library uses XcodeCoverage to generate the code coverage docs. However, to make this all easier there is a Makefile to do the magic for you. The Makefile lets you build, clean, test, and generate code coverage.
+
+build: Cleans and builds the library
+clean: Cleans the library
+cov: Cleans, builds, tests, and generates the code coverage HTML document.
+test: Cleans, builds, and then tests the library.
+
+Before any pull requests are accepted, your code must be covered and all tests must pass.
 
 Documentation
 -------------
-
 CloudMine has documentation [here](https://cloudmine.me/docs/ios). The library also has documentation in the header files. There is also the [documentation overview](http://cloudmine.me/developer_zone#ios/overview) on our website for more details.
-
-## Testing ##
-Use the `libcloudmine` scheme for development work and for running the unit tests. To run the tests, select the libcloudmine scheme and do **Product -> Test** (⌘U). All the unit tests are written using [Kiwi](https://github.com/allending/Kiwi/wiki), a nice BDD-style unit testing framework.
 
 
 Contributing
 ------------
-
-Contributions to the SDK are always welcome. However, please be sure you have well-written tests that cover all your cases. Since this is a framework, it is sometimes hard to test what you've written using unit tests. If that is the case for your contribution, write a small sample iPhone or iPad application (it doesn't even need a UI) that demonstrates the correct, intended functionality of your additions to the framework. Once all that is done, submit a pull request clearly explaining your additions and providing links to the external test cases if applicable. If you have any questions, please contact the maintainer directly at marc@cloudmine.me or ethan@cloudmine.me.
+Contributions to the SDK are always welcome. However, please be sure you have well-written tests that cover all your cases. Once all that is done, submit a pull request clearly explaining your additions and providing links to the external test cases if applicable. If you have any questions, please contact the maintainer directly at ethan@cloudmine.me.
 
 Thanks in advance for all your hard work and awesome code! :)
 
