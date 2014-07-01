@@ -178,8 +178,14 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
 - (instancetype)initWithEmail:(NSString *)theEmail andUsername:(NSString *)theUsername andPassword:(NSString *)thePassword;
 
 
-// Consumer key, consumer secret, account
-+ (instancetype)userWithTwitterKey:(NSString *)key secret:(NSString *)secret account:(id)account;
+- (void)createAccountWithSocialNetwork:(NSString *)network access_token:(NSString *)oauthToken callback:(CMUserOperationCallback)callback;
+
+- (void)createAccountWithSocialNetwork:(NSString *)network
+                            oauthToken:(NSString *)oauthToken
+                      oauthTokenSecret:(NSString *)oauthTokenSecret
+                              callback:(CMUserOperationCallback)callback;
+
+- (void)createAccountWithSocialNetwork:(NSString *)network credentials:(NSDictionary *)credentials callback:(CMUserOperationCallback)callback;
 
 
 /**

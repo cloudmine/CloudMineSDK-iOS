@@ -355,15 +355,20 @@ NSString * const CMSocialNetworkSingly = @"singly";
     [self createAccountWithSocialNetwork:network credentials:@{@"token": oauthToken, @"secret": oauthTokenSecret} callback:callback];
 }
 
-- (void)createAccountWithSocialNetwork:(NSString *)network credentials:(NSDictionary *)credentails callback:(CMUserOperationCallback)callback;
+- (void)createAccountWithSocialNetwork:(NSString *)network credentials:(NSDictionary *)credentials callback:(CMUserOperationCallback)callback;
 {
-    NSURL *url = [self.webService constructAppURLWithString:[NSString stringWithFormat:@"account/social/user/%@", network] andDescriptors:nil];
+    NSParameterAssert(network);
+    NSParameterAssert(credentials);
+    
+    NSURL *url = [self.webService constructAppURLWithString:[NSString stringWithFormat:@"account/social/%@/user", network] andDescriptors:nil];
     NSMutableURLRequest *request = [self.webService constructHTTPRequestWithVerb:@"POST" URL:url binaryData:NO user:nil];
-    [request setHTTPBody:[credentails jsonData]];
+    [request setHTTPBody:[credentials jsonData]];
     
     [self.webService executeGenericRequest:request successHandler:^(id parsedBody, NSUInteger httpCode, NSDictionary *headers) {
         
-        if (parsedBody && httpCode >= 200 && httpCode < 300) {
+        NSLog(@"Parsed Body: %@", parsedBody);
+        
+        if (parsedBody) {
             self.token = parsedBody[@"session_token"];
             self.tokenExpiration = [[self dateFormatter] dateFromString:parsedBody[@"expires"]];
             
