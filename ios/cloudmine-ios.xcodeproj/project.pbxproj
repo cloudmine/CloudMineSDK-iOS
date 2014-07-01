@@ -134,6 +134,7 @@
 		AA095166194B6C09008602DB /* CMAPICredentialsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA095165194B6C09008602DB /* CMAPICredentialsSpec.m */; };
 		AA095168194B6CB4008602DB /* CMAppDelegateBaseSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA095167194B6CB4008602DB /* CMAppDelegateBaseSpec.m */; };
 		AA09516D194B7AA7008602DB /* CMPaymentServiceSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA09516C194B7AA7008602DB /* CMPaymentServiceSpec.m */; };
+		AA104FE8196326D70043C141 /* TestUser.m in Sources */ = {isa = PBXBuildFile; fileRef = AA104FE7196326D70043C141 /* TestUser.m */; };
 		AA5693C31901790300C4A15A /* CMConstants.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA5693C21901790300C4A15A /* CMConstants.h */; };
 		AA5693C71902E90500C4A15A /* CMTestEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5693C61902E90500C4A15A /* CMTestEncoder.m */; };
 		AA5C462B190BFDF60086FBD6 /* cloudmine.png in Resources */ = {isa = PBXBuildFile; fileRef = AA5C462A190BFDF60086FBD6 /* cloudmine.png */; };
@@ -380,6 +381,8 @@
 		AA095165194B6C09008602DB /* CMAPICredentialsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMAPICredentialsSpec.m; sourceTree = "<group>"; };
 		AA095167194B6CB4008602DB /* CMAppDelegateBaseSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMAppDelegateBaseSpec.m; sourceTree = "<group>"; };
 		AA09516C194B7AA7008602DB /* CMPaymentServiceSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPaymentServiceSpec.m; sourceTree = "<group>"; };
+		AA104FE6196326D70043C141 /* TestUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestUser.h; sourceTree = "<group>"; };
+		AA104FE7196326D70043C141 /* TestUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestUser.m; sourceTree = "<group>"; };
 		AA5693C21901790300C4A15A /* CMConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMConstants.h; sourceTree = "<group>"; };
 		AA5693C51902E90500C4A15A /* CMTestEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMTestEncoder.h; sourceTree = "<group>"; };
 		AA5693C61902E90500C4A15A /* CMTestEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMTestEncoder.m; sourceTree = "<group>"; };
@@ -533,6 +536,8 @@
 				7A87316514BB309F000D6DEA /* NSMutableData+RandomData.m */,
 				AA5693C51902E90500C4A15A /* CMTestEncoder.h */,
 				AA5693C61902E90500C4A15A /* CMTestEncoder.m */,
+				AA104FE6196326D70043C141 /* TestUser.h */,
+				AA104FE7196326D70043C141 /* TestUser.m */,
 				AAE9220B194B8A88004DA1AC /* Venue.h */,
 				AAE9220C194B8A88004DA1AC /* Venue.m */,
 				AAE9220E194B8B7B004DA1AC /* venues.plist */,
@@ -1159,6 +1164,7 @@
 				7A87316614BB309F000D6DEA /* NSMutableData+RandomData.m in Sources */,
 				AA61F6CC1940DA5A00A545A0 /* CMACLIntegrationSpec.m in Sources */,
 				7A7E31C414C603780091F1E3 /* CMGeoPointTest.m in Sources */,
+				AA104FE8196326D70043C141 /* TestUser.m in Sources */,
 				7A7E31CB14C88F980091F1E3 /* CMStoreSpec.m in Sources */,
 				7AD9222014CF5B9B0032DDDE /* CMPagingDescriptorSpec.m in Sources */,
 				AAD4AD161908104B006B93F2 /* CMUserIntegrationSpec.m in Sources */,

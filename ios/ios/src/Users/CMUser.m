@@ -438,12 +438,16 @@ NSString * const CMSocialNetworkSingly = @"singly";
     NSMutableURLRequest *request = [self.webService constructHTTPRequestWithVerb:@"GET" URL:url binaryData:NO user:self];
     [self.webService executeGenericRequest:request successHandler:^(id parsedBody, NSUInteger httpCode, NSDictionary *headers) {
         
-        if (parsedBody) {
-            [self copyValuesFromDictionaryIntoState:parsedBody];
+        NSDictionary *profile = parsedBody[@"success"][self.objectId];
+        
+        NSLog(@"Profile: %@", profile);
+        
+        if (profile) {
+            [self copyValuesFromDictionaryIntoState:profile];
         }
         
         if (callback) {
-            callback(CMUserAccountProfileUpdateSucceeded, @[parsedBody]);
+            callback(CMUserAccountProfileUpdateSucceeded, @[profile]);
         }
         
     } errorHandler:^(id responseBody, NSUInteger httpCode, NSDictionary *headers, NSError *error, NSDictionary *errorInfo) {
