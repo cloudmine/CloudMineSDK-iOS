@@ -236,6 +236,19 @@ describe(@"CMUser Integration", ^{
             [[expectFutureValue(mes) shouldEventually] beEmpty];
         });
         
+        it(@"should fetch the user's profile", ^{
+            __block CMUserAccountResult code = NSNotFound;
+            __block NSArray *mes = nil;
+            
+            [testUser getProfile:^(CMUserAccountResult resultCode, NSArray *messages) {
+                code = resultCode;
+                mes = messages;
+            }];
+            
+            [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountProfileUpdateSucceeded)];
+            [[expectFutureValue(mes) shouldEventually] haveLengthOf:1];
+        });
+        
         it(@"should change the password", ^{
             
             __block CMUserAccountResult code = NSNotFound;

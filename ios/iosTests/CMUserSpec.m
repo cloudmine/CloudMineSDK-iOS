@@ -267,6 +267,22 @@ describe(@"CMUser", ^{
             [[@(user.age) should] equal:@30];
         });
         
+        it(@"should return the correct failure when fetching profile fails", ^{
+            KWCaptureSpy *callbackBlockSpy = [[user valueForKey:@"webService"]
+                                              captureArgument:@selector(executeGenericRequest:successHandler:errorHandler:) atIndex:2];
+            [[[user valueForKey:@"webService"] should] receive:@selector(executeGenericRequest:successHandler:errorHandler:) withCount:1];
+            
+            // This first call should trigger the web service call.
+            
+            [user getProfile:^(CMUserAccountResult resultCode, NSArray *messages) {
+                [[@(resultCode) should] equal:@(CMUserAccountProfileUpdateFailed)];
+                [[messages should] haveCountOf:1];
+            }];
+            
+            CMWebServiceErorCallack callback = callbackBlockSpy.argument;
+            callback(@{@"Error": @"error message"}, 400, @{}, [NSError new], @{});
+        });
+        
         it(@"should return the correct failure when getting payment fails", ^{
 
             KWCaptureSpy *callbackBlockSpy = [[user valueForKey:@"webService"]

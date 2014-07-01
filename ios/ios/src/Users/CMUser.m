@@ -432,6 +432,27 @@ NSString * const CMSocialNetworkSingly = @"singly";
     }];
 }
 
+- (void)getProfile:(CMUserOperationCallback)callback;
+{
+    NSURL *url = [self.webService constructAppURLWithString:@"/account/mine" andDescriptors:nil];
+    NSMutableURLRequest *request = [self.webService constructHTTPRequestWithVerb:@"GET" URL:url binaryData:NO user:self];
+    [self.webService executeGenericRequest:request successHandler:^(id parsedBody, NSUInteger httpCode, NSDictionary *headers) {
+        
+        if (parsedBody) {
+            [self copyValuesFromDictionaryIntoState:parsedBody];
+        }
+        
+        if (callback) {
+            callback(CMUserAccountProfileUpdateSucceeded, @[parsedBody]);
+        }
+        
+    } errorHandler:^(id responseBody, NSUInteger httpCode, NSDictionary *headers, NSError *error, NSDictionary *errorInfo) {
+        if (callback) {
+            callback(CMUserAccountProfileUpdateFailed, @[error]);
+        }
+    }];
+}
+
 #pragma mark - Payment Methods
 
 - (void)addPaymentMethod:(CMCardPayment *)paymentMethod callback:(CMPaymentServiceCallback)callback;
