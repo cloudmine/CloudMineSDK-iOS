@@ -13,7 +13,7 @@
 #import "CMSocialLoginViewController.h"
 #import "CMPaymentResponse.h"
 
-@class CMCardPayment;
+@class CMCardPayment, ACAccount;
 
 /** Social network identifier for Facebook */
 extern NSString * const CMSocialNetworkFacebook;
@@ -153,29 +153,34 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
  *
  * <strong>DEPRECATED:</strong> Now use <tt>initWithEmail:andPassword:</tt> instead.
  */
-- (id)initWithUserId:(NSString *)userId andPassword:(NSString *)password __attribute__((deprecated));
+- (instancetype)initWithUserId:(NSString *)userId andPassword:(NSString *)password __attribute__((deprecated));
 
 /**
  * Initialize the user with an email address and password.
  */
-- (id)initWithEmail:(NSString *)theEmail andPassword:(NSString *)thePassword;
+- (instancetype)initWithEmail:(NSString *)theEmail andPassword:(NSString *)thePassword;
 
 /**
  * Initialize the user with a Username and password.
  */
-- (id)initWithUsername:(NSString *)theUsername andPassword:(NSString *)thePassword;
+- (instancetype)initWithUsername:(NSString *)theUsername andPassword:(NSString *)thePassword;
 
 /**
  * Initialize the user with an email, username, and password.
  *
  * <strong>DEPRECATED:</strong> Now use <tt>initWithEmail:andUsername:andPassword:</tt> instead.
  */
-- (id)initWithUserId:(NSString *)theUserId andUsername:(NSString *)theUsername andPassword:(NSString *)thePassword __attribute__((deprecated));
+- (instancetype)initWithUserId:(NSString *)theUserId andUsername:(NSString *)theUsername andPassword:(NSString *)thePassword __attribute__((deprecated));
 
 /**
  * Initialize the user with an email, username, and password.
  */
-- (id)initWithEmail:(NSString *)theEmail andUsername:(NSString *)theUsername andPassword:(NSString *)thePassword;
+- (instancetype)initWithEmail:(NSString *)theEmail andUsername:(NSString *)theUsername andPassword:(NSString *)thePassword;
+
+
+// Consumer key, consumer secret, account
++ (instancetype)userWithTwitterKey:(NSString *)key secret:(NSString *)secret account:(id)account;
+
 
 /**
  * Asynchronously login the user and create a new session. On completion, the <tt>callback</tt> block will be called with
@@ -270,6 +275,15 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
  * @see https://cloudmine.me/docs/ios/reference#users_create
  */
 - (void)createAccountWithCallback:(CMUserOperationCallback)callback;
+
+
+/**
+ This is a special way to create "social" users. If you use a native SDK to get a user's oauth credentials
+ you are allowed to upload those directly to CloudMine to create the new user. This allows you to login "natively"
+ and then create the CMUser silently.
+ */
+- (void)createAccountWithSocialNetwork:(NSString *)network credentials:(NSDictionary *)credentails callback:(CMUserOperationCallback)callback;
+
 
 /**
  * A convenient method to create an account for the user if it doesn't already exist, and then log the user in if

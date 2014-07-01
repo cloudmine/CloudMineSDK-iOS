@@ -12,9 +12,13 @@
 #import "CMObjectDecoder.h"
 #import "CMObjectEncoder.h"
 #import "CMCardPayment.h"
+#import "NSDictionary+CMJSON.h"
 
 #import "MARTNSObject.h"
 #import "RTProperty.h"
+
+#import <Accounts/Accounts.h>
+#import <Social/Social.h>
 
 @interface CMUser ()
 
@@ -336,6 +340,63 @@ NSString * const CMSocialNetworkSingly = @"singly";
             }
         }
     }];
+}
+
+- (void)createAccountWithSocialNetwork:(NSString *)network access_token:(NSString *)oauthToken callback:(CMUserOperationCallback)callback;
+{
+    [self createAccountWithSocialNetwork:network credentials:@{@"access_token" : oauthToken} callback:callback];
+}
+
+- (void)createAccountWithSocialNetwork:(NSString *)network
+                            oauthToken:(NSString *)oauthToken
+                      oauthTokenSecret:(NSString *)oauthTokenSecret
+                              callback:(CMUserOperationCallback)callback;
+{
+    [self createAccountWithSocialNetwork:network credentials:@{@"token": oauthToken, @"secret": oauthTokenSecret} callback:callback];
+}
+
+- (void)createAccountWithSocialNetwork:(NSString *)network credentials:(NSDictionary *)credentails callback:(CMUserOperationCallback)callback;
+{
+    NSURL *url = [self.webService constructAppURLWithString:[NSString stringWithFormat:@"account/social/user/%@", network] andDescriptors:nil];
+    NSMutableURLRequest *request = [self.webService constructHTTPRequestWithVerb:@"POST" URL:url binaryData:NO user:nil];
+    [request setHTTPBody:[credentails jsonData]];
+    
+    [self.webService executeGenericRequest:request successHandler:^(id parsedBody, NSUInteger httpCode, NSDictionary *headers) {
+        
+        if (parsedBody && httpCode >= 200 && httpCode < 300) {
+            self.token = parsedBody[@"session_token"];
+            self.tokenExpiration = [[self dateFormatter] dateFromString:parsedBody[@"expires"]];
+            
+            NSDictionary *userProfile = parsedBody[@"profile"];
+            objectId = userProfile[CMInternalObjectIdKey];
+            self.services = userProfile[@"__services__"];
+            
+            if (!self.isDirty) {
+                // Only bring the changes from the server into the object state if there weren't local modifications.
+                [self copyValuesFromDictionaryIntoState:userProfile];
+            }
+        }
+        
+        if (callback) {
+            callback(CMUserAccountCreateSucceeded, @[]);
+        }
+        
+    } errorHandler:^(id responseBody, NSUInteger httpCode, NSDictionary *headers, NSError *error, NSDictionary *errorInfo) {
+        
+        if (callback) {
+            callback(CMUserAccountCreateFailedInvalidRequest, @[error]);
+        }
+    }];
+}
+
+
++ (instancetype)userWithTwitterKey:(NSString *)key secret:(NSString *)secret account:(id)account;
+{
+    
+    
+    
+    
+    return nil;
 }
 
 - (void)changePasswordTo:(NSString *)newPassword from:(NSString *)oldPassword callback:(CMUserOperationCallback)callback {
