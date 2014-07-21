@@ -284,14 +284,6 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
 
 
 /**
- This is a special way to create "social" users. If you use a native SDK to get a user's oauth credentials
- you are allowed to upload those directly to CloudMine to create the new user. This allows you to login "natively"
- and then create the CMUser silently.
- */
-- (void)createAccountWithSocialNetwork:(NSString *)network credentials:(NSDictionary *)credentails callback:(CMUserOperationCallback)callback;
-
-
-/**
  * A convenient method to create an account for the user if it doesn't already exist, and then log the user in if
  * the account was successfully created or already existed. On completion, the <tt>callback</tt> block will be called with the result of the operation and any messages
  * returned by the server contained in an array. See the CloudMine documentation online for the possible contents of this array.
