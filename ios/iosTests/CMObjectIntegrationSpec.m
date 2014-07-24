@@ -390,6 +390,30 @@ describe(@"CMObject Integration", ^{
             
             [[expectFutureValue(res) shouldEventually] beNonNil];
         });
+        
+        it(@"should fetch 0 when asking from a random point", ^{
+            __block CMObjectFetchResponse *res = nil;
+            [store searchObjects:@"[__class__ = \"venue\", location near (-40.162, 20.959), 1mi]"
+               additionalOptions:nil
+                        callback:^(CMObjectFetchResponse *response) {
+                            res = response;
+                            [[theValue(response.objects.count) should] equal:@0];
+                        }];
+            
+            [[expectFutureValue(res) shouldEventually] beNonNil];
+        });
+        
+        it(@"should fetch just a few when moved to a location nearby", ^{
+            __block CMObjectFetchResponse *res = nil;
+            [store searchObjects:@"[__class__ = \"venue\", location near (-75.150, 39.940), 1mi]"
+               additionalOptions:nil
+                        callback:^(CMObjectFetchResponse *response) {
+                            res = response;
+                            [[theValue(response.objects.count) should] equal:@1];
+                        }];
+            
+            [[expectFutureValue(res) shouldEventually] beNonNil];
+        });
     });
 });
 
