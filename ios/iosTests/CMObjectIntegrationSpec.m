@@ -414,6 +414,18 @@ describe(@"CMObject Integration", ^{
             
             [[expectFutureValue(res) shouldEventually] beNonNil];
         });
+        
+        it(@"should find everything in the default radius", ^{
+            __block CMObjectFetchResponse *res = nil;
+            [store searchObjects:@"[__class__ = \"venue\", location near (-75.150, 39.940)]"
+               additionalOptions:nil
+                        callback:^(CMObjectFetchResponse *response) {
+                            res = response;
+                            [[theValue(response.objects.count) should] equal:@10];
+                        }];
+            
+            [[expectFutureValue(res) shouldEventually] beNonNil];
+        });
     });
 });
 
