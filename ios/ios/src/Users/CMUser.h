@@ -177,15 +177,34 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
  */
 - (instancetype)initWithEmail:(NSString *)theEmail andUsername:(NSString *)theUsername andPassword:(NSString *)thePassword;
 
+// Facebook
+- (void)loginWithSocialNetwork:(NSString *)network
+                  access_token:(NSString *)oauthToken
+                      callback:(CMUserOperationCallback)callback;
 
-- (void)createAccountWithSocialNetwork:(NSString *)network access_token:(NSString *)oauthToken callback:(CMUserOperationCallback)callback;
+// Twitter
+- (void)loginWithSocialNetwork:(NSString *)network
+                    oauthToken:(NSString *)oauthToken
+              oauthTokenSecret:(NSString *)oauthTokenSecret
+                      callback:(CMUserOperationCallback)callback;
 
-- (void)createAccountWithSocialNetwork:(NSString *)network
-                            oauthToken:(NSString *)oauthToken
-                      oauthTokenSecret:(NSString *)oauthTokenSecret
-                              callback:(CMUserOperationCallback)callback;
+// Ambiguous
+- (void)loginWithSocialNetwork:(NSString *)network
+                   credentials:(NSDictionary *)credentials
+                      callback:(CMUserOperationCallback)callback;
 
-- (void)createAccountWithSocialNetwork:(NSString *)network credentials:(NSDictionary *)credentials callback:(CMUserOperationCallback)callback;
++ (instancetype)userWithSocialNetwork:(NSString *)network
+                         access_token:(NSString *)oauthToken
+                             callback:(CMUserOperationCallback)callback;
+
++ (instancetype)userWithSocialNetwork:(NSString *)network
+                           oauthToken:(NSString *)oauthToken
+                     oauthTokenSecret:(NSString *)oauthTokenSecret
+                             callback:(CMUserOperationCallback)callback;
+
++ (instancetype)userWithSocialNetwork:(NSString *)network
+                          credentials:(NSDictionary *)credentials
+                             callback:(CMUserOperationCallback)callback;
 
 
 /**

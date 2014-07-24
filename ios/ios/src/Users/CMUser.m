@@ -626,6 +626,55 @@ NSString * const CMSocialNetworkSingly = @"singly";
     return login;
 }
 
+// Social Native Creation
+
+// Facebook
+- (void)loginWithSocialNetwork:(NSString *)network
+                  access_token:(NSString *)oauthToken
+                      callback:(CMUserOperationCallback)callback;
+{
+    
+}
+
+// Twitter
+- (void)loginWithSocialNetwork:(NSString *)network
+                    oauthToken:(NSString *)oauthToken
+              oauthTokenSecret:(NSString *)oauthTokenSecret
+                      callback:(CMUserOperationCallback)callback;
+{
+    
+}
+
+// Ambiguous
+- (void)loginWithSocialNetwork:(NSString *)network
+                   credentials:(NSDictionary *)credentials
+                      callback:(CMUserOperationCallback)callback;
+{
+    
+}
+
++ (instancetype)userWithSocialNetwork:(NSString *)network
+                         access_token:(NSString *)oauthToken
+                             callback:(CMUserOperationCallback)callback;
+{
+    
+}
+
++ (instancetype)userWithSocialNetwork:(NSString *)network
+                           oauthToken:(NSString *)oauthToken
+                     oauthTokenSecret:(NSString *)oauthTokenSecret
+                             callback:(CMUserOperationCallback)callback;
+{
+    
+}
+
++ (instancetype)userWithSocialNetwork:(NSString *)network
+                          credentials:(NSDictionary *)credentials
+                             callback:(CMUserOperationCallback)callback;
+{
+    
+}
+
 #pragma mark - Discovering other users
 
 + (void)allUsersWithCallback:(CMUserFetchCallback)callback {
