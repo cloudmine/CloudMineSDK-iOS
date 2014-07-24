@@ -12,6 +12,7 @@
 #import "CMCardPayment.h"
 #import "CMWebService.h"
 #import "CMConstants.h"
+#import "TestUser.h"
 
 SPEC_BEGIN(CMUserIntegrationSpec)
 
@@ -236,6 +237,19 @@ describe(@"CMUser Integration", ^{
             [[expectFutureValue(mes) shouldEventually] beEmpty];
         });
         
+        it(@"should fetch the user's profile", ^{
+            __block CMUserAccountResult code = NSNotFound;
+            __block NSArray *mes = nil;
+            
+            [testUser getProfile:^(CMUserAccountResult resultCode, NSArray *messages) {
+                code = resultCode;
+                mes = messages;
+            }];
+            
+            [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountProfileUpdateSucceeded)];
+            [[expectFutureValue(mes) shouldEventually] haveLengthOf:1];
+        });
+        
         it(@"should change the password", ^{
             
             __block CMUserAccountResult code = NSNotFound;
@@ -275,7 +289,6 @@ describe(@"CMUser Integration", ^{
             [testUser changeUsernameTo:@"NewUsername" password:@"newPassword" callback:^(CMUserAccountResult resultCode, NSArray *messages) {
                 code = resultCode;
                 mes = messages;
-                NSLog(@"Message: %@", messages);
             }];
             [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountUsernameChangeSucceeded)];
             [[expectFutureValue(mes) shouldEventually] beEmpty];
@@ -292,7 +305,6 @@ describe(@"CMUser Integration", ^{
             ///
             testUser.email = @"test_new_email@test.com";
             testUser.password = @"newPassword";
-            NSLog(@"User: %@", testUser);
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
             [testUser changeUserIdTo:@"test_userid_change@test.com" password:@"newPassword" callback:^(CMUserAccountResult resultCode, NSArray *messages) {
@@ -309,7 +321,6 @@ describe(@"CMUser Integration", ^{
             __block NSArray *mes = nil;
             testUser.email = @"test_userid_change@test.com";
             testUser.password = @"newPassword";
-            NSLog(@"User: %@", testUser);
             [testUser changeUserCredentialsWithPassword:@"newPassword"
                                             newPassword:@"newestPassword"
                                             newUsername:@"MyUsername"
@@ -327,7 +338,6 @@ describe(@"CMUser Integration", ^{
             __block NSArray *mes = nil;
             testUser.email = @"coolEmail@test.com";
             testUser.password = @"newestPassword";
-            NSLog(@"User: %@", testUser);
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
             [testUser changeUserCredentialsWithPassword:@"newestPassword"
@@ -346,6 +356,42 @@ describe(@"CMUser Integration", ^{
 
         });
         
+        
+        context(@"given a CMUser subclass", ^{
+            
+            __block TestUser *testSubclassUser = nil;
+            beforeAll(^{
+                __block CMUserAccountResult code = NSNotFound;
+                __block NSArray *mes = nil;
+                
+                testSubclassUser = [[TestUser alloc] initWithEmail:@"testsubclassuser@cloudmine.me" andPassword:@"testing"];
+                testSubclassUser.firstName = @"Ethan";
+                testSubclassUser.lastName = @"Mick";
+                
+                [testSubclassUser createAccountAndLoginWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
+                    code = resultCode;
+                    mes = messages;
+                }];
+                
+                [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountLoginSucceeded)];
+                [[expectFutureValue(mes) shouldEventually] beEmpty];
+            });
+            
+            it(@"should fetch the user's profile", ^{
+                __block CMUserAccountResult code = NSNotFound;
+                __block NSArray *mes = nil;
+                
+                [testSubclassUser getProfile:^(CMUserAccountResult resultCode, NSArray *messages) {
+                    code = resultCode;
+                    mes = messages;
+                    [[mes[0][@"firstName"] should] equal:@"Ethan"];
+                    [[mes[0][@"lastName"] should] equal:@"Mick"];
+                }];
+                
+                [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountProfileUpdateSucceeded)];
+                [[expectFutureValue(mes) shouldEventually] haveLengthOf:1];
+            });
+        });
         
         context(@"given some payment info", ^{
             
@@ -448,7 +494,7 @@ describe(@"CMUser Integration", ^{
             }];
             
             [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(4.0)] beNonNil];
-            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(4.0)] haveCountOf:8];
+            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(4.0)] haveCountOf:9];
             [[expectFutureValue(error) shouldEventuallyBeforeTimingOutAfter(4.0)] beEmpty];
         });
         

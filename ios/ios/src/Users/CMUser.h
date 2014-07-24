@@ -514,6 +514,15 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
  */
 - (void)save:(CMUserOperationCallback)callback;
 
+/**
+ * Fetches the user's account from the server and updates the local user with the values received. This will override any local changes that have 
+ * been made.
+ *
+ * This is a better way to work with the <code>save:</code> method, as it will not force a refresh of the session-token;
+ *
+ * @param callback The block that will be called on completion of the operation.
+ */
+- (void)getProfile:(CMUserOperationCallback)callback;
 
 /**
  * Asynchronously fetch all the users of this app. This will download the profiles of all the users of your app, and is useful for displaying

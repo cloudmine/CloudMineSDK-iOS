@@ -5,19 +5,19 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>7B9FCC4F-04B4-43E3-B650-5DAE3EE79C1A</string>
+	<string>BDB7C765-8686-41F3-A671-D8E9E8FF51B6</string>
 	<key>IDESourceControlProjectName</key>
 	<string>cm-ios</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>FD23ED16-7109-4EE2-BB30-2C7334AD7546</key>
+		<key>E113C8CE-9530-46C5-8A87-8EC0BABC60D9</key>
 		<string>ssh://github.com/cloudmine/iOS-SDK-Private.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>cm-ios.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>FD23ED16-7109-4EE2-BB30-2C7334AD7546</key>
+		<key>E113C8CE-9530-46C5-8A87-8EC0BABC60D9</key>
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -25,14 +25,14 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>FD23ED16-7109-4EE2-BB30-2C7334AD7546</string>
+	<string>E113C8CE-9530-46C5-8A87-8EC0BABC60D9</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>FD23ED16-7109-4EE2-BB30-2C7334AD7546</string>
+			<string>E113C8CE-9530-46C5-8A87-8EC0BABC60D9</string>
 			<key>IDESourceControlWCCName</key>
 			<string>iOS-SDK-Private</string>
 		</dict>

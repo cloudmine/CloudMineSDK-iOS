@@ -13,6 +13,7 @@
 #import "CMACL.h"
 #import "CMStoreOptions.h"
 #import "CMWebService.h"
+#import "Venue.h"
 
 @interface CMTestClass : CMObject
 
@@ -343,6 +344,87 @@ describe(@"CMObject Integration", ^{
                 [[expectFutureValue(resp.uploadStatuses) shouldEventually] haveCountOf:1];
                 [[expectFutureValue(fetchResponse.acls) shouldEventually] beEmpty];
             });
+        });
+    });
+    
+    context(@"when working with geocoded objects", ^{
+        
+        __block NSMutableArray *tenVenues = nil;
+        beforeAll(^{
+            NSArray *data = [[NSDictionary dictionaryWithContentsOfFile:
+                              [[NSBundle bundleForClass:[self class]]
+                               pathForResource:@"venues" ofType:@"plist"]]
+                             objectForKey:@"items"];
+            
+            NSMutableArray *loadedVenues = [NSMutableArray array];
+            
+            [data enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                Venue *venue = [[Venue alloc] initWithDictionary:obj];
+                [loadedVenues addObject:venue];
+            }];
+            
+            tenVenues = [NSMutableArray array];
+            for (NSInteger i = 0; i < 10; i++) {
+                Venue *v = loadedVenues[i + 20];
+                [tenVenues addObject:v];
+                [store addObject:v];
+            }
+            
+            __block CMObjectUploadResponse *res = nil;
+            [store saveAllAppObjects:^(CMObjectUploadResponse *response) {
+                res = response;
+            }];
+            
+            [[expectFutureValue(res) shouldEventually] beNonNil];
+        });
+        
+        it(@"should fetch all objects near a point", ^{
+            
+            __block CMObjectFetchResponse *res = nil;
+            [store searchObjects:@"[__class__ = \"venue\", location near (-75.162, 39.959), 1mi]"
+                additionalOptions:nil
+                         callback:^(CMObjectFetchResponse *response) {
+                             res = response;
+                             [[theValue(response.objects.count) should] equal:@10];
+                         }];
+            
+            [[expectFutureValue(res) shouldEventually] beNonNil];
+        });
+        
+        it(@"should fetch 0 when asking from a random point", ^{
+            __block CMObjectFetchResponse *res = nil;
+            [store searchObjects:@"[__class__ = \"venue\", location near (-40.162, 20.959), 1mi]"
+               additionalOptions:nil
+                        callback:^(CMObjectFetchResponse *response) {
+                            res = response;
+                            [[theValue(response.objects.count) should] equal:@0];
+                        }];
+            
+            [[expectFutureValue(res) shouldEventually] beNonNil];
+        });
+        
+        it(@"should fetch just a few when moved to a location nearby", ^{
+            __block CMObjectFetchResponse *res = nil;
+            [store searchObjects:@"[__class__ = \"venue\", location near (-75.150, 39.940), 1mi]"
+               additionalOptions:nil
+                        callback:^(CMObjectFetchResponse *response) {
+                            res = response;
+                            [[theValue(response.objects.count) should] equal:@1];
+                        }];
+            
+            [[expectFutureValue(res) shouldEventually] beNonNil];
+        });
+        
+        it(@"should find everything in the default radius", ^{
+            __block CMObjectFetchResponse *res = nil;
+            [store searchObjects:@"[__class__ = \"venue\", location near (-75.150, 39.940)]"
+               additionalOptions:nil
+                        callback:^(CMObjectFetchResponse *response) {
+                            res = response;
+                            [[theValue(response.objects.count) should] equal:@10];
+                        }];
+            
+            [[expectFutureValue(res) shouldEventually] beNonNil];
         });
     });
 });
