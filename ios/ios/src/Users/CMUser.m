@@ -658,7 +658,10 @@ NSString * const CMSocialNetworkSingly = @"singly";
                   access_token:(NSString *)oauthToken
                       callback:(CMUserOperationCallback)callback;
 {
-    
+    [self loginWithSocialNetwork:network
+                     credentials:@{@"access_token": oauthToken}
+                     descriptors:nil
+                        callback:callback];
 }
 
 // Twitter
@@ -667,22 +670,63 @@ NSString * const CMSocialNetworkSingly = @"singly";
               oauthTokenSecret:(NSString *)oauthTokenSecret
                       callback:(CMUserOperationCallback)callback;
 {
-    
+    [self loginWithSocialNetwork:network
+                     credentials:@{@"token": oauthToken, @"secret": oauthTokenSecret}
+                     descriptors:nil
+                        callback:callback];
 }
 
 // Ambiguous
 - (void)loginWithSocialNetwork:(NSString *)network
                    credentials:(NSDictionary *)credentials
+                   descriptors:(NSArray *)descriptors
                       callback:(CMUserOperationCallback)callback;
 {
+    NSString *urlString = [NSString stringWithFormat:@"/account/social/%@/user", network];
     
+    NSURL *url = [self.webService constructAppURLWithString:urlString andDescriptors:descriptors];
+    NSMutableURLRequest *request = [self.webService constructHTTPRequestWithVerb:@"POST" URL:url binaryData:NO user:nil];
+    [request setHTTPBody:[credentials jsonData]];
+    
+    [self.webService executeGenericRequest:request successHandler:^(id parsedBody, NSUInteger httpCode, NSDictionary *headers) {
+        
+        NSDictionary *responseBody = parsedBody;
+        
+        self.token = [responseBody objectForKey:@"session_token"];
+        self.tokenExpiration = [[self dateFormatter] dateFromString:[responseBody objectForKey:@"expires"]];
+        
+        NSDictionary *userProfile = [responseBody objectForKey:@"profile"];
+        objectId = [userProfile objectForKey:CMInternalObjectIdKey];
+        
+        self.services = [[responseBody objectForKey:@"profile"] objectForKey:@"__services__"];
+        
+        if (!self.isDirty) {
+            // Only bring the changes from the server into the object state if there weren't local modifications.
+            [self copyValuesFromDictionaryIntoState:userProfile];
+        }
+        
+        if (callback) {
+            callback(CMUserAccountLoginSucceeded, @[]);
+        }
+        
+        
+    } errorHandler:^(id responseBody, NSUInteger httpCode, NSDictionary *headers, NSError *error, NSDictionary *errorInfo) {
+        if (callback) {
+            callback(CMUserAccountCreateFailedInvalidRequest, @[error]);
+        }
+    }];
 }
 
 + (instancetype)userWithSocialNetwork:(NSString *)network
                          access_token:(NSString *)oauthToken
                              callback:(CMUserOperationCallback)callback;
 {
+    CMUser *user = [[self alloc] init];
+    [user loginWithSocialNetwork:network
+                    access_token:oauthToken
+                        callback:callback];
     
+    return user;
 }
 
 + (instancetype)userWithSocialNetwork:(NSString *)network
@@ -690,14 +734,25 @@ NSString * const CMSocialNetworkSingly = @"singly";
                      oauthTokenSecret:(NSString *)oauthTokenSecret
                              callback:(CMUserOperationCallback)callback;
 {
+    CMUser *user = [[self alloc] init];
+    [user loginWithSocialNetwork:network
+                    access_token:oauthToken
+                        callback:callback];
     
+    return user;
 }
 
 + (instancetype)userWithSocialNetwork:(NSString *)network
                           credentials:(NSDictionary *)credentials
                              callback:(CMUserOperationCallback)callback;
 {
+    CMUser *user = [[self alloc] init];
+    [user loginWithSocialNetwork:network
+                     credentials:credentials
+                     descriptors:nil
+                        callback:callback];
     
+    return user;
 }
 
 #pragma mark - Discovering other users

@@ -191,6 +191,7 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
 // Ambiguous
 - (void)loginWithSocialNetwork:(NSString *)network
                    credentials:(NSDictionary *)credentials
+                   descriptors:(NSArray *)descriptors
                       callback:(CMUserOperationCallback)callback;
 
 + (instancetype)userWithSocialNetwork:(NSString *)network
