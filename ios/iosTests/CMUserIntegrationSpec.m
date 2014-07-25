@@ -588,6 +588,20 @@ describe(@"CMUser Integration", ^{
             [[expectFutureValue(err) shouldEventually] beNil];
         });
     });
+
+#warning Fix once server supports it
+//    context(@"given a native social CMUser", ^{
+//        
+//        it(@"should create a facebook user", ^{
+//            CMUser *user = [CMUser userWithSocialNetwork:CMSocialNetworkFacebook
+//                                        access_token:@"CAAFcXnZCbxjgBAE7E0O73PutjogY6rZB7PuLymYrWJ8ws4VuHTL8dWGln4ZCzOqup6sRMDWwaZADWDFn5EF52gm4sZAiOuaSZAZCF28fy8SmsYOfAAWejZBeLsEXdpLpZBedJYCx7Q1hAd7MFW43TgcmMZAZB4Q0pTqmisLZAMu89BXPKH7I7o7ephlX769M5HWLxNJideNZCOmlUDvDql70JAsSZB"
+//                                                callback:^(CMUserAccountResult resultCode, NSArray *messages) {
+//                                                    [[theValue(resultCode) should] equal:@(CMUserAccountLoginSucceeded)];
+//                                                }];
+//            [[expectFutureValue(theValue(user.isLoggedIn)) shouldEventually] beTrue];
+//        });
+//        
+//    });
     
 });
 
