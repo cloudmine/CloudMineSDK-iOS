@@ -38,6 +38,7 @@ NSString * const CMSocialNetworkWhithings = @"whithings";
 NSString * const CMSocialNetworkWordpress = @"wordpress";
 NSString * const CMSocialNetworkYammer = @"yammer";
 NSString * const CMSocialNetworkSingly = @"singly";
+NSString * const CMSocialNetworkGoogle = @"google";
 
 @implementation CMUser
 
