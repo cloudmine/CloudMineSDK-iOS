@@ -195,7 +195,7 @@ describe(@"CMObject Integration", ^{
                 options.shared = YES;
                 
                 __block CMObjectFetchResponse *resp = nil;
-                [newStore userObjectsWithKeys:@[testingID] additionalOptions:options callback:^(CMObjectFetchResponse *response) {
+                [newStore allUserObjectsWithOptions:options callback:^(CMObjectFetchResponse *response) {
                     resp = response;
                 }];
                 
@@ -234,7 +234,7 @@ describe(@"CMObject Integration", ^{
                 [[expectFutureValue(theValue(aclResponse.error.code)) shouldEventually] equal:@(CMErrorInvalidRequest)];
             });
             
-            it(@"should immediatly return the ACL's if you ask a shared object", ^{
+            it(@"should immediately return the ACL's if you ask a shared object", ^{
                 
                 CMStore *newStore = [CMStore store];
                 [newStore setUser:wantr];

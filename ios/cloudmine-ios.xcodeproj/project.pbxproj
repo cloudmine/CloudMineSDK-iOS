@@ -166,6 +166,8 @@
 		AAA92FFE181972DA0064F773 /* CMTools.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA92FFC181972DA0064F773 /* CMTools.m */; };
 		AAB2E0B0167B94CF00D2C699 /* CMAppDelegateBase.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB2E0AF167B94CF00D2C699 /* CMAppDelegateBase.m */; };
 		AAB2E0B4167BA05700D2C699 /* CMAppDelegateBase.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAB2E0AE167B94CF00D2C699 /* CMAppDelegateBase.h */; };
+		AAB748DE1986D7CD00988D56 /* CMResponseUser.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAB748DC1986D7CD00988D56 /* CMResponseUser.h */; };
+		AAB748DF1986D7CD00988D56 /* CMResponseUser.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB748DD1986D7CD00988D56 /* CMResponseUser.m */; };
 		AABEE9FB19088809007A26BA /* CMDateSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AABEE9FA19088809007A26BA /* CMDateSpec.m */; };
 		AAC1D8F116DD4BCC002A7DC0 /* CMChannelResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC1D8F016DD4BCC002A7DC0 /* CMChannelResponse.m */; };
 		AAC1D8F416DD51FB002A7DC0 /* CMResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC1D8F316DD51FA002A7DC0 /* CMResponse.m */; };
@@ -227,6 +229,7 @@
 				7AEF7B4B158EB60000BE47B3 /* CMActiveUser.h in CopyFiles */,
 				65199ED5156A84D600267EC6 /* CMDistance.h in CopyFiles */,
 				65199ECD156A847A00267EC6 /* CMDeleteResponse.h in CopyFiles */,
+				AAB748DE1986D7CD00988D56 /* CMResponseUser.h in CopyFiles */,
 				65199ECE156A847A00267EC6 /* CMFileFetchResponse.h in CopyFiles */,
 				65199ECF156A847A00267EC6 /* CMFileUploadResponse.h in CopyFiles */,
 				65199ED0156A847A00267EC6 /* CMObjectFetchResponse.h in CopyFiles */,
@@ -416,6 +419,8 @@
 		AAA92FFC181972DA0064F773 /* CMTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMTools.m; sourceTree = "<group>"; };
 		AAB2E0AE167B94CF00D2C699 /* CMAppDelegateBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMAppDelegateBase.h; sourceTree = "<group>"; };
 		AAB2E0AF167B94CF00D2C699 /* CMAppDelegateBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMAppDelegateBase.m; sourceTree = "<group>"; };
+		AAB748DC1986D7CD00988D56 /* CMResponseUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMResponseUser.h; sourceTree = "<group>"; };
+		AAB748DD1986D7CD00988D56 /* CMResponseUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMResponseUser.m; sourceTree = "<group>"; };
 		AABEE9FA19088809007A26BA /* CMDateSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMDateSpec.m; sourceTree = "<group>"; };
 		AAC1D8EF16DD4BCB002A7DC0 /* CMChannelResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMChannelResponse.h; path = Response/CMChannelResponse.h; sourceTree = "<group>"; };
 		AAC1D8F016DD4BCC002A7DC0 /* CMChannelResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMChannelResponse.m; path = Response/CMChannelResponse.m; sourceTree = "<group>"; };
@@ -514,6 +519,8 @@
 				AAC1D8F016DD4BCC002A7DC0 /* CMChannelResponse.m */,
 				AAC1D90716DD6CA4002A7DC0 /* CMViewChannelsResponse.h */,
 				AAC1D90816DD6CA5002A7DC0 /* CMViewChannelsResponse.m */,
+				AAB748DC1986D7CD00988D56 /* CMResponseUser.h */,
+				AAB748DD1986D7CD00988D56 /* CMResponseUser.m */,
 			);
 			name = Response;
 			sourceTree = "<group>";
@@ -1116,6 +1123,7 @@
 				7AABA2E91480598300FD52A0 /* NSString+UUID.m in Sources */,
 				7AABA30114818DCA00FD52A0 /* CMObjectDecoder.m in Sources */,
 				7AABA30314818DCA00FD52A0 /* CMObjectEncoder.m in Sources */,
+				AAB748DF1986D7CD00988D56 /* CMResponseUser.m in Sources */,
 				7A7E31C914C88F8A0091F1E3 /* CMStore.m in Sources */,
 				7AD9221D14CF47360032DDDE /* CMPagingDescriptor.m in Sources */,
 				7AD9222414D06B9A0032DDDE /* CMStoreOptions.m in Sources */,

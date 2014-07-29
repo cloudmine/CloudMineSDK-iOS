@@ -13,7 +13,7 @@
 #import "CMSocialLoginViewController.h"
 #import "CMPaymentResponse.h"
 
-@class CMCardPayment, ACAccount;
+@class CMCardPayment, CMResponseUser, ACAccount;
 
 /** Social network identifier for Facebook */
 extern NSString * const CMSocialNetworkFacebook;
@@ -180,32 +180,32 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
 // Facebook
 - (void)loginWithSocialNetwork:(NSString *)network
                   access_token:(NSString *)oauthToken
-                      callback:(CMUserOperationCallback)callback;
+                      callback:(void (^) (CMResponseUser *response) )callback;
 
 // Twitter
 - (void)loginWithSocialNetwork:(NSString *)network
                     oauthToken:(NSString *)oauthToken
               oauthTokenSecret:(NSString *)oauthTokenSecret
-                      callback:(CMUserOperationCallback)callback;
+                      callback:(void (^) (CMResponseUser *response) )callback;
 
 // Ambiguous
 - (void)loginWithSocialNetwork:(NSString *)network
                    credentials:(NSDictionary *)credentials
                    descriptors:(NSArray *)descriptors
-                      callback:(CMUserOperationCallback)callback;
+                      callback:(void (^) (CMResponseUser *response) )callback;
 
-+ (instancetype)userWithSocialNetwork:(NSString *)network
++ (void)userWithSocialNetwork:(NSString *)network
                          access_token:(NSString *)oauthToken
-                             callback:(CMUserOperationCallback)callback;
+                             callback:(void (^) (CMResponseUser *response) )callback;
 
-+ (instancetype)userWithSocialNetwork:(NSString *)network
++ (void)userWithSocialNetwork:(NSString *)network
                            oauthToken:(NSString *)oauthToken
                      oauthTokenSecret:(NSString *)oauthTokenSecret
-                             callback:(CMUserOperationCallback)callback;
+                             callback:(void (^) (CMResponseUser *response) )callback;
 
-+ (instancetype)userWithSocialNetwork:(NSString *)network
++ (void)userWithSocialNetwork:(NSString *)network
                           credentials:(NSDictionary *)credentials
-                             callback:(CMUserOperationCallback)callback;
+                             callback:(void (^) (CMResponseUser *response) )callback;
 
 
 /**

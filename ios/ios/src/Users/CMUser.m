@@ -13,6 +13,7 @@
 #import "CMObjectEncoder.h"
 #import "CMCardPayment.h"
 #import "NSDictionary+CMJSON.h"
+#import "CMResponseUser.h"
 
 #import "MARTNSObject.h"
 #import "RTProperty.h"
@@ -656,7 +657,7 @@ NSString * const CMSocialNetworkSingly = @"singly";
 // Facebook
 - (void)loginWithSocialNetwork:(NSString *)network
                   access_token:(NSString *)oauthToken
-                      callback:(CMUserOperationCallback)callback;
+                      callback:(void (^) (CMResponseUser *response) )callback;
 {
     [self loginWithSocialNetwork:network
                      credentials:@{@"access_token": oauthToken}
@@ -668,7 +669,7 @@ NSString * const CMSocialNetworkSingly = @"singly";
 - (void)loginWithSocialNetwork:(NSString *)network
                     oauthToken:(NSString *)oauthToken
               oauthTokenSecret:(NSString *)oauthTokenSecret
-                      callback:(CMUserOperationCallback)callback;
+                      callback:(void (^) (CMResponseUser *response) )callback;
 {
     [self loginWithSocialNetwork:network
                      credentials:@{@"token": oauthToken, @"secret": oauthTokenSecret}
@@ -680,12 +681,12 @@ NSString * const CMSocialNetworkSingly = @"singly";
 - (void)loginWithSocialNetwork:(NSString *)network
                    credentials:(NSDictionary *)credentials
                    descriptors:(NSArray *)descriptors
-                      callback:(CMUserOperationCallback)callback;
+                      callback:(void (^) (CMResponseUser *response) )callback;
 {
-    NSString *urlString = [NSString stringWithFormat:@"/account/social/%@/user", network];
+    NSString *urlString = [NSString stringWithFormat:@"account/social/%@/user", network];
     
     NSURL *url = [self.webService constructAppURLWithString:urlString andDescriptors:descriptors];
-    NSMutableURLRequest *request = [self.webService constructHTTPRequestWithVerb:@"POST" URL:url binaryData:NO user:nil];
+    NSMutableURLRequest *request = [self.webService constructHTTPRequestWithVerb:@"POST" URL:url binaryData:NO user:self.isLoggedIn ? self : nil];
     [request setHTTPBody:[credentials jsonData]];
     
     [self.webService executeGenericRequest:request successHandler:^(id parsedBody, NSUInteger httpCode, NSDictionary *headers) {
@@ -706,53 +707,52 @@ NSString * const CMSocialNetworkSingly = @"singly";
         }
         
         if (callback) {
-            callback(CMUserAccountLoginSucceeded, @[]);
+            CMResponseUser *response = [[CMResponseUser alloc] initWithResponseBody:responseBody httpCode:httpCode error:nil];
+            response.result = CMUserAccountLoginSucceeded;
+            response.user = self;
+            callback(response);
         }
         
         
     } errorHandler:^(id responseBody, NSUInteger httpCode, NSDictionary *headers, NSError *error, NSDictionary *errorInfo) {
         if (callback) {
-            callback(CMUserAccountCreateFailedInvalidRequest, @[error]);
+            CMResponseUser *response = [[CMResponseUser alloc] initWithResponseBody:responseBody httpCode:httpCode error:error];
+            response.result = CMUserAccountCreateFailedInvalidRequest;
+            callback(response);
         }
     }];
 }
 
-+ (instancetype)userWithSocialNetwork:(NSString *)network
++ (void)userWithSocialNetwork:(NSString *)network
                          access_token:(NSString *)oauthToken
-                             callback:(CMUserOperationCallback)callback;
+                             callback:(void (^) (CMResponseUser *response) )callback;
 {
     CMUser *user = [[self alloc] init];
     [user loginWithSocialNetwork:network
                     access_token:oauthToken
                         callback:callback];
-    
-    return user;
 }
 
-+ (instancetype)userWithSocialNetwork:(NSString *)network
++ (void)userWithSocialNetwork:(NSString *)network
                            oauthToken:(NSString *)oauthToken
                      oauthTokenSecret:(NSString *)oauthTokenSecret
-                             callback:(CMUserOperationCallback)callback;
+                             callback:(void (^) (CMResponseUser *response) )callback;
 {
     CMUser *user = [[self alloc] init];
     [user loginWithSocialNetwork:network
                     access_token:oauthToken
                         callback:callback];
-    
-    return user;
 }
 
-+ (instancetype)userWithSocialNetwork:(NSString *)network
++ (void)userWithSocialNetwork:(NSString *)network
                           credentials:(NSDictionary *)credentials
-                             callback:(CMUserOperationCallback)callback;
+                             callback:(void (^) (CMResponseUser *response) )callback;
 {
     CMUser *user = [[self alloc] init];
     [user loginWithSocialNetwork:network
                      credentials:credentials
                      descriptors:nil
                         callback:callback];
-    
-    return user;
 }
 
 #pragma mark - Discovering other users
