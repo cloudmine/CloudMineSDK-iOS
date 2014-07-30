@@ -683,7 +683,7 @@ NSString * const CMSocialNetworkSingly = @"singly";
                    descriptors:(NSArray *)descriptors
                       callback:(void (^) (CMResponseUser *response) )callback;
 {
-    NSString *urlString = [NSString stringWithFormat:@"account/social/%@/user", network];
+    NSString *urlString = [NSString stringWithFormat:@"account/social/%@", network];
     
     NSURL *url = [self.webService constructAppURLWithString:urlString andDescriptors:descriptors];
     NSMutableURLRequest *request = [self.webService constructHTTPRequestWithVerb:@"POST" URL:url binaryData:NO user:self.isLoggedIn ? self : nil];
