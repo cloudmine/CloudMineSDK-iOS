@@ -13,6 +13,7 @@
 #import "CMWebService.h"
 #import "CMConstants.h"
 #import "TestUser.h"
+#import "CMResponseUser.h"
 
 SPEC_BEGIN(CMUserIntegrationSpec)
 
@@ -587,6 +588,56 @@ describe(@"CMUser Integration", ^{
             [[expectFutureValue(use) shouldEventually] beEmpty];
             [[expectFutureValue(err) shouldEventually] beNil];
         });
+    });
+
+    context(@"given a native social CMUser", ^{
+        
+        //
+        // This is specific to CMSocial, and so we need to reset our appid and secret. This can
+        // be removed when we are in production for everyone.
+        //
+        beforeAll(^{
+            [[CMAPICredentials sharedInstance] setAppIdentifier:@"028f6a795835448ea80b8ed38cf98b50"];
+            [[CMAPICredentials sharedInstance] setAppSecret:@"6d6f5ca1a2e74832881a3d2f369ea653"];
+        });
+        
+        __block CMUser *user = nil;
+        it(@"should create a facebook user", ^{
+             NSString *token = @"CAAFcXnZCbxjgBAE7E0O73PutjogY6rZB7PuLymYrWJ8ws4VuHTL8dWGln4ZCzOqup6sRMDWwaZADWDFn5EF52gm4sZAiOuaSZAZCF28fy8SmsYOfAAWejZBeLsEXdpLpZBedJYCx7Q1hAd7MFW43TgcmMZAZB4Q0pTqmisLZAMu89BXPKH7I7o7ephlX769M5HWLxNJideNZCOmlUDvDql70JAsSZB";
+            
+            __block CMResponseUser *res = nil;
+            [CMUser userWithSocialNetwork:CMSocialNetworkFacebook
+                             access_token:token
+                                 callback:^(CMResponseUser *response) {
+                                     res = response;
+                                     [[theValue(response.result) should] equal:theValue(CMUserAccountLoginSucceeded)];
+                                     [[response.user should] beNonNil];
+                                     user = response.user;
+                                     [[theValue(response.user.isLoggedIn) should] beYes];
+                                 }];
+            
+            [[expectFutureValue(res) shouldEventually] beNonNil];
+        });
+        
+        it(@"should let the user add another social account natively", ^{
+            NSString *token = @"310696970-BwAtSY1PB2zKtjjI2u73xYbLhnpz3KCrRaPSCB90";
+            NSString *secret = @"N3iiIDq1unMCFpxBUBuwTrs9coPWV68zvjyTbd2j0tE6F";
+            
+            __block CMResponseUser *res = nil;
+            [user loginWithSocialNetwork:CMSocialNetworkTwitter
+                               oauthToken:token
+                         oauthTokenSecret:secret
+                                 callback:^(CMResponseUser *response) {
+                                     res = response;
+                                     [[theValue(response.result) should] equal:theValue(CMUserAccountLoginSucceeded)];
+                                     [[response.user should] beNonNil];
+                                     [[response.user.services should] haveCountOf:2];
+                                     [[theValue(response.user.isLoggedIn) should] beYes];
+                                 }];
+            
+//            [[expectFutureValue(res) shouldEventually] beNonNil];
+        });
+        
     });
     
 });

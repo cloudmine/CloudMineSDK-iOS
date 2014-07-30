@@ -138,7 +138,7 @@
 		AA5693C31901790300C4A15A /* CMConstants.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA5693C21901790300C4A15A /* CMConstants.h */; };
 		AA5693C71902E90500C4A15A /* CMTestEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5693C61902E90500C4A15A /* CMTestEncoder.m */; };
 		AA5C462B190BFDF60086FBD6 /* cloudmine.png in Resources */ = {isa = PBXBuildFile; fileRef = AA5C462A190BFDF60086FBD6 /* cloudmine.png */; };
-		AA5C462C190C12B30086FBD6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A91E8D814E6EF85008B7941 /* CoreLocation.framework */; };
+		AA5C462C190C12B30086FBD6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A91E8D814E6EF85008B7941 /* CoreLocation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		AA5C462F190C154C0086FBD6 /* CMObjectClassNameRegistrySpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5C462E190C154C0086FBD6 /* CMObjectClassNameRegistrySpec.m */; };
 		AA5C4632190C19990086FBD6 /* CMCoding.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA5C4631190C19990086FBD6 /* CMCoding.h */; };
 		AA61F6CC1940DA5A00A545A0 /* CMACLIntegrationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA61F6CB1940DA5A00A545A0 /* CMACLIntegrationSpec.m */; };
@@ -148,6 +148,8 @@
 		AA7345D11949E138007AAEB0 /* CMUntypedObjectSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7345D01949E138007AAEB0 /* CMUntypedObjectSpec.m */; };
 		AA9528D2194B3FBA00AEB90D /* CMDistanceSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9528D1194B3FBA00AEB90D /* CMDistanceSpec.m */; };
 		AA9528D4194B422800AEB90D /* CMNullStoreSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9528D3194B422800AEB90D /* CMNullStoreSpec.m */; };
+		AA9927C0195C7DBF00C46F02 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA9927BF195C7DBF00C46F02 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		AA9927C2195C7DC700C46F02 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA9927C1195C7DC700C46F02 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		AAA05FB9183A756B009652C9 /* CMPaymentService.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA05FB3183A756B009652C9 /* CMPaymentService.m */; };
 		AAA05FBB183A756B009652C9 /* CMPaymentService.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB4183A756B009652C9 /* CMPaymentService.h */; };
 		AAA05FBC183A756B009652C9 /* CMCardPayment.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB5183A756B009652C9 /* CMCardPayment.h */; };
@@ -164,6 +166,8 @@
 		AAA92FFE181972DA0064F773 /* CMTools.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA92FFC181972DA0064F773 /* CMTools.m */; };
 		AAB2E0B0167B94CF00D2C699 /* CMAppDelegateBase.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB2E0AF167B94CF00D2C699 /* CMAppDelegateBase.m */; };
 		AAB2E0B4167BA05700D2C699 /* CMAppDelegateBase.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAB2E0AE167B94CF00D2C699 /* CMAppDelegateBase.h */; };
+		AAB748DE1986D7CD00988D56 /* CMResponseUser.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAB748DC1986D7CD00988D56 /* CMResponseUser.h */; };
+		AAB748DF1986D7CD00988D56 /* CMResponseUser.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB748DD1986D7CD00988D56 /* CMResponseUser.m */; };
 		AABEE9FB19088809007A26BA /* CMDateSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AABEE9FA19088809007A26BA /* CMDateSpec.m */; };
 		AAC1D8F116DD4BCC002A7DC0 /* CMChannelResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC1D8F016DD4BCC002A7DC0 /* CMChannelResponse.m */; };
 		AAC1D8F416DD51FB002A7DC0 /* CMResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC1D8F316DD51FA002A7DC0 /* CMResponse.m */; };
@@ -225,6 +229,7 @@
 				7AEF7B4B158EB60000BE47B3 /* CMActiveUser.h in CopyFiles */,
 				65199ED5156A84D600267EC6 /* CMDistance.h in CopyFiles */,
 				65199ECD156A847A00267EC6 /* CMDeleteResponse.h in CopyFiles */,
+				AAB748DE1986D7CD00988D56 /* CMResponseUser.h in CopyFiles */,
 				65199ECE156A847A00267EC6 /* CMFileFetchResponse.h in CopyFiles */,
 				65199ECF156A847A00267EC6 /* CMFileUploadResponse.h in CopyFiles */,
 				65199ED0156A847A00267EC6 /* CMObjectFetchResponse.h in CopyFiles */,
@@ -396,6 +401,8 @@
 		AA7345D01949E138007AAEB0 /* CMUntypedObjectSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUntypedObjectSpec.m; sourceTree = "<group>"; };
 		AA9528D1194B3FBA00AEB90D /* CMDistanceSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMDistanceSpec.m; sourceTree = "<group>"; };
 		AA9528D3194B422800AEB90D /* CMNullStoreSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMNullStoreSpec.m; sourceTree = "<group>"; };
+		AA9927BF195C7DBF00C46F02 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		AA9927C1195C7DC700C46F02 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		AAA05FB3183A756B009652C9 /* CMPaymentService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPaymentService.m; sourceTree = "<group>"; };
 		AAA05FB4183A756B009652C9 /* CMPaymentService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPaymentService.h; sourceTree = "<group>"; };
 		AAA05FB5183A756B009652C9 /* CMCardPayment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMCardPayment.h; sourceTree = "<group>"; };
@@ -412,6 +419,8 @@
 		AAA92FFC181972DA0064F773 /* CMTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMTools.m; sourceTree = "<group>"; };
 		AAB2E0AE167B94CF00D2C699 /* CMAppDelegateBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMAppDelegateBase.h; sourceTree = "<group>"; };
 		AAB2E0AF167B94CF00D2C699 /* CMAppDelegateBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMAppDelegateBase.m; sourceTree = "<group>"; };
+		AAB748DC1986D7CD00988D56 /* CMResponseUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMResponseUser.h; sourceTree = "<group>"; };
+		AAB748DD1986D7CD00988D56 /* CMResponseUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMResponseUser.m; sourceTree = "<group>"; };
 		AABEE9FA19088809007A26BA /* CMDateSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMDateSpec.m; sourceTree = "<group>"; };
 		AAC1D8EF16DD4BCB002A7DC0 /* CMChannelResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMChannelResponse.h; path = Response/CMChannelResponse.h; sourceTree = "<group>"; };
 		AAC1D8F016DD4BCC002A7DC0 /* CMChannelResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMChannelResponse.m; path = Response/CMChannelResponse.m; sourceTree = "<group>"; };
@@ -454,6 +463,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA9927C2195C7DC700C46F02 /* Social.framework in Frameworks */,
+				AA9927C0195C7DBF00C46F02 /* Accounts.framework in Frameworks */,
 				AA5C462C190C12B30086FBD6 /* CoreLocation.framework in Frameworks */,
 				7A308A3C14798F29008ADD3C /* libz.dylib in Frameworks */,
 				7A308A3B14798F1D008ADD3C /* CFNetwork.framework in Frameworks */,
@@ -508,6 +519,8 @@
 				AAC1D8F016DD4BCC002A7DC0 /* CMChannelResponse.m */,
 				AAC1D90716DD6CA4002A7DC0 /* CMViewChannelsResponse.h */,
 				AAC1D90816DD6CA5002A7DC0 /* CMViewChannelsResponse.m */,
+				AAB748DC1986D7CD00988D56 /* CMResponseUser.h */,
+				AAB748DD1986D7CD00988D56 /* CMResponseUser.m */,
 			);
 			name = Response;
 			sourceTree = "<group>";
@@ -603,6 +616,8 @@
 		7AB4AB61145DC5D8006AEF67 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AA9927C1195C7DC700C46F02 /* Social.framework */,
+				AA9927BF195C7DBF00C46F02 /* Accounts.framework */,
 				7A308A4B14799471008ADD3C /* libKiwi.a */,
 				7A91E8D814E6EF85008B7941 /* CoreLocation.framework */,
 				7AD36F80146C656600DD4734 /* UIKit.framework */,
@@ -1108,6 +1123,7 @@
 				7AABA2E91480598300FD52A0 /* NSString+UUID.m in Sources */,
 				7AABA30114818DCA00FD52A0 /* CMObjectDecoder.m in Sources */,
 				7AABA30314818DCA00FD52A0 /* CMObjectEncoder.m in Sources */,
+				AAB748DF1986D7CD00988D56 /* CMResponseUser.m in Sources */,
 				7A7E31C914C88F8A0091F1E3 /* CMStore.m in Sources */,
 				7AD9221D14CF47360032DDDE /* CMPagingDescriptor.m in Sources */,
 				7AD9222414D06B9A0032DDDE /* CMStoreOptions.m in Sources */,
