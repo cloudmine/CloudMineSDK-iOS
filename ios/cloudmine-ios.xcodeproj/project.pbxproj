@@ -131,6 +131,12 @@
 		7AFDFE4C158E9EB400388D6E /* CMActiveUserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFDFE4B158E9EB400388D6E /* CMActiveUserSpec.m */; };
 		AA00CED21886E1C700F9958C /* UIImageView+CloudMine.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA00CED01886E1C700F9958C /* UIImageView+CloudMine.h */; };
 		AA00CED31886E1C700F9958C /* UIImageView+CloudMine.m in Sources */ = {isa = PBXBuildFile; fileRef = AA00CED11886E1C700F9958C /* UIImageView+CloudMine.m */; };
+		AA025E3B198AC88300284B5F /* NSMutableURLRequest+CMOAuth.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA025E39198AC88300284B5F /* NSMutableURLRequest+CMOAuth.h */; };
+		AA025E3C198AC88300284B5F /* NSMutableURLRequest+CMOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = AA025E3A198AC88300284B5F /* NSMutableURLRequest+CMOAuth.m */; };
+		AA025E3D198AC88300284B5F /* NSMutableURLRequest+CMOAuth.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA025E3A198AC88300284B5F /* NSMutableURLRequest+CMOAuth.m */; };
+		AA025E40198AC8D700284B5F /* NSURL+CMOAuth.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA025E3E198AC8D700284B5F /* NSURL+CMOAuth.h */; };
+		AA025E41198AC8D700284B5F /* NSURL+CMOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = AA025E3F198AC8D700284B5F /* NSURL+CMOAuth.m */; };
+		AA025E42198AC8D700284B5F /* NSURL+CMOAuth.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA025E3F198AC8D700284B5F /* NSURL+CMOAuth.m */; };
 		AA095166194B6C09008602DB /* CMAPICredentialsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA095165194B6C09008602DB /* CMAPICredentialsSpec.m */; };
 		AA095168194B6CB4008602DB /* CMAppDelegateBaseSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA095167194B6CB4008602DB /* CMAppDelegateBaseSpec.m */; };
 		AA09516D194B7AA7008602DB /* CMPaymentServiceSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA09516C194B7AA7008602DB /* CMPaymentServiceSpec.m */; };
@@ -227,6 +233,7 @@
 				AAA92FF8181967A20064F773 /* NSArray+CMJSON.h in CopyFiles */,
 				7A28002C15922364002C504A /* CMNullStore.h in CopyFiles */,
 				7AEF7B4B158EB60000BE47B3 /* CMActiveUser.h in CopyFiles */,
+				AA025E3D198AC88300284B5F /* NSMutableURLRequest+CMOAuth.m in CopyFiles */,
 				65199ED5156A84D600267EC6 /* CMDistance.h in CopyFiles */,
 				65199ECD156A847A00267EC6 /* CMDeleteResponse.h in CopyFiles */,
 				AAB748DE1986D7CD00988D56 /* CMResponseUser.h in CopyFiles */,
@@ -234,6 +241,8 @@
 				65199ECF156A847A00267EC6 /* CMFileUploadResponse.h in CopyFiles */,
 				65199ED0156A847A00267EC6 /* CMObjectFetchResponse.h in CopyFiles */,
 				65199ED1156A847A00267EC6 /* CMObjectUploadResponse.h in CopyFiles */,
+				AA025E40198AC8D700284B5F /* NSURL+CMOAuth.h in CopyFiles */,
+				AA025E42198AC8D700284B5F /* NSURL+CMOAuth.m in CopyFiles */,
 				65199ED2156A847A00267EC6 /* CMResponseMetadata.h in CopyFiles */,
 				65199ED3156A847A00267EC6 /* CMSnippetResult.h in CopyFiles */,
 				65199ED4156A847A00267EC6 /* CMStoreResponse.h in CopyFiles */,
@@ -259,6 +268,7 @@
 				AAA05FBD183A756B009652C9 /* CMPaymentResponse.h in CopyFiles */,
 				AAA850ED168271B600C18957 /* CMDeviceTokenResult.h in CopyFiles */,
 				AA5693C31901790300C4A15A /* CMConstants.h in CopyFiles */,
+				AA025E3B198AC88300284B5F /* NSMutableURLRequest+CMOAuth.h in CopyFiles */,
 				AA00CED21886E1C700F9958C /* UIImageView+CloudMine.h in CopyFiles */,
 				AAC1D90916DD6CA6002A7DC0 /* CMViewChannelsResponse.h in CopyFiles */,
 				AAA92FF3181966370064F773 /* NSDictionary+CMJSON.h in CopyFiles */,
@@ -383,6 +393,10 @@
 		7AFDFE4B158E9EB400388D6E /* CMActiveUserSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMActiveUserSpec.m; sourceTree = "<group>"; };
 		AA00CED01886E1C700F9958C /* UIImageView+CloudMine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+CloudMine.h"; sourceTree = "<group>"; };
 		AA00CED11886E1C700F9958C /* UIImageView+CloudMine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+CloudMine.m"; sourceTree = "<group>"; };
+		AA025E39198AC88300284B5F /* NSMutableURLRequest+CMOAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableURLRequest+CMOAuth.h"; sourceTree = "<group>"; };
+		AA025E3A198AC88300284B5F /* NSMutableURLRequest+CMOAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableURLRequest+CMOAuth.m"; sourceTree = "<group>"; };
+		AA025E3E198AC8D700284B5F /* NSURL+CMOAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+CMOAuth.h"; sourceTree = "<group>"; };
+		AA025E3F198AC8D700284B5F /* NSURL+CMOAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+CMOAuth.m"; sourceTree = "<group>"; };
 		AA095165194B6C09008602DB /* CMAPICredentialsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMAPICredentialsSpec.m; sourceTree = "<group>"; };
 		AA095167194B6CB4008602DB /* CMAppDelegateBaseSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMAppDelegateBaseSpec.m; sourceTree = "<group>"; };
 		AA09516C194B7AA7008602DB /* CMPaymentServiceSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPaymentServiceSpec.m; sourceTree = "<group>"; };
@@ -530,6 +544,10 @@
 			children = (
 				71E886B516516C3D0060C217 /* CMSocialLoginViewController.h */,
 				71E886B616516C3D0060C217 /* CMSocialLoginViewController.m */,
+				AA025E39198AC88300284B5F /* NSMutableURLRequest+CMOAuth.h */,
+				AA025E3A198AC88300284B5F /* NSMutableURLRequest+CMOAuth.m */,
+				AA025E3E198AC8D700284B5F /* NSURL+CMOAuth.h */,
+				AA025E3F198AC8D700284B5F /* NSURL+CMOAuth.m */,
 			);
 			name = "Social Login";
 			sourceTree = "<group>";
@@ -1129,6 +1147,7 @@
 				7AD9222414D06B9A0032DDDE /* CMStoreOptions.m in Sources */,
 				AAA05FC0183A756B009652C9 /* CMPaymentResponse.m in Sources */,
 				7A58CC2214F1B544003E864B /* CMMimeType.m in Sources */,
+				AA025E41198AC8D700284B5F /* NSURL+CMOAuth.m in Sources */,
 				7AE2848B1562C3C8003E8A8F /* CMSortDescriptor.m in Sources */,
 				65199EC2156A7D9500267EC6 /* CMDeleteResponse.m in Sources */,
 				65199EC3156A7D9500267EC6 /* CMFileFetchResponse.m in Sources */,
@@ -1155,6 +1174,7 @@
 				7AF00BA115A8DC650070442A /* CMUser.m in Sources */,
 				D042C2EB15AF41F100A88888 /* CMACLFetchResponse.m in Sources */,
 				AAA92FFE181972DA0064F773 /* CMTools.m in Sources */,
+				AA025E3C198AC88300284B5F /* NSMutableURLRequest+CMOAuth.m in Sources */,
 				71E886B716516C3D0060C217 /* CMSocialLoginViewController.m in Sources */,
 				AAB2E0B0167B94CF00D2C699 /* CMAppDelegateBase.m in Sources */,
 				AAC1D8F116DD4BCC002A7DC0 /* CMChannelResponse.m in Sources */,
