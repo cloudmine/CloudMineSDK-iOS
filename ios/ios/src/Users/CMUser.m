@@ -396,15 +396,6 @@ NSString * const CMSocialNetworkSingly = @"singly";
 }
 
 
-+ (instancetype)userWithTwitterKey:(NSString *)key secret:(NSString *)secret account:(id)account;
-{
-    
-    
-    
-    
-    return nil;
-}
-
 - (void)changePasswordTo:(NSString *)newPassword from:(NSString *)oldPassword callback:(CMUserOperationCallback)callback {
     [self changeUserCredentialsWithPassword:oldPassword newPassword:newPassword newUsername:nil newEmail:nil callback:callback];
 }
