@@ -137,6 +137,9 @@
 		AA025E40198AC8D700284B5F /* NSURL+CMOAuth.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA025E3E198AC8D700284B5F /* NSURL+CMOAuth.h */; };
 		AA025E41198AC8D700284B5F /* NSURL+CMOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = AA025E3F198AC8D700284B5F /* NSURL+CMOAuth.m */; };
 		AA025E42198AC8D700284B5F /* NSURL+CMOAuth.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA025E3F198AC8D700284B5F /* NSURL+CMOAuth.m */; };
+		AA025E45198BEA9E00284B5F /* CMSocialAccountChooser.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA025E43198BEA9E00284B5F /* CMSocialAccountChooser.h */; };
+		AA025E46198BEA9E00284B5F /* CMSocialAccountChooser.m in Sources */ = {isa = PBXBuildFile; fileRef = AA025E44198BEA9E00284B5F /* CMSocialAccountChooser.m */; };
+		AA025E47198BEA9E00284B5F /* CMSocialAccountChooser.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA025E44198BEA9E00284B5F /* CMSocialAccountChooser.m */; };
 		AA095166194B6C09008602DB /* CMAPICredentialsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA095165194B6C09008602DB /* CMAPICredentialsSpec.m */; };
 		AA095168194B6CB4008602DB /* CMAppDelegateBaseSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA095167194B6CB4008602DB /* CMAppDelegateBaseSpec.m */; };
 		AA09516D194B7AA7008602DB /* CMPaymentServiceSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA09516C194B7AA7008602DB /* CMPaymentServiceSpec.m */; };
@@ -254,6 +257,7 @@
 				7AA79DDD14DC5E4D00F3CA3B /* CloudMine.h in CopyFiles */,
 				7A5C40A814D8B11D00906689 /* CMPagingDescriptor.h in CopyFiles */,
 				7A5C40A914D8B11D00906689 /* CMStoreOptions.h in CopyFiles */,
+				AA025E45198BEA9E00284B5F /* CMSocialAccountChooser.h in CopyFiles */,
 				7A5C40AA14D8B11D00906689 /* CMStoreCallbacks.h in CopyFiles */,
 				7A262E0B14C8F8B0006A03BA /* NSURL+QueryParameterAdditions.h in CopyFiles */,
 				7A262E0C14C8F8B0006A03BA /* CMStore.h in CopyFiles */,
@@ -265,6 +269,7 @@
 				7A87315A14BB0AD0000D6DEA /* CMServerFunction.h in CopyFiles */,
 				AAA05FBC183A756B009652C9 /* CMCardPayment.h in CopyFiles */,
 				7A87315B14BB0AD0000D6DEA /* CMSerializable.h in CopyFiles */,
+				AA025E47198BEA9E00284B5F /* CMSocialAccountChooser.m in CopyFiles */,
 				AAA05FBD183A756B009652C9 /* CMPaymentResponse.h in CopyFiles */,
 				AAA850ED168271B600C18957 /* CMDeviceTokenResult.h in CopyFiles */,
 				AA5693C31901790300C4A15A /* CMConstants.h in CopyFiles */,
@@ -357,7 +362,7 @@
 		7AD36F7C146C650500DD4734 /* CMWebService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMWebService.h; sourceTree = "<group>"; };
 		7AD36F7D146C650500DD4734 /* CMWebService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMWebService.m; sourceTree = "<group>"; };
 		7AD36F80146C656600DD4734 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		7AD36F82146CA4AC00DD4734 /* CMAPICredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMAPICredentials.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		7AD36F82146CA4AC00DD4734 /* CMAPICredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMAPICredentials.h; sourceTree = "<group>"; };
 		7AD36F83146CA4AC00DD4734 /* CMAPICredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMAPICredentials.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7AD36F8B146CB6A600DD4734 /* NSURL+QueryParameterAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+QueryParameterAdditions.h"; sourceTree = "<group>"; };
 		7AD36F8C146CB6A600DD4734 /* NSURL+QueryParameterAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+QueryParameterAdditions.m"; sourceTree = "<group>"; };
@@ -397,6 +402,8 @@
 		AA025E3A198AC88300284B5F /* NSMutableURLRequest+CMOAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableURLRequest+CMOAuth.m"; sourceTree = "<group>"; };
 		AA025E3E198AC8D700284B5F /* NSURL+CMOAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+CMOAuth.h"; sourceTree = "<group>"; };
 		AA025E3F198AC8D700284B5F /* NSURL+CMOAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+CMOAuth.m"; sourceTree = "<group>"; };
+		AA025E43198BEA9E00284B5F /* CMSocialAccountChooser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMSocialAccountChooser.h; sourceTree = "<group>"; };
+		AA025E44198BEA9E00284B5F /* CMSocialAccountChooser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMSocialAccountChooser.m; sourceTree = "<group>"; };
 		AA095165194B6C09008602DB /* CMAPICredentialsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMAPICredentialsSpec.m; sourceTree = "<group>"; };
 		AA095167194B6CB4008602DB /* CMAppDelegateBaseSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMAppDelegateBaseSpec.m; sourceTree = "<group>"; };
 		AA09516C194B7AA7008602DB /* CMPaymentServiceSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPaymentServiceSpec.m; sourceTree = "<group>"; };
@@ -548,6 +555,8 @@
 				AA025E3A198AC88300284B5F /* NSMutableURLRequest+CMOAuth.m */,
 				AA025E3E198AC8D700284B5F /* NSURL+CMOAuth.h */,
 				AA025E3F198AC8D700284B5F /* NSURL+CMOAuth.m */,
+				AA025E43198BEA9E00284B5F /* CMSocialAccountChooser.h */,
+				AA025E44198BEA9E00284B5F /* CMSocialAccountChooser.m */,
 			);
 			name = "Social Login";
 			sourceTree = "<group>";
@@ -1164,6 +1173,7 @@
 				7AFDFE43158E959B00388D6E /* CMFile.m in Sources */,
 				7AFDFE44158E959B00388D6E /* CMGeoPoint.m in Sources */,
 				7AFDFE45158E959B00388D6E /* CMObject.m in Sources */,
+				AA025E46198BEA9E00284B5F /* CMSocialAccountChooser.m in Sources */,
 				7AFDFE46158E959B00388D6E /* CMObjectClassNameRegistry.m in Sources */,
 				7AFDFE47158E959B00388D6E /* CMUntypedObject.m in Sources */,
 				7A0D7CFC1581479000C7C476 /* CMNullStore.m in Sources */,
