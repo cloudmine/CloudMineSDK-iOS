@@ -22,6 +22,12 @@
 #import "CMObjectEncoder.h"
 #import "CMObjectDecoder.h"
 #import "CMObjectSerialization.h"
+#import "CMSocialAccountChooser.h"
+#import "CMResponseUser.h"
+#import <Accounts/Accounts.h>
+#import <Social/Social.h>
+
+@class FBSession;
 
 #define CM_APIKEY_HEADER @"X-CloudMine-ApiKey"
 #define CM_SESSIONTOKEN_HEADER @"X-CloudMine-SessionToken"
@@ -39,6 +45,8 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
 }
 
 @property (nonatomic, copy) NSString *apiUrl;
+@property (nonatomic, strong) ACAccountStore *accountStore;
+@property (nonatomic, strong) CMSocialAccountChooser *picker;
 
 - (NSURL *)constructTextUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys query:(NSString *)searchString pagingOptions:(CMPagingDescriptor *)paging sortingOptions:(CMSortDescriptor *)sorting withServerSideFunction:(CMServerFunction *)function extraParameters:(NSDictionary *)params;
 - (NSURL *)constructBinaryUrlAtUserLevel:(BOOL)atUserLevel withKey:(NSString *)key withServerSideFunction:(CMServerFunction *)function extraParameters:(NSDictionary *)params;
@@ -743,6 +751,113 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
                                           params:(NSDictionary *)params
                                         callback:(CMWebServiceUserAccountOperationCallback)callback;
 {
+    if ([service isEqualToString:CMSocialNetworkTwitter]) {
+        
+        if (!_accountStore) {
+            self.accountStore = [[ACAccountStore alloc] init];
+        }
+        
+        ACAccountType *twitterType = [_accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
+        self.picker = [[CMSocialAccountChooser alloc] init];
+        
+        [_accountStore requestAccessToAccountsWithType:twitterType
+                                                   options:nil
+                                                completion:^(BOOL granted, NSError *error) {
+                                                    if (!granted) {
+                                                        [self.picker wouldLikeToLogInWithAnotherAccountWithCallback:^(BOOL answer) {
+                                                            if (!answer) {
+                                                                /// They do not want to login with Twitter.
+                                                                return;
+                                                            } else {
+                                                                [self loginWithSocialWebView:user
+                                                                                 withService:service
+                                                                              viewController:viewController
+                                                                                      params:params
+                                                                                    callback:callback];
+                                                            }
+                                                        }];
+                                                    } else {
+                                                        /// We've been granted access, but if there are more than 1 account, we don't
+                                                        /// know which one to login to. So we obtain all the local account instances...
+                                                        NSArray *accounts = [self.accountStore accountsWithAccountType:twitterType];
+                                                        [self.picker chooseFromAccounts:accounts
+                                                                          showFrom:viewController
+                                                                          callback:^(id account) {
+                                                                              if ([account isKindOfClass:[NSNumber class]]) {
+                                                                                  [self loginWithSocialWebView:user
+                                                                                                   withService:service
+                                                                                                viewController:viewController
+                                                                                                        params:params
+                                                                                                      callback:callback];
+                                                                              } else if ([account isKindOfClass:[ACAccount class]]) {
+                                                                                  [self reverseOAuthWithAccount:account
+                                                                                                        service:service
+                                                                                                           user:user
+                                                                                                       callback:callback];
+                                                                              }
+                                                                          }];
+                                                        
+                                                        // for simplicity, we will choose the first account returned - in
+                                                        // your app, you should ensure that the user chooses the correct
+                                                        // Twitter account to use with your application.  DO NOT FORGET THIS
+                                                        // STEP.
+                                                        
+                                                    }
+                                                }];
+        return nil;
+        
+    } else if (CMSocialNetworkFacebook) {
+        Class klass = NSClassFromString(@"FBSession");
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        if (klass) {
+            id activeSession = [klass performSelector:NSSelectorFromString(@"activeSession")];
+            if ([activeSession respondsToSelector:NSSelectorFromString(@"accessTokenData")]) {
+                id data = [activeSession performSelector:NSSelectorFromString(@"accessTokenData")];
+                if ([data respondsToSelector:NSSelectorFromString(@"accessToken")]) {
+                    NSString *accessToken = [data performSelector:NSSelectorFromString(@"accessToken")];
+                    if (accessToken) {
+                        [user loginWithSocialNetwork:CMSocialNetworkFacebook
+                                        access_token:accessToken
+                                            callback:^(CMResponseUser *response) {
+                                                if ([response wasSuccess] && callback) {
+                                                    callback(CMUserAccountLoginSucceeded, response.body);
+                                                } else if (![response wasSuccess]) {
+                                                    [self loginWithSocialWebView:user
+                                                                     withService:service
+                                                                  viewController:viewController
+                                                                          params:params
+                                                                        callback:callback];
+                                                }
+                                            }];
+                        return nil;
+                    }
+                }
+            }
+        }
+#pragma clang diagnostic pop
+        
+        return [self loginWithSocialWebView:user
+                                withService:service
+                             viewController:viewController
+                                     params:params
+                                   callback:callback];
+    }else {
+        return [self loginWithSocialWebView:user
+                                withService:service
+                             viewController:viewController
+                                     params:params
+                                   callback:callback];
+    }
+    return nil;
+}
+
+- (CMSocialLoginViewController *)loginWithSocialWebView:(CMUser *)user
+                                            withService:(NSString *)service
+                                         viewController:(UIViewController *)viewController
+                                                 params:(NSDictionary *)params
+                                               callback:(CMWebServiceUserAccountOperationCallback)callback;
+{
     CMSocialLoginViewController *loginViewController = [[CMSocialLoginViewController alloc] initForService:service
                                                                                                      appID:_appIdentifier
                                                                                                     apiKey:_appSecret
@@ -815,6 +930,66 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     if (temporaryCallback) {
         temporaryCallback(CMUserAccountSocialLoginDismissed, nil);
     }
+}
+
+- (void)reverseOAuthWithAccount:(ACAccount *)account service:(NSString *)service user:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
+{
+    //perform API call
+    NSURL *url = [self constructAppURLWithString:[NSString stringWithFormat:@"account/social/%@/reverse", service] andDescriptors:nil];
+    NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url binaryData:NO user:nil]; //TODO: user
+    
+    [self executeGenericRequest:request
+                 successHandler:^(id parsedBody, NSUInteger httpCode, NSDictionary *headers) {
+                     NSLog(@"Parsed Body from Reverse OAuth: %@", parsedBody);
+                     [self makeSLRequestWith:parsedBody[@"consumer_key"] account:account oauth:parsedBody[@"oauth"] user:user callback:callback];
+                 } errorHandler:^(id responseBody, NSUInteger httpCode, NSDictionary *headers, NSError *error, NSDictionary *errorInfo) {
+                     if (callback) {
+                         callback(CMUserAccountUnknownResult, @{@"error": error});
+                     }
+                 }];
+}
+
+- (void)makeSLRequestWith:(NSString *)consumerKey
+                  account:(ACAccount *)account
+                    oauth:(NSString *)oauth
+                     user:(CMUser *)user
+                 callback:(CMWebServiceUserAccountOperationCallback)callback;
+{
+    NSMutableDictionary *step2Params = [[NSMutableDictionary alloc] init];
+    step2Params[@"x_reverse_auth_target"] = consumerKey;
+    step2Params[@"x_reverse_auth_parameters"] = oauth;
+    
+    NSURL *url2 = [NSURL URLWithString:@"https://api.twitter.com/oauth/access_token"];
+    SLRequest *stepTwoRequest = [SLRequest requestForServiceType:SLServiceTypeTwitter
+                                                   requestMethod:SLRequestMethodPOST
+                                                             URL:url2
+                                                      parameters:step2Params];
+    
+    [stepTwoRequest setAccount:account];
+    
+    [stepTwoRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+        NSString *responseStr = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+        NSLog(@"Twitter Request Response: %@", responseStr);
+        [self createUser:user response:responseStr callback:callback];
+    }];
+}
+
+- (void)createUser:(CMUser *)user response:(NSString *)response callback:(CMWebServiceUserAccountOperationCallback)callback;
+{
+    NSArray *parts = [response componentsSeparatedByString:@"&"];
+    NSString *token = [parts[0] componentsSeparatedByString:@"="][1];
+    NSString *secret = [parts[1] componentsSeparatedByString:@"="][1];
+    
+    NSLog(@"Token: %@ - Secret: %@", token, secret);
+    
+    [user loginWithSocialNetwork:CMSocialNetworkTwitter
+                      oauthToken:token
+                oauthTokenSecret:secret
+                        callback:^(CMResponseUser *response) {
+                            if (callback) {
+                                callback(CMUserAccountLoginSucceeded, response.body);
+                            }
+                        }];
 }
 
 
