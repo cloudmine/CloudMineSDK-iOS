@@ -9,7 +9,7 @@
 #import "CMResponse.h"
 #import "CMUser.h"
 
-@interface CMResponseUser : CMResponse
+@interface CMUserResponse : CMResponse
 
 @property (nonatomic) CMUserAccountResult result;
 

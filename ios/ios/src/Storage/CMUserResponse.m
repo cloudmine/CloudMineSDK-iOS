@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 CloudMine, LLC. All rights reserved.
 //
 
-#import "CMResponseUser.h"
+#import "CMUserResponse.h"
 
-@implementation CMResponseUser
+@implementation CMUserResponse
 
 @end

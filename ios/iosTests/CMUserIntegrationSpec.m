@@ -13,7 +13,7 @@
 #import "CMWebService.h"
 #import "CMConstants.h"
 #import "TestUser.h"
-#import "CMResponseUser.h"
+#import "CMUserResponse.h"
 
 SPEC_BEGIN(CMUserIntegrationSpec)
 
@@ -605,10 +605,10 @@ describe(@"CMUser Integration", ^{
         it(@"should create a facebook user", ^{
              NSString *token = @"CAAFcXnZCbxjgBAE7E0O73PutjogY6rZB7PuLymYrWJ8ws4VuHTL8dWGln4ZCzOqup6sRMDWwaZADWDFn5EF52gm4sZAiOuaSZAZCF28fy8SmsYOfAAWejZBeLsEXdpLpZBedJYCx7Q1hAd7MFW43TgcmMZAZB4Q0pTqmisLZAMu89BXPKH7I7o7ephlX769M5HWLxNJideNZCOmlUDvDql70JAsSZB";
             
-            __block CMResponseUser *res = nil;
+            __block CMUserResponse *res = nil;
             [CMUser userWithSocialNetwork:CMSocialNetworkFacebook
                              access_token:token
-                                 callback:^(CMResponseUser *response) {
+                                 callback:^(CMUserResponse *response) {
                                      res = response;
                                      [[theValue(response.result) should] equal:theValue(CMUserAccountLoginSucceeded)];
                                      [[response.user should] beNonNil];
@@ -623,11 +623,11 @@ describe(@"CMUser Integration", ^{
             NSString *token = @"310696970-BwAtSY1PB2zKtjjI2u73xYbLhnpz3KCrRaPSCB90";
             NSString *secret = @"N3iiIDq1unMCFpxBUBuwTrs9coPWV68zvjyTbd2j0tE6F";
             
-            __block CMResponseUser *res = nil;
+            __block CMUserResponse *res = nil;
             [user loginWithSocialNetwork:CMSocialNetworkTwitter
                                oauthToken:token
                          oauthTokenSecret:secret
-                                 callback:^(CMResponseUser *response) {
+                                 callback:^(CMUserResponse *response) {
                                      res = response;
                                      [[theValue(response.result) should] equal:theValue(CMUserAccountLoginSucceeded)];
                                      [[response.user should] beNonNil];

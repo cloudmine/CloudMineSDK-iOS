@@ -13,7 +13,7 @@
 #import "CMObjectEncoder.h"
 #import "CMCardPayment.h"
 #import "NSDictionary+CMJSON.h"
-#import "CMResponseUser.h"
+#import "CMUserResponse.h"
 
 #import "MARTNSObject.h"
 #import "RTProperty.h"
@@ -649,7 +649,7 @@ NSString * const CMSocialNetworkGoogle = @"google";
 // Facebook
 - (void)loginWithSocialNetwork:(NSString *)network
                   access_token:(NSString *)oauthToken
-                      callback:(void (^) (CMResponseUser *response) )callback;
+                      callback:(void (^) (CMUserResponse *response) )callback;
 {
     [self loginWithSocialNetwork:network
                      credentials:@{@"access_token": oauthToken}
@@ -661,7 +661,7 @@ NSString * const CMSocialNetworkGoogle = @"google";
 - (void)loginWithSocialNetwork:(NSString *)network
                     oauthToken:(NSString *)oauthToken
               oauthTokenSecret:(NSString *)oauthTokenSecret
-                      callback:(void (^) (CMResponseUser *response) )callback;
+                      callback:(void (^) (CMUserResponse *response) )callback;
 {
     [self loginWithSocialNetwork:network
                      credentials:@{@"token": oauthToken, @"secret": oauthTokenSecret}
@@ -673,7 +673,7 @@ NSString * const CMSocialNetworkGoogle = @"google";
 - (void)loginWithSocialNetwork:(NSString *)network
                    credentials:(NSDictionary *)credentials
                    descriptors:(NSArray *)descriptors
-                      callback:(void (^) (CMResponseUser *response) )callback;
+                      callback:(void (^) (CMUserResponse *response) )callback;
 {
     NSString *urlString = [NSString stringWithFormat:@"account/social/%@", network];
     
@@ -699,7 +699,7 @@ NSString * const CMSocialNetworkGoogle = @"google";
         }
         
         if (callback) {
-            CMResponseUser *response = [[CMResponseUser alloc] initWithResponseBody:responseBody httpCode:httpCode error:nil];
+            CMUserResponse *response = [[CMUserResponse alloc] initWithResponseBody:responseBody httpCode:httpCode error:nil];
             response.result = CMUserAccountLoginSucceeded;
             response.user = self;
             callback(response);
@@ -708,7 +708,7 @@ NSString * const CMSocialNetworkGoogle = @"google";
         
     } errorHandler:^(id responseBody, NSUInteger httpCode, NSDictionary *headers, NSError *error, NSDictionary *errorInfo) {
         if (callback) {
-            CMResponseUser *response = [[CMResponseUser alloc] initWithResponseBody:responseBody httpCode:httpCode error:error];
+            CMUserResponse *response = [[CMUserResponse alloc] initWithResponseBody:responseBody httpCode:httpCode error:error];
             response.result = CMUserAccountCreateFailedInvalidRequest;
             callback(response);
         }
@@ -717,7 +717,7 @@ NSString * const CMSocialNetworkGoogle = @"google";
 
 + (void)userWithSocialNetwork:(NSString *)network
                          access_token:(NSString *)oauthToken
-                             callback:(void (^) (CMResponseUser *response) )callback;
+                             callback:(void (^) (CMUserResponse *response) )callback;
 {
     CMUser *user = [[self alloc] init];
     [user loginWithSocialNetwork:network
@@ -728,7 +728,7 @@ NSString * const CMSocialNetworkGoogle = @"google";
 + (void)userWithSocialNetwork:(NSString *)network
                            oauthToken:(NSString *)oauthToken
                      oauthTokenSecret:(NSString *)oauthTokenSecret
-                             callback:(void (^) (CMResponseUser *response) )callback;
+                             callback:(void (^) (CMUserResponse *response) )callback;
 {
     CMUser *user = [[self alloc] init];
     [user loginWithSocialNetwork:network
@@ -738,7 +738,7 @@ NSString * const CMSocialNetworkGoogle = @"google";
 
 + (void)userWithSocialNetwork:(NSString *)network
                           credentials:(NSDictionary *)credentials
-                             callback:(void (^) (CMResponseUser *response) )callback;
+                             callback:(void (^) (CMUserResponse *response) )callback;
 {
     CMUser *user = [[self alloc] init];
     [user loginWithSocialNetwork:network

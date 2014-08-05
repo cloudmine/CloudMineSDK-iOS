@@ -14,7 +14,7 @@
 #import "CMObjectDecoder.h"
 #import "CMCardPayment.h"
 #import "CMUserAccountResult.h"
-#import "CMResponseUser.h"
+#import "CMUserResponse.h"
 
 #pragma GCC diagnostic ignored "-Wundeclared-selector"
 
@@ -277,7 +277,7 @@ describe(@"CMUser", ^{
             
             [user loginWithSocialNetwork:CMSocialNetworkFacebook
                             access_token:@"token"
-                                callback:^(CMResponseUser *response) {
+                                callback:^(CMUserResponse *response) {
                                      [[@(response.result) should] equal:@(CMUserAccountCreateFailedInvalidRequest)];
                                 }];
             
@@ -292,7 +292,7 @@ describe(@"CMUser", ^{
             [CMUser userWithSocialNetwork:CMSocialNetworkTwitter
                                oauthToken:@"token"
                          oauthTokenSecret:@"secret"
-                                 callback:^(CMResponseUser *response) {
+                                 callback:^(CMUserResponse *response) {
                          }];
         });
         
@@ -301,7 +301,7 @@ describe(@"CMUser", ^{
             
             [CMUser userWithSocialNetwork:CMSocialNetworkTumblr
                               credentials:@{}
-                                 callback:^(CMResponseUser *response) {
+                                 callback:^(CMUserResponse *response) {
                                   
                               }];
         });

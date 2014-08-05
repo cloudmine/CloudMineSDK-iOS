@@ -13,7 +13,7 @@
 #import "CMSocialLoginViewController.h"
 #import "CMPaymentResponse.h"
 
-@class CMCardPayment, CMResponseUser, ACAccount;
+@class CMCardPayment, CMUserResponse, ACAccount;
 
 /** Social network identifier for Facebook */
 extern NSString * const CMSocialNetworkFacebook;
@@ -183,32 +183,32 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
 // Facebook
 - (void)loginWithSocialNetwork:(NSString *)network
                   access_token:(NSString *)oauthToken
-                      callback:(void (^) (CMResponseUser *response) )callback;
+                      callback:(void (^) (CMUserResponse *response) )callback;
 
 // Twitter
 - (void)loginWithSocialNetwork:(NSString *)network
                     oauthToken:(NSString *)oauthToken
               oauthTokenSecret:(NSString *)oauthTokenSecret
-                      callback:(void (^) (CMResponseUser *response) )callback;
+                      callback:(void (^) (CMUserResponse *response) )callback;
 
 // Ambiguous
 - (void)loginWithSocialNetwork:(NSString *)network
                    credentials:(NSDictionary *)credentials
                    descriptors:(NSArray *)descriptors
-                      callback:(void (^) (CMResponseUser *response) )callback;
+                      callback:(void (^) (CMUserResponse *response) )callback;
 
 + (void)userWithSocialNetwork:(NSString *)network
                          access_token:(NSString *)oauthToken
-                             callback:(void (^) (CMResponseUser *response) )callback;
+                             callback:(void (^) (CMUserResponse *response) )callback;
 
 + (void)userWithSocialNetwork:(NSString *)network
                            oauthToken:(NSString *)oauthToken
                      oauthTokenSecret:(NSString *)oauthTokenSecret
-                             callback:(void (^) (CMResponseUser *response) )callback;
+                             callback:(void (^) (CMUserResponse *response) )callback;
 
 + (void)userWithSocialNetwork:(NSString *)network
                           credentials:(NSDictionary *)credentials
-                             callback:(void (^) (CMResponseUser *response) )callback;
+                             callback:(void (^) (CMUserResponse *response) )callback;
 
 
 /**

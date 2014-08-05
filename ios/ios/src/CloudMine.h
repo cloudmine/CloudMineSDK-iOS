@@ -75,6 +75,6 @@
 #import "CMFileUploadResult.h"
 #import "CMDeleteResponse.h"
 #import "CMChannelResponse.h"
-#import "CMResponseUser.h"
+#import "CMUserResponse.h"
 
 #import "UIImageView+CloudMine.h"

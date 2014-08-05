@@ -23,7 +23,7 @@
 #import "CMObjectDecoder.h"
 #import "CMObjectSerialization.h"
 #import "CMSocialAccountChooser.h"
-#import "CMResponseUser.h"
+#import "CMUserResponse.h"
 #import <Accounts/Accounts.h>
 #import <Social/Social.h>
 
@@ -819,7 +819,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
                     if (accessToken) {
                         [user loginWithSocialNetwork:CMSocialNetworkFacebook
                                         access_token:accessToken
-                                            callback:^(CMResponseUser *response) {
+                                            callback:^(CMUserResponse *response) {
                                                 if ([response wasSuccess] && callback) {
                                                     callback(CMUserAccountLoginSucceeded, response.body);
                                                 } else if (![response wasSuccess]) {
@@ -985,7 +985,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     [user loginWithSocialNetwork:CMSocialNetworkTwitter
                       oauthToken:token
                 oauthTokenSecret:secret
-                        callback:^(CMResponseUser *response) {
+                        callback:^(CMUserResponse *response) {
                             if (callback) {
                                 callback(CMUserAccountLoginSucceeded, response.body);
                             }
