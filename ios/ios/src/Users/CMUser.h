@@ -60,6 +60,9 @@ extern NSString * const CMSocialNetworkYammer;
 /** Social network identifier for Singly */
 extern NSString * const CMSocialNetworkSingly;
 
+/** Social network identifier for Google */
+extern NSString * const CMSocialNetworkGoogle;
+
 /**
  * The block callback for all user account and session operations that take place on an instance of <tt>CMUser</tt>.
  * The block returns <tt>void</tt> and takes a <tt>CMUserAccountResult</tt> code representing the reuslt of the operation,

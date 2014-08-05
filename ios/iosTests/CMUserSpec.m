@@ -14,6 +14,7 @@
 #import "CMObjectDecoder.h"
 #import "CMCardPayment.h"
 #import "CMUserAccountResult.h"
+#import "CMResponseUser.h"
 
 #pragma GCC diagnostic ignored "-Wundeclared-selector"
 
@@ -265,6 +266,44 @@ describe(@"CMUser", ^{
             [[user.tokenExpiration shouldNot] beNil];
             [[user.name should] equal:@"Philip"];
             [[@(user.age) should] equal:@30];
+        });
+        
+        it(@"should return the correct failure when social login fails", ^{
+            KWCaptureSpy *callbackBlockSpy = [[user valueForKey:@"webService"]
+                                              captureArgument:@selector(executeGenericRequest:successHandler:errorHandler:) atIndex:2];
+            [[[user valueForKey:@"webService"] should] receive:@selector(executeGenericRequest:successHandler:errorHandler:) withCount:1];
+            
+            // This first call should trigger the web service call.
+            
+            [user loginWithSocialNetwork:CMSocialNetworkFacebook
+                            access_token:@"token"
+                                callback:^(CMResponseUser *response) {
+                                     [[@(response.result) should] equal:@(CMUserAccountCreateFailedInvalidRequest)];
+                                }];
+            
+            CMWebServiceErorCallack callback = callbackBlockSpy.argument;
+            callback(@{@"Error": @"error message"}, 400, @{}, [NSError new], @{});
+        });
+        
+        it(@"should call the next method for social login", ^{
+            [CMUser captureArgument:@selector(userWithSocialNetwork:credentials:callback:) atIndex:0];
+            [[CMUser should] receive:@selector(userWithSocialNetwork:credentials:callback:)];
+            
+            [CMUser userWithSocialNetwork:CMSocialNetworkTwitter
+                               oauthToken:@"token"
+                         oauthTokenSecret:@"secret"
+                                 callback:^(CMResponseUser *response) {
+                         }];
+        });
+        
+        it(@"should call the next method for social login again", ^{
+            
+            
+            [CMUser userWithSocialNetwork:CMSocialNetworkTumblr
+                              credentials:@{}
+                                 callback:^(CMResponseUser *response) {
+                                  
+                              }];
         });
         
         it(@"should return the correct failure when fetching profile fails", ^{
