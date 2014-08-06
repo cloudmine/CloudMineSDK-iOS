@@ -101,7 +101,6 @@
 		7AABA30314818DCA00FD52A0 /* CMObjectEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AABA2FF14818DCA00FD52A0 /* CMObjectEncoder.m */; };
 		7AAFB49B158017450066B4A4 /* CMMimeTypeSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AAFB49A158017450066B4A4 /* CMMimeTypeSpec.m */; };
 		7AB4AB63145DC5D8006AEF67 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB62145DC5D8006AEF67 /* Foundation.framework */; };
-		7AB4AB71145DC5D8006AEF67 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB70145DC5D8006AEF67 /* SenTestingKit.framework */; };
 		7AB4AB74145DC5D8006AEF67 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB62145DC5D8006AEF67 /* Foundation.framework */; };
 		7AB4AB77145DC5D8006AEF67 /* libcloudmine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4AB5F145DC5D8006AEF67 /* libcloudmine.a */; };
 		7AB4AB7D145DC5D8006AEF67 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7AB4AB7B145DC5D8006AEF67 /* InfoPlist.strings */; };
@@ -345,8 +344,7 @@
 		7AB4AB5F145DC5D8006AEF67 /* libcloudmine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcloudmine.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AB4AB62145DC5D8006AEF67 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7AB4AB66145DC5D8006AEF67 /* cloudmine-ios-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cloudmine-ios-Prefix.pch"; sourceTree = "<group>"; };
-		7AB4AB6F145DC5D8006AEF67 /* cloudmine-iosTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "cloudmine-iosTests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7AB4AB70145DC5D8006AEF67 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		7AB4AB6F145DC5D8006AEF67 /* cloudmine-iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "cloudmine-iosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AB4AB7A145DC5D8006AEF67 /* cloudmine-iosTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "cloudmine-iosTests-Info.plist"; sourceTree = "<group>"; };
 		7AB4AB7C145DC5D8006AEF67 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7AD36F7C146C650500DD4734 /* CMWebService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMWebService.h; sourceTree = "<group>"; };
@@ -479,7 +477,6 @@
 				7A308A3914798F12008ADD3C /* SystemConfiguration.framework in Frameworks */,
 				7A308A3814798F0E008ADD3C /* MobileCoreServices.framework in Frameworks */,
 				7A308A3714798EFD008ADD3C /* UIKit.framework in Frameworks */,
-				7AB4AB71145DC5D8006AEF67 /* SenTestingKit.framework in Frameworks */,
 				7AB4AB74145DC5D8006AEF67 /* Foundation.framework in Frameworks */,
 				7AB4AB77145DC5D8006AEF67 /* libcloudmine.a in Frameworks */,
 				D603907A9479491EA91CF59B /* libPods-cloudmine-iosTests.a in Frameworks */,
@@ -617,7 +614,7 @@
 			isa = PBXGroup;
 			children = (
 				7AB4AB5F145DC5D8006AEF67 /* libcloudmine.a */,
-				7AB4AB6F145DC5D8006AEF67 /* cloudmine-iosTests.octest */,
+				7AB4AB6F145DC5D8006AEF67 /* cloudmine-iosTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -636,7 +633,6 @@
 				7A0413D3146C5B5C00EF537A /* SystemConfiguration.framework */,
 				7A0413D1146C5B5200EF537A /* CFNetwork.framework */,
 				7AB4AB62145DC5D8006AEF67 /* Foundation.framework */,
-				7AB4AB70145DC5D8006AEF67 /* SenTestingKit.framework */,
 				7A0A2F0714BB039800F9D024 /* CoreFoundation.framework */,
 				10E9C54988A94B3FAD882A84 /* libPods-cloudmine-ios.a */,
 				E89859B8B6B3450D8754B649 /* libPods-cloudmine-iosTests.a */,
@@ -918,7 +914,6 @@
 				7AB4AB6A145DC5D8006AEF67 /* Sources */,
 				7AB4AB6B145DC5D8006AEF67 /* Frameworks */,
 				7AB4AB6C145DC5D8006AEF67 /* Resources */,
-				7AB4AB6D145DC5D8006AEF67 /* ShellScript */,
 				BAA7BC150F1A4FDD944A2FD4 /* Copy Pods Resources */,
 				AABEE9F719081815007A26BA /* Delete All Users and Objects */,
 			);
@@ -929,8 +924,8 @@
 			);
 			name = "cloudmine-iosTests";
 			productName = iosTests;
-			productReference = 7AB4AB6F145DC5D8006AEF67 /* cloudmine-iosTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productReference = 7AB4AB6F145DC5D8006AEF67 /* cloudmine-iosTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -938,6 +933,7 @@
 		7AB4AB56145DC5D8006AEF67 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastTestingUpgradeCheck = 0510;
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "CloudMine, LLC";
 			};
@@ -1017,19 +1013,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
 			shellScript = "SIMULATOR_LIBRARY_PATH=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/libcloudmine.a\" &&\nDEVICE_LIBRARY_PATH=\"${BUILD_DIR}/${CONFIGURATION}-iphoneos/libcloudmine.a\" &&\nUNIVERSAL_LIBRARY_DIR=\"${BUILD_DIR}/${CONFIGURATION}-iphoneuniversal\" &&\nUNIVERSAL_LIBRARY_PATH=\"${UNIVERSAL_LIBRARY_DIR}/${PRODUCT_NAME}\" &&\nFRAMEWORK=\"${UNIVERSAL_LIBRARY_DIR}/${PRODUCT_NAME}.framework\" &&\n\n# Create framework directory structure.\nrm -rf \"${FRAMEWORK}\" &&\nrm -rf \"${SRCROOT}/build\" &&\nmkdir -p \"${UNIVERSAL_LIBRARY_DIR}\" &&\nmkdir -p \"${FRAMEWORK}/Versions/A/Headers\" &&\nmkdir -p \"${FRAMEWORK}/Versions/A/Resources\" &&\nmkdir -p \"${SRCROOT}/build\" &&\n\n# Generate universal binary for the device and simulator.\nlipo \"${SIMULATOR_LIBRARY_PATH}\" \"${DEVICE_LIBRARY_PATH}\" -create -output \"${UNIVERSAL_LIBRARY_PATH}\" &&\n\n# Move files to appropriate locations in framework paths.\ncp \"${UNIVERSAL_LIBRARY_PATH}\" \"${FRAMEWORK}/Versions/A\" &&\nln -s \"A\" \"${FRAMEWORK}/Versions/Current\" &&\nln -s \"Versions/Current/Headers\" \"${FRAMEWORK}/Headers\" &&\nln -s \"Versions/Current/Resources\" \"${FRAMEWORK}/Resources\" &&\nln -s \"Versions/Current/${PRODUCT_NAME}\" \"${FRAMEWORK}/${PRODUCT_NAME}\" &&\n\n# Copy the final framework to a nicer location\ncp -RP \"${UNIVERSAL_LIBRARY_DIR}\" \"${SRCROOT}/build\"\n";
-		};
-		7AB4AB6D145DC5D8006AEF67 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
 		8C31EF5B445C4144A496AB8A /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1380,10 +1363,7 @@
 			baseConfigurationReference = 6AE298297FB5425097E1D0EA /* Pods-cloudmine-iosTests.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ios/cloudmine-ios-Prefix.pch";
@@ -1391,7 +1371,6 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "cloudmine-iosTests";
 				USER_HEADER_SEARCH_PATHS = "";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -1400,10 +1379,7 @@
 			baseConfigurationReference = 6AE298297FB5425097E1D0EA /* Pods-cloudmine-iosTests.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ios/cloudmine-ios-Prefix.pch";
@@ -1411,7 +1387,6 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "cloudmine-iosTests";
 				USER_HEADER_SEARCH_PATHS = "";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};

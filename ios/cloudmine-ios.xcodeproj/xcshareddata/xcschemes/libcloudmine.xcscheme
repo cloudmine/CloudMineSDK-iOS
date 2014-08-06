@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7AB4AB6E145DC5D8006AEF67"
-               BuildableName = "cloudmine-iosTests.octest"
+               BuildableName = "cloudmine-iosTests.xctest"
                BlueprintName = "cloudmine-iosTests"
                ReferencedContainer = "container:cloudmine-ios.xcodeproj">
             </BuildableReference>
