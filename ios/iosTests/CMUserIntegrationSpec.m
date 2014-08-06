@@ -633,11 +633,11 @@ describe(@"CMUser Integration", ^{
                                      res = response;
                                      [[theValue(response.result) should] equal:theValue(CMUserAccountLoginSucceeded)];
                                      [[response.user should] beNonNil];
-                                     [[response.user.services should] haveCountOf:2];
+                                     [[response.user.services should] haveCountOfAtLeast:2];
                                      [[theValue(response.user.isLoggedIn) should] beYes];
                                  }];
             
-//            [[expectFutureValue(res) shouldEventually] beNonNil];
+            [[expectFutureValue(res) shouldEventually] beNonNil];
         });
         
     });

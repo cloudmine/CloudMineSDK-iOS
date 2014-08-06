@@ -898,7 +898,6 @@
 				39173848ACD743EFAB994158 /* Check Pods Manifest.lock */,
 				7AB4AB5B145DC5D8006AEF67 /* Sources */,
 				7AB4AB5C145DC5D8006AEF67 /* Frameworks */,
-				AA18E35516DBC683000BC23E /* ShellScript */,
 				8C31EF5B445C4144A496AB8A /* Copy Pods Resources */,
 				AABEE9F81908788F007A26BA /* Code Generation */,
 			);
@@ -1046,19 +1045,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/../Pods/Pods-cloudmine-ios-resources.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		AA18E35516DBC683000BC23E /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#/usr/local/bin/doxygen ios/Doxyfile\n#make -C $SOURCE_ROOT/docs/html install\n\n#rm -f $TEMP_DIR/loadDocSet.scpt\n\n#echo \"tell application \\\"Xcode\\\"\" >> $TEMP_DIR/loadDocSet.scpt\n#echo \"load documentation set with path \\\"/Users/$USER/Library/Developer/Shared/Documentation/DocSets/\\\"\"\n#>> $TEMP_DIR/loadDocSet.scpt\n#echo \"end tell\" >> $TEMP_DIR/loadDocSet.scpt\n\n#  Run the load-docset applescript command.\n#osascript $TEMP_DIR/loadDocSet.scpt";
 		};
 		AABEE9F719081815007A26BA /* Delete All Users and Objects */ = {
 			isa = PBXShellScriptBuildPhase;

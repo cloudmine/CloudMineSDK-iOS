@@ -1,24 +1,18 @@
 PODS:
   - AFNetworking (1.3.4)
-  - Kiwi (2.2.4):
-    - Kiwi/SenTestingKit
-  - Kiwi/ARC (2.2.4)
-  - Kiwi/NonARC (2.2.4)
-  - Kiwi/SenTestingKit (2.2.4):
-    - Kiwi/ARC
-    - Kiwi/NonARC
+  - Kiwi (2.3.0)
   - MAObjCRuntime (0.0.1)
   - NSData+Base64 (1.0.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 1.3.3)
-  - Kiwi (~> 2.2)
+  - Kiwi (~> 2.3)
   - MAObjCRuntime (~> 0.0)
   - NSData+Base64 (~> 1.0)
 
 SPEC CHECKSUMS:
   AFNetworking: 80c4e0652b08eb34e25b9c0ff3c82556fe5967b4
-  Kiwi: c73667f2b84cbf36f1a3830267c5a4ae8dcbd8ba
+  Kiwi: 54bece5b35564d9b8e03c608d926f1a22fcfc589
   MAObjCRuntime: 9e99082c438f06c209203dbd77083cc308d9216a
   NSData+Base64: aae92a2e3f0bd88b29fe6093551ded3f5c062548
 

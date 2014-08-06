@@ -64,7 +64,7 @@
             [sheet showFromTabBar:controller.tabBarController.tabBar];
         } else if (controller.navigationController.toolbar) {
             [sheet showFromToolbar:controller.navigationController.toolbar];
-        } else {
+        } else if (controller.view) {
             [sheet showInView:controller.view];
         }
     });

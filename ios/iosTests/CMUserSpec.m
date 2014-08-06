@@ -287,9 +287,6 @@ describe(@"CMUser", ^{
         });
         
         it(@"should call the next method for social login", ^{
-            [CMUser captureArgument:@selector(userWithSocialNetwork:credentials:callback:) atIndex:0];
-            [[CMUser should] receive:@selector(userWithSocialNetwork:credentials:callback:)];
-            
             [CMUser userWithSocialNetwork:CMSocialNetworkTwitter
                                oauthToken:@"token"
                          oauthTokenSecret:@"secret"
