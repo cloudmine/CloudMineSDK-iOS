@@ -25,7 +25,7 @@ describe(@"CMSocialAccountChooser", ^{
             [[account should] beNil];
         }];
         
-        [chooser performSelector:@selector(alertView:clickedButtonAtIndex:) withObject:nil withObject:@2];
+        [chooser actionSheet:nil clickedButtonAtIndex:2];
     });
     
     it(@"should return a NSNumber when 'Another Account' is tapped", ^{
@@ -35,7 +35,7 @@ describe(@"CMSocialAccountChooser", ^{
             [[account should] beKindOfClass:[NSNumber class]];
         }];
         
-        [chooser performSelector:@selector(alertView:clickedButtonAtIndex:) withObject:nil withObject:@1];
+        [chooser actionSheet:nil clickedButtonAtIndex:1];
     });
     
     it(@"should return the account when tapped", ^{
@@ -45,7 +45,25 @@ describe(@"CMSocialAccountChooser", ^{
             [[account should] beKindOfClass:[ACAccount class]];
         }];
         
-        [chooser performSelector:@selector(alertView:clickedButtonAtIndex:) withObject:nil withObject:@0];
+        [chooser actionSheet:nil clickedButtonAtIndex:0];
+    });
+    
+    it(@"should popup a uialert view (if it could) and say no", ^{
+        CMSocialAccountChooser *chooser = [[CMSocialAccountChooser alloc] init];
+        [chooser wouldLikeToLogInWithAnotherAccountWithCallback:^(BOOL answer) {
+            [[theValue(answer) should] equal:theValue(NO)];
+        }];
+        
+        [chooser alertView:nil clickedButtonAtIndex:0];
+    });
+    
+    it(@"should popup a uialert view (if it could) and say no", ^{
+        CMSocialAccountChooser *chooser = [[CMSocialAccountChooser alloc] init];
+        [chooser wouldLikeToLogInWithAnotherAccountWithCallback:^(BOOL answer) {
+            [[theValue(answer) should] equal:theValue(YES)];
+        }];
+        
+        [chooser alertView:nil clickedButtonAtIndex:1];
     });
 });
 

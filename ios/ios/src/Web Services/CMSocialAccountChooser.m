@@ -28,9 +28,11 @@
                                           cancelButtonTitle:@"No"
                                           otherButtonTitles:@"Yes", nil];
     
+#if TESTING==0
     dispatch_async(dispatch_get_main_queue(), ^{
         [alert show];
     });
+#endif
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
