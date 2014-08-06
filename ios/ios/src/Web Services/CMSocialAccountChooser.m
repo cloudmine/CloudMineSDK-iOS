@@ -50,7 +50,7 @@
     self.pickerCallback = callback;
     self.accounts = accounts;
     
-#warning Overrideable by using Localized strings
+// To do, make localizeable.
     UIActionSheet *sheet = [[UIActionSheet alloc] init];
     sheet.title = @"Login to Twitter";
     sheet.delegate = self;
