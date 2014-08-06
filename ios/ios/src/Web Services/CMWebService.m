@@ -603,6 +603,15 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
 - (void)loginUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
     NSParameterAssert(user);
     
+    if (!user.password) {
+        NSLog(@"*** CLOUDMINE: Attempting to login a user without the password set!");
+        if (callback) {
+            callback(CMUserAccountLoginFailedIncorrectCredentials, @{@"error": [NSError errorWithDomain:CMErrorDomain
+                                                                                                   code:CMErrorUnauthorized
+                                                                                               userInfo:@{NSLocalizedDescriptionKey: @"The request did not have a password."}]});
+        }
+    }
+    
     NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/login", _appIdentifier]];
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
     

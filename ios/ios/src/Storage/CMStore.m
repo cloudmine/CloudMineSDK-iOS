@@ -235,14 +235,14 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     NSAssert([[[UIApplication sharedApplication] delegate] isKindOfClass:[CMAppDelegateBase class]], @"Your Application Delegate MUST Inherit for CMAppDelegateBase in order to register for push notifications in this way!\n \
              If you do not want to inherit from CMAppDelegateBase, you will need to use [CMWebService registerForPushNotificationsWithUser:deviceToken:callback:]");
 
-    if (!user.isLoggedIn) {
+    if (!aUser.isLoggedIn) {
+        NSLog(@"*** CLOUDMINE: Attempting to register for push notifications requires a user that is logged in! The user is either not logged in, or nil!");
         if (callback) {
             callback(CMDeviceTokenOperationFailed);
         }
         return;
     }
     
-    // if user is not logged in, return error.
     CMAppDelegateBase *delegate = [[UIApplication sharedApplication] delegate];
     delegate.callback = callback;
     delegate.user = aUser;

@@ -16,6 +16,6 @@
 
 #define CM_DEFAULT_API_VERSION @"v1"
 
-#define CM_VERSION @"1.6.5"
+#define CM_VERSION @"1.7.0"
 
 #endif
