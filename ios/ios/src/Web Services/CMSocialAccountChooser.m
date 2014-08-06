@@ -60,6 +60,8 @@
     
     
     dispatch_async(dispatch_get_main_queue(), ^{
+/// Kiwi breaks if we try to display anything, so we disable for testing.
+#if TESTING==0
         if (controller.tabBarController.tabBar) {
             [sheet showFromTabBar:controller.tabBarController.tabBar];
         } else if (controller.navigationController.toolbar) {
@@ -67,6 +69,7 @@
         } else if (controller.view) {
             [sheet showInView:controller.view];
         }
+#endif
     });
 }
 

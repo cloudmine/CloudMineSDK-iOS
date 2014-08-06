@@ -132,7 +132,7 @@
 		AA00CED31886E1C700F9958C /* UIImageView+CloudMine.m in Sources */ = {isa = PBXBuildFile; fileRef = AA00CED11886E1C700F9958C /* UIImageView+CloudMine.m */; };
 		AA025E45198BEA9E00284B5F /* CMSocialAccountChooser.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA025E43198BEA9E00284B5F /* CMSocialAccountChooser.h */; };
 		AA025E46198BEA9E00284B5F /* CMSocialAccountChooser.m in Sources */ = {isa = PBXBuildFile; fileRef = AA025E44198BEA9E00284B5F /* CMSocialAccountChooser.m */; };
-		AA025E47198BEA9E00284B5F /* CMSocialAccountChooser.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA025E44198BEA9E00284B5F /* CMSocialAccountChooser.m */; };
+		AA0351A01992AD6A00A3027E /* CMSocialAccountChooserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA03519F1992AD6A00A3027E /* CMSocialAccountChooserSpec.m */; };
 		AA095166194B6C09008602DB /* CMAPICredentialsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA095165194B6C09008602DB /* CMAPICredentialsSpec.m */; };
 		AA095168194B6CB4008602DB /* CMAppDelegateBaseSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA095167194B6CB4008602DB /* CMAppDelegateBaseSpec.m */; };
 		AA09516D194B7AA7008602DB /* CMPaymentServiceSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA09516C194B7AA7008602DB /* CMPaymentServiceSpec.m */; };
@@ -259,7 +259,6 @@
 				7A87315A14BB0AD0000D6DEA /* CMServerFunction.h in CopyFiles */,
 				AAA05FBC183A756B009652C9 /* CMCardPayment.h in CopyFiles */,
 				7A87315B14BB0AD0000D6DEA /* CMSerializable.h in CopyFiles */,
-				AA025E47198BEA9E00284B5F /* CMSocialAccountChooser.m in CopyFiles */,
 				AAA05FBD183A756B009652C9 /* CMPaymentResponse.h in CopyFiles */,
 				AAA850ED168271B600C18957 /* CMDeviceTokenResult.h in CopyFiles */,
 				AA5693C31901790300C4A15A /* CMConstants.h in CopyFiles */,
@@ -388,6 +387,7 @@
 		AA00CED11886E1C700F9958C /* UIImageView+CloudMine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+CloudMine.m"; sourceTree = "<group>"; };
 		AA025E43198BEA9E00284B5F /* CMSocialAccountChooser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMSocialAccountChooser.h; sourceTree = "<group>"; };
 		AA025E44198BEA9E00284B5F /* CMSocialAccountChooser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMSocialAccountChooser.m; sourceTree = "<group>"; };
+		AA03519F1992AD6A00A3027E /* CMSocialAccountChooserSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMSocialAccountChooserSpec.m; sourceTree = "<group>"; };
 		AA095165194B6C09008602DB /* CMAPICredentialsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMAPICredentialsSpec.m; sourceTree = "<group>"; };
 		AA095167194B6CB4008602DB /* CMAppDelegateBaseSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMAppDelegateBaseSpec.m; sourceTree = "<group>"; };
 		AA09516C194B7AA7008602DB /* CMPaymentServiceSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPaymentServiceSpec.m; sourceTree = "<group>"; };
@@ -820,6 +820,7 @@
 				7AD9222514D06EB10032DDDE /* CMStoreOptionsSpec.m */,
 				7A766208156307DF009840EE /* CMSortDescriptorSpec.m */,
 				AA09516C194B7AA7008602DB /* CMPaymentServiceSpec.m */,
+				AA03519F1992AD6A00A3027E /* CMSocialAccountChooserSpec.m */,
 			);
 			name = "Web Services";
 			sourceTree = "<group>";
@@ -1156,6 +1157,7 @@
 				7AABA2E51480549A00FD52A0 /* CMObjectEncoderSpec.m in Sources */,
 				7A6B800D14871BCA00D8B211 /* CMObjectDecoderSpec.m in Sources */,
 				7A6B801114871E3700D8B211 /* CMGenericSerializableObject.m in Sources */,
+				AA0351A01992AD6A00A3027E /* CMSocialAccountChooserSpec.m in Sources */,
 				7A87316614BB309F000D6DEA /* NSMutableData+RandomData.m in Sources */,
 				AA61F6CC1940DA5A00A545A0 /* CMACLIntegrationSpec.m in Sources */,
 				7A7E31C414C603780091F1E3 /* CMGeoPointTest.m in Sources */,
@@ -1240,7 +1242,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/ios/Vendor\"/**";
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
@@ -1259,11 +1261,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/**",
-					"\"$(SRCROOT)/ios/Vendor\"/**",
-				);
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/**";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-all_load";
@@ -1284,7 +1283,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/ios/Vendor\"/**";
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -1295,11 +1294,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/**",
-					"\"$(SRCROOT)/ios/Vendor\"/**",
-				);
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/**";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-all_load";
 				SDKROOT = iphoneos;
@@ -1319,12 +1315,12 @@
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ios/cloudmine-ios-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = (
+				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/ios/Vendor/YAJL/YAJLiOS.framework/Versions/A\"",
+					"TESTING=0",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1344,11 +1340,12 @@
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ios/cloudmine-ios-Prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = (
+				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/ios/Vendor/YAJL/YAJLiOS.framework/Versions/A\"",
+					"TESTING=0",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1367,8 +1364,13 @@
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ios/cloudmine-ios-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"TESTING=0",
+				);
 				INFOPLIST_FILE = "iosTests/cloudmine-iosTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "cloudmine-iosTests";
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -1383,12 +1385,113 @@
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ios/cloudmine-ios-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"TESTING=0",
+				);
 				INFOPLIST_FILE = "iosTests/cloudmine-iosTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "cloudmine-iosTests";
 				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
+		};
+		AA734B711992BD23007E835D /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/**";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = "";
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-all_load";
+				SDKROOT = iphoneos;
+				WARNING_CFLAGS = "-Wno-arc-performSelector-leaks";
+			};
+			name = Test;
+		};
+		AA734B721992BD23007E835D /* Test */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0FD1BF4A50414FD8B55246BB /* Pods-cloudmine-ios.xcconfig */;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1.6.5;
+				DSTROOT = /tmp/ios.dst;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ios/cloudmine-ios-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"TESTING=1",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				PRODUCT_NAME = cloudmine;
+				SKIP_INSTALL = YES;
+			};
+			name = Test;
+		};
+		AA734B731992BD23007E835D /* Test */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6AE298297FB5425097E1D0EA /* Pods-cloudmine-iosTests.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ios/cloudmine-ios-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"TESTING=0",
+				);
+				INFOPLIST_FILE = "iosTests/cloudmine-iosTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				PRODUCT_NAME = "cloudmine-iosTests";
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Test;
+		};
+		AA734B741992BD23007E835D /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Test;
 		};
 /* End XCBuildConfiguration section */
 
@@ -1397,37 +1500,41 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7A87314D14BB09E3000D6DEA /* Debug */,
+				AA734B741992BD23007E835D /* Test */,
 				7A87314E14BB09E3000D6DEA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		7AB4AB59145DC5D8006AEF67 /* Build configuration list for PBXProject "cloudmine-ios" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7AB4AB81145DC5D8006AEF67 /* Debug */,
+				AA734B711992BD23007E835D /* Test */,
 				7AB4AB82145DC5D8006AEF67 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		7AB4AB83145DC5D8006AEF67 /* Build configuration list for PBXNativeTarget "cloudmine-ios" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7AB4AB84145DC5D8006AEF67 /* Debug */,
+				AA734B721992BD23007E835D /* Test */,
 				7AB4AB85145DC5D8006AEF67 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		7AB4AB86145DC5D8006AEF67 /* Build configuration list for PBXNativeTarget "cloudmine-iosTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7AB4AB87145DC5D8006AEF67 /* Debug */,
+				AA734B731992BD23007E835D /* Test */,
 				7AB4AB88145DC5D8006AEF67 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

@@ -621,6 +621,10 @@ describe(@"CMUser Integration", ^{
         });
         
         it(@"should let the user add another social account natively", ^{
+            ///
+            /// If this is broken, you should go to https://apps.twitter.com/app
+            /// and regenerate the access tokens for the app you want to install
+            ///
             NSString *token = @"310696970-BwAtSY1PB2zKtjjI2u73xYbLhnpz3KCrRaPSCB90";
             NSString *secret = @"N3iiIDq1unMCFpxBUBuwTrs9coPWV68zvjyTbd2j0tE6F";
             
