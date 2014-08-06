@@ -45,6 +45,18 @@ NSString * const CMSocialNetworkYammer = @"yammer";
 NSString * const CMSocialNetworkSingly = @"singly";
 NSString * const CMSocialNetworkGoogle = @"google";
 
+///
+/// Private Constants
+///
+NSString * const CMUserJSONSessionTokenKey = @"session_token";
+NSString * const CMUserJSONExpiresKey = @"expires";
+NSString * const CMUserJSONProfileKey = @"profile";
+NSString * const CMUserJSONServicesKey = @"__services__";
+NSString * const CMUserJSONSuccessKey = @"success";
+NSString * const CMUserJSONAccessTokenKey = @"access_token";
+NSString * const CMUserJSONTokenKey = @"token";
+NSString * const CMUserJSONSecretKey = @"secret";
+
 @implementation CMUser
 
 @synthesize userId = _userId; // Delete in Version 2.0
@@ -278,25 +290,32 @@ NSString * const CMSocialNetworkGoogle = @"google";
         NSArray *messages = [NSArray array];
 
         if (result == CMUserAccountLoginSucceeded) {            
-            self.token = [responseBody objectForKey:@"session_token"];
-            
-            self.tokenExpiration = [[self dateFormatter] dateFromString:[responseBody objectForKey:@"expires"]];
-
-            NSDictionary *userProfile = [responseBody objectForKey:@"profile"];
-            objectId = [userProfile objectForKey:CMInternalObjectIdKey];
-            
-            self.services = [[responseBody objectForKey:@"profile"] objectForKey:@"__services__"];
-
-            if (!self.isDirty) {
-                // Only bring the changes from the server into the object state if there weren't local modifications.
-                [self copyValuesFromDictionaryIntoState:userProfile];
-            }
+            [self setUserProperties:responseBody];
         }
 
         if (callback) {
             callback(result, messages);
         }
     }];
+}
+
+- (void)setUserProperties:(NSDictionary *)attributes;
+{
+    if (!attributes) {
+        return;
+    }
+    
+    self.token = [attributes objectForKey:CMUserJSONSessionTokenKey];
+    self.tokenExpiration = [[self dateFormatter] dateFromString:attributes[CMUserJSONExpiresKey]];
+    
+    NSDictionary *userProfile = attributes[CMUserJSONProfileKey];
+    objectId = userProfile[CMInternalObjectIdKey];
+    self.services = userProfile[CMUserJSONServicesKey];
+    
+    if (!self.isDirty) {
+        // Only bring the changes from the server into the object state if there weren't local modifications.
+        [self copyValuesFromDictionaryIntoState:userProfile];
+    }
 }
 
 - (void)logoutWithCallback:(CMUserOperationCallback)callback {
@@ -343,59 +362,6 @@ NSString * const CMSocialNetworkGoogle = @"google";
         }
     }];
 }
-
-- (void)createAccountWithSocialNetwork:(NSString *)network access_token:(NSString *)oauthToken callback:(CMUserOperationCallback)callback;
-{
-    [self createAccountWithSocialNetwork:network credentials:@{@"access_token" : oauthToken} callback:callback];
-}
-
-- (void)createAccountWithSocialNetwork:(NSString *)network
-                            oauthToken:(NSString *)oauthToken
-                      oauthTokenSecret:(NSString *)oauthTokenSecret
-                              callback:(CMUserOperationCallback)callback;
-{
-    [self createAccountWithSocialNetwork:network credentials:@{@"token": oauthToken, @"secret": oauthTokenSecret} callback:callback];
-}
-
-- (void)createAccountWithSocialNetwork:(NSString *)network credentials:(NSDictionary *)credentials callback:(CMUserOperationCallback)callback;
-{
-    NSParameterAssert(network);
-    NSParameterAssert(credentials);
-    
-    NSURL *url = [self.webService constructAppURLWithString:[NSString stringWithFormat:@"account/social/%@/user", network] andDescriptors:nil];
-    NSMutableURLRequest *request = [self.webService constructHTTPRequestWithVerb:@"POST" URL:url binaryData:NO user:nil];
-    [request setHTTPBody:[credentials jsonData]];
-    
-    [self.webService executeGenericRequest:request successHandler:^(id parsedBody, NSUInteger httpCode, NSDictionary *headers) {
-        
-        NSLog(@"Parsed Body: %@", parsedBody);
-        
-        if (parsedBody) {
-            self.token = parsedBody[@"session_token"];
-            self.tokenExpiration = [[self dateFormatter] dateFromString:parsedBody[@"expires"]];
-            
-            NSDictionary *userProfile = parsedBody[@"profile"];
-            objectId = userProfile[CMInternalObjectIdKey];
-            self.services = userProfile[@"__services__"];
-            
-            if (!self.isDirty) {
-                // Only bring the changes from the server into the object state if there weren't local modifications.
-                [self copyValuesFromDictionaryIntoState:userProfile];
-            }
-        }
-        
-        if (callback) {
-            callback(CMUserAccountCreateSucceeded, @[]);
-        }
-        
-    } errorHandler:^(id responseBody, NSUInteger httpCode, NSDictionary *headers, NSError *error, NSDictionary *errorInfo) {
-        
-        if (callback) {
-            callback(CMUserAccountCreateFailedInvalidRequest, @[error]);
-        }
-    }];
-}
-
 
 - (void)changePasswordTo:(NSString *)newPassword from:(NSString *)oldPassword callback:(CMUserOperationCallback)callback {
     [self changeUserCredentialsWithPassword:oldPassword newPassword:newPassword newUsername:nil newEmail:nil callback:callback];
@@ -497,9 +463,7 @@ NSString * const CMSocialNetworkGoogle = @"google";
     NSMutableURLRequest *request = [self.webService constructHTTPRequestWithVerb:@"GET" URL:url binaryData:NO user:self];
     [self.webService executeGenericRequest:request successHandler:^(id parsedBody, NSUInteger httpCode, NSDictionary *headers) {
         
-        NSDictionary *profile = parsedBody[@"success"][self.objectId];
-        
-        NSLog(@"Profile: %@", profile);
+        NSDictionary *profile = parsedBody[CMUserJSONSuccessKey][self.objectId];
         
         if (profile) {
             [self copyValuesFromDictionaryIntoState:profile];
@@ -605,7 +569,7 @@ NSString * const CMSocialNetworkGoogle = @"google";
 
 
 
-#pragma mark - Social login with Singly
+#pragma mark - Social Login
 
 // This code is very similar to login above, perhaps we can refactor.
 - (CMSocialLoginViewController *)loginWithSocialNetwork:(NSString *)service
@@ -619,62 +583,51 @@ NSString * const CMSocialNetworkGoogle = @"google";
                                                       viewController:viewController
                                                               params:params
                                                             callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
-        NSArray *messages = [NSArray array];
-        
         if (result == CMUserAccountLoginSucceeded) {
-            self.token = [responseBody objectForKey:@"session_token"];
-            
-            self.tokenExpiration = [[self dateFormatter] dateFromString:[responseBody objectForKey:@"expires"]];
-            NSDictionary *userProfile = [responseBody objectForKey:@"profile"];
-            objectId = [userProfile objectForKey:CMInternalObjectIdKey];
-            
-            self.services = [[responseBody objectForKey:@"profile"] objectForKey:@"__services__"];
-
-            if (!self.isDirty) {
-                // Only bring the changes from the server into the object state if there weren't local modifications.
-                [self copyValuesFromDictionaryIntoState:userProfile];
-            }
+            [self setUserProperties:responseBody];
         }
         
         if (callback) {
-            callback(result, messages);
+            callback(result, @[]);
         }
     }];
     
     return login;
 }
 
-// Social Native Creation
-
-// Facebook
 - (void)loginWithSocialNetwork:(NSString *)network
-                  access_token:(NSString *)oauthToken
+                   accessToken:(NSString *)accessToken
+                   descriptors:(NSArray *)descriptors
                       callback:(void (^) (CMUserResponse *response) )callback;
 {
     [self loginWithSocialNetwork:network
-                     credentials:@{@"access_token": oauthToken}
-                     descriptors:nil
+                     credentials:@{CMUserJSONAccessTokenKey: accessToken}
+                     descriptors:descriptors
                         callback:callback];
 }
 
-// Twitter
+
 - (void)loginWithSocialNetwork:(NSString *)network
                     oauthToken:(NSString *)oauthToken
               oauthTokenSecret:(NSString *)oauthTokenSecret
+                   descriptors:(NSArray *)descriptors
                       callback:(void (^) (CMUserResponse *response) )callback;
 {
     [self loginWithSocialNetwork:network
-                     credentials:@{@"token": oauthToken, @"secret": oauthTokenSecret}
-                     descriptors:nil
+                     credentials:@{CMUserJSONTokenKey: oauthToken, CMUserJSONSecretKey: oauthTokenSecret}
+                     descriptors:descriptors
                         callback:callback];
 }
 
-// Ambiguous
+
 - (void)loginWithSocialNetwork:(NSString *)network
                    credentials:(NSDictionary *)credentials
                    descriptors:(NSArray *)descriptors
                       callback:(void (^) (CMUserResponse *response) )callback;
 {
+    NSParameterAssert(network);
+    NSParameterAssert(credentials);
+    
     NSString *urlString = [NSString stringWithFormat:@"account/social/%@", network];
     
     NSURL *url = [self.webService constructAppURLWithString:urlString andDescriptors:descriptors];
@@ -683,23 +636,10 @@ NSString * const CMSocialNetworkGoogle = @"google";
     
     [self.webService executeGenericRequest:request successHandler:^(id parsedBody, NSUInteger httpCode, NSDictionary *headers) {
         
-        NSDictionary *responseBody = parsedBody;
-        
-        self.token = [responseBody objectForKey:@"session_token"];
-        self.tokenExpiration = [[self dateFormatter] dateFromString:[responseBody objectForKey:@"expires"]];
-        
-        NSDictionary *userProfile = [responseBody objectForKey:@"profile"];
-        objectId = [userProfile objectForKey:CMInternalObjectIdKey];
-        
-        self.services = [[responseBody objectForKey:@"profile"] objectForKey:@"__services__"];
-        
-        if (!self.isDirty) {
-            // Only bring the changes from the server into the object state if there weren't local modifications.
-            [self copyValuesFromDictionaryIntoState:userProfile];
-        }
+        [self setUserProperties:parsedBody];
         
         if (callback) {
-            CMUserResponse *response = [[CMUserResponse alloc] initWithResponseBody:responseBody httpCode:httpCode error:nil];
+            CMUserResponse *response = [[CMUserResponse alloc] initWithResponseBody:parsedBody httpCode:httpCode error:nil];
             response.result = CMUserAccountLoginSucceeded;
             response.user = self;
             callback(response);
@@ -716,34 +656,40 @@ NSString * const CMSocialNetworkGoogle = @"google";
 }
 
 + (void)userWithSocialNetwork:(NSString *)network
-                         access_token:(NSString *)oauthToken
-                             callback:(void (^) (CMUserResponse *response) )callback;
+                  accessToken:(NSString *)accessToken
+                  descriptors:(NSArray *)descriptors
+                     callback:(void (^) (CMUserResponse *response) )callback;
 {
     CMUser *user = [[self alloc] init];
     [user loginWithSocialNetwork:network
-                    access_token:oauthToken
+                    accessToken:accessToken
+                     descriptors:descriptors
                         callback:callback];
 }
 
 + (void)userWithSocialNetwork:(NSString *)network
-                           oauthToken:(NSString *)oauthToken
-                     oauthTokenSecret:(NSString *)oauthTokenSecret
-                             callback:(void (^) (CMUserResponse *response) )callback;
+                   oauthToken:(NSString *)oauthToken
+             oauthTokenSecret:(NSString *)oauthTokenSecret
+                  descriptors:(NSArray *)descriptors
+                     callback:(void (^) (CMUserResponse *response) )callback;
 {
     CMUser *user = [[self alloc] init];
     [user loginWithSocialNetwork:network
-                    access_token:oauthToken
+                      oauthToken:oauthToken
+                oauthTokenSecret:oauthTokenSecret
+                     descriptors:descriptors
                         callback:callback];
 }
 
 + (void)userWithSocialNetwork:(NSString *)network
-                          credentials:(NSDictionary *)credentials
-                             callback:(void (^) (CMUserResponse *response) )callback;
+                  credentials:(NSDictionary *)credentials
+                  descriptors:(NSArray *)descriptors
+                     callback:(void (^) (CMUserResponse *response) )callback;
 {
     CMUser *user = [[self alloc] init];
     [user loginWithSocialNetwork:network
                      credentials:credentials
-                     descriptors:nil
+                     descriptors:descriptors
                         callback:callback];
 }
 

@@ -39,6 +39,6 @@ end
 # and NSData+Base64 is used in examining base64 data in requests.
 #
 target 'cloudmine-iosTests', :exclusive => true do
-  pod 'Kiwi', '~> 2.2'
+  pod 'Kiwi', '~> 2.3'
   pod 'NSData+Base64', '~> 1.0'
 end

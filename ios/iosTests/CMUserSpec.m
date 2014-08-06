@@ -276,7 +276,8 @@ describe(@"CMUser", ^{
             // This first call should trigger the web service call.
             
             [user loginWithSocialNetwork:CMSocialNetworkFacebook
-                            access_token:@"token"
+                            accessToken:@"token"
+                             descriptors:nil
                                 callback:^(CMUserResponse *response) {
                                      [[@(response.result) should] equal:@(CMUserAccountCreateFailedInvalidRequest)];
                                 }];
@@ -292,15 +293,16 @@ describe(@"CMUser", ^{
             [CMUser userWithSocialNetwork:CMSocialNetworkTwitter
                                oauthToken:@"token"
                          oauthTokenSecret:@"secret"
+                              descriptors:nil
                                  callback:^(CMUserResponse *response) {
                          }];
         });
         
         it(@"should call the next method for social login again", ^{
             
-            
             [CMUser userWithSocialNetwork:CMSocialNetworkTumblr
                               credentials:@{}
+                              descriptors:nil
                                  callback:^(CMUserResponse *response) {
                                   
                               }];

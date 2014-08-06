@@ -607,7 +607,8 @@ describe(@"CMUser Integration", ^{
             
             __block CMUserResponse *res = nil;
             [CMUser userWithSocialNetwork:CMSocialNetworkFacebook
-                             access_token:token
+                              accessToken:token
+                              descriptors:nil
                                  callback:^(CMUserResponse *response) {
                                      res = response;
                                      [[theValue(response.result) should] equal:theValue(CMUserAccountLoginSucceeded)];
@@ -627,6 +628,7 @@ describe(@"CMUser Integration", ^{
             [user loginWithSocialNetwork:CMSocialNetworkTwitter
                                oauthToken:token
                          oauthTokenSecret:secret
+                             descriptors:nil
                                  callback:^(CMUserResponse *response) {
                                      res = response;
                                      [[theValue(response.result) should] equal:theValue(CMUserAccountLoginSucceeded)];

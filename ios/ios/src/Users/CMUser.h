@@ -180,35 +180,106 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
  */
 - (instancetype)initWithEmail:(NSString *)theEmail andUsername:(NSString *)theUsername andPassword:(NSString *)thePassword;
 
-// Facebook
+/**
+ * Logs in to social account given the Access Token associated with it. This can either be used to
+ * link the account, or create a new account. If the user is currently logged (@see isLoggedIn), it will
+ * send the session_token, and link the user. If the user is not logged in it will create the user.
+ * This method is most useful for OAuth 2 social networks, such as Facebook.
+ *
+ * @param network The CMSocialNetwork to login to.
+ * @param accessToken The token that identifies the user. This will be checked server side.
+ * @param descriptors An array of descriptors for the request.
+ * @param callback The block that will be called on completion of the operation.
+ */
 - (void)loginWithSocialNetwork:(NSString *)network
-                  access_token:(NSString *)oauthToken
+                  accessToken:(NSString *)accessToken
+                   descriptors:(NSArray *)descriptors
                       callback:(void (^) (CMUserResponse *response) )callback;
 
-// Twitter
+/**
+ * Logs in to social account given the Token and Secret associated with it. This can either be used to
+ * link the account, or create a new account. If the user is currently logged (@see isLoggedIn), it will
+ * send the session_token, and link the user. If the user is not logged in it will create the user.
+ * This method is most useful for OAuth 1 social networks, such as Twitter.
+ *
+ * @param network The CMSocialNetwork to login to.
+ * @param oauthToken The token that identifies the user. This will be checked server side.
+ * @param oauthTokenSecret The token secret that identifies the user. This will be checked server side.
+ * @param descriptors An array of descriptors for the request.
+ * @param callback The block that will be called on completion of the operation.
+ */
 - (void)loginWithSocialNetwork:(NSString *)network
                     oauthToken:(NSString *)oauthToken
               oauthTokenSecret:(NSString *)oauthTokenSecret
+                   descriptors:(NSArray *)descriptors
                       callback:(void (^) (CMUserResponse *response) )callback;
 
-// Ambiguous
+/**
+ * Logs in to social account given a dictionary of credentials. This can either be used to
+ * link the account, or create a new account. If the user is currently logged (@see isLoggedIn), it will
+ * send the session_token, and link the user. If the user is not logged in it will create the user.
+ * This method will simply serialize the credentials and send it to the server. Developers should
+ * use loginWithSocialNetwork:oauthToken:oauthTokenSecret:callback: or loginWithSocialNetwork:access_token:callback:
+ * instead for convenience.
+ *
+ * @param network The CMSocialNetwork to login to.
+ * @param credentials The set of credentials for the user. This will be checked server side.
+ * @param descriptors An array of descriptors for the request.
+ * @param callback The block that will be called on completion of the operation.
+ */
 - (void)loginWithSocialNetwork:(NSString *)network
                    credentials:(NSDictionary *)credentials
                    descriptors:(NSArray *)descriptors
                       callback:(void (^) (CMUserResponse *response) )callback;
 
+/**
+ * Creates a new user with an access_token for the user. This will create a new user, which
+ * can be accessed from response.user. This method is most useful for OAuth 2 social networks,
+ * such as Facebook.
+ *
+ * @param network The CMSocialNetwork to login to.
+ * @param accessToken The token that identifies the user. This will be checked server side.
+ * @param descriptors An array of descriptors for the request.
+ * @param callback The block that will be called on completion of the operation.
+ */
 + (void)userWithSocialNetwork:(NSString *)network
-                         access_token:(NSString *)oauthToken
-                             callback:(void (^) (CMUserResponse *response) )callback;
+                 accessToken:(NSString *)accessToken
+                  descriptors:(NSArray *)descriptors
+                     callback:(void (^) (CMUserResponse *response) )callback;
 
+/**
+ * Logs in to social account given the Token and Secret associated with it. This can either be used to
+ * link the account, or create a new account. If the user is currently logged (@see isLoggedIn), it will
+ * send the session_token, and link the user. If the user is not logged in it will create the user.
+ * This method is most useful for OAuth 1 social networks, such as Twitter.
+ *
+ * @param network The CMSocialNetwork to login to.
+ * @param oauthToken The token that identifies the user. This will be checked server side.
+ * @param oauthTokenSecret The token secret that identifies the user. This will be checked server side.
+ * @param descriptors An array of descriptors for the request.
+ * @param callback The block that will be called on completion of the operation.
+ */
 + (void)userWithSocialNetwork:(NSString *)network
-                           oauthToken:(NSString *)oauthToken
-                     oauthTokenSecret:(NSString *)oauthTokenSecret
-                             callback:(void (^) (CMUserResponse *response) )callback;
+                   oauthToken:(NSString *)oauthToken
+             oauthTokenSecret:(NSString *)oauthTokenSecret
+                  descriptors:(NSArray *)descriptors
+                     callback:(void (^) (CMUserResponse *response) )callback;
 
+/**
+ * Creates a new user with a dictionary of credentials. This will create a new user, which
+ * can be accessed from response.user. This method will simply serialize the credentials and
+ * send it to the server. Developers should use loginWithSocialNetwork:oauthToken:oauthTokenSecret:callback:
+ * or loginWithSocialNetwork:access_token:callback: instead for convenience.
+ *
+ * @param network The CMSocialNetwork to login to.
+ * @param credentials The set of credentials for the user. This will be checked server side.
+ * @param descriptors An array of descriptors for the request.
+ * @param callback The block that will be called on completion of the operation.
+ */
 + (void)userWithSocialNetwork:(NSString *)network
-                          credentials:(NSDictionary *)credentials
-                             callback:(void (^) (CMUserResponse *response) )callback;
+                  credentials:(NSDictionary *)credentials
+                  descriptors:(NSArray *)descriptors
+                     callback:(void (^) (CMUserResponse *response) )callback;
 
 
 /**

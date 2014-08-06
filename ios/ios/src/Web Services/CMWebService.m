@@ -751,6 +751,20 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
                                           params:(NSDictionary *)params
                                         callback:(CMWebServiceUserAccountOperationCallback)callback;
 {
+    ///
+    /// This method should return a controller no matter what, even if
+    /// the user never ends up seeing it. This is confusing - but in some
+    /// situations the user will be logged in through their already configured
+    /// facebook or twitter accounts. However, access to these is asyncronous
+    /// and uncertain. We return the controller no matter what, and if need
+    /// be, we display it.
+    ///
+    CMSocialLoginViewController *controller =  [self loginWithSocialWebView:user
+                                                                withService:service
+                                                             viewController:viewController
+                                                                     params:params
+                                                                   callback:callback];
+    
     if ([service isEqualToString:CMSocialNetworkTwitter]) {
         
         if (!_accountStore) {
@@ -769,26 +783,19 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
                                                                 /// They do not want to login with Twitter.
                                                                 return;
                                                             } else {
-                                                                [self loginWithSocialWebView:user
-                                                                                 withService:service
-                                                                              viewController:viewController
-                                                                                      params:params
-                                                                                    callback:callback];
+                                                                [viewController presentViewController:controller animated:YES completion:nil];
                                                             }
                                                         }];
                                                     } else {
                                                         /// We've been granted access, but if there are more than 1 account, we don't
                                                         /// know which one to login to. So we obtain all the local account instances...
+                                                        /// Even if they only have 1 account, they may not want to log in to that one.
                                                         NSArray *accounts = [self.accountStore accountsWithAccountType:twitterType];
                                                         [self.picker chooseFromAccounts:accounts
                                                                           showFrom:viewController
                                                                           callback:^(id account) {
                                                                               if ([account isKindOfClass:[NSNumber class]]) {
-                                                                                  [self loginWithSocialWebView:user
-                                                                                                   withService:service
-                                                                                                viewController:viewController
-                                                                                                        params:params
-                                                                                                      callback:callback];
+                                                                                  [viewController presentViewController:controller animated:YES completion:nil];
                                                                               } else if ([account isKindOfClass:[ACAccount class]]) {
                                                                                   [self reverseOAuthWithAccount:account
                                                                                                         service:service
@@ -796,12 +803,6 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
                                                                                                        callback:callback];
                                                                               }
                                                                           }];
-                                                        
-                                                        // for simplicity, we will choose the first account returned - in
-                                                        // your app, you should ensure that the user chooses the correct
-                                                        // Twitter account to use with your application.  DO NOT FORGET THIS
-                                                        // STEP.
-                                                        
                                                     }
                                                 }];
         return nil;
@@ -818,38 +819,26 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
                     NSString *accessToken = [data performSelector:NSSelectorFromString(@"accessToken")];
                     if (accessToken) {
                         [user loginWithSocialNetwork:CMSocialNetworkFacebook
-                                        access_token:accessToken
+                                         accessToken:accessToken
+                                         descriptors:nil
                                             callback:^(CMUserResponse *response) {
                                                 if ([response wasSuccess] && callback) {
                                                     callback(CMUserAccountLoginSucceeded, response.body);
                                                 } else if (![response wasSuccess]) {
-                                                    [self loginWithSocialWebView:user
-                                                                     withService:service
-                                                                  viewController:viewController
-                                                                          params:params
-                                                                        callback:callback];
+                                                    [viewController presentViewController:controller animated:YES completion:nil];
                                                 }
                                             }];
-                        return nil;
+                        return controller;
                     }
                 }
             }
         }
 #pragma clang diagnostic pop
         
-        return [self loginWithSocialWebView:user
-                                withService:service
-                             viewController:viewController
-                                     params:params
-                                   callback:callback];
-    }else {
-        return [self loginWithSocialWebView:user
-                                withService:service
-                             viewController:viewController
-                                     params:params
-                                   callback:callback];
     }
-    return nil;
+    
+    [viewController presentViewController:controller animated:YES completion:nil];
+    return controller;
 }
 
 - (CMSocialLoginViewController *)loginWithSocialWebView:(CMUser *)user
@@ -867,7 +856,6 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     loginViewController.modalPresentationStyle = UIModalPresentationFormSheet;
     loginViewController.delegate = self;
     temporaryCallback = callback;
-    [viewController presentViewController:loginViewController animated:YES completion:NULL];
     return loginViewController;
 }
 
@@ -985,9 +973,12 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     [user loginWithSocialNetwork:CMSocialNetworkTwitter
                       oauthToken:token
                 oauthTokenSecret:secret
+                     descriptors:nil
                         callback:^(CMUserResponse *response) {
-                            if (callback) {
+                            if ([response wasSuccess] && callback) {
                                 callback(CMUserAccountLoginSucceeded, response.body);
+                            } else if (![response wasSuccess] && callback) {
+                                callback(CMUserAccountCreateFailedInvalidRequest, response.body);
                             }
                         }];
 }

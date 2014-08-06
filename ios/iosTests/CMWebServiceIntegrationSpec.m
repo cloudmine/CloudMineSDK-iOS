@@ -89,8 +89,8 @@ describe(@"CMWebServiceIntegration", ^{
                                                                        callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
                                                                            
                                                                        }];
-            
-            [[controller shouldNot] beNil];
+            // Twitter will return nil
+            [[controller should] beNil];
         });
         
         it(@"should fail to login a user without a valid challenge", ^{
