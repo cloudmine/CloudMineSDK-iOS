@@ -703,5 +703,14 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
 
 - (NSURL *)constructAppURLWithString:(NSString *)url andDescriptors:(NSArray *)descriptors;
 
+/**
+ * Moved method to Header now that AFNetworking does not have this same method.
+ * We are keeping it because it centralizes the placement of where operations are
+ * started.
+ * 
+ * @param operation The AFHTTPRequestOperation to start.
+ */
+- (void)enqueueHTTPRequestOperation:(AFHTTPRequestOperation *)operation;
+
 
 @end

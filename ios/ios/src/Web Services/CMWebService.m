@@ -1439,7 +1439,10 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     
 }
 
-- (void)executeGenericRequest:(NSURLRequest *)request successHandler:(CMWebServiceGenericRequestCallback)successHandler errorHandler:(CMWebServiceErorCallack)errorHandler {
+- (void)executeGenericRequest:(NSURLRequest *)request
+               successHandler:(CMWebServiceGenericRequestCallback)successHandler
+                 errorHandler:(CMWebServiceErorCallack)errorHandler;
+{
     
         NSDate *startDate = [NSDate date];
     
