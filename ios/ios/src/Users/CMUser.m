@@ -459,7 +459,7 @@ NSString * const CMUserJSONSecretKey = @"secret";
 
 - (void)getProfile:(CMUserOperationCallback)callback;
 {
-    NSURL *url = [self.webService constructAppURLWithString:@"/account/mine" andDescriptors:nil];
+    NSURL *url = [self.webService constructAppURLWithString:@"account/mine" andDescriptors:nil];
     NSMutableURLRequest *request = [self.webService constructHTTPRequestWithVerb:@"GET" URL:url binaryData:NO user:self];
     [self.webService executeGenericRequest:request successHandler:^(id parsedBody, NSUInteger httpCode, NSDictionary *headers) {
         
