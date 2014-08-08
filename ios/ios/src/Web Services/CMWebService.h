@@ -8,8 +8,7 @@
 
 /** @file */
 
-#import "AFHTTPClient.h"
-
+#import "AFNetworking.h"
 #import "CMFileUploadResult.h"
 #import "CMDeviceTokenResult.h"
 #import "CMUserAccountResult.h"
@@ -90,7 +89,7 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * Base class for all classes concerned with the communication between the client device and the CloudMine
  * web services.
  */
-@interface CMWebService : AFHTTPClient <CMSocialLoginViewControllerDelegate> {
+@interface CMWebService : AFHTTPRequestOperationManager <CMSocialLoginViewControllerDelegate> {
     NSString *_appSecret;
     NSString *_appIdentifier;
 }

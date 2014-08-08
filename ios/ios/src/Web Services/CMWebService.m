@@ -6,8 +6,6 @@
 //  See LICENSE file included with SDK for details.
 //
 
-#import <AFNetworking/AFNetworking.h>
-
 #import "CMWebService.h"
 #import "CMStore.h"
 #import "CMAPICredentials.h"
@@ -24,8 +22,10 @@
 #import "CMObjectSerialization.h"
 #import "CMSocialAccountChooser.h"
 #import "CMUserResponse.h"
+
 #import <Accounts/Accounts.h>
 #import <Social/Social.h>
+#import "AFNetworkActivityIndicatorManager.h"
 
 @class FBSession;
 
@@ -1965,7 +1965,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
 
 - (void)enqueueHTTPRequestOperation:(AFHTTPRequestOperation *)operation {
     [operation setShouldExecuteAsBackgroundTaskWithExpirationHandler:nil];
-    [super enqueueHTTPRequestOperation:operation];
+    [operation start];
 }
 
 - (void)performBlock:(void (^)())block {
