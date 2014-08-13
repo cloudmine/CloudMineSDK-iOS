@@ -121,6 +121,8 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
         _appSecret = appSecret;
         _appIdentifier = appIdentifier;
         _responseTimes = [NSMutableDictionary dictionary];
+        self.responseSerializer = [AFJSONResponseSerializer serializer];
+        self.requestSerializer = [AFJSONRequestSerializer serializer];
         
         // Enable activity indicator in status bar
         [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
@@ -1535,6 +1537,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
             }
             
         }];
+    
     [self enqueueHTTPRequestOperation:operation];
 }
 
@@ -1874,6 +1877,8 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
             [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
         }
     }];
+    
+    requestOperation.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [self enqueueHTTPRequestOperation:requestOperation];
 }
