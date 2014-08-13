@@ -800,7 +800,9 @@ NSString * const CMUserJSONSecretKey = @"secret";
     NSArray *properties = [[self class] rt_properties];
     
     for (RTProperty *prop in properties) {
-        string = [string stringByAppendingFormat:@"\n%@: %@", prop.name, [self valueForKey:prop.name]];
+        if (!([prop.name isEqualToString:@"description"] || [prop.name isEqualToString:@"debugDescription"] )) {
+            string = [string stringByAppendingFormat:@"\n%@: %@", prop.name, [self valueForKey:prop.name]];
+        }
     }
     
     return string;
