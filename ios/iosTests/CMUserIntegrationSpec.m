@@ -27,6 +27,12 @@ describe(@"CMUser Integration", ^{
     beforeAll(^{
         [[CMAPICredentials sharedInstance] setAppIdentifier:@"9977f87e6ae54815b32a663902c3ca65"];
         [[CMAPICredentials sharedInstance] setAppSecret:@"c701d73554594315948c8d3cc0711ac1"];
+        
+        __block CMUserAccountResult code = NSNotFound;
+        [[CMUser currentUser] logoutWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
+            code = resultCode;
+        }];
+        [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountLogoutSucceeded)];
     });
     
     context(@"given a real user", ^{
@@ -45,6 +51,10 @@ describe(@"CMUser Integration", ^{
             
             [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountCreateSucceeded)];
             [[expectFutureValue(mes) shouldEventually] beEmpty];
+        });
+        
+        it(@"should not have a current user", ^{
+            [[[CMUser currentUser] should] beNil];
         });
         
         it(@"should create an account with a username", ^{
@@ -92,6 +102,10 @@ describe(@"CMUser Integration", ^{
             [[expectFutureValue(mes) shouldEventually] beEmpty];
         });
         
+        it(@"should now have a current user", ^{
+            [[[CMUser currentUser] should] beNonNil];
+        });
+        
         it(@"should successfully logout", ^{
             CMUser *user = [[CMUser alloc] initWithEmail:@"test@test.com" andPassword:@"testing"];
             
@@ -111,6 +125,10 @@ describe(@"CMUser Integration", ^{
             [[expectFutureValue(theValue(code)) shouldEventually] equal:@(CMUserAccountLogoutSucceeded)];
             [[expectFutureValue(user.token) shouldEventually] beNil];
             [[expectFutureValue(user.tokenExpiration) shouldEventually] beNil];
+        });
+        
+        it(@"should have no current user after a logout", ^{
+            [[[CMUser currentUser] should] beNil];
         });
         
         it(@"should fail to login when creating a bad account", ^{
