@@ -56,6 +56,7 @@ NSString * const CMUserJSONSuccessKey = @"success";
 NSString * const CMUserJSONAccessTokenKey = @"access_token";
 NSString * const CMUserJSONTokenKey = @"token";
 NSString * const CMUserJSONSecretKey = @"secret";
+NSString * const CMUserDefaultsLocalSaveKey = @"me.cloudmine.CMUserDefaultsLocalSaveKey";
 
 @implementation CMUser
 
@@ -76,29 +77,44 @@ NSString * const CMUserJSONSecretKey = @"secret";
 
 #pragma mark - Constructors
 
-- (id)init {
+static id _private_user = nil;
++ (instancetype)currentUser;
+{
+    if (!_private_user) {
+        _private_user = [CMUser localObjectWithKey:CMUserDefaultsLocalSaveKey];
+    }
+    return _private_user;
+}
+
+- (id)init;
+{
     return [self initWithEmail:nil andUsername:nil andPassword:nil];
 }
 
-- (id)initWithUsername:(NSString *)theUsername andPassword:(NSString *)thePassword {
+- (id)initWithUsername:(NSString *)theUsername andPassword:(NSString *)thePassword;
+{
     return [self initWithEmail:nil andUsername:theUsername andPassword:thePassword];
 }
 
 // Delete in Version 2.0
-- (id)initWithUserId:(NSString *)theUserId andPassword:(NSString *)thePassword {
+- (id)initWithUserId:(NSString *)theUserId andPassword:(NSString *)thePassword;
+{
     return [self initWithEmail:theUserId andUsername:nil andPassword:thePassword];
 }
 
-- (id)initWithEmail:(NSString *)theEmail andPassword:(NSString *)thePassword {
+- (id)initWithEmail:(NSString *)theEmail andPassword:(NSString *)thePassword;
+{
     return [self initWithEmail:theEmail andUsername:nil andPassword:thePassword];
 }
 
 // Delete in Version 2.0
-- (id)initWithUserId:(NSString *)theUserId andUsername:(NSString *)theUsername andPassword:(NSString *)thePassword {
+- (id)initWithUserId:(NSString *)theUserId andUsername:(NSString *)theUsername andPassword:(NSString *)thePassword;
+{
     return [self initWithEmail:theUserId andUsername:theUsername andPassword:thePassword];
 }
 
-- (id)initWithEmail:(NSString *)theEmail andUsername:(NSString *)theUsername andPassword:(NSString *)thePassword {
+- (id)initWithEmail:(NSString *)theEmail andUsername:(NSString *)theUsername andPassword:(NSString *)thePassword;
+{
     if (self = [super init]) {
         self.token = nil;
         self.email = theEmail;
@@ -279,6 +295,7 @@ NSString * const CMUserJSONSecretKey = @"secret";
 - (void)save:(CMUserOperationCallback)callback {
     [_webService saveUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         [self copyValuesFromDictionaryIntoState:responseBody];
+        [self saveLocallyWithKey:CMUserDefaultsLocalSaveKey];
         if (callback) {
             callback(result, [NSArray array]);
         }
@@ -289,7 +306,7 @@ NSString * const CMUserJSONSecretKey = @"secret";
     [_webService loginUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         NSArray *messages = [NSArray array];
 
-        if (result == CMUserAccountLoginSucceeded) {            
+        if (result == CMUserAccountLoginSucceeded) {
             [self setUserProperties:responseBody];
         }
 
@@ -316,14 +333,19 @@ NSString * const CMUserJSONSecretKey = @"secret";
         // Only bring the changes from the server into the object state if there weren't local modifications.
         [self copyValuesFromDictionaryIntoState:userProfile];
     }
+    
+    [self saveLocallyWithKey:CMUserDefaultsLocalSaveKey];
+    _private_user = self;
 }
 
 - (void)logoutWithCallback:(CMUserOperationCallback)callback {
     [_webService logoutUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         NSArray *messages = [NSArray array];
         if (result == CMUserAccountLogoutSucceeded) {
+            _private_user = nil;
             self.token = nil;
             self.tokenExpiration = nil;
+            [CMUser removeLocalObjectWithKey:CMUserDefaultsLocalSaveKey];
         } else {
             messages = [responseBody allValues];
         }
@@ -467,6 +489,7 @@ NSString * const CMUserJSONSecretKey = @"secret";
         
         if (profile) {
             [self copyValuesFromDictionaryIntoState:profile];
+            [self saveLocallyWithKey:CMUserDefaultsLocalSaveKey];
         }
         
         if (callback) {
@@ -779,6 +802,34 @@ NSString * const CMUserJSONSecretKey = @"secret";
 
 + (CMUser *)userFromCacheWithIdentifier:(NSString *)objectId {
     return [[self cachedUsers] objectForKey:objectId];
+}
+
+- (void)saveLocallyWithKey:(NSString *)key;
+{
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:self] forKey:key];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (void)removeLocalObjectWithKey:(NSString *)key;
+{
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (id)localObjectWithKey:(NSString *)key;
+{
+    CMUser *user = nil;
+    NSData *userData = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+    
+    if (userData != nil) {
+        user = [NSKeyedUnarchiver unarchiveObjectWithData:userData];
+    } else {
+        ///
+        ///  No User found...
+        ///
+        return nil;
+    }
+    return user;
 }
 
 #pragma mark - Private stuff

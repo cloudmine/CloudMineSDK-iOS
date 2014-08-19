@@ -63,6 +63,8 @@ extern NSString * const CMSocialNetworkSingly;
 /** Social network identifier for Google */
 extern NSString * const CMSocialNetworkGoogle;
 
+FOUNDATION_EXPORT NSString * const CMUserDefaultsLocalSaveKey;
+
 /**
  * The block callback for all user account and session operations that take place on an instance of <tt>CMUser</tt>.
  * The block returns <tt>void</tt> and takes a <tt>CMUserAccountResult</tt> code representing the reuslt of the operation,
@@ -150,6 +152,15 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
  * The social services the user has linked their profile to.
  */
 @property (atomic, strong) NSArray *services;
+
+
+/**
+ * Gets the current logged in user for this application. If no user is logged in, it will check
+ * NSUserDefaults for a locally saved user and will load it into memory.
+ *
+ * Returns a CMUser or a subclass of one.
+ */
++ (instancetype)currentUser;
 
 /**
  * Initialize the user with an email address and password.
