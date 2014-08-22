@@ -22,7 +22,7 @@ test:	clean build
 	2>&1 \
 	test || exit 1) |  xcpretty -c
 ifeq ($(strip $(TERMINAL_NOTIFIER_INSTALLED)),)
-	@echo NOTIFICATION_ERROR_MSG
+	@echo $(NOTIFICATION_ERROR_MSG)
 else
 	terminal-notifier -group $(NOTIFICATION_GROUP) -title $(NOTIFICATION_TITLE)  -message $(NOTIFICATION_MESSAGE) -activate $(NOTIFICATION_ACTIVATE)
 endif
