@@ -249,29 +249,6 @@ static id _private_user = nil;
     }
 }
 
-- (void)copyValuesFromDictionaryIntoState:(NSDictionary *)dict {
-    for (NSString *key in dict) {
-        if (![CMInternalKeys containsObject:key]) {
-            //
-            // Fix for crashing when the Key and Property named are different
-            //
-            @try {
-                id value = [dict objectForKey:key];
-                if ([[NSNull null] isEqual:value]) {
-                    value = nil;
-                }
-                [self setValue:value forKey:key];
-            }
-            @catch (NSException *e) {
-                #ifdef DEBUG
-                    NSLog(@"Failed to set value: %@ for key: %@", [dict objectForKey:key], key);
-                #endif
-            }
-        }
-    }
-    isDirty = NO;
-}
-
 // Delete in Version 2.0
 - (NSString *)userId {
     @synchronized(self) {
@@ -285,6 +262,52 @@ static id _private_user = nil;
     }
 }
 
+- (void)setProfile:(NSDictionary *)dict;
+{
+    for (NSString *key in dict) {
+        if (![CMInternalKeys containsObject:key]) {
+            //
+            // Fix for crashing when the Key and Property named are different
+            //
+            @try {
+                id value = [dict objectForKey:key];
+                if ([[NSNull null] isEqual:value]) {
+                    value = nil;
+                }
+                [self setValue:value forKey:key];
+            }
+            @catch (NSException *e) {
+#ifdef DEBUG
+                NSLog(@"Failed to set value: %@ for key: %@", [dict objectForKey:key], key);
+#endif
+            }
+        }
+    }
+    isDirty = NO;
+}
+
+- (void)setUserProperties:(NSDictionary *)attributes;
+{
+    if (!attributes) {
+        return;
+    }
+    
+    self.token = [attributes objectForKey:CMUserJSONSessionTokenKey];
+    self.tokenExpiration = [[self dateFormatter] dateFromString:attributes[CMUserJSONExpiresKey]];
+    
+    NSDictionary *userProfile = attributes[CMUserJSONProfileKey];
+    objectId = userProfile[CMInternalObjectIdKey];
+    self.services = userProfile[CMUserJSONServicesKey];
+    
+    if (!self.isDirty) {
+        // Only bring the changes from the server into the object state if there weren't local modifications.
+        [self setProfile:userProfile];
+    }
+    
+    [self saveLocallyWithKey:CMUserDefaultsLocalSaveKey];
+    _private_user = self;
+}
+
 #pragma mark - Remote user account and session operations
 
 - (BOOL)isCreatedRemotely {
@@ -294,7 +317,7 @@ static id _private_user = nil;
 
 - (void)save:(CMUserOperationCallback)callback {
     [_webService saveUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
-        [self copyValuesFromDictionaryIntoState:responseBody];
+        [self setProfile:responseBody];
         [self saveLocallyWithKey:CMUserDefaultsLocalSaveKey];
         if (callback) {
             callback(result, [NSArray array]);
@@ -314,28 +337,6 @@ static id _private_user = nil;
             callback(result, messages);
         }
     }];
-}
-
-- (void)setUserProperties:(NSDictionary *)attributes;
-{
-    if (!attributes) {
-        return;
-    }
-    
-    self.token = [attributes objectForKey:CMUserJSONSessionTokenKey];
-    self.tokenExpiration = [[self dateFormatter] dateFromString:attributes[CMUserJSONExpiresKey]];
-    
-    NSDictionary *userProfile = attributes[CMUserJSONProfileKey];
-    objectId = userProfile[CMInternalObjectIdKey];
-    self.services = userProfile[CMUserJSONServicesKey];
-    
-    if (!self.isDirty) {
-        // Only bring the changes from the server into the object state if there weren't local modifications.
-        [self copyValuesFromDictionaryIntoState:userProfile];
-    }
-    
-    [self saveLocallyWithKey:CMUserDefaultsLocalSaveKey];
-    _private_user = self;
 }
 
 - (void)logoutWithCallback:(CMUserOperationCallback)callback {
@@ -488,7 +489,7 @@ static id _private_user = nil;
         NSDictionary *profile = parsedBody[CMUserJSONSuccessKey][self.objectId];
         
         if (profile) {
-            [self copyValuesFromDictionaryIntoState:profile];
+            [self setProfile:profile];
             [self saveLocallyWithKey:CMUserDefaultsLocalSaveKey];
         }
         
