@@ -27,6 +27,13 @@ else
 	terminal-notifier -group $(NOTIFICATION_GROUP) -title $(NOTIFICATION_TITLE)  -message $(NOTIFICATION_MESSAGE) -activate $(NOTIFICATION_ACTIVATE)
 endif
 
+
+jenkins:
+	xcodebuild -workspace cm-ios.xcworkspace \
+	-scheme libcloudmine \
+	-destination 'platform=iOS Simulator,name=iPhone Retina (4-inch)' \
+	test
+
 clean:
 	xcodebuild -workspace cm-ios.xcworkspace \
 	-scheme libcloudmine \
