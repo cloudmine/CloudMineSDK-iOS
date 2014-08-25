@@ -262,7 +262,7 @@ static id _private_user = nil;
     }
 }
 
-- (void)setProfile:(NSDictionary *)dict;
+- (void)setProfile:(NSDictionary *)dict saveLocally:(BOOL)saveLocally;
 {
     for (NSString *key in dict) {
         if (![CMInternalKeys containsObject:key]) {
@@ -283,6 +283,12 @@ static id _private_user = nil;
             }
         }
     }
+    
+    if (saveLocally) {
+        [self saveLocallyWithKey:CMUserDefaultsLocalSaveKey];
+        _private_user = self;
+    }
+    
     isDirty = NO;
 }
 
@@ -301,7 +307,7 @@ static id _private_user = nil;
     
     if (!self.isDirty) {
         // Only bring the changes from the server into the object state if there weren't local modifications.
-        [self setProfile:userProfile];
+        [self setProfile:userProfile saveLocally:NO];
     }
     
     [self saveLocallyWithKey:CMUserDefaultsLocalSaveKey];
@@ -317,8 +323,7 @@ static id _private_user = nil;
 
 - (void)save:(CMUserOperationCallback)callback {
     [_webService saveUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
-        [self setProfile:responseBody];
-        [self saveLocallyWithKey:CMUserDefaultsLocalSaveKey];
+        [self setProfile:responseBody saveLocally:YES];
         if (callback) {
             callback(result, [NSArray array]);
         }
@@ -489,8 +494,7 @@ static id _private_user = nil;
         NSDictionary *profile = parsedBody[CMUserJSONSuccessKey][self.objectId];
         
         if (profile) {
-            [self setProfile:profile];
-            [self saveLocallyWithKey:CMUserDefaultsLocalSaveKey];
+            [self setProfile:profile saveLocally:YES];
         }
         
         if (callback) {
