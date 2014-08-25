@@ -20,7 +20,7 @@ SPEC_BEGIN(CMUserIntegrationSpec)
 ///
 /// If this assertion fails, command click the macro, and change the default to 2.0
 ///
-assert(kKW_DEFAULT_PROBE_TIMEOUT == 2.0);
+//assert(kKW_DEFAULT_PROBE_TIMEOUT == 2.0);
 
 describe(@"CMUser Integration", ^{
     
