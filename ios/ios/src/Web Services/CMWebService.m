@@ -792,6 +792,9 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
                                                         [self.picker wouldLikeToLogInWithAnotherAccountWithCallback:^(BOOL answer) {
                                                             if (!answer) {
                                                                 /// They do not want to login with Twitter.
+                                                                if (callback) {
+                                                                    callback(CMUserAccountSocialLoginDismissed, @{CMErrorDomain: @"User does not want to login with another Twitter Account."});
+                                                                }
                                                                 return;
                                                             } else {
                                                                 [viewController presentViewController:controller animated:YES completion:nil];
