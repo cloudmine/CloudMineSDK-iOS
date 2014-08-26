@@ -815,6 +815,10 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
                                                                                                         service:service
                                                                                                            user:user
                                                                                                        callback:callback];
+                                                                              } else {
+                                                                                  if (callback) {
+                                                                                      callback(CMUserAccountSocialLoginDismissed, @{CMErrorDomain: @"User does not want to login with a Twitter Account."});
+                                                                                  }
                                                                               }
                                                                           }];
                                                     }
