@@ -6,8 +6,6 @@
 //  See LICENSE file included with SDK for details.
 //
 
-#import <AFNetworking/AFNetworking.h>
-
 #import "CMWebService.h"
 #import "CMStore.h"
 #import "CMAPICredentials.h"
@@ -24,8 +22,10 @@
 #import "CMObjectSerialization.h"
 #import "CMSocialAccountChooser.h"
 #import "CMUserResponse.h"
+
 #import <Accounts/Accounts.h>
 #import <Social/Social.h>
+#import "AFNetworkActivityIndicatorManager.h"
 
 @class FBSession;
 
@@ -121,6 +121,8 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
         _appSecret = appSecret;
         _appIdentifier = appIdentifier;
         _responseTimes = [NSMutableDictionary dictionary];
+        self.responseSerializer = [AFJSONResponseSerializer serializer];
+        self.requestSerializer = [AFJSONRequestSerializer serializer];
         
         // Enable activity indicator in status bar
         [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
@@ -603,6 +605,15 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
 - (void)loginUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback {
     NSParameterAssert(user);
     
+    if (!user.password) {
+        NSLog(@"*** CLOUDMINE: Attempting to login a user without the password set!");
+        if (callback) {
+            callback(CMUserAccountLoginFailedIncorrectCredentials, @{@"error": [NSError errorWithDomain:CMErrorDomain
+                                                                                                   code:CMErrorUnauthorized
+                                                                                               userInfo:@{NSLocalizedDescriptionKey: @"The request did not have a password."}]});
+        }
+    }
+    
     NSURL *url = [NSURL URLWithString:[self.apiUrl stringByAppendingFormat:@"/app/%@/account/login", _appIdentifier]];
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"POST" URL:url appSecret:_appSecret binaryData:NO user:nil];
     
@@ -781,6 +792,9 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
                                                         [self.picker wouldLikeToLogInWithAnotherAccountWithCallback:^(BOOL answer) {
                                                             if (!answer) {
                                                                 /// They do not want to login with Twitter.
+                                                                if (callback) {
+                                                                    callback(CMUserAccountSocialLoginDismissed, @{CMErrorDomain: @"User does not want to login with another Twitter Account."});
+                                                                }
                                                                 return;
                                                             } else {
                                                                 [viewController presentViewController:controller animated:YES completion:nil];
@@ -801,6 +815,10 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
                                                                                                         service:service
                                                                                                            user:user
                                                                                                        callback:callback];
+                                                                              } else {
+                                                                                  if (callback) {
+                                                                                      callback(CMUserAccountSocialLoginDismissed, @{CMErrorDomain: @"User does not want to login with a Twitter Account."});
+                                                                                  }
                                                                               }
                                                                           }];
                                                     }
@@ -1430,7 +1448,10 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     
 }
 
-- (void)executeGenericRequest:(NSURLRequest *)request successHandler:(CMWebServiceGenericRequestCallback)successHandler errorHandler:(CMWebServiceErorCallack)errorHandler {
+- (void)executeGenericRequest:(NSURLRequest *)request
+               successHandler:(CMWebServiceGenericRequestCallback)successHandler
+                 errorHandler:(CMWebServiceErorCallack)errorHandler;
+{
     
         NSDate *startDate = [NSDate date];
     
@@ -1523,6 +1544,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
             }
             
         }];
+    
     [self enqueueHTTPRequestOperation:operation];
 }
 
@@ -1863,6 +1885,8 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
         }
     }];
     
+    requestOperation.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
     [self enqueueHTTPRequestOperation:requestOperation];
 }
 
@@ -1956,7 +1980,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
 
 - (void)enqueueHTTPRequestOperation:(AFHTTPRequestOperation *)operation {
     [operation setShouldExecuteAsBackgroundTaskWithExpirationHandler:nil];
-    [super enqueueHTTPRequestOperation:operation];
+    [operation start];
 }
 
 - (void)performBlock:(void (^)())block {

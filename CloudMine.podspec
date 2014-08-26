@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "CloudMine"
-  s.version      = "1.7.0"
+  s.version      = "1.7.1"
   s.summary      = "The iOS Framework for interacting with the CloudMine platform."
   s.homepage     = "https://cloudmine.me/docs/ios/reference"
   s.license      = 'MIT'
@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.xcconfig = { 'OTHER_LDFLAGS' => '-ObjC' }
 
-  s.dependency 'AFNetworking', '~> 1.3.4'
+  s.dependency 'AFNetworking', '~> 2.3'
   s.dependency 'MAObjCRuntime', '~> 0.0.1'
 
   s.prefix_header_contents = '#import <SystemConfiguration/SystemConfiguration.h>', '#import <MobileCoreServices/MobileCoreServices.h>'

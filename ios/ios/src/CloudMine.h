@@ -76,5 +76,8 @@
 #import "CMDeleteResponse.h"
 #import "CMChannelResponse.h"
 #import "CMUserResponse.h"
+#import "CMPaymentService.h"
+#import "CMPaymentResponse.h"
+#import "CMCardPayment.h"
 
 #import "UIImageView+CloudMine.h"

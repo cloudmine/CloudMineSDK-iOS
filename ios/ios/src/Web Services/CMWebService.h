@@ -8,8 +8,7 @@
 
 /** @file */
 
-#import "AFHTTPClient.h"
-
+#import "AFNetworking.h"
 #import "CMFileUploadResult.h"
 #import "CMDeviceTokenResult.h"
 #import "CMUserAccountResult.h"
@@ -90,7 +89,7 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * Base class for all classes concerned with the communication between the client device and the CloudMine
  * web services.
  */
-@interface CMWebService : AFHTTPClient <CMSocialLoginViewControllerDelegate> {
+@interface CMWebService : AFHTTPRequestOperationManager <CMSocialLoginViewControllerDelegate> {
     NSString *_appSecret;
     NSString *_appIdentifier;
 }
@@ -703,6 +702,15 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
 - (NSMutableURLRequest *)constructHTTPRequestWithVerb:(NSString *)verb URL:(NSURL *)url binaryData:(BOOL)isForBinaryData user:(CMUser *)user;
 
 - (NSURL *)constructAppURLWithString:(NSString *)url andDescriptors:(NSArray *)descriptors;
+
+/**
+ * Moved method to Header now that AFNetworking does not have this same method.
+ * We are keeping it because it centralizes the placement of where operations are
+ * started.
+ * 
+ * @param operation The AFHTTPRequestOperation to start.
+ */
+- (void)enqueueHTTPRequestOperation:(AFHTTPRequestOperation *)operation;
 
 
 @end
