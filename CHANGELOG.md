@@ -1,6 +1,12 @@
 HEAD
 =====
 
+v1.7.1 (August 26, 2014)
+========================
+* Added "google" CMSocialIdentifier
+* Added "currentUser" method to get the current user. This also persists and saves the user between app launches.
+* Added callbacks to Social Login with the user cancels from a native login.
+
 v1.7.0 (August 6, 2014)
 =======================
 * Added new methods on CMUser that allow a user to be created directly with a access_token or oauthtoken/secret
@@ -11,8 +17,6 @@ v1.7.0 (August 6, 2014)
 * Added nested CMObjects.
 * Updated push notifications to have a nice error message when attempting to register without a logged in user.
 * Removed check in code to ensure a user is logged in, which could cause a crash.
-
-
 
 v1.5.7 (March 12, 2013)
 =======================
