@@ -18,6 +18,7 @@
 #import "CMWebService.h"
 #import "CMUser.h"
 #import "CMWebService.h"
+#import "CMTestProtocolObject.h"
 
 @interface CustomObject : CMObject
 @property (nonatomic, retain) NSString *something;
@@ -63,6 +64,11 @@ describe(@"CMObject", ^{
         obj = [[CMObject alloc] init];
         store = [CMStore defaultStore];
         store.webService = [CMWebService nullMock];
+    });
+    
+    it(@"should have a description", ^{
+        CMTestProtocolObject *testing = [[CMTestProtocolObject alloc] init];
+        [[[testing description] should] beNonNil];
     });
 
     context(@"given an object that belongs to an app-level store", ^{

@@ -316,7 +316,7 @@
 {
     NSString *string = [[NSString alloc] init];
     
-    NSArray *properties = [[self class] rt_properties];
+    NSArray *properties = [[self class] rt_ivars];
     
     for (RTProperty *prop in properties) {
         if (!([prop.name isEqualToString:@"description"] || [prop.name isEqualToString:@"debugDescription"] )) {
