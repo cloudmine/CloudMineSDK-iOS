@@ -143,6 +143,7 @@
 		AA5C462C190C12B30086FBD6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A91E8D814E6EF85008B7941 /* CoreLocation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		AA5C462F190C154C0086FBD6 /* CMObjectClassNameRegistrySpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5C462E190C154C0086FBD6 /* CMObjectClassNameRegistrySpec.m */; };
 		AA5C4632190C19990086FBD6 /* CMCoding.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA5C4631190C19990086FBD6 /* CMCoding.h */; };
+		AA61248819B90DA700358E51 /* CMTestProtocolObject.m in Sources */ = {isa = PBXBuildFile; fileRef = AA61248719B90DA700358E51 /* CMTestProtocolObject.m */; };
 		AA61F6CC1940DA5A00A545A0 /* CMACLIntegrationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA61F6CB1940DA5A00A545A0 /* CMACLIntegrationSpec.m */; };
 		AA7345C91949185F007AAEB0 /* CMExtensionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7345C81949185F007AAEB0 /* CMExtensionsSpec.m */; };
 		AA7345CC19491F16007AAEB0 /* UIImageWithCloudMineIntegrationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7345CB19491F16007AAEB0 /* UIImageWithCloudMineIntegrationSpec.m */; };
@@ -399,6 +400,9 @@
 		AA5C462A190BFDF60086FBD6 /* cloudmine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloudmine.png; sourceTree = "<group>"; };
 		AA5C462E190C154C0086FBD6 /* CMObjectClassNameRegistrySpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectClassNameRegistrySpec.m; sourceTree = "<group>"; };
 		AA5C4631190C19990086FBD6 /* CMCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMCoding.h; sourceTree = "<group>"; };
+		AA61248519B90D7C00358E51 /* CMTestProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMTestProtocol.h; sourceTree = "<group>"; };
+		AA61248619B90DA700358E51 /* CMTestProtocolObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMTestProtocolObject.h; sourceTree = "<group>"; };
+		AA61248719B90DA700358E51 /* CMTestProtocolObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMTestProtocolObject.m; sourceTree = "<group>"; };
 		AA61F6CB1940DA5A00A545A0 /* CMACLIntegrationSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMACLIntegrationSpec.m; sourceTree = "<group>"; };
 		AA7345C81949185F007AAEB0 /* CMExtensionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMExtensionsSpec.m; sourceTree = "<group>"; };
 		AA7345CB19491F16007AAEB0 /* UIImageWithCloudMineIntegrationSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageWithCloudMineIntegrationSpec.m; sourceTree = "<group>"; };
@@ -559,6 +563,9 @@
 				AA104FE7196326D70043C141 /* TestUser.m */,
 				AAE9220B194B8A88004DA1AC /* Venue.h */,
 				AAE9220C194B8A88004DA1AC /* Venue.m */,
+				AA61248519B90D7C00358E51 /* CMTestProtocol.h */,
+				AA61248619B90DA700358E51 /* CMTestProtocolObject.h */,
+				AA61248719B90DA700358E51 /* CMTestProtocolObject.m */,
 				AAE9220E194B8B7B004DA1AC /* venues.plist */,
 			);
 			path = Support;
@@ -1186,6 +1193,7 @@
 				7AFDFE4C158E9EB400388D6E /* CMActiveUserSpec.m in Sources */,
 				AA095166194B6C09008602DB /* CMAPICredentialsSpec.m in Sources */,
 				7A28003D15923446002C504A /* CMUserSpec.m in Sources */,
+				AA61248819B90DA700358E51 /* CMTestProtocolObject.m in Sources */,
 				D039C16715BDEB77005CCD33 /* CMACLSpec.m in Sources */,
 				AA095168194B6CB4008602DB /* CMAppDelegateBaseSpec.m in Sources */,
 				D039C16A15BEEB44005CCD33 /* CMACLFetchResponseSpec.m in Sources */,
