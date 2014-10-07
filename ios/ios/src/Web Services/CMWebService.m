@@ -48,18 +48,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
 @property (nonatomic, strong) ACAccountStore *accountStore;
 @property (nonatomic, strong) CMSocialAccountChooser *picker;
 
-- (NSURL *)constructTextUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys query:(NSString *)searchString pagingOptions:(CMPagingDescriptor *)paging sortingOptions:(CMSortDescriptor *)sorting withServerSideFunction:(CMServerFunction *)function extraParameters:(NSDictionary *)params;
-- (NSURL *)constructBinaryUrlAtUserLevel:(BOOL)atUserLevel withKey:(NSString *)key withServerSideFunction:(CMServerFunction *)function extraParameters:(NSDictionary *)params;
-- (NSURL *)constructDataUrlAtUserLevel:(BOOL)atUserLevel withKeys:(NSArray *)keys withServerSideFunction:(CMServerFunction *)function extraParameters:(NSDictionary *)params;
-- (NSMutableURLRequest *)constructHTTPRequestWithVerb:(NSString *)verb URL:(NSURL *)url appSecret:(NSString *)appSecret binaryData:(BOOL)isForBinaryData user:(CMUser *)user;
-- (void)executeUserAccountActionRequest:(NSURLRequest *)request codeMapper:(_CMWebServiceAccountResponseCodeMapper)codeMapper callback:(CMWebServiceUserAccountOperationCallback)callback;
-- (void)executeRequest:(NSURLRequest *)request successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
-- (void)executeBinaryDataFetchRequest:(NSURLRequest *)request successHandler:(CMWebServiceFileFetchSuccessCallback)successHandler  errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
-- (void)executeBinaryDataUploadRequest:(NSURLRequest *)request successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
-- (NSURL *)constructAccountUrlWithUserIdentifier:(NSString *)userId query:(NSString *)query;
-- (NSURL *)appendKeys:(NSArray *)keys query:(NSString *)queryString serverSideFunction:(CMServerFunction *)function pagingOptions:(CMPagingDescriptor *)paging sortingOptions:(CMSortDescriptor *)sorting toURL:(NSURL *)theUrl extraParameters:(NSDictionary *)params;
-- (void)_subscribeDevice:(NSString *)deviceID orUser:(CMUser *)user toPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback;
-- (void)_unSubscribeDevice:(NSString *)deviceID orUser:(CMUser *)user fromPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback;
+
 @end
 
 
@@ -1306,7 +1295,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
         
         NSLog(@"CloudMine *** User profile fetch operation failed (%@)", [error localizedDescription]);
         if (callback) {
-            callback(nil, nil, nil);
+            callback(nil, nil, nil, nil, nil);
         }
     }];
     
@@ -1582,8 +1571,8 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
         NSDictionary *errors = nil;
         NSDictionary *meta = nil;
         NSNumber *count = nil;
-        
         id snippetResult = nil;
+        
         if (results) {
             successes = [results objectForKey:@"success"];
             if (!successes) {
@@ -2135,8 +2124,11 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
 }
 
 - (NSURL *)constructAccountUrlWithUserIdentifier:(NSString *)userId
-                                           query:(NSString *)query {
-    
+                                         function:(CMServerFunction *)function
+                                          paging:(CMPagingDescriptor *)paging
+                                         sorting:(CMSortDescriptor *)sorting
+                                           query:(NSString *)query;
+{
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/app/%@/account", self.apiUrl, _appIdentifier]];
     if (userId) {
         url = [url URLByAppendingPathComponent:userId];
@@ -2145,7 +2137,18 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
         url = [url URLByAppendingAndEncodingQueryParameter:@"p" andValue:query];
     }
     
-    return url;
+    NSMutableArray *queryComponents = [NSMutableArray array];
+    if (function) {
+        [queryComponents addObject:[function stringRepresentation]];
+    }
+    if (paging) {
+        [queryComponents addObject:[paging stringRepresentation]];
+    }
+    if (sorting) {
+        [queryComponents addObject:[sorting stringRepresentation]];
+    }
+    
+    return [url URLByAppendingAndEncodingQuery:[queryComponents componentsJoinedByString:@"&"]];
 }
 
 - (NSURL *)appendKeys:(NSArray *)keys
