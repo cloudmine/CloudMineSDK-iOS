@@ -621,7 +621,15 @@ describe(@"CMUser Integration", ^{
         
         __block CMUser *user = nil;
         it(@"should create a facebook user", ^{
-             NSString *token = @"CAAFcXnZCbxjgBAE7E0O73PutjogY6rZB7PuLymYrWJ8ws4VuHTL8dWGln4ZCzOqup6sRMDWwaZADWDFn5EF52gm4sZAiOuaSZAZCF28fy8SmsYOfAAWejZBeLsEXdpLpZBedJYCx7Q1hAd7MFW43TgcmMZAZB4Q0pTqmisLZAMu89BXPKH7I7o7ephlX769M5HWLxNJideNZCOmlUDvDql70JAsSZB";
+            NSDictionary *env = [[NSProcessInfo processInfo] environment];
+            
+            
+            NSLog(@"ENVIRO: %@", env);
+            NSString *token = env[@"FacebookToken"];
+            
+            if (token.length == 0) {
+                return;
+            }
             
             __block CMUserResponse *res = nil;
             [CMUser userWithSocialNetwork:CMSocialNetworkFacebook
@@ -643,8 +651,14 @@ describe(@"CMUser Integration", ^{
             /// If this is broken, you should go to https://apps.twitter.com/app
             /// and regenerate the access tokens for the app you want to install
             ///
-            NSString *token = @"310696970-BwAtSY1PB2zKtjjI2u73xYbLhnpz3KCrRaPSCB90";
-            NSString *secret = @"N3iiIDq1unMCFpxBUBuwTrs9coPWV68zvjyTbd2j0tE6F";
+            NSDictionary *env = [[NSProcessInfo processInfo] environment];
+            
+            NSString *token = env[@"TwitterToken"];
+            NSString *secret = env[@"TwitterSecret"];
+            
+            if (token.length == 0 && secret.length == 0) {
+                return;
+            }
             
             __block CMUserResponse *res = nil;
             [user loginWithSocialNetwork:CMSocialNetworkTwitter
