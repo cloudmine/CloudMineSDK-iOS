@@ -815,11 +815,13 @@ describe(@"CMWebService", ^{
                                         
                                     }];
             
-            NSString *finalURLShould = @"https://api.cloudmine.me/v1/app/appId123/user/social/twitter/statuses/user_timeline.json?params=%7B%22screen_name%22%3A%22ethan_mick%22%2C%22testing%22%3A%5B%22Testing111%22%2C%22Testing222%22%5D%7D";
-            
             NSURLRequest *request = spy.argument;
             [[[request HTTPMethod] should] equal:@"GET"];
-            [[[[request URL] absoluteString] should] equal:finalURLShould];
+            NSString *url = [[request URL] absoluteString];
+            [[url should] containString:@"https://api.cloudmine.me/v1/app/appId123/user/social/twitter/statuses/user_timeline.json"];
+            [[url should] containString:@"%22screen_name%22%3A%22ethan_mick%22"];
+            [[url should] containString:@"%22testing%22%3A%5B%22Testing111%22"];
+            [[url should] containString:@"%22Testing222%22%5D"];
         });
         
         it(@"should properly encode the POST data in social queries", ^{
