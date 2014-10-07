@@ -517,6 +517,39 @@ describe(@"CMUser Integration", ^{
             [[expectFutureValue(error) shouldEventuallyBeforeTimingOutAfter(4.0)] beEmpty];
         });
         
+        it(@"should find all users when given no query or identifier", ^{
+            
+            __block NSArray *all = nil;
+            __block NSError *error = nil;
+            
+            [CMUser allUserWithOptions:nil callback:^(CMObjectFetchResponse *response) {
+                all = response.objects;
+                error = response.error;
+            }];
+            
+            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(4.0)] beNonNil];
+            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(4.0)] haveCountOf:9];
+            [[expectFutureValue(error) shouldEventuallyBeforeTimingOutAfter(4.0)] beNil];
+        });
+        
+        it(@"should return the count of users", ^{
+            __block NSArray *all = nil;
+            __block NSError *error = nil;
+            
+            CMPagingDescriptor *paging = [[CMPagingDescriptor alloc] initWithLimit:5 skip:0 includeCount:YES];
+            CMStoreOptions *options = [[CMStoreOptions alloc] initWithPagingDescriptor:paging];
+            
+            [CMUser allUserWithOptions:options callback:^(CMObjectFetchResponse *response) {
+                all = response.objects;
+                error = response.error;
+                [[theValue(response.count) should] equal:theValue(9)];
+            }];
+            
+            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(4.0)] beNonNil];
+            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(4.0)] haveCountOf:5];
+            [[expectFutureValue(error) shouldEventuallyBeforeTimingOutAfter(4.0)] beNil];
+        });
+        
         __block NSString *identifier = nil;
         it(@"should search for a particular user", ^{
             __block NSArray *all = nil;
@@ -537,6 +570,28 @@ describe(@"CMUser Integration", ^{
             [[expectFutureValue(error) shouldEventually] beEmpty];
             [[expectFutureValue(((CMUser *)all[0]).email) shouldEventually] equal:@"testcard@cloudmine.me"];
         });
+        
+        identifier = nil;
+        it(@"should search for a particular user using the new meta", ^{
+            __block NSArray *all = nil;
+            __block NSError *error = nil;
+            
+            [CMUser searchUsers:@"[email=\"testcard@cloudmine.me\"]" options:nil callback:^(CMObjectFetchResponse *response) {
+                all = response.objects;
+                error = response.error;
+                [[all should] haveCountOf:1];
+                if (all.count > 0) {
+                    CMUser *found = all[0];
+                    identifier = found.objectId;
+                }
+            }];
+
+            [[expectFutureValue(all) shouldEventually] beNonNil];
+            [[expectFutureValue(all) shouldEventually] haveCountOf:1];
+            [[expectFutureValue(error) shouldEventually] beNil];
+            [[expectFutureValue(((CMUser *)all[0]).email) shouldEventually] equal:@"testcard@cloudmine.me"];
+        });
+
         
         it(@"should get a cached user once we have gotten them all", ^{
             
