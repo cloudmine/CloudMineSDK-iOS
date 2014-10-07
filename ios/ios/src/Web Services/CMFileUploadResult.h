@@ -11,7 +11,7 @@
 /**
  * @enum Enumeration of possible results from a file upload operation.
  */
-typedef enum {
+typedef NS_ENUM(NSInteger, CMFileUploadResult) {
     /** An error ocurred when uploading the file */
     CMFileUploadFailed = -1,
 
@@ -21,4 +21,4 @@ typedef enum {
     /** File previously existed on server and was replaced with new content */
     CMFileUpdated
 
-} CMFileUploadResult;
+};

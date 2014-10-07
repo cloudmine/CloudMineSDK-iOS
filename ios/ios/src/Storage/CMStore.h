@@ -30,7 +30,7 @@
 
 extern NSString * const CMErrorDomain;
 
-typedef enum {
+typedef NS_ENUM(NSInteger, CMErrorCode) {
     CMErrorUnknown,
     CMErrorServerConnectionFailed,
     CMErrorServerError,
@@ -38,7 +38,7 @@ typedef enum {
     CMErrorInvalidRequest,
     CMErrorInvalidResponse,
     CMErrorUnauthorized
-} CMErrorCode;
+};
 
 /**
  * Name of the notification that is sent out when an object is deleted.

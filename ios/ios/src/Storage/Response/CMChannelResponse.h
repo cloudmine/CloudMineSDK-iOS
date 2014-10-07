@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "CMResponse.h"
 
-typedef enum {
+typedef NS_ENUM(NSInteger, CMDeviceChannelResult){
     
     /** The channel modification failed */
     CMDeviceChannelOperationFailed = 0,
@@ -20,7 +20,7 @@ typedef enum {
     /** The device was successfully removed from the channel. */
     CMDeviceRemovedFromChannel = 2
     
-} CMDeviceChannelResult;
+};
 
 /**
  * CMChannel Response
