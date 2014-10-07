@@ -31,7 +31,7 @@
 - (id)initWithCoder:(NSCoder *)aDecoder;
 {
     if ( self = ([super initWithCoder:aDecoder]) ) {
-        self.anInt = [aDecoder decodeIntegerForKey:@"anInt"];
+        self.anInt = [aDecoder decodeInt32ForKey:@"anInt"];
     }
     return self;
 }
