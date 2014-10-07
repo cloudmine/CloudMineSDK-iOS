@@ -272,7 +272,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0FD1BF4A50414FD8B55246BB /* Pods-cloudmine-ios.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cloudmine-ios.xcconfig"; path = "../Pods/Pods-cloudmine-ios.xcconfig"; sourceTree = "<group>"; };
 		10E9C54988A94B3FAD882A84 /* libPods-cloudmine-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-cloudmine-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		65199EAF156A7D9500267EC6 /* CMDeleteResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMDeleteResponse.h; path = Response/CMDeleteResponse.h; sourceTree = "<group>"; };
 		65199EB0156A7D9500267EC6 /* CMDeleteResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMDeleteResponse.m; path = Response/CMDeleteResponse.m; sourceTree = "<group>"; };
@@ -292,7 +291,6 @@
 		65199EBE156A7D9500267EC6 /* CMStoreResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMStoreResponse.m; path = Response/CMStoreResponse.m; sourceTree = "<group>"; };
 		65199EC0156A7D9500267EC6 /* CMDistance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMDistance.h; sourceTree = "<group>"; };
 		65199EC1156A7D9500267EC6 /* CMDistance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMDistance.m; sourceTree = "<group>"; };
-		6AE298297FB5425097E1D0EA /* Pods-cloudmine-iosTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cloudmine-iosTests.xcconfig"; path = "../Pods/Pods-cloudmine-iosTests.xcconfig"; sourceTree = "<group>"; };
 		71E886B516516C3D0060C217 /* CMSocialLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMSocialLoginViewController.h; sourceTree = "<group>"; };
 		71E886B616516C3D0060C217 /* CMSocialLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMSocialLoginViewController.m; sourceTree = "<group>"; };
 		7A0413D1146C5B5200EF537A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -311,7 +309,6 @@
 		7A0DB1BB147B016B007F482C /* CMBlockValidationMessageSpy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMBlockValidationMessageSpy.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7A28005315928518002C504A /* CMObjectOwnershipLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMObjectOwnershipLevel.h; sourceTree = "<group>"; };
 		7A308A4314799134008ADD3C /* CMWebServiceSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMWebServiceSpec.m; sourceTree = "<group>"; };
-		7A308A4B14799471008ADD3C /* libKiwi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libKiwi.a; path = "kiwi/build/Release-iphoneos/libKiwi.a"; sourceTree = "<group>"; };
 		7A3DCECB15EEAF3000AC4890 /* CMObject+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CMObject+Private.h"; sourceTree = "<group>"; };
 		7A4A6F2814FFF08100B95D13 /* CMUserSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUserSpec.m; sourceTree = "<group>"; };
 		7A4A6F2B14FFF3CF00B95D13 /* CMUserAccountResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMUserAccountResult.h; sourceTree = "<group>"; };
@@ -384,6 +381,7 @@
 		7AFDFE48158E965400388D6E /* CMActiveUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMActiveUser.h; sourceTree = "<group>"; };
 		7AFDFE49158E965400388D6E /* CMActiveUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMActiveUser.m; sourceTree = "<group>"; };
 		7AFDFE4B158E9EB400388D6E /* CMActiveUserSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMActiveUserSpec.m; sourceTree = "<group>"; };
+		845E62120D353E6EB0102FA3 /* Pods-cloudmine-iosTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cloudmine-iosTests.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-cloudmine-iosTests/Pods-cloudmine-iosTests.debug.xcconfig"; sourceTree = "<group>"; };
 		AA00CED01886E1C700F9958C /* UIImageView+CloudMine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+CloudMine.h"; sourceTree = "<group>"; };
 		AA00CED11886E1C700F9958C /* UIImageView+CloudMine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+CloudMine.m"; sourceTree = "<group>"; };
 		AA025E43198BEA9E00284B5F /* CMSocialAccountChooser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMSocialAccountChooser.h; sourceTree = "<group>"; };
@@ -445,11 +443,16 @@
 		AAE9220E194B8B7B004DA1AC /* venues.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = venues.plist; sourceTree = "<group>"; };
 		AAE92210194B923D004DA1AC /* CMWebServiceIntegrationSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMWebServiceIntegrationSpec.m; sourceTree = "<group>"; };
 		AAFB0B8C194B45D5008F2B68 /* CMResponseSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMResponseSpec.m; sourceTree = "<group>"; };
+		AF2E9ED71CBDDC65DC88789E /* Pods-cloudmine-iosTests.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cloudmine-iosTests.test.xcconfig"; path = "../Pods/Target Support Files/Pods-cloudmine-iosTests/Pods-cloudmine-iosTests.test.xcconfig"; sourceTree = "<group>"; };
+		B2A33E73BEDE10A94973E9FE /* Pods-cloudmine-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cloudmine-ios.release.xcconfig"; path = "../Pods/Target Support Files/Pods-cloudmine-ios/Pods-cloudmine-ios.release.xcconfig"; sourceTree = "<group>"; };
+		C3444874F77B35F0544725D1 /* Pods-cloudmine-ios.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cloudmine-ios.test.xcconfig"; path = "../Pods/Target Support Files/Pods-cloudmine-ios/Pods-cloudmine-ios.test.xcconfig"; sourceTree = "<group>"; };
 		D039C16615BDEB77005CCD33 /* CMACLSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMACLSpec.m; sourceTree = "<group>"; };
 		D039C16915BEEB44005CCD33 /* CMACLFetchResponseSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMACLFetchResponseSpec.m; sourceTree = "<group>"; };
 		D042C2E915AF41F100A88888 /* CMACLFetchResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMACLFetchResponse.h; sourceTree = "<group>"; };
 		D042C2EA15AF41F100A88888 /* CMACLFetchResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMACLFetchResponse.m; sourceTree = "<group>"; };
+		D6B30681E39643D1334163C7 /* Pods-cloudmine-iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cloudmine-iosTests.release.xcconfig"; path = "../Pods/Target Support Files/Pods-cloudmine-iosTests/Pods-cloudmine-iosTests.release.xcconfig"; sourceTree = "<group>"; };
 		E89859B8B6B3450D8754B649 /* libPods-cloudmine-iosTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-cloudmine-iosTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE1B44A5F6B4AA8E61850EFA /* Pods-cloudmine-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cloudmine-ios.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-cloudmine-ios/Pods-cloudmine-ios.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -612,8 +615,7 @@
 				7AB4AB78145DC5D8006AEF67 /* iosTests */,
 				7AB4AB61145DC5D8006AEF67 /* Frameworks */,
 				7AB4AB60145DC5D8006AEF67 /* Products */,
-				0FD1BF4A50414FD8B55246BB /* Pods-cloudmine-ios.xcconfig */,
-				6AE298297FB5425097E1D0EA /* Pods-cloudmine-iosTests.xcconfig */,
+				A79A6B3A825BBB7B98C7992B /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -631,7 +633,6 @@
 			children = (
 				AA9927C1195C7DC700C46F02 /* Social.framework */,
 				AA9927BF195C7DBF00C46F02 /* Accounts.framework */,
-				7A308A4B14799471008ADD3C /* libKiwi.a */,
 				7A91E8D814E6EF85008B7941 /* CoreLocation.framework */,
 				7AD36F80146C656600DD4734 /* UIKit.framework */,
 				7A0413D9146C5B7400EF537A /* libz.dylib */,
@@ -798,6 +799,19 @@
 				7AFDFE41158E959B00388D6E /* CMUntypedObject.m */,
 			);
 			path = "Persisted Objects";
+			sourceTree = "<group>";
+		};
+		A79A6B3A825BBB7B98C7992B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EE1B44A5F6B4AA8E61850EFA /* Pods-cloudmine-ios.debug.xcconfig */,
+				C3444874F77B35F0544725D1 /* Pods-cloudmine-ios.test.xcconfig */,
+				B2A33E73BEDE10A94973E9FE /* Pods-cloudmine-ios.release.xcconfig */,
+				845E62120D353E6EB0102FA3 /* Pods-cloudmine-iosTests.debug.xcconfig */,
+				AF2E9ED71CBDDC65DC88789E /* Pods-cloudmine-iosTests.test.xcconfig */,
+				D6B30681E39643D1334163C7 /* Pods-cloudmine-iosTests.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		AA00CECF1886E19700F9958C /* UIAdditions */ = {
@@ -1034,7 +1048,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Pods-cloudmine-ios-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-cloudmine-ios/Pods-cloudmine-ios-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		AABEE9F719081815007A26BA /* Delete All Users and Objects */ = {
@@ -1092,7 +1106,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Pods-cloudmine-iosTests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-cloudmine-iosTests/Pods-cloudmine-iosTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1318,7 +1332,7 @@
 		};
 		7AB4AB84145DC5D8006AEF67 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0FD1BF4A50414FD8B55246BB /* Pods-cloudmine-ios.xcconfig */;
+			baseConfigurationReference = EE1B44A5F6B4AA8E61850EFA /* Pods-cloudmine-ios.debug.xcconfig */;
 			buildSettings = {
 				CURRENT_PROJECT_VERSION = 1.7.2;
 				DSTROOT = /tmp/ios.dst;
@@ -1336,6 +1350,7 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
+					"-all_load",
 				);
 				PRODUCT_NAME = cloudmine;
 				SKIP_INSTALL = YES;
@@ -1344,7 +1359,7 @@
 		};
 		7AB4AB85145DC5D8006AEF67 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0FD1BF4A50414FD8B55246BB /* Pods-cloudmine-ios.xcconfig */;
+			baseConfigurationReference = B2A33E73BEDE10A94973E9FE /* Pods-cloudmine-ios.release.xcconfig */;
 			buildSettings = {
 				CURRENT_PROJECT_VERSION = 1.7.2;
 				DSTROOT = /tmp/ios.dst;
@@ -1361,6 +1376,7 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
+					"-all_load",
 				);
 				PRODUCT_NAME = cloudmine;
 				SKIP_INSTALL = YES;
@@ -1369,7 +1385,7 @@
 		};
 		7AB4AB87145DC5D8006AEF67 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6AE298297FB5425097E1D0EA /* Pods-cloudmine-iosTests.xcconfig */;
+			baseConfigurationReference = 845E62120D353E6EB0102FA3 /* Pods-cloudmine-iosTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -1382,7 +1398,12 @@
 				);
 				INFOPLIST_FILE = "iosTests/cloudmine-iosTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-all_load",
+					"-l\"Pods-cloudmine-ios-AFNetworking\"",
+					"-l\"Pods-cloudmine-ios-MAObjCRuntime\"",
+				);
 				PRODUCT_NAME = "cloudmine-iosTests";
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -1390,7 +1411,7 @@
 		};
 		7AB4AB88145DC5D8006AEF67 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6AE298297FB5425097E1D0EA /* Pods-cloudmine-iosTests.xcconfig */;
+			baseConfigurationReference = D6B30681E39643D1334163C7 /* Pods-cloudmine-iosTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -1403,7 +1424,12 @@
 				);
 				INFOPLIST_FILE = "iosTests/cloudmine-iosTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-all_load",
+					"-l\"Pods-cloudmine-ios-AFNetworking\"",
+					"-l\"Pods-cloudmine-ios-MAObjCRuntime\"",
+				);
 				PRODUCT_NAME = "cloudmine-iosTests";
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -1454,7 +1480,7 @@
 		};
 		AA734B721992BD23007E835D /* Test */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0FD1BF4A50414FD8B55246BB /* Pods-cloudmine-ios.xcconfig */;
+			baseConfigurationReference = C3444874F77B35F0544725D1 /* Pods-cloudmine-ios.test.xcconfig */;
 			buildSettings = {
 				CURRENT_PROJECT_VERSION = 1.7.2;
 				DSTROOT = /tmp/ios.dst;
@@ -1472,6 +1498,7 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
+					"-all_load",
 				);
 				PRODUCT_NAME = cloudmine;
 				SKIP_INSTALL = YES;
@@ -1480,7 +1507,7 @@
 		};
 		AA734B731992BD23007E835D /* Test */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6AE298297FB5425097E1D0EA /* Pods-cloudmine-iosTests.xcconfig */;
+			baseConfigurationReference = AF2E9ED71CBDDC65DC88789E /* Pods-cloudmine-iosTests.test.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -1493,7 +1520,12 @@
 				);
 				INFOPLIST_FILE = "iosTests/cloudmine-iosTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-all_load",
+					"-l\"Pods-cloudmine-ios-AFNetworking\"",
+					"-l\"Pods-cloudmine-ios-MAObjCRuntime\"",
+				);
 				PRODUCT_NAME = "cloudmine-iosTests";
 				USER_HEADER_SEARCH_PATHS = "";
 			};
