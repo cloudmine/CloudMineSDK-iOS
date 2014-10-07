@@ -81,6 +81,8 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
  */
 typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDictionary *errors, NSNumber *count);
 
+typedef void (^CMWebServiceUserFetchCallback)(NSDictionary *results, NSDictionary *errors, id snippetResult, NSDictionary *meta, NSNumber *count);
+
 typedef void (^CMWebServicesSocialQuerySuccessCallback)(NSString *results, NSDictionary *headers);
 
 typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSUInteger httpCode);
@@ -536,7 +538,7 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  *
  * @param callback The block that will be called on completion of the operation.
  */
-- (void)getAllUsersWithCallback:(CMWebServiceUserFetchSuccessCallback)callback;
+//- (void)getAllUsersWithCallback:(CMWebServiceUserFetchSuccessCallback)callback;
 
 /**
  * Asynchronously fetch a single user profile of a user of this app given its objectId. On completion, the <tt>callback</tt> block
@@ -545,7 +547,7 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * @param identifier The objectId of the user profile to retrieve. You can access this via CMUser#objectId.
  * @param callback The block that will be called on completion of the operation.
  */
-- (void)getUserProfileWithIdentifier:(NSString *)identifier callback:(CMWebServiceUserFetchSuccessCallback)callback;
+//- (void)getUserProfileWithIdentifier:(NSString *)identifier callback:(CMWebServiceUserFetchSuccessCallback)callback;
 
 /**
  * Asynchronously search all profiles of users of this app for matching fields. This will download the profiles of all matching users of your app,
@@ -555,7 +557,15 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * @param query The search query to run against all user profiles. This is the same syntax as defined at https://cloudmine.me/docs/api#query_syntax and used by <tt>CMStore</tt>'s search methods.
  * @param callback The block that will be called on completion of the operation.
  */
-- (void)searchUsers:(NSString *)query callback:(CMWebServiceUserFetchSuccessCallback)callback;
+//- (void)searchUsers:(NSString *)query callback:(CMWebServiceUserFetchSuccessCallback)callback;
+
+
+- (void)getUsersWithIdentifier:(NSString *)identifier
+                         query:(NSString *)query
+            ServerSideFunction:(CMServerFunction *)function
+                 pagingOptions:(CMPagingDescriptor *)paging
+                sortingOptions:(CMSortDescriptor *)sorting
+                      callback:(CMWebServiceUserFetchSuccessCallback)callback;
 
 - (void)saveUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
 
