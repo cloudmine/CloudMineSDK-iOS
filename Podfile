@@ -1,16 +1,11 @@
 #
 # Podfile for CloudMine SDK on iOS
 #
-
+source 'https://github.com/CocoaPods/Specs.git'
 #
 # Supporting iOS 6 and above
 #
 platform :ios, '6.0'
-
-#
-# Define the Cocoapods source
-#
-source 'https://github.com/CocoaPods/Specs.git'
 
 #
 # Define the workspace we had before Cocoapods
