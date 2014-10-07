@@ -79,7 +79,11 @@ describe(@"CMExtensions", ^{
             NSURL *url = [NSURL URLWithString:CM_BASE_URL];
             url = [url URLByAppendingAndEncodingQueryParameters:query];
             NSString *final = [NSString stringWithFormat:@"%@?value1=1&value2=string", CM_BASE_URL];
-            [[url.absoluteString should] equal:final];
+            [[url.absoluteString should] containString:@"https://api.cloudmine.me/?"];
+            
+            
+            [[url.absoluteString should] containString:@"value1=1"];
+            [[url.absoluteString should] containString:@"value2=string"];
         });
         
         it(@"should return a copy of itself if there is no dictionary", ^{
