@@ -13,7 +13,7 @@
 #import "CMSocialLoginViewController.h"
 #import "CMPaymentResponse.h"
 
-@class CMCardPayment, CMUserResponse, ACAccount;
+@class CMCardPayment, CMUserResponse, ACAccount, CMObjectFetchResponse;
 
 /** Social network identifier for Facebook */
 extern NSString * const CMSocialNetworkFacebook;
@@ -63,6 +63,8 @@ extern NSString * const CMSocialNetworkSingly;
 /** Social network identifier for Google */
 extern NSString * const CMSocialNetworkGoogle;
 
+@class CMStoreOptions;
+
 FOUNDATION_EXPORT NSString * const CMUserDefaultsLocalSaveKey;
 
 /**
@@ -82,6 +84,8 @@ typedef void (^CMUserOperationCallback)(CMUserAccountResult resultCode, NSArray 
  * that will be the place where the "not found" error is recorded.
  */
 typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
+
+typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
 
 /**
  * Representation of an end-user in CloudMine. This class manages session state (i.e. tokens and all that).
@@ -618,6 +622,10 @@ typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
  * @param callback The block that will be called on completion of the operation.
  */
 + (void)allUsersWithCallback:(CMUserFetchCallback)callback;
+
++ (void)allUserWithOptions:(CMStoreOptions *)options callback:(CMUserFetchWithMetaCallback)callback;
+
++ (void)searchUsers:(NSString *)query options:(CMStoreOptions *)options callback:(CMUserFetchWithMetaCallback)callback;
 
 /**
  * Asynchronously search all profiles of users of this app for matching fields. This will download the profiles of all matching users of your app, and is useful for displaying

@@ -732,6 +732,33 @@ static id _private_user = nil;
     }];
 }
 
++ (void)allUserWithOptions:(CMStoreOptions *)options callback:(CMUserFetchWithMetaCallback)callback;
+{
+    NSParameterAssert(callback);
+    [self searchUsers:nil options:options callback:callback];
+}
+
++ (void)searchUsers:(NSString *)query options:(CMStoreOptions *)options callback:(CMUserFetchWithMetaCallback)callback;
+{
+    [[CMWebService sharedWebService] getUsersWithIdentifier:nil
+                                                      query:query
+                                         ServerSideFunction:options.serverSideFunction
+                                              pagingOptions:options.pagingDescriptor
+                                             sortingOptions:options.sortDescriptor
+                                                   callback:^(NSDictionary *results, NSDictionary *errors, id snippetResult, NSDictionary *meta, NSNumber *count) {
+                                                       NSArray *users = [CMObjectDecoder decodeObjects:results];
+                                                       
+                                                       CMResponseMetadata *metadata = [[CMResponseMetadata alloc] initWithMetadata:meta];
+                                                       CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
+                                                       CMObjectFetchResponse *response = [[CMObjectFetchResponse alloc] initWithObjects:users errors:errors snippetResult:result responseMetadata:metadata];
+                                                       response.count = count ? [count integerValue] : [users count];
+                                                       
+                                                       if (callback) {
+                                                           callback(response);
+                                                       }
+                                                   }];
+}
+
 + (void)searchUsers:(NSString *)query callback:(CMUserFetchCallback)callback {
     NSParameterAssert(callback);
     [[CMWebService sharedWebService] searchUsers:query callback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
