@@ -1,6 +1,14 @@
 HEAD
 =====
 
+v1.7.2 (October 7, 2014)
+========================
+* Fixed many ARM64 Bugs in the Tests
+* Changed all `typedef enums` to use `NS_ENUM` instead to define the type.
+* Added a new method on searching CMUser's that uses CMStoreOptions to page and return count.
+
+
+
 v1.7.1 (August 26, 2014)
 ========================
 * Added "google" CMSocialIdentifier

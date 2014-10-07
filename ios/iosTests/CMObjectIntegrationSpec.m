@@ -99,12 +99,12 @@ describe(@"CMObject Integration", ^{
             [store allObjectsOfClass:[CMTestClass class] additionalOptions:options callback:^(CMObjectFetchResponse *response) {
                 objects = response.objects;
                 
-                NSArray *names = @[@"aaa", @"bbb", @"ccc", @"ddd", @"eee", @"fff"]; //sorted
-                for (NSInteger i = 0; i < objects.count; i++) {
-                    CMTestClass *obj = objects[i];
+//                NSArray *names = @[@"aaa", @"bbb", @"ccc", @"ddd", @"eee", @"fff"]; //sorted
+//                for (NSInteger i = 0; i < objects.count; i++) {
+//                    CMTestClass *obj = objects[i];
 //                    [[obj.name should] equal:names[i]];
 #warning Broken until sorting works on iOS
-                }
+//                }
             }];
             
             [[expectFutureValue(objects) shouldEventually] beNonNil];

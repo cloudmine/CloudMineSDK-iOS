@@ -43,7 +43,7 @@
     [aCoder encodeObject:_address forKey:@"address"];
     [aCoder encodeObject:_city forKey:@"city"];
     [aCoder encodeObject:_state forKey:@"state"];
-    [aCoder encodeInt:_zip forKey:@"zip"];
+    [aCoder encodeInteger:_zip forKey:@"zip"];
     [aCoder encodeObject:_location forKey:@"location"];
 }
 

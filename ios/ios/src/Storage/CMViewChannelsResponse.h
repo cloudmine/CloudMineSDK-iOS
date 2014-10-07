@@ -8,14 +8,14 @@
 
 #import "CMResponse.h"
 
-typedef enum {
+typedef NS_ENUM(NSInteger, CMViewChannelsResult) {
     /** The View Channel Request failed. */
     CMViewChannelsRequestFailed = 0,
     
     /** The View Channel request was a success. Use <tt>channels</tt> to get the channels. */
     CMViewChannelsRequestSucceeded = 1,
     
-} CMViewChannelsResult;
+};
 
 /**
  * CMViewChannelsResponse

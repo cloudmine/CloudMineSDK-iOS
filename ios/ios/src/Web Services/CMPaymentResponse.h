@@ -8,14 +8,14 @@
 
 #import "CMResponse.h"
 
-typedef enum {
+typedef NS_ENUM(NSInteger, CMPaymentResult) {
     /** The payment request failed. We can add in more details here as we know. Why did it fail. */
     CMPaymentResultFailed = 0,
     
     /** The payment request was a success */
     CMPaymentResultSuccessful = 1,
     
-} CMPaymentResult;
+};
 
 /**
  * CMPaymentResponse

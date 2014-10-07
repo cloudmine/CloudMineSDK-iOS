@@ -517,6 +517,39 @@ describe(@"CMUser Integration", ^{
             [[expectFutureValue(error) shouldEventuallyBeforeTimingOutAfter(4.0)] beEmpty];
         });
         
+        it(@"should find all users when given no query or identifier", ^{
+            
+            __block NSArray *all = nil;
+            __block NSError *error = nil;
+            
+            [CMUser allUserWithOptions:nil callback:^(CMObjectFetchResponse *response) {
+                all = response.objects;
+                error = response.error;
+            }];
+            
+            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(4.0)] beNonNil];
+            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(4.0)] haveCountOf:9];
+            [[expectFutureValue(error) shouldEventuallyBeforeTimingOutAfter(4.0)] beNil];
+        });
+        
+        it(@"should return the count of users", ^{
+            __block NSArray *all = nil;
+            __block NSError *error = nil;
+            
+            CMPagingDescriptor *paging = [[CMPagingDescriptor alloc] initWithLimit:5 skip:0 includeCount:YES];
+            CMStoreOptions *options = [[CMStoreOptions alloc] initWithPagingDescriptor:paging];
+            
+            [CMUser allUserWithOptions:options callback:^(CMObjectFetchResponse *response) {
+                all = response.objects;
+                error = response.error;
+                [[theValue(response.count) should] equal:theValue(9)];
+            }];
+            
+            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(4.0)] beNonNil];
+            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(4.0)] haveCountOf:5];
+            [[expectFutureValue(error) shouldEventuallyBeforeTimingOutAfter(4.0)] beNil];
+        });
+        
         __block NSString *identifier = nil;
         it(@"should search for a particular user", ^{
             __block NSArray *all = nil;
@@ -537,6 +570,28 @@ describe(@"CMUser Integration", ^{
             [[expectFutureValue(error) shouldEventually] beEmpty];
             [[expectFutureValue(((CMUser *)all[0]).email) shouldEventually] equal:@"testcard@cloudmine.me"];
         });
+        
+        identifier = nil;
+        it(@"should search for a particular user using the new meta", ^{
+            __block NSArray *all = nil;
+            __block NSError *error = nil;
+            
+            [CMUser searchUsers:@"[email=\"testcard@cloudmine.me\"]" options:nil callback:^(CMObjectFetchResponse *response) {
+                all = response.objects;
+                error = response.error;
+                [[all should] haveCountOf:1];
+                if (all.count > 0) {
+                    CMUser *found = all[0];
+                    identifier = found.objectId;
+                }
+            }];
+
+            [[expectFutureValue(all) shouldEventually] beNonNil];
+            [[expectFutureValue(all) shouldEventually] haveCountOf:1];
+            [[expectFutureValue(error) shouldEventually] beNil];
+            [[expectFutureValue(((CMUser *)all[0]).email) shouldEventually] equal:@"testcard@cloudmine.me"];
+        });
+
         
         it(@"should get a cached user once we have gotten them all", ^{
             
@@ -621,7 +676,15 @@ describe(@"CMUser Integration", ^{
         
         __block CMUser *user = nil;
         it(@"should create a facebook user", ^{
-             NSString *token = @"CAAFcXnZCbxjgBAE7E0O73PutjogY6rZB7PuLymYrWJ8ws4VuHTL8dWGln4ZCzOqup6sRMDWwaZADWDFn5EF52gm4sZAiOuaSZAZCF28fy8SmsYOfAAWejZBeLsEXdpLpZBedJYCx7Q1hAd7MFW43TgcmMZAZB4Q0pTqmisLZAMu89BXPKH7I7o7ephlX769M5HWLxNJideNZCOmlUDvDql70JAsSZB";
+            NSDictionary *env = [[NSProcessInfo processInfo] environment];
+            
+            
+            NSLog(@"ENVIRO: %@", env);
+            NSString *token = env[@"FacebookToken"];
+            
+            if (token.length == 0) {
+                return;
+            }
             
             __block CMUserResponse *res = nil;
             [CMUser userWithSocialNetwork:CMSocialNetworkFacebook
@@ -643,8 +706,14 @@ describe(@"CMUser Integration", ^{
             /// If this is broken, you should go to https://apps.twitter.com/app
             /// and regenerate the access tokens for the app you want to install
             ///
-            NSString *token = @"310696970-BwAtSY1PB2zKtjjI2u73xYbLhnpz3KCrRaPSCB90";
-            NSString *secret = @"N3iiIDq1unMCFpxBUBuwTrs9coPWV68zvjyTbd2j0tE6F";
+            NSDictionary *env = [[NSProcessInfo processInfo] environment];
+            
+            NSString *token = env[@"TwitterToken"];
+            NSString *secret = env[@"TwitterSecret"];
+            
+            if (token.length == 0 && secret.length == 0) {
+                return;
+            }
             
             __block CMUserResponse *res = nil;
             [user loginWithSocialNetwork:CMSocialNetworkTwitter

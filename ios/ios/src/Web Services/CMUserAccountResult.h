@@ -11,7 +11,8 @@
 /**
  * @enum CMUserAccountResult Enumeration of possible results from any user account management operation (login, logout, etc).
  */
-typedef enum {
+
+typedef NS_ENUM(NSInteger, CMUserAccountResult) {
     /** The response from the server was unknown or unexpected. */
     CMUserAccountUnknownResult = -1,
     /** The account login operation succeeded */
@@ -60,8 +61,7 @@ typedef enum {
     CMUserAccountSocialLoginDismissed,
     /** The user account operation failed because an account with the given email address could not be found */
     CMUserAccountOperationFailedUnknownAccount
-    
-} CMUserAccountResult;
+};
 
 /**
  * Convenience method to check if a particular <tt>CMUserAccountResult</tt> code represents

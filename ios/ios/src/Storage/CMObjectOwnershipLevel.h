@@ -9,7 +9,7 @@
 /** @file */
 
 /** Defines possible ownership levels of a CMObject. */
-typedef enum {
+typedef NS_ENUM(NSInteger, CMObjectOwnershipLevel) {
     /** The ownership level could not be determined. This is usually because the object doesn't belong to a store. */
     CMObjectOwnershipUndefinedLevel = -1,
 
@@ -21,4 +21,4 @@ typedef enum {
      * @see CMStore#user
      */
     CMObjectOwnershipUserLevel = 1
-} CMObjectOwnershipLevel;
+};

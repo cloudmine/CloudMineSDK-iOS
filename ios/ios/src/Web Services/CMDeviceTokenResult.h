@@ -12,7 +12,7 @@
 /**
  * @enum Enumeration of possible results from the Device Token for Push
  */
-typedef enum {
+typedef NS_ENUM(NSInteger, CMDeviceTokenResult){
     /** An error ocurred when working with the token */
     CMDeviceTokenOperationFailed = -1,
     
@@ -24,8 +24,7 @@ typedef enum {
     
     /** Device Token was deleted successfully */
     CMDeviceTokenDeleted
-    
-} CMDeviceTokenResult;
+};
 
 /**
  * Callback block signature for all operations that work with the Device Token for Push Notifications.

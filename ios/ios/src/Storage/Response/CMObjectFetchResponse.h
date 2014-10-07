@@ -26,7 +26,7 @@
 /**
  * Count of objects returned.
  */
-@property (nonatomic) int count;
+@property (nonatomic) NSInteger count;
 
 - (id)initWithObjects:(NSArray *)objects errors:(NSDictionary *)errors;
 - (id)initWithObjects:(NSArray *)objects errors:(NSDictionary *)errors snippetResult:(CMSnippetResult *)snippetResult;

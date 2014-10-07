@@ -81,6 +81,8 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
  */
 typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDictionary *errors, NSNumber *count);
 
+typedef void (^CMWebServiceUserFetchCallback)(NSDictionary *results, NSDictionary *errors, id snippetResult, NSDictionary *meta, NSNumber *count);
+
 typedef void (^CMWebServicesSocialQuerySuccessCallback)(NSString *results, NSDictionary *headers);
 
 typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSUInteger httpCode);
@@ -556,6 +558,14 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * @param callback The block that will be called on completion of the operation.
  */
 - (void)searchUsers:(NSString *)query callback:(CMWebServiceUserFetchSuccessCallback)callback;
+
+
+- (void)getUsersWithIdentifier:(NSString *)identifier
+                         query:(NSString *)query
+            ServerSideFunction:(CMServerFunction *)function
+                 pagingOptions:(CMPagingDescriptor *)paging
+                sortingOptions:(CMSortDescriptor *)sorting
+                      callback:(CMWebServiceUserFetchCallback)callback;
 
 - (void)saveUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
 
