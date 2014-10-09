@@ -148,34 +148,36 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (void)setUser:(CMUser *)theUser;
 {
     @synchronized(self) {
-        if (_cachedUserObjects) {
-            [_cachedUserObjects enumerateKeysAndObjectsUsingBlock:^(id key, CMObject *obj, BOOL *stop) {
-                obj.store = nil;
-            }];
-            [_cachedUserObjects removeAllObjects];
-        } else {
-            _cachedUserObjects = [[NSMutableDictionary alloc] init];
+        if (user != theUser) {
+            if (_cachedUserObjects) {
+                [_cachedUserObjects enumerateKeysAndObjectsUsingBlock:^(id key, CMObject *obj, BOOL *stop) {
+                    obj.store = nil;
+                }];
+                [_cachedUserObjects removeAllObjects];
+            } else {
+                _cachedUserObjects = [[NSMutableDictionary alloc] init];
+            }
+            
+            if (_cachedACLs) {
+                [_cachedACLs enumerateKeysAndObjectsUsingBlock:^(id key, CMACL *obj, BOOL *stop) {
+                    obj.store = nil;
+                }];
+                [_cachedACLs removeAllObjects];
+            } else {
+                _cachedACLs = [[NSMutableDictionary alloc] init];
+            }
+            
+            if (_cachedUserFiles) {
+                [_cachedUserFiles enumerateKeysAndObjectsUsingBlock:^(id key, CMObject *obj, BOOL *stop) {
+                    obj.store = nil;
+                }];
+                [_cachedUserFiles removeAllObjects];
+            } else {
+                _cachedUserFiles = [[NSMutableDictionary alloc] init];
+            }
+            user = theUser;
+            [user setValue:self.webService forKey:@"webService"];
         }
-
-        if (_cachedACLs) {
-            [_cachedACLs enumerateKeysAndObjectsUsingBlock:^(id key, CMACL *obj, BOOL *stop) {
-                obj.store = nil;
-            }];
-            [_cachedACLs removeAllObjects];
-        } else {
-            _cachedACLs = [[NSMutableDictionary alloc] init];
-        }
-
-        if (_cachedUserFiles) {
-            [_cachedUserFiles enumerateKeysAndObjectsUsingBlock:^(id key, CMObject *obj, BOOL *stop) {
-                obj.store = nil;
-            }];
-            [_cachedUserFiles removeAllObjects];
-        } else {
-            _cachedUserFiles = [[NSMutableDictionary alloc] init];
-        }
-        user = theUser;
-        [user setValue:self.webService forKey:@"webService"];
     }
 }
 
