@@ -16,6 +16,8 @@
 #import "CMAPICredentials.h"
 #import "CMBlockValidationMessageSpy.h"
 #import "CMAppDelegateBase.h"
+#import "TestUser.h"
+#import "Venue.h"
 
 SPEC_BEGIN(CMStoreSpec)
 
@@ -575,6 +577,20 @@ describe(@"CMStore", ^{
                     [[theValue([store objectOwnershipLevel:obj]) should] equal:theValue(CMObjectOwnershipAppLevel)];
                 }];
             });
+            
+            it(@"should not change object ownership when setting the same user", ^{
+                CMStore *store = [CMStore store];
+                TestUser *user = [[TestUser alloc] initWithEmail:@"test@testing.com" andPassword:@"test"];
+                [store setUser:user];
+                Venue *venue = [Venue new];
+                [store addUserObject:venue];
+                user.aVenue = venue;
+                
+                [[theValue([user.aVenue ownershipLevel]) should] equal:theValue(CMObjectOwnershipUserLevel)];
+                [store setUser:user];
+                [[theValue([user.aVenue ownershipLevel]) should] equal:theValue(CMObjectOwnershipUserLevel)];
+            });
+            
         });
     });
 });

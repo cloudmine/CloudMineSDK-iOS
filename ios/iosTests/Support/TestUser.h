@@ -8,9 +8,12 @@
 
 #import "CMUser.h"
 
+@class Venue;
+
 @interface TestUser : CMUser
 
 @property (nonatomic, copy) NSString *firstName;
 @property (nonatomic, copy) NSString *lastName;
+@property (nonatomic, strong) Venue *aVenue;
 
 @end
