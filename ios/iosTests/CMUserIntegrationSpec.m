@@ -513,7 +513,7 @@ describe(@"CMUser Integration", ^{
             }];
             
             [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(4.0)] beNonNil];
-            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(4.0)] haveCountOf:9];
+            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(4.0)] haveCountOf:10];
             [[expectFutureValue(error) shouldEventuallyBeforeTimingOutAfter(4.0)] beEmpty];
         });
         
@@ -528,7 +528,7 @@ describe(@"CMUser Integration", ^{
             }];
             
             [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(4.0)] beNonNil];
-            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(4.0)] haveCountOf:9];
+            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(4.0)] haveCountOf:10];
             [[expectFutureValue(error) shouldEventuallyBeforeTimingOutAfter(4.0)] beNil];
         });
         
@@ -542,7 +542,7 @@ describe(@"CMUser Integration", ^{
             [CMUser allUserWithOptions:options callback:^(CMObjectFetchResponse *response) {
                 all = response.objects;
                 error = response.error;
-                [[theValue(response.count) should] equal:theValue(9)];
+                [[theValue(response.count) should] equal:theValue(10)];
             }];
             
             [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(4.0)] beNonNil];
