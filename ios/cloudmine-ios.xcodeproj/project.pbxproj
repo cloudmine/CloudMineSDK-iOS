@@ -143,6 +143,7 @@
 		AA5C462C190C12B30086FBD6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A91E8D814E6EF85008B7941 /* CoreLocation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		AA5C462F190C154C0086FBD6 /* CMObjectClassNameRegistrySpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5C462E190C154C0086FBD6 /* CMObjectClassNameRegistrySpec.m */; };
 		AA5C4632190C19990086FBD6 /* CMCoding.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA5C4631190C19990086FBD6 /* CMCoding.h */; };
+		AA5EB16E1A3FEB560081DAC1 /* IOS-29Spec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5EB16D1A3FEB560081DAC1 /* IOS-29Spec.m */; };
 		AA61248819B90DA700358E51 /* CMTestProtocolObject.m in Sources */ = {isa = PBXBuildFile; fileRef = AA61248719B90DA700358E51 /* CMTestProtocolObject.m */; };
 		AA61F6CC1940DA5A00A545A0 /* CMACLIntegrationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA61F6CB1940DA5A00A545A0 /* CMACLIntegrationSpec.m */; };
 		AA7345C91949185F007AAEB0 /* CMExtensionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7345C81949185F007AAEB0 /* CMExtensionsSpec.m */; };
@@ -398,6 +399,7 @@
 		AA5C462A190BFDF60086FBD6 /* cloudmine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloudmine.png; sourceTree = "<group>"; };
 		AA5C462E190C154C0086FBD6 /* CMObjectClassNameRegistrySpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectClassNameRegistrySpec.m; sourceTree = "<group>"; };
 		AA5C4631190C19990086FBD6 /* CMCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMCoding.h; sourceTree = "<group>"; };
+		AA5EB16D1A3FEB560081DAC1 /* IOS-29Spec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IOS-29Spec.m"; sourceTree = "<group>"; };
 		AA61248519B90D7C00358E51 /* CMTestProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMTestProtocol.h; sourceTree = "<group>"; };
 		AA61248619B90DA700358E51 /* CMTestProtocolObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMTestProtocolObject.h; sourceTree = "<group>"; };
 		AA61248719B90DA700358E51 /* CMTestProtocolObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMTestProtocolObject.m; sourceTree = "<group>"; };
@@ -842,6 +844,7 @@
 				7A766208156307DF009840EE /* CMSortDescriptorSpec.m */,
 				AA09516C194B7AA7008602DB /* CMPaymentServiceSpec.m */,
 				AA03519F1992AD6A00A3027E /* CMSocialAccountChooserSpec.m */,
+				AA5EB16C1A3FEB300081DAC1 /* Bugs */,
 			);
 			name = "Web Services";
 			sourceTree = "<group>";
@@ -858,6 +861,14 @@
 				7A4A6F2814FFF08100B95D13 /* CMUserSpec.m */,
 			);
 			name = "Persisted Object Tests";
+			sourceTree = "<group>";
+		};
+		AA5EB16C1A3FEB300081DAC1 /* Bugs */ = {
+			isa = PBXGroup;
+			children = (
+				AA5EB16D1A3FEB560081DAC1 /* IOS-29Spec.m */,
+			);
+			name = Bugs;
 			sourceTree = "<group>";
 		};
 		AAA05FB2183A7558009652C9 /* Payment */ = {
@@ -1170,6 +1181,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA7345CC19491F16007AAEB0 /* UIImageWithCloudMineIntegrationSpec.m in Sources */,
+				AA5EB16E1A3FEB560081DAC1 /* IOS-29Spec.m in Sources */,
 				AA5C462F190C154C0086FBD6 /* CMObjectClassNameRegistrySpec.m in Sources */,
 				7A308A4414799134008ADD3C /* CMWebServiceSpec.m in Sources */,
 				AA7345D11949E138007AAEB0 /* CMUntypedObjectSpec.m in Sources */,

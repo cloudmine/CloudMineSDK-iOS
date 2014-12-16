@@ -185,7 +185,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 - (CMObjectOwnershipLevel)objectOwnershipLevel:(id)theObject;
 {
-    if ([theObject respondsToSelector:@selector(uuid)]) {
+    if ([theObject isKindOfClass:[CMFile class]]) {
         return [self _fileOwnershipLevel:theObject];
     } else if ([theObject isKindOfClass:[CMACL class]]) {
         return [self _aclOwnershipLevel:theObject];
