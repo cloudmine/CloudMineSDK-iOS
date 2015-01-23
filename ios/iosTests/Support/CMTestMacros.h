@@ -6,8 +6,11 @@
 //  Copyright (c) 2015 CloudMine, LLC. All rights reserved.
 //
 
-#ifndef cloudmine_ios_CMTestMacros_h
-#define cloudmine_ios_CMTestMacros_h
+#import "CMConstants.h"
 
+#define APP_ID (((NSString *)[[NSProcessInfo processInfo] environment][@"APP_ID"]).length != 0 ? [[NSProcessInfo processInfo] environment][@"APP_ID"] : @"9977f87e6ae54815b32a663902c3ca65")
 
-#endif
+#define API_KEY (((NSString *)[[NSProcessInfo processInfo] environment][@"API_KEY"]).length != 0 ? [[NSProcessInfo processInfo] environment][@"API_KEY"] : @"c701d73554594315948c8d3cc0711ac1")
+
+#define BASE_URL (((NSString *)[[NSProcessInfo processInfo] environment][@"BASE_URL"]).length != 0 ? [[NSProcessInfo processInfo] environment][@"BASE_URL"] : CM_BASE_URL)
+

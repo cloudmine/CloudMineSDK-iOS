@@ -1296,8 +1296,6 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
         
         NSString *responseString = [operation responseString];
         
-        NSLog(@"META RESPONSE: %@", responseString);
-        
         NSError *parseErr = nil;
         NSDictionary *responseBody = [NSDictionary dictionary];
         

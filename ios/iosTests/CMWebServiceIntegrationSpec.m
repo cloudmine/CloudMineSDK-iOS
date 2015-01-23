@@ -10,6 +10,7 @@
 #import "CMWebService.h"
 #import "CMAPICredentials.h"
 #import "CMUser.h"
+#import "CMTestMacros.h"
 
 SPEC_BEGIN(CMWebServiceIntegrationSpec)
 
@@ -17,8 +18,9 @@ describe(@"CMWebServiceIntegration", ^{
     
     __block CMWebService *service = nil;
     beforeAll(^{
-        [[CMAPICredentials sharedInstance] setAppIdentifier:@"9977f87e6ae54815b32a663902c3ca65"];
-        [[CMAPICredentials sharedInstance] setAppSecret:@"c701d73554594315948c8d3cc0711ac1"];
+        [[CMAPICredentials sharedInstance] setAppIdentifier:APP_ID];
+        [[CMAPICredentials sharedInstance] setAppSecret:API_KEY];
+        [[CMAPICredentials sharedInstance] setBaseURL:BASE_URL];
         
         service = [[CMWebService alloc] init];
         

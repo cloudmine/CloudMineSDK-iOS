@@ -14,6 +14,7 @@
 #import "CMConstants.h"
 #import "TestUser.h"
 #import "CMUserResponse.h"
+#import "CMTestMacros.h"
 
 SPEC_BEGIN(CMUserIntegrationSpec)
 
@@ -25,8 +26,12 @@ SPEC_BEGIN(CMUserIntegrationSpec)
 describe(@"CMUser Integration", ^{
     
     beforeAll(^{
-        [[CMAPICredentials sharedInstance] setAppIdentifier:@"9977f87e6ae54815b32a663902c3ca65"];
-        [[CMAPICredentials sharedInstance] setAppSecret:@"c701d73554594315948c8d3cc0711ac1"];
+
+        NSLog(@"TESTING1: %@", APP_ID);
+        
+        [[CMAPICredentials sharedInstance] setAppIdentifier:APP_ID];
+        [[CMAPICredentials sharedInstance] setAppSecret:API_KEY];
+        [[CMAPICredentials sharedInstance] setBaseURL:BASE_URL];
         
         __block CMUserAccountResult code = NSNotFound;
         [[CMUser currentUser] logoutWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
@@ -602,8 +607,12 @@ describe(@"CMUser Integration", ^{
             [CMUser userWithIdentifier:identifier callback:^(NSArray *users, NSDictionary *errors) {
                 all = users;
                 error = errors;
-                CMUser *found = all[0];
-                [[found.email should] equal:@"testcard@cloudmine.me"];
+                if (all.count > 0) {
+                    CMUser *found = all[0];
+                    [[found.email should] equal:@"testcard@cloudmine.me"];
+                } else {
+                    fail(@"Fail!");
+                }
             }];
             
             [[expectFutureValue(all) shouldEventually] beNonNil];

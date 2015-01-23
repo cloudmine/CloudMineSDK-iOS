@@ -9,6 +9,7 @@
 #import "Kiwi.h"
 #import "CMStore.h"
 #import "Venue.h"
+#import "CMTestMacros.h"
 
 SPEC_BEGIN(CMStoreIntegrationSpec)
 
@@ -17,8 +18,9 @@ describe(@"CMStoreIntegration", ^{
     __block CMStore *store = nil;
     __block NSArray *venues = nil;
     beforeAll(^{
-        [[CMAPICredentials sharedInstance] setAppIdentifier:@"9977f87e6ae54815b32a663902c3ca65"];
-        [[CMAPICredentials sharedInstance] setAppSecret:@"c701d73554594315948c8d3cc0711ac1"];
+        [[CMAPICredentials sharedInstance] setAppIdentifier:APP_ID];
+        [[CMAPICredentials sharedInstance] setAppSecret:API_KEY];
+        [[CMAPICredentials sharedInstance] setBaseURL:BASE_URL];
         
         store = [CMStore store];
         

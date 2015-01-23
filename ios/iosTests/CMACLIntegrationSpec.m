@@ -8,14 +8,16 @@
 
 #import "Kiwi.h"
 #import "CMAPICredentials.h"
+#import "CMTestMacros.h"
 
 SPEC_BEGIN(CMACLIntegrationSpec)
 
 describe(@"CMACL Integration", ^{
     
     beforeAll(^{
-        [[CMAPICredentials sharedInstance] setAppIdentifier:@"9977f87e6ae54815b32a663902c3ca65"];
-        [[CMAPICredentials sharedInstance] setAppSecret:@"c701d73554594315948c8d3cc0711ac1"];
+        [[CMAPICredentials sharedInstance] setAppIdentifier:APP_ID];
+        [[CMAPICredentials sharedInstance] setAppSecret:API_KEY];
+        [[CMAPICredentials sharedInstance] setBaseURL:BASE_URL];
     });
     
     context(@"given an ACL", ^{

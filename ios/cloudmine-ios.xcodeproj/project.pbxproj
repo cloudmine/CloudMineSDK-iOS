@@ -393,6 +393,7 @@
 		AA09516C194B7AA7008602DB /* CMPaymentServiceSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPaymentServiceSpec.m; sourceTree = "<group>"; };
 		AA104FE6196326D70043C141 /* TestUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestUser.h; sourceTree = "<group>"; };
 		AA104FE7196326D70043C141 /* TestUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestUser.m; sourceTree = "<group>"; };
+		AA4DE2BA1A6972A600888CB2 /* CMTestMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMTestMacros.h; sourceTree = "<group>"; };
 		AA5693C21901790300C4A15A /* CMConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMConstants.h; sourceTree = "<group>"; };
 		AA5693C51902E90500C4A15A /* CMTestEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMTestEncoder.h; sourceTree = "<group>"; };
 		AA5693C61902E90500C4A15A /* CMTestEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMTestEncoder.m; sourceTree = "<group>"; };
@@ -552,6 +553,7 @@
 		7A0DB1B8147B0153007F482C /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				AA4DE2BA1A6972A600888CB2 /* CMTestMacros.h */,
 				AA7345CD19493BF7007AAEB0 /* mobile.png */,
 				AA5C462A190BFDF60086FBD6 /* cloudmine.png */,
 				7A0DB1BA147B016B007F482C /* CMBlockValidationMessageSpy.h */,
@@ -1074,7 +1076,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "ruby \"${SRCROOT}/../scripts/delete_all_users.rb\" 9977f87e6ae54815b32a663902c3ca65 B93006AC1B3E40209B4477383B150CF2 true\nruby \"${SRCROOT}/../scripts/delete_all_objects.rb\" 9977f87e6ae54815b32a663902c3ca65 B93006AC1B3E40209B4477383B150CF2 true\ncat << EOM\nDeleted All users\nEOM";
+			shellScript = "ruby \"${SRCROOT}/../scripts/delete_all_users.rb\" \"https://api.cloudmine.me/\" 9977f87e6ae54815b32a663902c3ca65 B93006AC1B3E40209B4477383B150CF2 true\nruby \"${SRCROOT}/../scripts/delete_all_objects.rb\" \"https://api.cloudmine.me/\" 9977f87e6ae54815b32a663902c3ca65 B93006AC1B3E40209B4477383B150CF2 true\ncat << EOM\nDeleted All users\nEOM";
 		};
 		AABEE9F81908788F007A26BA /* Code Generation */ = {
 			isa = PBXShellScriptBuildPhase;
