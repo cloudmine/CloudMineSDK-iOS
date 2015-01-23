@@ -6,18 +6,20 @@ require 'uri'
 require 'json'
 
 def main
-  appId = ARGV[0]
-  masterKey = ARGV[1]
-  delete_data = ARGV[2] ? ARGV[2] == "true" : false
+  domain = ARGV[0]
+  appId = ARGV[1]
+  masterKey = ARGV[2]
+  delete_data = ARGV[3] ? ARGV[3] == "true" : false
 
-  usage() and return if not appId or not masterKey
+  usage() and return if not domain or not appId or not masterKey
 
-  url = "https://api.cloudmine.me/v1/app/" + appId.to_s
+  url = "#{domain}v1/app/" + appId.to_s
   accountUrl = url + "/account"
   
   response = cm_get(accountUrl, masterKey)
   puts "response: #{response}"
 
+  
   response["success"].each_key do |user|
     
     delete = cm_delete(accountUrl + "/" + user, masterKey)
@@ -55,7 +57,7 @@ def cm_delete(urlString, masterKey)
 end
 
 def usage
-  puts "usage: 'ruby delete_all_users.rb appid masterkey [delete_app_data[true/false]'"
+  puts "usage: 'ruby delete_all_users.rb domain appid masterkey [delete_app_data[true/false]'"
   true
 end
 
