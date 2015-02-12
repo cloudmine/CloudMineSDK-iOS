@@ -12,7 +12,7 @@ build:	clean
 	-scheme libcloudmine \
 	-destination 'platform=iOS Simulator,name=iPhone 5s,OS=8.1' \
 	2>&1 \
-	build | xcpretty -c
+	build | xcpretty -c && exit ${PIPESTATUS[0]}
 
 
 test:	clean build
@@ -20,12 +20,12 @@ test:	clean build
 	-scheme libcloudmine \
 	-destination 'platform=iOS Simulator,name=iPhone 5s,OS=8.1' \
 	2>&1 \
-	test || exit 1) |  xcpretty -c
+	test || exit 1) |  xcpretty -c && exit ${PIPESTATUS[0]}
 
 clean:
 	xcodebuild -workspace cm-ios.xcworkspace \
 	-scheme libcloudmine \
-	clean | xcpretty -c
+	clean | xcpretty -c && exit ${PIPESTATUS[0]}
 
 cov:
 	./ios/XcodeCoverage/cleancov
