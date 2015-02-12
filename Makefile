@@ -10,7 +10,7 @@ NOTIFICATION_ERROR_MSG='You do not have terminal-notifier installed! Run `[sudo]
 build:	clean
 	xcodebuild -workspace cm-ios.xcworkspace \
 	-scheme libcloudmine \
-	-destination 'platform=iOS Simulator,name=iPhone Retina (4-inch)' \
+	-destination 'platform=iOS Simulator,name=iPhone 5s,OS=8.1' \
 	2>&1 \
 	build | xcpretty -c
 
@@ -18,14 +18,9 @@ build:	clean
 test:	clean build
 	(xcodebuild -workspace cm-ios.xcworkspace \
 	-scheme libcloudmine \
-	-destination 'platform=iOS Simulator,name=iPhone Retina (4-inch)' \
+	-destination 'platform=iOS Simulator,name=iPhone 5s,OS=8.1' \
 	2>&1 \
 	test || exit 1) |  xcpretty -c
-ifeq ($(strip $(TERMINAL_NOTIFIER_INSTALLED)),)
-	@echo NOTIFICATION_ERROR_MSG
-else
-	terminal-notifier -group $(NOTIFICATION_GROUP) -title $(NOTIFICATION_TITLE)  -message $(NOTIFICATION_MESSAGE) -activate $(NOTIFICATION_ACTIVATE)
-endif
 
 clean:
 	xcodebuild -workspace cm-ios.xcworkspace \
