@@ -15,7 +15,7 @@ build:	clean
 	build | xcpretty -c && exit ${PIPESTATUS[0]}
 
 
-test:	clean build
+test:	
 	(xcodebuild -workspace cm-ios.xcworkspace \
 	-scheme libcloudmine \
 	-destination 'platform=iOS Simulator,name=iPhone 5s,OS=8.1' \
