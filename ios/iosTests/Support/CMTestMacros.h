@@ -3,7 +3,7 @@
 //  cloudmine-ios
 //
 //  Created by Ethan Mick on 1/16/15.
-//  Copyright (c) 2015 CloudMine, LLC. All rights reserved.
+//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
 //
 
 #import "CMConstants.h"

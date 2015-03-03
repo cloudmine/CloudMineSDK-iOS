@@ -3,7 +3,7 @@
 //  cloudmine-ios
 //
 //  Created by Ethan Mick on 8/1/14.
-//  Copyright (c) 2014 CloudMine, LLC. All rights reserved.
+//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
 //
 
 #import "CMSocialAccountChooser.h"

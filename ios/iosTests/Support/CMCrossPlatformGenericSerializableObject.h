@@ -2,7 +2,7 @@
 //  CMCrossPlatformGenericSerializableObject.h
 //  cloudmine-iosTests
 //
-//  Copyright (c) 2012 CloudMine, LLC. All rights reserved.
+//  Copyright (c) 2012 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
