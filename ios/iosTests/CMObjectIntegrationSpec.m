@@ -3,7 +3,7 @@
 //  cloudmine-ios
 //
 //  Created by Ethan Mick on 5/16/14.
-//  Copyright (c) 2014 CloudMine, LLC. All rights reserved.
+//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
 //
 
 #import "Kiwi.h"
@@ -14,6 +14,7 @@
 #import "CMStoreOptions.h"
 #import "CMWebService.h"
 #import "Venue.h"
+#import "CMTestMacros.h"
 
 @interface CMTestClass : CMObject
 
@@ -46,8 +47,9 @@ describe(@"CMObject Integration", ^{
     
     static CMStore *store = nil;
     beforeAll(^{
-        [[CMAPICredentials sharedInstance] setAppIdentifier:@"9977f87e6ae54815b32a663902c3ca65"];
-        [[CMAPICredentials sharedInstance] setAppSecret:@"c701d73554594315948c8d3cc0711ac1"];
+        [[CMAPICredentials sharedInstance] setAppIdentifier:APP_ID];
+        [[CMAPICredentials sharedInstance] setAppSecret:API_KEY];
+        [[CMAPICredentials sharedInstance] setBaseURL:BASE_URL];
         store = [CMStore store];
     });
     
@@ -109,6 +111,76 @@ describe(@"CMObject Integration", ^{
             
             [[expectFutureValue(objects) shouldEventually] beNonNil];
             [[expectFutureValue(objects) shouldEventually] haveLengthOf:6];
+            
+        });
+        
+        
+        context(@"User Level Objects", ^{
+            
+            __block CMUser *userObjects = nil;
+            __block CMStore *userStore = nil;
+            beforeAll(^{
+                userStore = [CMStore store];
+                __block CMUserAccountResult code = NSNotFound;
+                __block NSArray *mes = nil;
+                
+                userObjects = [[CMUser alloc] initWithEmail:@"test_user_objects@test.com" andPassword:@"testing"];
+                [userObjects createAccountAndLoginWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
+                    code = resultCode;
+                    mes = messages;
+                    userStore.user = userObjects;
+                }];
+                
+                [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountLoginSucceeded)];
+                [[expectFutureValue(mes) shouldEventually] beEmpty];
+            });
+            
+            it(@"should create a user level object", ^{
+                CMTestClass *test = [[CMTestClass alloc] init];
+                NSString *theID = test.objectId;
+                __block CMObjectUploadResponse *res = nil;
+                [userStore saveUserObject:test callback:^(CMObjectUploadResponse *response) {
+                    res = response;
+                    
+                }];
+
+                [[expectFutureValue(res.uploadStatuses) shouldEventually] haveCountOf:1];
+                [[expectFutureValue(res.uploadStatuses[theID]) shouldEventually] equal:@"created"];
+            });
+            
+            it(@"should still create an app level object", ^{
+                CMTestClass *test = [[CMTestClass alloc] init];
+                NSString *theID = test.objectId;
+                
+                __block CMObjectUploadResponse *res = nil;
+                [userStore saveObject:test callback:^(CMObjectUploadResponse *response) {
+                    res = response;
+                }];
+                
+                [[expectFutureValue(res.uploadStatuses) shouldEventually] haveCountOf:1];
+                [[expectFutureValue(res.uploadStatuses[theID]) shouldEventually] equal:@"created"];
+
+            });
+            
+            it(@"should not save an object to both app and user level", ^{
+                // I don't think this is working?
+                CMTestClass *test = [[CMTestClass alloc] init];
+                NSString *theID = test.objectId;
+                
+                __block CMObjectUploadResponse *res = nil;
+                __block CMObjectUploadResponse *res2 = nil;
+                [userStore saveObject:test callback:^(CMObjectUploadResponse *response) {
+                    res = response;
+                    [userStore saveUserObject:test callback:^(CMObjectUploadResponse *response) {
+                        res2 = response;
+                    }];
+                }];
+                
+                [[expectFutureValue(res.uploadStatuses) shouldEventually] haveCountOf:1];
+                [[expectFutureValue(res.uploadStatuses[theID]) shouldEventually] equal:@"created"];
+                [[expectFutureValue(res2.uploadStatuses) shouldEventually] haveCountOf:1];
+                [[expectFutureValue(res2.error) shouldEventually] beNil];
+            });
             
         });
         
@@ -203,6 +275,36 @@ describe(@"CMObject Integration", ^{
                 [[expectFutureValue(resp.objects) shouldEventually] haveCountOf:1];
                 CMTestClass *testObject = [resp.objects lastObject];
                 [[expectFutureValue(testObject.objectId) shouldEventually] equal:testingID];
+            });
+            
+            it(@"should let you create a new object and add the same ACL to it", ^{
+                
+                CMTestClass *newObject = [[CMTestClass alloc] init];
+                [store addUserObject:newObject];
+                
+                __block CMObjectUploadResponse *resp = nil;
+                [newObject addACL:theACL callback:^(CMObjectUploadResponse *response) {
+                    resp = response;
+                }];
+                
+                [[expectFutureValue(resp) shouldEventually] beNonNil];
+                [[expectFutureValue(resp.error) shouldEventually] beNil];
+                [[expectFutureValue(resp.uploadStatuses[newObject.objectId]) shouldEventually] equal:@"created"];
+            });
+            
+            it(@"should let the other user read both objects", ^{
+                CMStore *newStore = [CMStore store];
+                [newStore setUser:wantr];
+                CMStoreOptions *options = [[CMStoreOptions alloc] init];
+                options.shared = YES;
+                
+                __block CMObjectFetchResponse *resp = nil;
+                [newStore allUserObjectsWithOptions:options callback:^(CMObjectFetchResponse *response) {
+                    resp = response;
+                }];
+                
+                [[expectFutureValue(resp) shouldEventually] beNonNil];
+                [[expectFutureValue(resp.objects) shouldEventually] haveCountOf:2];
             });
             
             it(@"should not let another user add ACL's to the object", ^{

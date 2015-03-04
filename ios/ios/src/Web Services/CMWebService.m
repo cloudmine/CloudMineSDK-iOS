@@ -2,7 +2,7 @@
 //  CMWebService.m
 //  cloudmine-ios
 //
-//  Copyright (c) 2012 CloudMine, LLC. All rights reserved.
+//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -1295,8 +1295,6 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
         }
         
         NSString *responseString = [operation responseString];
-        
-        NSLog(@"META RESPONSE: %@", responseString);
         
         NSError *parseErr = nil;
         NSDictionary *responseBody = [NSDictionary dictionary];

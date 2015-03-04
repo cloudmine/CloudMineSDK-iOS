@@ -3,7 +3,7 @@
 //  cloudmine-ios
 //
 //  Created by Ethan Mick on 6/11/14.
-//  Copyright (c) 2014 CloudMine, LLC. All rights reserved.
+//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
 //
 
 #import "Kiwi.h"
@@ -11,6 +11,7 @@
 #import "CMAPICredentials.h"
 #import "UIImageView+CloudMine.h"
 #import "CMWebService.h"
+#import "CMTestMacros.h"
 
 SPEC_BEGIN(UIImageWithCloudMineIntegrationSpec)
 
@@ -21,9 +22,9 @@ describe(@"UIImageWithCloudMineIntegrationSpec", ^{
     __block UIImage *image = nil;
     
     beforeAll(^{
-        [[CMAPICredentials sharedInstance] setAppIdentifier:@"9977f87e6ae54815b32a663902c3ca65"
-                                                     apiKey:@"c701d73554594315948c8d3cc0711ac1"
-                                                 andBaseURL:nil];
+        [[CMAPICredentials sharedInstance] setAppIdentifier:APP_ID];
+        [[CMAPICredentials sharedInstance] setAppSecret:API_KEY];
+        [[CMAPICredentials sharedInstance] setBaseURL:BASE_URL];
         
         [[CMStore defaultStore] setWebService:[[CMWebService alloc] init]];
         store = [CMStore store];

@@ -20,20 +20,20 @@ PODS:
   - AFNetworking/UIKit (2.4.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - Kiwi (2.3.0)
+  - Kiwi (2.3.1)
   - MAObjCRuntime (0.0.1)
   - NSData+Base64 (1.0.0)
 
 DEPENDENCIES:
   - AFNetworking (= 2.4.1)
-  - Kiwi (= 2.3.0)
+  - Kiwi (= 2.3.1)
   - MAObjCRuntime (= 0.0.1)
   - NSData+Base64 (= 1.0.0)
 
 SPEC CHECKSUMS:
   AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
-  Kiwi: 54bece5b35564d9b8e03c608d926f1a22fcfc589
+  Kiwi: 73e1400209055ee9c8ba78c6012b6b642d0fb9f7
   MAObjCRuntime: 9e99082c438f06c209203dbd77083cc308d9216a
   NSData+Base64: aae92a2e3f0bd88b29fe6093551ded3f5c062548
 
-COCOAPODS: 0.34.1
+COCOAPODS: 0.34.2
