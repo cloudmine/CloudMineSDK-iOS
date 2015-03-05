@@ -83,13 +83,14 @@ describe(@"CMACL", ^{
             [[dictionary should] haveCountOf:1];
             NSDictionary *inside = dictionary[@"id"];
             [[inside shouldNot] beNil];
-            [[inside should] haveCountOf:6];
+            [[inside should] haveCountOf:7];
             [[inside[@"__id__"] should] equal:@"id"];
             [[inside[@"__class__"] should] equal:@"acl"];
             [[inside[@"members"] should] haveCountOf:1];
             [[inside[@"members"][0] should] equal:@"testing"];
             [[inside[@"permissions"] should] haveCountOf:1];
             [[inside[@"permissions"][0] should] equal:@"r"];
+            [[[inside[@"segments"] allKeys] should] beEmpty];
         });
         
         it(@"should deserialize properly", ^{

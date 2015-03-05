@@ -368,7 +368,6 @@ describe(@"CMObject Integration", ^{
                 newACL.members = [NSSet setWithObjects:wantr.objectId, owner.objectId, nil];
                 [testing.store addACL:newACL];
                 
-                NSLog(@"testing %@", testing.store.webService);
                 __block CMObjectUploadResponse *resp = nil;
                 [testing saveACLs:^(CMObjectUploadResponse *response) {
                     resp = response;
@@ -445,6 +444,51 @@ describe(@"CMObject Integration", ^{
                 [[expectFutureValue(resp) shouldEventually] beNonNil];
                 [[expectFutureValue(resp.uploadStatuses) shouldEventually] haveCountOf:1];
                 [[expectFutureValue(fetchResponse.acls) shouldEventually] beEmpty];
+            });
+            
+            __block CMTestClass *newTest = nil;
+            it(@"should let you add a public segment", ^{
+                CMACL *newACL = [[CMACL alloc] init];
+                aclID = newACL.objectId;
+                newACL.segments[CMACLSegmentPublic] = @YES;
+                newACL.permissions = [NSSet setWithObject:CMACLReadPermission];
+                [store addACL:newACL];
+                testingID = [[NSUUID UUID] UUIDString];
+                newTest = [[CMTestClass alloc] initWithObjectId:testingID];
+                newTest.name = @"SHARED PUBLIC";
+                [store addUserObject:newTest];
+                
+                __block CMObjectUploadResponse *resp = nil;
+                [newTest saveWithUser:owner callback:^(CMObjectUploadResponse *response) {
+                    [newACL save:^(CMObjectUploadResponse *responseACL) {
+                        [newTest addACL:newACL callback:^(CMObjectUploadResponse *response) {
+                            resp = response;
+                        }];
+                    }];
+                }];
+                
+                [[expectFutureValue(resp) shouldEventually] beNonNil];
+                [[expectFutureValue(resp.error) shouldEventually] beNil];
+                [[expectFutureValue(resp.uploadStatuses[testingID]) shouldEventually] equal:@"updated"];
+            });
+            
+            it(@"should let anyone access a public object", ^{
+                CMStore *newStore = [CMStore store];
+                [newStore setUser:wantr];
+                CMStoreOptions *options = [[CMStoreOptions alloc] init];
+                options.shared = YES;
+                
+                __block NSMutableArray *objects = [NSMutableArray array];
+                [newStore allUserObjectsWithOptions:options callback:^(CMObjectFetchResponse *response) {
+                    [response.objects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                        if ([[obj name] isEqualToString:@"SHARED PUBLIC"]) {
+                            [objects addObject:obj];
+                        }
+                    }];
+                }];
+                
+                [[expectFutureValue(objects) shouldEventually] haveCountOf:1];
+                [[expectFutureValue([objects[0] objectId]) shouldEventually] equal:testingID];
             });
         });
     });

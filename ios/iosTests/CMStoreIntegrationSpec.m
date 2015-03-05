@@ -102,7 +102,6 @@ describe(@"CMStoreIntegration", ^{
         __block CMObjectUploadResponse * res = nil;
         [store saveAll:^(CMObjectUploadResponse *response) {
             res = response;
-            NSLog(@"Response: %@", res);
         }];
         
         NSString *objectId1 = [venues[0] objectId];
@@ -151,7 +150,6 @@ describe(@"CMStoreIntegration", ^{
         __block CMObjectFetchResponse *res = nil;
         [store allObjectsWithOptions:nil callback:^(CMObjectFetchResponse *response) {
             res = response;
-            NSLog(@"Response: %@", res.objects);
             [[ theValue([res.objects containsObject:venues[0]]) should] beTrue];
             [[ theValue([res.objects containsObject:venues[1]]) should] beTrue];
         }];
@@ -373,7 +371,6 @@ describe(@"CMStoreIntegration", ^{
                 __block CMObjectFetchResponse *resp = nil;
                 [otherStore allUserObjectsOfClass:[Venue class] additionalOptions:options callback:^(CMObjectFetchResponse *response) {
                     resp = response;
-                    NSLog(@"Objects? %@", response.objects);
                     Venue *v = [response.objects lastObject];
                     [[[v valueForKey:@"sharedACL"] shouldNot] beNil];
                 }];
@@ -388,7 +385,6 @@ describe(@"CMStoreIntegration", ^{
                 __block CMACLFetchResponse *res = nil;
                 [store searchACLs:query callback:^(CMACLFetchResponse *response) {
                     res = response;
-                    NSLog(@"Something: %@", res.acls);
                 }];
 #warning How do?
                 [[expectFutureValue(res) shouldEventually] beNonNil];

@@ -27,8 +27,6 @@ describe(@"CMUser Integration", ^{
     
     beforeAll(^{
 
-        NSLog(@"TESTING1: %@", APP_ID);
-        
         [[CMAPICredentials sharedInstance] setAppIdentifier:APP_ID];
         [[CMAPICredentials sharedInstance] setAppSecret:API_KEY];
         [[CMAPICredentials sharedInstance] setBaseURL:BASE_URL];
@@ -687,8 +685,6 @@ describe(@"CMUser Integration", ^{
         it(@"should create a facebook user", ^{
             NSDictionary *env = [[NSProcessInfo processInfo] environment];
             
-            
-            NSLog(@"ENVIRO: %@", env);
             NSString *token = env[@"FacebookToken"];
             
             if (token.length == 0) {
