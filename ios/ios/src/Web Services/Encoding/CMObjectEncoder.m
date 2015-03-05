@@ -47,6 +47,9 @@
         CMObjectEncoder *objectEncoder = [[CMObjectEncoder alloc] init];
         [object encodeWithCoder:objectEncoder];
         NSMutableDictionary *encodedRepresentation = [NSMutableDictionary dictionaryWithDictionary:objectEncoder.encodedRepresentation];
+        if ([object isKindOfClass:[CMACL class]]) {
+            [encodedRepresentation[@"segments"] removeObjectForKey:@"__class__"];
+        }
         [encodedRepresentation setObject:[[object class] className] forKey:CMInternalClassStorageKey];
         [topLevelObjectsDictionary setObject:encodedRepresentation forKey:object.objectId];
     }
@@ -162,6 +165,7 @@
         CMObjectEncoder *newEncoder = [[CMObjectEncoder alloc] init];
         [objv encodeWithCoder:newEncoder];
         NSMutableDictionary *serializedRepresentation = [NSMutableDictionary dictionaryWithDictionary:newEncoder.encodedRepresentation];
+        
         [serializedRepresentation setObject:[[objv class] className] forKey:CMInternalClassStorageKey];
         return serializedRepresentation;
     } else if ([objv isKindOfClass:[CMObject class]]) {

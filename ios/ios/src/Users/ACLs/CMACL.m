@@ -15,36 +15,55 @@ NSString * const CMACLUpdatePermission = @"u";
 NSString * const CMACLDeletePermission = @"d";
 NSString * const CMACLTypeName = @"acl";
 
+NSString * const CMACLSegmentPublic = @"public";
+NSString * const CMACLSegmentLoggedIn = @"logged_in";
+
 @implementation CMACL
 
 @synthesize members = _members;
 @synthesize permissions = _permissions;
 
-+ (NSString *)className {
++ (NSString *)className;
+{
     return CMACLTypeName;
 }
 
 #pragma mark - Constructors
 
-- (id)init {
+- (id)init;
+{
     if (self = [super init]) {
         _members = [NSSet set];
         _permissions = [NSSet set];
+        _segments = [NSMutableDictionary dictionary];
+    }
+    return self;
+}
+
+- (id)initWithObjectId:(NSString *)theObjectId;
+{
+    if ( (self = [super initWithObjectId:theObjectId]) ) {
+        _members = [NSSet set];
+        _permissions = [NSSet set];
+        _segments = [NSMutableDictionary dictionary];
     }
     return self;
 }
 
 #pragma mark - Serialization
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
+- (id)initWithCoder:(NSCoder *)aDecoder;
+{
     if (self = [super initWithCoder:aDecoder]) {
         _members = [NSMutableSet setWithArray:[aDecoder decodeObjectForKey:@"members"]];
         _permissions = [NSMutableSet setWithArray:[aDecoder decodeObjectForKey:@"permissions"]];
+        _segments = [NSMutableDictionary dictionaryWithDictionary:[aDecoder decodeObjectForKey:@"segments"]];
     }
     return self;
 }
 
-- (void)setPermissions:(NSSet *)permissions {
+- (void)setPermissions:(NSSet *)permissions;
+{
     if (permissions != _permissions) {
         NSSet *availablePermissions = [NSSet setWithObjects:CMACLReadPermission, CMACLUpdatePermission, CMACLDeletePermission, nil];
 
@@ -57,14 +76,17 @@ NSString * const CMACLTypeName = @"acl";
     }
 }
 
-- (void)encodeWithCoder:(NSCoder *)aCoder {
+- (void)encodeWithCoder:(NSCoder *)aCoder;
+{
     [super encodeWithCoder:aCoder];
     [aCoder encodeObject:[_members allObjects] forKey:@"members"];
     [aCoder encodeObject:[_permissions allObjects] forKey:@"permissions"];
+    [aCoder encodeObject:_segments forKey:@"segments"];
     [aCoder encodeObject:CMACLTypeName forKey:CMInternalTypeStorageKey];
 }
 
-- (void)save:(CMStoreObjectUploadCallback)callback {
+- (void)save:(CMStoreObjectUploadCallback)callback;
+{
     if ([self.store objectOwnershipLevel:self] == CMObjectOwnershipUndefinedLevel) {
         [self.store addACL:self];
     }
@@ -72,11 +94,13 @@ NSString * const CMACLTypeName = @"acl";
     [self.store saveACL:self callback:callback];
 }
 
-- (void)saveWithUser:(CMUser *)user callback:(CMStoreObjectUploadCallback)callback {
+- (void)saveWithUser:(CMUser *)user callback:(CMStoreObjectUploadCallback)callback;
+{
     [self save:callback];
 }
 
-- (CMObjectOwnershipLevel)ownershipLevel {
+- (CMObjectOwnershipLevel)ownershipLevel;
+{
     if (self.store != nil && self.store != [CMNullStore nullStore]) {
         return [self.store objectOwnershipLevel:self];
     } else {
@@ -84,27 +108,33 @@ NSString * const CMACLTypeName = @"acl";
     }
 }
 
-- (void)getACLs:(CMStoreACLFetchCallback)callback {
+- (void)getACLs:(CMStoreACLFetchCallback)callback;
+{
     [NSException raise:NSInternalInconsistencyException format:@"A CMACL object cannot have any ACLs associated with it."];
 }
 
-- (void)saveACLs:(CMStoreObjectUploadCallback)callback {
+- (void)saveACLs:(CMStoreObjectUploadCallback)callback;
+{
     [NSException raise:NSInternalInconsistencyException format:@"A CMACL object cannot have any ACLs associated with it."];
 }
 
-- (void)removeACL:(CMACL *)acl callback:(CMStoreObjectUploadCallback)callback {
+- (void)removeACL:(CMACL *)acl callback:(CMStoreObjectUploadCallback)callback;
+{
     [NSException raise:NSInternalInconsistencyException format:@"A CMACL object cannot have any ACLs associated with it."];
 }
 
-- (void)removeACLs:(NSArray *)acls callback:(CMStoreObjectUploadCallback)callback {
+- (void)removeACLs:(NSArray *)acls callback:(CMStoreObjectUploadCallback)callback;
+{
     [NSException raise:NSInternalInconsistencyException format:@"A CMACL object cannot have any ACLs associated with it."];
 }
 
-- (void)addACL:(CMACL *)acl callback:(CMStoreObjectUploadCallback)callback {
+- (void)addACL:(CMACL *)acl callback:(CMStoreObjectUploadCallback)callback;
+{
     [NSException raise:NSInternalInconsistencyException format:@"A CMACL object cannot have any ACLs associated with it."];
 }
 
-- (void)addACLs:(NSArray *)acls callback:(CMStoreObjectUploadCallback)callback {
+- (void)addACLs:(NSArray *)acls callback:(CMStoreObjectUploadCallback)callback;
+{
     [NSException raise:NSInternalInconsistencyException format:@"A CMACL object cannot have any ACLs associated with it."];
 }
 

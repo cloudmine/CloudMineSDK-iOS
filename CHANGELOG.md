@@ -1,13 +1,20 @@
 HEAD
 =====
 
+v1.7.4 (March 5, 2015)
+======================
+* Added in Segments API for ACL's
+* Updated License and year to 2015
+
+v1.7.3 (October 8, 2014)
+========================
+* Bug Fixes
+
 v1.7.2 (October 7, 2014)
 ========================
 * Fixed many ARM64 Bugs in the Tests
 * Changed all `typedef enums` to use `NS_ENUM` instead to define the type.
 * Added a new method on searching CMUser's that uses CMStoreOptions to page and return count.
-
-
 
 v1.7.1 (August 26, 2014)
 ========================
