@@ -6,7 +6,7 @@ This is the native iOS SDK for communicating with the [CloudMine](https://cloudm
 Installation
 ------------
 
-`pod 'CloudMine', '~> 1.6'`
+`pod 'CloudMine', '~> 1.7'`
 
 Add that line to your Podfile.
 
