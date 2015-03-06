@@ -1,8 +1,10 @@
 HEAD
 =====
+
+v1.7.5 (March 6, 2015)
+======================
 * Changed all returned values to be `instancetype`
 * Fixed a bug in which a dictionary that looked like a CMObject, but shouldn't be, was deserialized to be a CMUntypedObject. Inserting `__class__: 'map'` as a Key/Value pair in your dictionaries will stop this from occuring.
-
 
 v1.7.4 (March 5, 2015)
 ======================

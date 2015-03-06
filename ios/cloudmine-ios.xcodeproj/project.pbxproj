@@ -1352,7 +1352,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EE1B44A5F6B4AA8E61850EFA /* Pods-cloudmine-ios.debug.xcconfig */;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 1.7.4;
+				CURRENT_PROJECT_VERSION = 1.7.5;
 				DSTROOT = /tmp/ios.dst;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
@@ -1379,7 +1379,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B2A33E73BEDE10A94973E9FE /* Pods-cloudmine-ios.release.xcconfig */;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 1.7.4;
+				CURRENT_PROJECT_VERSION = 1.7.5;
 				DSTROOT = /tmp/ios.dst;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = NO;
@@ -1500,7 +1500,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C3444874F77B35F0544725D1 /* Pods-cloudmine-ios.test.xcconfig */;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 1.7.4;
+				CURRENT_PROJECT_VERSION = 1.7.5;
 				DSTROOT = /tmp/ios.dst;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
