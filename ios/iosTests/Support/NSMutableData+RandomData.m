@@ -10,7 +10,7 @@
 
 @implementation NSMutableData (RandomData)
 
-+ (id)randomDataWithLength:(NSUInteger)length {
++ (instancetype)randomDataWithLength:(NSUInteger)length {
     NSMutableData *data = [NSMutableData dataWithLength:length];
     [[NSInputStream inputStreamWithFileAtPath:@"/dev/urandom"] read:(uint8_t *)[data mutableBytes] maxLength:length];
     return data;

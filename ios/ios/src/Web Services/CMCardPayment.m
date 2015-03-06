@@ -18,7 +18,7 @@ NSString *const CMCardPaymentTypeUnknown = @"othr";
 
 @implementation CMCardPayment
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
     
     if ( (self = [super initWithCoder:aDecoder]) ) {
         self.nameOnCard = [aDecoder decodeObjectForKey:@"nameOnCard"];

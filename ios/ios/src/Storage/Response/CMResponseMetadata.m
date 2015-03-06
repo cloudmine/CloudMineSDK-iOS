@@ -16,7 +16,7 @@ NSString * const CMMetadataTypeGeo = @"geo";
     NSDictionary *metadata;
 }
 
-- (id)initWithMetadata:(NSDictionary *)data {
+- (instancetype)initWithMetadata:(NSDictionary *)data {
     if(self = [super init]) {
         metadata = data;
     }

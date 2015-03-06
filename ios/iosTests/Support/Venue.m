@@ -10,7 +10,7 @@
 
 @implementation Venue
 
-- (id)initWithDictionary:(NSDictionary *)dictionary {
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
     NSParameterAssert(dictionary);
     if (self = [super init]) {
         _name = [dictionary objectForKey:@"name"];
@@ -25,7 +25,7 @@
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithCoder:aDecoder]) {
         _name = [aDecoder decodeObjectForKey:@"name"];
         _address = [aDecoder decodeObjectForKey:@"address"];

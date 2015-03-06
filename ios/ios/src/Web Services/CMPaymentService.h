@@ -18,7 +18,7 @@
 /**
  * Initialize the payment service.
  */
-- (id)init;
+- (instancetype)init;
 
 /**
  * Initialize the payment service with the given user.
@@ -27,7 +27,7 @@
  *
  * @param aUser The user to initialize the service with.
  */
-- (id)initWithUser:(CMUser *)aUser;
+- (instancetype)initWithUser:(CMUser *)aUser;
 
 /**
  * Start a transaction with the given cart and payment info.

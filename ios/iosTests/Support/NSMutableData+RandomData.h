@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface NSMutableData (RandomData)
-+ (id)randomDataWithLength:(NSUInteger)length;
++ (instancetype)randomDataWithLength:(NSUInteger)length;
 @end

@@ -54,7 +54,7 @@
  * @param theFunctionName
  * @return CMServerFunction The newly initialized object.
  */
-+ (id)serverFunctionWithName:(NSString *)theFunctionName;
++ (instancetype)serverFunctionWithName:(NSString *)theFunctionName;
 
 /**
  * Convenience method to return a representation of a server-side code snippet given a name and a set
@@ -64,7 +64,7 @@
  * @param theExtraParameters
  * @return CMServerFunction The newly initialized object.
  */
-+ (id)serverFunctionWithName:(NSString *)theFunctionName extraParameters:(NSDictionary *)theExtraParameters;
++ (instancetype)serverFunctionWithName:(NSString *)theFunctionName extraParameters:(NSDictionary *)theExtraParameters;
 
 /**
  * Convenience method to return a representation of a server-side code snippet given a name, a set
@@ -78,7 +78,7 @@
  * @param resultOnly
  * @return CMServerFunction The newly initialized object.
  */
-+ (id)serverFunctionWithName:(NSString *)theFunctionName extraParameters:(NSDictionary *)theExtraParameters responseContainsResultOnly:(BOOL)resultOnly;
++ (instancetype)serverFunctionWithName:(NSString *)theFunctionName extraParameters:(NSDictionary *)theExtraParameters responseContainsResultOnly:(BOOL)resultOnly;
 
 /**
  * Convenience method to return a representation of a server-side code snippet given a name, a set
@@ -94,7 +94,7 @@
  * @param async
  * @return CMServerFunction The newly initialized object.
  */
-+ (id)serverFunctionWithName:(NSString *)theFunctionName extraParameters:(NSDictionary *)theExtraParameters responseContainsResultOnly:(BOOL)resultOnly performAsynchronously:(BOOL)async;
++ (instancetype)serverFunctionWithName:(NSString *)theFunctionName extraParameters:(NSDictionary *)theExtraParameters responseContainsResultOnly:(BOOL)resultOnly performAsynchronously:(BOOL)async;
 
 /**
  * Convenience method to return a representation of a server-side code snippet given a name, a set
@@ -110,14 +110,14 @@
  * @param async
  * @return CMServerFunction The newly initialized object.
  */
-- (id)initWithFunctionName:(NSString *)theFunctionName extraParameters:(NSDictionary *)theExtraParameters responseContainsResultOnly:(BOOL)resultOnly performAsynchronously:(BOOL)async;
+- (instancetype)initWithFunctionName:(NSString *)theFunctionName extraParameters:(NSDictionary *)theExtraParameters responseContainsResultOnly:(BOOL)resultOnly performAsynchronously:(BOOL)async;
 
 /**
  * <strong>Do not call this method to construct a new instance.</strong>
  * @see initWithFunctionName:extraParameters:responseContainsResultOnly:performAsynchronously:
  * @throws NSException This initializer is not valid for this object.
  */
-- (id)init;
+- (instancetype)init;
 
 /**
  * This is the query string that will be appended to the CloudMine HTTP call's URL to trigger the server-side

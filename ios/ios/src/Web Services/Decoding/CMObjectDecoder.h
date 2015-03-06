@@ -14,6 +14,6 @@
 
 + (NSArray *)decodeObjects:(NSDictionary *)serializedObjects;
 
-- (id)initWithSerializedObjectRepresentation:(NSDictionary *)representation;
+- (instancetype)initWithSerializedObjectRepresentation:(NSDictionary *)representation;
 
 @end

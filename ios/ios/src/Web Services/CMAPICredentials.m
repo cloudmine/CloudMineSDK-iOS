@@ -11,7 +11,7 @@
 
 @implementation CMAPICredentials
 
-+ (id)sharedInstance;
++ (instancetype)sharedInstance;
 {
     __strong static id _sharedInstance = nil;
     static dispatch_once_t onceToken;

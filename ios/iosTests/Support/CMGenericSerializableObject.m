@@ -59,7 +59,7 @@
         [aCoder encodeObject:self.nestedObject forKey:@"nestedObject"];
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithCoder:aDecoder]) {
         self.string1 = [aDecoder decodeObjectForKey:@"string1"];
         self.string2 = [aDecoder decodeObjectForKey:@"string2"];

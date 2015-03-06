@@ -67,7 +67,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     return _sharedWebService;
 }
 
-- (id)init;
+- (instancetype)init;
 {
     CMAPICredentials *credentials = [CMAPICredentials sharedInstance];
     NSAssert([credentials appSecret] && [credentials appIdentifier],
@@ -75,7 +75,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     return [self initWithAppSecret:[credentials appSecret] appIdentifier:[credentials appIdentifier]];
 }
 
-- (id)initWithBaseURL:(NSURL *)url;
+- (instancetype)initWithBaseURL:(NSURL *)url;
 {
     CMAPICredentials *credentials = [CMAPICredentials sharedInstance];
     if (!url) {
@@ -88,13 +88,13 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     return [self initWithAppSecret:credentials.appSecret appIdentifier:credentials.appIdentifier baseURL:url];
 }
 
-- (id)initWithAppSecret:(NSString *)appSecret appIdentifier:(NSString *)appIdentifier;
+- (instancetype)initWithAppSecret:(NSString *)appSecret appIdentifier:(NSString *)appIdentifier;
 {
     CMAPICredentials *credentials = [CMAPICredentials sharedInstance];
     return [self initWithAppSecret:appSecret appIdentifier:appIdentifier baseURL:[NSURL URLWithString:credentials.baseURL]];
 }
 
-- (id)initWithAppSecret:(NSString *)appSecret appIdentifier:(NSString *)appIdentifier baseURL:(NSURL *)url;
+- (instancetype)initWithAppSecret:(NSString *)appSecret appIdentifier:(NSString *)appIdentifier baseURL:(NSURL *)url;
 {
     NSParameterAssert(appSecret);
     NSParameterAssert(appIdentifier);

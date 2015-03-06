@@ -10,7 +10,7 @@
 
 @implementation CMTestEncoderInt
 
-- (id)initWithCoder:(NSCoder *)aDecoder;
+- (instancetype)initWithCoder:(NSCoder *)aDecoder;
 {
     if ( self = ([super initWithCoder:aDecoder]) ) {
         self.anInt = [aDecoder decodeIntegerForKey:@"anInt"];
@@ -28,7 +28,7 @@
 
 @implementation CMTestEncoderInt32
 
-- (id)initWithCoder:(NSCoder *)aDecoder;
+- (instancetype)initWithCoder:(NSCoder *)aDecoder;
 {
     if ( self = ([super initWithCoder:aDecoder]) ) {
         self.anInt = [aDecoder decodeInt32ForKey:@"anInt"];
@@ -46,7 +46,7 @@
 
 @implementation CMTestEncoderBool
 
-- (id)initWithCoder:(NSCoder *)aDecoder;
+- (instancetype)initWithCoder:(NSCoder *)aDecoder;
 {
     if ( self = ([super initWithCoder:aDecoder]) ) {
         self.aBool = [aDecoder decodeBoolForKey:@"aBool"];
@@ -64,7 +64,7 @@
 
 @implementation CMTestEncoderFloat
 
-- (id)initWithCoder:(NSCoder *)aDecoder;
+- (instancetype)initWithCoder:(NSCoder *)aDecoder;
 {
     if ( self = ([super initWithCoder:aDecoder]) ) {
         self.aFloat = [aDecoder decodeFloatForKey:@"aFloat"];
@@ -82,7 +82,7 @@
 
 @implementation CMTestEncoderNSCoding
 
-- (id)initWithCoder:(NSCoder *)aDecoder;
+- (instancetype)initWithCoder:(NSCoder *)aDecoder;
 {
     if ( self = ([super init]) ) {
         self.aString = [aDecoder decodeObjectForKey:@"aString"];
@@ -101,7 +101,7 @@
 
 @implementation CMTestEncoderNSCodingParent
 
-- (id)initWithCoder:(NSCoder *)aDecoder;
+- (instancetype)initWithCoder:(NSCoder *)aDecoder;
 {
     if ( self = ([super initWithCoder:aDecoder]) ) {
         self.something = [aDecoder decodeObjectForKey:@"something"];
@@ -115,7 +115,7 @@
     [aCoder encodeObject:self.something forKey:@"something"];
 }
 
-- (id)initWithObjectId:(NSString *)theObjectId;
+- (instancetype)initWithObjectId:(NSString *)theObjectId;
 {
     if ( (self = [super initWithObjectId:theObjectId]) ) {
         self.something = [[CMTestEncoderNSCoding alloc] init];
@@ -130,7 +130,7 @@
 
 @implementation CMTestEncoderNSCodingDeeper
 
-- (id)initWithCoder:(NSCoder *)aDecoder;
+- (instancetype)initWithCoder:(NSCoder *)aDecoder;
 {
     if ( self = ([super init]) ) {
         self.aString = [aDecoder decodeObjectForKey:@"aString"];

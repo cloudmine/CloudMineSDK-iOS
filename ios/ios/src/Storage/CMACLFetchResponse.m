@@ -15,7 +15,7 @@
 @synthesize acls = _acls;
 @synthesize aclErrors = _aclErrors;
 
-- (id)initWithACLs:(NSSet *)acls errors:(NSDictionary *)errors {
+- (instancetype)initWithACLs:(NSSet *)acls errors:(NSDictionary *)errors {
     if ((self = [super initWithMetadata:nil snippetResult:nil])) {
         self.acls = acls;
         self.aclErrors = errors;

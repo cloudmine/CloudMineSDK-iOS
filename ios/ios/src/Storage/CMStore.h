@@ -154,7 +154,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  *
  * @see CMAPICredentials
  */
-- (id)init;
+- (instancetype)init;
 
 /**
  * Note that you must have already initialized the
@@ -166,7 +166,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * base URL by default.
  * @see CMAPICredentials
  */
-- (id)initWithBaseURL:(NSString *)url;
+- (instancetype)initWithBaseURL:(NSString *)url;
 
 /**
  * Constructor that configures this store with a user.
@@ -178,7 +178,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * @see CMAPICredentials
  * @see CMUser
  */
-- (id)initWithUser:(CMUser *)theUser;
+- (instancetype)initWithUser:(CMUser *)theUser;
 
 /**
  * Constructor that configures this store with a user.
@@ -192,7 +192,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * @see CMAPICredentials
  * @see CMUser
  */
-- (id)initWithUser:(CMUser *)theUser baseURL:(NSString *)url;
+- (instancetype)initWithUser:(CMUser *)theUser baseURL:(NSString *)url;
 
 /**
  * Registers your application for push notifications. This method will contact Apple, request a token, handle the token

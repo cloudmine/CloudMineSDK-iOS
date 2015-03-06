@@ -19,7 +19,7 @@
 @property (strong, nonatomic) CMResponseMetadata *metadata;
 @property (strong, nonatomic) CMSnippetResult *snippetResult;
 
-- (id)initWithMetadata:(CMResponseMetadata *)metadata snippetResult:(CMSnippetResult *)snippetResult;
-- (id)initWithError:(NSError *)error;
+- (instancetype)initWithMetadata:(CMResponseMetadata *)metadata snippetResult:(CMSnippetResult *)snippetResult;
+- (instancetype)initWithError:(NSError *)error;
 
 @end

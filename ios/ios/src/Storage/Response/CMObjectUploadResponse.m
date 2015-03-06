@@ -12,15 +12,15 @@
 
 @synthesize uploadStatuses;
 
-- (id)initWithUploadStatuses:(NSDictionary *)theUploadStatuses {
+- (instancetype)initWithUploadStatuses:(NSDictionary *)theUploadStatuses {
     return [self initWithUploadStatuses:theUploadStatuses snippetResult:nil responseMetadata:nil];
 }
 
-- (id)initWithUploadStatuses:(NSDictionary *)theUploadStatuses snippetResult:(CMSnippetResult *)theSnippetResult {
+- (instancetype)initWithUploadStatuses:(NSDictionary *)theUploadStatuses snippetResult:(CMSnippetResult *)theSnippetResult {
     return [self initWithUploadStatuses:theUploadStatuses snippetResult:theSnippetResult responseMetadata:nil];
 }
 
-- (id)initWithUploadStatuses:(NSDictionary *)theUploadStatuses snippetResult:(CMSnippetResult *)theSnippetResult responseMetadata:(CMResponseMetadata *)theMetadata {
+- (instancetype)initWithUploadStatuses:(NSDictionary *)theUploadStatuses snippetResult:(CMSnippetResult *)theSnippetResult responseMetadata:(CMResponseMetadata *)theMetadata {
     if (self = [super initWithMetadata:theMetadata snippetResult:theSnippetResult]) {
         self.uploadStatuses = theUploadStatuses;
     }

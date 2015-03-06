@@ -12,11 +12,11 @@
 
 @synthesize httpResponseCode, headers, body, errors;
 
-- (id)initWithResponseBody:(id)responseBody httpCode:(NSUInteger)code error:(NSError *)anError {
+- (instancetype)initWithResponseBody:(id)responseBody httpCode:(NSUInteger)code error:(NSError *)anError {
     return [self initWithResponseBody:responseBody httpCode:code errors:(anError ? @[anError] : @[])];
 }
 
-- (id)initWithResponseBody:(id)responseBody httpCode:(NSUInteger)code errors:(NSArray *)theErrors {
+- (instancetype)initWithResponseBody:(id)responseBody httpCode:(NSUInteger)code errors:(NSArray *)theErrors {
     if ( (self = [super init]) ) {
         self.body = responseBody;
         self.httpResponseCode = code;
@@ -25,7 +25,7 @@
     return self;
 }
 
-- (id)initWithResponseBody:(id)responseBody httpCode:(NSUInteger)code headers:(NSDictionary *)theHeaders errors:(NSDictionary *)theErrors {
+- (instancetype)initWithResponseBody:(id)responseBody httpCode:(NSUInteger)code headers:(NSDictionary *)theHeaders errors:(NSDictionary *)theErrors {
     
     if ( (self = [super init]) ) {
         self.body = responseBody;

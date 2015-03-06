@@ -30,7 +30,7 @@ NSString * const CMACLSegmentLoggedIn = @"logged_in";
 
 #pragma mark - Constructors
 
-- (id)init;
+- (instancetype)init;
 {
     if (self = [super init]) {
         _members = [NSSet set];
@@ -40,7 +40,7 @@ NSString * const CMACLSegmentLoggedIn = @"logged_in";
     return self;
 }
 
-- (id)initWithObjectId:(NSString *)theObjectId;
+- (instancetype)initWithObjectId:(NSString *)theObjectId;
 {
     if ( (self = [super initWithObjectId:theObjectId]) ) {
         _members = [NSSet set];
@@ -52,7 +52,7 @@ NSString * const CMACLSegmentLoggedIn = @"logged_in";
 
 #pragma mark - Serialization
 
-- (id)initWithCoder:(NSCoder *)aDecoder;
+- (instancetype)initWithCoder:(NSCoder *)aDecoder;
 {
     if (self = [super initWithCoder:aDecoder]) {
         _members = [NSMutableSet setWithArray:[aDecoder decodeObjectForKey:@"members"]];

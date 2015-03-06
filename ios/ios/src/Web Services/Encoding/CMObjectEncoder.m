@@ -74,7 +74,7 @@
     return encodedRepresentation;
 }
 
-- (id)init;
+- (instancetype)init;
 {
     if (self = [super init]) {
         _encodedData = [NSMutableDictionary dictionary];

@@ -58,10 +58,10 @@
 /**
  *
  */
-- (id)initWithPagingDescriptor:(CMPagingDescriptor *)thePagingDescriptor;
-- (id)initWithServerSideFunction:(CMServerFunction *)theServerFunction;
-- (id)initWithSortDescriptor:(CMSortDescriptor *)theSortDescriptor;
-- (id)initWithPagingDescriptor:(CMPagingDescriptor *)thePagingDescriptor sortDescriptor:(CMSortDescriptor *)theSortDescriptor andServerSideFunction:(CMServerFunction *)theServerFunction;
+- (instancetype)initWithPagingDescriptor:(CMPagingDescriptor *)thePagingDescriptor;
+- (instancetype)initWithServerSideFunction:(CMServerFunction *)theServerFunction;
+- (instancetype)initWithSortDescriptor:(CMSortDescriptor *)theSortDescriptor;
+- (instancetype)initWithPagingDescriptor:(CMPagingDescriptor *)thePagingDescriptor sortDescriptor:(CMSortDescriptor *)theSortDescriptor andServerSideFunction:(CMServerFunction *)theServerFunction;
 
 /**
  * Creates a key => value dictionary of extra parameters to be added to the query URL.

@@ -22,7 +22,7 @@ extern NSString * const CMGeoPointClassName;
  * @param theLatitude The latitude in <strong>degrees</strong>.
  * @param theLongitude The longitude in <strong>degrees</strong>.
  */
-- (id)initWithLatitude:(double)theLatitude andLongitude:(double)theLongitude;
+- (instancetype)initWithLatitude:(double)theLatitude andLongitude:(double)theLongitude;
 
 /**
  * Initializes a new instance of this class with the given latitude and longitude.
@@ -33,7 +33,7 @@ extern NSString * const CMGeoPointClassName;
  * @param theLatitude The latitude in <strong>radians</strong>.
  * @param theLongitude The longitude in <strong>radians</strong>.
  */
-- (id)initWithLatitudeInRadians:(double)theLatitude andLongitudeInRadians:(double)theLongitude;
+- (instancetype)initWithLatitudeInRadians:(double)theLatitude andLongitudeInRadians:(double)theLongitude;
 
 /**
  * Initializes a new instance of this class given a <tt>CLLocation</tt> object most likely obtained from
@@ -44,7 +44,7 @@ extern NSString * const CMGeoPointClassName;
  * @see https://developer.apple.com/library/ios/#documentation/CoreLocation/Reference/CLLocation_Class/CLLocation/CLLocation.html
  * @see https://developer.apple.com/library/ios/#documentation/UserExperience/Conceptual/LocationAwarenessPG/Introduction/Introduction.html
  */
-- (id)initWithCLLocation:(CLLocation *)location;
+- (instancetype)initWithCLLocation:(CLLocation *)location;
 
 /**
  * The latitude in degrees.

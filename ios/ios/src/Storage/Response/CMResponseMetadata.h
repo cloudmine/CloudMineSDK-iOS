@@ -19,7 +19,7 @@ extern NSString * const CMMetadataTypeGeo;
  */
 @interface CMResponseMetadata : NSObject
 
-- (id)initWithMetadata:(NSDictionary *)data;
+- (instancetype)initWithMetadata:(NSDictionary *)data;
 
 /**
  * Returns raw metadata. This method should not be necessary; you should try to use specialized methods like distanceFromObject if possible.

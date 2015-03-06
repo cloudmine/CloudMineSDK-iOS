@@ -26,7 +26,7 @@ NSString * const CMGeoPointClassName = @"geopoint";
 
 #pragma - Initialization and deserialization
 
-- (id)initWithLatitude:(double)theLatitude andLongitude:(double)theLongitude {
+- (instancetype)initWithLatitude:(double)theLatitude andLongitude:(double)theLongitude {
     if (self = [super init]) {
         self.latitude = theLatitude;
         self.longitude = theLongitude;
@@ -34,17 +34,17 @@ NSString * const CMGeoPointClassName = @"geopoint";
     return self;
 }
 
-- (id)initWithLatitudeInRadians:(double)theLatitude andLongitudeInRadians:(double)theLongitude {
+- (instancetype)initWithLatitudeInRadians:(double)theLatitude andLongitudeInRadians:(double)theLongitude {
     const double radianMultiplier = 180 / M_PI;
     return [self initWithLatitude:theLatitude*radianMultiplier andLongitude:theLongitude*radianMultiplier];
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
     return [self initWithLatitude:[aDecoder decodeDoubleForKey:@"latitude"]
                      andLongitude:[aDecoder decodeDoubleForKey:@"longitude"]];
 }
 
-- (id)initWithCLLocation:(CLLocation *)location {
+- (instancetype)initWithCLLocation:(CLLocation *)location {
     return [self initWithLatitude:location.coordinate.latitude
                      andLongitude:location.coordinate.longitude];
 }

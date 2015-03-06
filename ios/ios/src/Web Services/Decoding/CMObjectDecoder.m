@@ -69,7 +69,7 @@
     return decodedObjects;
 }
 
-- (id)initWithSerializedObjectRepresentation:(NSDictionary *)representation {
+- (instancetype)initWithSerializedObjectRepresentation:(NSDictionary *)representation {
     if (self = [super init]) {
         _dictionaryRepresentation = [representation copy];
     }
@@ -232,15 +232,18 @@
         ///
         /// First thing, see if we can deserialzie the object into a CMObject
         ///
-        @try {
-            NSArray *result = [CMObjectDecoder decodeObjects:objv];
-            return result[0];
+        if ( [objv objectForKey:CMInternalTypeStorageKey] == nil) {
+            @try {
+                NSArray *result = [CMObjectDecoder decodeObjects:objv];
+                return result[0];
+            }
+            @catch (NSException *exception) {
+                ///
+                /// Apparently NOT a CMObject subclass
+                ///
+            }
         }
-        @catch (NSException *exception) {
-            ///
-            /// Apparently NOT a CMObject subclass
-            ///
-        }
+        
         
         if ( ([objv objectForKey:CMInternalClassStorageKey] == nil &&
               [objv objectForKey:CMInternalTypeStorageKey] == nil) ||

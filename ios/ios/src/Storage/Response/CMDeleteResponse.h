@@ -23,8 +23,8 @@
  */
 @property (strong, nonatomic) NSDictionary *objectErrors;
 
-- (id)initWithSuccess:(NSDictionary *)success errors:(NSDictionary *)errors;
-- (id)initWithSuccess:(NSDictionary *)success errors:(NSDictionary *)errors snippetResult:(CMSnippetResult *)snippetResult;
-- (id)initWithSuccess:(NSDictionary *)success errors:(NSDictionary *)errors snippetResult:(CMSnippetResult *)snippetResult responseMetadata:(CMResponseMetadata *)metadata;
+- (instancetype)initWithSuccess:(NSDictionary *)success errors:(NSDictionary *)errors;
+- (instancetype)initWithSuccess:(NSDictionary *)success errors:(NSDictionary *)errors snippetResult:(CMSnippetResult *)snippetResult;
+- (instancetype)initWithSuccess:(NSDictionary *)success errors:(NSDictionary *)errors snippetResult:(CMSnippetResult *)snippetResult responseMetadata:(CMResponseMetadata *)metadata;
 
 @end

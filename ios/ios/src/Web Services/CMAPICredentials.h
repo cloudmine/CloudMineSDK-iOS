@@ -18,7 +18,7 @@
 /**
  * @return The shared instance of this object.
  */
-+ (id)sharedInstance;
++ (instancetype)sharedInstance;
 
 /**
  * Convenience method to set both the App ID and the API Key simultaneously.

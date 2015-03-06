@@ -28,8 +28,8 @@
  */
 @property (nonatomic) NSInteger count;
 
-- (id)initWithObjects:(NSArray *)objects errors:(NSDictionary *)errors;
-- (id)initWithObjects:(NSArray *)objects errors:(NSDictionary *)errors snippetResult:(CMSnippetResult *)snippetResult;
-- (id)initWithObjects:(NSArray *)objects errors:(NSDictionary *)errors snippetResult:(CMSnippetResult *)snippetResult responseMetadata:(CMResponseMetadata *)metadata;
+- (instancetype)initWithObjects:(NSArray *)objects errors:(NSDictionary *)errors;
+- (instancetype)initWithObjects:(NSArray *)objects errors:(NSDictionary *)errors snippetResult:(CMSnippetResult *)snippetResult;
+- (instancetype)initWithObjects:(NSArray *)objects errors:(NSDictionary *)errors snippetResult:(CMSnippetResult *)snippetResult responseMetadata:(CMResponseMetadata *)metadata;
 
 @end

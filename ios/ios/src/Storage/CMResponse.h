@@ -42,7 +42,7 @@
  * @param anError A single error returned with the response.
  * @return A CMResponse Object
  */
-- (id)initWithResponseBody:(id)responseBody httpCode:(NSUInteger)code error:(NSError *)anError;
+- (instancetype)initWithResponseBody:(id)responseBody httpCode:(NSUInteger)code error:(NSError *)anError;
 
 /**
  * Returns a new CMReponse object
@@ -52,7 +52,7 @@
  * @param theErrors An Array of NSError objects.
  * @return A CMResponse Object
  */
-- (id)initWithResponseBody:(id)responseBody httpCode:(NSUInteger)code errors:(NSArray *)theErrors;
+- (instancetype)initWithResponseBody:(id)responseBody httpCode:(NSUInteger)code errors:(NSArray *)theErrors;
 
 /**
  * Returns a new CMReponse object
@@ -63,7 +63,7 @@
  * @param theErrors An Array of NSError objects.
  * @return A CMResponse Object
  */
-- (id)initWithResponseBody:(id)responseBody httpCode:(NSUInteger)code headers:(NSDictionary *)theHeaders errors:(NSDictionary *)theErrors;
+- (instancetype)initWithResponseBody:(id)responseBody httpCode:(NSUInteger)code headers:(NSDictionary *)theHeaders errors:(NSDictionary *)theErrors;
 
 /**
  * Returns if the Response was successful or not, defined by the httpResponseCode being

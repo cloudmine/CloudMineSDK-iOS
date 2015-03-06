@@ -16,7 +16,7 @@
 
 #pragma mark - Singleton methods
 
-+ (id)sharedInstance;
++ (instancetype)sharedInstance;
 {
     static dispatch_once_t pred = 0;
     __strong static id _sharedObject = nil;
@@ -47,7 +47,7 @@
 
 #pragma mark - Private initializers
 
-- (id)init;
+- (instancetype)init;
 {
     if (self = [super init]) {
         classNameMappings = [[NSMutableDictionary alloc] init];

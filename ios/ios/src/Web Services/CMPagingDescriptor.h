@@ -18,12 +18,12 @@ extern NSString * const CMPagingDescriptorCountKey;
 @property (nonatomic, assign) NSInteger limit;
 @property (nonatomic, assign) BOOL includeCount;
 
-+ (id)defaultPagingDescriptor;
++ (instancetype)defaultPagingDescriptor;
 
-- (id)init;
-- (id)initWithLimit:(NSInteger)theLimit;
-- (id)initWithLimit:(NSInteger)theLimit skip:(NSUInteger)theOffset;
-- (id)initWithLimit:(NSInteger)theLimit skip:(NSUInteger)theOffset includeCount:(BOOL)willIncludeCount;
+- (instancetype)init;
+- (instancetype)initWithLimit:(NSInteger)theLimit;
+- (instancetype)initWithLimit:(NSInteger)theLimit skip:(NSUInteger)theOffset;
+- (instancetype)initWithLimit:(NSInteger)theLimit skip:(NSUInteger)theOffset includeCount:(BOOL)willIncludeCount;
 - (NSDictionary *)dictionaryRepresentation;
 - (NSString *)stringRepresentation;
 

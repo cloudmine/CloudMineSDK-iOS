@@ -13,7 +13,7 @@
 
 @synthesize file;
 
-- (id)initWithFile:(CMFile *)theFile {
+- (instancetype)initWithFile:(CMFile *)theFile {
     if(self = [super init]) {
         self.file = theFile;
     }

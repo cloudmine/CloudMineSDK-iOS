@@ -28,7 +28,7 @@
 /**
  * @return The singleton instance of the registry.
  */
-+ (id)sharedInstance;
++ (instancetype)sharedInstance;
 
 /**
  * Given a class name, look up the actual class.

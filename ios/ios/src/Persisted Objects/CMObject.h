@@ -50,14 +50,14 @@
 /**
  * Initializes this app-level object by generating a UUID as the default value for <tt>objectId</tt>.
  */
-- (id)init;
+- (instancetype)init;
 
 /**
  * Initializes this app-level object with the given object ID. Note that this MUST be unique throughout your app.
  *
  * @param theObjectId The unique id of the object. This must be unique throughout the entire app.
  */
-- (id)initWithObjectId:(NSString *)theObjectId;
+- (instancetype)initWithObjectId:(NSString *)theObjectId;
 
 /**
  * Default behavior does nothing other than call <tt>[self init]</tt>. Override this in your subclasses
@@ -65,7 +65,7 @@
  *
  * @see CMSerializable
  */
-- (id)initWithCoder:(NSCoder *)aDecoder;
+- (instancetype)initWithCoder:(NSCoder *)aDecoder;
 
 /**
  * Default behavior does nothing. Override this in your subclasses to define logic

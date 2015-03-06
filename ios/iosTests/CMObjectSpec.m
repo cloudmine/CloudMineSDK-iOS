@@ -28,7 +28,7 @@
 @implementation CustomObject
 @synthesize something, somethingElse;
 
-- (id)initWithCoder:(NSCoder *)coder {
+- (instancetype)initWithCoder:(NSCoder *)coder {
     if(self = [super initWithCoder:coder]) {
         // Decode properties from coder
         self.something = [coder decodeObjectForKey:@"something"];

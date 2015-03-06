@@ -10,7 +10,7 @@
 
 @implementation CMBlockValidationMessageSpy
 
-- (id)init {
+- (instancetype)init {
     if (self = [super init]) {
         validationToSelectorMappings = [[NSMutableDictionary alloc] init];
     }

@@ -24,12 +24,12 @@
 
 @implementation CMPaymentService
 
-- (id)init;
+- (instancetype)init;
 {
     return [self initWithUser:nil];
 }
 
-- (id)initWithUser:(CMUser *)aUser;
+- (instancetype)initWithUser:(CMUser *)aUser;
 {
     
     if ( (self = [super init]) ) {

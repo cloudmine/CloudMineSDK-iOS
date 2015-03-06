@@ -14,15 +14,15 @@
 @synthesize objectErrors;
 @synthesize count;
 
-- (id)initWithObjects:(NSArray *)theObjects errors:(NSDictionary *)theErrors {
+- (instancetype)initWithObjects:(NSArray *)theObjects errors:(NSDictionary *)theErrors {
     return [self initWithObjects:theObjects errors:theErrors snippetResult:nil responseMetadata:nil];
 }
 
-- (id)initWithObjects:(NSArray *)theObjects errors:(NSDictionary *)theErrors snippetResult:(CMSnippetResult *)theSnippetResult {
+- (instancetype)initWithObjects:(NSArray *)theObjects errors:(NSDictionary *)theErrors snippetResult:(CMSnippetResult *)theSnippetResult {
     return [self initWithObjects:theObjects errors:theErrors snippetResult:theSnippetResult responseMetadata:nil];
 }
 
-- (id)initWithObjects:(NSArray *)theObjects errors:(NSDictionary *)theErrors snippetResult:(CMSnippetResult *)theSnippetResult responseMetadata:(CMResponseMetadata *)theMetadata {
+- (instancetype)initWithObjects:(NSArray *)theObjects errors:(NSDictionary *)theErrors snippetResult:(CMSnippetResult *)theSnippetResult responseMetadata:(CMResponseMetadata *)theMetadata {
     if (self = [super initWithMetadata:theMetadata snippetResult:theSnippetResult]) {
         self.objects = theObjects;
         self.objectErrors = theErrors;

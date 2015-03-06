@@ -21,6 +21,6 @@
  */
 @property (strong, nonatomic) CMFile *file;
 
-- (id)initWithFile:(CMFile *)file;
+- (instancetype)initWithFile:(CMFile *)file;
 
 @end

@@ -30,20 +30,20 @@
 
 #pragma mark - Constructors
 
-- (id)initWithUUID:(NSString *)uuid {
+- (instancetype)initWithUUID:(NSString *)uuid {
     if (self = [super init]) {
         identifier = uuid;
     }
     return self;
 }
 
-- (id)init {
+- (instancetype)init {
     return [self initWithUUID:[[[NSString stringWithUUID] stringByReplacingOccurrencesOfString:@"-" withString:@""] lowercaseString]];
 }
 
 #pragma mark - Serialization
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
     return [self initWithUUID:[aDecoder decodeObjectForKey:@"identifier"]];
 }
 

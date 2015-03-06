@@ -22,6 +22,6 @@
  */
 @property (strong, nonatomic) NSDictionary *fields;
 
-- (id)initWithFields:(NSDictionary *)theFields objectId:(NSString *)objId;
+- (instancetype)initWithFields:(NSDictionary *)theFields objectId:(NSString *)objId;
 
 @end

@@ -12,9 +12,9 @@ extern NSString * const CMSortDescending;
 
 @interface CMSortDescriptor : NSObject
 
-+ (id)emptyDescriptor;
++ (instancetype)emptyDescriptor;
 
-- (id)initWithFieldsAndDirections:(NSString *)fieldsAndDirections, ...  NS_REQUIRES_NIL_TERMINATION;
+- (instancetype)initWithFieldsAndDirections:(NSString *)fieldsAndDirections, ...  NS_REQUIRES_NIL_TERMINATION;
 
 - (NSString *)directionOfField:(NSString *)fieldName;
 - (NSUInteger)count;

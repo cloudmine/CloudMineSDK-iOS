@@ -13,7 +13,7 @@
 
 @synthesize fields;
 
-- (id)initWithFields:(NSDictionary *)theFields objectId:(NSString *)objId {
+- (instancetype)initWithFields:(NSDictionary *)theFields objectId:(NSString *)objId {
     if (self = [super initWithObjectId:objId]) {
         self.fields = theFields;
     }

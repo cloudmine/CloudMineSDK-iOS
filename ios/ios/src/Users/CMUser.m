@@ -86,34 +86,34 @@ static id _private_user = nil;
     return _private_user;
 }
 
-- (id)init;
+- (instancetype)init;
 {
     return [self initWithEmail:nil andUsername:nil andPassword:nil];
 }
 
-- (id)initWithUsername:(NSString *)theUsername andPassword:(NSString *)thePassword;
+- (instancetype)initWithUsername:(NSString *)theUsername andPassword:(NSString *)thePassword;
 {
     return [self initWithEmail:nil andUsername:theUsername andPassword:thePassword];
 }
 
 // Delete in Version 2.0
-- (id)initWithUserId:(NSString *)theUserId andPassword:(NSString *)thePassword;
+- (instancetype)initWithUserId:(NSString *)theUserId andPassword:(NSString *)thePassword;
 {
     return [self initWithEmail:theUserId andUsername:nil andPassword:thePassword];
 }
 
-- (id)initWithEmail:(NSString *)theEmail andPassword:(NSString *)thePassword;
+- (instancetype)initWithEmail:(NSString *)theEmail andPassword:(NSString *)thePassword;
 {
     return [self initWithEmail:theEmail andUsername:nil andPassword:thePassword];
 }
 
 // Delete in Version 2.0
-- (id)initWithUserId:(NSString *)theUserId andUsername:(NSString *)theUsername andPassword:(NSString *)thePassword;
+- (instancetype)initWithUserId:(NSString *)theUserId andUsername:(NSString *)theUsername andPassword:(NSString *)thePassword;
 {
     return [self initWithEmail:theUserId andUsername:theUsername andPassword:thePassword];
 }
 
-- (id)initWithEmail:(NSString *)theEmail andUsername:(NSString *)theUsername andPassword:(NSString *)thePassword;
+- (instancetype)initWithEmail:(NSString *)theEmail andUsername:(NSString *)theUsername andPassword:(NSString *)thePassword;
 {
     if (self = [super init]) {
         self.token = nil;
@@ -131,7 +131,7 @@ static id _private_user = nil;
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)coder {
+- (instancetype)initWithCoder:(NSCoder *)coder {
     if (self = [super init]) {
         objectId = [coder decodeObjectForKey:CMInternalObjectIdKey];
         if (!objectId) {

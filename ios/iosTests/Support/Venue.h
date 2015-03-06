@@ -18,6 +18,6 @@
 @property (nonatomic, strong) CMGeoPoint *location;
 @property (nonatomic, strong) CMFile *categoryIcon;
 
-- (id)initWithDictionary:(NSDictionary *)dictionary;
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
 @end

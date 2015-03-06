@@ -21,7 +21,7 @@
  */
 @property (strong, nonatomic) NSDictionary *aclErrors;
 
-- (id)initWithACLs:(NSSet *)acls errors:(NSDictionary *)errors;
+- (instancetype)initWithACLs:(NSSet *)acls errors:(NSDictionary *)errors;
 
 /**
  * Returns a set of every user, unioned from every ACL.

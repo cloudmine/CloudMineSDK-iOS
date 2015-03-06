@@ -28,11 +28,11 @@ extern NSString * const CMDateClassName;
 /**
  * Initialize this object with <tt>[NSDate date]</tt>, which will be intialized to the current date and time.
  */
-- (id)init;
+- (instancetype)init;
 
 /**
  * Initialize this object with an arbitrary <tt>NSDate</tt>.
  */
-- (id)initWithDate:(NSDate *)theDate;
+- (instancetype)initWithDate:(NSDate *)theDate;
 
 @end

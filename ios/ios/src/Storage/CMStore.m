@@ -106,22 +106,22 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     return [[CMStore alloc] initWithUser:theUser baseURL:url];
 }
 
-- (id)init;
+- (instancetype)init;
 {
     return [self initWithUser:nil];
 }
 
-- (id)initWithBaseURL:(NSString *)url;
+- (instancetype)initWithBaseURL:(NSString *)url;
 {
     return [self initWithUser:nil baseURL:url];
 }
 
-- (id)initWithUser:(CMUser *)theUser;
+- (instancetype)initWithUser:(CMUser *)theUser;
 {
     return [self initWithUser:theUser baseURL:nil];
 }
 
-- (id)initWithUser:(CMUser *)theUser baseURL:(NSString *)url;
+- (instancetype)initWithUser:(CMUser *)theUser baseURL:(NSString *)url;
 {
     if (self = [super init]) {
         self.webService = [[CMWebService alloc] initWithBaseURL:[NSURL URLWithString:url]];
