@@ -232,7 +232,7 @@
         ///
         /// First thing, see if we can deserialzie the object into a CMObject
         ///
-        if ( [objv objectForKey:CMInternalTypeStorageKey] == nil) {
+        if ( ![[objv objectForKey:CMInternalClassStorageKey] isEqualToString:CMInternalHashClassName]) {
             @try {
                 NSArray *result = [CMObjectDecoder decodeObjects:objv];
                 return result[0];

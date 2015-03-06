@@ -150,6 +150,7 @@
 		AA7345CC19491F16007AAEB0 /* UIImageWithCloudMineIntegrationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7345CB19491F16007AAEB0 /* UIImageWithCloudMineIntegrationSpec.m */; };
 		AA7345CE19493BF7007AAEB0 /* mobile.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7345CD19493BF7007AAEB0 /* mobile.png */; };
 		AA7345D11949E138007AAEB0 /* CMUntypedObjectSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7345D01949E138007AAEB0 /* CMUntypedObjectSpec.m */; };
+		AA8C4C191AAA4B4800500957 /* IOS-39Spec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8C4C181AAA4B4800500957 /* IOS-39Spec.m */; };
 		AA9528D2194B3FBA00AEB90D /* CMDistanceSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9528D1194B3FBA00AEB90D /* CMDistanceSpec.m */; };
 		AA9528D4194B422800AEB90D /* CMNullStoreSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9528D3194B422800AEB90D /* CMNullStoreSpec.m */; };
 		AA9927C0195C7DBF00C46F02 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA9927BF195C7DBF00C46F02 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -409,6 +410,7 @@
 		AA7345CB19491F16007AAEB0 /* UIImageWithCloudMineIntegrationSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageWithCloudMineIntegrationSpec.m; sourceTree = "<group>"; };
 		AA7345CD19493BF7007AAEB0 /* mobile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mobile.png; sourceTree = "<group>"; };
 		AA7345D01949E138007AAEB0 /* CMUntypedObjectSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUntypedObjectSpec.m; sourceTree = "<group>"; };
+		AA8C4C181AAA4B4800500957 /* IOS-39Spec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IOS-39Spec.m"; sourceTree = "<group>"; };
 		AA9528D1194B3FBA00AEB90D /* CMDistanceSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMDistanceSpec.m; sourceTree = "<group>"; };
 		AA9528D3194B422800AEB90D /* CMNullStoreSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMNullStoreSpec.m; sourceTree = "<group>"; };
 		AA9927BF195C7DBF00C46F02 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
@@ -869,6 +871,7 @@
 			isa = PBXGroup;
 			children = (
 				AA5EB16D1A3FEB560081DAC1 /* IOS-29Spec.m */,
+				AA8C4C181AAA4B4800500957 /* IOS-39Spec.m */,
 			);
 			name = Bugs;
 			sourceTree = "<group>";
@@ -1224,6 +1227,7 @@
 				AA61248819B90DA700358E51 /* CMTestProtocolObject.m in Sources */,
 				D039C16715BDEB77005CCD33 /* CMACLSpec.m in Sources */,
 				AA095168194B6CB4008602DB /* CMAppDelegateBaseSpec.m in Sources */,
+				AA8C4C191AAA4B4800500957 /* IOS-39Spec.m in Sources */,
 				D039C16A15BEEB44005CCD33 /* CMACLFetchResponseSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
