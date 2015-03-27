@@ -212,12 +212,30 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * and register your application with CloudMine. After the token has been sent to Cloudmine, the callback with the result
  * will be given.
  *
+ * <strong>Note</strong> - This method will register the stored CMUser to the token. If you do not want to associate the token with the user use
+ * registerForPushNotifications:user:callback: and pass nil.
+ *
+ * @param notificationType The parameter of this method takes a UIRemoteNotificationType bit mask that specifies the initial types of notifications that the application wishes to receive. For example, <tt>(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)</tt>
+ * @param categories The categories that will be submitted to the call. iOS 8 only (Ignored in lower versions of iOS).
+ * @param aUser - The user to which this call will be made with.
+ * @param callback Can be nil - The callback which is called once the Token has been sent to Cloudmine, returns the result of that transaction.
+ */
+- (void)registerForPushNotifications:(NSInteger)notificationType
+                          categories:(NSArray *)categories
+                                user:(CMUser *)aUser
+                            callback:(CMWebServiceDeviceTokenCallback)callback;
+
+/**
+ * Registers your application for push notifications. This method will contact Apple, request a token, handle the token
+ * and register your application with CloudMine. After the token has been sent to Cloudmine, the callback with the result
+ * will be given.
+ *
  *
  * @param notificationType The parameter of this method takes a UIRemoteNotificationType bit mask that specifies the initial types of notifications that the application wishes to receive. For example, <tt>(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)</tt>
  * @param user Can be nil. The user you want to associate the token with.
  * @param callback Can be nil - The callback which is called once the Token has been sent to Cloudmine, returns the result of that transaction.
  */
-- (void)registerForPushNotifications:(UIRemoteNotificationType)notificationType user:(CMUser *)aUser callback:(CMWebServiceDeviceTokenCallback)callback;
+- (void)registerForPushNotifications:(NSInteger)notificationType user:(CMUser *)aUser callback:(CMWebServiceDeviceTokenCallback)callback;
 
 /**
  * Unregisters the users token from CloudMine, so they will no longer receive push notifications. Recommended to remove the token when
