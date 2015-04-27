@@ -30,7 +30,7 @@ inhibit_all_warnings!
 # and MAObjCRuntime for easy runtime inspection of properties
 #
 target "cloudmine-ios" do 
-  pod 'AFNetworking', '2.4.1'
+  pod 'AFNetworking', '2.5.3'
   pod 'MAObjCRuntime', '0.0.1'
 end
 
