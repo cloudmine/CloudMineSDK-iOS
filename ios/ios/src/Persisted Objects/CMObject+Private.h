@@ -11,8 +11,10 @@
 @class CMACL;
 
 @interface CMObject ()
+
 @property (readwrite, getter = isDirty) BOOL dirty;
 @property (readwrite, strong, nonatomic) NSString *ownerId;
 @property (strong, nonatomic) CMACL *sharedACL;
 @property (strong, nonatomic) NSArray *aclIds;
+
 @end

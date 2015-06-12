@@ -167,4 +167,25 @@
  */
 - (void)addACLs:(NSArray *)acls callback:(CMStoreObjectUploadCallback)callback;
 
+/**
+ * Takes an ACL ID (NSString), and adds it to the internal ACL Array. This translates to the 
+ * __access__ array on the server. This is useful for when you want to add an ACL and only know
+ * it's ID.
+ *
+ * Note, this method does *not* call save on the CMObject, you will have to do that yourself.
+ *
+ * @param object - The ACL ID to add
+ */
+- (void)addAclId:(NSString *)object;
+
+/**
+ * Takes an Array of ACL ID's (NSString), and adds them to the internal ACL Array. This translates to the
+ * __access__ array on the server. 
+ *
+ * Note, this method does *not* call save on the CMObject, you will have to do that yourself.
+ *
+ * @param objects - The Array of ACL ID's (NSString's) to add
+ */
+- (void)addAclIds:(NSArray *)objects;
+
 @end

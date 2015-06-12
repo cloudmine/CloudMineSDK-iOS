@@ -259,6 +259,18 @@
     [self save:callback];
 }
 
+- (void)addAclId:(NSString *)object;
+{
+    [self addAclIds:[NSArray arrayWithObject:object]];
+}
+
+- (void)addAclIds:(NSArray *)objects;
+{
+    NSMutableArray *temp = [NSMutableArray arrayWithArray:self.aclIds];
+    [temp addObjectsFromArray:objects];
+    self.aclIds = temp;
+}
+
 - (void)addACL:(CMACL *)acl callback:(CMStoreObjectUploadCallback)callback {
     [self addACLs:[NSArray arrayWithObject:acl] callback:callback];
 }
