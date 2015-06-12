@@ -1,6 +1,10 @@
 HEAD
 =====
 
+v1.7.5 (June 12, 2015)
+======================
+* Added a method on CMObject that allows direct adding of ACL ID's to the __access__ property.
+
 v1.7.5 (March 6, 2015)
 ======================
 * Changed all returned values to be `instancetype`
