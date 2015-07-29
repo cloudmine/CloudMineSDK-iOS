@@ -1,6 +1,10 @@
 HEAD
 =====
 
+v1.7.8 (July 28, 2015)
+======================
+* Added methods on CMStore that replace entire Objects.
+
 v1.7.5 (June 12, 2015)
 ======================
 * Added a method on CMObject that allows direct adding of ACL ID's to the __access__ property.
