@@ -524,6 +524,86 @@ extern NSString * const CMStoreObjectDeletedNotification;
 - (void)saveUserObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
 
 /**
+ * Replaces an individual object to your app's CloudMine data store at the app-level. If this object doesn't
+ * already belong to this store, it will automatically be added as well. If this object does not exist already
+ * on CloudMine, it will be created.
+ *
+ * @param theObject The object to replace.
+ * @param callback The callback to be triggered when all the objects are finished uploading.
+ *
+ * @see CMObject#store
+ */
+- (void)replaceObject:(CMObject *)theObject callback:(CMStoreObjectUploadCallback)callback;
+
+/**
+ * Replaces an individual object to your app's CloudMine data store at the app-level. If this object doesn't
+ * already belong to this store, it will automatically be added as well. If this object does not exist already
+ * on CloudMine, it will be created.
+ *
+ * @param theObject The object to replace.
+ * @param options Use these options to specify a server-side function to call after persisting the objects. Only CMStoreOptions#serverSideFunction is used.
+ * @param callback The callback to be triggered when all the objects are finished uploading.
+ *
+ * @see CMObject#store
+ */
+- (void)replaceObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+
+/**
+ * Replaces an array of object to your app's CloudMine data store at the app-level. If these objects doesn't
+ * already belong to this store, they will automatically be added as well. If these objects do not exist already
+ * on CloudMine, they will be created.
+ *
+ * @param theObject The objects to replace.
+ * @param options Use these options to specify a server-side function to call after persisting the objects. Only CMStoreOptions#serverSideFunction is used.
+ * @param callback The callback to be triggered when all the objects are finished uploading.
+ *
+ * @see CMObject#store
+ */
+- (void)replaceObjects:(NSArray *)objects additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+
+/**
+ * Replaces an individual object to your app's CloudMine data store at the user-level. If this object doesn't
+ * already belong to this store, it will automatically be added as well. If this object does not exist already
+ * on CloudMine, it will be created.
+ *
+ * @param theObject The object to replace.
+ * @param callback The callback to be triggered when all the objects are finished uploading.
+ *
+ * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
+ *
+ * @see CMObject#store
+ */
+- (void)replaceUserObject:(CMObject *)theObject callback:(CMStoreObjectUploadCallback)callback;
+
+/**
+ * Replaces an individual object to your app's CloudMine data store at the user-level. If this object doesn't
+ * already belong to this store, it will automatically be added as well. If this object does not exist already
+ * on CloudMine, it will be created.
+ *
+ * @param theObject The object to replace.
+ * @param options Use these options to specify a server-side function to call after persisting the objects. Only CMStoreOptions#serverSideFunction is used.
+ * @param callback The callback to be triggered when all the objects are finished uploading.
+ *
+ * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
+ *
+ * @see CMObject#store
+ */
+- (void)replaceUserObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+
+/**
+ * Replaces an array of object to your app's CloudMine data store at the user-level. If these objects doesn't
+ * already belong to this store, they will automatically be added as well. If these objects do not exist already
+ * on CloudMine, they will be created.
+ *
+ * @param theObject The objects to replace.
+ * @param options Use these options to specify a server-side function to call after persisting the objects. Only CMStoreOptions#serverSideFunction is used.
+ * @param callback The callback to be triggered when all the objects are finished uploading.
+ *
+ * @see CMObject#store
+ */
+- (void)replaceUserObjects:(NSArray *)objects additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+
+/**
  * Saves an individual ACL to CloudMine's data store. The store must be configured with a user or else calling
  * this method will throw an exception. If this ACL doesn't already belong to this store, it will
  * automatically be added as well. This has the additional effect of increasing

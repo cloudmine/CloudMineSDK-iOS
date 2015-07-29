@@ -27,3 +27,5 @@ cm-ios.xcworkspace/xcshareddata/cm-ios.xccheckout
 #CocoaPods
 Pods
 
+ios/cloudmine-ios-Prefix.gcda
+ios/cloudmine-ios-Prefix.gcno

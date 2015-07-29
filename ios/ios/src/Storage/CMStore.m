@@ -767,6 +767,93 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
         successHandler([NSDictionary dictionaryWithObject:aclDict forKey:acl.objectId], nil, nil, nil, [NSNumber numberWithUnsignedInt:1], nil);
 }
 
+#pragma mark - Replace Objects
+
+- (void)replaceObject:(CMObject *)theObject callback:(CMStoreObjectUploadCallback)callback;
+{
+  [self replaceObject:theObject additionalOptions:nil callback:callback];
+}
+
+- (void)replaceObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+{
+  [self replaceObjects:@[theObject] additionalOptions:options callback:callback];
+}
+
+- (void)replaceObjects:(NSArray *)objects additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+{
+  [self _replaceObjects:objects userLevel:NO additionalOptions:options callback:callback];
+}
+
+- (void)replaceUserObject:(CMObject *)theObject callback:(CMStoreObjectUploadCallback)callback;
+{
+  [self replaceUserObject:theObject additionalOptions:nil callback:callback];
+}
+
+- (void)replaceUserObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+{
+  [self replaceUserObjects:@[theObject] additionalOptions:options callback:callback];
+}
+
+- (void)replaceUserObjects:(NSArray *)objects additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+{
+  _CMAssertUserConfigured;
+  
+  if (!user.isLoggedIn) {
+    if (callback) {
+      callback([[CMObjectUploadResponse alloc] initWithError:Error401]);
+    }
+    return;
+  }
+  
+  [self _replaceObjects:objects userLevel:YES additionalOptions:options callback:callback];
+}
+
+- (void)_replaceObjects:(NSArray *)objects userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+{
+  NSParameterAssert(objects);
+  _CMAssertAPICredentialsInitialized;
+  [self cacheObjectsInMemory:objects atUserLevel:userLevel];
+  
+  // Only send the dirty objects to the servers
+  [webService setValuesFromDictionary:[CMObjectEncoder encodeObjects:objects] //send them all
+                      serverSideFunction:_CMTryMethod(options, serverSideFunction)
+                                    user:_CMUserOrNil
+                         extraParameters:_CMTryMethod(options, buildExtraParameters)
+                          successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult, NSNumber *count, NSDictionary *headers) {
+
+                            CMResponseMetadata *metadata = [[CMResponseMetadata alloc] initWithMetadata:meta];
+                            CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
+                            CMObjectUploadResponse *response = [[CMObjectUploadResponse alloc] initWithUploadStatuses:results snippetResult:result responseMetadata:metadata];
+                            
+                            NSDate *expirationDate = [self.dateFormatter dateFromString:[headers objectForKey:CM_TOKENEXPIRATION_HEADER]];
+                            if (expirationDate && userLevel) {
+                              user.tokenExpiration = expirationDate;
+                            }
+                            
+                            // If the dirty objects were successfully uploaded, mark them as clean
+                            [objects enumerateObjectsUsingBlock:^(CMObject *object, NSUInteger idx, BOOL *stop) {
+                              NSString *status = [response.uploadStatuses objectForKey:object.objectId];
+                              if ([status isEqualToString:@"updated"] || [status isEqualToString:@"created"]) {
+                                object.dirty = NO;
+                              }
+                            }];
+                            
+                            if (callback) {
+                              callback(response);
+                            }
+                          } errorHandler:^(NSError *error) {
+                            NSLog(@"CloudMine *** Error occurred during object save with message: %@", [error description]);
+                            CMObjectUploadResponse *response = [[CMObjectUploadResponse alloc] initWithError:error];
+                            lastError = error;
+                            if (callback) {
+                              callback(response);
+                            }
+                          }
+   ];
+}
+
+
+
 #pragma mark File uploading
 
 - (void)saveFileAtURL:(NSURL *)url additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
