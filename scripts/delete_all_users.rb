@@ -41,7 +41,7 @@ def cm_get(urlString, masterKey)
   req = Net::HTTP::Get.new(url.to_s)
   req.add_field("X-CloudMine-ApiKey", masterKey)
   http = Net::HTTP.new(url.host, url.port)
-  http.use_ssl = true
+  http.use_ssl = urlString.include? "https"
   res = http.request(req)
   JSON.parse(res.body)
 end
@@ -51,7 +51,7 @@ def cm_delete(urlString, masterKey)
   req = Net::HTTP::Delete.new(url.to_s)
   req.add_field("X-CloudMine-ApiKey", masterKey)
   http = Net::HTTP.new(url.host, url.port)
-  http.use_ssl = true
+  http.use_ssl = urlString.include? "https"
   res = http.request(req)
   unless res.body.strip.empty? then JSON.parse(res.body) else "" end
 end
