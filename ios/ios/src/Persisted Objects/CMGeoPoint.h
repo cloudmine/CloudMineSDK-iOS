@@ -12,9 +12,7 @@
 
 extern NSString * const CMGeoPointClassName;
 
-@interface CMGeoPoint : CMObject {
-
-}
+@interface CMGeoPoint : CMObject
 
 /**
  * Initializes a new instance of this class with the given latitude and longitude.
@@ -22,7 +20,7 @@ extern NSString * const CMGeoPointClassName;
  * @param theLatitude The latitude in <strong>degrees</strong>.
  * @param theLongitude The longitude in <strong>degrees</strong>.
  */
-- (instancetype)initWithLatitude:(double)theLatitude andLongitude:(double)theLongitude;
+- (instancetype)initWithLatitude:(double)theLatitude andLongitude:(double)theLongitude NS_DESIGNATED_INITIALIZER;
 
 /**
  * Initializes a new instance of this class with the given latitude and longitude.
