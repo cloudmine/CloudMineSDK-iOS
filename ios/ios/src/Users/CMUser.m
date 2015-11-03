@@ -78,6 +78,7 @@ NSString * const CMUserDefaultsLocalSaveKey = @"me.cloudmine.CMUserDefaultsLocal
 #pragma mark - Constructors
 
 static id _private_user = nil;
+
 + (instancetype)currentUser;
 {
     if (!_private_user) {
