@@ -12,6 +12,12 @@
 #import "MARTNSObject.h"
 #import <objc/runtime.h>
 
+@interface CMObjectClassNameRegistry ()
+
+@property NSMutableDictionary *classNameMappings;
+
+@end
+
 @implementation CMObjectClassNameRegistry
 
 #pragma mark - Singleton methods
@@ -30,7 +36,7 @@
 
 - (Class)classForName:(NSString *)name;
 {
-    NSString *className = [classNameMappings objectForKey:name];
+    NSString *className = [self.classNameMappings objectForKey:name];
     if (className) {
         return NSClassFromString(className);
     } else {
@@ -40,7 +46,7 @@
 
 - (void)refreshRegistry;
 {
-    [classNameMappings removeAllObjects];
+    [self.classNameMappings removeAllObjects];
     [self discoverCMObjectSubclasses];
     [self discoverCMCodingImplementors];
 }
@@ -50,7 +56,7 @@
 - (instancetype)init;
 {
     if (self = [super init]) {
-        classNameMappings = [[NSMutableDictionary alloc] init];
+        _classNameMappings = [[NSMutableDictionary alloc] init];
         [self refreshRegistry];
     }
     return self;
@@ -62,7 +68,7 @@
 {
     NSArray *cmObjectSubclasses = [CMObject rt_subclasses];
     for (Class klass in cmObjectSubclasses) {
-        [classNameMappings setObject:NSStringFromClass(klass) forKey:[klass className]];
+        [self.classNameMappings setObject:NSStringFromClass(klass) forKey:[klass className]];
     }
 }
 
@@ -85,7 +91,7 @@
                 if ([nextClass respondsToSelector:@selector(className)]) {
                     className = [nextClass className];
                 }
-                [classNameMappings setObject:NSStringFromClass(nextClass) forKey:className];
+                [self.classNameMappings setObject:NSStringFromClass(nextClass) forKey:className];
             }
         }
         free(classes);
