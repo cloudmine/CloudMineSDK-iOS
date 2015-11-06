@@ -57,7 +57,7 @@
  *
  * @param theObjectId The unique id of the object. This must be unique throughout the entire app.
  */
-- (instancetype)initWithObjectId:(NSString *)theObjectId;
+- (instancetype)initWithObjectId:(NSString *)theObjectId NS_DESIGNATED_INITIALIZER;
 
 /**
  * Default behavior does nothing other than call <tt>[self init]</tt>. Override this in your subclasses

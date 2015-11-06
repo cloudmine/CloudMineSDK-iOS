@@ -27,11 +27,13 @@
 
 #pragma mark - Initializers
 
-- (instancetype)init {
+- (instancetype)init;
+{
     return [self initWithObjectId:[NSString stringWithUUID]];
 }
 
-- (instancetype)initWithObjectId:(NSString *)theObjectId {
+- (instancetype)initWithObjectId:(NSString *)theObjectId;
+{
     if (self = [super init]) {
         objectId = theObjectId;
         store = nil;
@@ -41,7 +43,8 @@
     return self;
 }
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+- (instancetype)initWithCoder:(NSCoder *)aDecoder;
+{
     id deserializedObjectId = [aDecoder decodeObjectForKey:CMInternalObjectIdKey];
     if (![deserializedObjectId isKindOfClass:[NSString class]])
         deserializedObjectId = [deserializedObjectId stringValue];
@@ -55,11 +58,13 @@
     return self;
 }
 
-- (void)dealloc {
+- (void)dealloc;
+{
     [self deregisterAllPropertiesForKVO];
 }
 
-- (NSString *)ownerId {
+- (NSString *)ownerId;
+{
     if (!ownerId)
         ownerId = self.store.user.objectId;
     return ownerId;
@@ -67,7 +72,8 @@
 
 #pragma mark - Dirty tracking
 
-- (void)executeBlockForAllUserDefinedProperties:(void (^)(RTProperty *property))block {
+- (void)executeBlockForAllUserDefinedProperties:(void (^)(RTProperty *property))block;
+{
     // Add every property on the class, up the class hierarchy the CMObject
     NSMutableArray *allProperties = [NSMutableArray array];
     for (Class class = [self class]; [class isSubclassOfClass:[CMObject class]]; class = [class superclass]) {
@@ -84,19 +90,22 @@
     [allProperties enumerateObjectsUsingBlock:^(RTProperty *property, NSUInteger idx, BOOL *stop) { block(property); }];
 }
 
-- (void)registerAllPropertiesForKVO {
+- (void)registerAllPropertiesForKVO;
+{
     [self executeBlockForAllUserDefinedProperties:^(RTProperty *property) {
         [self addObserver:self forKeyPath:[property name] options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
     }];
 }
 
-- (void)deregisterAllPropertiesForKVO {
+- (void)deregisterAllPropertiesForKVO;
+{
     [self executeBlockForAllUserDefinedProperties:^(RTProperty *property) {
         [self removeObserver:self forKeyPath:[property name]];
     }];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
+{
     id oldValue = [change objectForKey:NSKeyValueChangeOldKey];
     id newValue = [change objectForKey:NSKeyValueChangeNewKey];
     if (![oldValue isEqual:newValue]) {
@@ -106,14 +115,16 @@
 
 #pragma mark - Serialization
 
-- (void)encodeWithCoder:(NSCoder *)aCoder {
+- (void)encodeWithCoder:(NSCoder *)aCoder;
+{
     [aCoder encodeObject:self.objectId forKey:CMInternalObjectIdKey];
     [aCoder encodeObject:self.aclIds forKey:CMInternalObjectACLsKey];
 }
 
 #pragma mark - CMStore interactions
 
-- (void)save:(CMStoreObjectUploadCallback)callback {
+- (void)save:(CMStoreObjectUploadCallback)callback;
+{
     if ([self.store objectOwnershipLevel:self] == CMObjectOwnershipUndefinedLevel) {
         [self.store addObject:self];
     }
@@ -131,7 +142,8 @@
     }
 }
 
-- (void)saveWithUser:(CMUser *)user callback:(CMStoreObjectUploadCallback)callback {
+- (void)saveWithUser:(CMUser *)user callback:(CMStoreObjectUploadCallback)callback;
+{
     NSAssert([self.store objectOwnershipLevel:self] != CMObjectOwnershipAppLevel, @"*** Error: Object %@ is already at the app-level. You cannot also save it to the user level. Make a copy of it with a new objectId to do this.", self);
     if ([self.store objectOwnershipLevel:self] == CMObjectOwnershipUndefinedLevel) {
         [self.store addUserObject:self];
@@ -139,19 +151,22 @@
     [self save:callback];
 }
 
-- (BOOL)belongsToStore {
+- (BOOL)belongsToStore;
+{
     NSLog(@"-[CMObject belongsToStore] has been deprecated with the introduction of the default store. An object will always belong to a store.");
     return YES;
 }
 
-- (CMStore *)store {
+- (CMStore *)store;
+{
     if (!store) {
         return [CMStore defaultStore];
     }
     return store;
 }
 
-- (void)setStore:(CMStore *)newStore {
+- (void)setStore:(CMStore *)newStore;
+{
     @synchronized(self) {
         if(!newStore) {
             // An object without a store is kind of in a weird state. So represent this
@@ -209,7 +224,8 @@
 
 #pragma mark - ACLs
 
-- (void)getACLs:(CMStoreACLFetchCallback)callback {
+- (void)getACLs:(CMStoreACLFetchCallback)callback;
+{
     NSAssert([self.store objectOwnershipLevel:self] == CMObjectOwnershipUserLevel, @"*** Error: Object %@ is not at the user level. It must be a user level object in order for it to have ACLs.", self);
 
     if (self.sharedACL) {
@@ -229,7 +245,8 @@
     }];
 }
 
-- (void)saveACLs:(CMStoreObjectUploadCallback)callback {
+- (void)saveACLs:(CMStoreObjectUploadCallback)callback;
+{
     NSAssert([self.store objectOwnershipLevel:self] == CMObjectOwnershipUserLevel, @"*** Error: Object %@ is not at the user level. It must be a user level object in order for it to have ACLs.", self);
     if (self.sharedACL) {
         NSError *ownerError = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidRequest userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Object %@ is not owned by the user configured with the store. You must have ownership of the object in order to save any ACLs.", NSLocalizedDescriptionKey, nil]];
@@ -240,11 +257,13 @@
     [self.store saveACLsOnObject:self callback:callback];
 }
 
-- (void)removeACL:(CMACL *)acl callback:(CMStoreObjectUploadCallback)callback {
+- (void)removeACL:(CMACL *)acl callback:(CMStoreObjectUploadCallback)callback;
+{
     [self removeACLs:[NSArray arrayWithObject:acl] callback:callback];
 }
 
-- (void)removeACLs:(NSArray *)acls callback:(CMStoreObjectUploadCallback)callback {
+- (void)removeACLs:(NSArray *)acls callback:(CMStoreObjectUploadCallback)callback;
+{
     NSAssert([self.store objectOwnershipLevel:self] == CMObjectOwnershipUserLevel, @"*** Error: Object %@ is not at the user level. It must be a user level object in order for it to have ACLs.", self);
     if (self.sharedACL) {
         NSError *ownerError = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidRequest userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Object %@ is not owned by the user configured with the store. You must have ownership of the object in order to remove ACLs.", NSLocalizedDescriptionKey, nil]];
@@ -271,11 +290,13 @@
     self.aclIds = temp;
 }
 
-- (void)addACL:(CMACL *)acl callback:(CMStoreObjectUploadCallback)callback {
+- (void)addACL:(CMACL *)acl callback:(CMStoreObjectUploadCallback)callback;
+{
     [self addACLs:[NSArray arrayWithObject:acl] callback:callback];
 }
 
-- (void)addACLs:(NSArray *)acls callback:(CMStoreObjectUploadCallback)callback {
+- (void)addACLs:(NSArray *)acls callback:(CMStoreObjectUploadCallback)callback;
+{
     NSAssert([self.store objectOwnershipLevel:self] == CMObjectOwnershipUserLevel, @"*** Error: Object %@ is not at the user level. It must be a user level object in order for it to have ACLs.", self);
     if (self.sharedACL) {
         NSError *ownerError = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidRequest userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Object %@ is not owned by the user configured with the store. You must have ownership of the object in order to add ACLs.", NSLocalizedDescriptionKey, nil]];
@@ -308,15 +329,18 @@
 
 #pragma mark - Accessors
 
-+ (NSString *)className {
++ (NSString *)className;
+{
     return NSStringFromClass(self);
 }
 
-- (BOOL)isEqual:(id)object {
+- (BOOL)isEqual:(id)object;
+{
     return [object isKindOfClass:[CMObject class]] && [self.objectId isEqualToString:[object objectId]];
 }
 
-- (CMObjectOwnershipLevel)ownershipLevel {
+- (CMObjectOwnershipLevel)ownershipLevel;
+{
     if (self.store != nil && self.store != [CMNullStore nullStore]) {
         return [self.store objectOwnershipLevel:self];
     } else {
