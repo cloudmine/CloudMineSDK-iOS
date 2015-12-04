@@ -55,8 +55,7 @@ Before any pull requests are accepted, your code must be covered and all tests m
 
 Documentation
 -------------
-CloudMine has documentation [here](https://cloudmine.me/docs/ios). The library also has documentation in the header files. There is also the [documentation overview](http://cloudmine.me/developer_zone#ios/overview) on our website for more details.
-
+CloudMine has documentation [here](https://cloudmine.me/docs/#/ios). The library also has documentation in the header files.
 
 Contributing
 ------------
