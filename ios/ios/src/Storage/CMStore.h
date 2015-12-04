@@ -221,7 +221,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * @param callback Can be nil - The callback which is called once the Token has been sent to Cloudmine, returns the result of that transaction.
  */
 - (void)registerForPushNotifications:(NSInteger)notificationType
-                          categories:(NSArray *)categories
+                          categories:(NSSet *)categories
                                 user:(CMUser *)aUser
                             callback:(CMWebServiceDeviceTokenCallback)callback;
 
