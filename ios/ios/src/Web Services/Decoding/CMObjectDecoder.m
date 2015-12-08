@@ -90,14 +90,16 @@
     return ([_dictionaryRepresentation objectForKey:key] != nil);
 }
 
-- (const uint8_t *)decodeBytesForKey:(NSString *)key {
+- (const uint8_t *)decodeBytesForKey:(NSString *)key returnedLength:(NSUInteger *)lengthp {
     if(![self containsValueForKey:key]) {
         return 0;
     }
     
     id val = [_dictionaryRepresentation valueForKey:key];
     if (val != nil && val != [NSNull null]) {
-        return [[_dictionaryRepresentation valueForKey:key] bytes];
+        NSString *stringRepresentation = (NSString *)val;
+        NSData *bytesObject = [stringRepresentation dataUsingEncoding:NSUTF8StringEncoding];
+        return [bytesObject bytes];
     }
     return 0;
 }
