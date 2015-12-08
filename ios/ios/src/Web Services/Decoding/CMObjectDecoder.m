@@ -90,6 +90,18 @@
     return ([_dictionaryRepresentation objectForKey:key] != nil);
 }
 
+- (const uint8_t *)decodeBytesForKey:(NSString *)key {
+    if(![self containsValueForKey:key]) {
+        return 0;
+    }
+    
+    id val = [_dictionaryRepresentation valueForKey:key];
+    if (val != nil && val != [NSNull null]) {
+        return [[_dictionaryRepresentation valueForKey:key] bytes];
+    }
+    return 0;
+}
+
 - (BOOL)decodeBoolForKey:(NSString *)key {
     if (![self containsValueForKey:key]) {
         return NO;

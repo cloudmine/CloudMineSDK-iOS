@@ -89,6 +89,12 @@
     return ([_encodedData objectForKey:key] != nil);
 }
 
+- (void) encodeBytes:(const uint8_t *)bytesp length:(NSUInteger)lenv forKey:(NSString *)key;
+{
+    NSString *stringObj = [[NSString alloc] initWithBytes:bytesp length:lenv encoding:NSASCIIStringEncoding];
+    [_encodedData setObject:stringObj forKey:key];
+}
+
 - (void)encodeBool:(BOOL)boolv forKey:(NSString *)key;
 {
     [_encodedData setObject:[NSNumber numberWithBool:boolv] forKey:key];
