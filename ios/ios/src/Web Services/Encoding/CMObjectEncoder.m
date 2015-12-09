@@ -91,8 +91,9 @@
 
 - (void) encodeBytes:(const uint8_t *)bytesp length:(NSUInteger)lenv forKey:(NSString *)key;
 {
-    NSString *stringObj = [[NSString alloc] initWithBytes:bytesp length:lenv encoding:NSASCIIStringEncoding];
-    [_encodedData setObject:stringObj forKey:key];
+    NSData *data = [NSData dataWithBytes:bytesp length:lenv];
+    NSString *base64EncodedString = [data base64EncodedStringWithOptions:0];
+    [_encodedData setObject:base64EncodedString forKey:key];
 }
 
 - (void)encodeBool:(BOOL)boolv forKey:(NSString *)key;

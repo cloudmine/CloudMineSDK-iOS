@@ -97,9 +97,12 @@
     
     id val = [_dictionaryRepresentation valueForKey:key];
     if (val != nil && val != [NSNull null]) {
-        NSString *stringRepresentation = (NSString *)val;
-        NSData *bytesObject = [stringRepresentation dataUsingEncoding:NSUTF8StringEncoding];
-        return [bytesObject bytes];
+        NSData *data = [[NSData alloc] initWithBase64EncodedString:val options:0];
+        NSUInteger dataLength = [data length];
+        uint8_t *bytes = calloc(dataLength, sizeof(uint8_t));
+        [data getBytes:bytes length:dataLength];
+        *lengthp = dataLength;
+        return bytes;
     }
     return 0;
 }
