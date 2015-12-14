@@ -972,7 +972,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastTestingUpgradeCheck = 0510;
-				LastUpgradeCheck = 0600;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "CloudMine, LLC";
 			};
 			buildConfigurationList = 7AB4AB59145DC5D8006AEF67 /* Build configuration list for PBXProject "cloudmine-ios" */;
@@ -1284,11 +1284,13 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1330,6 +1332,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
@@ -1422,6 +1425,7 @@
 					"-l\"Pods-cloudmine-ios-AFNetworking\"",
 					"-l\"Pods-cloudmine-ios-MAObjCRuntime\"",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cloudmine.sdk.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "cloudmine-iosTests";
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -1448,6 +1452,7 @@
 					"-l\"Pods-cloudmine-ios-AFNetworking\"",
 					"-l\"Pods-cloudmine-ios-MAObjCRuntime\"",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cloudmine.sdk.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "cloudmine-iosTests";
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -1472,6 +1477,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1544,6 +1550,7 @@
 					"-l\"Pods-cloudmine-ios-AFNetworking\"",
 					"-l\"Pods-cloudmine-ios-MAObjCRuntime\"",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cloudmine.sdk.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "cloudmine-iosTests";
 				USER_HEADER_SEARCH_PATHS = "";
 			};
