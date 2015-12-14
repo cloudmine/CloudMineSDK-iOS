@@ -20,8 +20,16 @@
 /**
  * This dictionary stores all the fields contained in this object.
  */
-@property (strong, nonatomic) NSDictionary *fields;
+@property (copy, nonatomic) NSDictionary *fields;
 
+/**
+ Creates a CMObject that could not be mapped to a class.
+ */
 - (instancetype)initWithFields:(NSDictionary *)theFields objectId:(NSString *)objId;
+
+/**
+ For the super class
+ */
+- (instancetype)initWithObjectId:(NSString *)theObjectId NS_DESIGNATED_INITIALIZER;
 
 @end
