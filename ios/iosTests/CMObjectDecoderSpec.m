@@ -170,6 +170,16 @@ describe(@"CMObjectDecoder", ^{
         [[theBlock(^{ [decoder decodeInt64ForKey:@"integer64"]; }) should] raiseWithName:NSInvalidArgumentException];
     });
     
+    it(@"should decode a UUID", ^{
+        NSDictionary *encoded = @{@"uuid": @"5iHh+MNsSVqT/Awkej5uXw=="};
+        CMObjectDecoder *decoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:encoded];
+        
+        NSUInteger size;
+        const uint8_t *bytes = [decoder decodeBytesForKey:@"uuid" returnedLength:&size];
+        NSUUID *created = [[NSUUID alloc] initWithUUIDBytes:bytes];
+        [[created should] equal:[[NSUUID alloc] initWithUUIDString:@"e621e1f8-c36c-495a-93fc-0c247a3e6e5f"]];
+    });
+    
     it(@"should not be able to decode a random NSObject", ^{
         NSDictionary *encoded = @{@"object": [NSObject new]};
         CMObjectDecoder *decoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:encoded];

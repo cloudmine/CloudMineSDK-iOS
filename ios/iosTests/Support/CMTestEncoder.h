@@ -33,6 +33,12 @@
 
 @end
 
+@interface CMTestEncoderUUID : CMObject
+
+@property (nonatomic, strong) NSUUID *uuid;
+
+@end
+
 @interface CMTestEncoderNSCoding : NSObject <CMCoding>
 
 @property (nonatomic, copy) NSString *aString;
