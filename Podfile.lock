@@ -1,11 +1,11 @@
 PODS:
   - AFNetworking (2.5.4):
-    - AFNetworking/NSURLConnection
-    - AFNetworking/NSURLSession
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-    - AFNetworking/UIKit
+    - AFNetworking/NSURLConnection (= 2.5.4)
+    - AFNetworking/NSURLSession (= 2.5.4)
+    - AFNetworking/Reachability (= 2.5.4)
+    - AFNetworking/Security (= 2.5.4)
+    - AFNetworking/Serialization (= 2.5.4)
+    - AFNetworking/UIKit (= 2.5.4)
   - AFNetworking/NSURLConnection (2.5.4):
     - AFNetworking/Reachability
     - AFNetworking/Security
@@ -36,4 +36,4 @@ SPEC CHECKSUMS:
   MAObjCRuntime: a6a1d95acbfa3784d66cb35bd42904e47943b488
   NSData+Base64: 4e84902c4db907a15673474677e57763ef3903e4
 
-COCOAPODS: 0.34.2
+COCOAPODS: 0.39.0

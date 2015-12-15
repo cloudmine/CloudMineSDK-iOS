@@ -65,6 +65,7 @@
 #import "CMUserAccountResult.h"
 #import "CMWebService.h"
 #import "CMAppDelegateBase.h"
+#import "CMActiveUser.h"
 
 #import "CMSocialLoginViewController.h"
 

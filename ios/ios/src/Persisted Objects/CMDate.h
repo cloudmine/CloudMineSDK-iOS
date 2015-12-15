@@ -33,6 +33,6 @@ extern NSString * const CMDateClassName;
 /**
  * Initialize this object with an arbitrary <tt>NSDate</tt>.
  */
-- (instancetype)initWithDate:(NSDate *)theDate;
+- (instancetype)initWithDate:(NSDate *)theDate NS_DESIGNATED_INITIALIZER;
 
 @end

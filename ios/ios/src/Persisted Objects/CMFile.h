@@ -78,7 +78,7 @@
  * @param theName The human-readable name of the file. This must be unique in your app, just like when there are many files in the same directory on a filesystem.
  * @param theMimeType The MIME type of this file. Common MIME types keyed on file extensions can be accessed via CMMimeType#mimeTypeForExtension:. Defaults to <tt>application/octet-stream</tt>.
  */
-- (instancetype)initWithData:(NSData *)theFileData named:(NSString *)theName mimeType:(NSString *)theMimeType;
+- (instancetype)initWithData:(NSData *)theFileData named:(NSString *)theName mimeType:(NSString *)theMimeType NS_DESIGNATED_INITIALIZER;;
 
 /**
  * @deprecated

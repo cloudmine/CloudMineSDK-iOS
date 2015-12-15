@@ -21,9 +21,7 @@
  *
  * @see CMObject#className
  */
-@interface CMObjectClassNameRegistry : NSObject {
-    NSMutableDictionary *classNameMappings;
-}
+@interface CMObjectClassNameRegistry : NSObject
 
 /**
  * @return The singleton instance of the registry.

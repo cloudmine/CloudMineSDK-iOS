@@ -14,11 +14,13 @@ NSString * const CMDateClassName = @"datetime";
 
 @implementation CMDate
 
-- (instancetype)init {
+- (instancetype)init;
+{
     return [self initWithDate:[NSDate date]];
 }
 
-- (instancetype)initWithDate:(NSDate *)theDate {
+- (instancetype)initWithDate:(NSDate *)theDate;
+{
     NSAssert([theDate isKindOfClass:[NSDate class]], @"Must provide NSDate to CMDate constructor.");
     if (self = [super init]) {
         _date = [theDate copy];
@@ -26,23 +28,28 @@ NSString * const CMDateClassName = @"datetime";
     return self;
 }
 
-- (NSDate *)date {
+- (NSDate *)date;
+{
     return [_date copy];
 }
 
-- (id)forwardingTargetForSelector:(SEL)aSelector {
+- (id)forwardingTargetForSelector:(SEL)aSelector;
+{
     return _date;
 }
 
-+ (NSTimeInterval)timeIntervalSinceReferenceDate {
++ (NSTimeInterval)timeIntervalSinceReferenceDate;
+{
     return [NSDate timeIntervalSinceReferenceDate];
 }
 
-- (NSTimeInterval)timeIntervalSinceReferenceDate {
+- (NSTimeInterval)timeIntervalSinceReferenceDate;
+{
     return [_date timeIntervalSinceReferenceDate];
 }
 
-- (BOOL)isEqualToDate:(NSDate *)otherDate {
+- (BOOL)isEqualToDate:(NSDate *)otherDate;
+{
     if ([otherDate isMemberOfClass:[CMDate class]]) {
         return (ceil([_date timeIntervalSince1970]) == ceil([[otherDate valueForKey:@"_date"] timeIntervalSince1970]));
     } else {
@@ -50,7 +57,8 @@ NSString * const CMDateClassName = @"datetime";
     }
 }
 
-- (BOOL)isEqual:(id)object {
+- (BOOL)isEqual:(id)object;
+{
     if (![object isMemberOfClass:[CMDate class]] && ![object isKindOfClass:[NSDate class]]) {
         return NO;
     } else {
@@ -60,19 +68,23 @@ NSString * const CMDateClassName = @"datetime";
 
 #pragma mark - NSSerializable methods
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+- (instancetype)initWithCoder:(NSCoder *)aDecoder;
+{
     return [self initWithDate:[NSDate dateWithTimeIntervalSince1970:[aDecoder decodeDoubleForKey:@"timestamp"]]];
 }
 
-- (void)encodeWithCoder:(NSCoder *)aCoder {
+- (void)encodeWithCoder:(NSCoder *)aCoder;
+{
     [aCoder encodeDouble:[_date timeIntervalSince1970] forKey:@"timestamp"];
 }
 
-- (NSString *)objectId {
+- (NSString *)objectId;
+{
     return nil;
 }
 
-+ (NSString *)className {
++ (NSString *)className;
+{
     return CMDateClassName;
 }
 

@@ -22,6 +22,8 @@ Building the Library
 --------------------
 If you are interested in doing some development on the library:
 
+Tested with (0.38.0.beta.2)
+
 1. Install Cococapods: `sudo gem install cocoapods`
 1. Download the repository to your local machine: `git clone git://github.com/cloudmine/cloudmine-ios.git;cd cloudmine-ios`
 2. Get the dependenices: `pod install`.
@@ -53,8 +55,7 @@ Before any pull requests are accepted, your code must be covered and all tests m
 
 Documentation
 -------------
-CloudMine has documentation [here](https://cloudmine.me/docs/ios). The library also has documentation in the header files. There is also the [documentation overview](http://cloudmine.me/developer_zone#ios/overview) on our website for more details.
-
+CloudMine has documentation [here](https://cloudmine.me/docs/#/ios). The library also has documentation in the header files.
 
 Contributing
 ------------

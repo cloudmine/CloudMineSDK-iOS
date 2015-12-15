@@ -18,6 +18,7 @@
 @property (nonatomic, strong) NSArray *arrayOfBooleans;
 @property (nonatomic, strong) id<CMSerializable> nestedObject;
 @property (nonatomic, strong) CMDate *date;
+@property (nonatomic, strong) NSUUID *uuid;
 @property (nonatomic, strong) NSMutableDictionary *dictionary;
 
 - (void)fillPropertiesWithDefaults;
