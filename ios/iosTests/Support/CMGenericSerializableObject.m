@@ -23,6 +23,7 @@
                             [NSNumber numberWithBool:NO], nil];
     self.date = [[CMDate alloc] initWithDate:[NSDate date]];
     self.dictionary = [NSMutableDictionary dictionary];
+    self.uuid = [NSUUID UUID];
 
     //TODO: Uncomment when server-side support for object relationships is done.
 
@@ -53,6 +54,10 @@
     [aCoder encodeObject:self.arrayOfBooleans forKey:@"arrayOfBooleans"];
     [aCoder encodeObject:self.date forKey:@"date"];
     [aCoder encodeObject:self.dictionary forKey:@"dictionary"];
+    
+    uuid_t uuid;
+    [self.uuid getUUIDBytes:uuid];
+    [aCoder encodeBytes:uuid length:16 forKey:@"uuid"];
 
     //TODO: Uncomment when server-side support for object relationships is done.
     if (self.nestedObject)
@@ -67,6 +72,10 @@
         self.arrayOfBooleans = [aDecoder decodeObjectForKey:@"arrayOfBooleans"];
         self.date = [aDecoder decodeObjectForKey:@"date"];
         self.dictionary = [aDecoder decodeObjectForKey:@"dictionary"];
+        
+        NSUInteger blockSize;
+        const void* bytes = [aDecoder decodeBytesForKey:@"uuid" returnedLength:&blockSize];
+        self.uuid = [[NSUUID alloc] initWithUUIDBytes:bytes];
 
         //TODO: Uncomment when server-side support for object relationships is done.
 //        self.nestedObject = [aDecoder decodeObjectForKey:@"nestedObject"];

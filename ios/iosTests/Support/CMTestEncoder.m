@@ -80,6 +80,29 @@
 
 @end
 
+@implementation CMTestEncoderUUID
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder;
+{
+    if ( self = ([super initWithCoder:aDecoder]) ) {
+        NSUInteger blockSize;
+        const void* bytes = [aDecoder decodeBytesForKey:@"uuid" returnedLength:&blockSize];
+        self.uuid = [[NSUUID alloc] initWithUUIDBytes:bytes];
+        self.uuid = [[NSUUID alloc] initWithUUIDString:[aDecoder decodeObjectForKey:@"uuid"]];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder;
+{
+    [super encodeWithCoder:aCoder];
+    uuid_t uuid;
+    [self.uuid getUUIDBytes:uuid];
+    [aCoder encodeBytes:uuid length:16 forKey:@"uuid"];
+}
+
+@end
+
 @implementation CMTestEncoderNSCoding
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder;
