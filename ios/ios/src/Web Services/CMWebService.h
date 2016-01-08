@@ -8,7 +8,7 @@
 
 /** @file */
 
-#import "AFNetworking.h"
+@import AFNetworking;
 #import "CMFileUploadResult.h"
 #import "CMDeviceTokenResult.h"
 #import "CMUserAccountResult.h"
