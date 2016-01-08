@@ -65,7 +65,7 @@
  *
  * @see CMSerializable
  */
-- (instancetype)initWithCoder:(NSCoder *)aDecoder;
+- (instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;
 
 /**
  * Default behavior does nothing. Override this in your subclasses to define logic
