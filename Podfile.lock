@@ -23,17 +23,20 @@ PODS:
   - Kiwi (2.3.1)
   - MAObjCRuntime (0.0.1)
   - NSData+Base64 (1.0.0)
+  - ResearchKit (1.2.1)
 
 DEPENDENCIES:
   - AFNetworking (= 2.5.4)
   - Kiwi (= 2.3.1)
   - MAObjCRuntime (= 0.0.1)
   - NSData+Base64 (= 1.0.0)
+  - ResearchKit (= 1.2.1)
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   Kiwi: f038a6c61f7a9e4d7766bff5717aa3b3fdb75f55
   MAObjCRuntime: a6a1d95acbfa3784d66cb35bd42904e47943b488
   NSData+Base64: 4e84902c4db907a15673474677e57763ef3903e4
+  ResearchKit: 606d20301e576157fb0accc57f63aba5e1f3a15f
 
 COCOAPODS: 0.39.0

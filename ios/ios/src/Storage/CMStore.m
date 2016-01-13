@@ -688,6 +688,40 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
      ];
 }
 
+- (void)_saveSerializedObjects:(NSDictionary *)objects
+                     userLevel:(BOOL)userLevel
+                      callback:(CMStoreObjectUploadCallback)callback
+             additionalOptions:(CMStoreOptions *)options;
+{
+    [webService updateValuesFromDictionary:objects
+                        serverSideFunction:_CMTryMethod(options, serverSideFunction)
+                                      user:_CMUserOrNil
+                           extraParameters:_CMTryMethod(options, buildExtraParameters)
+                            successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult, NSNumber *count, NSDictionary *headers) {
+                                CMResponseMetadata *metadata = [[CMResponseMetadata alloc] initWithMetadata:meta];
+                                CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
+                                CMObjectUploadResponse *response = [[CMObjectUploadResponse alloc] initWithUploadStatuses:results snippetResult:result responseMetadata:metadata];
+                                
+                                NSDate *expirationDate = [self.dateFormatter dateFromString:[headers objectForKey:CM_TOKENEXPIRATION_HEADER]];
+                                if (expirationDate && userLevel) {
+                                    user.tokenExpiration = expirationDate;
+                                }
+                                
+                                if (callback) {
+                                    callback(response);
+                                }
+                            } errorHandler:^(NSError *error) {
+                                NSLog(@"CloudMine *** Error occurred during object save with message: %@", [error description]);
+                                CMObjectUploadResponse *response = [[CMObjectUploadResponse alloc] initWithError:error];
+                                lastError = error;
+                                if (callback) {
+                                    callback(response);
+                                }
+                            }
+     ];
+}
+
+
 - (void)saveACLsOnObject:(CMObject *)object callback:(CMStoreObjectUploadCallback)callback;
 {
     NSMutableArray *acls = [NSMutableArray array];

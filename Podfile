@@ -5,7 +5,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 #
 # Supporting iOS 6 and above
 #
-platform :ios, '6.0'
+platform :ios, '8.0'
 
 #
 # Define the workspace we had before Cocoapods
@@ -32,6 +32,7 @@ inhibit_all_warnings!
 target "cloudmine-ios" do 
   pod 'AFNetworking', '2.5.4'
   pod 'MAObjCRuntime', '0.0.1'
+  pod 'ResearchKit', '1.2.1'
 end
 
 #

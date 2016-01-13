@@ -155,6 +155,7 @@
 		AA9528D4194B422800AEB90D /* CMNullStoreSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9528D3194B422800AEB90D /* CMNullStoreSpec.m */; };
 		AA9927C0195C7DBF00C46F02 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA9927BF195C7DBF00C46F02 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		AA9927C2195C7DC700C46F02 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA9927C1195C7DC700C46F02 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		AA9ACC3B1C45A840008A55C5 /* ORKResult+CloudMine.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9ACC3A1C45A840008A55C5 /* ORKResult+CloudMine.m */; };
 		AAA05FB9183A756B009652C9 /* CMPaymentService.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA05FB3183A756B009652C9 /* CMPaymentService.m */; };
 		AAA05FBB183A756B009652C9 /* CMPaymentService.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB4183A756B009652C9 /* CMPaymentService.h */; };
 		AAA05FBC183A756B009652C9 /* CMCardPayment.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB5183A756B009652C9 /* CMCardPayment.h */; };
@@ -338,7 +339,7 @@
 		7AABA2FB14818DCA00FD52A0 /* CMObjectDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMObjectDecoder.h; sourceTree = "<group>"; };
 		7AABA2FC14818DCA00FD52A0 /* CMObjectDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMObjectDecoder.m; sourceTree = "<group>"; };
 		7AABA2FE14818DCA00FD52A0 /* CMObjectEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMObjectEncoder.h; sourceTree = "<group>"; };
-		7AABA2FF14818DCA00FD52A0 /* CMObjectEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMObjectEncoder.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		7AABA2FF14818DCA00FD52A0 /* CMObjectEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMObjectEncoder.m; sourceTree = "<group>"; };
 		7AAFB49A158017450066B4A4 /* CMMimeTypeSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMMimeTypeSpec.m; sourceTree = "<group>"; };
 		7AB4AB5F145DC5D8006AEF67 /* libcloudmine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcloudmine.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AB4AB62145DC5D8006AEF67 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -415,6 +416,8 @@
 		AA9528D3194B422800AEB90D /* CMNullStoreSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMNullStoreSpec.m; sourceTree = "<group>"; };
 		AA9927BF195C7DBF00C46F02 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		AA9927C1195C7DC700C46F02 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		AA9ACC391C45A840008A55C5 /* ORKResult+CloudMine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ORKResult+CloudMine.h"; sourceTree = "<group>"; };
+		AA9ACC3A1C45A840008A55C5 /* ORKResult+CloudMine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ORKResult+CloudMine.m"; sourceTree = "<group>"; };
 		AAA05FB3183A756B009652C9 /* CMPaymentService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMPaymentService.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		AAA05FB4183A756B009652C9 /* CMPaymentService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMPaymentService.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		AAA05FB5183A756B009652C9 /* CMCardPayment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMCardPayment.h; sourceTree = "<group>"; };
@@ -803,6 +806,8 @@
 				7AFDFE3F158E959B00388D6E /* CMObjectClassNameRegistry.m */,
 				7AFDFE40158E959B00388D6E /* CMUntypedObject.h */,
 				7AFDFE41158E959B00388D6E /* CMUntypedObject.m */,
+				AA9ACC391C45A840008A55C5 /* ORKResult+CloudMine.h */,
+				AA9ACC3A1C45A840008A55C5 /* ORKResult+CloudMine.m */,
 			);
 			path = "Persisted Objects";
 			sourceTree = "<group>";
@@ -1162,6 +1167,7 @@
 				AAA05FC0183A756B009652C9 /* CMPaymentResponse.m in Sources */,
 				7A58CC2214F1B544003E864B /* CMMimeType.m in Sources */,
 				7AE2848B1562C3C8003E8A8F /* CMSortDescriptor.m in Sources */,
+				AA9ACC3B1C45A840008A55C5 /* ORKResult+CloudMine.m in Sources */,
 				65199EC2156A7D9500267EC6 /* CMDeleteResponse.m in Sources */,
 				65199EC3156A7D9500267EC6 /* CMFileFetchResponse.m in Sources */,
 				65199EC4156A7D9500267EC6 /* CMFileUploadResponse.m in Sources */,
@@ -1322,7 +1328,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/**";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-all_load";
@@ -1358,7 +1364,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/**";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-all_load";
 				SDKROOT = iphoneos;
@@ -1382,7 +1388,7 @@
 					"$(inherited)",
 					"TESTING=0",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1408,7 +1414,7 @@
 					"$(inherited)",
 					"TESTING=0",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1509,7 +1515,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/**";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-all_load";
@@ -1533,7 +1539,7 @@
 					"$(inherited)",
 					"TESTING=1",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",

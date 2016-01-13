@@ -492,6 +492,11 @@ extern NSString * const CMStoreObjectDeletedNotification;
  */
 - (void)saveObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
 
+- (void)_saveSerializedObjects:(NSDictionary *)objects
+                     userLevel:(BOOL)userLevel
+                      callback:(CMStoreObjectUploadCallback)callback
+             additionalOptions:(CMStoreOptions *)options;
+
 /**
  * Saves an individual object to your app's CloudMine data store at the user-level. The store must be configured
  * with a user or else calling this method will throw an exception. If this object doesn't
