@@ -27,7 +27,7 @@ Tested with (0.38.0.beta.2)
 1. Install Cococapods: `sudo gem install cocoapods`
 1. Download the repository to your local machine: `git clone git://github.com/cloudmine/cloudmine-ios.git;cd cloudmine-ios`
 2. Get the dependenices: `pod install`.
-3. At this point, the framework can be modified and edited. To do so, open the `cm-ios.xcworkspace` file in XCode.
+3. At this point, the framework can be modified and edited. To do so, open the `cm-ios.xcworkspace` file in Xcode.
 4. If you want to use your local version of the library in your application, you can use: `pod 'CloudMine', :path => '~/path/to/iOS-SDK/'` in your Podfile to checkout the local version.
 
 Testing
