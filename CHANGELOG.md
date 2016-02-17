@@ -1,6 +1,10 @@
 HEAD
 =====
 
+v1.7.9 (TBD)
+======================
+* Minor documentation updates
+
 v1.7.8 (July 28, 2015)
 ======================
 * Added methods on CMStore that replace entire Objects.
