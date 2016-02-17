@@ -59,7 +59,7 @@ CloudMine has documentation [here](https://cloudmine.me/docs/#/ios). The library
 
 Contributing
 ------------
-Contributions to the SDK are always welcome. However, please be sure you have well-written tests that cover all your cases. Once all that is done, submit a pull request clearly explaining your additions and providing links to the external test cases if applicable. If you have any questions, please contact the maintainer directly at ethan@cloudmine.me.
+Contributions to the SDK are always welcome. However, please be sure you have well-written tests that cover all your cases. Once all that is done, submit a pull request clearly explaining your additions and providing links to the external test cases if applicable. If you have any questions, please contact the maintainer directly at support@cloudmine.me.
 
 Thanks in advance for all your hard work and awesome code! :)
 
