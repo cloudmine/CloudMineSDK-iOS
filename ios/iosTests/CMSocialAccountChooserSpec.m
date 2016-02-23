@@ -3,7 +3,7 @@
 //  cloudmine-ios
 //
 //  Created by Ethan Mick on 8/6/14.
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //
 
 #import "Kiwi.h"
