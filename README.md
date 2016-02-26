@@ -1,7 +1,7 @@
 CloudMine iOS SDK
 =================
 
-This is the native iOS SDK for communicating with the [CloudMine](https://cloudmine.me/) platform. It uses ARC and is compatible with Xcode 4.5 or higher and iOS 6 or higher.
+This is the native iOS SDK for communicating with the [CloudMine](https://cloudmine.io/) platform. It uses ARC and is compatible with Xcode 4.5 or higher and iOS 6 or higher.
 
 Installation
 ------------
@@ -55,11 +55,11 @@ Before any pull requests are accepted, your code must be covered and all tests m
 
 Documentation
 -------------
-CloudMine has documentation [here](https://cloudmine.me/docs/#/ios). The library also has documentation in the header files.
+CloudMine has documentation [here](https://cloudmine.io/docs/#/ios). The library also has documentation in the header files.
 
 Contributing
 ------------
-Contributions to the SDK are always welcome. However, please be sure you have well-written tests that cover all your cases. Once all that is done, submit a pull request clearly explaining your additions and providing links to the external test cases if applicable. If you have any questions, please contact the maintainer directly at support@cloudmine.me.
+Contributions to the SDK are always welcome. However, please be sure you have well-written tests that cover all your cases. Once all that is done, submit a pull request clearly explaining your additions and providing links to the external test cases if applicable. If you have any questions, please contact the maintainer directly at support@cloudmineinc.com.
 
 Thanks in advance for all your hard work and awesome code! :)
 
