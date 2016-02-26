@@ -4,7 +4,7 @@ Pod::Spec.new do |s|
   s.summary      = "The iOS Framework for interacting with the CloudMine platform."
   s.homepage     = "https://cloudmine.me/docs/#/ios"
   s.license      = 'MIT'
-  s.author       = { "CloudMine" => "support@cloudmine.me" }
+  s.author       = { "CloudMine" => "support@cloudmineinc.com" }
   s.platform     = :ios, '6.0'
   s.source       = { :git => "https://github.com/cloudmine/cloudmine-ios.git", :tag => "v#{s.version}" }
   s.source_files  = 'ios/ios/src/**/*.{h,m}'
