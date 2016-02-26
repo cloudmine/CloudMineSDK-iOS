@@ -89,6 +89,8 @@
  */
 - (instancetype)initWithData:(NSData *)theFileData named:(NSString *)theName belongingToUser:(CMUser *)theUser mimeType:(NSString *)theMimeType __attribute__((deprecated));
 
+- (instancetype)init NS_UNAVAILABLE;
+
 /**
  * @deprecated
  * Use CMFile#ownershipLevel instead.

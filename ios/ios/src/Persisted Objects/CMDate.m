@@ -28,6 +28,11 @@ NSString * const CMDateClassName = @"datetime";
     return self;
 }
 
+- (instancetype)initWithTimeIntervalSinceReferenceDate:(NSTimeInterval)ti
+{
+    return [self initWithDate:[[NSDate alloc] initWithTimeIntervalSinceReferenceDate:ti]];
+}
+
 - (NSDate *)date;
 {
     return [_date copy];

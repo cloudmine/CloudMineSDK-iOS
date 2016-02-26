@@ -44,6 +44,8 @@ extern NSString * const CMGeoPointClassName;
  */
 - (instancetype)initWithCLLocation:(CLLocation *)location;
 
+-(instancetype)initWithObjectId:(NSString *)theObjectId NS_UNAVAILABLE;
+
 /**
  * The latitude in degrees.
  */
