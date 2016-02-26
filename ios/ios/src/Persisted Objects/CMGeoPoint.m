@@ -9,6 +9,7 @@
 #import "CMGeoPoint.h"
 #import "CMObjectSerialization.h"
 #import "float.h"
+#import "NSString+UUID.h"
 
 #ifndef FLT_EPSILON
     #define FLT_EPSILON __FLT_EPSILON__
@@ -25,7 +26,7 @@ NSString * const CMGeoPointClassName = @"geopoint";
 
 - (instancetype)initWithLatitude:(double)theLatitude andLongitude:(double)theLongitude;
 {
-    if (self = [super init]) {
+    if (self = [super initWithObjectId:[NSString stringWithUUID]]) {
         self.latitude = theLatitude;
         self.longitude = theLongitude;
     }
