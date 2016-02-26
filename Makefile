@@ -30,6 +30,9 @@ jenkins:
 	test
 
 clean:
+	-@rm -rf Pods/
+	-@rm -rf ~/Library/Developer/Xcode/DerivedData/cm-ios-*
+	pod install
 	xcodebuild -workspace cm-ios.xcworkspace \
 	-scheme libcloudmine \
 	clean | xcpretty -c && exit ${PIPESTATUS[0]}
