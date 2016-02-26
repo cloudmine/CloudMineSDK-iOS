@@ -1438,8 +1438,8 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-all_load",
-					"-l\"Pods-cloudmine-ios-AFNetworking\"",
-					"-l\"Pods-cloudmine-ios-MAObjCRuntime\"",
+					"-l\"AFNetworking\"",
+					"-l\"MAObjCRuntime\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.cloudmine.sdk.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "cloudmine-iosTests";
@@ -1465,8 +1465,8 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-all_load",
-					"-l\"Pods-cloudmine-ios-AFNetworking\"",
-					"-l\"Pods-cloudmine-ios-MAObjCRuntime\"",
+					"-l\"AFNetworking\"",
+					"-l\"MAObjCRuntime\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.cloudmine.sdk.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "cloudmine-iosTests";
@@ -1563,8 +1563,8 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-all_load",
-					"-l\"Pods-cloudmine-ios-AFNetworking\"",
-					"-l\"Pods-cloudmine-ios-MAObjCRuntime\"",
+					"-l\"AFNetworking\"",
+					"-l\"MAObjCRuntime\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.cloudmine.sdk.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "cloudmine-iosTests";
