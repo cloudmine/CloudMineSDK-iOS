@@ -319,7 +319,7 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
  *
  * @see CMUserAccountResult
  * @see isLoggedIn
- * @see https://cloudmine.me/docs/ios/reference#users_login
+ * @see https://cloudmine.io/docs/ios/reference#users_login
  */
 - (void)loginWithCallback:(CMUserOperationCallback)callback;
 
@@ -343,7 +343,7 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
  * @param viewController the current view controller in use when this method is called
  * @param params Any extra parameters you want passed in to the authentication request. This dictionary is parsed where each key value pair becomes "&key=value". We do not encode the URL after this, so any encoding will need to be done by the creator. This is a good place to put scope, for example: @{@"scope" : @"gist,repo"}
  * @param callback The block that will be called on completion of the operation.
- * @see https://cloudmine.me/docs/api#users_social
+ * @see https://cloudmine.io/docs/api#users_social
  */
 - (CMSocialLoginViewController *)loginWithSocialNetwork:(NSString *)service
                                          viewController:(UIViewController *)viewController
@@ -367,7 +367,7 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
  *
  * @see CMUserAccountResult
  * @see isLoggedIn
- * @see https://cloudmine.me/docs/ios/reference#users_logout
+ * @see https://cloudmine.io/docs/ios/reference#users_logout
  */
 - (void)logoutWithCallback:(CMUserOperationCallback)callback;
 
@@ -387,7 +387,7 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
  * @param callback The block that will be called on completion of the operation.
  *
  * @see CMUserAccountResult
- * @see https://cloudmine.me/docs/ios/reference#users_create
+ * @see https://cloudmine.io/docs/ios/reference#users_create
  */
 - (void)createAccountWithCallback:(CMUserOperationCallback)callback;
 
@@ -424,7 +424,7 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
  * @param callback The block that will be called on completion of the operation.
  *
  * @see CMUserAccountResult
- * @see https://cloudmine.me/docs/ios/reference#users_pass_change
+ * @see https://cloudmine.io/docs/ios/reference#users_pass_change
  */
 - (void)changePasswordTo:(NSString *)newPassword from:(NSString *)oldPassword callback:(CMUserOperationCallback)callback;
 
@@ -586,7 +586,7 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
  * @param callback The block that will be called on completion of the operation.
  *
  * @see CMUserAccountResult
- * @see https://cloudmine.me/docs/ios/reference#users_pass_reset
+ * @see https://cloudmine.io/docs/ios/reference#users_pass_reset
  */
 - (void)resetForgottenPasswordWithCallback:(CMUserOperationCallback)callback;
 
@@ -632,7 +632,7 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
  * and filtering lists of people to share with or running analytics on your users yourself. On completion, the <tt>callback</tt> block will be called with an array
  * of <tt>CMUser</tt> objects (or your custom subclass, if applicable) as well as a dictionary of errors.
  *
- * @param query The search query to run against all user profiles. This is the same syntax as defined at https://cloudmine.me/docs/api#query_syntax and used by <tt>CMStore</tt>'s search methods.
+ * @param query The search query to run against all user profiles. This is the same syntax as defined at https://cloudmine.io/docs/api#query_syntax and used by <tt>CMStore</tt>'s search methods.
  * @param callback The block that will be called on completion of the operation.
  */
 + (void)searchUsers:(NSString *)query callback:(CMUserFetchCallback)callback;

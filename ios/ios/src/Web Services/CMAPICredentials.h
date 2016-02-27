@@ -33,7 +33,7 @@
 
 /**
  * The API Key from your CloudMine dashboard.
- * @see https://cloudmine.me/dashboard
+ * @see https://compass.cloudmine.io/
  */
 @property (nonatomic, copy) NSString *apiKey;
 
@@ -45,7 +45,7 @@
 
 /**
  * The App Identifier from your CloudMine dashboard.
- * @see https://cloudmine.me/dashboard
+ * @see https://compass.cloudmine.io/
  */
 @property (nonatomic, copy) NSString *appIdentifier;
 
