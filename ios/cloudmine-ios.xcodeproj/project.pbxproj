@@ -974,7 +974,7 @@
 			attributes = {
 				LastTestingUpgradeCheck = 0510;
 				LastUpgradeCheck = 0710;
-				ORGANIZATIONNAME = "CloudMine, LLC";
+				ORGANIZATIONNAME = "CloudMine, Inc.";
 			};
 			buildConfigurationList = 7AB4AB59145DC5D8006AEF67 /* Build configuration list for PBXProject "cloudmine-ios" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1095,7 +1095,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "ruby \"${SRCROOT}/../scripts/delete_all_users.rb\" \"https://api.cloudmine.me/\" 9977f87e6ae54815b32a663902c3ca65 B93006AC1B3E40209B4477383B150CF2 true\nruby \"${SRCROOT}/../scripts/delete_all_objects.rb\" \"https://api.cloudmine.me/\" 9977f87e6ae54815b32a663902c3ca65 B93006AC1B3E40209B4477383B150CF2 true\ncat << EOM\nDeleted All users\nEOM";
+			shellScript = "ruby \"${SRCROOT}/../scripts/delete_all_users.rb\" \"https://api.cloudmine.io/\" 9977f87e6ae54815b32a663902c3ca65 B93006AC1B3E40209B4477383B150CF2 true\nruby \"${SRCROOT}/../scripts/delete_all_objects.rb\" \"https://api.cloudmine.io/\" 9977f87e6ae54815b32a663902c3ca65 B93006AC1B3E40209B4477383B150CF2 true\ncat << EOM\nDeleted All users\nEOM";
 		};
 		AABEE9F81908788F007A26BA /* Code Generation */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1322,7 +1322,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/**";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-all_load";
@@ -1358,7 +1358,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/**";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-all_load";
 				SDKROOT = iphoneos;
@@ -1509,7 +1509,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/**";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-all_load";

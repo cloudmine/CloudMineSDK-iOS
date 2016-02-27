@@ -255,6 +255,6 @@ Now that you've seen the basics, start coding up your app! The [iOS SDK Referenc
 
 You can also check out our sample application that makes extensive use of the various CloudMine features [right here](https://github.com/cloudmine/CloudMine-CloudClicker-iOS).
 
-Also, don't forget that if you can't find what you're looking for in these docs, you are always welcome to [email CloudMine support](mailto:support@cloudmine.me).
+Also, don't forget that if you can't find what you're looking for in these docs, you are always welcome to [email CloudMine support](mailto:support@cloudmineinc.com).
 
 Happy coding!

@@ -2,7 +2,7 @@
 //  CMAPICredentials.h
 //  cloudmine-ios
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -33,7 +33,7 @@
 
 /**
  * The API Key from your CloudMine dashboard.
- * @see https://cloudmine.me/dashboard
+ * @see https://compass.cloudmine.io/
  */
 @property (nonatomic, copy) NSString *apiKey;
 
@@ -45,7 +45,7 @@
 
 /**
  * The App Identifier from your CloudMine dashboard.
- * @see https://cloudmine.me/dashboard
+ * @see https://compass.cloudmine.io/
  */
 @property (nonatomic, copy) NSString *appIdentifier;
 
