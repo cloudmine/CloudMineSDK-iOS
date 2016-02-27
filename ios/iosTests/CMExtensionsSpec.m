@@ -3,7 +3,7 @@
 //  cloudmine-ios
 //
 //  Created by Ethan Mick on 6/11/14.
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //
 
 #import "Kiwi.h"
@@ -28,9 +28,9 @@ describe(@"CMExtensions", ^{
         
         it(@"should encode a url but leave the question mark", ^{
             NSString *randomJson = @"{\"some\":\"json\"}";
-            NSString *toEncode = [@"http://api.cloudmine.me/path/to/endpoint?=" stringByAppendingString:randomJson];
+            NSString *toEncode = [@"https://api.cloudmine.io/path/to/endpoint?=" stringByAppendingString:randomJson];
             NSString *encoded = [CMTools urlEncode:toEncode];
-            [[encoded should] equal:@"http%3A%2F%2Fapi.cloudmine.me%2Fpath%2Fto%2Fendpoint%3F%3D%7B%22some%22%3A%22json%22%7D"];
+            [[encoded should] equal:@"https%3A%2F%2Fapi.cloudmine.io%2Fpath%2Fto%2Fendpoint%3F%3D%7B%22some%22%3A%22json%22%7D"];
         });
         
     });
@@ -79,7 +79,7 @@ describe(@"CMExtensions", ^{
             NSURL *url = [NSURL URLWithString:CM_BASE_URL];
             url = [url URLByAppendingAndEncodingQueryParameters:query];
             
-            [[url.absoluteString should] containString:@"https://api.cloudmine.me/?"];
+            [[url.absoluteString should] containString:@"https://api.cloudmine.io/?"];
             [[url.absoluteString should] containString:@"value1=1"];
             [[url.absoluteString should] containString:@"value2=string"];
         });

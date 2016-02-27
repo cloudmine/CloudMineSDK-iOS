@@ -6,3 +6,5 @@ Dan Morrow
 Nikko Schaff
 Howard Swope
 Stephane Copin
+Ben DiFrancesco
+Geoffrey Young

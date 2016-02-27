@@ -2,7 +2,7 @@
 //  CMWebServiceSpec.m
 //  cloudmine-iosTests
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -35,7 +35,7 @@ describe(@"CMWebService", ^{
 
     beforeEach(^{
         service = [[CMWebService alloc] init];
-        [service setValue:@"https://api.cloudmine.me/" forKey:@"apiUrl"];
+        [service setValue:@"https://api.cloudmine.io/" forKey:@"apiUrl"];
         
         spy = [[KWCaptureSpy alloc] initWithArgumentIndex:0];
         
@@ -49,7 +49,7 @@ describe(@"CMWebService", ^{
 
     context(@"should construct GET request", ^{
         it(@"JSON URLs at the app level correctly", ^{
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/text", appId]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.io/v1/app/%@/text", appId]];
 
             [service getValuesForKeys:nil
                    serverSideFunction:nil
@@ -70,7 +70,7 @@ describe(@"CMWebService", ^{
 
         it(@"URLs with a search query at the app level correctly", ^{
             NSString *query = @"[name = \"Marc\"]";
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/search?q=%@", appId, [query stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.io/v1/app/%@/search?q=%@", appId, [query stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
 
             [service searchValuesFor:query
                   serverSideFunction:nil
@@ -91,7 +91,7 @@ describe(@"CMWebService", ^{
 
         it(@"binary data URLs at the app level correctly", ^{
             NSString *binaryKey = @"filename";
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/binary/%@", appId, binaryKey]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.io/v1/app/%@/binary/%@", appId, binaryKey]];
 
             [service getBinaryDataNamed:binaryKey
                      serverSideFunction:nil
@@ -109,7 +109,7 @@ describe(@"CMWebService", ^{
         });
 
         it(@"JSON URLs at the app level with keys correctly", ^{
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/text?keys=k1%%2Ck2", appId]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.io/v1/app/%@/text?keys=k1%%2Ck2", appId]];
 
             [service getValuesForKeys:[NSArray arrayWithObjects:@"k1", @"k2", nil]
                    serverSideFunction:nil
@@ -129,7 +129,7 @@ describe(@"CMWebService", ^{
         });
 
         it(@"JSON URLs at the app level with keys and a server-side function call correctly", ^{
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/text?keys=k1%%2Ck2&f=my_func", appId]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.io/v1/app/%@/text?keys=k1%%2Ck2&f=my_func", appId]];
             CMServerFunction *function = [CMServerFunction serverFunctionWithName:@"my_func"];
 
             [service getValuesForKeys:[NSArray arrayWithObjects:@"k1", @"k2", nil]
@@ -150,7 +150,7 @@ describe(@"CMWebService", ^{
         });
 
         it(@"JSON URLs at the user level correctly", ^{
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/text", appId]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.io/v1/app/%@/user/text", appId]];
             CMUser *creds = [[CMUser alloc] initWithEmail:@"user@test.com" andPassword:@"pass"];
             creds.token = @"token";
 
@@ -173,7 +173,7 @@ describe(@"CMWebService", ^{
         });
         
         it(@"JSON URLs at the user level correctly", ^{
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/text", appId]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.io/v1/app/%@/user/text", appId]];
             CMUser *creds = [[CMUser alloc] initWithEmail:@"user@test.com" andPassword:@"pass"];
             creds.token = @"token";
             
@@ -196,7 +196,7 @@ describe(@"CMWebService", ^{
         });
 
         it(@"JSON URLs at the user level with keys correctly", ^{
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/text?keys=k1%%2Ck2", appId]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.io/v1/app/%@/user/text?keys=k1%%2Ck2", appId]];
             CMUser *creds = [[CMUser alloc] initWithEmail:@"user@test.com" andPassword:@"pass"];
             creds.token = @"token";
 
@@ -220,7 +220,7 @@ describe(@"CMWebService", ^{
         });
         
         it(@"ACL URLs correctly", ^{
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/access", appId]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.io/v1/app/%@/user/access", appId]];
             CMUser *creds = [[CMUser alloc] initWithEmail:@"user@test.com" andPassword:@"pass"];
             creds.token = @"token";
             
@@ -240,7 +240,7 @@ describe(@"CMWebService", ^{
         
         it(@"ACL URLs with a search query correctly", ^{
             NSString *query = @"[key=\"value\"]";
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/access/search?q=%@", appId, [query stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.io/v1/app/%@/user/access/search?q=%@", appId, [query stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
             CMUser *creds = [[CMUser alloc] initWithEmail:@"user@test.com" andPassword:@"pass"];
             creds.token = @"token";
             
@@ -262,7 +262,7 @@ describe(@"CMWebService", ^{
 
     context(@"should construct POST request", ^{
         it(@"JSON URLs at the app level correctly", ^{
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/text", appId]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.io/v1/app/%@/text", appId]];
             NSMutableDictionary *dataToPost = [[NSMutableDictionary alloc] init];
             [dataToPost setObject:@"val1" forKey:@"key1"];
             [dataToPost setObject:@"val2" forKey:@"key2"];
@@ -286,7 +286,7 @@ describe(@"CMWebService", ^{
         it(@"binary data URLs at the app level correctly", ^{
             NSString *binaryKey = @"filename";
             NSData *data = [NSMutableData randomDataWithLength:100];
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/binary/%@", appId, binaryKey]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.io/v1/app/%@/binary/%@", appId, binaryKey]];
 
             [service uploadBinaryData:data
                    serverSideFunction:nil
@@ -309,7 +309,7 @@ describe(@"CMWebService", ^{
         });
 
         it(@"JSON URLs at the user level correctly", ^{
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/text", appId]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.io/v1/app/%@/user/text", appId]];
             NSMutableDictionary *dataToPost = [[NSMutableDictionary alloc] init];
             [dataToPost setObject:@"val1" forKey:@"key1"];
             [dataToPost setObject:@"val2" forKey:@"key2"];
@@ -335,7 +335,7 @@ describe(@"CMWebService", ^{
         });
         
         it(@"ACL URLs correctly", ^{
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/access", appId]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.io/v1/app/%@/user/access", appId]];
             NSMutableDictionary *aclDict = [[NSMutableDictionary alloc] init];
             [aclDict setObject:@"val1" forKey:@"key1"];
             [aclDict setObject:@"val2" forKey:@"key2"];
@@ -365,7 +365,7 @@ describe(@"CMWebService", ^{
         CMUser *creds = [[CMUser alloc] initWithEmail:@"user@test.com" andPassword:@"pass"];
         creds.token = @"token";
 
-        NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/binary/%@", appId, binaryKey]];
+        NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.io/v1/app/%@/user/binary/%@", appId, binaryKey]];
 
         [service uploadBinaryData:data
                serverSideFunction:nil
@@ -390,7 +390,7 @@ describe(@"CMWebService", ^{
 
     context(@"should construct PUT request", ^{
         it(@"JSON URLs at the app level correctly", ^{
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/text", appId]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.io/v1/app/%@/text", appId]];
             NSMutableDictionary *dataToPost = [[NSMutableDictionary alloc] init];
             [dataToPost setObject:@"val1" forKey:@"key1"];
             [dataToPost setObject:@"val2" forKey:@"key2"];
@@ -412,7 +412,7 @@ describe(@"CMWebService", ^{
         });
 
         it(@"JSON URLs at the user level correctly", ^{
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/text", appId]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.io/v1/app/%@/user/text", appId]];
             NSMutableDictionary *dataToPost = [[NSMutableDictionary alloc] init];
             [dataToPost setObject:@"val1" forKey:@"key1"];
             [dataToPost setObject:@"val2" forKey:@"key2"];
@@ -440,7 +440,7 @@ describe(@"CMWebService", ^{
 
     context(@"should construct DELETE request", ^{
         it(@"JSON URLs at the app level correctly", ^{
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/data?all=true", appId]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.io/v1/app/%@/data?all=true", appId]];
 
             [service deleteValuesForKeys:nil
                       serverSideFunction:nil
@@ -458,7 +458,7 @@ describe(@"CMWebService", ^{
         });
 
         it(@"JSON URLs at the app level with keys correctly", ^{
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/data?keys=k1%%2Ck2&all=true", appId]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.io/v1/app/%@/data?keys=k1%%2Ck2&all=true", appId]];
 
             [service deleteValuesForKeys:[NSArray arrayWithObjects:@"k1", @"k2", nil]
                       serverSideFunction:nil
@@ -476,7 +476,7 @@ describe(@"CMWebService", ^{
         });
 
         it(@"JSON URLs at the user level correctly", ^{
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/data?all=true", appId]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.io/v1/app/%@/user/data?all=true", appId]];
             CMUser *creds = [[CMUser alloc] initWithEmail:@"user@test.com" andPassword:@"pass"];
             creds.token = @"token";
 
@@ -498,7 +498,7 @@ describe(@"CMWebService", ^{
         });
 
         it(@"JSON URLs at the user level with keys correctly", ^{
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/data?keys=k1%%2Ck2&all=true", appId]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.io/v1/app/%@/user/data?keys=k1%%2Ck2&all=true", appId]];
             CMUser *creds = [[CMUser alloc] initWithEmail:@"user@test.com" andPassword:@"pass"];
             creds.token = @"token";
 
@@ -520,7 +520,7 @@ describe(@"CMWebService", ^{
         });
         
         it(@"JSON URLs at the user level with keys correctly", ^{
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/user/access/k1", appId]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.io/v1/app/%@/user/access/k1", appId]];
             CMUser *creds = [[CMUser alloc] initWithEmail:@"user@test.com" andPassword:@"pass"];
             creds.token = @"token";
             
@@ -551,7 +551,7 @@ describe(@"CMWebService", ^{
         });
         
         it(@"constructs account creation URL correctly", ^{
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/create", appId]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.io/v1/app/%@/account/create", appId]];
             CMUser *user = [[CMUser alloc] initWithEmail:@"test@domain.com" andPassword:@"pass"];
 
             [service createAccountWithUser:user callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
@@ -570,7 +570,7 @@ describe(@"CMWebService", ^{
         });
 
         it(@"constructs password change URL correctly", ^{
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/credentials", appId]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.io/v1/app/%@/account/credentials", appId]];
             CMUser *user = [[CMUser alloc] initWithEmail:@"test@domain.com" andPassword:@"pass"];
             NSString *password = user.password;
             user.token = @"token";
@@ -595,7 +595,7 @@ describe(@"CMWebService", ^{
         
         it(@"constructs credentials update URL correctly", ^{
             
-            NSURL *expectedURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/credentials", appId]];
+            NSURL *expectedURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.io/v1/app/%@/account/credentials", appId]];
             CMUser *user = [[CMUser alloc] initWithEmail:@"test-2@domain.com" andPassword:@"password"];
             NSString *password = user.password;
             user.token = @"token";
@@ -638,7 +638,7 @@ describe(@"CMWebService", ^{
         });
         
         it(@"constructs credentials update URL payload correctly", ^{
-            NSURL *expectedURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/credentials", appId]];
+            NSURL *expectedURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.io/v1/app/%@/account/credentials", appId]];
             CMUser *user = [[CMUser alloc] initWithUsername:@"awesomeUsername" andPassword:@"password"];
             NSString *password = user.password;
             user.token = @"token";
@@ -664,7 +664,7 @@ describe(@"CMWebService", ^{
 
 
         it(@"constructs password reset URL correctly", ^{
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/password/reset", appId]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.io/v1/app/%@/account/password/reset", appId]];
             CMUser *user = [[CMUser alloc] initWithEmail:@"test@domain.com" andPassword:nil];
 
             [service resetForgottenPasswordForUser:user callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
@@ -676,7 +676,7 @@ describe(@"CMWebService", ^{
         });
 
         it(@"constructs login URL correctly", ^{
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/login", appId]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.io/v1/app/%@/account/login", appId]];
             CMUser *user = [[CMUser alloc] initWithEmail:@"test@domain.com" andPassword:@"pass"];
             NSString *password = user.password;
             
@@ -698,7 +698,7 @@ describe(@"CMWebService", ^{
         });
 
         it(@"constructs logout URL correctly", ^{
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/logout", appId]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.io/v1/app/%@/account/logout", appId]];
             CMUser *user = [[CMUser alloc] initWithEmail:@"test@domain.com" andPassword:@"pass"];
             user.token = @"token";
             user.tokenExpiration = [NSDate dateWithTimeIntervalSinceNow:9999];
@@ -716,7 +716,7 @@ describe(@"CMWebService", ^{
         });
 
         it(@"fetches all users properly", ^{
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account", appId]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.io/v1/app/%@/account", appId]];
             [service getAllUsersWithCallback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
             }];
             
@@ -728,7 +728,7 @@ describe(@"CMWebService", ^{
 
         it(@"fetches a user profile by identifier properly", ^{
             NSString *userId = @"1234abcd";
-            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/account/%@", appId, userId]];
+            NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.io/v1/app/%@/account/%@", appId, userId]];
             
             [service getUserProfileWithIdentifier:userId callback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
             }];
@@ -741,7 +741,7 @@ describe(@"CMWebService", ^{
 
         it(@"searches user profiles properly", ^{
             NSString *query = @"[name = /Marc/i]";
-            NSURL *expected = [NSURL URLWithString:@"https://api.cloudmine.me/v1/app/appId123/account/search?p=%5Bname%20%3D%20%2FMarc%2Fi%5D"];
+            NSURL *expected = [NSURL URLWithString:@"https://api.cloudmine.io/v1/app/appId123/account/search?p=%5Bname%20%3D%20%2FMarc%2Fi%5D"];
             
             [service searchUsers:query callback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
             }];
@@ -770,7 +770,7 @@ describe(@"CMWebService", ^{
                                         
                                     }];
             
-            NSString *finalURLShould = @"https://api.cloudmine.me/v1/app/appId123/user/social/twitter/statuses/user_timeline.json?params=%7B%22count%22%3A9%2C%22screen_name%22%3A%22ethan_mick%22%7D";
+            NSString *finalURLShould = @"https://api.cloudmine.io/v1/app/appId123/user/social/twitter/statuses/user_timeline.json?params=%7B%22count%22%3A9%2C%22screen_name%22%3A%22ethan_mick%22%7D";
             
             NSURLRequest *request = spy.argument;
             [[[request HTTPMethod] should] equal:@"GET"];
@@ -818,7 +818,7 @@ describe(@"CMWebService", ^{
             NSURLRequest *request = spy.argument;
             [[[request HTTPMethod] should] equal:@"GET"];
             NSString *url = [[request URL] absoluteString];
-            [[url should] containString:@"https://api.cloudmine.me/v1/app/appId123/user/social/twitter/statuses/user_timeline.json"];
+            [[url should] containString:@"https://api.cloudmine.io/v1/app/appId123/user/social/twitter/statuses/user_timeline.json"];
             [[url should] containString:@"%22screen_name%22%3A%22ethan_mick%22"];
             [[url should] containString:@"%22testing%22%3A%5B%22Testing111%22"];
             [[url should] containString:@"%22Testing222%22%5D"];
@@ -846,7 +846,7 @@ describe(@"CMWebService", ^{
                                     }];
 
             
-            NSString *finalURLShould = @"https://api.cloudmine.me/v1/app/appId123/user/social/twitter/statuses/update.json?headers=%7B%22Content-type%22%3A%22application%5C%2Fx-www-form-urlencoded%22%7D";
+            NSString *finalURLShould = @"https://api.cloudmine.io/v1/app/appId123/user/social/twitter/statuses/update.json?headers=%7B%22Content-type%22%3A%22application%5C%2Fx-www-form-urlencoded%22%7D";
             NSURLRequest *request = spy.argument;
             [[[request HTTPMethod] should] equal:@"GET"];
             [[[[request URL] absoluteString] should]  equal:finalURLShould];
@@ -1114,7 +1114,7 @@ describe(@"CMWebService", ^{
             
             NSURLRequest *request = spy.argument;
             
-            [[[[request URL] absoluteString] should] equal:[NSString stringWithFormat:@"https://api.cloudmine.me/v1/app/%@/device", appId]];;
+            [[[[request URL] absoluteString] should] equal:[NSString stringWithFormat:@"https://api.cloudmine.io/v1/app/%@/device", appId]];;
             [[[request HTTPMethod] should] equal:@"DELETE"];
         });
         
@@ -1163,7 +1163,7 @@ describe(@"CMWebServiceBaseUrl", ^{
     context(@"base url changing", ^{
         it(@"should let the base URL be correctly set", ^{
             
-            NSURL *newBaseUrl = [NSURL URLWithString:@"https://test.api.cloudmine.me"];
+            NSURL *newBaseUrl = [NSURL URLWithString:@"https://test.api.cloudmine.io"];
             CMWebService *newService = [[CMWebService alloc] initWithAppSecret:@"test" appIdentifier:@"testing" baseURL:newBaseUrl];
             
             NSString *expected = [[newBaseUrl URLByAppendingPathComponent:CM_DEFAULT_API_VERSION] absoluteString];
@@ -1173,7 +1173,7 @@ describe(@"CMWebServiceBaseUrl", ^{
         
         it(@"should properly get the base URL from CMAPICredentials", ^{
             
-            NSURL *newBaseUrl = [NSURL URLWithString:@"https://test.api.cloudmine.me"];
+            NSURL *newBaseUrl = [NSURL URLWithString:@"https://test.api.cloudmine.io"];
             [[CMAPICredentials sharedInstance] setBaseURL:newBaseUrl.absoluteString];
             CMWebService *newService = [[CMWebService alloc] initWithAppSecret:@"test" appIdentifier:@"testing"];
             

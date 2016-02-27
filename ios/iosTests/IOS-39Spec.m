@@ -3,7 +3,7 @@
 //  cloudmine-ios
 //
 //  Created by Ethan Mick on 3/6/15.
-//  Copyright (c) 2015 CloudMine, LLC. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //
 
 #import "Kiwi.h"
@@ -36,7 +36,6 @@
 
 SPEC_BEGIN(IOS39Spec)
 
-// https://cloudminellc.atlassian.net/browse/IOS-39
 /*
  * iOS Library should not Decode Dictionaries that look like CMObjects.
  * To be sure, check for the existence of a __type__ key, which CMObjects won't have.

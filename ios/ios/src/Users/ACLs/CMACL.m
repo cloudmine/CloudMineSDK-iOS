@@ -3,7 +3,7 @@
 //  cloudmine-ios
 //
 //  Created by Marc Weil on 7/2/12.
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //
 
 #import "CMACL.h"

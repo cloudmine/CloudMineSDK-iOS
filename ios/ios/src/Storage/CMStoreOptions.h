@@ -2,7 +2,7 @@
 //  CMStoreOptions.h
 //  cloudmine-ios
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -37,8 +37,8 @@
  * server-side before the objects are sent back to this store.
  *
  * @see CMServerFunction
- * @see https://cloudmine.me/dashboard/apps
- * @see https://cloudmine.me/docs/ios/reference#code
+ * @see https://compass.cloudmine.io/apps
+ * @see https://cloudmine.io/docs/ios/reference#code
  */
 @property (nonatomic, strong) CMServerFunction *serverSideFunction;
 
