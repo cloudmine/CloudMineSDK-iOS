@@ -16,8 +16,11 @@ build:	clean
 
 
 delete-test-data:
-	-@ ruby scripts/delete_all_users.rb https://api.cloudmine.io/ 9977f87e6ae54815b32a663902c3ca65 B93006AC1B3E40209B4477383B150CF2 true
-	-@ ruby scripts/delete_all_objects.rb https://api.cloudmine.io/ 9977f87e6ae54815b32a663902c3ca65 B93006AC1B3E40209B4477383B150CF2 true
+	$(eval APP_ID := $(shell [ -z $${APP_ID} ] && echo "9977f87e6ae54815b32a663902c3ca65"))
+	$(eval API_KEY := $(shell [ -z $${API_KEY} ] && echo "B93006AC1B3E40209B4477383B150CF2"))
+	$(eval BASE_URL := $(shell [ -z $${BASE_URL} ] && echo "https://api.cloudmine.io/"))
+	-@ ruby scripts/delete_all_users.rb ${BASE_URL} ${APP_ID} ${API_KEY} true
+	-@ ruby scripts/delete_all_objects.rb ${BASE_URL} ${APP_ID} ${API_KEY} true
 
 
 test: delete-test-data
