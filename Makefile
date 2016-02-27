@@ -10,7 +10,7 @@ NOTIFICATION_ERROR_MSG='You do not have terminal-notifier installed! Run `[sudo]
 build:	clean
 	xcodebuild -workspace cm-ios.xcworkspace \
 	-scheme libcloudmine \
-	-destination 'platform=iOS Simulator,name=iPhone 5s,OS=8.1' \
+	-destination 'platform=iOS Simulator,name=iPhone 6,OS=9.2' \
 	2>&1 \
 	build | xcpretty -c && exit ${PIPESTATUS[0]}
 
@@ -35,7 +35,7 @@ test: delete-test-data
 jenkins:
 	xcodebuild -workspace cm-ios.xcworkspace \
 	-scheme libcloudmine \
-	-destination 'platform=iOS Simulator,name=iPhone Retina (4-inch)' \
+	-destination 'platform=iOS Simulator,name=iPhone 6,OS=9.2' \
 	test
 
 clean:
