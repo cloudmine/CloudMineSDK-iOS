@@ -15,7 +15,12 @@ build:	clean
 	build | xcpretty -c && exit ${PIPESTATUS[0]}
 
 
-test:	
+delete-test-data:
+	-@ ruby scripts/delete_all_users.rb https://api.cloudmine.io/ 9977f87e6ae54815b32a663902c3ca65 B93006AC1B3E40209B4477383B150CF2 true
+	-@ ruby scripts/delete_all_objects.rb https://api.cloudmine.io/ 9977f87e6ae54815b32a663902c3ca65 B93006AC1B3E40209B4477383B150CF2 true
+
+
+test: delete-test-data
 	(xcodebuild -workspace cm-ios.xcworkspace \
 	-scheme libcloudmine \
 	-destination 'platform=iOS Simulator,name=iPhone 5s,OS=8.1' \
@@ -42,3 +47,38 @@ cov:
 	$(MAKE) test
 	./ios/XcodeCoverage/getcov
 
+bump-patch:
+	@perl -i.bak -pe 's/(\d+)(")$$/($$1+1).$$2/e if m/version\s+=\s+"\d+\.\d+\.\d+"$$/;' CloudMine.podspec 
+	@rm -f CloudMine.podspec.bak
+	@$(MAKE) get-version
+
+bump-minor:
+	@perl -i.bak -pe 's/(\d+)(\.\d+")$$/($$1+1).$$2/e if m/version\s+=\s+"\d+\.\d+\.\d+"$$/;' CloudMine.podspec 
+	@rm -f CloudMine.podspec.bak
+	@$(MAKE) get-version
+
+bump-major:
+	@perl -i.bak -pe 's/(\d+)(\.\d+\.\d+")$$/($$1+1).$$2/e if m/version\s+=\s+"\d+\.\d+\.\d+"$$/;' CloudMine.podspec 
+	@rm -f CloudMine.podspec.bak
+	@$(MAKE) get-version
+
+get-version:
+	$(eval VERSION := $(shell perl -lne 'print $$1 if m/^\s+s.version.*"(.*)"$$/' CloudMine.podspec))
+	@echo ${VERSION}
+
+tag-version: get-version
+	git tag -s ${VERSION}  "version ${VERSION}"
+
+verify-tag: get-version
+	git tag --verify ${VERSION}
+
+push-origin: get-version
+	git push origin $VERSION
+
+cocoapods-push:
+	pod spec lint
+	pod trunk push CloudMine.podspec
+	pod trunk add-owner CloudMine tech@cloudmine.me
+	@$(MAKE) bump-patch
+
+release: get-version tag-version verify-tag push-origin cocoapods-push

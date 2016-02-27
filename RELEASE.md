@@ -11,31 +11,41 @@ git config --global user.signingkey YOURKEYFINGERPRINT
 
 now you can continue with the release process
 
-1. bump version in `CloudMine.podspec`
+1. get the current version
 ```
-vi CloudMine.podspec
+VERSION=`make get-version`; echo $VERSION
 ```
 2. tag the release
 ```
-git tag -s 1.7.8 -m "version 1.7.8"
+git tag -s $VERSION -m "version $VERSION"   # or make tag-version
 ```
-2. verify the tag
+3. verify the tag
 ```
-git tag --verify 1.7.8
+git tag --verify $VERSION                   # or make verify-tag
 ```
-3. push the tag to github
+4. push the tag to github
 ```
-git push origin 1.7.8
+git push origin $VERSION
 ```
-4. lint the pod
+5. lint the pod
 ```
 pod spec lint
 ```
-5. push the pod to CocoaPods
+6. push the pod to CocoaPods (allowing warnings if things aren't completely tidy.  but let's hope that's not the case...)
 ```
-6. pod --allow-warnings trunk push CloudMine.podspec
+pod --allow-warnings trunk push CMHealth.podspec
 ```
 7. grant the entire team access
 ```
-pod trunk add-owner CloudMine tech@cloudmine.me
+pod trunk add-owner CMHealth tech@cloudmine.me
+```
+8. bump the patch version for the next release
+```
+make bump-patch
+```
+
+or, for the really advantageous:
+
+```
+make release
 ```
