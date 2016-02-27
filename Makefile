@@ -23,9 +23,10 @@ delete-test-data:
 test: delete-test-data
 	(xcodebuild -workspace cm-ios.xcworkspace \
 	-scheme libcloudmine \
-	-destination 'platform=iOS Simulator,name=iPhone 5s,OS=8.1' \
+	-destination 'platform=iOS Simulator,name=iPhone 6,OS=9.2' \
 	2>&1 \
 	test || exit 1) |  xcpretty -c && exit ${PIPESTATUS[0]}
+	@$(MAKE) delete-test-data
 
 
 jenkins:
