@@ -1,7 +1,9 @@
 CloudMine iOS SDK
 =================
 
-This is the native iOS SDK for communicating with the [CloudMine](https://cloudmine.io/) platform. It uses ARC and is compatible with Xcode 4.5 or higher and iOS 6 or higher.
+This is the native iOS SDK for communicating with [CloudMine](http://cloudmineinc.com/) and the [Connected Health Cloud](http://cloudmineinc.com/platform/developer-tools/).
+
+Interested in [Apple ResearchKit](http://researchkit.org/)?  Check out the [CMHealth iOS SDK](https://cloudmine.io/docs/#/ios#cmhealth-and-researchkit) and the [CloudMine AsthmaHealth Demo app](https://github.com/cloudmine/AsthmaHealth/).
 
 Installation
 ------------
@@ -10,7 +12,7 @@ Installation
 
 Add that line to your Podfile.
 
-The CloudMine library now uses [Cocoapods](http://cocoapods.org/) to manage it's dependencies and packaging. This has many benefits for the end user, such as:
+The CloudMine library uses [Cocoapods](http://cocoapods.org/) to manage it's dependencies and packaging. This has many benefits for the end user, such as:
 
 * Pod users can see the CloudMine source code, so you know where things are breaking. This makes it easier for you to debug, and easier for you to help us.
 * Pod users have the ability to modify the source code if you need to, which allows for you to tweak the code as necessary, and easy to submit a patch once you fixed a bug.
@@ -18,11 +20,13 @@ The CloudMine library now uses [Cocoapods](http://cocoapods.org/) to manage it's
 * Installing pods is as easy as `pod 'CloudMine'`, with a great website to help support them.
 * Pushing and installing updates is super fast and easy. CloudMine simply update the main repo with our new version (which points to the CloudMine Repo), and then you simply run "pod update" and you get the new update.
 
+The CloudMine iOS SDK uses ARC and is compatible with Xcode 4.5 or higher and iOS 8 or higher.
+
 Building the Library
 --------------------
 If you are interested in doing some development on the library:
 
-Tested with (0.38.0.beta.2)
+Tested with [CocoaPods 0.39.0](https://github.com/CocoaPods/CocoaPods-app/releases/tag/0.39.0)
 
 1. Install Cococapods: `sudo gem install cocoapods`
 1. Download the repository to your local machine: `git clone git://github.com/cloudmine/cloudmine-ios.git;cd cloudmine-ios`
@@ -60,6 +64,8 @@ CloudMine has documentation [here](https://cloudmine.io/docs/#/ios). The library
 Contributing
 ------------
 Contributions to the SDK are always welcome. However, please be sure you have well-written tests that cover all your cases. Once all that is done, submit a pull request clearly explaining your additions and providing links to the external test cases if applicable. If you have any questions, please contact the maintainer directly at support@cloudmineinc.com.
+
+For more details, see the [CONTRIBUTING](CONTRIBUTING.md) guidelines.
 
 Thanks in advance for all your hard work and awesome code! :)
 

@@ -31,7 +31,7 @@ We're actively developing and invite you to fork and send pull requests on GitHu
 
 [cloudmine/cloudmine-ios](https://github.com/cloudmine/cloudmine-ios)
 
-Before you can begin using the iOS Library, you must first [create an application](/dashboard/app/create) in the CloudMine dashboard.
+Before you can begin using the iOS Library, you must first [create an application](https://compass.cloudmine.io/dashboard/#/app/create) in the CloudMine dashboard.
 
 ## Sample Apps
 The following applications are examples that demonstrate how to properly use CloudMine's iOS Library.

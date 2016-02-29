@@ -3,7 +3,7 @@
 #
 source 'https://github.com/CocoaPods/Specs.git'
 #
-# Supporting iOS 6 and above
+# Supporting iOS 8 and above
 #
 platform :ios, '8.0'
 
