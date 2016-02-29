@@ -1,6 +1,10 @@
 HEAD
 =====
 
+
+1.7.11 (TBD)
+======================
+
 1.7.10 (February 29, 2016)
 ======================
 * Updated deployment targets to iOS 8.0
