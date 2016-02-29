@@ -2,7 +2,7 @@
 //  CMObjectSpec.m
 //  cloudmine-iosTests
 //
-//  Copyright (c) 2011 CloudMine, LLC. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 

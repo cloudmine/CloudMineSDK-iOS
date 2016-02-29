@@ -2,7 +2,7 @@
 //  CMResponseMetadata.m
 //  cloudmine-ios
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -16,7 +16,7 @@ NSString * const CMMetadataTypeGeo = @"geo";
     NSDictionary *metadata;
 }
 
-- (id)initWithMetadata:(NSDictionary *)data {
+- (instancetype)initWithMetadata:(NSDictionary *)data {
     if(self = [super init]) {
         metadata = data;
     }

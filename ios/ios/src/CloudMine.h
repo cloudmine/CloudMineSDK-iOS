@@ -2,7 +2,7 @@
 //  CloudMine.h
 //  cloudmine-ios
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -17,7 +17,7 @@
  * @section intro Introduction
  * The native iOS library allows you to interact with your CloudMine remote data store, create and manage user accounts, and execute your custom server-side code snippets in a clean, object-oriented fashion, without having to manage connection pools or assemble URLs.
  *
- * Before getting started, you must first use the <strong><a href="interface_c_m_a_p_i_credentials.html">CMAPICredentials</a></strong> singleton to configure your app's identifier and secret from your <a href="https://cloudmine.me/dashboard" target="_blank">CloudMine Dashboard</a>.
+ * Before getting started, you must first use the <strong><a href="interface_c_m_a_p_i_credentials.html">CMAPICredentials</a></strong> singleton to configure your app's identifier and secret from your <a href="https://compass.cloudmine.io/" target="_blank">CloudMine Dashboard</a>.
  *
  * The most important classes to know are <a href="interface_c_m_store.html"><strong>CMStore</strong></a> and <a href="interface_c_m_user.html"><strong>CMUser</strong></a>. <strong>CMStore</strong> is like a box for all your app's <a href="http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller#Concepts" target="_blank">models</a>. All of your storage and retrieval operations are coordinated through it. CMUser represents an account for a user of your app. See the <a href="interface_c_m_user.html">framework reference</a> for more details on users, security, and session tokens.
  *
@@ -35,7 +35,7 @@
  * - UIKit
  * - libz
  *
- * The <a href="https://cloudmine.me/docs/ios/tutorial" target="_blank">video walkthrough</a> below shows you how to do this.
+ * The <a href="https://cloudmine.io/docs/ios/tutorial" target="_blank">video walkthrough</a> below shows you how to do this.
  */
 
 #import "CMAPICredentials.h"
@@ -65,6 +65,7 @@
 #import "CMUserAccountResult.h"
 #import "CMWebService.h"
 #import "CMAppDelegateBase.h"
+#import "CMActiveUser.h"
 
 #import "CMSocialLoginViewController.h"
 

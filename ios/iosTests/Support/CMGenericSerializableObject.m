@@ -2,7 +2,7 @@
 //  CMGenericSerializableObject.m
 //  cloudmine-iosTests
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -23,6 +23,7 @@
                             [NSNumber numberWithBool:NO], nil];
     self.date = [[CMDate alloc] initWithDate:[NSDate date]];
     self.dictionary = [NSMutableDictionary dictionary];
+    self.uuid = [NSUUID UUID];
 
     //TODO: Uncomment when server-side support for object relationships is done.
 
@@ -53,13 +54,17 @@
     [aCoder encodeObject:self.arrayOfBooleans forKey:@"arrayOfBooleans"];
     [aCoder encodeObject:self.date forKey:@"date"];
     [aCoder encodeObject:self.dictionary forKey:@"dictionary"];
+    
+    uuid_t uuid;
+    [self.uuid getUUIDBytes:uuid];
+    [aCoder encodeBytes:uuid length:16 forKey:@"uuid"];
 
     //TODO: Uncomment when server-side support for object relationships is done.
     if (self.nestedObject)
         [aCoder encodeObject:self.nestedObject forKey:@"nestedObject"];
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithCoder:aDecoder]) {
         self.string1 = [aDecoder decodeObjectForKey:@"string1"];
         self.string2 = [aDecoder decodeObjectForKey:@"string2"];
@@ -67,6 +72,10 @@
         self.arrayOfBooleans = [aDecoder decodeObjectForKey:@"arrayOfBooleans"];
         self.date = [aDecoder decodeObjectForKey:@"date"];
         self.dictionary = [aDecoder decodeObjectForKey:@"dictionary"];
+        
+        NSUInteger blockSize;
+        const void* bytes = [aDecoder decodeBytesForKey:@"uuid" returnedLength:&blockSize];
+        self.uuid = [[NSUUID alloc] initWithUUIDBytes:bytes];
 
         //TODO: Uncomment when server-side support for object relationships is done.
 //        self.nestedObject = [aDecoder decodeObjectForKey:@"nestedObject"];

@@ -2,7 +2,7 @@
 //  CMResponseMetadata.h
 //  cloudmine-ios
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -19,7 +19,7 @@ extern NSString * const CMMetadataTypeGeo;
  */
 @interface CMResponseMetadata : NSObject
 
-- (id)initWithMetadata:(NSDictionary *)data;
+- (instancetype)initWithMetadata:(NSDictionary *)data;
 
 /**
  * Returns raw metadata. This method should not be necessary; you should try to use specialized methods like distanceFromObject if possible.

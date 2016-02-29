@@ -2,7 +2,7 @@
 //  NSMutableData+RandomData.m
 //  cloudmine-ios
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -10,7 +10,7 @@
 
 @implementation NSMutableData (RandomData)
 
-+ (id)randomDataWithLength:(NSUInteger)length {
++ (instancetype)randomDataWithLength:(NSUInteger)length {
     NSMutableData *data = [NSMutableData dataWithLength:length];
     [[NSInputStream inputStreamWithFileAtPath:@"/dev/urandom"] read:(uint8_t *)[data mutableBytes] maxLength:length];
     return data;

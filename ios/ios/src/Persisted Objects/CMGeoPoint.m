@@ -2,13 +2,14 @@
 //  CMGeoPoint.m
 //  cloudmine-ios
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
 #import "CMGeoPoint.h"
 #import "CMObjectSerialization.h"
 #import "float.h"
+#import "NSString+UUID.h"
 
 #ifndef FLT_EPSILON
     #define FLT_EPSILON __FLT_EPSILON__
@@ -21,37 +22,39 @@ NSString * const CMGeoPointClassName = @"geopoint";
 
 @implementation CMGeoPoint
 
-@synthesize latitude;
-@synthesize longitude;
-
 #pragma - Initialization and deserialization
 
-- (id)initWithLatitude:(double)theLatitude andLongitude:(double)theLongitude {
-    if (self = [super init]) {
+- (instancetype)initWithLatitude:(double)theLatitude andLongitude:(double)theLongitude;
+{
+    if (self = [super initWithObjectId:[NSString stringWithUUID]]) {
         self.latitude = theLatitude;
         self.longitude = theLongitude;
     }
     return self;
 }
 
-- (id)initWithLatitudeInRadians:(double)theLatitude andLongitudeInRadians:(double)theLongitude {
+- (instancetype)initWithLatitudeInRadians:(double)theLatitude andLongitudeInRadians:(double)theLongitude;
+{
     const double radianMultiplier = 180 / M_PI;
     return [self initWithLatitude:theLatitude*radianMultiplier andLongitude:theLongitude*radianMultiplier];
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
+- (instancetype)initWithCoder:(NSCoder *)aDecoder;
+{
     return [self initWithLatitude:[aDecoder decodeDoubleForKey:@"latitude"]
                      andLongitude:[aDecoder decodeDoubleForKey:@"longitude"]];
 }
 
-- (id)initWithCLLocation:(CLLocation *)location {
+- (instancetype)initWithCLLocation:(CLLocation *)location;
+{
     return [self initWithLatitude:location.coordinate.latitude
                      andLongitude:location.coordinate.longitude];
 }
 
 #pragma mark - Serialization methods
 
-- (void)encodeWithCoder:(NSCoder *)aCoder {
+- (void)encodeWithCoder:(NSCoder *)aCoder;
+{
     [super encodeWithCoder:aCoder];
     [aCoder encodeDouble:self.latitude forKey:@"latitude"];
     [aCoder encodeDouble:self.longitude forKey:@"longitude"];
@@ -60,7 +63,8 @@ NSString * const CMGeoPointClassName = @"geopoint";
 
 #pragma mark - Comparison
 
-- (BOOL)isEqual:(id)object {
+- (BOOL)isEqual:(id)object;
+{
     if (![object isKindOfClass:[self class]]) {
         return NO;
     } else {

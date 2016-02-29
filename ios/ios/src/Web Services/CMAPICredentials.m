@@ -2,7 +2,7 @@
 //  CMAPICredentials.m
 //  cloudmine-ios
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -11,7 +11,7 @@
 
 @implementation CMAPICredentials
 
-+ (id)sharedInstance;
++ (instancetype)sharedInstance;
 {
     __strong static id _sharedInstance = nil;
     static dispatch_once_t onceToken;

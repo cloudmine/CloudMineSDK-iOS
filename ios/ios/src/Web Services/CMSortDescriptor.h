@@ -2,7 +2,7 @@
 //  CMSortDescriptor.h
 //  cloudmine-ios
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -12,9 +12,9 @@ extern NSString * const CMSortDescending;
 
 @interface CMSortDescriptor : NSObject
 
-+ (id)emptyDescriptor;
++ (instancetype)emptyDescriptor;
 
-- (id)initWithFieldsAndDirections:(NSString *)fieldsAndDirections, ...  NS_REQUIRES_NIL_TERMINATION;
+- (instancetype)initWithFieldsAndDirections:(NSString *)fieldsAndDirections, ...  NS_REQUIRES_NIL_TERMINATION;
 
 - (NSString *)directionOfField:(NSString *)fieldName;
 - (NSUInteger)count;

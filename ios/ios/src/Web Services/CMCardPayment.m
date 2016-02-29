@@ -3,7 +3,7 @@
 //  cloudmine-ios
 //
 //  Created by Ethan Mick on 7/10/13.
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //
 
 #import "CMCardPayment.h"
@@ -18,7 +18,7 @@ NSString *const CMCardPaymentTypeUnknown = @"othr";
 
 @implementation CMCardPayment
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
     
     if ( (self = [super initWithCoder:aDecoder]) ) {
         self.nameOnCard = [aDecoder decodeObjectForKey:@"nameOnCard"];

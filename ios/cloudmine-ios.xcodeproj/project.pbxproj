@@ -150,6 +150,7 @@
 		AA7345CC19491F16007AAEB0 /* UIImageWithCloudMineIntegrationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7345CB19491F16007AAEB0 /* UIImageWithCloudMineIntegrationSpec.m */; };
 		AA7345CE19493BF7007AAEB0 /* mobile.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7345CD19493BF7007AAEB0 /* mobile.png */; };
 		AA7345D11949E138007AAEB0 /* CMUntypedObjectSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7345D01949E138007AAEB0 /* CMUntypedObjectSpec.m */; };
+		AA8C4C191AAA4B4800500957 /* IOS-39Spec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8C4C181AAA4B4800500957 /* IOS-39Spec.m */; };
 		AA9528D2194B3FBA00AEB90D /* CMDistanceSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9528D1194B3FBA00AEB90D /* CMDistanceSpec.m */; };
 		AA9528D4194B422800AEB90D /* CMNullStoreSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9528D3194B422800AEB90D /* CMNullStoreSpec.m */; };
 		AA9927C0195C7DBF00C46F02 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA9927BF195C7DBF00C46F02 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -186,6 +187,13 @@
 		AAE9220F194B8B7B004DA1AC /* venues.plist in Resources */ = {isa = PBXBuildFile; fileRef = AAE9220E194B8B7B004DA1AC /* venues.plist */; };
 		AAE92211194B923D004DA1AC /* CMWebServiceIntegrationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE92210194B923D004DA1AC /* CMWebServiceIntegrationSpec.m */; };
 		AAFB0B8D194B45D5008F2B68 /* CMResponseSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AAFB0B8C194B45D5008F2B68 /* CMResponseSpec.m */; };
+		B4AD7C521C80FF6D00D9F1D1 /* MARTNSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B4AD7C461C80FF6C00D9F1D1 /* MARTNSObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		B4AD7C531C80FF6D00D9F1D1 /* README.markdown in Sources */ = {isa = PBXBuildFile; fileRef = B4AD7C471C80FF6C00D9F1D1 /* README.markdown */; };
+		B4AD7C541C80FF6D00D9F1D1 /* RTIvar.m in Sources */ = {isa = PBXBuildFile; fileRef = B4AD7C491C80FF6C00D9F1D1 /* RTIvar.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		B4AD7C551C80FF6D00D9F1D1 /* RTMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = B4AD7C4B1C80FF6C00D9F1D1 /* RTMethod.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		B4AD7C561C80FF6D00D9F1D1 /* RTProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = B4AD7C4D1C80FF6C00D9F1D1 /* RTProperty.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		B4AD7C571C80FF6D00D9F1D1 /* RTProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = B4AD7C4F1C80FF6C00D9F1D1 /* RTProtocol.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		B4AD7C581C80FF6D00D9F1D1 /* RTUnregisteredClass.m in Sources */ = {isa = PBXBuildFile; fileRef = B4AD7C511C80FF6C00D9F1D1 /* RTUnregisteredClass.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D039C16715BDEB77005CCD33 /* CMACLSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D039C16615BDEB77005CCD33 /* CMACLSpec.m */; };
 		D039C16A15BEEB44005CCD33 /* CMACLFetchResponseSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D039C16915BEEB44005CCD33 /* CMACLFetchResponseSpec.m */; };
 		D03A4D5C15B48D2200A956BC /* CMACLFetchResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D042C2E915AF41F100A88888 /* CMACLFetchResponse.h */; };
@@ -274,36 +282,36 @@
 
 /* Begin PBXFileReference section */
 		10E9C54988A94B3FAD882A84 /* libPods-cloudmine-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-cloudmine-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		65199EAF156A7D9500267EC6 /* CMDeleteResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMDeleteResponse.h; path = Response/CMDeleteResponse.h; sourceTree = "<group>"; };
-		65199EB0156A7D9500267EC6 /* CMDeleteResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMDeleteResponse.m; path = Response/CMDeleteResponse.m; sourceTree = "<group>"; };
-		65199EB1156A7D9500267EC6 /* CMFileFetchResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMFileFetchResponse.h; path = Response/CMFileFetchResponse.h; sourceTree = "<group>"; };
-		65199EB2156A7D9500267EC6 /* CMFileFetchResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMFileFetchResponse.m; path = Response/CMFileFetchResponse.m; sourceTree = "<group>"; };
-		65199EB3156A7D9500267EC6 /* CMFileUploadResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMFileUploadResponse.h; path = Response/CMFileUploadResponse.h; sourceTree = "<group>"; };
-		65199EB4156A7D9500267EC6 /* CMFileUploadResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMFileUploadResponse.m; path = Response/CMFileUploadResponse.m; sourceTree = "<group>"; };
-		65199EB5156A7D9500267EC6 /* CMObjectFetchResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMObjectFetchResponse.h; path = Response/CMObjectFetchResponse.h; sourceTree = "<group>"; };
-		65199EB6156A7D9500267EC6 /* CMObjectFetchResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMObjectFetchResponse.m; path = Response/CMObjectFetchResponse.m; sourceTree = "<group>"; };
-		65199EB7156A7D9500267EC6 /* CMObjectUploadResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMObjectUploadResponse.h; path = Response/CMObjectUploadResponse.h; sourceTree = "<group>"; };
-		65199EB8156A7D9500267EC6 /* CMObjectUploadResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMObjectUploadResponse.m; path = Response/CMObjectUploadResponse.m; sourceTree = "<group>"; };
-		65199EB9156A7D9500267EC6 /* CMResponseMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMResponseMetadata.h; path = Response/CMResponseMetadata.h; sourceTree = "<group>"; };
-		65199EBA156A7D9500267EC6 /* CMResponseMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMResponseMetadata.m; path = Response/CMResponseMetadata.m; sourceTree = "<group>"; };
+		65199EAF156A7D9500267EC6 /* CMDeleteResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = CMDeleteResponse.h; path = Response/CMDeleteResponse.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		65199EB0156A7D9500267EC6 /* CMDeleteResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = CMDeleteResponse.m; path = Response/CMDeleteResponse.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		65199EB1156A7D9500267EC6 /* CMFileFetchResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = CMFileFetchResponse.h; path = Response/CMFileFetchResponse.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		65199EB2156A7D9500267EC6 /* CMFileFetchResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = CMFileFetchResponse.m; path = Response/CMFileFetchResponse.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		65199EB3156A7D9500267EC6 /* CMFileUploadResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = CMFileUploadResponse.h; path = Response/CMFileUploadResponse.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		65199EB4156A7D9500267EC6 /* CMFileUploadResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = CMFileUploadResponse.m; path = Response/CMFileUploadResponse.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		65199EB5156A7D9500267EC6 /* CMObjectFetchResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = CMObjectFetchResponse.h; path = Response/CMObjectFetchResponse.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		65199EB6156A7D9500267EC6 /* CMObjectFetchResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = CMObjectFetchResponse.m; path = Response/CMObjectFetchResponse.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		65199EB7156A7D9500267EC6 /* CMObjectUploadResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = CMObjectUploadResponse.h; path = Response/CMObjectUploadResponse.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		65199EB8156A7D9500267EC6 /* CMObjectUploadResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = CMObjectUploadResponse.m; path = Response/CMObjectUploadResponse.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		65199EB9156A7D9500267EC6 /* CMResponseMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = CMResponseMetadata.h; path = Response/CMResponseMetadata.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		65199EBA156A7D9500267EC6 /* CMResponseMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = CMResponseMetadata.m; path = Response/CMResponseMetadata.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		65199EBB156A7D9500267EC6 /* CMSnippetResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMSnippetResult.h; path = Response/CMSnippetResult.h; sourceTree = "<group>"; };
 		65199EBC156A7D9500267EC6 /* CMSnippetResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMSnippetResult.m; path = Response/CMSnippetResult.m; sourceTree = "<group>"; };
-		65199EBD156A7D9500267EC6 /* CMStoreResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMStoreResponse.h; path = Response/CMStoreResponse.h; sourceTree = "<group>"; };
-		65199EBE156A7D9500267EC6 /* CMStoreResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMStoreResponse.m; path = Response/CMStoreResponse.m; sourceTree = "<group>"; };
+		65199EBD156A7D9500267EC6 /* CMStoreResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = CMStoreResponse.h; path = Response/CMStoreResponse.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		65199EBE156A7D9500267EC6 /* CMStoreResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = CMStoreResponse.m; path = Response/CMStoreResponse.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		65199EC0156A7D9500267EC6 /* CMDistance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMDistance.h; sourceTree = "<group>"; };
 		65199EC1156A7D9500267EC6 /* CMDistance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMDistance.m; sourceTree = "<group>"; };
-		71E886B516516C3D0060C217 /* CMSocialLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMSocialLoginViewController.h; sourceTree = "<group>"; };
-		71E886B616516C3D0060C217 /* CMSocialLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMSocialLoginViewController.m; sourceTree = "<group>"; };
+		71E886B516516C3D0060C217 /* CMSocialLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMSocialLoginViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		71E886B616516C3D0060C217 /* CMSocialLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMSocialLoginViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7A0413D1146C5B5200EF537A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		7A0413D3146C5B5C00EF537A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		7A0413D5146C5B6900EF537A /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		7A0413D7146C5B7000EF537A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		7A0413D9146C5B7400EF537A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		7A04E869147D8435006E00AB /* CMServerFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMServerFunction.h; sourceTree = "<group>"; };
-		7A04E86A147D8435006E00AB /* CMServerFunction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMServerFunction.m; sourceTree = "<group>"; };
+		7A04E869147D8435006E00AB /* CMServerFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMServerFunction.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		7A04E86A147D8435006E00AB /* CMServerFunction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMServerFunction.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7A04E86E147D90F5006E00AB /* CMServerFunctionSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMServerFunctionSpec.m; sourceTree = "<group>"; };
 		7A0A2F0714BB039800F9D024 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
-		7A0D7CD31581097200C7C476 /* CMObjectSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectSpec.m; sourceTree = "<group>"; };
+		7A0D7CD31581097200C7C476 /* CMObjectSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMObjectSpec.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7A0D7CFA1581479000C7C476 /* CMNullStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMNullStore.h; sourceTree = "<group>"; };
 		7A0D7CFB1581479000C7C476 /* CMNullStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMNullStore.m; sourceTree = "<group>"; };
 		7A0DB1BA147B016B007F482C /* CMBlockValidationMessageSpy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMBlockValidationMessageSpy.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -317,15 +325,15 @@
 		7A58CC2014F1B544003E864B /* CMMimeType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMMimeType.m; sourceTree = "<group>"; };
 		7A6B800C14871BCA00D8B211 /* CMObjectDecoderSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectDecoderSpec.m; sourceTree = "<group>"; };
 		7A6B800F14871E3700D8B211 /* CMGenericSerializableObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMGenericSerializableObject.h; sourceTree = "<group>"; };
-		7A6B801014871E3700D8B211 /* CMGenericSerializableObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMGenericSerializableObject.m; sourceTree = "<group>"; };
+		7A6B801014871E3700D8B211 /* CMGenericSerializableObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMGenericSerializableObject.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7A766208156307DF009840EE /* CMSortDescriptorSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMSortDescriptorSpec.m; sourceTree = "<group>"; };
-		7A7E31C314C603780091F1E3 /* CMGeoPointTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMGeoPointTest.m; sourceTree = "<group>"; };
-		7A7E31C614C88F8A0091F1E3 /* CMStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMStore.h; sourceTree = "<group>"; };
-		7A7E31C714C88F8A0091F1E3 /* CMStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMStore.m; sourceTree = "<group>"; };
+		7A7E31C314C603780091F1E3 /* CMGeoPointTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMGeoPointTest.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		7A7E31C614C88F8A0091F1E3 /* CMStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMStore.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		7A7E31C714C88F8A0091F1E3 /* CMStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMStore.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7A7E31CA14C88F970091F1E3 /* CMStoreSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMStoreSpec.m; sourceTree = "<group>"; };
 		7A7EDBD9148EBE3800AB5B69 /* CMObjectSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMObjectSerialization.h; sourceTree = "<group>"; };
-		7A87316414BB309F000D6DEA /* NSMutableData+RandomData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableData+RandomData.h"; sourceTree = "<group>"; };
-		7A87316514BB309F000D6DEA /* NSMutableData+RandomData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableData+RandomData.m"; sourceTree = "<group>"; };
+		7A87316414BB309F000D6DEA /* NSMutableData+RandomData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "NSMutableData+RandomData.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		7A87316514BB309F000D6DEA /* NSMutableData+RandomData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSMutableData+RandomData.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7A91E8D814E6EF85008B7941 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		7AA79D6114DC1FB900F3CA3B /* CMCrossPlatformGenericSerializableObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMCrossPlatformGenericSerializableObject.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		7AA79D6214DC1FB900F3CA3B /* CMCrossPlatformGenericSerializableObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMCrossPlatformGenericSerializableObject.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -334,10 +342,10 @@
 		7AABA2E41480549A00FD52A0 /* CMObjectEncoderSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectEncoderSpec.m; sourceTree = "<group>"; };
 		7AABA2E61480598300FD52A0 /* NSString+UUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+UUID.h"; sourceTree = "<group>"; };
 		7AABA2E71480598300FD52A0 /* NSString+UUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+UUID.m"; sourceTree = "<group>"; };
-		7AABA2FB14818DCA00FD52A0 /* CMObjectDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMObjectDecoder.h; sourceTree = "<group>"; };
-		7AABA2FC14818DCA00FD52A0 /* CMObjectDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectDecoder.m; sourceTree = "<group>"; };
+		7AABA2FB14818DCA00FD52A0 /* CMObjectDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMObjectDecoder.h; sourceTree = "<group>"; };
+		7AABA2FC14818DCA00FD52A0 /* CMObjectDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMObjectDecoder.m; sourceTree = "<group>"; };
 		7AABA2FE14818DCA00FD52A0 /* CMObjectEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMObjectEncoder.h; sourceTree = "<group>"; };
-		7AABA2FF14818DCA00FD52A0 /* CMObjectEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectEncoder.m; sourceTree = "<group>"; };
+		7AABA2FF14818DCA00FD52A0 /* CMObjectEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMObjectEncoder.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7AAFB49A158017450066B4A4 /* CMMimeTypeSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMMimeTypeSpec.m; sourceTree = "<group>"; };
 		7AB4AB5F145DC5D8006AEF67 /* libcloudmine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcloudmine.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AB4AB62145DC5D8006AEF67 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -345,40 +353,40 @@
 		7AB4AB6F145DC5D8006AEF67 /* cloudmine-iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "cloudmine-iosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AB4AB7A145DC5D8006AEF67 /* cloudmine-iosTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "cloudmine-iosTests-Info.plist"; sourceTree = "<group>"; };
 		7AB4AB7C145DC5D8006AEF67 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		7AD36F7C146C650500DD4734 /* CMWebService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMWebService.h; sourceTree = "<group>"; };
-		7AD36F7D146C650500DD4734 /* CMWebService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMWebService.m; sourceTree = "<group>"; };
+		7AD36F7C146C650500DD4734 /* CMWebService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMWebService.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		7AD36F7D146C650500DD4734 /* CMWebService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMWebService.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7AD36F80146C656600DD4734 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		7AD36F82146CA4AC00DD4734 /* CMAPICredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMAPICredentials.h; sourceTree = "<group>"; };
+		7AD36F82146CA4AC00DD4734 /* CMAPICredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMAPICredentials.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		7AD36F83146CA4AC00DD4734 /* CMAPICredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMAPICredentials.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7AD36F8B146CB6A600DD4734 /* NSURL+QueryParameterAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+QueryParameterAdditions.h"; sourceTree = "<group>"; };
 		7AD36F8C146CB6A600DD4734 /* NSURL+QueryParameterAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+QueryParameterAdditions.m"; sourceTree = "<group>"; };
 		7AD7DA5714D221F600F771C7 /* CMStoreCallbacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMStoreCallbacks.h; sourceTree = "<group>"; };
-		7AD9221A14CF47350032DDDE /* CMPagingDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPagingDescriptor.h; sourceTree = "<group>"; };
-		7AD9221B14CF47350032DDDE /* CMPagingDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPagingDescriptor.m; sourceTree = "<group>"; };
+		7AD9221A14CF47350032DDDE /* CMPagingDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMPagingDescriptor.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		7AD9221B14CF47350032DDDE /* CMPagingDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMPagingDescriptor.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7AD9221F14CF5B9B0032DDDE /* CMPagingDescriptorSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPagingDescriptorSpec.m; sourceTree = "<group>"; };
-		7AD9222114D06B9A0032DDDE /* CMStoreOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMStoreOptions.h; sourceTree = "<group>"; };
-		7AD9222214D06B9A0032DDDE /* CMStoreOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMStoreOptions.m; sourceTree = "<group>"; };
+		7AD9222114D06B9A0032DDDE /* CMStoreOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMStoreOptions.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		7AD9222214D06B9A0032DDDE /* CMStoreOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMStoreOptions.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7AD9222514D06EB10032DDDE /* CMStoreOptionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMStoreOptionsSpec.m; sourceTree = "<group>"; };
 		7AD93BAE14D1CCFE00CC1CC9 /* CMFileSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMFileSpec.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		7AE284891562C3C8003E8A8F /* CMSortDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMSortDescriptor.h; sourceTree = "<group>"; };
-		7AE2848A1562C3C8003E8A8F /* CMSortDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMSortDescriptor.m; sourceTree = "<group>"; };
+		7AE284891562C3C8003E8A8F /* CMSortDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMSortDescriptor.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		7AE2848A1562C3C8003E8A8F /* CMSortDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMSortDescriptor.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7AE355D414F1B850006AF903 /* CMFileUploadResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMFileUploadResult.h; sourceTree = "<group>"; };
 		7AF00B9C15A8DC650070442A /* CMACL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMACL.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		7AF00B9D15A8DC650070442A /* CMACL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMACL.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7AF00B9E15A8DC650070442A /* CMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMUser.h; sourceTree = "<group>"; };
-		7AF00B9F15A8DC650070442A /* CMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUser.m; sourceTree = "<group>"; };
-		7AFDFE36158E959B00388D6E /* CMDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMDate.h; sourceTree = "<group>"; };
-		7AFDFE37158E959B00388D6E /* CMDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMDate.m; sourceTree = "<group>"; };
-		7AFDFE38158E959B00388D6E /* CMFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMFile.h; sourceTree = "<group>"; };
-		7AFDFE39158E959B00388D6E /* CMFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMFile.m; sourceTree = "<group>"; };
-		7AFDFE3A158E959B00388D6E /* CMGeoPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMGeoPoint.h; sourceTree = "<group>"; };
-		7AFDFE3B158E959B00388D6E /* CMGeoPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMGeoPoint.m; sourceTree = "<group>"; };
-		7AFDFE3C158E959B00388D6E /* CMObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMObject.h; sourceTree = "<group>"; };
-		7AFDFE3D158E959B00388D6E /* CMObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObject.m; sourceTree = "<group>"; };
-		7AFDFE3E158E959B00388D6E /* CMObjectClassNameRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMObjectClassNameRegistry.h; sourceTree = "<group>"; };
-		7AFDFE3F158E959B00388D6E /* CMObjectClassNameRegistry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectClassNameRegistry.m; sourceTree = "<group>"; };
-		7AFDFE40158E959B00388D6E /* CMUntypedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMUntypedObject.h; sourceTree = "<group>"; };
-		7AFDFE41158E959B00388D6E /* CMUntypedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUntypedObject.m; sourceTree = "<group>"; };
+		7AF00B9F15A8DC650070442A /* CMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMUser.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		7AFDFE36158E959B00388D6E /* CMDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMDate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		7AFDFE37158E959B00388D6E /* CMDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMDate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		7AFDFE38158E959B00388D6E /* CMFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMFile.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		7AFDFE39158E959B00388D6E /* CMFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMFile.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		7AFDFE3A158E959B00388D6E /* CMGeoPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMGeoPoint.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		7AFDFE3B158E959B00388D6E /* CMGeoPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMGeoPoint.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		7AFDFE3C158E959B00388D6E /* CMObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMObject.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		7AFDFE3D158E959B00388D6E /* CMObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMObject.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		7AFDFE3E158E959B00388D6E /* CMObjectClassNameRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMObjectClassNameRegistry.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		7AFDFE3F158E959B00388D6E /* CMObjectClassNameRegistry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMObjectClassNameRegistry.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		7AFDFE40158E959B00388D6E /* CMUntypedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMUntypedObject.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		7AFDFE41158E959B00388D6E /* CMUntypedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMUntypedObject.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7AFDFE48158E965400388D6E /* CMActiveUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMActiveUser.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		7AFDFE49158E965400388D6E /* CMActiveUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMActiveUser.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7AFDFE4B158E9EB400388D6E /* CMActiveUserSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMActiveUserSpec.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -396,11 +404,11 @@
 		AA4DE2BA1A6972A600888CB2 /* CMTestMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMTestMacros.h; sourceTree = "<group>"; };
 		AA5693C21901790300C4A15A /* CMConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMConstants.h; sourceTree = "<group>"; };
 		AA5693C51902E90500C4A15A /* CMTestEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMTestEncoder.h; sourceTree = "<group>"; };
-		AA5693C61902E90500C4A15A /* CMTestEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMTestEncoder.m; sourceTree = "<group>"; };
+		AA5693C61902E90500C4A15A /* CMTestEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMTestEncoder.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		AA5C462A190BFDF60086FBD6 /* cloudmine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloudmine.png; sourceTree = "<group>"; };
 		AA5C462E190C154C0086FBD6 /* CMObjectClassNameRegistrySpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectClassNameRegistrySpec.m; sourceTree = "<group>"; };
 		AA5C4631190C19990086FBD6 /* CMCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMCoding.h; sourceTree = "<group>"; };
-		AA5EB16D1A3FEB560081DAC1 /* IOS-29Spec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IOS-29Spec.m"; sourceTree = "<group>"; };
+		AA5EB16D1A3FEB560081DAC1 /* IOS-29Spec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "IOS-29Spec.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		AA61248519B90D7C00358E51 /* CMTestProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMTestProtocol.h; sourceTree = "<group>"; };
 		AA61248619B90DA700358E51 /* CMTestProtocolObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMTestProtocolObject.h; sourceTree = "<group>"; };
 		AA61248719B90DA700358E51 /* CMTestProtocolObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMTestProtocolObject.m; sourceTree = "<group>"; };
@@ -409,17 +417,18 @@
 		AA7345CB19491F16007AAEB0 /* UIImageWithCloudMineIntegrationSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageWithCloudMineIntegrationSpec.m; sourceTree = "<group>"; };
 		AA7345CD19493BF7007AAEB0 /* mobile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mobile.png; sourceTree = "<group>"; };
 		AA7345D01949E138007AAEB0 /* CMUntypedObjectSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUntypedObjectSpec.m; sourceTree = "<group>"; };
+		AA8C4C181AAA4B4800500957 /* IOS-39Spec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IOS-39Spec.m"; sourceTree = "<group>"; };
 		AA9528D1194B3FBA00AEB90D /* CMDistanceSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMDistanceSpec.m; sourceTree = "<group>"; };
 		AA9528D3194B422800AEB90D /* CMNullStoreSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMNullStoreSpec.m; sourceTree = "<group>"; };
 		AA9927BF195C7DBF00C46F02 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		AA9927C1195C7DC700C46F02 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
-		AAA05FB3183A756B009652C9 /* CMPaymentService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPaymentService.m; sourceTree = "<group>"; };
-		AAA05FB4183A756B009652C9 /* CMPaymentService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPaymentService.h; sourceTree = "<group>"; };
+		AAA05FB3183A756B009652C9 /* CMPaymentService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMPaymentService.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		AAA05FB4183A756B009652C9 /* CMPaymentService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMPaymentService.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		AAA05FB5183A756B009652C9 /* CMCardPayment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMCardPayment.h; sourceTree = "<group>"; };
 		AAA05FB6183A756B009652C9 /* CMPaymentResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPaymentResponse.h; sourceTree = "<group>"; };
-		AAA05FB7183A756B009652C9 /* CMCardPayment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMCardPayment.m; sourceTree = "<group>"; };
+		AAA05FB7183A756B009652C9 /* CMCardPayment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMCardPayment.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		AAA05FB8183A756B009652C9 /* CMPaymentResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPaymentResponse.m; sourceTree = "<group>"; };
-		AAA102D419265AEC00A11BC4 /* CMObjectIntegrationSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMObjectIntegrationSpec.m; sourceTree = "<group>"; };
+		AAA102D419265AEC00A11BC4 /* CMObjectIntegrationSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMObjectIntegrationSpec.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		AAA850EC168271B500C18957 /* CMDeviceTokenResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMDeviceTokenResult.h; sourceTree = "<group>"; };
 		AAA92FF1181966370064F773 /* NSDictionary+CMJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+CMJSON.h"; sourceTree = "<group>"; };
 		AAA92FF2181966370064F773 /* NSDictionary+CMJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+CMJSON.m"; sourceTree = "<group>"; };
@@ -434,20 +443,34 @@
 		AABEE9FA19088809007A26BA /* CMDateSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMDateSpec.m; sourceTree = "<group>"; };
 		AAC1D8EF16DD4BCB002A7DC0 /* CMChannelResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMChannelResponse.h; path = Response/CMChannelResponse.h; sourceTree = "<group>"; };
 		AAC1D8F016DD4BCC002A7DC0 /* CMChannelResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMChannelResponse.m; path = Response/CMChannelResponse.m; sourceTree = "<group>"; };
-		AAC1D8F216DD51F9002A7DC0 /* CMResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMResponse.h; sourceTree = "<group>"; };
-		AAC1D8F316DD51FA002A7DC0 /* CMResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMResponse.m; sourceTree = "<group>"; };
+		AAC1D8F216DD51F9002A7DC0 /* CMResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMResponse.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		AAC1D8F316DD51FA002A7DC0 /* CMResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMResponse.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		AAC1D90716DD6CA4002A7DC0 /* CMViewChannelsResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMViewChannelsResponse.h; sourceTree = "<group>"; };
 		AAC1D90816DD6CA5002A7DC0 /* CMViewChannelsResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMViewChannelsResponse.m; sourceTree = "<group>"; };
 		AAD4AD151908104B006B93F2 /* CMUserIntegrationSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMUserIntegrationSpec.m; sourceTree = "<group>"; };
 		AAE560A5194B8697000F25E8 /* CMResponseMetadataSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMResponseMetadataSpec.m; sourceTree = "<group>"; };
 		AAE92209194B89EC004DA1AC /* CMStoreIntegrationSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMStoreIntegrationSpec.m; sourceTree = "<group>"; };
-		AAE9220B194B8A88004DA1AC /* Venue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Venue.h; sourceTree = "<group>"; };
-		AAE9220C194B8A88004DA1AC /* Venue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Venue.m; sourceTree = "<group>"; };
+		AAE9220B194B8A88004DA1AC /* Venue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Venue.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		AAE9220C194B8A88004DA1AC /* Venue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Venue.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		AAE9220E194B8B7B004DA1AC /* venues.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = venues.plist; sourceTree = "<group>"; };
 		AAE92210194B923D004DA1AC /* CMWebServiceIntegrationSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMWebServiceIntegrationSpec.m; sourceTree = "<group>"; };
 		AAFB0B8C194B45D5008F2B68 /* CMResponseSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMResponseSpec.m; sourceTree = "<group>"; };
 		AF2E9ED71CBDDC65DC88789E /* Pods-cloudmine-iosTests.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cloudmine-iosTests.test.xcconfig"; path = "../Pods/Target Support Files/Pods-cloudmine-iosTests/Pods-cloudmine-iosTests.test.xcconfig"; sourceTree = "<group>"; };
 		B2A33E73BEDE10A94973E9FE /* Pods-cloudmine-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cloudmine-ios.release.xcconfig"; path = "../Pods/Target Support Files/Pods-cloudmine-ios/Pods-cloudmine-ios.release.xcconfig"; sourceTree = "<group>"; };
+		B4AD7C441C80FF6C00D9F1D1 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		B4AD7C451C80FF6C00D9F1D1 /* MARTNSObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MARTNSObject.h; sourceTree = "<group>"; };
+		B4AD7C461C80FF6C00D9F1D1 /* MARTNSObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MARTNSObject.m; sourceTree = "<group>"; };
+		B4AD7C471C80FF6C00D9F1D1 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
+		B4AD7C481C80FF6C00D9F1D1 /* RTIvar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTIvar.h; sourceTree = "<group>"; };
+		B4AD7C491C80FF6C00D9F1D1 /* RTIvar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTIvar.m; sourceTree = "<group>"; };
+		B4AD7C4A1C80FF6C00D9F1D1 /* RTMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTMethod.h; sourceTree = "<group>"; };
+		B4AD7C4B1C80FF6C00D9F1D1 /* RTMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTMethod.m; sourceTree = "<group>"; };
+		B4AD7C4C1C80FF6C00D9F1D1 /* RTProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTProperty.h; sourceTree = "<group>"; };
+		B4AD7C4D1C80FF6C00D9F1D1 /* RTProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTProperty.m; sourceTree = "<group>"; };
+		B4AD7C4E1C80FF6C00D9F1D1 /* RTProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTProtocol.h; sourceTree = "<group>"; };
+		B4AD7C4F1C80FF6C00D9F1D1 /* RTProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTProtocol.m; sourceTree = "<group>"; };
+		B4AD7C501C80FF6C00D9F1D1 /* RTUnregisteredClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTUnregisteredClass.h; sourceTree = "<group>"; };
+		B4AD7C511C80FF6C00D9F1D1 /* RTUnregisteredClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTUnregisteredClass.m; sourceTree = "<group>"; };
 		C3444874F77B35F0544725D1 /* Pods-cloudmine-ios.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cloudmine-ios.test.xcconfig"; path = "../Pods/Target Support Files/Pods-cloudmine-ios/Pods-cloudmine-ios.test.xcconfig"; sourceTree = "<group>"; };
 		D039C16615BDEB77005CCD33 /* CMACLSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMACLSpec.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D039C16915BEEB44005CCD33 /* CMACLFetchResponseSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMACLFetchResponseSpec.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -716,6 +739,7 @@
 				7AD36F7B146C64F300DD4734 /* Web Services */,
 				7A7E31C514C88F760091F1E3 /* Storage */,
 				AA00CECF1886E19700F9958C /* UIAdditions */,
+				B4AD7C431C80FEB300D9F1D1 /* Vendor */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -869,6 +893,7 @@
 			isa = PBXGroup;
 			children = (
 				AA5EB16D1A3FEB560081DAC1 /* IOS-29Spec.m */,
+				AA8C4C181AAA4B4800500957 /* IOS-39Spec.m */,
 			);
 			name = Bugs;
 			sourceTree = "<group>";
@@ -919,6 +944,27 @@
 			name = integration;
 			sourceTree = "<group>";
 		};
+		B4AD7C431C80FEB300D9F1D1 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				B4AD7C441C80FF6C00D9F1D1 /* LICENSE */,
+				B4AD7C451C80FF6C00D9F1D1 /* MARTNSObject.h */,
+				B4AD7C461C80FF6C00D9F1D1 /* MARTNSObject.m */,
+				B4AD7C471C80FF6C00D9F1D1 /* README.markdown */,
+				B4AD7C481C80FF6C00D9F1D1 /* RTIvar.h */,
+				B4AD7C491C80FF6C00D9F1D1 /* RTIvar.m */,
+				B4AD7C4A1C80FF6C00D9F1D1 /* RTMethod.h */,
+				B4AD7C4B1C80FF6C00D9F1D1 /* RTMethod.m */,
+				B4AD7C4C1C80FF6C00D9F1D1 /* RTProperty.h */,
+				B4AD7C4D1C80FF6C00D9F1D1 /* RTProperty.m */,
+				B4AD7C4E1C80FF6C00D9F1D1 /* RTProtocol.h */,
+				B4AD7C4F1C80FF6C00D9F1D1 /* RTProtocol.m */,
+				B4AD7C501C80FF6C00D9F1D1 /* RTUnregisteredClass.h */,
+				B4AD7C511C80FF6C00D9F1D1 /* RTUnregisteredClass.m */,
+			);
+			path = Vendor;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -951,6 +997,7 @@
 				7AB4AB6C145DC5D8006AEF67 /* Resources */,
 				BAA7BC150F1A4FDD944A2FD4 /* Copy Pods Resources */,
 				AABEE9F719081815007A26BA /* Delete All Users and Objects */,
+				9618D865B76C75FFA0458E54 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -969,8 +1016,8 @@
 			isa = PBXProject;
 			attributes = {
 				LastTestingUpgradeCheck = 0510;
-				LastUpgradeCheck = 0600;
-				ORGANIZATIONNAME = "CloudMine, LLC";
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = "CloudMine, Inc.";
 			};
 			buildConfigurationList = 7AB4AB59145DC5D8006AEF67 /* Build configuration list for PBXProject "cloudmine-ios" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1064,6 +1111,21 @@
 			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-cloudmine-ios/Pods-cloudmine-ios-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		9618D865B76C75FFA0458E54 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-cloudmine-iosTests/Pods-cloudmine-iosTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		AABEE9F719081815007A26BA /* Delete All Users and Objects */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1076,7 +1138,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "ruby \"${SRCROOT}/../scripts/delete_all_users.rb\" \"https://api.cloudmine.me/\" 9977f87e6ae54815b32a663902c3ca65 B93006AC1B3E40209B4477383B150CF2 true\nruby \"${SRCROOT}/../scripts/delete_all_objects.rb\" \"https://api.cloudmine.me/\" 9977f87e6ae54815b32a663902c3ca65 B93006AC1B3E40209B4477383B150CF2 true\ncat << EOM\nDeleted All users\nEOM";
+			shellScript = "ruby \"${SRCROOT}/../scripts/delete_all_users.rb\" \"https://api.cloudmine.io/\" 9977f87e6ae54815b32a663902c3ca65 B93006AC1B3E40209B4477383B150CF2 true\nruby \"${SRCROOT}/../scripts/delete_all_objects.rb\" \"https://api.cloudmine.io/\" 9977f87e6ae54815b32a663902c3ca65 B93006AC1B3E40209B4477383B150CF2 true\ncat << EOM\nDeleted All users\nEOM";
 		};
 		AABEE9F81908788F007A26BA /* Code Generation */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1132,6 +1194,7 @@
 				7AD36F7F146C650500DD4734 /* CMWebService.m in Sources */,
 				7AD36F85146CA4AC00DD4734 /* CMAPICredentials.m in Sources */,
 				7AD36F8E146CB6A600DD4734 /* NSURL+QueryParameterAdditions.m in Sources */,
+				B4AD7C571C80FF6D00D9F1D1 /* RTProtocol.m in Sources */,
 				7A04E86C147D8435006E00AB /* CMServerFunction.m in Sources */,
 				7AABA2E91480598300FD52A0 /* NSString+UUID.m in Sources */,
 				7AABA30114818DCA00FD52A0 /* CMObjectDecoder.m in Sources */,
@@ -1141,11 +1204,14 @@
 				7AD9221D14CF47360032DDDE /* CMPagingDescriptor.m in Sources */,
 				7AD9222414D06B9A0032DDDE /* CMStoreOptions.m in Sources */,
 				AAA05FC0183A756B009652C9 /* CMPaymentResponse.m in Sources */,
+				B4AD7C581C80FF6D00D9F1D1 /* RTUnregisteredClass.m in Sources */,
 				7A58CC2214F1B544003E864B /* CMMimeType.m in Sources */,
 				7AE2848B1562C3C8003E8A8F /* CMSortDescriptor.m in Sources */,
+				B4AD7C531C80FF6D00D9F1D1 /* README.markdown in Sources */,
 				65199EC2156A7D9500267EC6 /* CMDeleteResponse.m in Sources */,
 				65199EC3156A7D9500267EC6 /* CMFileFetchResponse.m in Sources */,
 				65199EC4156A7D9500267EC6 /* CMFileUploadResponse.m in Sources */,
+				B4AD7C561C80FF6D00D9F1D1 /* RTProperty.m in Sources */,
 				65199EC5156A7D9500267EC6 /* CMObjectFetchResponse.m in Sources */,
 				65199EC6156A7D9500267EC6 /* CMObjectUploadResponse.m in Sources */,
 				65199EC7156A7D9500267EC6 /* CMResponseMetadata.m in Sources */,
@@ -1156,6 +1222,7 @@
 				AA00CED31886E1C700F9958C /* UIImageView+CloudMine.m in Sources */,
 				7AFDFE42158E959B00388D6E /* CMDate.m in Sources */,
 				7AFDFE43158E959B00388D6E /* CMFile.m in Sources */,
+				B4AD7C551C80FF6D00D9F1D1 /* RTMethod.m in Sources */,
 				7AFDFE44158E959B00388D6E /* CMGeoPoint.m in Sources */,
 				7AFDFE45158E959B00388D6E /* CMObject.m in Sources */,
 				AA025E46198BEA9E00284B5F /* CMSocialAccountChooser.m in Sources */,
@@ -1165,12 +1232,14 @@
 				AAA05FBE183A756B009652C9 /* CMCardPayment.m in Sources */,
 				7AFDFE4A158E965400388D6E /* CMActiveUser.m in Sources */,
 				7AF00BA015A8DC650070442A /* CMACL.m in Sources */,
+				B4AD7C521C80FF6D00D9F1D1 /* MARTNSObject.m in Sources */,
 				AAA05FB9183A756B009652C9 /* CMPaymentService.m in Sources */,
 				7AF00BA115A8DC650070442A /* CMUser.m in Sources */,
 				D042C2EB15AF41F100A88888 /* CMACLFetchResponse.m in Sources */,
 				AAA92FFE181972DA0064F773 /* CMTools.m in Sources */,
 				71E886B716516C3D0060C217 /* CMSocialLoginViewController.m in Sources */,
 				AAB2E0B0167B94CF00D2C699 /* CMAppDelegateBase.m in Sources */,
+				B4AD7C541C80FF6D00D9F1D1 /* RTIvar.m in Sources */,
 				AAC1D8F116DD4BCC002A7DC0 /* CMChannelResponse.m in Sources */,
 				AAC1D8F416DD51FB002A7DC0 /* CMResponse.m in Sources */,
 				AAA92FF4181966370064F773 /* NSDictionary+CMJSON.m in Sources */,
@@ -1224,6 +1293,7 @@
 				AA61248819B90DA700358E51 /* CMTestProtocolObject.m in Sources */,
 				D039C16715BDEB77005CCD33 /* CMACLSpec.m in Sources */,
 				AA095168194B6CB4008602DB /* CMAppDelegateBaseSpec.m in Sources */,
+				AA8C4C191AAA4B4800500957 /* IOS-39Spec.m in Sources */,
 				D039C16A15BEEB44005CCD33 /* CMACLFetchResponseSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1280,11 +1350,13 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1300,7 +1372,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/**";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-all_load";
@@ -1326,6 +1398,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
@@ -1335,7 +1408,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/**";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-all_load";
 				SDKROOT = iphoneos;
@@ -1348,7 +1421,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EE1B44A5F6B4AA8E61850EFA /* Pods-cloudmine-ios.debug.xcconfig */;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 1.7.4;
+				CURRENT_PROJECT_VERSION = 1.7.9;
 				DSTROOT = /tmp/ios.dst;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
@@ -1359,7 +1432,7 @@
 					"$(inherited)",
 					"TESTING=0",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1375,7 +1448,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B2A33E73BEDE10A94973E9FE /* Pods-cloudmine-ios.release.xcconfig */;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 1.7.4;
+				CURRENT_PROJECT_VERSION = 1.7.9;
 				DSTROOT = /tmp/ios.dst;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = NO;
@@ -1385,7 +1458,7 @@
 					"$(inherited)",
 					"TESTING=0",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1415,9 +1488,9 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-all_load",
-					"-l\"Pods-cloudmine-ios-AFNetworking\"",
-					"-l\"Pods-cloudmine-ios-MAObjCRuntime\"",
+					"-l\"AFNetworking\"",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cloudmine.sdk.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "cloudmine-iosTests";
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -1441,9 +1514,9 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-all_load",
-					"-l\"Pods-cloudmine-ios-AFNetworking\"",
-					"-l\"Pods-cloudmine-ios-MAObjCRuntime\"",
+					"-l\"AFNetworking\"",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cloudmine.sdk.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "cloudmine-iosTests";
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -1468,6 +1541,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1483,7 +1557,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/**";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-all_load";
@@ -1496,7 +1570,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C3444874F77B35F0544725D1 /* Pods-cloudmine-ios.test.xcconfig */;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 1.7.4;
+				CURRENT_PROJECT_VERSION = 1.7.9;
 				DSTROOT = /tmp/ios.dst;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
@@ -1507,7 +1581,7 @@
 					"$(inherited)",
 					"TESTING=1",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1537,9 +1611,9 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-all_load",
-					"-l\"Pods-cloudmine-ios-AFNetworking\"",
-					"-l\"Pods-cloudmine-ios-MAObjCRuntime\"",
+					"-l\"AFNetworking\"",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cloudmine.sdk.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "cloudmine-iosTests";
 				USER_HEADER_SEARCH_PATHS = "";
 			};

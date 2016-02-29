@@ -3,7 +3,7 @@
 //  SocialLoginViewController.m
 //  cloudmine-ios
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //  Using some code of Stephane Copin, created on 3/28/14.
 //
@@ -35,7 +35,7 @@
 
 @implementation CMSocialLoginViewController
 
-- (id)initForService:(NSString *)service appID:(NSString *)appID apiKey:(NSString *)apiKey user:(CMUser *)user params:(NSDictionary *)params;
+- (instancetype)initForService:(NSString *)service appID:(NSString *)appID apiKey:(NSString *)apiKey user:(CMUser *)user params:(NSDictionary *)params;
 {
     if ( (self = [super init]) ) {
         _user = user;

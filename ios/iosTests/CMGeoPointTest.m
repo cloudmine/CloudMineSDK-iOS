@@ -2,7 +2,7 @@
 //  CMGeoPointSpec.m
 //  cloudmine-iosTests
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -21,7 +21,7 @@
 
 @implementation CMGeoTestingObject
 @synthesize name,loc;
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self) {
         self.name = @"foo";
@@ -29,7 +29,7 @@
     }
     return self;
 }
-- (id)initWithCoder:(NSCoder *)aDecoder {
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
         self.name = [aDecoder decodeObjectForKey:@"name"];

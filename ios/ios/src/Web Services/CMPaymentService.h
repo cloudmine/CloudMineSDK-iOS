@@ -3,7 +3,7 @@
 //  cloudmine-ios
 //
 //  Created by Ethan Mick on 7/10/13.
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -18,7 +18,7 @@
 /**
  * Initialize the payment service.
  */
-- (id)init;
+- (instancetype)init;
 
 /**
  * Initialize the payment service with the given user.
@@ -27,7 +27,7 @@
  *
  * @param aUser The user to initialize the service with.
  */
-- (id)initWithUser:(CMUser *)aUser;
+- (instancetype)initWithUser:(CMUser *)aUser;
 
 /**
  * Start a transaction with the given cart and payment info.

@@ -2,7 +2,7 @@
 //  CMSortDescriptor.m
 //  cloudmine-ios
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -17,18 +17,18 @@ NSString * const CMSortDescending = @"desc";
 
 #pragma mark - Constructors
 
-+ (id)emptyDescriptor {
++ (instancetype)emptyDescriptor {
     return [[[self class] alloc] init];
 }
 
-- (id)init {
+- (instancetype)init {
     if (self = [super init]) {
         fieldToDirectionMapping = [NSMutableDictionary dictionary];
     }
     return self;
 }
 
-- (id)initWithFieldsAndDirections:(NSString *)fieldsAndDirections, ... {
+- (instancetype)initWithFieldsAndDirections:(NSString *)fieldsAndDirections, ... {
     if ([self init]) {
         va_list args;
         va_start(args, fieldsAndDirections);

@@ -2,7 +2,7 @@
 //  CMStore.m
 //  cloudmine-ios
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -106,22 +106,22 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     return [[CMStore alloc] initWithUser:theUser baseURL:url];
 }
 
-- (id)init;
+- (instancetype)init;
 {
     return [self initWithUser:nil];
 }
 
-- (id)initWithBaseURL:(NSString *)url;
+- (instancetype)initWithBaseURL:(NSString *)url;
 {
     return [self initWithUser:nil baseURL:url];
 }
 
-- (id)initWithUser:(CMUser *)theUser;
+- (instancetype)initWithUser:(CMUser *)theUser;
 {
     return [self initWithUser:theUser baseURL:nil];
 }
 
-- (id)initWithUser:(CMUser *)theUser baseURL:(NSString *)url;
+- (instancetype)initWithUser:(CMUser *)theUser baseURL:(NSString *)url;
 {
     if (self = [super init]) {
         self.webService = [[CMWebService alloc] initWithBaseURL:[NSURL URLWithString:url]];
@@ -232,11 +232,16 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     [self registerForPushNotifications:notificationType user:self.user callback:callback];
 }
 
-- (void)registerForPushNotifications:(UIRemoteNotificationType)notificationType user:(CMUser *)aUser callback:(CMWebServiceDeviceTokenCallback)callback;
+- (void)registerForPushNotifications:(NSInteger)notificationType user:(CMUser *)aUser callback:(CMWebServiceDeviceTokenCallback)callback;
+{
+    [self registerForPushNotifications:notificationType categories:nil user:aUser callback:callback];
+}
+
+- (void)registerForPushNotifications:(NSInteger)notificationType categories:(NSSet *)categories user:(CMUser *)aUser callback:(CMWebServiceDeviceTokenCallback)callback;
 {
     NSAssert([[[UIApplication sharedApplication] delegate] isKindOfClass:[CMAppDelegateBase class]], @"Your Application Delegate MUST Inherit for CMAppDelegateBase in order to register for push notifications in this way!\n \
              If you do not want to inherit from CMAppDelegateBase, you will need to use [CMWebService registerForPushNotificationsWithUser:deviceToken:callback:]");
-
+    
     if (!aUser.isLoggedIn) {
         NSLog(@"*** CLOUDMINE: Attempting to register for push notifications requires a user that is logged in! The user is either not logged in, or nil!");
         if (callback) {
@@ -249,7 +254,15 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     delegate.callback = callback;
     delegate.user = aUser;
     delegate.service = self.webService;
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:notificationType];
+    
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:notificationType categories:categories];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+    }
+    else {
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:notificationType];
+    }
 }
 
 - (void)unRegisterForPushNotificationsWithCallback:(CMWebServiceDeviceTokenCallback)callback;
@@ -753,6 +766,95 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     else
         successHandler([NSDictionary dictionaryWithObject:aclDict forKey:acl.objectId], nil, nil, nil, [NSNumber numberWithUnsignedInt:1], nil);
 }
+
+#pragma mark - Replace Objects
+
+- (void)replaceObject:(CMObject *)theObject callback:(CMStoreObjectUploadCallback)callback;
+{
+  [self replaceObject:theObject additionalOptions:nil callback:callback];
+}
+
+- (void)replaceObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+{
+  [self replaceObjects:@[theObject] additionalOptions:options callback:callback];
+}
+
+- (void)replaceObjects:(NSArray *)objects additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+{
+  [self _replaceObjects:objects userLevel:NO additionalOptions:options callback:callback];
+}
+
+- (void)replaceUserObject:(CMObject *)theObject callback:(CMStoreObjectUploadCallback)callback;
+{
+  [self replaceUserObject:theObject additionalOptions:nil callback:callback];
+}
+
+- (void)replaceUserObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+{
+  [self replaceUserObjects:@[theObject] additionalOptions:options callback:callback];
+}
+
+- (void)replaceUserObjects:(NSArray *)objects additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+{
+  _CMAssertUserConfigured;
+  
+  if (!user.isLoggedIn) {
+    if (callback) {
+      callback([[CMObjectUploadResponse alloc] initWithError:Error401]);
+    }
+    return;
+  }
+  
+  [self _replaceObjects:objects userLevel:YES additionalOptions:options callback:callback];
+}
+
+- (void)_replaceObjects:(NSArray *)objects userLevel:(BOOL)userLevel additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+{
+  NSParameterAssert(objects);
+  _CMAssertAPICredentialsInitialized;
+  [self cacheObjectsInMemory:objects atUserLevel:userLevel];
+
+    __weak typeof(self) weakSelf = self;
+  
+  // Only send the dirty objects to the servers
+  [webService setValuesFromDictionary:[CMObjectEncoder encodeObjects:objects] //send them all
+                      serverSideFunction:_CMTryMethod(options, serverSideFunction)
+                                    user:_CMUserOrNil
+                         extraParameters:_CMTryMethod(options, buildExtraParameters)
+                          successHandler:^(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, NSDictionary *snippetResult, NSNumber *count, NSDictionary *headers) {
+
+                            CMResponseMetadata *metadata = [[CMResponseMetadata alloc] initWithMetadata:meta];
+                            CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
+                            CMObjectUploadResponse *response = [[CMObjectUploadResponse alloc] initWithUploadStatuses:results snippetResult:result responseMetadata:metadata];
+                            
+                            NSDate *expirationDate = [weakSelf.dateFormatter dateFromString:[headers objectForKey:CM_TOKENEXPIRATION_HEADER]];
+                            if (expirationDate && userLevel) {
+                              weakSelf.user.tokenExpiration = expirationDate;
+                            }
+                            
+                            // If the dirty objects were successfully uploaded, mark them as clean
+                            [objects enumerateObjectsUsingBlock:^(CMObject *object, NSUInteger idx, BOOL *stop) {
+                              NSString *status = [response.uploadStatuses objectForKey:object.objectId];
+                              if ([status isEqualToString:@"updated"] || [status isEqualToString:@"created"]) {
+                                object.dirty = NO;
+                              }
+                            }];
+                            
+                            if (callback) {
+                              callback(response);
+                            }
+                          } errorHandler:^(NSError *error) {
+                            NSLog(@"CloudMine *** Error occurred during object save with message: %@", [error description]);
+                            CMObjectUploadResponse *response = [[CMObjectUploadResponse alloc] initWithError:error];
+                            lastError = error;
+                            if (callback) {
+                              callback(response);
+                            }
+                          }
+   ];
+}
+
+
 
 #pragma mark File uploading
 

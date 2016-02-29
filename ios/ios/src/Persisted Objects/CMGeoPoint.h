@@ -2,7 +2,7 @@
 //  CMGeoPoint.h
 //  cloudmine-ios
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -12,9 +12,7 @@
 
 extern NSString * const CMGeoPointClassName;
 
-@interface CMGeoPoint : CMObject {
-
-}
+@interface CMGeoPoint : CMObject
 
 /**
  * Initializes a new instance of this class with the given latitude and longitude.
@@ -22,7 +20,7 @@ extern NSString * const CMGeoPointClassName;
  * @param theLatitude The latitude in <strong>degrees</strong>.
  * @param theLongitude The longitude in <strong>degrees</strong>.
  */
-- (id)initWithLatitude:(double)theLatitude andLongitude:(double)theLongitude;
+- (instancetype)initWithLatitude:(double)theLatitude andLongitude:(double)theLongitude NS_DESIGNATED_INITIALIZER;
 
 /**
  * Initializes a new instance of this class with the given latitude and longitude.
@@ -33,7 +31,7 @@ extern NSString * const CMGeoPointClassName;
  * @param theLatitude The latitude in <strong>radians</strong>.
  * @param theLongitude The longitude in <strong>radians</strong>.
  */
-- (id)initWithLatitudeInRadians:(double)theLatitude andLongitudeInRadians:(double)theLongitude;
+- (instancetype)initWithLatitudeInRadians:(double)theLatitude andLongitudeInRadians:(double)theLongitude;
 
 /**
  * Initializes a new instance of this class given a <tt>CLLocation</tt> object most likely obtained from
@@ -44,7 +42,9 @@ extern NSString * const CMGeoPointClassName;
  * @see https://developer.apple.com/library/ios/#documentation/CoreLocation/Reference/CLLocation_Class/CLLocation/CLLocation.html
  * @see https://developer.apple.com/library/ios/#documentation/UserExperience/Conceptual/LocationAwarenessPG/Introduction/Introduction.html
  */
-- (id)initWithCLLocation:(CLLocation *)location;
+- (instancetype)initWithCLLocation:(CLLocation *)location;
+
+-(instancetype)initWithObjectId:(NSString *)theObjectId NS_UNAVAILABLE;
 
 /**
  * The latitude in degrees.

@@ -2,7 +2,7 @@
 //  CMObjectFetchResponse.m
 //  cloudmine-ios
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -14,15 +14,15 @@
 @synthesize objectErrors;
 @synthesize count;
 
-- (id)initWithObjects:(NSArray *)theObjects errors:(NSDictionary *)theErrors {
+- (instancetype)initWithObjects:(NSArray *)theObjects errors:(NSDictionary *)theErrors {
     return [self initWithObjects:theObjects errors:theErrors snippetResult:nil responseMetadata:nil];
 }
 
-- (id)initWithObjects:(NSArray *)theObjects errors:(NSDictionary *)theErrors snippetResult:(CMSnippetResult *)theSnippetResult {
+- (instancetype)initWithObjects:(NSArray *)theObjects errors:(NSDictionary *)theErrors snippetResult:(CMSnippetResult *)theSnippetResult {
     return [self initWithObjects:theObjects errors:theErrors snippetResult:theSnippetResult responseMetadata:nil];
 }
 
-- (id)initWithObjects:(NSArray *)theObjects errors:(NSDictionary *)theErrors snippetResult:(CMSnippetResult *)theSnippetResult responseMetadata:(CMResponseMetadata *)theMetadata {
+- (instancetype)initWithObjects:(NSArray *)theObjects errors:(NSDictionary *)theErrors snippetResult:(CMSnippetResult *)theSnippetResult responseMetadata:(CMResponseMetadata *)theMetadata {
     if (self = [super initWithMetadata:theMetadata snippetResult:theSnippetResult]) {
         self.objects = theObjects;
         self.objectErrors = theErrors;

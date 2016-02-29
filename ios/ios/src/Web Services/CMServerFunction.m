@@ -2,7 +2,7 @@
 //  CMServerFunction.m
 //  cloudmine-ios
 //
-//  Copyright (c) 2012 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -18,7 +18,7 @@
 
 #pragma mark - Constructors
 
-+ (id)serverFunctionWithName:(NSString *)theFunctionName {
++ (instancetype)serverFunctionWithName:(NSString *)theFunctionName {
     return [[self alloc] initWithFunctionName:theFunctionName
                               extraParameters:nil
                    responseContainsResultOnly:NO
@@ -26,7 +26,7 @@
             ];
 }
 
-+ (id)serverFunctionWithName:(NSString *)theFunctionName extraParameters:(NSDictionary *)theExtraParameters {
++ (instancetype)serverFunctionWithName:(NSString *)theFunctionName extraParameters:(NSDictionary *)theExtraParameters {
     return [[self alloc] initWithFunctionName:theFunctionName
                               extraParameters:theExtraParameters
                    responseContainsResultOnly:NO
@@ -34,7 +34,7 @@
             ];
 }
 
-+ (id)serverFunctionWithName:(NSString *)theFunctionName extraParameters:(NSDictionary *)theExtraParameters responseContainsResultOnly:(BOOL)resultOnly {
++ (instancetype)serverFunctionWithName:(NSString *)theFunctionName extraParameters:(NSDictionary *)theExtraParameters responseContainsResultOnly:(BOOL)resultOnly {
     return [[self alloc] initWithFunctionName:theFunctionName
                               extraParameters:theExtraParameters
                    responseContainsResultOnly:resultOnly
@@ -42,7 +42,7 @@
             ];
 }
 
-+ (id)serverFunctionWithName:(NSString *)theFunctionName extraParameters:(NSDictionary *)theExtraParameters responseContainsResultOnly:(BOOL)resultOnly performAsynchronously:(BOOL)async {
++ (instancetype)serverFunctionWithName:(NSString *)theFunctionName extraParameters:(NSDictionary *)theExtraParameters responseContainsResultOnly:(BOOL)resultOnly performAsynchronously:(BOOL)async {
     return [[self alloc] initWithFunctionName:theFunctionName
                               extraParameters:theExtraParameters
                    responseContainsResultOnly:resultOnly
@@ -50,7 +50,7 @@
             ];
 }
 
-- (id)initWithFunctionName:(NSString *)theFunctionName extraParameters:(NSDictionary *)theExtraParameters responseContainsResultOnly:(BOOL)isResultOnly performAsynchronously:(BOOL)isAsync {
+- (instancetype)initWithFunctionName:(NSString *)theFunctionName extraParameters:(NSDictionary *)theExtraParameters responseContainsResultOnly:(BOOL)isResultOnly performAsynchronously:(BOOL)isAsync {
     if (self = [super init]) {
         self.functionName = theFunctionName;
         self.extraParameters = theExtraParameters;
@@ -60,7 +60,7 @@
     return self;
 }
 
-- (id)init {
+- (instancetype)init {
     [[NSException exceptionWithName:@"NotImplemented" reason:@"This constructor is not implemented. Use initWithFunctionName:extraParameters:responseContainsResultOnly:performAsynchronously: instead, or use one of the available static convenience initializers."  userInfo:nil] raise];
     return nil;
 }

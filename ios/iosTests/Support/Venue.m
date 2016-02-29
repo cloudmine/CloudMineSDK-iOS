@@ -3,14 +3,14 @@
 //  cloudmine-ios
 //
 //  Created by Ethan Mick on 6/13/14.
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //
 
 #import "Venue.h"
 
 @implementation Venue
 
-- (id)initWithDictionary:(NSDictionary *)dictionary {
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
     NSParameterAssert(dictionary);
     if (self = [super init]) {
         _name = [dictionary objectForKey:@"name"];
@@ -25,7 +25,7 @@
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithCoder:aDecoder]) {
         _name = [aDecoder decodeObjectForKey:@"name"];
         _address = [aDecoder decodeObjectForKey:@"address"];

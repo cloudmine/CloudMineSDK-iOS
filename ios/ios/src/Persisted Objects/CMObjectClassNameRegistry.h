@@ -2,7 +2,7 @@
 //  CMObjectClassNameRegistry.h
 //  cloudmine-ios
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -21,14 +21,12 @@
  *
  * @see CMObject#className
  */
-@interface CMObjectClassNameRegistry : NSObject {
-    NSMutableDictionary *classNameMappings;
-}
+@interface CMObjectClassNameRegistry : NSObject
 
 /**
  * @return The singleton instance of the registry.
  */
-+ (id)sharedInstance;
++ (instancetype)sharedInstance;
 
 /**
  * Given a class name, look up the actual class.

@@ -3,14 +3,14 @@
 //  cloudmine-ios
 //
 //  Created by Ethan Mick on 4/19/14.
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //
 
 #import "CMTestEncoder.h"
 
 @implementation CMTestEncoderInt
 
-- (id)initWithCoder:(NSCoder *)aDecoder;
+- (instancetype)initWithCoder:(NSCoder *)aDecoder;
 {
     if ( self = ([super initWithCoder:aDecoder]) ) {
         self.anInt = [aDecoder decodeIntegerForKey:@"anInt"];
@@ -28,7 +28,7 @@
 
 @implementation CMTestEncoderInt32
 
-- (id)initWithCoder:(NSCoder *)aDecoder;
+- (instancetype)initWithCoder:(NSCoder *)aDecoder;
 {
     if ( self = ([super initWithCoder:aDecoder]) ) {
         self.anInt = [aDecoder decodeInt32ForKey:@"anInt"];
@@ -46,7 +46,7 @@
 
 @implementation CMTestEncoderBool
 
-- (id)initWithCoder:(NSCoder *)aDecoder;
+- (instancetype)initWithCoder:(NSCoder *)aDecoder;
 {
     if ( self = ([super initWithCoder:aDecoder]) ) {
         self.aBool = [aDecoder decodeBoolForKey:@"aBool"];
@@ -64,7 +64,7 @@
 
 @implementation CMTestEncoderFloat
 
-- (id)initWithCoder:(NSCoder *)aDecoder;
+- (instancetype)initWithCoder:(NSCoder *)aDecoder;
 {
     if ( self = ([super initWithCoder:aDecoder]) ) {
         self.aFloat = [aDecoder decodeFloatForKey:@"aFloat"];
@@ -80,9 +80,32 @@
 
 @end
 
+@implementation CMTestEncoderUUID
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder;
+{
+    if ( self = ([super initWithCoder:aDecoder]) ) {
+        NSUInteger blockSize;
+        const void* bytes = [aDecoder decodeBytesForKey:@"uuid" returnedLength:&blockSize];
+        self.uuid = [[NSUUID alloc] initWithUUIDBytes:bytes];
+        self.uuid = [[NSUUID alloc] initWithUUIDString:[aDecoder decodeObjectForKey:@"uuid"]];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder;
+{
+    [super encodeWithCoder:aCoder];
+    uuid_t uuid;
+    [self.uuid getUUIDBytes:uuid];
+    [aCoder encodeBytes:uuid length:16 forKey:@"uuid"];
+}
+
+@end
+
 @implementation CMTestEncoderNSCoding
 
-- (id)initWithCoder:(NSCoder *)aDecoder;
+- (instancetype)initWithCoder:(NSCoder *)aDecoder;
 {
     if ( self = ([super init]) ) {
         self.aString = [aDecoder decodeObjectForKey:@"aString"];
@@ -101,7 +124,7 @@
 
 @implementation CMTestEncoderNSCodingParent
 
-- (id)initWithCoder:(NSCoder *)aDecoder;
+- (instancetype)initWithCoder:(NSCoder *)aDecoder;
 {
     if ( self = ([super initWithCoder:aDecoder]) ) {
         self.something = [aDecoder decodeObjectForKey:@"something"];
@@ -115,7 +138,7 @@
     [aCoder encodeObject:self.something forKey:@"something"];
 }
 
-- (id)initWithObjectId:(NSString *)theObjectId;
+- (instancetype)initWithObjectId:(NSString *)theObjectId;
 {
     if ( (self = [super initWithObjectId:theObjectId]) ) {
         self.something = [[CMTestEncoderNSCoding alloc] init];
@@ -130,7 +153,7 @@
 
 @implementation CMTestEncoderNSCodingDeeper
 
-- (id)initWithCoder:(NSCoder *)aDecoder;
+- (instancetype)initWithCoder:(NSCoder *)aDecoder;
 {
     if ( self = ([super init]) ) {
         self.aString = [aDecoder decodeObjectForKey:@"aString"];

@@ -2,7 +2,7 @@
 //  CMObjectEncoderSpec.m
 //  cloudmine-iosTests
 //
-//  Copyright (c) 2012 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -189,6 +189,20 @@ describe(@"CMObjectEncoder", ^{
         [[encoded[@"set"] shouldNot] beNil];
         NSArray *final = encoded[@"set"];
         [[final should] haveCountOf:5];
+    });
+    
+    it(@"should encode a UUID", ^{
+        NSString *uuid = [NSString stringWithUUID];
+        CMTestEncoderUUID *test = [[CMTestEncoderUUID alloc] initWithObjectId:uuid];
+        test.uuid = [[NSUUID alloc] initWithUUIDString:@"e621e1f8-c36c-495a-93fc-0c247a3e6e5f"];
+        
+        // Run the serialization.
+        NSDictionary *result = [CMObjectEncoder encodeObjects:@[test]];
+        [[result shouldNot] beNil];
+        [[[result should] have:1] items];
+        [[result should] haveValueForKey:uuid];
+        NSDictionary *object = result[uuid];
+        [[object[@"uuid"] should] equal:@"5iHh+MNsSVqT/Awkej5uXw=="];
     });
     
     it(@"should raise an exception when given a non-serializable object", ^{

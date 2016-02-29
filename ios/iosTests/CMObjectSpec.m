@@ -2,7 +2,7 @@
 //  CMObjectSpec.m
 //  cloudmine-iosTests
 //
-//  Copyright (c) 2012 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -28,7 +28,7 @@
 @implementation CustomObject
 @synthesize something, somethingElse;
 
-- (id)initWithCoder:(NSCoder *)coder {
+- (instancetype)initWithCoder:(NSCoder *)coder {
     if(self = [super initWithCoder:coder]) {
         // Decode properties from coder
         self.something = [coder decodeObjectForKey:@"something"];
@@ -188,6 +188,15 @@ describe(@"CMObject", ^{
     });
 
     context(@"given an object that belongs to any store", ^{
+        
+        it(@"should be able to add an id to the __access__ array", ^{
+            CMObject *obj = [[CMObject alloc] init];
+            [obj addAclId:@"derp"];
+            NSArray *acls = [obj valueForKey:@"aclIds"];
+            [[acls should] haveLengthOf:1];
+            [[acls[0] should] equal:@"derp"];
+        });
+        
         it(@"should set its store to the CMNullStore singleton when the store is set to nil", ^{
             CMObject *obj = [[CMObject alloc] init];
             [[obj.store should] equal:[CMStore defaultStore]];

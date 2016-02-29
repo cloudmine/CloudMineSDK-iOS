@@ -2,7 +2,7 @@
 //  CMFileFetchResponse.m
 //  cloudmine-ios
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -13,7 +13,7 @@
 
 @synthesize file;
 
-- (id)initWithFile:(CMFile *)theFile {
+- (instancetype)initWithFile:(CMFile *)theFile {
     if(self = [super init]) {
         self.file = theFile;
     }

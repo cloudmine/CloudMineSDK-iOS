@@ -1,6 +1,24 @@
 HEAD
 =====
 
+v1.7.9 (TBD)
+======================
+* updated deployment targets to iOS 8.0
+* Minor documentation updates
+
+v1.7.8 (July 28, 2015)
+======================
+* Added methods on CMStore that replace entire Objects.
+
+v1.7.5 (June 12, 2015)
+======================
+* Added a method on CMObject that allows direct adding of ACL ID's to the __access__ property.
+
+v1.7.5 (March 6, 2015)
+======================
+* Changed all returned values to be `instancetype`
+* Fixed a bug in which a dictionary that looked like a CMObject, but shouldn't be, was deserialized to be a CMUntypedObject. Inserting `__class__: 'map'` as a Key/Value pair in your dictionaries will stop this from occuring.
+
 v1.7.4 (March 5, 2015)
 ======================
 * Added in Segments API for ACL's
@@ -97,7 +115,7 @@ v1.4 (December 18, 2012)
 v1.3 (December 11, 2012)
 =====
 * Added Social Login. Login via social networks that are supported through CloudMine and Singly.
-  * https://cloudmine.me/docs/social
+  * https://cloudmine.io/docs/social
 * Allow developers to specify scope for the social login.
 * Linking of accounts! Logging in a user through a social network while a user is previously logged in will link the two accounts.
 * Creation of accounts through social login! Logging in through a social network will automatically create the user account if no user is logged in.

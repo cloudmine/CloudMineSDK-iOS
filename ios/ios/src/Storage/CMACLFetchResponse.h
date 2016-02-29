@@ -2,7 +2,7 @@
 //  CMACLFetchResponse.h
 //  cloudmine-ios
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -21,7 +21,7 @@
  */
 @property (strong, nonatomic) NSDictionary *aclErrors;
 
-- (id)initWithACLs:(NSSet *)acls errors:(NSDictionary *)errors;
+- (instancetype)initWithACLs:(NSSet *)acls errors:(NSDictionary *)errors;
 
 /**
  * Returns a set of every user, unioned from every ACL.

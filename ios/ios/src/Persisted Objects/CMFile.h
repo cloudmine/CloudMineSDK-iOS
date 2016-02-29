@@ -2,7 +2,7 @@
 //  CMFile.h
 //  cloudmine-ios
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -69,7 +69,7 @@
  * @param theFileData The file's raw data.
  * @param theName The human-readable name of the file. This must be unique in your app, just like when there are many files in the same directory on a filesystem.
  */
-- (id)initWithData:(NSData *)theFileData named:(NSString *)theName;
+- (instancetype)initWithData:(NSData *)theFileData named:(NSString *)theName;
 
 /**
  * Creates a new file instance with data.
@@ -78,7 +78,7 @@
  * @param theName The human-readable name of the file. This must be unique in your app, just like when there are many files in the same directory on a filesystem.
  * @param theMimeType The MIME type of this file. Common MIME types keyed on file extensions can be accessed via CMMimeType#mimeTypeForExtension:. Defaults to <tt>application/octet-stream</tt>.
  */
-- (id)initWithData:(NSData *)theFileData named:(NSString *)theName mimeType:(NSString *)theMimeType;
+- (instancetype)initWithData:(NSData *)theFileData named:(NSString *)theName mimeType:(NSString *)theMimeType NS_DESIGNATED_INITIALIZER;;
 
 /**
  * @deprecated
@@ -87,7 +87,9 @@
  *
  * The non-deprecated constructor to use is CMFile#initWithData:named:mimeType:.
  */
-- (id)initWithData:(NSData *)theFileData named:(NSString *)theName belongingToUser:(CMUser *)theUser mimeType:(NSString *)theMimeType __attribute__((deprecated));
+- (instancetype)initWithData:(NSData *)theFileData named:(NSString *)theName belongingToUser:(CMUser *)theUser mimeType:(NSString *)theMimeType __attribute__((deprecated));
+
+- (instancetype)init NS_UNAVAILABLE;
 
 /**
  * @deprecated

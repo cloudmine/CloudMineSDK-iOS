@@ -2,7 +2,7 @@
 //  CMObject+Private.h
 //  cloudmine-ios
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -11,8 +11,10 @@
 @class CMACL;
 
 @interface CMObject ()
+
 @property (readwrite, getter = isDirty) BOOL dirty;
 @property (readwrite, strong, nonatomic) NSString *ownerId;
 @property (strong, nonatomic) CMACL *sharedACL;
 @property (strong, nonatomic) NSArray *aclIds;
+
 @end

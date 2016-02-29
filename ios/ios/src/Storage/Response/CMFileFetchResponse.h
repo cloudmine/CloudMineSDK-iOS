@@ -2,7 +2,7 @@
 //  CMFileFetchResponse.h
 //  cloudmine-ios
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -21,6 +21,6 @@
  */
 @property (strong, nonatomic) CMFile *file;
 
-- (id)initWithFile:(CMFile *)file;
+- (instancetype)initWithFile:(CMFile *)file;
 
 @end

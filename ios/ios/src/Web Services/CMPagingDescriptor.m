@@ -2,7 +2,7 @@
 //  CMPagingDescriptor.m
 //  cloudmine-ios
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -20,23 +20,23 @@ NSString * const CMPagingDescriptorCountKey = @"count";
 
 #pragma mark - Initializers
 
-+ (id)defaultPagingDescriptor {
++ (instancetype)defaultPagingDescriptor {
     return [[self alloc] init];
 }
 
-- (id)init {
+- (instancetype)init {
     return [self initWithLimit:DEFAULT_LIMIT skip:DEFAULT_OFFSET includeCount:DEFAULT_INCLUDE_COUNT];
 }
 
-- (id)initWithLimit:(NSInteger)theLimit {
+- (instancetype)initWithLimit:(NSInteger)theLimit {
     return [self initWithLimit:theLimit skip:DEFAULT_OFFSET includeCount:DEFAULT_INCLUDE_COUNT];
 }
 
-- (id)initWithLimit:(NSInteger)theLimit skip:(NSUInteger)theOffset {
+- (instancetype)initWithLimit:(NSInteger)theLimit skip:(NSUInteger)theOffset {
     return [self initWithLimit:theLimit skip:theOffset includeCount:DEFAULT_INCLUDE_COUNT];
 }
 
-- (id)initWithLimit:(NSInteger)theLimit skip:(NSUInteger)theOffset includeCount:(BOOL)willIncludeCount {
+- (instancetype)initWithLimit:(NSInteger)theLimit skip:(NSUInteger)theOffset includeCount:(BOOL)willIncludeCount {
     if (self = [super init]) {
         self.limit = theLimit;
         self.skip = theOffset;

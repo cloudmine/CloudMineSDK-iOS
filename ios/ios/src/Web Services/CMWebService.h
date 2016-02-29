@@ -2,7 +2,7 @@
 //  CMWebService.h
 //  cloudmine-ios
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -106,7 +106,7 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  *
  * @throws NSInternalInconsistencyException <tt>CMUserCredentials</tt> has not been configured.
  */
-- (id)init;
+- (instancetype)init;
 
 /**
  * Default initializer for the web service connector. You <strong>must</strong> have already configured the
@@ -116,7 +116,7 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * @param url The base URL you want to point this web service to. Defaults to CloudMine.
  * @throws NSInternalInconsistencyException <tt>CMUserCredentials</tt> has not been configured.
  */
-- (id)initWithBaseURL:(NSURL *)url;
+- (instancetype)initWithBaseURL:(NSURL *)url;
 
 /**
  * Initializes an instance of a web service connector with the given API key and secret app key. The baseURL for
@@ -125,7 +125,7 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * @param appSecret The App Secret for your application
  * @param appIdentifier The App ID for your application
  */
-- (id)initWithAppSecret:(NSString *)appSecret appIdentifier:(NSString *)appIdentifier;
+- (instancetype)initWithAppSecret:(NSString *)appSecret appIdentifier:(NSString *)appIdentifier;
 
 /**
  * Initializes an instance of the Web Service with the App ID, and secret key, and base URL This can be useful
@@ -135,7 +135,7 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * @param appIdentifier The App ID for your application
  * @param url The Base URL you want this Web Service to point to.
  */
-- (id)initWithAppSecret:(NSString *)appSecret appIdentifier:(NSString *)appIdentifier baseURL:(NSURL *)url;
+- (instancetype)initWithAppSecret:(NSString *)appSecret appIdentifier:(NSString *)appIdentifier baseURL:(NSURL *)url;
 
 /**
  * Asynchronously retrieve all ACLs associated with the named user. On completion, the <tt>successHandler</tt> block
@@ -181,7 +181,7 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * Asynchronously search all ACLs associated with the user, using the specified query. On completion, the <tt>successHandler</tt> block
  * will be called with a dictionary of the ACLs retrieved.
  *
- * @param query This is the same syntax as defined at https://cloudmine.me/docs/api#query_syntax and used by <tt>CMStore</tt>'s search methods.
+ * @param query This is the same syntax as defined at https://cloudmine.io/docs/api#query_syntax and used by <tt>CMStore</tt>'s search methods.
  * @param user The user whose ACLs to query.
  * @param successHandler The block to be called when the objects have been populated.
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
@@ -354,7 +354,7 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * @param callback The block that will be called on completion of the operation.
  *
  * @see CMUserAccountResult
- * @see https://cloudmine.me/docs/ios/reference#users_login
+ * @see https://cloudmine.io/docs/ios/reference#users_login
  */
 - (void)loginUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
 
@@ -371,7 +371,7 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * @param callback The block that will be called on completion of the operation.
  *
  * @see CMUserAccountResult
- * @see https://cloudmine.me/docs/ios/reference#users_logout
+ * @see https://cloudmine.io/docs/ios/reference#users_logout
  */
 - (void)logoutUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
 
@@ -390,7 +390,7 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * @param callback The block that will be called on completion of the operation.
  *
  * @see CMUserAccountResult
- * @see https://cloudmine.me/docs/ios/reference#users_create
+ * @see https://cloudmine.io/docs/ios/reference#users_create
  */
 - (void)createAccountWithUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
 
@@ -402,7 +402,7 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * @param viewController the current viewController in use when this method is called
  * @param params Any extra parameters you want passed in to the authentication request. This dictionary is parsed where each key value pair becomes "&key=value". We do not encode the URL after this, so any encoding will need to be done by the creator. This is a good place to put scope, for example: @{@"scope" : @"gist,repo"}
  * @param callback The block that will be called on completion of the operation
- * @see https://cloudmine.me/docs/api#users_social
+ * @see https://cloudmine.io/docs/api#users_social
  */
 - (CMSocialLoginViewController *)loginWithSocial:(CMUser *)user
                                      withService:(NSString *)service
@@ -430,7 +430,7 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * @param callback The block that will be called on completion of the operation.
  *
  * @see CMUserAccountResult
- * @see https://cloudmine.me/docs/ios/reference#users_pass_change
+ * @see https://cloudmine.io/docs/ios/reference#users_pass_change
  */
 - (void)changePasswordForUser:(CMUser *)user oldPassword:(NSString *)oldPassword newPassword:(NSString *)newPassword callback:(CMWebServiceUserAccountOperationCallback)callback;
 
@@ -527,7 +527,7 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * @param callback The block that will be called on completion of the operation.
  *
  * @see CMUserAccountResult
- * @see https://cloudmine.me/docs/ios/reference#users_pass_reset
+ * @see https://cloudmine.io/docs/ios/reference#users_pass_reset
  */
 - (void)resetForgottenPasswordForUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
 
@@ -554,7 +554,7 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * and is useful for displaying and filtering lists of people to share with or running analytics on your users yourself. On completion, the <tt>callback</tt> block
  * will be called with a dictionary of the objects retrieved as well as a dictionary of the key-related errors returned from the server.
  *
- * @param query The search query to run against all user profiles. This is the same syntax as defined at https://cloudmine.me/docs/api#query_syntax and used by <tt>CMStore</tt>'s search methods.
+ * @param query The search query to run against all user profiles. This is the same syntax as defined at https://cloudmine.io/docs/api#query_syntax and used by <tt>CMStore</tt>'s search methods.
  * @param callback The block that will be called on completion of the operation.
  */
 - (void)searchUsers:(NSString *)query callback:(CMWebServiceUserFetchSuccessCallback)callback;

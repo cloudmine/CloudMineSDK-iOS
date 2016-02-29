@@ -2,7 +2,7 @@
 //  CMStoreResponse.m
 //  cloudmine-ios
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -14,7 +14,7 @@
 @synthesize metadata;
 @synthesize error;
 
-- (id)initWithMetadata:(CMResponseMetadata *)theMetadata snippetResult:(CMSnippetResult *)theSnippetResult {
+- (instancetype)initWithMetadata:(CMResponseMetadata *)theMetadata snippetResult:(CMSnippetResult *)theSnippetResult {
     if (self = [super init]) {
         self.snippetResult = theSnippetResult;
         self.metadata = theMetadata;
@@ -22,7 +22,7 @@
     return self;
 }
 
-- (id)initWithError:(NSError *)theError {
+- (instancetype)initWithError:(NSError *)theError {
     if ((self = [super init])) {
         self.error = theError;
     }

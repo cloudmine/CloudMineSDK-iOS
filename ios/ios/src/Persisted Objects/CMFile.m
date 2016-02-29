@@ -2,7 +2,7 @@
 //  CMFile.m
 //  cloudmine-ios
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -29,11 +29,11 @@ NSString * const _mimeTypeKey = @"mime";
 
 #pragma mark - Initializers
 
-- (id)initWithData:(NSData *)theFileData named:(NSString *)theName {
+- (instancetype)initWithData:(NSData *)theFileData named:(NSString *)theName {
     return [self initWithData:theFileData named:theName mimeType:nil];
 }
 
-- (id)initWithData:(NSData *)theFileData named:(NSString *)theName mimeType:(NSString *)theMimeType {
+- (instancetype)initWithData:(NSData *)theFileData named:(NSString *)theName mimeType:(NSString *)theMimeType {
     if (self = [super init]) {
         fileData = theFileData;
         cacheLocation = nil;
@@ -45,12 +45,12 @@ NSString * const _mimeTypeKey = @"mime";
     return self;
 }
 
-- (id)initWithData:(NSData *)theFileData named:(NSString *)theName belongingToUser:(CMUser *)theUser mimeType:(NSString *)theMimeType {
+- (instancetype)initWithData:(NSData *)theFileData named:(NSString *)theName belongingToUser:(CMUser *)theUser mimeType:(NSString *)theMimeType {
     NSLog(@"*** DEPRECATION WARNING: CMFile#initWithData:named:belongingToUser:mimeType: has been deprecated. Use CMFile#initWithData:named:mimeType: instead.");
     return [self initWithData:theFileData named:theName mimeType:theMimeType];
 }
 
-- (id)initWithCoder:(NSCoder *)coder {
+- (instancetype)initWithCoder:(NSCoder *)coder {
     self = [self initWithData:[coder decodeObjectForKey:_dataKey]
                         named:[coder decodeObjectForKey:_nameKey]
                      mimeType:[coder decodeObjectForKey:_mimeTypeKey]];

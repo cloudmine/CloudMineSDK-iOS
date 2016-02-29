@@ -2,7 +2,7 @@
 //  CMStoreOptions.m
 //  cloudmine-ios
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -26,19 +26,19 @@
 
 #pragma mark - Initializers
 
-- (id)initWithPagingDescriptor:(CMPagingDescriptor *)thePagingDescriptor {
+- (instancetype)initWithPagingDescriptor:(CMPagingDescriptor *)thePagingDescriptor {
     return [self initWithPagingDescriptor:thePagingDescriptor sortDescriptor:nil andServerSideFunction:nil];
 }
 
-- (id)initWithSortDescriptor:(CMSortDescriptor *)theSortDescriptor {
+- (instancetype)initWithSortDescriptor:(CMSortDescriptor *)theSortDescriptor {
     return [self initWithPagingDescriptor:nil sortDescriptor:theSortDescriptor andServerSideFunction:nil];
 }
 
-- (id)initWithServerSideFunction:(CMServerFunction *)theServerFunction {
+- (instancetype)initWithServerSideFunction:(CMServerFunction *)theServerFunction {
     return [self initWithPagingDescriptor:nil sortDescriptor:nil andServerSideFunction:theServerFunction];
 }
 
-- (id)initWithPagingDescriptor:(CMPagingDescriptor *)thePagingDescriptor sortDescriptor:(CMSortDescriptor *)theSortDescriptor andServerSideFunction:(CMServerFunction *)theServerFunction {
+- (instancetype)initWithPagingDescriptor:(CMPagingDescriptor *)thePagingDescriptor sortDescriptor:(CMSortDescriptor *)theSortDescriptor andServerSideFunction:(CMServerFunction *)theServerFunction {
     if (self = [super init]) {
         self.pagingDescriptor = thePagingDescriptor;
         self.serverSideFunction = theServerFunction;

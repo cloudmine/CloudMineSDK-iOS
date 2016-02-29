@@ -2,7 +2,7 @@
 //  CMStore.h
 //  cloudmine-ios
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -154,7 +154,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  *
  * @see CMAPICredentials
  */
-- (id)init;
+- (instancetype)init;
 
 /**
  * Note that you must have already initialized the
@@ -166,7 +166,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * base URL by default.
  * @see CMAPICredentials
  */
-- (id)initWithBaseURL:(NSString *)url;
+- (instancetype)initWithBaseURL:(NSString *)url;
 
 /**
  * Constructor that configures this store with a user.
@@ -178,7 +178,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * @see CMAPICredentials
  * @see CMUser
  */
-- (id)initWithUser:(CMUser *)theUser;
+- (instancetype)initWithUser:(CMUser *)theUser;
 
 /**
  * Constructor that configures this store with a user.
@@ -192,7 +192,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * @see CMAPICredentials
  * @see CMUser
  */
-- (id)initWithUser:(CMUser *)theUser baseURL:(NSString *)url;
+- (instancetype)initWithUser:(CMUser *)theUser baseURL:(NSString *)url;
 
 /**
  * Registers your application for push notifications. This method will contact Apple, request a token, handle the token
@@ -212,12 +212,30 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * and register your application with CloudMine. After the token has been sent to Cloudmine, the callback with the result
  * will be given.
  *
+ * <strong>Note</strong> - This method will register the stored CMUser to the token. If you do not want to associate the token with the user use
+ * registerForPushNotifications:user:callback: and pass nil.
+ *
+ * @param notificationType The parameter of this method takes a UIRemoteNotificationType bit mask that specifies the initial types of notifications that the application wishes to receive. For example, <tt>(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)</tt>
+ * @param categories The categories that will be submitted to the call. iOS 8 only (Ignored in lower versions of iOS).
+ * @param aUser - The user to which this call will be made with.
+ * @param callback Can be nil - The callback which is called once the Token has been sent to Cloudmine, returns the result of that transaction.
+ */
+- (void)registerForPushNotifications:(NSInteger)notificationType
+                          categories:(NSSet *)categories
+                                user:(CMUser *)aUser
+                            callback:(CMWebServiceDeviceTokenCallback)callback;
+
+/**
+ * Registers your application for push notifications. This method will contact Apple, request a token, handle the token
+ * and register your application with CloudMine. After the token has been sent to Cloudmine, the callback with the result
+ * will be given.
+ *
  *
  * @param notificationType The parameter of this method takes a UIRemoteNotificationType bit mask that specifies the initial types of notifications that the application wishes to receive. For example, <tt>(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)</tt>
  * @param user Can be nil. The user you want to associate the token with.
  * @param callback Can be nil - The callback which is called once the Token has been sent to Cloudmine, returns the result of that transaction.
  */
-- (void)registerForPushNotifications:(UIRemoteNotificationType)notificationType user:(CMUser *)aUser callback:(CMWebServiceDeviceTokenCallback)callback;
+- (void)registerForPushNotifications:(NSInteger)notificationType user:(CMUser *)aUser callback:(CMWebServiceDeviceTokenCallback)callback;
 
 /**
  * Unregisters the users token from CloudMine, so they will no longer receive push notifications. Recommended to remove the token when
@@ -320,12 +338,12 @@ extern NSString * const CMStoreObjectDeletedNotification;
 /**
  * Performs a search across all app-level objects in your app's CloudMine object store.
  *
- * @param query The search query to perform. This must conform to the syntax outlined in the CloudMine <a href="https://cloudmine.me/docs/api#query_syntax" target="_blank">documentation</a>.
+ * @param query The search query to perform. This must conform to the syntax outlined in the CloudMine <a href="https://cloudmine.io/docs/api#query_syntax" target="_blank">documentation</a>.
  * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
  * @param callback The callback to be triggered when all the objects are finished downloading.
  *
  * @see CMStoreOptions
- * @see https://cloudmine.me/docs/api#query_syntax
+ * @see https://cloudmine.io/docs/api#query_syntax
  */
 - (void)searchObjects:(NSString *)query additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
 
@@ -333,14 +351,14 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * Performs a search across all user-level objects in your app's CloudMine object store. The store must be configured
  * with a user or else calling this method will throw an exception.
  *
- * @param query The search query to perform. This must conform to the syntax outlined in the CloudMine <a href="https://cloudmine.me/docs/api#query_syntax" target="_blank">documentation</a>.
+ * @param query The search query to perform. This must conform to the syntax outlined in the CloudMine <a href="https://cloudmine.io/docs/api#query_syntax" target="_blank">documentation</a>.
  * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
  * @param callback The callback to be triggered when all the objects are finished downloading.
  *
  * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
  *
  * @see CMStoreOptions
- * @see https://cloudmine.me/docs/api#query_syntax
+ * @see https://cloudmine.io/docs/api#query_syntax
  */
 - (void)searchUserObjects:(NSString *)query additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
 
@@ -348,13 +366,13 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * Performs a search across all ACLs owned by the user of the store The store must be configured
  * with a user or else calling this method will throw an exception.
  *
- * @param query The search query to perform. This must conform to the syntax outlined in the CloudMine <a href="https://cloudmine.me/docs/api#query_syntax" target="_blank">documentation</a>.
+ * @param query The search query to perform. This must conform to the syntax outlined in the CloudMine <a href="https://cloudmine.io/docs/api#query_syntax" target="_blank">documentation</a>.
  * @param callback The callback to be triggered when all the ACLs are finished downloading.
  *
  * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
  *
  * @see CMACL
- * @see https://cloudmine.me/docs/api#query_syntax
+ * @see https://cloudmine.io/docs/api#query_syntax
  */
 - (void)searchACLs:(NSString *)query callback:(CMStoreACLFetchCallback)callback;
 
@@ -365,7 +383,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
  * @param name The unique name of the file to download.
  *
- * @see https://cloudmine.me/docs/ios/reference#app_files
+ * @see https://cloudmine.io/docs/ios/reference#app_files
  */
 - (void)fileWithName:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileFetchCallback)callback;
 
@@ -379,7 +397,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  *
  * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
  *
- * @see https://cloudmine.me/docs/ios/reference#app_files
+ * @see https://cloudmine.io/docs/ios/reference#app_files
  */
 - (void)userFileWithName:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileFetchCallback)callback;
 
@@ -506,6 +524,86 @@ extern NSString * const CMStoreObjectDeletedNotification;
 - (void)saveUserObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
 
 /**
+ * Replaces an individual object to your app's CloudMine data store at the app-level. If this object doesn't
+ * already belong to this store, it will automatically be added as well. If this object does not exist already
+ * on CloudMine, it will be created.
+ *
+ * @param theObject The object to replace.
+ * @param callback The callback to be triggered when all the objects are finished uploading.
+ *
+ * @see CMObject#store
+ */
+- (void)replaceObject:(CMObject *)theObject callback:(CMStoreObjectUploadCallback)callback;
+
+/**
+ * Replaces an individual object to your app's CloudMine data store at the app-level. If this object doesn't
+ * already belong to this store, it will automatically be added as well. If this object does not exist already
+ * on CloudMine, it will be created.
+ *
+ * @param theObject The object to replace.
+ * @param options Use these options to specify a server-side function to call after persisting the objects. Only CMStoreOptions#serverSideFunction is used.
+ * @param callback The callback to be triggered when all the objects are finished uploading.
+ *
+ * @see CMObject#store
+ */
+- (void)replaceObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+
+/**
+ * Replaces an array of object to your app's CloudMine data store at the app-level. If these objects doesn't
+ * already belong to this store, they will automatically be added as well. If these objects do not exist already
+ * on CloudMine, they will be created.
+ *
+ * @param theObject The objects to replace.
+ * @param options Use these options to specify a server-side function to call after persisting the objects. Only CMStoreOptions#serverSideFunction is used.
+ * @param callback The callback to be triggered when all the objects are finished uploading.
+ *
+ * @see CMObject#store
+ */
+- (void)replaceObjects:(NSArray *)objects additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+
+/**
+ * Replaces an individual object to your app's CloudMine data store at the user-level. If this object doesn't
+ * already belong to this store, it will automatically be added as well. If this object does not exist already
+ * on CloudMine, it will be created.
+ *
+ * @param theObject The object to replace.
+ * @param callback The callback to be triggered when all the objects are finished uploading.
+ *
+ * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
+ *
+ * @see CMObject#store
+ */
+- (void)replaceUserObject:(CMObject *)theObject callback:(CMStoreObjectUploadCallback)callback;
+
+/**
+ * Replaces an individual object to your app's CloudMine data store at the user-level. If this object doesn't
+ * already belong to this store, it will automatically be added as well. If this object does not exist already
+ * on CloudMine, it will be created.
+ *
+ * @param theObject The object to replace.
+ * @param options Use these options to specify a server-side function to call after persisting the objects. Only CMStoreOptions#serverSideFunction is used.
+ * @param callback The callback to be triggered when all the objects are finished uploading.
+ *
+ * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
+ *
+ * @see CMObject#store
+ */
+- (void)replaceUserObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+
+/**
+ * Replaces an array of object to your app's CloudMine data store at the user-level. If these objects doesn't
+ * already belong to this store, they will automatically be added as well. If these objects do not exist already
+ * on CloudMine, they will be created.
+ *
+ * @param theObject The objects to replace.
+ * @param options Use these options to specify a server-side function to call after persisting the objects. Only CMStoreOptions#serverSideFunction is used.
+ * @param callback The callback to be triggered when all the objects are finished uploading.
+ *
+ * @see CMObject#store
+ */
+- (void)replaceUserObjects:(NSArray *)objects additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+
+/**
  * Saves an individual ACL to CloudMine's data store. The store must be configured with a user or else calling
  * this method will throw an exception. If this ACL doesn't already belong to this store, it will
  * automatically be added as well. This has the additional effect of increasing
@@ -571,7 +669,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
  * @param callback The callback to be triggered when the file is finished uploading.
  *
- * @see https://cloudmine.me/docs/ios/reference#app_files
+ * @see https://cloudmine.io/docs/ios/reference#app_files
  */
 - (void)saveFileAtURL:(NSURL *)url additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
 
@@ -585,7 +683,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
  * @param callback The callback to be triggered when the file is finished uploading.
  *
- * @see https://cloudmine.me/docs/ios/reference#app_files
+ * @see https://cloudmine.io/docs/ios/reference#app_files
  */
 - (void)saveFileAtURL:(NSURL *)url named:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
 
@@ -601,7 +699,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  *
  * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
  *
- * @see https://cloudmine.me/docs/ios/reference#app_files
+ * @see https://cloudmine.io/docs/ios/reference#app_files
  */
 - (void)saveUserFileAtURL:(NSURL *)url additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
 
@@ -618,7 +716,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  *
  * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
  *
- * @see https://cloudmine.me/docs/ios/reference#app_files
+ * @see https://cloudmine.io/docs/ios/reference#app_files
  */
 - (void)saveUserFileAtURL:(NSURL *)url named:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
 
@@ -630,7 +728,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
  * @param callback The callback to be triggered when the file is finished uploading.
  *
- * @see https://cloudmine.me/docs/ios/reference#app_files
+ * @see https://cloudmine.io/docs/ios/reference#app_files
  */
 - (void)saveFileWithData:(NSData *)data additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
 
@@ -643,7 +741,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
  * @param callback The callback to be triggered when the file is finished uploading.
  *
- * @see https://cloudmine.me/docs/ios/reference#app_files
+ * @see https://cloudmine.io/docs/ios/reference#app_files
  */
 - (void)saveFileWithData:(NSData *)data named:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
 
@@ -659,7 +757,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  *
  * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
  *
- * @see https://cloudmine.me/docs/ios/reference#app_files
+ * @see https://cloudmine.io/docs/ios/reference#app_files
  */
 - (void)saveUserFileWithData:(NSData *)data additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
 
@@ -675,7 +773,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  *
  * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
  *
- * @see https://cloudmine.me/docs/ios/reference#app_files
+ * @see https://cloudmine.io/docs/ios/reference#app_files
  */
 - (void)saveUserFileWithData:(NSData *)data named:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
 
@@ -686,7 +784,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
  * @param callback The callback to be triggered when the file has been deleted.
  *
- * @see https://cloudmine.me/docs/ios/reference#app_files
+ * @see https://cloudmine.io/docs/ios/reference#app_files
  */
 - (void)deleteFileNamed:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback;
 
@@ -700,7 +798,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  *
  * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
  *
- * @see https://cloudmine.me/docs/ios/reference#app_files
+ * @see https://cloudmine.io/docs/ios/reference#app_files
  */
 - (void)deleteUserFileNamed:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback;
 

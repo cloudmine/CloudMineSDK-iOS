@@ -2,7 +2,7 @@
 //  CMObjectEncoder.m
 //  cloudmine-ios
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -74,7 +74,7 @@
     return encodedRepresentation;
 }
 
-- (id)init;
+- (instancetype)init;
 {
     if (self = [super init]) {
         _encodedData = [NSMutableDictionary dictionary];
@@ -87,6 +87,13 @@
 - (BOOL)containsValueForKey:(NSString *)key;
 {
     return ([_encodedData objectForKey:key] != nil);
+}
+
+- (void) encodeBytes:(const uint8_t *)bytesp length:(NSUInteger)lenv forKey:(NSString *)key;
+{
+    NSData *data = [NSData dataWithBytes:bytesp length:lenv];
+    NSString *base64EncodedString = [data base64EncodedStringWithOptions:0];
+    [_encodedData setObject:base64EncodedString forKey:key];
 }
 
 - (void)encodeBool:(BOOL)boolv forKey:(NSString *)key;

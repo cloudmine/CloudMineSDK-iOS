@@ -3,7 +3,7 @@
 //  cloudmine-ios
 //
 //  Created by Ethan Mick on 12/15/14.
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //
 
 #import "Kiwi.h"
@@ -17,7 +17,7 @@
 
 @implementation IOS29
 
-- (id)initWithCoder:(NSCoder *)aDecoder;
+- (instancetype)initWithCoder:(NSCoder *)aDecoder;
 {
     if ( self = ([super initWithCoder:aDecoder]) ) {
         self.uuid = [aDecoder decodeObjectForKey:@"uuid"];
@@ -36,7 +36,6 @@
 
 SPEC_BEGIN(iOS29Spec)
 
-// https://cloudminellc.atlassian.net/browse/IOS-29
 /*
  Wow, this was a fun bug! My first round of debugging didn't find the issue, but luckily my second round of digging figured it out. In the iOS Library, every CMFile is given a uuid to identify it. When we save objects, we try and add it to the store automatically, but if it's a CMFile, we do something else with it.
  

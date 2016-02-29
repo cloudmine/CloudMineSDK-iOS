@@ -2,7 +2,7 @@
 //  CMObjectDecoder.m
 //  cloudmine-ios
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -69,7 +69,7 @@
     return decodedObjects;
 }
 
-- (id)initWithSerializedObjectRepresentation:(NSDictionary *)representation {
+- (instancetype)initWithSerializedObjectRepresentation:(NSDictionary *)representation {
     if (self = [super init]) {
         _dictionaryRepresentation = [representation copy];
     }
@@ -88,6 +88,23 @@
 
 - (BOOL)containsValueForKey:(NSString *)key {
     return ([_dictionaryRepresentation objectForKey:key] != nil);
+}
+
+- (const uint8_t *)decodeBytesForKey:(NSString *)key returnedLength:(NSUInteger *)lengthp {
+    if(![self containsValueForKey:key]) {
+        return 0;
+    }
+    
+    id val = [_dictionaryRepresentation valueForKey:key];
+    if (val != nil && val != [NSNull null]) {
+        NSData *data = [[NSData alloc] initWithBase64EncodedString:val options:0];
+        NSUInteger dataLength = [data length];
+        uint8_t *bytes = calloc(dataLength, sizeof(uint8_t));
+        [data getBytes:bytes length:dataLength];
+        *lengthp = dataLength;
+        return bytes;
+    }
+    return 0;
 }
 
 - (BOOL)decodeBoolForKey:(NSString *)key {
@@ -232,15 +249,18 @@
         ///
         /// First thing, see if we can deserialzie the object into a CMObject
         ///
-        @try {
-            NSArray *result = [CMObjectDecoder decodeObjects:objv];
-            return result[0];
+        if ( ![[objv objectForKey:CMInternalClassStorageKey] isEqualToString:CMInternalHashClassName]) {
+            @try {
+                NSArray *result = [CMObjectDecoder decodeObjects:objv];
+                return result[0];
+            }
+            @catch (NSException *exception) {
+                ///
+                /// Apparently NOT a CMObject subclass
+                ///
+            }
         }
-        @catch (NSException *exception) {
-            ///
-            /// Apparently NOT a CMObject subclass
-            ///
-        }
+        
         
         if ( ([objv objectForKey:CMInternalClassStorageKey] == nil &&
               [objv objectForKey:CMInternalTypeStorageKey] == nil) ||

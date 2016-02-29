@@ -10,26 +10,38 @@ NOTIFICATION_ERROR_MSG='You do not have terminal-notifier installed! Run `[sudo]
 build:	clean
 	xcodebuild -workspace cm-ios.xcworkspace \
 	-scheme libcloudmine \
-	-destination 'platform=iOS Simulator,name=iPhone 5s,OS=8.1' \
+	-destination 'platform=iOS Simulator,name=iPhone 6,OS=9.2' \
 	2>&1 \
 	build | xcpretty -c && exit ${PIPESTATUS[0]}
 
 
-test:	
+delete-test-data:
+	$(eval APP_ID := $(shell [ -z $${APP_ID} ] && echo "9977f87e6ae54815b32a663902c3ca65"))
+	$(eval API_KEY := $(shell [ -z $${API_KEY} ] && echo "B93006AC1B3E40209B4477383B150CF2"))
+	$(eval BASE_URL := $(shell [ -z $${BASE_URL} ] && echo "https://api.cloudmine.io/"))
+	-@ ruby scripts/delete_all_users.rb ${BASE_URL} ${APP_ID} ${API_KEY} true
+	-@ ruby scripts/delete_all_objects.rb ${BASE_URL} ${APP_ID} ${API_KEY} true
+
+
+test: delete-test-data clean
 	(xcodebuild -workspace cm-ios.xcworkspace \
 	-scheme libcloudmine \
-	-destination 'platform=iOS Simulator,name=iPhone 5s,OS=8.1' \
+	-destination 'platform=iOS Simulator,name=iPhone 6,OS=9.2' \
 	2>&1 \
 	test || exit 1) |  xcpretty -c && exit ${PIPESTATUS[0]}
+	@$(MAKE) delete-test-data
 
 
 jenkins:
 	xcodebuild -workspace cm-ios.xcworkspace \
 	-scheme libcloudmine \
-	-destination 'platform=iOS Simulator,name=iPhone Retina (4-inch)' \
+	-destination 'platform=iOS Simulator,name=iPhone 6,OS=9.2' \
 	test
 
 clean:
+	-@rm -rf Pods/
+	-@rm -rf ~/Library/Developer/Xcode/DerivedData/cm-ios-*
+	pod install
 	xcodebuild -workspace cm-ios.xcworkspace \
 	-scheme libcloudmine \
 	clean | xcpretty -c && exit ${PIPESTATUS[0]}
@@ -38,4 +50,46 @@ cov:
 	./ios/XcodeCoverage/cleancov
 	$(MAKE) test
 	./ios/XcodeCoverage/getcov
+ 
+clairvoyance-docs:
+	-@find docs/ -name "*.md" -exec rm -rf {} \;
+	git clone git@github.com:cloudmine/clairvoyance.git
+	-@rsync -rtuvl --exclude=.git --delete clairvoyance/docs/3_iOS/ docs/
+	-@cp clairvoyance/app/img/CMHealth-SDK-Login-Screen.png docs/
+	-@rm -rf clairvoyance
 
+bump-patch:
+	@perl -i.bak -pe 's/(\d+)(")$$/($$1+1).$$2/e if m/version\s+=\s+"\d+\.\d+\.\d+"$$/;' CloudMine.podspec 
+	@rm -f CloudMine.podspec.bak
+	@$(MAKE) get-version
+
+bump-minor:
+	@perl -i.bak -pe 's/(\d+)(\.\d+")$$/($$1+1).$$2/e if m/version\s+=\s+"\d+\.\d+\.\d+"$$/;' CloudMine.podspec 
+	@rm -f CloudMine.podspec.bak
+	@$(MAKE) get-version
+
+bump-major:
+	@perl -i.bak -pe 's/(\d+)(\.\d+\.\d+")$$/($$1+1).$$2/e if m/version\s+=\s+"\d+\.\d+\.\d+"$$/;' CloudMine.podspec 
+	@rm -f CloudMine.podspec.bak
+	@$(MAKE) get-version
+
+get-version:
+	$(eval VERSION := $(shell perl -lne 'print $$1 if m/^\s+s.version.*"(.*)"$$/' CloudMine.podspec))
+	@echo ${VERSION}
+
+tag-version: get-version
+	git tag -s ${VERSION}  "version ${VERSION}"
+
+verify-tag: get-version
+	git tag --verify ${VERSION}
+
+push-origin: get-version
+	git push origin $VERSION
+
+cocoapods-push:
+	pod spec lint
+	pod trunk push CloudMine.podspec
+	pod trunk add-owner CloudMine tech@cloudmine.me
+	@$(MAKE) bump-patch
+
+release: get-version tag-version verify-tag push-origin cocoapods-push

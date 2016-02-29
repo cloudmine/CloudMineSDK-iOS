@@ -2,7 +2,7 @@
 //  CMBlockValidationMessageSpy.m
 //  cloudmine-iosTests
 //
-//  Copyright (c) 2012 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -10,7 +10,7 @@
 
 @implementation CMBlockValidationMessageSpy
 
-- (id)init {
+- (instancetype)init {
     if (self = [super init]) {
         validationToSelectorMappings = [[NSMutableDictionary alloc] init];
     }

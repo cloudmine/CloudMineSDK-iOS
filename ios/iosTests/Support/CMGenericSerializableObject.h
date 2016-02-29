@@ -2,7 +2,7 @@
 //  CMGenericSerializableObject.h
 //  cloudmine-iosTests
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -18,6 +18,7 @@
 @property (nonatomic, strong) NSArray *arrayOfBooleans;
 @property (nonatomic, strong) id<CMSerializable> nestedObject;
 @property (nonatomic, strong) CMDate *date;
+@property (nonatomic, strong) NSUUID *uuid;
 @property (nonatomic, strong) NSMutableDictionary *dictionary;
 
 - (void)fillPropertiesWithDefaults;

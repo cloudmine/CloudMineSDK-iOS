@@ -2,7 +2,7 @@
 //  CMObjectClassNameRegistry.m
 //  cloudmine-ios
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -12,11 +12,17 @@
 #import "MARTNSObject.h"
 #import <objc/runtime.h>
 
+@interface CMObjectClassNameRegistry ()
+
+@property NSMutableDictionary *classNameMappings;
+
+@end
+
 @implementation CMObjectClassNameRegistry
 
 #pragma mark - Singleton methods
 
-+ (id)sharedInstance;
++ (instancetype)sharedInstance;
 {
     static dispatch_once_t pred = 0;
     __strong static id _sharedObject = nil;
@@ -30,7 +36,7 @@
 
 - (Class)classForName:(NSString *)name;
 {
-    NSString *className = [classNameMappings objectForKey:name];
+    NSString *className = [self.classNameMappings objectForKey:name];
     if (className) {
         return NSClassFromString(className);
     } else {
@@ -40,17 +46,17 @@
 
 - (void)refreshRegistry;
 {
-    [classNameMappings removeAllObjects];
+    [self.classNameMappings removeAllObjects];
     [self discoverCMObjectSubclasses];
     [self discoverCMCodingImplementors];
 }
 
 #pragma mark - Private initializers
 
-- (id)init;
+- (instancetype)init;
 {
     if (self = [super init]) {
-        classNameMappings = [[NSMutableDictionary alloc] init];
+        _classNameMappings = [[NSMutableDictionary alloc] init];
         [self refreshRegistry];
     }
     return self;
@@ -62,7 +68,7 @@
 {
     NSArray *cmObjectSubclasses = [CMObject rt_subclasses];
     for (Class klass in cmObjectSubclasses) {
-        [classNameMappings setObject:NSStringFromClass(klass) forKey:[klass className]];
+        [self.classNameMappings setObject:NSStringFromClass(klass) forKey:[klass className]];
     }
 }
 
@@ -85,7 +91,7 @@
                 if ([nextClass respondsToSelector:@selector(className)]) {
                     className = [nextClass className];
                 }
-                [classNameMappings setObject:NSStringFromClass(nextClass) forKey:className];
+                [self.classNameMappings setObject:NSStringFromClass(nextClass) forKey:className];
             }
         }
         free(classes);

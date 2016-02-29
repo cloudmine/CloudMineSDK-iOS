@@ -2,7 +2,7 @@
 //  CMFileUploadResponse.h
 //  cloudmine-ios
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -24,8 +24,8 @@
  */
 @property (strong, nonatomic) NSString *key;
 
-- (id)initWithResult:(CMFileUploadResult)result key:(NSString *)key;
-- (id)initWithResult:(CMFileUploadResult)result key:(NSString *)key snippetResult:(CMSnippetResult *)snippetResult;
-- (id)initWithResult:(CMFileUploadResult)result key:(NSString *)key snippetResult:(CMSnippetResult *)snippetResult responseMetadata:(CMResponseMetadata *)metadata;
+- (instancetype)initWithResult:(CMFileUploadResult)result key:(NSString *)key;
+- (instancetype)initWithResult:(CMFileUploadResult)result key:(NSString *)key snippetResult:(CMSnippetResult *)snippetResult;
+- (instancetype)initWithResult:(CMFileUploadResult)result key:(NSString *)key snippetResult:(CMSnippetResult *)snippetResult responseMetadata:(CMResponseMetadata *)metadata;
 
 @end

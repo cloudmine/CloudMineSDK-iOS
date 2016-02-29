@@ -2,7 +2,7 @@
 //  CMStoreResponse.h
 //  cloudmine-ios
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -19,7 +19,7 @@
 @property (strong, nonatomic) CMResponseMetadata *metadata;
 @property (strong, nonatomic) CMSnippetResult *snippetResult;
 
-- (id)initWithMetadata:(CMResponseMetadata *)metadata snippetResult:(CMSnippetResult *)snippetResult;
-- (id)initWithError:(NSError *)error;
+- (instancetype)initWithMetadata:(CMResponseMetadata *)metadata snippetResult:(CMSnippetResult *)snippetResult;
+- (instancetype)initWithError:(NSError *)error;
 
 @end
