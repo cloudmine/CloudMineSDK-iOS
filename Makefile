@@ -78,7 +78,7 @@ get-version:
 	@echo ${VERSION}
 
 tag-version: get-version
-	git tag -s ${VERSION}  "version ${VERSION}"
+	git tag -s ${VERSION} -m "version ${VERSION}"
 
 verify-tag: get-version
 	git tag --verify ${VERSION}
