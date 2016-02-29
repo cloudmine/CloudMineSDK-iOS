@@ -84,14 +84,19 @@ verify-tag: get-version
 	git tag --verify ${VERSION}
 
 push-origin: get-version
-	git push origin $VERSION
+	git push origin ${VERSION}
+
+lint:
+	pod --verbose lib lint
+	pod --verbose spec lint
 
 cocoapods-push:
-	pod spec lint
+	pod --verbose lib lint
+	pod --verbose spec lint
 	pod trunk push CloudMine.podspec
 	pod trunk add-owner CloudMine tech@cloudmine.me
 	@$(MAKE) bump-patch
 
-release: get-version tag-version verify-tag push-origin cocoapods-push
+release: get-version lint tag-version verify-tag push-origin cocoapods-push
 
 .PHONY: docs
