@@ -51,7 +51,7 @@ cov:
 	$(MAKE) test
 	./ios/XcodeCoverage/getcov
  
-clairvoyance-docs:
+docs:
 	-@find docs/ -name "*.md" -exec rm -rf {} \;
 	git clone git@github.com:cloudmine/clairvoyance.git
 	-@rsync -rtuvl --exclude=.git --delete clairvoyance/docs/3_iOS/ docs/
@@ -93,3 +93,5 @@ cocoapods-push:
 	@$(MAKE) bump-patch
 
 release: get-version tag-version verify-tag push-origin cocoapods-push
+
+.PHONY: docs
