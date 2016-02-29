@@ -3,7 +3,7 @@ CloudMine iOS SDK
 
 This is the native iOS SDK for communicating with [CloudMine](http://cloudmineinc.com/) and the [Connected Health Cloud](http://cloudmineinc.com/platform/developer-tools/).
 
-The CloudMine iOS SDK uses ARC and is compatible with Xcode 4.5 or higher and iOS 8 or higher.
+Interested in [Apple ResearchKit](http://researchkit.org/)?  Check out the [CMHealth iOS SDK](https://cloudmine.io/docs/#/ios#cmhealth-and-researchkit) and the [CloudMine AsthmaHealth Demo app](https://github.com/cloudmine/AsthmaHealth/).
 
 Installation
 ------------
@@ -19,6 +19,8 @@ The CloudMine library uses [Cocoapods](http://cocoapods.org/) to manage it's dep
 * Cocoapods' share dependencies between Libraries. If two libraries are using AFNetworking, it gets downloaded once and is used for both, there are no collisions.
 * Installing pods is as easy as `pod 'CloudMine'`, with a great website to help support them.
 * Pushing and installing updates is super fast and easy. CloudMine simply update the main repo with our new version (which points to the CloudMine Repo), and then you simply run "pod update" and you get the new update.
+
+The CloudMine iOS SDK uses ARC and is compatible with Xcode 4.5 or higher and iOS 8 or higher.
 
 Building the Library
 --------------------
