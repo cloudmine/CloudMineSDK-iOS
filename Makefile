@@ -10,17 +10,20 @@ NOTIFICATION_ERROR_MSG='You do not have terminal-notifier installed! Run `[sudo]
 build:	clean
 	xcodebuild -workspace cm-ios.xcworkspace \
 	-scheme libcloudmine \
-	-destination 'platform=iOS Simulator,name=iPhone 5s,OS=8.1' \
+	-destination 'platform=iOS Simulator,name=iPhone 6,OS=9.2' \
 	2>&1 \
 	build | xcpretty -c && exit ${PIPESTATUS[0]}
 
 
 delete-test-data:
-	-@ ruby scripts/delete_all_users.rb https://api.cloudmine.io/ 9977f87e6ae54815b32a663902c3ca65 B93006AC1B3E40209B4477383B150CF2 true
-	-@ ruby scripts/delete_all_objects.rb https://api.cloudmine.io/ 9977f87e6ae54815b32a663902c3ca65 B93006AC1B3E40209B4477383B150CF2 true
+	$(eval APP_ID := $(shell [ -z $${APP_ID} ] && echo "9977f87e6ae54815b32a663902c3ca65"))
+	$(eval API_KEY := $(shell [ -z $${API_KEY} ] && echo "B93006AC1B3E40209B4477383B150CF2"))
+	$(eval BASE_URL := $(shell [ -z $${BASE_URL} ] && echo "https://api.cloudmine.io/"))
+	-@ ruby scripts/delete_all_users.rb ${BASE_URL} ${APP_ID} ${API_KEY} true
+	-@ ruby scripts/delete_all_objects.rb ${BASE_URL} ${APP_ID} ${API_KEY} true
 
 
-test: delete-test-data
+test: delete-test-data clean
 	(xcodebuild -workspace cm-ios.xcworkspace \
 	-scheme libcloudmine \
 	-destination 'platform=iOS Simulator,name=iPhone 6,OS=9.2' \
@@ -32,7 +35,7 @@ test: delete-test-data
 jenkins:
 	xcodebuild -workspace cm-ios.xcworkspace \
 	-scheme libcloudmine \
-	-destination 'platform=iOS Simulator,name=iPhone Retina (4-inch)' \
+	-destination 'platform=iOS Simulator,name=iPhone 6,OS=9.2' \
 	test
 
 clean:
@@ -47,6 +50,13 @@ cov:
 	./ios/XcodeCoverage/cleancov
 	$(MAKE) test
 	./ios/XcodeCoverage/getcov
+ 
+clairvoyance-docs:
+	-@find docs/ -name "*.md" -exec rm -rf {} \;
+	git clone git@github.com:cloudmine/clairvoyance.git
+	-@rsync -rtuvl --exclude=.git --delete clairvoyance/docs/3_iOS/ docs/
+	-@cp clairvoyance/app/img/CMHealth-SDK-Login-Screen.png docs/
+	-@rm -rf clairvoyance
 
 bump-patch:
 	@perl -i.bak -pe 's/(\d+)(")$$/($$1+1).$$2/e if m/version\s+=\s+"\d+\.\d+\.\d+"$$/;' CloudMine.podspec 

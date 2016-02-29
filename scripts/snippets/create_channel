@@ -1,0 +1,26 @@
+var rest = require('restler');
+
+// Utility functions.
+function hex() { return Math.round(Math.random() * 15).toString(16); }
+function uuid() {
+    var out = Array(32), i;
+    out[14] = 4;
+    out[19] = ((Math.round(Math.random() * 16) & 3) | 8).toString(16);
+    for (i = 0; i < 14; ++i) { out[i] = hex(); }
+    for (i = 15; i < 19; ++i) { out[i] = hex(); }
+    for (i = 20; i < 32; ++i) { out[i] = hex(); }
+    return out.join('');
+}
+
+var channelName = uuid();
+rest.postJson('https://cloudmine.me/v1/app/CM_TEST_APP_ID/push/channel',
+    { "name": channelName },
+    {
+        headers: {
+        'Content-Type': 'application/json',
+        'X-CloudMine-ApiKey':'CM_TEST_MASTER_KEY'
+        }
+}).on('complete', function(data, response) {
+    exit(data);
+});
+
