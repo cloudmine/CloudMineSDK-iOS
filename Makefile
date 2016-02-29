@@ -23,7 +23,7 @@ delete-test-data:
 	-@ ruby scripts/delete_all_objects.rb ${BASE_URL} ${APP_ID} ${API_KEY} true
 
 
-test: delete-test-data
+test: delete-test-data clean
 	(xcodebuild -workspace cm-ios.xcworkspace \
 	-scheme libcloudmine \
 	-destination 'platform=iOS Simulator,name=iPhone 6,OS=9.2' \
@@ -50,6 +50,13 @@ cov:
 	./ios/XcodeCoverage/cleancov
 	$(MAKE) test
 	./ios/XcodeCoverage/getcov
+ 
+clairvoyance-docs:
+	-@find docs/ -name "*.md" -exec rm -rf {} \;
+	git clone git@github.com:cloudmine/clairvoyance.git
+	-@rsync -rtuvl --exclude=.git --delete clairvoyance/docs/3_iOS/ docs/
+	-@cp clairvoyance/app/img/CMHealth-SDK-Login-Screen.png docs/
+	-@rm -rf clairvoyance
 
 bump-patch:
 	@perl -i.bak -pe 's/(\d+)(")$$/($$1+1).$$2/e if m/version\s+=\s+"\d+\.\d+\.\d+"$$/;' CloudMine.podspec 
