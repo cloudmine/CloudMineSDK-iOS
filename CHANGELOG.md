@@ -1,10 +1,11 @@
 HEAD
 =====
 
-v1.7.9 (TBD)
+1.7.10 (February 29, 2016)
 ======================
-* updated deployment targets to iOS 8.0
+* Updated deployment targets to iOS 8.0
 * Minor documentation updates
+* Integrated MAObjCRuntime library
 
 v1.7.8 (July 28, 2015)
 ======================

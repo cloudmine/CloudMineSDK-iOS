@@ -1,12 +1,12 @@
 Pod::Spec.new do |s|
   s.name         = "CloudMine"
-  s.version      = "1.7.9"
+  s.version      = "1.7.10"
   s.summary      = "The iOS Framework for interacting with CloudMine."
   s.homepage     = "https://cloudmine.io/docs/#/ios"
   s.license      = 'MIT'
   s.author       = { "CloudMine" => "support@cloudmineinc.com" }
   s.platform     = :ios, '8.0'
-  s.source       = { :git => "git@github.com:cloudmine/CloudMineSDK-iOS.git", :tag => "v#{s.version}" }
+  s.source       = { :git => "git@github.com:cloudmine/CloudMineSDK-iOS.git", :tag => "#{s.version}" }
   s.source_files  = 'ios/ios/src/**/*.{h,m}'
   s.exclude_files = 'NSString+UUID.h', 'NSURL+QueryParameterAdditions.h', 'CMObject+Private.h', 'CMObjectClassNameRegistry.h', 'MARTNSObject.{h,m}', 'RT*.{h,m}'
   s.frameworks = 'UIKit', 'CoreGraphics', 'MobileCoreServices', 'SystemConfiguration', 'CFNetwork', 'Foundation', 'CoreFoundation', 'CoreLocation', 'Social', 'Accounts'
