@@ -2,7 +2,7 @@
 //  CMGeoPoint.h
 //  cloudmine-ios
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -43,6 +43,8 @@ extern NSString * const CMGeoPointClassName;
  * @see https://developer.apple.com/library/ios/#documentation/UserExperience/Conceptual/LocationAwarenessPG/Introduction/Introduction.html
  */
 - (instancetype)initWithCLLocation:(CLLocation *)location;
+
+-(instancetype)initWithObjectId:(NSString *)theObjectId NS_UNAVAILABLE;
 
 /**
  * The latitude in degrees.

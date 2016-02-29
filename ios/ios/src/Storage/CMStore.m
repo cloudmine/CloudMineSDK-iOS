@@ -2,7 +2,7 @@
 //  CMStore.m
 //  cloudmine-ios
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -813,6 +813,8 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
   NSParameterAssert(objects);
   _CMAssertAPICredentialsInitialized;
   [self cacheObjectsInMemory:objects atUserLevel:userLevel];
+
+    __weak typeof(self) weakSelf = self;
   
   // Only send the dirty objects to the servers
   [webService setValuesFromDictionary:[CMObjectEncoder encodeObjects:objects] //send them all
@@ -825,9 +827,9 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                             CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
                             CMObjectUploadResponse *response = [[CMObjectUploadResponse alloc] initWithUploadStatuses:results snippetResult:result responseMetadata:metadata];
                             
-                            NSDate *expirationDate = [self.dateFormatter dateFromString:[headers objectForKey:CM_TOKENEXPIRATION_HEADER]];
+                            NSDate *expirationDate = [weakSelf.dateFormatter dateFromString:[headers objectForKey:CM_TOKENEXPIRATION_HEADER]];
                             if (expirationDate && userLevel) {
-                              user.tokenExpiration = expirationDate;
+                              weakSelf.user.tokenExpiration = expirationDate;
                             }
                             
                             // If the dirty objects were successfully uploaded, mark them as clean

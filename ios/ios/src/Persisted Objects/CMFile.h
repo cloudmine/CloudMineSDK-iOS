@@ -2,7 +2,7 @@
 //  CMFile.h
 //  cloudmine-ios
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -88,6 +88,8 @@
  * The non-deprecated constructor to use is CMFile#initWithData:named:mimeType:.
  */
 - (instancetype)initWithData:(NSData *)theFileData named:(NSString *)theName belongingToUser:(CMUser *)theUser mimeType:(NSString *)theMimeType __attribute__((deprecated));
+
+- (instancetype)init NS_UNAVAILABLE;
 
 /**
  * @deprecated

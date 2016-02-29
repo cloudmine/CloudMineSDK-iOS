@@ -23,3 +23,4 @@ CMUser *user = [[CMUser alloc] initWithEmail:@"test@example.com" andPassword:@"m
     }
 }];
 ```
+{{note "When a user's password is changed, all session tokens are invalidated due to security concerns. Existing sessions will need to be re-authenticated."}}

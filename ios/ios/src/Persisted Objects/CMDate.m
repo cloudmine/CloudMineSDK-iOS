@@ -2,7 +2,7 @@
 //  CMDate.m
 //  cloudmine-ios
 //
-//  Copyright (c) 2015 CloudMine, Inc. All rights reserved.
+//  Copyright (c) 2016 CloudMine, Inc. All rights reserved.
 //  See LICENSE file included with SDK for details.
 //
 
@@ -26,6 +26,11 @@ NSString * const CMDateClassName = @"datetime";
         _date = [theDate copy];
     }
     return self;
+}
+
+- (instancetype)initWithTimeIntervalSinceReferenceDate:(NSTimeInterval)ti
+{
+    return [self initWithDate:[[NSDate alloc] initWithTimeIntervalSinceReferenceDate:ti]];
 }
 
 - (NSDate *)date;
