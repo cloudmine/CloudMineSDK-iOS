@@ -95,8 +95,11 @@ cocoapods-push:
 	pod --verbose spec lint
 	pod trunk push CloudMine.podspec
 	pod trunk add-owner CloudMine tech@cloudmine.me
-	@$(MAKE) bump-patch
 
-release: get-version lint tag-version verify-tag push-origin cocoapods-push
+stage-next-release: bump-patch
+    git commit -m"bump to ${VERSION}" CloudMine.podspec
+    git push origin master
+
+release: get-version lint tag-version verify-tag push-origin cocoapods-push stage-next-release
 
 .PHONY: docs
