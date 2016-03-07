@@ -5,47 +5,47 @@ before attempting a release you must set up a gpg key, which you can then use to
 
 once you have your key, you can set it as the signing key for future releases:
 
-```
+```shell
 git config --global user.signingkey YOURKEYFINGERPRINT
 ```
 
 now you can continue with the release process
 
-1. get the current version
+1. generate the documentation from Clairvoyance
+```shell
+make docs
+git commit -m"documentation sync"
+git push origin master
 ```
-VERSION=`make get-version`; echo $VERSION
-```
+
 2. tag the release
+```shell
+make tag-version
 ```
-git tag -s $VERSION -m "version $VERSION"   # or make tag-version
-```
+
 3. verify the tag
+```shell
+make verify-tag
 ```
-git tag --verify $VERSION                   # or make verify-tag
-```
+
 4. push the tag to github
+```shell
+make push-tag-to-origin
 ```
-git push origin $VERSION
-```
+
 5. lint the pod
-```
-pod spec lint
-```
-6. push the pod to CocoaPods (allowing warnings if things aren't completely tidy.  but let's hope that's not the case...)
-```
-pod --allow-warnings trunk push CMHealth.podspec
-```
-7. grant the entire team access
-```
-pod trunk add-owner CMHealth tech@cloudmine.me
-```
-8. bump the patch version for the next release
-```
-make bump-patch
+```shell
+make lint
 ```
 
-or, for the really advantageous:
+6. once the pod lints cleanly, push the pod to CocoaPods (allowing warnings if things aren't completely tidy.  but let's hope that's not the case...)
+```
+make cocoapods-push
+```
 
+7. bump the patch version for the next release
+```shell
+make stage-next-release
 ```
-make release
-```
+
+see also the `release` target in the `Makefile`
