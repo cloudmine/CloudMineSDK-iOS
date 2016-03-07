@@ -51,7 +51,7 @@ cov:
 	$(MAKE) test
 	./ios/XcodeCoverage/getcov
  
-clairvoyance-docs:
+docs:
 	-@find docs/ -name "*.md" -exec rm -rf {} \;
 	git clone git@github.com:cloudmine/clairvoyance.git
 	-@rsync -rtuvl --exclude=.git --delete clairvoyance/docs/3_iOS/ docs/
@@ -78,7 +78,7 @@ get-version:
 	@echo ${VERSION}
 
 tag-version: get-version
-	git tag -s ${VERSION}  "version ${VERSION}"
+	git tag -s ${VERSION} -m "version ${VERSION}"
 
 verify-tag: get-version
 	git tag --verify ${VERSION}
@@ -86,13 +86,18 @@ verify-tag: get-version
 push-tag-to-origin: get-version
 	git push origin $VERSION
 
+lint:
+	pod --verbose lib lint
+	pod --verbose spec lint
+
 stage-next-release: bump-patch
 	git commit -m"bump to ${VERSION}" CloudMine.podspec
 	git push origin master
 
-cocoapods-push:
-	pod spec lint
+cocoapods-push: lint
 	pod trunk push CloudMine.podspec
 	pod trunk add-owner CloudMine tech@cloudmine.me
 
-release: get-version tag-version verify-tag push-tag-to-origin cocoapods-push stage-next-release
+release: get-version lint tag-version verify-tag push-origin cocoapods-push stage-next-release
+
+.PHONY: docs

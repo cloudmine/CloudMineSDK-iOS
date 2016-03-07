@@ -1,6 +1,6 @@
 # CUSTOM SERVER CODE
 
-Custom code execution allows you to write custom JavaScript code snippets that run on our servers to perform processing and post-processing operations that are inappropriate to run on a mobile device or to offload certain business logic to the server. Your code runs in a sandboxed server-side JavaScript environment that has access to the CloudMine [JavaScript API](http://github.com/cloudmine/cloudmine-js) and a simple HTTP client. All snippets are killed after 30 seconds of execution.
+Custom code execution allows you to write custom JavaScript code snippets that run on our servers to perform processing and post-processing operations that are inappropriate to run on a mobile device or to offload certain business logic to the server. Your code runs in a sandboxed server-side JavaScript environment that has access to the CloudMine [JavaScript API](https://github.com/cloudmine/CloudMineSDK-JavaScript) and a simple HTTP client. All snippets are killed after 30 seconds of execution.
 
 Server-side snippets are invoked in Java by creating an instance of CMServerFunction This indicates the name of the snippet and parameters to pass to it. Include this object in the CMStoreOptions for the request.
 

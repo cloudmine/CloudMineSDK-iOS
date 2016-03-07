@@ -20,16 +20,16 @@ pod 'CloudMine', '{[{version}]}'
 You can also point the Podfile to the CloudMine public repo and get the latest version straight from Github:
 
 ```ruby
-pod 'CloudMine', :git => 'git@github.com:cloudmine/cloudmine-ios.git'
+pod 'CloudMine', :git => 'git@github.com:cloudmine/CloudMineSDK-iOS.git'
 ```
 
 Check out the [iOS Library API reference](http://cocoadocs.org/docsets/CloudMine/)
 
-### Github
+### GitHub
 
 We're actively developing and invite you to fork and send pull requests on GitHub.
 
-[cloudmine/cloudmine-ios](https://github.com/cloudmine/cloudmine-ios)
+[CloudMineSDK-iOS on GitHub](https://github.com/cloudmine/CloudMineSDK-iOS)
 
 Before you can begin using the iOS Library, you must first [create an application](https://compass.cloudmine.io/dashboard/#/app/create) in the CloudMine dashboard.
 
