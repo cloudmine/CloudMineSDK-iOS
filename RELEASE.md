@@ -9,34 +9,41 @@ once you have your key, you can set it as the signing key for future releases:
 git config --global user.signingkey YOURKEYFINGERPRINT
 ```
 
-now you can continue with the release process.  from `master`
+now you can continue with the release process
 
-1. tag the release
+1. generate the documentation from Clairvoyance
+```shell
+make docs
+git commit -m"documentation sync"
+git push origin master
+```
+
+2. tag the release
 ```shell
 make tag-version
 ```
 
-2. verify the tag
+3. verify the tag
 ```shell
 make verify-tag
 ```
 
-3. push the tag to github
+4. push the tag to github
 ```shell
 make push-tag-to-origin
 ```
 
-4. lint the pod
+5. lint the pod
 ```shell
-pod spec lint
+make lint
 ```
 
-5. once the pod lints cleanly, push the pod to CocoaPods (allowing warnings if things aren't completely tidy.  but let's hope that's not the case...)
+6. once the pod lints cleanly, push the pod to CocoaPods (allowing warnings if things aren't completely tidy.  but let's hope that's not the case...)
 ```
 make cocoapods-push
 ```
 
-6. bump the patch version for the next release
+7. bump the patch version for the next release
 ```shell
 make stage-next-release
 ```
