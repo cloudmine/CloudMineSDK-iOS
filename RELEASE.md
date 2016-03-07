@@ -5,47 +5,40 @@ before attempting a release you must set up a gpg key, which you can then use to
 
 once you have your key, you can set it as the signing key for future releases:
 
-```
+```shell
 git config --global user.signingkey YOURKEYFINGERPRINT
 ```
 
-now you can continue with the release process
+now you can continue with the release process.  from `master`
 
-1. get the current version
+1. tag the release
+```shell
+make tag-version
 ```
-VERSION=`make get-version`; echo $VERSION
+
+2. verify the tag
+```shell
+make verify-tag
 ```
-2. tag the release
+
+3. push the tag to github
+```shell
+make push-tag-to-origin
 ```
-git tag -s $VERSION -m "version $VERSION"   # or make tag-version
-```
-3. verify the tag
-```
-git tag --verify $VERSION                   # or make verify-tag
-```
-4. push the tag to github
-```
-git push origin $VERSION
-```
-5. lint the pod
-```
+
+4. lint the pod
+```shell
 pod spec lint
 ```
-6. push the pod to CocoaPods (allowing warnings if things aren't completely tidy.  but let's hope that's not the case...)
+
+5. once the pod lints cleanly, push the pod to CocoaPods (allowing warnings if things aren't completely tidy.  but let's hope that's not the case...)
 ```
-pod --allow-warnings trunk push CMHealth.podspec
-```
-7. grant the entire team access
-```
-pod trunk add-owner CMHealth tech@cloudmine.me
-```
-8. bump the patch version for the next release
-```
-make bump-patch
+make cocoapods-push
 ```
 
-or, for the really advantageous:
+6. bump the patch version for the next release
+```shell
+make stage-next-release
+```
 
-```
-make release
-```
+see also the `release` target in the `Makefile`

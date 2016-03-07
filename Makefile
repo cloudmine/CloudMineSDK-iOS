@@ -83,13 +83,16 @@ tag-version: get-version
 verify-tag: get-version
 	git tag --verify ${VERSION}
 
-push-origin: get-version
+push-tag-to-origin: get-version
 	git push origin $VERSION
+
+stage-next-release: bump-patch
+	git commit -m"bump to ${VERSION}" CloudMine.podspec
+	git push origin master
 
 cocoapods-push:
 	pod spec lint
 	pod trunk push CloudMine.podspec
 	pod trunk add-owner CloudMine tech@cloudmine.me
-	@$(MAKE) bump-patch
 
-release: get-version tag-version verify-tag push-origin cocoapods-push
+release: get-version tag-version verify-tag push-tag-to-origin cocoapods-push stage-next-release
