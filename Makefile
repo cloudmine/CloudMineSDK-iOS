@@ -57,6 +57,7 @@ docs:
 	-@rsync -rtuvl --exclude=.git --delete clairvoyance/docs/3_iOS/ docs/
 	-@cp clairvoyance/app/img/CMHealth-SDK-Login-Screen.png docs/
 	-@rm -rf clairvoyance
+.PHONY: docs
 
 bump-patch:
 	@perl -i.bak -pe 's/(\d+)(")$$/($$1+1).$$2/e if m/version\s+=\s+"\d+\.\d+\.\d+"$$/;' CloudMine.podspec 
@@ -98,6 +99,16 @@ cocoapods-push: lint
 	pod trunk push CloudMine.podspec
 	pod trunk add-owner CloudMine tech@cloudmine.me
 
-release: get-version lint tag-version verify-tag push-origin cocoapods-push stage-next-release
+create-signatures: get-version
+	curl https://github.com/cloudmine/CloudMineSDK-iOS/archive/${VERSION}.tar.gz -o CloudMineSDK-iOS-${VERSION}.tar.gz 1>/dev/null 2>&1
+	curl https://github.com/cloudmine/CloudMineSDK-iOS/archive/${VERSION}.zip -o CloudMineSDK-iOS-${VERSION}.zip 1>/dev/null 2>&1
+	gpg --armor --detach-sign CloudMineSDK-iOS-${VERSION}.tar.gz
+	gpg --verify CloudMineSDK-iOS-${VERSION}.tar.gz.asc CloudMineSDK-iOS-${VERSION}.tar.gz
+	-@rm -f CloudMineSDK-iOS-${VERSION}.tar.gz
+	gpg --armor --detach-sign CloudMineSDK-iOS-${VERSION}.zip
+	gpg --verify CloudMineSDK-iOS-${VERSION}.zip.asc CloudMineSDK-iOS-${VERSION}.zip
+	-@rm -f CloudMineSDK-iOS-${VERSION}.zip
 
-.PHONY: docs
+# only for the brave...
+release: get-version docs lint tag-version verify-tag push-origin cocoapods-push create-signatures stage-next-release
+
