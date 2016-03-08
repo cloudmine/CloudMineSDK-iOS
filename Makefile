@@ -76,7 +76,6 @@ bump-major:
 
 get-version:
 	$(eval VERSION := $(shell perl -lne 'print $$1 if m/^\s+s.version.*"(.*)"$$/' CloudMine.podspec))
-	$(eval VERSION := 1.7.10)
 	@echo ${VERSION}
 
 tag-version: get-version
