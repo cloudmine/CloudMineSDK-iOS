@@ -110,5 +110,5 @@ create-signatures: get-version
 	-@rm -f CloudMineSDK-iOS-${VERSION}.zip
 
 # only for the brave...
-release: get-version lint tag-version verify-tag push-origin cocoapods-push create-signatures stage-next-release
+release: get-version docs lint tag-version verify-tag push-origin cocoapods-push create-signatures stage-next-release
 
