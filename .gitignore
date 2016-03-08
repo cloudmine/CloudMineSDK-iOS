@@ -29,3 +29,6 @@ Pods
 
 ios/cloudmine-ios-Prefix.gcda
 ios/cloudmine-ios-Prefix.gcno
+
+CloudMineSDK-iOS-*.tar.gz.asc
+CloudMineSDK-iOS-*.zip.asc
