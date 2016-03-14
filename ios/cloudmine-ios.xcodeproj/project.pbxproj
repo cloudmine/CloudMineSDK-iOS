@@ -1441,6 +1441,7 @@
 				);
 				PRODUCT_NAME = cloudmine;
 				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
@@ -1467,6 +1468,7 @@
 				);
 				PRODUCT_NAME = cloudmine;
 				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
@@ -1590,6 +1592,7 @@
 				);
 				PRODUCT_NAME = cloudmine;
 				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Test;
 		};
