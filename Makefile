@@ -59,23 +59,45 @@ docs:
 	-@rm -rf clairvoyance
 .PHONY: docs
 
-bump-patch:
-	@perl -i.bak -pe 's/(\d+)(")$$/($$1+1).$$2/e if m/version\s+=\s+"\d+\.\d+\.\d+"$$/;' CloudMine.podspec 
+set-version: get-version
+	@$(MAKE) set-agv-version
+	@$(MAKE) set-podspec-version
+	@$(MAKE) set-header-version
+
+set-agv-version:
+	@cd ios; agvtool -noscm new-version -all ${VERSION}
+
+set-podspec-version: get-version
+	@perl -i.bak -pe 's/(s\.version\s+=\s+")\d+\.\d+\.\d+"/$${1}${VERSION}"/;' CloudMine.podspec 
 	@rm -f CloudMine.podspec.bak
+
+set-header-version: get-version
+	@perl -i.bak -pe 's/(#define CM_VERSION @")\d+\.\d+\.\d+"/$${1}${VERSION}"/;' ios/ios/src/CMConstants.h
+	@rm -f ios/ios/src/CMConstants.h.bak
+
+bump-patch:
+	$(eval VERSION := $(shell cd ios; agvtool what-version -terse | perl -pe 's/(\d+)$$/($$1+1).$$2/e'))
+	@$(MAKE) set-agv-version
+	@$(MAKE) set-podspec-version
+	@$(MAKE) set-header-version
 	@$(MAKE) get-version
 
 bump-minor:
-	@perl -i.bak -pe 's/(\d+)(\.\d+")$$/($$1+1).$$2/e if m/version\s+=\s+"\d+\.\d+\.\d+"$$/;' CloudMine.podspec 
-	@rm -f CloudMine.podspec.bak
+	$(eval VERSION := $(shell cd ios; agvtool what-version -terse | perl -pe 's/(\d+)(\.\d+)$$/($$1+1).$$2/e'))
+	@$(MAKE) set-agv-version
+	@$(MAKE) set-podspec-version
+	@$(MAKE) set-header-version
 	@$(MAKE) get-version
 
 bump-major:
-	@perl -i.bak -pe 's/(\d+)(\.\d+\.\d+")$$/($$1+1).$$2/e if m/version\s+=\s+"\d+\.\d+\.\d+"$$/;' CloudMine.podspec 
-	@rm -f CloudMine.podspec.bak
+	$(eval VERSION := $(shell cd ios; agvtool what-version -terse | perl -pe 's/(\d+)(\.\d+\.\d+)$$/($$1+1).$$2/e'))
+	@$(MAKE) set-agv-version
+	@$(MAKE) set-podspec-version
+	@$(MAKE) set-header-version
 	@$(MAKE) get-version
 
 get-version:
-	$(eval VERSION := $(shell perl -lne 'print $$1 if m/^\s+s.version.*"(.*)"$$/' CloudMine.podspec))
+	$(eval VERSION := $(shell cd ios; agvtool what-version -terse))
 	@echo ${VERSION}
 
 tag-version: get-version
@@ -112,3 +134,4 @@ create-signatures: get-version
 # only for the brave...
 release: get-version docs lint tag-version verify-tag push-origin cocoapods-push create-signatures stage-next-release
 
+export VERSION
