@@ -45,16 +45,25 @@
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder;
 {
-    id deserializedObjectId = [aDecoder decodeObjectForKey:CMInternalObjectIdKey];
-    if (![deserializedObjectId isKindOfClass:[NSString class]])
-        deserializedObjectId = [deserializedObjectId stringValue];
+    self = [super init];
+    if (nil == self) return nil;
 
-    if (self = [self initWithObjectId:deserializedObjectId]) {
-        self.aclIds = [aDecoder decodeObjectForKey:CMInternalObjectACLsKey];
-        if ([aDecoder isKindOfClass:[CMObjectDecoder class]]) {
-            dirty = NO;
-        }
+    id deserializedObjectId = [aDecoder decodeObjectForKey:CMInternalObjectIdKey];
+    if (![deserializedObjectId isKindOfClass:[NSString class]] && [deserializedObjectId respondsToSelector:@selector(stringValue)]) {
+        deserializedObjectId = [deserializedObjectId stringValue];
     }
+
+    objectId = deserializedObjectId;
+    store = nil;
+    [self registerAllPropertiesForKVO];
+    self.aclIds = [aDecoder decodeObjectForKey:CMInternalObjectACLsKey];
+
+    if ([aDecoder isKindOfClass:[CMObjectDecoder class]]) {
+        dirty = NO;
+    } else {
+        dirty = YES;
+    }
+
     return self;
 }
 
