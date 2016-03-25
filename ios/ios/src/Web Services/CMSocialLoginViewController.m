@@ -95,7 +95,7 @@
         
         UINavigationItem * navigationItem = [[UINavigationItem alloc] initWithTitle:self.targetService];
         navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel"
-                                                                            style:UIBarButtonItemStyleBordered
+                                                                            style:UIBarButtonItemStylePlain
                                                                            target:self
                                                                            action:@selector(dismiss)];
         navigationBar.items = @[navigationItem];
