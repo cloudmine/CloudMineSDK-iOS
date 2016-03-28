@@ -201,7 +201,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  *
  *  @see -registerForPushNotificationTypes:callback:
  */
-- (void)registerForPushNotifications:(UIRemoteNotificationType)notificationType callback:(CMWebServiceDeviceTokenCallback)callback __deprecated_msg("instead use -registerForPushNotificationTypes:callback:");
+- (void)registerForPushNotifications:(NSInteger)notificationType callback:(CMWebServiceDeviceTokenCallback)callback __deprecated_msg("instead use -registerForPushNotificationTypes:callback:");
 
 
 /**

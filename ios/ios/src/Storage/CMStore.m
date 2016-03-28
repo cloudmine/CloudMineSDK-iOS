@@ -229,7 +229,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 // DEPRECATED: Remove in next version bump
 
-- (void)registerForPushNotifications:(UIRemoteNotificationType)notificationType callback:(CMWebServiceDeviceTokenCallback)callback;
+- (void)registerForPushNotifications:(NSInteger)notificationType callback:(CMWebServiceDeviceTokenCallback)callback;
 {
     [self registerForPushNotifications:notificationType user:self.user callback:callback];
 }
@@ -241,6 +241,11 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 - (void)registerForPushNotifications:(NSInteger)notificationType categories:(NSSet *)categories user:(CMUser *)aUser callback:(CMWebServiceDeviceTokenCallback)callback;
 {
+    // Technically there is an implicit "cast" going on here form the deprecated `UIRemoteNotificationType` bit mask to the
+    // new `UIUserNotificationType` bit mask. This is extremely ill advised, but it's what the SDK was already doing by detecting
+    // the OS version and using the same `notificationType` variable. The reason we're getting away with it is because Apple
+    // (mercifully) defined the values in the new bitmask to align with the old one. So this works, and we should drop these methods
+    // in the next version after developers have had a chance to see the deprecation warnings popping up.
     [self registerForPushNotificationTypes:notificationType user:user callback:callback];
 }
 
