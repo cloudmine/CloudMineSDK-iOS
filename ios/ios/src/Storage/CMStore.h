@@ -237,6 +237,17 @@ extern NSString * const CMStoreObjectDeletedNotification;
  */
 - (void)registerForPushNotifications:(NSInteger)notificationType user:(CMUser *)aUser callback:(CMWebServiceDeviceTokenCallback)callback;
 
+
+
+- (void)registerForPushNotificationTypes:(UIUserNotificationType)notificationTypes callback:(CMWebServiceDeviceTokenCallback)callback;
+
+- (void)registerForPushNotificationTypes:(UIUserNotificationType)notificationTypes user:(CMUser *)aUser callback:(CMWebServiceDeviceTokenCallback)callback;
+
+- (void)registerForPushNotificationTypes:(UIUserNotificationType)notificationType
+                              categories:(NSSet <UIUserNotificationCategory *>*)categories
+                                    user:(CMUser *)aUser
+                                callback:(CMWebServiceDeviceTokenCallback)callback;
+
 /**
  * Unregisters the users token from CloudMine, so they will no longer receive push notifications. Recommended to remove the token when
  * the user logs out of the app, but not required.
