@@ -56,10 +56,6 @@ describe(@"CMUser Integration", ^{
             [[expectFutureValue(mes) shouldEventually] beEmpty];
         });
         
-        it(@"should not have a current user", ^{
-            [[[CMUser currentUser] should] beNil];
-        });
-        
         it(@"should create an account with a username", ^{
             __block CMUserAccountResult code = NSNotFound;
             __block NSArray *mes = nil;
@@ -105,10 +101,6 @@ describe(@"CMUser Integration", ^{
             [[expectFutureValue(mes) shouldEventually] beEmpty];
         });
         
-        it(@"should now have a current user", ^{
-            [[[CMUser currentUser] should] beNonNil];
-        });
-        
         it(@"should successfully logout", ^{
             CMUser *user = [[CMUser alloc] initWithEmail:@"test@test.com" andPassword:@"testing"];
             
@@ -128,10 +120,6 @@ describe(@"CMUser Integration", ^{
             [[expectFutureValue(theValue(code)) shouldEventually] equal:@(CMUserAccountLogoutSucceeded)];
             [[expectFutureValue(user.token) shouldEventually] beNil];
             [[expectFutureValue(user.tokenExpiration) shouldEventually] beNil];
-        });
-        
-        it(@"should have no current user after a logout", ^{
-            [[[CMUser currentUser] should] beNil];
         });
         
         it(@"should fail to login when creating a bad account", ^{
