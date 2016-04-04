@@ -22,13 +22,13 @@
 {
     self.callback = callback;
     
+#if TESTING==0
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
                                                     message:@"Twitter access not granted, would you like to login with another Twitter account?"
                                                    delegate:self
                                           cancelButtonTitle:@"No"
                                           otherButtonTitles:@"Yes", nil];
     
-#if TESTING==0
     dispatch_async(dispatch_get_main_queue(), ^{
         [alert show];
     });

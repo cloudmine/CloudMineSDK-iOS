@@ -188,7 +188,6 @@
 		AAE92211194B923D004DA1AC /* CMWebServiceIntegrationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE92210194B923D004DA1AC /* CMWebServiceIntegrationSpec.m */; };
 		AAFB0B8D194B45D5008F2B68 /* CMResponseSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AAFB0B8C194B45D5008F2B68 /* CMResponseSpec.m */; };
 		B4AD7C521C80FF6D00D9F1D1 /* MARTNSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B4AD7C461C80FF6C00D9F1D1 /* MARTNSObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		B4AD7C531C80FF6D00D9F1D1 /* README.markdown in Sources */ = {isa = PBXBuildFile; fileRef = B4AD7C471C80FF6C00D9F1D1 /* README.markdown */; };
 		B4AD7C541C80FF6D00D9F1D1 /* RTIvar.m in Sources */ = {isa = PBXBuildFile; fileRef = B4AD7C491C80FF6C00D9F1D1 /* RTIvar.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		B4AD7C551C80FF6D00D9F1D1 /* RTMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = B4AD7C4B1C80FF6C00D9F1D1 /* RTMethod.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		B4AD7C561C80FF6D00D9F1D1 /* RTProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = B4AD7C4D1C80FF6C00D9F1D1 /* RTProperty.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -1207,7 +1206,6 @@
 				B4AD7C581C80FF6D00D9F1D1 /* RTUnregisteredClass.m in Sources */,
 				7A58CC2214F1B544003E864B /* CMMimeType.m in Sources */,
 				7AE2848B1562C3C8003E8A8F /* CMSortDescriptor.m in Sources */,
-				B4AD7C531C80FF6D00D9F1D1 /* README.markdown in Sources */,
 				65199EC2156A7D9500267EC6 /* CMDeleteResponse.m in Sources */,
 				65199EC3156A7D9500267EC6 /* CMFileFetchResponse.m in Sources */,
 				65199EC4156A7D9500267EC6 /* CMFileUploadResponse.m in Sources */,

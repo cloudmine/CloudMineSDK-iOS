@@ -51,7 +51,7 @@ describe(@"CMAppDelegateBase", ^{
     
     it(@"should response to a failure to register", ^{
         NSError *error = [NSError errorWithDomain:@"example" code:-100 userInfo:@{@"info": @"moreinfo"}];
-        [base application:nil didFailToRegisterForRemoteNotificationsWithError:error];
+        [base application:[UIApplication sharedApplication] didFailToRegisterForRemoteNotificationsWithError:error];
     });
     
 });
