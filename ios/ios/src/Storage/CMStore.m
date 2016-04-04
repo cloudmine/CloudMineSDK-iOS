@@ -227,7 +227,9 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 #pragma mark - Push Notifications
 
-- (void)registerForPushNotifications:(UIRemoteNotificationType)notificationType callback:(CMWebServiceDeviceTokenCallback)callback;
+// DEPRECATED: Remove in next version bump
+
+- (void)registerForPushNotifications:(NSInteger)notificationType callback:(CMWebServiceDeviceTokenCallback)callback;
 {
     [self registerForPushNotifications:notificationType user:self.user callback:callback];
 }
@@ -239,9 +241,31 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 - (void)registerForPushNotifications:(NSInteger)notificationType categories:(NSSet *)categories user:(CMUser *)aUser callback:(CMWebServiceDeviceTokenCallback)callback;
 {
+    // Technically there is an implicit "cast" going on here form the deprecated `UIRemoteNotificationType` bit mask to the
+    // new `UIUserNotificationType` bit mask. This is extremely ill advised, but it's what the SDK was already doing by detecting
+    // the OS version and using the same `notificationType` variable. The reason we're getting away with it is because Apple
+    // (mercifully) defined the values in the new bitmask to align with the old one. So this works, and we should drop these methods
+    // in the next version after developers have had a chance to see the deprecation warnings popping up.
+    [self registerForPushNotificationTypes:notificationType user:user callback:callback];
+}
+
+// UPDATED
+
+- (void)registerForPushNotificationTypes:(UIUserNotificationType)notificationTypes callback:(CMWebServiceDeviceTokenCallback)callback
+{
+    [self registerForPushNotificationTypes:notificationTypes user:self.user callback:callback];
+}
+
+- (void)registerForPushNotificationTypes:(UIUserNotificationType)notificationTypes user:(CMUser *)aUser callback:(CMWebServiceDeviceTokenCallback)callback
+{
+    [self registerForPushNotificationTypes:notificationTypes categories:nil user:aUser callback:callback];
+}
+
+- (void)registerForPushNotificationTypes:(UIUserNotificationType)notificationTypes categories:(NSSet <UIUserNotificationCategory *>*)categories user:(CMUser *)aUser callback:(CMWebServiceDeviceTokenCallback)callback
+{
     NSAssert([[[UIApplication sharedApplication] delegate] isKindOfClass:[CMAppDelegateBase class]], @"Your Application Delegate MUST Inherit for CMAppDelegateBase in order to register for push notifications in this way!\n \
              If you do not want to inherit from CMAppDelegateBase, you will need to use [CMWebService registerForPushNotificationsWithUser:deviceToken:callback:]");
-    
+
     if (!aUser.isLoggedIn) {
         NSLog(@"*** CLOUDMINE: Attempting to register for push notifications requires a user that is logged in! The user is either not logged in, or nil!");
         if (callback) {
@@ -249,20 +273,15 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
         }
         return;
     }
-    
+
     CMAppDelegateBase *delegate = [[UIApplication sharedApplication] delegate];
     delegate.callback = callback;
     delegate.user = aUser;
     delegate.service = self.webService;
-    
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:notificationType categories:categories];
-        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-        [[UIApplication sharedApplication] registerForRemoteNotifications];
-    }
-    else {
-        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:notificationType];
-    }
+
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:notificationTypes categories:categories];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
 }
 
 - (void)unRegisterForPushNotificationsWithCallback:(CMWebServiceDeviceTokenCallback)callback;

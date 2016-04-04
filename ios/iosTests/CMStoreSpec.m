@@ -448,7 +448,7 @@ describe(@"CMStore", ^{
             });
             
             it(@"should assert that the delegate is a CMAppBase", ^{
-                [[theBlock(^{ [store registerForPushNotifications:0 callback:nil]; }) should] raise];
+                [[theBlock(^{ [store registerForPushNotificationTypes:UIUserNotificationTypeAlert callback:nil]; }) should] raise];
             });
             
             it(@"should let the user unregister for push notifications", ^{
