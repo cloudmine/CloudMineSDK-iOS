@@ -30,7 +30,20 @@
     NSMutableArray *decodedObjects = [NSMutableArray arrayWithCapacity:[serializedObjects count]];
 
     for (id key in serializedObjects) {
-        NSMutableDictionary *objectRepresentation = [[serializedObjects objectForKey:key] mutableCopy];
+
+        // This prevents the SDK from throwing and catching an error but has the same effect,
+        // namely: if any of the objects are invalid, we fail to decode all the objects
+        if (![serializedObjects[key] conformsToProtocol:@protocol(NSMutableCopying)]) {
+            return @[];
+        }
+
+        NSMutableDictionary *objectRepresentation = [serializedObjects[key] mutableCopy];
+
+        // Again, this prevents the SDK from throw/catching an error intentionally, but maintains
+        // the prior behavior: if this isn't a dictionary, fail to decode the objects
+        if (![objectRepresentation isKindOfClass:[NSDictionary class]]) {
+            return @[];
+        }
 
         Class klass = [CMObjectDecoder typeFromDictionaryRepresentation:objectRepresentation];
 
@@ -252,7 +265,10 @@
         if ( ![[objv objectForKey:CMInternalClassStorageKey] isEqualToString:CMInternalHashClassName]) {
             @try {
                 NSArray *result = [CMObjectDecoder decodeObjects:objv];
-                return result[0];
+                if (nil != result && result.count > 0) {
+                    // Not a CMObject subclass, but without relying on a caught error
+                    return result[0];
+                }
             }
             @catch (NSException *exception) {
                 ///
