@@ -1,9 +1,11 @@
-HEAD
-=====
-
-
-1.7.11 (TBD)
+1.7.11 (April 6, 2016)
 ======================
+* Resolved Swift interop issues:
+  * The SDK can now be imported into Swift projects without an Objective-C bridging header
+  * Subclassing `CMObject` in Swift is now less confusing thanks to resolved initializer designation
+* The SDK no longer throws and catches exceptions internally, making breakpoint debugging more feasible
+* The `-registerForPushNotifications:` family of methods on `CMStore` have been deprecated and replaced with versions that work cleanly with changes to Cocoa
+* Various compiler warnings and deprecations have been resolved
 
 1.7.10 (February 29, 2016)
 ======================
