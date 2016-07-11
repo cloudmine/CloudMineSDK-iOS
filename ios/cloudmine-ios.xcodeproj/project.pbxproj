@@ -971,10 +971,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7AB4AB83145DC5D8006AEF67 /* Build configuration list for PBXNativeTarget "cloudmine-ios" */;
 			buildPhases = (
-				39173848ACD743EFAB994158 /* 📦 Check Pods Manifest.lock */,
+				39173848ACD743EFAB994158 /* [CP] Check Pods Manifest.lock */,
 				7AB4AB5B145DC5D8006AEF67 /* Sources */,
 				7AB4AB5C145DC5D8006AEF67 /* Frameworks */,
-				8C31EF5B445C4144A496AB8A /* 📦 Copy Pods Resources */,
+				8C31EF5B445C4144A496AB8A /* [CP] Copy Pods Resources */,
 				AABEE9F81908788F007A26BA /* Code Generation */,
 			);
 			buildRules = (
@@ -990,13 +990,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7AB4AB86145DC5D8006AEF67 /* Build configuration list for PBXNativeTarget "cloudmine-iosTests" */;
 			buildPhases = (
-				B69C6AAB646B4A35B1E18DD4 /* 📦 Check Pods Manifest.lock */,
+				B69C6AAB646B4A35B1E18DD4 /* [CP] Check Pods Manifest.lock */,
 				7AB4AB6A145DC5D8006AEF67 /* Sources */,
 				7AB4AB6B145DC5D8006AEF67 /* Frameworks */,
 				7AB4AB6C145DC5D8006AEF67 /* Resources */,
-				BAA7BC150F1A4FDD944A2FD4 /* 📦 Copy Pods Resources */,
+				BAA7BC150F1A4FDD944A2FD4 /* [CP] Copy Pods Resources */,
 				AABEE9F719081815007A26BA /* Delete All Users and Objects */,
-				9618D865B76C75FFA0458E54 /* 📦 Embed Pods Frameworks */,
+				9618D865B76C75FFA0458E54 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1052,14 +1052,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		39173848ACD743EFAB994158 /* 📦 Check Pods Manifest.lock */ = {
+		39173848ACD743EFAB994158 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1095,14 +1095,14 @@
 			shellPath = /bin/bash;
 			shellScript = "SIMULATOR_LIBRARY_PATH=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/libcloudmine.a\" &&\nDEVICE_LIBRARY_PATH=\"${BUILD_DIR}/${CONFIGURATION}-iphoneos/libcloudmine.a\" &&\nUNIVERSAL_LIBRARY_DIR=\"${BUILD_DIR}/${CONFIGURATION}-iphoneuniversal\" &&\nUNIVERSAL_LIBRARY_PATH=\"${UNIVERSAL_LIBRARY_DIR}/${PRODUCT_NAME}\" &&\nFRAMEWORK=\"${UNIVERSAL_LIBRARY_DIR}/${PRODUCT_NAME}.framework\" &&\n\n# Create framework directory structure.\nrm -rf \"${FRAMEWORK}\" &&\nrm -rf \"${SRCROOT}/build\" &&\nmkdir -p \"${UNIVERSAL_LIBRARY_DIR}\" &&\nmkdir -p \"${FRAMEWORK}/Versions/A/Headers\" &&\nmkdir -p \"${FRAMEWORK}/Versions/A/Resources\" &&\nmkdir -p \"${SRCROOT}/build\" &&\n\n# Generate universal binary for the device and simulator.\nlipo \"${SIMULATOR_LIBRARY_PATH}\" \"${DEVICE_LIBRARY_PATH}\" -create -output \"${UNIVERSAL_LIBRARY_PATH}\" &&\n\n# Move files to appropriate locations in framework paths.\ncp \"${UNIVERSAL_LIBRARY_PATH}\" \"${FRAMEWORK}/Versions/A\" &&\nln -s \"A\" \"${FRAMEWORK}/Versions/Current\" &&\nln -s \"Versions/Current/Headers\" \"${FRAMEWORK}/Headers\" &&\nln -s \"Versions/Current/Resources\" \"${FRAMEWORK}/Resources\" &&\nln -s \"Versions/Current/${PRODUCT_NAME}\" \"${FRAMEWORK}/${PRODUCT_NAME}\" &&\n\n# Copy the final framework to a nicer location\ncp -RP \"${UNIVERSAL_LIBRARY_DIR}\" \"${SRCROOT}/build\"\n";
 		};
-		8C31EF5B445C4144A496AB8A /* 📦 Copy Pods Resources */ = {
+		8C31EF5B445C4144A496AB8A /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1110,14 +1110,14 @@
 			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-cloudmine-ios/Pods-cloudmine-ios-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9618D865B76C75FFA0458E54 /* 📦 Embed Pods Frameworks */ = {
+		9618D865B76C75FFA0458E54 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1153,14 +1153,14 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/XcodeCoverage/exportenv.sh\"";
 		};
-		B69C6AAB646B4A35B1E18DD4 /* 📦 Check Pods Manifest.lock */ = {
+		B69C6AAB646B4A35B1E18DD4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1168,14 +1168,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		BAA7BC150F1A4FDD944A2FD4 /* 📦 Copy Pods Resources */ = {
+		BAA7BC150F1A4FDD944A2FD4 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -15,7 +15,7 @@ workspace 'cm-ios'
 #
 # Define the XCode project file we already had before Cocoapods
 #
-xcodeproj 'ios/cloudmine-ios'
+project 'ios/cloudmine-ios.xcodeproj/'
 
 #
 # Inhibit all Warnings in Pods. We are trusting the pods we use to
@@ -25,20 +25,19 @@ xcodeproj 'ios/cloudmine-ios'
 #
 inhibit_all_warnings!
 
-#
-# The Pods for CloudMine SDK usage. AFNetworking for networking
-# and MAObjCRuntime for easy runtime inspection of properties
-#
-target "cloudmine-ios" do
+target 'cloudmine-ios' do
+  #
+  # The Pods for CloudMine SDK usage. AFNetworking for networking
+  #
   pod 'AFNetworking', '2.6.3'
-end
 
-#
-# The Pods for testing the iOS SDK. Kiwi is our BDD testing framework
-# and NSData+Base64 is used in examining base64 data in requests.
-#
-target 'cloudmine-iosTests' do
-  inherit! :search_paths
-  pod 'Kiwi', '2.4.0'
-  pod 'NSData+Base64', '1.0.0'
+  #
+  # The Pods for testing the iOS SDK. Kiwi is our BDD testing framework
+  # and NSData+Base64 is used in examining base64 data in requests.
+  #
+  target 'cloudmine-iosTests' do
+    inherit! :search_paths
+    pod 'Kiwi', '2.4.0'
+    pod 'NSData+Base64', '1.0.0'
+  end
 end
