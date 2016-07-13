@@ -100,12 +100,13 @@ describe(@"CMObject Integration", ^{
       __block NSArray *objects = nil;
       [store allObjectsOfClass:[CMTestClass class] additionalOptions:options callback:^(CMObjectFetchResponse *response) {
         objects = response.objects;
-        
+
+#warning Broken until sorting works on iOS
+        // See: https://jira.cloudmine.me/browse/CM-168
         //                NSArray *names = @[@"aaa", @"bbb", @"ccc", @"ddd", @"eee", @"fff"]; //sorted
         //                for (NSInteger i = 0; i < objects.count; i++) {
         //                    CMTestClass *obj = objects[i];
         //                    [[obj.name should] equal:names[i]];
-#warning Broken until sorting works on iOS
         //                }
       }];
       
