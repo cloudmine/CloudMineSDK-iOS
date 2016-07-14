@@ -55,6 +55,15 @@ describe(@"CMDate", ^{
     it(@"should have the same timeIntervalSinceReferenceDate as NSDate", ^{
         [[ theValue([CMDate timeIntervalSinceReferenceDate]) should] equal:[NSDate timeIntervalSinceReferenceDate] withDelta:1.0];
     });
+
+    it(@"should serialize and deserialize correclty with NSCoder", ^{
+        CMDate *date = [CMDate new];
+
+        NSData *dateData = [NSKeyedArchiver archivedDataWithRootObject:date];
+        CMDate *codedDate = [NSKeyedUnarchiver unarchiveObjectWithData:dateData];
+
+        [[date should] equal:codedDate];
+    });
     
 });
 
