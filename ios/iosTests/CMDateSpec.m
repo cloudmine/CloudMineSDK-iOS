@@ -8,6 +8,43 @@
 
 #import "Kiwi.h"
 #import "CMDate.h"
+#import "CMObjectEncoder.h"
+#import "CMObjectDecoder.h"
+#import "CMObject.h"
+
+@interface CMDateTestWrapper : CMObject
+- (instancetype)initWithDate:(CMDate *)date;
+@property (nonatomic) CMDate *date;
+@end
+
+@implementation CMDateTestWrapper
+
+- (instancetype)initWithDate:(CMDate *)date
+{
+    self = [super init];
+    if (nil == self) return nil;
+
+    self.date = date;
+
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (nil == self) return nil;
+
+    self.date = [aDecoder decodeObjectForKey:@"date"];
+
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:self.date forKey:@"date"];
+}
+
+@end
 
 SPEC_BEGIN(CMDateSpec)
 
@@ -63,6 +100,24 @@ describe(@"CMDate", ^{
         CMDate *codedDate = [NSKeyedUnarchiver unarchiveObjectWithData:dateData];
 
         [[date should] equal:codedDate];
+    });
+
+    it(@"should serialize and deserialize correctly with NSCoder when wrapped in a CMObject", ^{
+        CMDateTestWrapper *wrapper = [[CMDateTestWrapper alloc] initWithDate:[CMDate new]];
+
+        NSData *wrapperData = [NSKeyedArchiver archivedDataWithRootObject:wrapper];
+        CMDateTestWrapper *codedWrapper = [NSKeyedUnarchiver unarchiveObjectWithData:wrapperData];
+
+        [[wrapper.date should] equal:codedWrapper.date];
+    });
+
+    it(@"should serialize and deserialize correctly with CMCoder", ^{
+        CMDateTestWrapper *wrapper = [[CMDateTestWrapper alloc] initWithDate:[CMDate new]];
+
+        NSDictionary *encodedWrapper = [CMObjectEncoder encodeObjects:@[wrapper]];
+        CMDateTestWrapper *codedWrapper = [CMObjectDecoder decodeObjects:encodedWrapper].firstObject;
+
+        [[wrapper.date should] equal:codedWrapper.date];
     });
     
 });
