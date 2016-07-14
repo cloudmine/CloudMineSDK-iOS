@@ -112,6 +112,15 @@ describe(@"CMStoreIntegration", ^{
         [[expectFutureValue(res.uploadStatuses[objectId1]) shouldEventually] equal:@"created"];
         [[expectFutureValue(res.uploadStatuses[objectId2]) shouldEventually] equal:@"created"];
     });
+
+    it(@"should not throw an error if you try to save a nil object", ^{
+        [[theBlock(^{
+            CMObject *nilObject = nil;
+            [store saveObject:nilObject callback:^(CMObjectUploadResponse *response) {
+
+            }];
+        }) shouldNot] raise];
+    });
     
     it(@"should throw an error if you try and save a user without a user configured", ^{
         [[theBlock(^{
@@ -253,6 +262,14 @@ describe(@"CMStoreIntegration", ^{
             [[expectFutureValue(theValue(called)) shouldEventually] equal:@3];
         });
 
+        it(@"should not throw an error when you attempt to save a nil user object", ^{
+            [[theBlock(^{
+                CMObject *nilObject = nil;
+                [store saveUserObject:nilObject callback:^(CMObjectUploadResponse *response) {
+
+                }];
+            }) shouldNot] raise];
+        });
         
         it(@"should let a user upload a file with a random key", ^{
             NSURL *url = [NSURL URLWithString:[[NSBundle bundleForClass:[self class]] pathForResource:@"cloudmine" ofType:@"png"]];
@@ -302,6 +319,15 @@ describe(@"CMStoreIntegration", ^{
             }];
             
             [[res shouldNot] beNil];
+        });
+
+        it(@"should not throw an error when attempting to save a nil ACL", ^{
+            [[theBlock(^{
+                CMACL *nilACL = nil;
+                [store saveACL:nilACL callback:^(CMObjectUploadResponse *response) {
+
+                }];
+            }) shouldNot] raise];
         });
         
         it(@"should delete a user object", ^{
