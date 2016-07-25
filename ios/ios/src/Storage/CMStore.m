@@ -633,6 +633,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
     }
 
     if (nil == theObject) {
+        NSLog(@"CloudMine *** Attempted to save a nil object from %s", __PRETTY_FUNCTION__);
         return;
     }
     
@@ -642,6 +643,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (void)saveACL:(id<CMSerializable>)acl callback:(CMStoreObjectUploadCallback)callback;
 {
     if (nil == acl) {
+        NSLog(@"CloudMine *** Attempted to save a nil ACL from %s", __PRETTY_FUNCTION__);
         return;
     }
 
@@ -656,6 +658,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 - (void)saveObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
 {
     if (nil == theObject) {
+        NSLog(@"CloudMine *** Attempted to save a nil object from %s", __PRETTY_FUNCTION__);
         return;
     }
 
