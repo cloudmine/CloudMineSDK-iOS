@@ -83,6 +83,11 @@ NSString * const CMDateClassName = @"datetime";
     [aCoder encodeDouble:[_date timeIntervalSince1970] forKey:@"timestamp"];
 }
 
+- (Class)classForCoder
+{
+    return [self class];
+}
+
 - (NSString *)objectId;
 {
     return nil;
