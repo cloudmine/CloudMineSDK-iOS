@@ -386,10 +386,10 @@ describe(@"CMStoreIntegration", ^{
                 [store searchACLs:query callback:^(CMACLFetchResponse *response) {
                     res = response;
                 }];
-#warning How do?
+
                 [[expectFutureValue(res) shouldEventually] beNonNil];
                 [[expectFutureValue(res.acls) shouldEventually] beEmpty];
-//                [[expectFutureValue([res permissionsForMember:aclUser.objectId]) shouldEventually] beNil];
+                [[expectFutureValue([res permissionsForMember:aclUser.objectId]) shouldEventually] beEmpty];
             });
             
             it(@"should delete the ACL", ^{

@@ -77,10 +77,10 @@ describe(@"CMWebServiceIntegration", ^{
             [[expectFutureValue(result[@"data"][@"some_data"]) shouldEventually] equal:@"hello"];
         });
     });
-    
+
+    // These tests should be expanded, see https://jira.cloudmine.me/browse/CM-3971
     context(@"social login", ^{
-        
-#warning update these tests
+
         it(@"should create the login controller", ^{
             CMUser *user = [[CMUser alloc] init];
             

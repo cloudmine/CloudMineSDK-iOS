@@ -371,19 +371,19 @@ describe(@"CMStore", ^{
             
             [[store.lastError should] beNil];
         });
-        
+
+#warning The following 2 tests expose an issue with error handling when working with ACLs
+// Note the actual expected values in the comments below; see https://jira.cloudmine.me/browse/CM-3969 for a detailed explanation
         it(@"should return the proper error when saving ACL's", ^{
             KWCaptureSpy *callbackBlockSpy = [store.webService
                                               captureArgument:@selector(updateACL:user:successHandler:errorHandler:) atIndex:3];
             [[store.webService should] receive:@selector(updateACL:user:successHandler:errorHandler:) withCount:1];
             
             // This first call should trigger the web service call.
-#warning This is wrong. An error happens, but no error is given!
             [store saveACLs:@[[CMACL new]] callback:^(CMObjectUploadResponse *response) {
-                [[response.error should] beNil];
+                [[response.error should] beNil]; // should not be nil
                 [[theValue(response.error.code) should] beZero];
-#warning bad bad bad
-                [[response.uploadStatuses should] haveCountOf:1];
+                [[response.uploadStatuses should] haveCountOf:1]; // should be zero
             }];
             
             NSError *error = [NSError errorWithDomain:CMErrorDomain
@@ -392,22 +392,20 @@ describe(@"CMStore", ^{
             
             CMWebServiceFetchFailureCallback callback = callbackBlockSpy.argument;
             callback(error);
-#warning Bad bad bad
-            [[store.lastError should] beNil];
+
+            [[store.lastError should] beNil]; // should be the error created above
         });
         
         it(@"should return the proper error when deleting ACL's", ^{
             KWCaptureSpy *callbackBlockSpy = [store.webService
                                               captureArgument:@selector(deleteACLWithKey:user:successHandler:errorHandler:) atIndex:3];
             [[store.webService should] receive:@selector(deleteACLWithKey:user:successHandler:errorHandler:) withCount:1];
-            
-#warning this also doens't work the way it should
+
             // This first call should trigger the web service call.
             [store deleteACLs:@[[CMACL new]] callback:^(CMDeleteResponse *response) {
-                [[response.error should] beNil];
+                [[response.error should] beNil]; // should not be nil
                 [[theValue(response.error.code) should] beZero];
-#warning bad bad bad. Why is this different from above?
-                [[response.objectErrors should] haveCountOf:1];
+                [[response.objectErrors should] haveCountOf:1]; // should be zero
             }];
             
             NSError *error = [NSError errorWithDomain:CMErrorDomain
@@ -416,8 +414,8 @@ describe(@"CMStore", ^{
             
             CMWebServiceFetchFailureCallback callback = callbackBlockSpy.argument;
             callback(error);
-#warning But really, this should not be nil.
-            [[store.lastError should] beNil];
+            
+            [[store.lastError should] beNil]; // should be the error created above
         });
 
         context(@"when computing object ownership level", ^{
