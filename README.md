@@ -26,7 +26,7 @@ Building the Library
 --------------------
 If you are interested in doing some development on the library:
 
-Tested with [CocoaPods 0.39.0](https://github.com/CocoaPods/CocoaPods-app/releases/tag/0.39.0)
+Tested with [CocoaPods 1.0.1](https://github.com/CocoaPods/CocoaPods/releases/tag/1.0.1)
 
 1. Install Cococapods: `sudo gem install cocoapods`
 1. Download the repository to your local machine: `git clone git://github.com/cloudmine/cloudmine-ios.git;cd cloudmine-ios`
@@ -68,4 +68,3 @@ Contributions to the SDK are always welcome. However, please be sure you have we
 For more details, see the [CONTRIBUTING](CONTRIBUTING.md) guidelines.
 
 Thanks in advance for all your hard work and awesome code! :)
-
