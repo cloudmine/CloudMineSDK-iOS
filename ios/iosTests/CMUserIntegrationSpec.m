@@ -18,11 +18,6 @@
 
 SPEC_BEGIN(CMUserIntegrationSpec)
 
-///
-/// If this assertion fails, command click the macro, and change the default to 2.0
-///
-//assert(kKW_DEFAULT_PROBE_TIMEOUT == 2.0);
-
 describe(@"CMUser Integration", ^{
     
     beforeAll(^{
@@ -35,7 +30,7 @@ describe(@"CMUser Integration", ^{
         [[CMUser currentUser] logoutWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
             code = resultCode;
         }];
-        [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountLogoutSucceeded)];
+        [[expectFutureValue(theValue(code)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:theValue(CMUserAccountLogoutSucceeded)];
     });
     
     context(@"given a real user", ^{
@@ -52,8 +47,8 @@ describe(@"CMUser Integration", ^{
                 mes = messages;
             }];
             
-            [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountCreateSucceeded)];
-            [[expectFutureValue(mes) shouldEventually] beEmpty];
+            [[expectFutureValue(theValue(code)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:theValue(CMUserAccountCreateSucceeded)];
+            [[expectFutureValue(mes) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
         });
         
         it(@"should create an account with a username", ^{
@@ -66,8 +61,8 @@ describe(@"CMUser Integration", ^{
                 mes = messages;
             }];
             
-            [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountCreateSucceeded)];
-            [[expectFutureValue(mes) shouldEventually] beEmpty];
+            [[expectFutureValue(theValue(code)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:theValue(CMUserAccountCreateSucceeded)];
+            [[expectFutureValue(mes) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
         });
         
         it(@"should fail to create an account with the same username", ^{
@@ -80,8 +75,8 @@ describe(@"CMUser Integration", ^{
                 mes = messages;
             }];
             
-            [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountCreateFailedDuplicateAccount)];
-            [[expectFutureValue(mes) shouldEventually] beEmpty];
+            [[expectFutureValue(theValue(code)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:theValue(CMUserAccountCreateFailedDuplicateAccount)];
+            [[expectFutureValue(mes) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
         });
         
         it(@"should successfully login them in", ^{
@@ -95,10 +90,10 @@ describe(@"CMUser Integration", ^{
                 mes = messages;
             }];
             
-            [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountLoginSucceeded)];
-            [[expectFutureValue(user.token) shouldEventually] beNonNil];
-            [[expectFutureValue(user.tokenExpiration) shouldEventually] beNonNil];
-            [[expectFutureValue(mes) shouldEventually] beEmpty];
+            [[expectFutureValue(theValue(code)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:theValue(CMUserAccountLoginSucceeded)];
+            [[expectFutureValue(user.token) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue(user.tokenExpiration) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue(mes) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
         });
         
         it(@"should successfully logout", ^{
@@ -117,9 +112,9 @@ describe(@"CMUser Integration", ^{
                 }];
             }];
             
-            [[expectFutureValue(theValue(code)) shouldEventually] equal:@(CMUserAccountLogoutSucceeded)];
-            [[expectFutureValue(user.token) shouldEventually] beNil];
-            [[expectFutureValue(user.tokenExpiration) shouldEventually] beNil];
+            [[expectFutureValue(theValue(code)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(CMUserAccountLogoutSucceeded)];
+            [[expectFutureValue(user.token) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNil];
+            [[expectFutureValue(user.tokenExpiration) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNil];
         });
         
         it(@"should fail to login when creating a bad account", ^{
@@ -132,10 +127,10 @@ describe(@"CMUser Integration", ^{
                 mes = messages;
             }];
             
-            [[expectFutureValue(theValue(code)) shouldEventually] equal:@(CMUserAccountCreateFailedInvalidRequest)];
-            [[expectFutureValue(user.token) shouldEventually] beNil];
-            [[expectFutureValue(user.tokenExpiration) shouldEventually] beNil];
-            [[expectFutureValue(mes) shouldEventually] beEmpty];
+            [[expectFutureValue(theValue(code)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(CMUserAccountCreateFailedInvalidRequest)];
+            [[expectFutureValue(user.token) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNil];
+            [[expectFutureValue(user.tokenExpiration) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNil];
+            [[expectFutureValue(mes) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
         });
         
         it(@"should fail to login with the wrong credentials", ^{
@@ -148,8 +143,8 @@ describe(@"CMUser Integration", ^{
                 mes = messages;
             }];
             
-            [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountLoginFailedIncorrectCredentials)];
-            [[expectFutureValue(mes) shouldEventually] beEmpty];
+            [[expectFutureValue(theValue(code)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:theValue(CMUserAccountLoginFailedIncorrectCredentials)];
+            [[expectFutureValue(mes) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
         });
         
         it(@"should fail to save the user when they are not logged in", ^{
@@ -178,8 +173,8 @@ describe(@"CMUser Integration", ^{
                 mes = messages;
             }];
             
-            [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountLoginFailedIncorrectCredentials)];
-            [[expectFutureValue(mes) shouldEventually] beEmpty];
+            [[expectFutureValue(theValue(code)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:theValue(CMUserAccountLoginFailedIncorrectCredentials)];
+            [[expectFutureValue(mes) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
         });
         
         it(@"should create the user on a save if they haven't been created", ^{
@@ -192,8 +187,8 @@ describe(@"CMUser Integration", ^{
                 mes = messages;
             }];
             
-            [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountCreateSucceeded)];
-            [[expectFutureValue(mes) shouldEventually] beEmpty];
+            [[expectFutureValue(theValue(code)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:theValue(CMUserAccountCreateSucceeded)];
+            [[expectFutureValue(mes) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
         });
         
         __block CMUser *testUser = nil;
@@ -209,10 +204,10 @@ describe(@"CMUser Integration", ^{
                 testUser = user;
             }];
             
-            [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountLoginSucceeded)];
-            [[expectFutureValue(user.token) shouldEventually] beNonNil];
-            [[expectFutureValue(user.tokenExpiration) shouldEventually] beNonNil];
-            [[expectFutureValue(mes) shouldEventually] beEmpty];
+            [[expectFutureValue(theValue(code)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:theValue(CMUserAccountLoginSucceeded)];
+            [[expectFutureValue(user.token) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue(user.tokenExpiration) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue(mes) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
         });
         
         it(@"should login the user if they have the correct username set", ^{
@@ -228,10 +223,10 @@ describe(@"CMUser Integration", ^{
                 }];
             }];
             
-            [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountProfileUpdateSucceeded)];
-            [[expectFutureValue(testUser.token) shouldEventually] beNonNil];
-            [[expectFutureValue(testUser.tokenExpiration) shouldEventually] beNonNil];
-            [[expectFutureValue(mes) shouldEventually] beEmpty];
+            [[expectFutureValue(theValue(code)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:theValue(CMUserAccountProfileUpdateSucceeded)];
+            [[expectFutureValue(testUser.token) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue(testUser.tokenExpiration) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue(mes) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
         });
         
         it(@"should let the user save", ^{
@@ -243,8 +238,8 @@ describe(@"CMUser Integration", ^{
                 mes = messages;
             }];
             
-            [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountProfileUpdateSucceeded)];
-            [[expectFutureValue(mes) shouldEventually] beEmpty];
+            [[expectFutureValue(theValue(code)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:theValue(CMUserAccountProfileUpdateSucceeded)];
+            [[expectFutureValue(mes) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
         });
         
         it(@"should fetch the user's profile", ^{
@@ -256,8 +251,8 @@ describe(@"CMUser Integration", ^{
                 mes = messages;
             }];
             
-            [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountProfileUpdateSucceeded)];
-            [[expectFutureValue(mes) shouldEventually] haveLengthOf:1];
+            [[expectFutureValue(theValue(code)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:theValue(CMUserAccountProfileUpdateSucceeded)];
+            [[expectFutureValue(mes) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveLengthOf:1];
         });
         
         it(@"should change the password", ^{
@@ -269,10 +264,10 @@ describe(@"CMUser Integration", ^{
                 mes = messages;
             }];
             
-            [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountPasswordChangeSucceeded)];
-            [[expectFutureValue(mes) shouldEventually] beEmpty];
-            [[expectFutureValue(testUser.token) shouldEventually] beNonNil];
-            [[expectFutureValue(testUser.tokenExpiration) shouldEventually] beNonNil];
+            [[expectFutureValue(theValue(code)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:theValue(CMUserAccountPasswordChangeSucceeded)];
+            [[expectFutureValue(mes) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
+            [[expectFutureValue(testUser.token) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue(testUser.tokenExpiration) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
         });
         
         it(@"should change the email", ^{
@@ -282,10 +277,10 @@ describe(@"CMUser Integration", ^{
                 code = resultCode;
                 mes = messages;
             }];
-            [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountEmailChangeSucceeded)];
-            [[expectFutureValue(mes) shouldEventually] beEmpty];
-            [[expectFutureValue(testUser.token) shouldEventually] beNonNil];
-            [[expectFutureValue(testUser.tokenExpiration) shouldEventually] beNonNil];
+            [[expectFutureValue(theValue(code)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:theValue(CMUserAccountEmailChangeSucceeded)];
+            [[expectFutureValue(mes) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
+            [[expectFutureValue(testUser.token) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue(testUser.tokenExpiration) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
             [[expectFutureValue(testUser.email) should] equal:@"test_new_email@test.com"];
         });
         
@@ -300,10 +295,10 @@ describe(@"CMUser Integration", ^{
                 code = resultCode;
                 mes = messages;
             }];
-            [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountUsernameChangeSucceeded)];
-            [[expectFutureValue(mes) shouldEventually] beEmpty];
-            [[expectFutureValue(testUser.token) shouldEventually] beNonNil];
-            [[expectFutureValue(testUser.tokenExpiration) shouldEventually] beNonNil];
+            [[expectFutureValue(theValue(code)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:theValue(CMUserAccountUsernameChangeSucceeded)];
+            [[expectFutureValue(mes) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
+            [[expectFutureValue(testUser.token) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue(testUser.tokenExpiration) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
             [[expectFutureValue(testUser.username) should] equal:@"NewUsername"];
         });
         
@@ -321,9 +316,9 @@ describe(@"CMUser Integration", ^{
                 code = resultCode;
                 mes = messages;
             }];
-            [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountEmailChangeSucceeded)];
+            [[expectFutureValue(theValue(code)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:theValue(CMUserAccountEmailChangeSucceeded)];
 #pragma clang diagnostic pop
-            [[expectFutureValue(mes) shouldEventually] beEmpty];
+            [[expectFutureValue(mes) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
         });
         
         it(@"should change the username, email, and password", ^{
@@ -339,8 +334,8 @@ describe(@"CMUser Integration", ^{
                                                    code = resultCode;
                                                    mes = messages;
                                                }];
-            [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountCredentialChangeSucceeded)];
-            [[expectFutureValue(mes) shouldEventually] beEmpty];
+            [[expectFutureValue(theValue(code)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:theValue(CMUserAccountCredentialChangeSucceeded)];
+            [[expectFutureValue(mes) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
         });
         
         it(@"should change the username, userid (email) and password", ^{
@@ -359,10 +354,10 @@ describe(@"CMUser Integration", ^{
                                                    mes = messages;
                                                }];
 #pragma clang diagnostic pop
-            [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountCredentialChangeSucceeded)];
-            [[expectFutureValue(mes) shouldEventually] beEmpty];
-            [[expectFutureValue(testUser.email) shouldEventually] equal:@"thisisemail@test.com"];
-            [[expectFutureValue(testUser.username) shouldEventually] equal:@"HowManyToDo"];
+            [[expectFutureValue(theValue(code)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:theValue(CMUserAccountCredentialChangeSucceeded)];
+            [[expectFutureValue(mes) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
+            [[expectFutureValue(testUser.email) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@"thisisemail@test.com"];
+            [[expectFutureValue(testUser.username) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@"HowManyToDo"];
 
         });
         
@@ -383,8 +378,8 @@ describe(@"CMUser Integration", ^{
                     mes = messages;
                 }];
                 
-                [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountLoginSucceeded)];
-                [[expectFutureValue(mes) shouldEventually] beEmpty];
+                [[expectFutureValue(theValue(code)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:theValue(CMUserAccountLoginSucceeded)];
+                [[expectFutureValue(mes) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
             });
             
             it(@"should fetch the user's profile", ^{
@@ -398,8 +393,8 @@ describe(@"CMUser Integration", ^{
                     [[mes[0][@"lastName"] should] equal:@"Mick"];
                 }];
                 
-                [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountProfileUpdateSucceeded)];
-                [[expectFutureValue(mes) shouldEventually] haveLengthOf:1];
+                [[expectFutureValue(theValue(code)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:theValue(CMUserAccountProfileUpdateSucceeded)];
+                [[expectFutureValue(mes) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveLengthOf:1];
             });
         });
         
@@ -428,8 +423,8 @@ describe(@"CMUser Integration", ^{
                     cardUser = user;
                 }];
                 
-                [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountLoginSucceeded)];
-                [[expectFutureValue(mes) shouldEventually] beEmpty];
+                [[expectFutureValue(theValue(code)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:theValue(CMUserAccountLoginSucceeded)];
+                [[expectFutureValue(mes) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
             });
             
             it(@"should add a card", ^{
@@ -438,11 +433,11 @@ describe(@"CMUser Integration", ^{
                     res = response;
                 }];
                 
-                [[expectFutureValue(res) shouldEventually] beNonNil];
-                [[expectFutureValue(@(res.result)) shouldEventually] equal:@(CMPaymentResultSuccessful)];
-                [[expectFutureValue(@(res.httpResponseCode)) shouldEventually] equal:@(200)];
-                [[expectFutureValue(res.errors) shouldEventually] beEmpty];
-                [[expectFutureValue(res.body[@"added"]) shouldEventually] equal:@(0)];
+                [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+                [[expectFutureValue(@(res.result)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(CMPaymentResultSuccessful)];
+                [[expectFutureValue(@(res.httpResponseCode)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(200)];
+                [[expectFutureValue(res.errors) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
+                [[expectFutureValue(res.body[@"added"]) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(0)];
             });
             
             it(@"should fetch the payment methods", ^{
@@ -450,13 +445,13 @@ describe(@"CMUser Integration", ^{
                 [cardUser paymentMethods:^(CMPaymentResponse *response) {
                     res = response;
                 }];
-                [[expectFutureValue(res) shouldEventually] beNonNil];
-                [[expectFutureValue(@(res.result)) shouldEventually] equal:@(CMPaymentResultSuccessful)];
-                [[expectFutureValue(@(res.httpResponseCode)) shouldEventually] equal:@(200)];
-                [[expectFutureValue(res.errors) shouldEventually] beEmpty];
-                [[expectFutureValue(res.body) shouldEventually] haveCountOf:1];
+                [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+                [[expectFutureValue(@(res.result)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(CMPaymentResultSuccessful)];
+                [[expectFutureValue(@(res.httpResponseCode)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(200)];
+                [[expectFutureValue(res.errors) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
+                [[expectFutureValue(res.body) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
                 
-                [[expectFutureValue(((CMCardPayment *)res.body[0]).token) shouldEventually] equal:@"3243249390328409"];
+                [[expectFutureValue(((CMCardPayment *)res.body[0]).token) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@"3243249390328409"];
             });
             
             it(@"should let you remove a payment method", ^{
@@ -464,11 +459,11 @@ describe(@"CMUser Integration", ^{
                 [cardUser removePaymentMethodAtIndex:0 callback:^(CMPaymentResponse *response) {
                     res = response;
                 }];
-                [[expectFutureValue(res) shouldEventually] beNonNil];
-                [[expectFutureValue(@(res.result)) shouldEventually] equal:@(CMPaymentResultSuccessful)];
-                [[expectFutureValue(@([res wasSuccess])) shouldEventually] equal:@(YES)];
-                [[expectFutureValue(res.errors) shouldEventually] beEmpty];
-                [[expectFutureValue(res.body) shouldEventually] haveCountOf:1];
+                [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+                [[expectFutureValue(@(res.result)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(CMPaymentResultSuccessful)];
+                [[expectFutureValue(@([res wasSuccess])) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(YES)];
+                [[expectFutureValue(res.errors) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
+                [[expectFutureValue(res.body) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
             });
             
             it(@"fetching payment methods again should return nothing", ^{
@@ -476,11 +471,11 @@ describe(@"CMUser Integration", ^{
                 [cardUser paymentMethods:^(CMPaymentResponse *response) {
                     res = response;
                 }];
-                [[expectFutureValue(res) shouldEventually] beNonNil];
-                [[expectFutureValue(@(res.result)) shouldEventually] equal:@(CMPaymentResultSuccessful)];
-                [[expectFutureValue(@(res.httpResponseCode)) shouldEventually] equal:@(200)];
-                [[expectFutureValue(res.errors) shouldEventually] beEmpty];
-                [[expectFutureValue(res.body) shouldEventually] haveCountOf:0];
+                [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+                [[expectFutureValue(@(res.result)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(CMPaymentResultSuccessful)];
+                [[expectFutureValue(@(res.httpResponseCode)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(200)];
+                [[expectFutureValue(res.errors) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
+                [[expectFutureValue(res.body) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:0];
             });
             
         });
@@ -503,9 +498,9 @@ describe(@"CMUser Integration", ^{
                 error = errors;
             }];
             
-            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(4.0)] beNonNil];
-            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(4.0)] haveCountOf:10];
-            [[expectFutureValue(error) shouldEventuallyBeforeTimingOutAfter(4.0)] beEmpty];
+            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:10];
+            [[expectFutureValue(error) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
         });
         
         it(@"should find all users when given no query or identifier", ^{
@@ -518,9 +513,9 @@ describe(@"CMUser Integration", ^{
                 error = response.error;
             }];
             
-            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(4.0)] beNonNil];
-            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(4.0)] haveCountOf:10];
-            [[expectFutureValue(error) shouldEventuallyBeforeTimingOutAfter(4.0)] beNil];
+            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:10];
+            [[expectFutureValue(error) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNil];
         });
         
         it(@"should return the count of users", ^{
@@ -536,9 +531,9 @@ describe(@"CMUser Integration", ^{
                 [[theValue(response.count) should] equal:theValue(10)];
             }];
             
-            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(4.0)] beNonNil];
-            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(4.0)] haveCountOf:5];
-            [[expectFutureValue(error) shouldEventuallyBeforeTimingOutAfter(4.0)] beNil];
+            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:5];
+            [[expectFutureValue(error) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNil];
         });
         
         __block NSString *identifier = nil;
@@ -556,10 +551,10 @@ describe(@"CMUser Integration", ^{
                 }
             }];
             
-            [[expectFutureValue(all) shouldEventually] beNonNil];
-            [[expectFutureValue(all) shouldEventually] haveCountOf:1];
-            [[expectFutureValue(error) shouldEventually] beEmpty];
-            [[expectFutureValue(((CMUser *)all[0]).email) shouldEventually] equal:@"testcard@cloudmine.me"];
+            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
+            [[expectFutureValue(error) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
+            [[expectFutureValue(((CMUser *)all[0]).email) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@"testcard@cloudmine.me"];
         });
         
         identifier = nil;
@@ -577,10 +572,10 @@ describe(@"CMUser Integration", ^{
                 }
             }];
 
-            [[expectFutureValue(all) shouldEventually] beNonNil];
-            [[expectFutureValue(all) shouldEventually] haveCountOf:1];
-            [[expectFutureValue(error) shouldEventually] beNil];
-            [[expectFutureValue(((CMUser *)all[0]).email) shouldEventually] equal:@"testcard@cloudmine.me"];
+            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
+            [[expectFutureValue(error) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNil];
+            [[expectFutureValue(((CMUser *)all[0]).email) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@"testcard@cloudmine.me"];
         });
 
         
@@ -601,10 +596,10 @@ describe(@"CMUser Integration", ^{
                 }
             }];
             
-            [[expectFutureValue(all) shouldEventually] beNonNil];
-            [[expectFutureValue(all) shouldEventually] haveCountOf:1];
-            [[expectFutureValue(error) shouldEventually] beEmpty];
-            [[[CMWebService sharedWebService] shouldNotEventually] receive:@selector(getUserProfileWithIdentifier:callback:)];
+            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
+            [[expectFutureValue(error) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
+            [[[CMWebService sharedWebService] shouldNotEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] receive:@selector(getUserProfileWithIdentifier:callback:)];
         });
     });
     
@@ -624,8 +619,8 @@ describe(@"CMUser Integration", ^{
                 mes = messages;
             }];
             
-            [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountOperationFailedUnknownAccount)];
-            [[expectFutureValue(mes) shouldEventually] beEmpty];
+            [[expectFutureValue(theValue(code)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:theValue(CMUserAccountOperationFailedUnknownAccount)];
+            [[expectFutureValue(mes) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
         });
         
         it(@"should fail to logout the user", ^{
@@ -640,8 +635,8 @@ describe(@"CMUser Integration", ^{
                 mes = messages;
             }];
             
-            [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountOperationFailedUnknownAccount)];
-            [[expectFutureValue(mes) shouldEventually] beEmpty];
+            [[expectFutureValue(theValue(code)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:theValue(CMUserAccountOperationFailedUnknownAccount)];
+            [[expectFutureValue(mes) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
         });
         
         it(@"should fail to fetch the profile", ^{
@@ -653,8 +648,8 @@ describe(@"CMUser Integration", ^{
                 err = errors;
             }];
             
-            [[expectFutureValue(use) shouldEventually] beEmpty];
-            [[expectFutureValue(err) shouldEventually] beNil];
+            [[expectFutureValue(use) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
+            [[expectFutureValue(err) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNil];
         });
     });
 
@@ -691,7 +686,7 @@ describe(@"CMUser Integration", ^{
                                      [[theValue(response.user.isLoggedIn) should] beYes];
                                  }];
             
-            [[expectFutureValue(res) shouldEventually] beNonNil];
+            [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
         });
         
         it(@"should let the user add another social account natively", ^{
@@ -721,7 +716,7 @@ describe(@"CMUser Integration", ^{
                                      [[theValue(response.user.isLoggedIn) should] beYes];
                                  }];
             
-            [[expectFutureValue(res) shouldEventually] beNonNil];
+            [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
         });
         
     });

@@ -14,3 +14,5 @@
 
 #define BASE_URL (((NSString *)[[NSProcessInfo processInfo] environment][@"BASE_URL"]).length != 0 ? [[NSProcessInfo processInfo] environment][@"BASE_URL"] : CM_BASE_URL)
 
+
+#define CM_TEST_TIMEOUT 10.0
