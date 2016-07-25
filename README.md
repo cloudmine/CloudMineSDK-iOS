@@ -12,11 +12,11 @@ Installation
 
 Add that line to your Podfile.
 
-The CloudMine library uses [Cocoapods](http://cocoapods.org/) to manage it's dependencies and packaging. This has many benefits for the end user, such as:
+The CloudMine library uses [CocoaPods](http://cocoapods.org/) to manage it's dependencies and packaging. This has many benefits for the end user, such as:
 
 * Pod users can see the CloudMine source code, so you know where things are breaking. This makes it easier for you to debug, and easier for you to help us.
 * Pod users have the ability to modify the source code if you need to, which allows for you to tweak the code as necessary, and easy to submit a patch once you fixed a bug.
-* Cocoapods' share dependencies between Libraries. If two libraries are using AFNetworking, it gets downloaded once and is used for both, there are no collisions.
+* CocoaPods' share dependencies between Libraries. If two libraries are using AFNetworking, it gets downloaded once and is used for both, there are no collisions.
 * Installing pods is as easy as `pod 'CloudMine'`, with a great website to help support them.
 * Pushing and installing updates is super fast and easy. CloudMine simply update the main repo with our new version (which points to the CloudMine Repo), and then you simply run "pod update" and you get the new update.
 
