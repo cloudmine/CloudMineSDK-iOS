@@ -40,22 +40,22 @@ describe(@"UIImageWithCloudMineIntegrationSpec", ^{
             NSLog(@"Key? %@", key);
         }];
         
-        [[expectFutureValue(resp) shouldEventually] beNonNil];
-        [[expectFutureValue(theValue(resp.result)) shouldEventually] equal:theValue(CMFileCreated)];
-        [[expectFutureValue(key) shouldEventually] beNonNil];
+        [[expectFutureValue(resp) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+        [[expectFutureValue(theValue(resp.result)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:theValue(CMFileCreated)];
+        [[expectFutureValue(key) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
         
         __block CMFileUploadResponse *resp2 = nil;
         [store saveFileWithData:UIImagePNGRepresentation(image) named:@"second" additionalOptions:nil callback:^(CMFileUploadResponse *response) {
             resp2 = response;
         }];
-        [[expectFutureValue(resp2) shouldEventually] beNonNil];
+        [[expectFutureValue(resp2) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
     });
     
     it(@"should be able to set the image to a UIImageView with just the key", ^{
         
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
         [imageView setImageWithFileKey:key];
-        [[expectFutureValue(UIImagePNGRepresentation(imageView.image)) shouldEventually] equal:UIImagePNGRepresentation(image)];
+        [[expectFutureValue(UIImagePNGRepresentation(imageView.image)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:UIImagePNGRepresentation(image)];
     });
     
     it(@"should immediatly set a placeholder iamge", ^{
@@ -66,7 +66,7 @@ describe(@"UIImageWithCloudMineIntegrationSpec", ^{
         [imageView setImageWithFileKey:@"second" placeholderImage:placeholder];
         [[imageView.image shouldNot] beNil];
         [[UIImagePNGRepresentation(imageView.image) should] equal:UIImagePNGRepresentation(placeholder)];
-        [[expectFutureValue(UIImagePNGRepresentation(imageView.image)) shouldEventually] equal:UIImagePNGRepresentation(image)];
+        [[expectFutureValue(UIImagePNGRepresentation(imageView.image)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:UIImagePNGRepresentation(image)];
     });
     
     it(@"should cache the image we retrived and use it immediatly", ^{
@@ -94,7 +94,7 @@ describe(@"UIImageWithCloudMineIntegrationSpec", ^{
             }];
         }];
         
-        [[expectFutureValue(UIImagePNGRepresentation(imageView.image)) shouldEventuallyBeforeTimingOutAfter(5.0)] equal:UIImagePNGRepresentation(image)];
+        [[expectFutureValue(UIImagePNGRepresentation(imageView.image)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:UIImagePNGRepresentation(image)];
     });
     
 });

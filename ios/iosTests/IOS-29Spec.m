@@ -8,6 +8,7 @@
 
 #import "Kiwi.h"
 #import "CMObject.h"
+#import "CMTestMacros.h"
 
 @interface IOS29 : CMObject
 
@@ -63,7 +64,7 @@ describe(@"CMObject Bug", ^{
             resp = response;
         }];
         
-        [[expectFutureValue(resp.uploadStatuses) shouldEventually] haveCountOf:1];
+        [[expectFutureValue(resp.uploadStatuses) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
     });
     
     

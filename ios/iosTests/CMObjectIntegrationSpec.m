@@ -66,9 +66,9 @@ describe(@"CMObject Integration", ^{
       [test1 save:^(CMObjectUploadResponse *response) {
         response1 = response;
       }];
-      [[expectFutureValue(response1) shouldEventually] beNonNil];
-      [[expectFutureValue(response1.uploadStatuses) shouldEventuallyBeforeTimingOutAfter(5.0)] haveCountOf:1];
-      [[expectFutureValue(response1.uploadStatuses[objectID]) shouldEventuallyBeforeTimingOutAfter(5.0)] equal:@"created"];
+      [[expectFutureValue(response1) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+      [[expectFutureValue(response1.uploadStatuses) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
+      [[expectFutureValue(response1.uploadStatuses[objectID]) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@"created"];
     });
     
     it(@"should create multiple objects", ^{
@@ -88,8 +88,8 @@ describe(@"CMObject Integration", ^{
         response1 = response;
       }];
       
-      [[expectFutureValue(response1) shouldEventually] beNonNil];
-      [[expectFutureValue(response1.uploadStatuses) shouldEventually] haveLengthOf:6];
+      [[expectFutureValue(response1) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+      [[expectFutureValue(response1.uploadStatuses) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveLengthOf:6];
       
     });
     
@@ -110,8 +110,8 @@ describe(@"CMObject Integration", ^{
         //                }
       }];
       
-      [[expectFutureValue(objects) shouldEventually] beNonNil];
-      [[expectFutureValue(objects) shouldEventually] haveLengthOf:6];
+      [[expectFutureValue(objects) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+      [[expectFutureValue(objects) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveLengthOf:6];
       
     });
     
@@ -125,9 +125,9 @@ describe(@"CMObject Integration", ^{
       [test1.store replaceObject:test1 callback:^(CMObjectUploadResponse *response) {
         response1 = response;
       }];
-      [[expectFutureValue(response1) shouldEventually] beNonNil];
-      [[expectFutureValue(response1.uploadStatuses) shouldEventuallyBeforeTimingOutAfter(5.0)] haveCountOf:1];
-      [[expectFutureValue(response1.uploadStatuses[objectID]) shouldEventuallyBeforeTimingOutAfter(5.0)] equal:@"updated"];
+      [[expectFutureValue(response1) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+      [[expectFutureValue(response1.uploadStatuses) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
+      [[expectFutureValue(response1.uploadStatuses[objectID]) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@"updated"];
     });
     
     context(@"User Level Objects", ^{
@@ -146,8 +146,8 @@ describe(@"CMObject Integration", ^{
           userStore.user = userObjects;
         }];
         
-        [[expectFutureValue(theValue(code)) shouldEventually] equal:theValue(CMUserAccountLoginSucceeded)];
-        [[expectFutureValue(mes) shouldEventually] beEmpty];
+        [[expectFutureValue(theValue(code)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:theValue(CMUserAccountLoginSucceeded)];
+        [[expectFutureValue(mes) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
       });
       
       it(@"should create a user level object", ^{
@@ -159,8 +159,8 @@ describe(@"CMObject Integration", ^{
           
         }];
         
-        [[expectFutureValue(res.uploadStatuses) shouldEventually] haveCountOf:1];
-        [[expectFutureValue(res.uploadStatuses[theID]) shouldEventually] equal:@"created"];
+        [[expectFutureValue(res.uploadStatuses) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
+        [[expectFutureValue(res.uploadStatuses[theID]) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@"created"];
       });
       
       __block NSString *theID;
@@ -173,8 +173,8 @@ describe(@"CMObject Integration", ^{
           res = response;
         }];
         
-        [[expectFutureValue(res.uploadStatuses) shouldEventually] haveCountOf:1];
-        [[expectFutureValue(res.uploadStatuses[theID]) shouldEventually] equal:@"created"];
+        [[expectFutureValue(res.uploadStatuses) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
+        [[expectFutureValue(res.uploadStatuses[theID]) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@"created"];
         
       });
       
@@ -186,8 +186,8 @@ describe(@"CMObject Integration", ^{
           res = response;
         }];
         
-        [[expectFutureValue(res.uploadStatuses) shouldEventually] haveCountOf:1];
-        [[expectFutureValue(res.uploadStatuses[theID]) shouldEventually] equal:@"updated"];
+        [[expectFutureValue(res.uploadStatuses) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
+        [[expectFutureValue(res.uploadStatuses[theID]) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@"updated"];
       });
       
       it(@"should not save an object to both app and user level", ^{
@@ -204,10 +204,10 @@ describe(@"CMObject Integration", ^{
           }];
         }];
         
-        [[expectFutureValue(res.uploadStatuses) shouldEventually] haveCountOf:1];
-        [[expectFutureValue(res.uploadStatuses[theID]) shouldEventually] equal:@"created"];
-        [[expectFutureValue(res2.uploadStatuses) shouldEventually] haveCountOf:1];
-        [[expectFutureValue(res2.error) shouldEventually] beNil];
+        [[expectFutureValue(res.uploadStatuses) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
+        [[expectFutureValue(res.uploadStatuses[theID]) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@"created"];
+        [[expectFutureValue(res2.uploadStatuses) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
+        [[expectFutureValue(res2.error) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNil];
       });
       
     });
@@ -238,9 +238,9 @@ describe(@"CMObject Integration", ^{
           
         }];
         
-        [[expectFutureValue(resp.uploadStatuses[testingID]) shouldEventually] equal:@"created"];
-        [[expectFutureValue(theValue(owner.isLoggedIn)) shouldEventually] equal:@YES];
-        [[expectFutureValue(theValue(wantr.isLoggedIn)) shouldEventually] equal:@YES];
+        [[expectFutureValue(resp.uploadStatuses[testingID]) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@"created"];
+        [[expectFutureValue(theValue(owner.isLoggedIn)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@YES];
+        [[expectFutureValue(theValue(wantr.isLoggedIn)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@YES];
       });
       
       
@@ -251,8 +251,8 @@ describe(@"CMObject Integration", ^{
           resp = response;
         }];
         
-        [[expectFutureValue(resp) shouldEventually] beNonNil];
-        [[expectFutureValue(resp.acls) shouldEventually] beEmpty];
+        [[expectFutureValue(resp) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+        [[expectFutureValue(resp.acls) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
       });
       
       __block NSString *aclID = nil;
@@ -272,9 +272,9 @@ describe(@"CMObject Integration", ^{
           }];
         }];
         
-        [[expectFutureValue(resp) shouldEventually] beNonNil];
-        [[expectFutureValue(resp.error) shouldEventually] beNil];
-        [[expectFutureValue(resp.uploadStatuses[testingID]) shouldEventually] equal:@"updated"];
+        [[expectFutureValue(resp) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+        [[expectFutureValue(resp.error) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNil];
+        [[expectFutureValue(resp.uploadStatuses[testingID]) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@"updated"];
       });
       
       it(@"should now let you get the ACL", ^{
@@ -283,9 +283,9 @@ describe(@"CMObject Integration", ^{
           resp = response;
         }];
         
-        [[expectFutureValue(resp) shouldEventually] beNonNil];
-        [[expectFutureValue(resp.acls) shouldEventually] haveCountOf:1];
-        [[expectFutureValue([resp.acls.allObjects[0] objectId]) shouldEventually] equal:aclID];
+        [[expectFutureValue(resp) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+        [[expectFutureValue(resp.acls) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
+        [[expectFutureValue([resp.acls.allObjects[0] objectId]) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:aclID];
       });
       
       it(@"should let the other user read the object", ^{
@@ -299,10 +299,10 @@ describe(@"CMObject Integration", ^{
           resp = response;
         }];
         
-        [[expectFutureValue(resp) shouldEventually] beNonNil];
-        [[expectFutureValue(resp.objects) shouldEventually] haveCountOf:1];
+        [[expectFutureValue(resp) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+        [[expectFutureValue(resp.objects) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
         CMTestClass *testObject = [resp.objects lastObject];
-        [[expectFutureValue(testObject.objectId) shouldEventually] equal:testingID];
+        [[expectFutureValue(testObject.objectId) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:testingID];
       });
       
       it(@"should let you create a new object and add the same ACL to it", ^{
@@ -315,9 +315,9 @@ describe(@"CMObject Integration", ^{
           resp = response;
         }];
         
-        [[expectFutureValue(resp) shouldEventually] beNonNil];
-        [[expectFutureValue(resp.error) shouldEventually] beNil];
-        [[expectFutureValue(resp.uploadStatuses[newObject.objectId]) shouldEventually] equal:@"created"];
+        [[expectFutureValue(resp) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+        [[expectFutureValue(resp.error) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNil];
+        [[expectFutureValue(resp.uploadStatuses[newObject.objectId]) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@"created"];
       });
       
       it(@"should let the other user read both objects", ^{
@@ -331,8 +331,8 @@ describe(@"CMObject Integration", ^{
           resp = response;
         }];
         
-        [[expectFutureValue(resp) shouldEventually] beNonNil];
-        [[expectFutureValue(resp.objects) shouldEventually] haveCountOf:2];
+        [[expectFutureValue(resp) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+        [[expectFutureValue(resp.objects) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:2];
       });
       
       it(@"should not let another user add ACL's to the object", ^{
@@ -358,10 +358,10 @@ describe(@"CMObject Integration", ^{
           
         }];
         
-        [[expectFutureValue(resp) shouldEventually] beNonNil];
-        [[expectFutureValue(resp.objects) shouldEventually] haveCountOf:1];
-        [[expectFutureValue(aclResponse.error.domain) shouldEventually] equal:CMErrorDomain];
-        [[expectFutureValue(theValue(aclResponse.error.code)) shouldEventually] equal:@(CMErrorInvalidRequest)];
+        [[expectFutureValue(resp) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+        [[expectFutureValue(resp.objects) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
+        [[expectFutureValue(aclResponse.error.domain) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:CMErrorDomain];
+        [[expectFutureValue(theValue(aclResponse.error.code)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(CMErrorInvalidRequest)];
       });
       
       it(@"should immediately return the ACL's if you ask a shared object", ^{
@@ -382,10 +382,10 @@ describe(@"CMObject Integration", ^{
           }];
         }];
         
-        [[expectFutureValue(resp) shouldEventually] beNonNil];
-        [[expectFutureValue(resp.objects) shouldEventually] haveCountOf:1];
-        [[expectFutureValue(aclResponse) shouldEventually] beNonNil];
-        [[expectFutureValue(aclResponse.acls) shouldEventually] haveCountOf:1];
+        [[expectFutureValue(resp) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+        [[expectFutureValue(resp.objects) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
+        [[expectFutureValue(aclResponse) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+        [[expectFutureValue(aclResponse.acls) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
         [[newStore.webService shouldNot] receive:@selector(getACLsForUser:successHandler:errorHandler:)];
       });
       
@@ -401,8 +401,8 @@ describe(@"CMObject Integration", ^{
           resp = response;
         }];
         
-        [[expectFutureValue(resp) shouldEventually] beNonNil];
-        [[expectFutureValue(resp.uploadStatuses) shouldEventually] haveCountOf:1];
+        [[expectFutureValue(resp) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+        [[expectFutureValue(resp.uploadStatuses) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
       });
       
       it(@"should not let another user save the ACL's on the object", ^{
@@ -423,11 +423,11 @@ describe(@"CMObject Integration", ^{
           }];
         }];
         
-        [[expectFutureValue(resp) shouldEventually] beNonNil];
-        [[expectFutureValue(resp.objects) shouldEventually] haveCountOf:1];
-        [[expectFutureValue(aclResponse) shouldEventually] beNonNil];
-        [[expectFutureValue(aclResponse.error.domain) shouldEventually] equal:CMErrorDomain];
-        [[expectFutureValue(theValue(aclResponse.error.code)) shouldEventually] equal:@(CMErrorInvalidRequest)];
+        [[expectFutureValue(resp) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+        [[expectFutureValue(resp.objects) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
+        [[expectFutureValue(aclResponse) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+        [[expectFutureValue(aclResponse.error.domain) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:CMErrorDomain];
+        [[expectFutureValue(theValue(aclResponse.error.code)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(CMErrorInvalidRequest)];
         [[newStore.webService shouldNot] receive:@selector(updateACL:user:successHandler:errorHandler:)];
       });
       
@@ -449,11 +449,11 @@ describe(@"CMObject Integration", ^{
           }];
         }];
         
-        [[expectFutureValue(resp) shouldEventually] beNonNil];
-        [[expectFutureValue(resp.objects) shouldEventually] haveCountOf:1];
-        [[expectFutureValue(aclResponse) shouldEventually] beNonNil];
-        [[expectFutureValue(aclResponse.error.domain) shouldEventually] equal:CMErrorDomain];
-        [[expectFutureValue(theValue(aclResponse.error.code)) shouldEventually] equal:@(CMErrorInvalidRequest)];
+        [[expectFutureValue(resp) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+        [[expectFutureValue(resp.objects) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
+        [[expectFutureValue(aclResponse) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+        [[expectFutureValue(aclResponse.error.domain) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:CMErrorDomain];
+        [[expectFutureValue(theValue(aclResponse.error.code)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(CMErrorInvalidRequest)];
         [[newStore.webService shouldNot] receive:@selector(updateValuesFromDictionary:serverSideFunction:user:extraParameters:successHandler:errorHandler:)];
       });
       
@@ -469,9 +469,9 @@ describe(@"CMObject Integration", ^{
           }];
         }];
         
-        [[expectFutureValue(resp) shouldEventually] beNonNil];
-        [[expectFutureValue(resp.uploadStatuses) shouldEventually] haveCountOf:1];
-        [[expectFutureValue(fetchResponse.acls) shouldEventually] beEmpty];
+        [[expectFutureValue(resp) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+        [[expectFutureValue(resp.uploadStatuses) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
+        [[expectFutureValue(fetchResponse.acls) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
       });
       
       __block CMTestClass *newTest = nil;
@@ -495,9 +495,9 @@ describe(@"CMObject Integration", ^{
           }];
         }];
         
-        [[expectFutureValue(resp) shouldEventually] beNonNil];
-        [[expectFutureValue(resp.error) shouldEventually] beNil];
-        [[expectFutureValue(resp.uploadStatuses[testingID]) shouldEventually] equal:@"updated"];
+        [[expectFutureValue(resp) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+        [[expectFutureValue(resp.error) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNil];
+        [[expectFutureValue(resp.uploadStatuses[testingID]) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@"updated"];
       });
       
       it(@"should let anyone access a public object", ^{
@@ -515,8 +515,8 @@ describe(@"CMObject Integration", ^{
           }];
         }];
         
-        [[expectFutureValue(objects) shouldEventually] haveCountOf:1];
-        [[expectFutureValue([objects[0] objectId]) shouldEventually] equal:testingID];
+        [[expectFutureValue(objects) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
+        [[expectFutureValue([objects[0] objectId]) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:testingID];
       });
     });
   });
@@ -549,7 +549,7 @@ describe(@"CMObject Integration", ^{
         res = response;
       }];
       
-      [[expectFutureValue(res) shouldEventually] beNonNil];
+      [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
     });
     
     it(@"should fetch all objects near a point", ^{
@@ -562,7 +562,7 @@ describe(@"CMObject Integration", ^{
                     [[theValue(response.objects.count) should] equal:@10];
                   }];
       
-      [[expectFutureValue(res) shouldEventually] beNonNil];
+      [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
     });
     
     it(@"should fetch 0 when asking from a random point", ^{
@@ -574,7 +574,7 @@ describe(@"CMObject Integration", ^{
                     [[theValue(response.objects.count) should] equal:@0];
                   }];
       
-      [[expectFutureValue(res) shouldEventually] beNonNil];
+      [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
     });
     
     it(@"should fetch just a few when moved to a location nearby", ^{
@@ -586,7 +586,7 @@ describe(@"CMObject Integration", ^{
                     [[theValue(response.objects.count) should] equal:@1];
                   }];
       
-      [[expectFutureValue(res) shouldEventually] beNonNil];
+      [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
     });
     
     it(@"should find everything in the default radius", ^{
@@ -598,7 +598,7 @@ describe(@"CMObject Integration", ^{
                     [[theValue(response.objects.count) should] equal:@10];
                   }];
       
-      [[expectFutureValue(res) shouldEventually] beNonNil];
+      [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
     });
   });
 });

@@ -45,9 +45,9 @@ describe(@"CMStoreIntegration", ^{
             res = response;
         }];
         
-        [[expectFutureValue(res) shouldEventually] beNonNil];
-        [[expectFutureValue(res.snippetResult.data) shouldEventually] beEmpty];
-        [[expectFutureValue(res.uploadStatuses) shouldEventually] haveCountOf:1];
+        [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+        [[expectFutureValue(res.snippetResult.data) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
+        [[expectFutureValue(res.uploadStatuses) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
     });
     
     it(@"should allow the creation of another object and running a snippet", ^{
@@ -64,10 +64,10 @@ describe(@"CMStoreIntegration", ^{
             res = response;
         }];
         
-        [[expectFutureValue(res) shouldEventually] beNonNil];
-        [[expectFutureValue(res.snippetResult) shouldEventually] beNonNil];
-        [[expectFutureValue(res.snippetResult.data[@"store"]) shouldEventually] equal:@"integration"];
-        [[expectFutureValue(res.uploadStatuses) shouldEventually] haveCountOf:1];
+        [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+        [[expectFutureValue(res.snippetResult) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+        [[expectFutureValue(res.snippetResult.data[@"store"]) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@"integration"];
+        [[expectFutureValue(res.uploadStatuses) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
     });
     
     it(@"should be able to delete the venues", ^{
@@ -79,11 +79,11 @@ describe(@"CMStoreIntegration", ^{
         NSString *objectId1 = [venues[0] objectId];
         NSString *objectId2 = [venues[0] objectId];
         
-        [[expectFutureValue(res) shouldEventually] beNonNil];
-        [[expectFutureValue(res.success) shouldEventually] haveCountOf:2];
-        [[expectFutureValue(res.success[objectId1]) shouldEventually] equal:@"deleted"];
-        [[expectFutureValue(res.success[objectId2]) shouldEventually] equal:@"deleted"];
-        [[expectFutureValue(res.objectErrors) shouldEventually] beEmpty];
+        [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+        [[expectFutureValue(res.success) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:2];
+        [[expectFutureValue(res.success[objectId1]) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@"deleted"];
+        [[expectFutureValue(res.success[objectId2]) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@"deleted"];
+        [[expectFutureValue(res.objectErrors) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
     });
     
     it(@"should be able to save all objects", ^{
@@ -107,10 +107,10 @@ describe(@"CMStoreIntegration", ^{
         NSString *objectId1 = [venues[0] objectId];
         NSString *objectId2 = [venues[1] objectId];
         
-        [[expectFutureValue(res) shouldEventually] beNonNil];
-        [[expectFutureValue(res.uploadStatuses) shouldEventually] haveCountOf:2];
-        [[expectFutureValue(res.uploadStatuses[objectId1]) shouldEventually] equal:@"created"];
-        [[expectFutureValue(res.uploadStatuses[objectId2]) shouldEventually] equal:@"created"];
+        [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+        [[expectFutureValue(res.uploadStatuses) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:2];
+        [[expectFutureValue(res.uploadStatuses[objectId1]) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@"created"];
+        [[expectFutureValue(res.uploadStatuses[objectId2]) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@"created"];
     });
 
     it(@"should not throw an error if you try to save a nil object", ^{
@@ -136,9 +136,9 @@ describe(@"CMStoreIntegration", ^{
             res = response;
         }];
         
-        [[expectFutureValue(res) shouldEventually] beNonNil];
-        [[expectFutureValue(res.key) shouldEventually] beNonNil];
-        [[expectFutureValue(theValue(res.result)) shouldEventually] equal:@(CMFileCreated)];
+        [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+        [[expectFutureValue(res.key) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+        [[expectFutureValue(theValue(res.result)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(CMFileCreated)];
     });
     
     __block NSString *nonUserKey = @"app_icon_something";
@@ -150,9 +150,9 @@ describe(@"CMStoreIntegration", ^{
             res = response;
         }];
 
-        [[expectFutureValue(res) shouldEventually] beNonNil];
-        [[expectFutureValue(res.key) shouldEventually] equal:nonUserKey];
-        [[expectFutureValue(theValue(res.result)) shouldEventually] equal:@(CMFileCreated)];
+        [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+        [[expectFutureValue(res.key) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:nonUserKey];
+        [[expectFutureValue(theValue(res.result)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(CMFileCreated)];
     });
     
     it(@"should fetch all the objects", ^{
@@ -163,8 +163,8 @@ describe(@"CMStoreIntegration", ^{
             [[ theValue([res.objects containsObject:venues[1]]) should] beTrue];
         }];
         
-        [[expectFutureValue(res) shouldEventually] beNonNil];
-        [[expectFutureValue(res.objects) shouldEventually] haveCountOfAtLeast:2];
+        [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+        [[expectFutureValue(res.objects) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOfAtLeast:2];
     });
     
     it(@"should fetch the obejcts by key", ^{
@@ -179,8 +179,8 @@ describe(@"CMStoreIntegration", ^{
             [[res.objects should] contain:v1];
         }];
         
-        [[expectFutureValue(res) shouldEventually] beNonNil];
-        [[expectFutureValue(res.objects) shouldEventually] haveCountOf:2];
+        [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+        [[expectFutureValue(res.objects) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:2];
     });
     
     it(@"should fetch all objects if the query is not specified", ^{
@@ -195,8 +195,8 @@ describe(@"CMStoreIntegration", ^{
             [[res.objects should] contain:v1];
         }];
         
-        [[expectFutureValue(res) shouldEventually] beNonNil];
-        [[expectFutureValue(res.objects) shouldEventually] haveCountOfAtLeast:2];
+        [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+        [[expectFutureValue(res.objects) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOfAtLeast:2];
     });
     
     it(@"should delete an object", ^{
@@ -207,8 +207,8 @@ describe(@"CMStoreIntegration", ^{
             res = response;
         }];
         
-        [[expectFutureValue(res) shouldEventually] beNonNil];
-        [[expectFutureValue(res.success) shouldEventually] haveCountOf:1];
+        [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+        [[expectFutureValue(res.success) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
     });
     
     context(@"with a CMUser", ^{
@@ -220,7 +220,7 @@ describe(@"CMStoreIntegration", ^{
                 code = resultCode;
                 [store setUser:user];
             }];
-            [[expectFutureValue(theValue(code)) shouldEventually] equal:@(CMUserAccountLoginSucceeded)];
+            [[expectFutureValue(theValue(code)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(CMUserAccountLoginSucceeded)];
         });
         
         it(@"should allow the user to add objects", ^{
@@ -231,9 +231,9 @@ describe(@"CMStoreIntegration", ^{
             }];
             NSString *objectId1 = [venues[3] objectId];
             
-            [[expectFutureValue(res) shouldEventually] beNonNil];
-            [[expectFutureValue(res.uploadStatuses) shouldEventually] haveCountOf:1];
-            [[expectFutureValue(res.uploadStatuses[objectId1]) shouldEventually] equal:@"created"];
+            [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue(res.uploadStatuses) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
+            [[expectFutureValue(res.uploadStatuses[objectId1]) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@"created"];
         });
         
         it(@"should allow the user to get the object by class", ^{
@@ -245,8 +245,8 @@ describe(@"CMStoreIntegration", ^{
                 [[fetched should] equal:venues[3]];
             }];
             
-            [[expectFutureValue(res) shouldEventually] beNonNil];
-            [[expectFutureValue(res.objects) shouldEventually] haveCountOf:1];
+            [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue(res.objects) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
         });
         
         it(@"should save all user objects with a save all", ^{
@@ -258,8 +258,8 @@ describe(@"CMStoreIntegration", ^{
                 called++;
             }];
             
-            [[expectFutureValue(res) shouldEventually] beNonNil];
-            [[expectFutureValue(theValue(called)) shouldEventually] equal:@3];
+            [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue(theValue(called)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@3];
         });
 
         it(@"should not throw an error when you attempt to save a nil user object", ^{
@@ -279,9 +279,9 @@ describe(@"CMStoreIntegration", ^{
                 res = response;
             }];
             
-            [[expectFutureValue(res) shouldEventually] beNonNil];
-            [[expectFutureValue(res.key) shouldEventually] beNonNil];
-            [[expectFutureValue(theValue(res.result)) shouldEventually] equal:@(CMFileCreated)];
+            [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue(res.key) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue(theValue(res.result)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(CMFileCreated)];
         });
         
         it(@"should let a user upload a file with a given key", ^{
@@ -292,9 +292,9 @@ describe(@"CMStoreIntegration", ^{
                 res = response;
             }];
             
-            [[expectFutureValue(res) shouldEventually] beNonNil];
-            [[expectFutureValue(res.key) shouldEventually] beNonNil];
-            [[expectFutureValue(theValue(res.result)) shouldEventually] equal:@(CMFileCreated)];
+            [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue(res.key) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue(theValue(res.result)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(CMFileCreated)];
         });
         
         it(@"should delete a user file", ^{
@@ -302,9 +302,9 @@ describe(@"CMStoreIntegration", ^{
             [store deleteUserFileNamed:@"my_wonderful_key" additionalOptions:nil callback:^(CMDeleteResponse *response) {
                 res = response;
             }];
-            [[expectFutureValue(res) shouldEventually] beNonNil];
-            [[expectFutureValue(res.success) shouldEventually] haveCountOf:1];
-            [[expectFutureValue(res.success[@"my_wonderful_key"]) shouldEventually] equal:@"deleted"];
+            [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue(res.success) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
+            [[expectFutureValue(res.success[@"my_wonderful_key"]) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@"deleted"];
         });
         
         it(@"should fail to save any ACL's when none are passed", ^{
@@ -338,9 +338,9 @@ describe(@"CMStoreIntegration", ^{
                 res = response;
             }];
             
-            [[expectFutureValue(res) shouldEventually] beNonNil];
-            [[expectFutureValue(res.success) shouldEventually] haveCountOf:1];
-            [[expectFutureValue(res.success[v.objectId]) shouldEventually] equal:@"deleted"];
+            [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue(res.success) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
+            [[expectFutureValue(res.success[v.objectId]) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@"deleted"];
         });
         
         context(@"with ACL's", ^{
@@ -355,7 +355,7 @@ describe(@"CMStoreIntegration", ^{
                     otherStore = [CMStore storeWithUser:aclUser];
                 }];
                 
-                [[expectFutureValue(theValue([newUser isLoggedIn])) shouldEventually] beTrue];
+                [[expectFutureValue(theValue([newUser isLoggedIn])) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beTrue];
                 
                 ///
                 /// Create an object for ACL testing
@@ -365,8 +365,8 @@ describe(@"CMStoreIntegration", ^{
                     res = response;
                 }];
                 
-                [[expectFutureValue(res) shouldEventually] beNonNil];
-                [[expectFutureValue(res.uploadStatuses) shouldEventually] haveCountOf:1];
+                [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+                [[expectFutureValue(res.uploadStatuses) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
             });
             
             __block NSString *aclID = nil;
@@ -385,9 +385,9 @@ describe(@"CMStoreIntegration", ^{
                     res = response;
                 }];
                 
-                [[expectFutureValue(res) shouldEventually] beNonNil];
-                [[expectFutureValue(res.error) shouldEventually] beNil];
-                [[expectFutureValue(res.uploadStatuses[v.objectId]) shouldEventually] equal:@"updated"];
+                [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+                [[expectFutureValue(res.error) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNil];
+                [[expectFutureValue(res.uploadStatuses[v.objectId]) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@"updated"];
             });
             
             it(@"should add the ACL when a user fetches the objects", ^{
@@ -401,8 +401,8 @@ describe(@"CMStoreIntegration", ^{
                     [[[v valueForKey:@"sharedACL"] shouldNot] beNil];
                 }];
                 
-                [[expectFutureValue(resp) shouldEventually] beNonNil];
-                [[expectFutureValue(resp.objects) shouldEventually] haveCountOf:1];
+                [[expectFutureValue(resp) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+                [[expectFutureValue(resp.objects) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
             });
             
             it(@"should allow the user to search for ACL's", ^{
@@ -413,9 +413,9 @@ describe(@"CMStoreIntegration", ^{
                     res = response;
                 }];
 
-                [[expectFutureValue(res) shouldEventually] beNonNil];
-                [[expectFutureValue(res.acls) shouldEventually] beEmpty];
-                [[expectFutureValue([res permissionsForMember:aclUser.objectId]) shouldEventually] beEmpty];
+                [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+                [[expectFutureValue(res.acls) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
+                [[expectFutureValue([res permissionsForMember:aclUser.objectId]) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
             });
             
             it(@"should delete the ACL", ^{
@@ -424,8 +424,8 @@ describe(@"CMStoreIntegration", ^{
                     res = response;
                 }];
                 
-                [[expectFutureValue(res) shouldEventually] beNonNil];
-                [[expectFutureValue(res.success) shouldEventually] haveCountOf:1];
+                [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+                [[expectFutureValue(res.success) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
             });
         });
         
