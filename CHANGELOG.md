@@ -1,3 +1,9 @@
+1.7.12 (July 26, 2016)
+======================
+Bugfixes:
+ * CMDate now serializes and deserializes properly with NSKeyedArchiver/NSKeydUnarchiver
+ * CMStore no longer crashes if you attempt to save a nil object or ACL; prints log warning instead
+
 1.7.11 (April 6, 2016)
 ======================
 * Resolved Swift interop issues:
