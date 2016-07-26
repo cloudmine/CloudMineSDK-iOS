@@ -38,9 +38,9 @@ describe(@"CMWebServiceIntegration", ^{
                 err = error;
             }];
             
-            [[expectFutureValue(result) shouldEventually] beNonNil];
-            [[expectFutureValue(err) shouldEventually] beNil];
-            [[expectFutureValue(result[@"store"]) shouldEventually] equal:@"integration"];
+            [[expectFutureValue(result) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue(err) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNil];
+            [[expectFutureValue(result[@"store"]) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@"integration"];
         });
         
         it(@"should correctly send parameters to the snippet", ^{
@@ -53,9 +53,9 @@ describe(@"CMWebServiceIntegration", ^{
                 err = error;
             }];
             
-            [[expectFutureValue(result) shouldEventually] beNonNil];
-            [[expectFutureValue(err) shouldEventually] beNil];
-            [[expectFutureValue(result[@"params"][@"my_param"]) shouldEventually] equal:@"15"];
+            [[expectFutureValue(result) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue(err) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNil];
+            [[expectFutureValue(result[@"params"][@"my_param"]) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@"15"];
         });
         
         it(@"should correctly run a POST snippet", ^{
@@ -72,9 +72,9 @@ describe(@"CMWebServiceIntegration", ^{
                 err = error;
             }];
             
-            [[expectFutureValue(result) shouldEventually] beNonNil];
-            [[expectFutureValue(err) shouldEventually] beNil];
-            [[expectFutureValue(result[@"data"][@"some_data"]) shouldEventually] equal:@"hello"];
+            [[expectFutureValue(result) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue(err) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNil];
+            [[expectFutureValue(result[@"data"][@"some_data"]) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@"hello"];
         });
     });
 
@@ -123,7 +123,7 @@ describe(@"CMWebServiceIntegration", ^{
                 code = resultCode;
             }];
             
-            [[expectFutureValue(theValue(code)) shouldEventually] equal:@(CMUserAccountLoginSucceeded)];
+            [[expectFutureValue(theValue(code)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(CMUserAccountLoginSucceeded)];
             
             __block NSDictionary *result = nil;
             __block NSError *err = nil;
@@ -135,9 +135,9 @@ describe(@"CMWebServiceIntegration", ^{
                 err = error;
             }];
             
-            [[expectFutureValue(result) shouldEventually] beNonNil];
-            [[expectFutureValue(err) shouldEventually] beNil];
-            [[expectFutureValue(channelName) shouldEventually] beNonNil];
+            [[expectFutureValue(result) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue(err) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNil];
+            [[expectFutureValue(channelName) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
         });
         
         it(@"should fail to unregister a token when none is registered", ^{
@@ -147,7 +147,7 @@ describe(@"CMWebServiceIntegration", ^{
                 res = result;
             }];
             
-            [[expectFutureValue(theValue(res)) shouldEventually] equal:@(CMDeviceTokenOperationFailed)];
+            [[expectFutureValue(theValue(res)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(CMDeviceTokenOperationFailed)];
         });
         
         it(@"should let the user upload a device token", ^{
@@ -159,7 +159,7 @@ describe(@"CMWebServiceIntegration", ^{
                 res = result;
             }];
             
-            [[expectFutureValue(theValue(res)) shouldEventually] equal:@(CMDeviceTokenUploadSuccess)];
+            [[expectFutureValue(theValue(res)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(CMDeviceTokenUploadSuccess)];
         });
         
         it(@"should let the user upload the token again and get a 200", ^{
@@ -171,7 +171,7 @@ describe(@"CMWebServiceIntegration", ^{
                 res = result;
             }];
             
-            [[expectFutureValue(theValue(res)) shouldEventually] equal:@(CMDeviceTokenUpdated)];
+            [[expectFutureValue(theValue(res)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(CMDeviceTokenUpdated)];
         });
         
         it(@"should get the push channels", ^{
@@ -180,8 +180,8 @@ describe(@"CMWebServiceIntegration", ^{
             [service getChannelsForThisDeviceWithCallback:^(CMViewChannelsResponse *response) {
                 res = response;
             }];
-            [[expectFutureValue(res) shouldEventually] beNonNil];
-            [[expectFutureValue( theValue(res.result) ) shouldEventually] equal:@(CMViewChannelsRequestSucceeded)];
+            [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue( theValue(res.result) ) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(CMViewChannelsRequestSucceeded)];
         });
         
         it(@"should fail to subscribe a device to a non-existant channel", ^{
@@ -191,8 +191,8 @@ describe(@"CMWebServiceIntegration", ^{
                 res = response;
             }];
             
-            [[expectFutureValue(res) shouldEventually] beNonNil];
-            [[expectFutureValue( theValue(res.result) ) shouldEventually] equal:@(CMDeviceChannelOperationFailed)];
+            [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue( theValue(res.result) ) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(CMDeviceChannelOperationFailed)];
         });
         
         it(@"should subscribe a device to a channel", ^{
@@ -202,8 +202,8 @@ describe(@"CMWebServiceIntegration", ^{
                 res = response;
             }];
             
-            [[expectFutureValue(res) shouldEventually] beNonNil];
-            [[expectFutureValue( theValue(res.result) ) shouldEventually] equal:@(CMDeviceAddedToChannel)];
+            [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue( theValue(res.result) ) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(CMDeviceAddedToChannel)];
         });
         
         it(@"should subscribe another device to a channel", ^{
@@ -212,8 +212,8 @@ describe(@"CMWebServiceIntegration", ^{
                 res = response;
             }];
             
-            [[expectFutureValue(res) shouldEventually] beNonNil];
-            [[expectFutureValue( theValue(res.result) ) shouldEventually] equal:@(CMDeviceAddedToChannel)]; //no device so it fails
+            [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue( theValue(res.result) ) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(CMDeviceAddedToChannel)]; //no device so it fails
         });
         
         it(@"should subscribe a user to a channel", ^{
@@ -223,8 +223,8 @@ describe(@"CMWebServiceIntegration", ^{
                 res = response;
             }];
             
-            [[expectFutureValue(res) shouldEventually] beNonNil];
-            [[expectFutureValue( theValue(res.result) ) shouldEventually] equal:@(CMDeviceAddedToChannel)];
+            [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue( theValue(res.result) ) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(CMDeviceAddedToChannel)];
         });
         
         it(@"should unsubscribe this device from a channel", ^{
@@ -234,8 +234,8 @@ describe(@"CMWebServiceIntegration", ^{
                 res = response;
             }];
             
-            [[expectFutureValue(res) shouldEventually] beNonNil];
-            [[expectFutureValue( theValue(res.result) ) shouldEventually] equal:@(CMDeviceRemovedFromChannel)];
+            [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue( theValue(res.result) ) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(CMDeviceRemovedFromChannel)];
         });
         
         it(@"should unsubscribe another device from a channel", ^{
@@ -245,8 +245,8 @@ describe(@"CMWebServiceIntegration", ^{
                 res = response;
             }];
             
-            [[expectFutureValue(res) shouldEventually] beNonNil];
-            [[expectFutureValue( theValue(res.result) ) shouldEventually] equal:@(CMDeviceRemovedFromChannel)];
+            [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue( theValue(res.result) ) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(CMDeviceRemovedFromChannel)];
         });
         
         it(@"should unsubscribe a user from a channel", ^{
@@ -256,8 +256,8 @@ describe(@"CMWebServiceIntegration", ^{
                 res = response;
             }];
             
-            [[expectFutureValue(res) shouldEventually] beNonNil];
-            [[expectFutureValue( theValue(res.result) ) shouldEventually] equal:@(CMDeviceRemovedFromChannel)];
+            [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+            [[expectFutureValue( theValue(res.result) ) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(CMDeviceRemovedFromChannel)];
         });
         
         it(@"should let the user unregister a token", ^{
@@ -267,7 +267,7 @@ describe(@"CMWebServiceIntegration", ^{
                 res = result;
             }];
             
-            [[expectFutureValue(theValue(res)) shouldEventually] equal:@(CMDeviceTokenDeleted)];
+            [[expectFutureValue(theValue(res)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(CMDeviceTokenDeleted)];
         });
         
     });
