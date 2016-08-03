@@ -236,7 +236,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 - (void)registerForPushNotifications:(NSInteger)notificationType user:(CMUser *)aUser callback:(CMWebServiceDeviceTokenCallback)callback;
 {
-    [self registerForPushNotifications:notificationType categories:nil user:aUser callback:callback];
+    [self registerForPushNotifications:notificationType categories:[NSSet new] user:aUser callback:callback];
 }
 
 - (void)registerForPushNotifications:(NSInteger)notificationType categories:(NSSet *)categories user:(CMUser *)aUser callback:(CMWebServiceDeviceTokenCallback)callback;
@@ -258,7 +258,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 - (void)registerForPushNotificationTypes:(UIUserNotificationType)notificationTypes user:(CMUser *)aUser callback:(CMWebServiceDeviceTokenCallback)callback
 {
-    [self registerForPushNotificationTypes:notificationTypes categories:nil user:aUser callback:callback];
+    [self registerForPushNotificationTypes:notificationTypes categories:[NSSet new] user:aUser callback:callback];
 }
 
 - (void)registerForPushNotificationTypes:(UIUserNotificationType)notificationTypes categories:(NSSet <UIUserNotificationCategory *>*)categories user:(CMUser *)aUser callback:(CMWebServiceDeviceTokenCallback)callback

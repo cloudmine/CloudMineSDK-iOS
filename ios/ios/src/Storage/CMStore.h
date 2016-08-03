@@ -28,6 +28,8 @@
 @class CMObject;
 @class CMACL;
 
+NS_ASSUME_NONNULL_BEGIN
+
 extern NSString * const CMErrorDomain;
 
 typedef NS_ENUM(NSInteger, CMErrorCode) {
@@ -79,10 +81,10 @@ extern NSString * const CMStoreObjectDeletedNotification;
  *
  * @see CMObject#store
  */
-@property (nonatomic, strong) CMUser *user;
+@property (nonatomic, strong, nullable) CMUser *user;
 
 /** The last error that occured during a store-based operation. */
-@property (readonly, strong) NSError *lastError;
+@property (readonly, strong, nullable) NSError *lastError;
 
 /**
  * The default store for this app.
@@ -118,7 +120,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  *
  * @see CMAPICredentials
  */
-+ (CMStore *)storeWithBaseURL:(NSString *)url;
++ (CMStore *)storeWithBaseURL:(nullable NSString *)url;
 
 /**
  * Convenience method to return a newly initialized CMStore instance.
@@ -130,7 +132,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * @see CMAPICredentials
  * @see CMUser
  */
-+ (CMStore *)storeWithUser:(CMUser *)theUser;
++ (CMStore *)storeWithUser:(nullable CMUser *)theUser;
 
 /**
  * Convenience method to return a newly initialized CMStore instance.
@@ -143,7 +145,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * @see CMAPICredentials
  * @see CMUser
  */
-+ (CMStore *)storeWithUser:(CMUser *)theUser baseURL:(NSString *)url;
++ (CMStore *)storeWithUser:(nullable CMUser *)theUser baseURL:(nullable NSString *)url;
 
 /**
  * Note that you must have already initialized the
@@ -166,7 +168,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * base URL by default.
  * @see CMAPICredentials
  */
-- (instancetype)initWithBaseURL:(NSString *)url;
+- (instancetype)initWithBaseURL:(nullable NSString *)url;
 
 /**
  * Constructor that configures this store with a user.
@@ -178,7 +180,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * @see CMAPICredentials
  * @see CMUser
  */
-- (instancetype)initWithUser:(CMUser *)theUser;
+- (instancetype)initWithUser:(nullable CMUser *)theUser;
 
 /**
  * Constructor that configures this store with a user.
@@ -192,7 +194,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * @see CMAPICredentials
  * @see CMUser
  */
-- (instancetype)initWithUser:(CMUser *)theUser baseURL:(NSString *)url;
+- (instancetype)initWithUser:(nullable CMUser *)theUser baseURL:(nullable NSString *)url;
 
 /**
  *  Registers you application for push notifications.
@@ -282,7 +284,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  *
  * @see CMStoreOptions
  */
-- (void)allObjectsWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
+- (void)allObjectsWithOptions:(nullable CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
 
 /**
  * Downloads all user-level objects for your app's CloudMine object store. The store must be configured
@@ -295,7 +297,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  *
  * @see CMStoreOptions
  */
-- (void)allUserObjectsWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
+- (void)allUserObjectsWithOptions:(nullable CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
 
 /**
  * Downloads all ACLs associated with the store's user
@@ -318,7 +320,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  *
  * @see CMStoreOptions
  */
-- (void)objectsWithKeys:(NSArray *)keys additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
+- (void)objectsWithKeys:(NSArray *)keys additionalOptions:(nullable CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
 
 /**
  * Downloads user-level objects for your app's CloudMine object store with the given keys. The store must be configured
@@ -332,7 +334,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  *
  * @see CMStoreOptions
  */
-- (void)userObjectsWithKeys:(NSArray *)keys additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
+- (void)userObjectsWithKeys:(NSArray *)keys additionalOptions:(nullable CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
 
 /**
  * Downloads app-level objects of the given class from your app's CloudMine object store.
@@ -346,7 +348,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * @see CMStoreOptions
  * @see CMSerializable#className
  */
-- (void)allObjectsOfClass:(Class)klass additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
+- (void)allObjectsOfClass:(Class)klass additionalOptions:(nullable CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
 
 /**
  * Downloads user-level objects of the given class from your app's CloudMine object store. The store must be configured
@@ -361,7 +363,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * @see CMStoreOptions
  * @see CMSerializable#className
  */
-- (void)allUserObjectsOfClass:(Class)klass additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
+- (void)allUserObjectsOfClass:(Class)klass additionalOptions:(nullable CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
 
 /**
  * Performs a search across all app-level objects in your app's CloudMine object store.
@@ -373,7 +375,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * @see CMStoreOptions
  * @see https://cloudmine.io/docs/api#query_syntax
  */
-- (void)searchObjects:(NSString *)query additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
+- (void)searchObjects:(NSString *)query additionalOptions:(nullable CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
 
 /**
  * Performs a search across all user-level objects in your app's CloudMine object store. The store must be configured
@@ -388,7 +390,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * @see CMStoreOptions
  * @see https://cloudmine.io/docs/api#query_syntax
  */
-- (void)searchUserObjects:(NSString *)query additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
+- (void)searchUserObjects:(NSString *)query additionalOptions:(nullable CMStoreOptions *)options callback:(CMStoreObjectFetchCallback)callback;
 
 /**
  * Performs a search across all ACLs owned by the user of the store The store must be configured
@@ -413,7 +415,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  *
  * @see https://cloudmine.io/docs/ios/reference#app_files
  */
-- (void)fileWithName:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileFetchCallback)callback;
+- (void)fileWithName:(NSString *)name additionalOptions:(nullable CMStoreOptions *)options callback:(CMStoreFileFetchCallback)callback;
 
 /**
  * Downloads a user-level binary file from your app's CloudMine data store. The store must be configured
@@ -427,7 +429,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  *
  * @see https://cloudmine.io/docs/ios/reference#app_files
  */
-- (void)userFileWithName:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileFetchCallback)callback;
+- (void)userFileWithName:(NSString *)name additionalOptions:(nullable CMStoreOptions *)options callback:(CMStoreFileFetchCallback)callback;
 
 /**
  * Saves all the objects (user- and app-level) in the store with your app's CloudMine data store. User-level objects
@@ -445,7 +447,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * @param options Use these options to specify a server-side function to call after persisting the objects. Only CMStoreOptions#serverSideFunction is used.
  * @param callback The callback to be triggered when all the objects are finished uploading.
  */
-- (void)saveAllWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+- (void)saveAllWithOptions:(nullable CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
 
 /**
  * Saves all the app-level objects in the store to your app's CloudMine data store.
@@ -460,7 +462,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * @param options Use these options to specify a server-side function to call after persisting the objects. Only CMStoreOptions#serverSideFunction is used.
  * @param callback The callback to be triggered when all the objects are finished uploading.
  */
-- (void)saveAllAppObjectsWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+- (void)saveAllAppObjectsWithOptions:(nullable CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
 
 /**
  * Saves all the user-objects in the store to your app's CloudMine data store. The store must be configured
@@ -481,7 +483,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  *
  * @throws NSException An exception will be raised if this method is called when a user is not configured for this store.
  */
-- (void)saveAllUserObjectsWithOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+- (void)saveAllUserObjectsWithOptions:(nullable CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
 
 /**
  * Saves all the ACLs in the local store to CloudMine. The store must be configured
@@ -518,7 +520,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  *
  * @see CMObject#store
  */
-- (void)saveObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+- (void)saveObject:(CMObject *)theObject additionalOptions:(nullable CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
 
 /**
  * Saves an individual object to your app's CloudMine data store at the user-level. The store must be configured
@@ -549,7 +551,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  *
  * @see CMObject#store
  */
-- (void)saveUserObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+- (void)saveUserObject:(CMObject *)theObject additionalOptions:(nullable CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
 
 /**
  * Replaces an individual object to your app's CloudMine data store at the app-level. If this object doesn't
@@ -574,7 +576,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  *
  * @see CMObject#store
  */
-- (void)replaceObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+- (void)replaceObject:(CMObject *)theObject additionalOptions:(nullable CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
 
 /**
  * Replaces an array of object to your app's CloudMine data store at the app-level. If these objects doesn't
@@ -587,7 +589,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  *
  * @see CMObject#store
  */
-- (void)replaceObjects:(NSArray *)objects additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+- (void)replaceObjects:(NSArray *)objects additionalOptions:(nullable CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
 
 /**
  * Replaces an individual object to your app's CloudMine data store at the user-level. If this object doesn't
@@ -616,7 +618,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  *
  * @see CMObject#store
  */
-- (void)replaceUserObject:(CMObject *)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+- (void)replaceUserObject:(CMObject *)theObject additionalOptions:(nullable CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
 
 /**
  * Replaces an array of object to your app's CloudMine data store at the user-level. If these objects doesn't
@@ -629,7 +631,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  *
  * @see CMObject#store
  */
-- (void)replaceUserObjects:(NSArray *)objects additionalOptions:(CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
+- (void)replaceUserObjects:(NSArray *)objects additionalOptions:(nullable CMStoreOptions *)options callback:(CMStoreObjectUploadCallback)callback;
 
 /**
  * Saves an individual ACL to CloudMine's data store. The store must be configured with a user or else calling
@@ -686,7 +688,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
  * @param callback The callback to be triggered after the object has been deleted.
  */
-- (void)deleteObject:(id<CMSerializable>)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback;
+- (void)deleteObject:(id<CMSerializable>)theObject additionalOptions:(nullable CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback;
 
 /**
  * Saves a file to your app's CloudMine data store at the app-level. This works by streaming the contents of the
@@ -699,7 +701,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  *
  * @see https://cloudmine.io/docs/ios/reference#app_files
  */
-- (void)saveFileAtURL:(NSURL *)url additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
+- (void)saveFileAtURL:(NSURL *)url additionalOptions:(nullable CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
 
 /**
  * Saves a file to your app's CloudMine data store at the app-level. This works by streaming the contents of the
@@ -713,7 +715,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  *
  * @see https://cloudmine.io/docs/ios/reference#app_files
  */
-- (void)saveFileAtURL:(NSURL *)url named:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
+- (void)saveFileAtURL:(NSURL *)url named:(nullable NSString *)name additionalOptions:(nullable CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
 
 /**
  * Saves a file to your app's CloudMine data store at the user-level. The store must be configured
@@ -729,7 +731,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  *
  * @see https://cloudmine.io/docs/ios/reference#app_files
  */
-- (void)saveUserFileAtURL:(NSURL *)url additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
+- (void)saveUserFileAtURL:(NSURL *)url additionalOptions:(nullable CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
 
 /**
  * Saves a file to your app's CloudMine data store at the user-level. The store must be configured
@@ -746,7 +748,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  *
  * @see https://cloudmine.io/docs/ios/reference#app_files
  */
-- (void)saveUserFileAtURL:(NSURL *)url named:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
+- (void)saveUserFileAtURL:(NSURL *)url named:(nullable NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
 
 /**
  * Saves a file to your app's CloudMine data store at the app-level. This uses the raw data of the file's contents
@@ -758,7 +760,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  *
  * @see https://cloudmine.io/docs/ios/reference#app_files
  */
-- (void)saveFileWithData:(NSData *)data additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
+- (void)saveFileWithData:(NSData *)data additionalOptions:(nullable CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
 
 /**
  * Saves a file to your app's CloudMine data store at the app-level. This uses the raw data of the file's contents
@@ -771,7 +773,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  *
  * @see https://cloudmine.io/docs/ios/reference#app_files
  */
-- (void)saveFileWithData:(NSData *)data named:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
+- (void)saveFileWithData:(NSData *)data named:(nullable NSString *)name additionalOptions:(nullable CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
 
 /**
  * Saves a file to your app's CloudMine data store at the user-level. The store must be configured
@@ -787,7 +789,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  *
  * @see https://cloudmine.io/docs/ios/reference#app_files
  */
-- (void)saveUserFileWithData:(NSData *)data additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
+- (void)saveUserFileWithData:(NSData *)data additionalOptions:(nullable CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
 
 /**
  * Saves a file to your app's CloudMine data store at the user-level. The store must be configured
@@ -803,7 +805,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  *
  * @see https://cloudmine.io/docs/ios/reference#app_files
  */
-- (void)saveUserFileWithData:(NSData *)data named:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
+- (void)saveUserFileWithData:(NSData *)data named:(nullable NSString *)name additionalOptions:(nullable CMStoreOptions *)options callback:(CMStoreFileUploadCallback)callback;
 
 /**
  * Deletes the given app-level file from your app's CloudMine data store.
@@ -814,7 +816,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  *
  * @see https://cloudmine.io/docs/ios/reference#app_files
  */
-- (void)deleteFileNamed:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback;
+- (void)deleteFileNamed:(NSString *)name additionalOptions:(nullable CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback;
 
 /**
  * Deletes the given user-level file from your app's CloudMine data store. The store must be configured
@@ -828,7 +830,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  *
  * @see https://cloudmine.io/docs/ios/reference#app_files
  */
-- (void)deleteUserFileNamed:(NSString *)name additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback;
+- (void)deleteUserFileNamed:(NSString *)name additionalOptions:(nullable CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback;
 
 /**
  * Deletes the given user-level object from your app's CloudMine data store and removes the object from this store. The store must be configured
@@ -841,7 +843,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
  * @param callback The callback to be triggered when the object has been deleted.
  */
-- (void)deleteUserObject:(id<CMSerializable>)theObject additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback;
+- (void)deleteUserObject:(id<CMSerializable>)theObject additionalOptions:(nullable CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback;
 
 /**
  * Deletes the given ACL from CloudMine's data store and removes the acl from this store. The store must be configured
@@ -865,7 +867,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
  * @param callback The callback to be triggered when the objects have been deleted.
  */
-- (void)deleteObjects:(NSArray *)objects additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback;
+- (void)deleteObjects:(NSArray *)objects additionalOptions:(nullable CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback;
 
 /**
  * Deletes all the given user-level objects from your app's CloudMine data store and removes the object from this store. The store must be configured
@@ -878,7 +880,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * @param options Additional options, such as paging and server-side post-processing functions, to apply. This can be <tt>nil</tt>.
  * @param callback The callback to be triggered when the objects has been deleted.
  */
-- (void)deleteUserObjects:(NSArray *)objects additionalOptions:(CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback;
+- (void)deleteUserObjects:(NSArray *)objects additionalOptions:(nullable CMStoreOptions *)options callback:(CMStoreDeleteCallback)callback;
 
 /**
  * Deletes the given ACLs from CloudMine's data store and removes them from this store. The store must be configured
@@ -1012,3 +1014,5 @@ extern NSString * const CMStoreObjectDeletedNotification;
 - (CMObjectOwnershipLevel)objectOwnershipLevel:(id)theObject;
 
 @end
+
+NS_ASSUME_NONNULL_END
