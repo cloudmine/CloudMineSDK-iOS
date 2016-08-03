@@ -19,8 +19,8 @@
 /**
  * The file that was fetched.
  */
-@property (strong, nonatomic) CMFile *file;
+@property (strong, nonatomic, nullable) CMFile *file;
 
-- (instancetype)initWithFile:(CMFile *)file;
+- (nonnull instancetype)initWithFile:(nullable CMFile *)file;
 
 @end

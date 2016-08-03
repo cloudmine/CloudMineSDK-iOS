@@ -17,14 +17,14 @@
 /**
  * Dictionary keyed on object id, indicating that the deletion was successful.
  */
-@property (strong, nonatomic) NSDictionary *success;
+@property (strong, nonatomic, nullable) NSDictionary *success;
 /**
  * Dictionary keyed on object id, indicting which objects had errors.
  */
-@property (strong, nonatomic) NSDictionary *objectErrors;
+@property (strong, nonatomic, nullable) NSDictionary *objectErrors;
 
-- (instancetype)initWithSuccess:(NSDictionary *)success errors:(NSDictionary *)errors;
-- (instancetype)initWithSuccess:(NSDictionary *)success errors:(NSDictionary *)errors snippetResult:(CMSnippetResult *)snippetResult;
-- (instancetype)initWithSuccess:(NSDictionary *)success errors:(NSDictionary *)errors snippetResult:(CMSnippetResult *)snippetResult responseMetadata:(CMResponseMetadata *)metadata;
+- (nonnull instancetype)initWithSuccess:(nullable NSDictionary *)success errors:(nullable NSDictionary *)errors;
+- (nonnull instancetype)initWithSuccess:(nullable NSDictionary *)success errors:(nullable NSDictionary *)errors snippetResult:(nullable CMSnippetResult *)snippetResult;
+- (nonnull instancetype)initWithSuccess:(nullable NSDictionary *)success errors:(nullable NSDictionary *)errors snippetResult:(nullable CMSnippetResult *)snippetResult responseMetadata:(nullable CMResponseMetadata *)metadata;
 
 @end

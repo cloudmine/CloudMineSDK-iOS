@@ -21,7 +21,7 @@
  *
  * @param CMACLFetchResponse
  */
-typedef void (^CMStoreACLFetchCallback)(CMACLFetchResponse *response);
+typedef void (^CMStoreACLFetchCallback)(CMACLFetchResponse *_Nonnull response);
 
 /**
  * Callback block signature for all operations on <tt>CMStore</tt> that fetch objects
@@ -29,7 +29,7 @@ typedef void (^CMStoreACLFetchCallback)(CMACLFetchResponse *response);
  *
  * @see CMObjectFetchResponse
  */
-typedef void (^CMStoreObjectFetchCallback)(CMObjectFetchResponse *response);
+typedef void (^CMStoreObjectFetchCallback)(CMObjectFetchResponse *_Nonnull response);
 
 /**
  * Callback block signature for all operations on <tt>CMStore</tt> that upload objects
@@ -37,7 +37,7 @@ typedef void (^CMStoreObjectFetchCallback)(CMObjectFetchResponse *response);
  *
  * @see CMObjectUploadResponse
  */
-typedef void (^CMStoreObjectUploadCallback)(CMObjectUploadResponse *response);
+typedef void (^CMStoreObjectUploadCallback)(CMObjectUploadResponse *_Nonnull response);
 
 /**
  * Callback block signature for all operations on <tt>CMStore</tt> that fetch binary files
@@ -45,7 +45,7 @@ typedef void (^CMStoreObjectUploadCallback)(CMObjectUploadResponse *response);
  *
  * @see CMFileFetchResponse
  */
-typedef void (^CMStoreFileFetchCallback)(CMFileFetchResponse *response);
+typedef void (^CMStoreFileFetchCallback)(CMFileFetchResponse *_Nonnull response);
 
 /**
  * Callback block signature for operations on <tt>CMStore</tt> that upload binary files
@@ -53,11 +53,11 @@ typedef void (^CMStoreFileFetchCallback)(CMFileFetchResponse *response);
  *
  * @param CMFileUploadResponse
  */
-typedef void (^CMStoreFileUploadCallback)(CMFileUploadResponse *response);
+typedef void (^CMStoreFileUploadCallback)(CMFileUploadResponse *_Nonnull response);
 
 /**
  * Callback block signature for all operations on <tt>CMStore</tt> that delete objects or binary files.
  *
  * @see CMDeleteResponse
  */
-typedef void (^CMStoreDeleteCallback)(CMDeleteResponse *response);
+typedef void (^CMStoreDeleteCallback)(CMDeleteResponse *_Nonnull response);

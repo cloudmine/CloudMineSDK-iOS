@@ -22,10 +22,10 @@
 /**
  * The key of the newly created file.
  */
-@property (strong, nonatomic) NSString *key;
+@property (strong, nonatomic, nullable) NSString *key;
 
-- (instancetype)initWithResult:(CMFileUploadResult)result key:(NSString *)key;
-- (instancetype)initWithResult:(CMFileUploadResult)result key:(NSString *)key snippetResult:(CMSnippetResult *)snippetResult;
-- (instancetype)initWithResult:(CMFileUploadResult)result key:(NSString *)key snippetResult:(CMSnippetResult *)snippetResult responseMetadata:(CMResponseMetadata *)metadata;
+- (nonnull instancetype)initWithResult:(CMFileUploadResult)result key:(nullable NSString *)key;
+- (nonnull instancetype)initWithResult:(CMFileUploadResult)result key:(nullable NSString *)key snippetResult:(nullable CMSnippetResult *)snippetResult;
+- (nonnull instancetype)initWithResult:(CMFileUploadResult)result key:(nullable NSString *)key snippetResult:(nullable CMSnippetResult *)snippetResult responseMetadata:(nullable CMResponseMetadata *)metadata;
 
 @end
