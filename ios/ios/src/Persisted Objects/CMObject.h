@@ -28,7 +28,7 @@
  * If you manually change the store yourself, this object will automatically remove itself from the old
  * store and add it to the new store. <b>This operation is thread-safe.</b>
  */
-@property (nonatomic, unsafe_unretained) CMStore *store;
+@property (nonatomic, weak, nullable) CMStore *store;
 
 /**
  * The ownership level of this object. This reflects whether the object is app-level, user-level, or unknown.
@@ -45,19 +45,19 @@
 /**
  * The ID of the user that owns the object. This will differ from the user of the store if the object has been shared.
  */
-@property (readonly, strong, nonatomic) NSString *ownerId;
+@property (readonly, strong, nonatomic, nullable) NSString *ownerId;
 
 /**
  * Initializes this app-level object by generating a UUID as the default value for <tt>objectId</tt>.
  */
-- (instancetype)init;
+- (nonnull instancetype)init;
 
 /**
  * Initializes this app-level object with the given object ID. Note that this MUST be unique throughout your app.
  *
  * @param theObjectId The unique id of the object. This must be unique throughout the entire app.
  */
-- (instancetype)initWithObjectId:(NSString *)theObjectId;
+- (nonnull instancetype)initWithObjectId:(nonnull NSString *)theObjectId;
 
 /**
  * Default behavior does nothing other than call <tt>[self init]</tt>. Override this in your subclasses
@@ -65,7 +65,7 @@
  *
  * @see CMSerializable
  */
-- (instancetype)initWithCoder:(NSCoder *)aDecoder;
+- (nullable instancetype)initWithCoder:(nonnull NSCoder *)aDecoder;
 
 /**
  * Default behavior does nothing. Override this in your subclasses to define logic
@@ -73,7 +73,7 @@
  *
  * @see CMSerializable
  */
-- (void)encodeWithCoder:(NSCoder *)aCoder;
+- (void)encodeWithCoder:(nonnull NSCoder *)aCoder;
 
 /**
  * @deprecated
@@ -101,7 +101,7 @@
  *
  * @see CMStore#defaultStore
  */
-- (void)save:(CMStoreObjectUploadCallback)callback;
+- (void)save:(nonnull CMStoreObjectUploadCallback)callback;
 
 /**
  * Saves this object to CloudMine at the user-level associated with the given user.
@@ -114,14 +114,14 @@
  * @param user The user to associate this object with.
  * @param callback The callback block to be invoked after the save operation has completed.
  */
-- (void)saveWithUser:(CMUser *)user callback:(CMStoreObjectUploadCallback)callback;
+- (void)saveWithUser:(nullable CMUser *)user callback:(nonnull CMStoreObjectUploadCallback)callback __deprecated_msg("use -save: instead, with proper user/ownership settings on the file and store");
 
 /**
  * Gets the set of ACLs associated with the object.
  *
  * @param callback The callback block to be invoked after the get operation has completed.
  */
-- (void)getACLs:(CMStoreACLFetchCallback)callback;
+- (void)getACLs:(nonnull CMStoreACLFetchCallback)callback;
 
 /**
  * Saves the ACLs associated with this object to CloudMine. ACLs will return an 'updated' status if they have been
@@ -129,7 +129,7 @@
  *
  * @param callback The callback block to be invoked after the save operation has completed.
  */
-- (void)saveACLs:(CMStoreObjectUploadCallback)callback;
+- (void)saveACLs:(nonnull CMStoreObjectUploadCallback)callback;
 
 /**
  * Disassociates the given ACL from the object. This is not to be confused with deleting the ACL. The object
@@ -138,7 +138,7 @@
  * @param acl The ACL to be removed
  * @param callback The callback block to be invoked after the remove operation has completed.
  */
-- (void)removeACL:(CMACL *)acl callback:(CMStoreObjectUploadCallback)callback;
+- (void)removeACL:(nonnull CMACL *)acl callback:(nonnull CMStoreObjectUploadCallback)callback;
 
 /**
  * Disassociates the given ACLs from the object. This is not to be confused with deleting the ACLs. The object
@@ -147,7 +147,7 @@
  * @param acls The ACLs to be removed
  * @param callback The callback block to be invoked after the remove operation has completed.
  */
-- (void)removeACLs:(NSArray *)acls callback:(CMStoreObjectUploadCallback)callback;
+- (void)removeACLs:(nonnull NSArray *)acls callback:(nonnull CMStoreObjectUploadCallback)callback;
 
 /**
  * Saves the given ACL and associates it with the object. The ACL will return an 'updated' status if it has been
@@ -156,7 +156,7 @@
  * @param acl The ACL to be added
  * @param callback The callback block to be invoked after the add operation has completed.
  */
-- (void)addACL:(CMACL *)acl callback:(CMStoreObjectUploadCallback)callback;
+- (void)addACL:(nonnull CMACL *)acl callback:(nonnull CMStoreObjectUploadCallback)callback;
 
 /**
  * Saves the given ACLs and associates them with the object. The ACLs will return an 'updated' status if they has been
@@ -165,7 +165,7 @@
  * @param acls The ACLs to be added
  * @param callback The callback block to be invoked after the add operation has completed.
  */
-- (void)addACLs:(NSArray *)acls callback:(CMStoreObjectUploadCallback)callback;
+- (void)addACLs:(nonnull NSArray *)acls callback:(nonnull CMStoreObjectUploadCallback)callback;
 
 /**
  * Takes an ACL ID (NSString), and adds it to the internal ACL Array. This translates to the 
@@ -176,7 +176,7 @@
  *
  * @param object - The ACL ID to add
  */
-- (void)addAclId:(NSString *)object;
+- (void)addAclId:(nonnull NSString *)object;
 
 /**
  * Takes an Array of ACL ID's (NSString), and adds them to the internal ACL Array. This translates to the
@@ -186,6 +186,6 @@
  *
  * @param objects - The Array of ACL ID's (NSString's) to add
  */
-- (void)addAclIds:(NSArray *)objects;
+- (void)addAclIds:(nonnull NSArray *)objects;
 
 @end
