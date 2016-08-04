@@ -18,12 +18,12 @@
 /**
  * The raw data of the file.
  */
-@property (atomic, strong, readonly) NSData *fileData;
+@property (atomic, strong, nullable, readonly) NSData *fileData;
 
 /**
  * A human-readable filename. This is how you will perform requests for specific files.
  */
-@property (nonatomic, strong) NSString *fileName;
+@property (nonatomic, strong, nonnull) NSString *fileName;
 
 /**
  * @deprecated
@@ -31,25 +31,25 @@
  *
  * @warning If you are accessing the cache directly, you can not rely on files to be there. In future versions of the SDK, caching will be handled internally.
  */
-@property (nonatomic, readonly) NSURL *cacheLocation __deprecated_msg("If you are accessing the cache directly, you can not rely on files to be there. In future versions of the SDK, caching will be handled internally.");
+@property (nonatomic, nonnull, readonly) NSURL *cacheLocation __deprecated_msg("If you are accessing the cache directly, you can not rely on files to be there. In future versions of the SDK, caching will be handled internally.");
 
 /**
  * The user who owns this file.
  */
-@property (nonatomic, readonly) CMUser *user;
+@property (nonatomic, nullable, readonly) CMUser *user;
 
 /**
  * The MIME type of this file. This SDK comes with a built-in dictionary of common MIME types. You can
  * look up a MIME type via its file extension using CMMimeType#mimeTypeForExtension:
  * Defaults to "application/octet-stream".
  */
-@property (nonatomic, strong) NSString *mimeType;
+@property (nonatomic, strong, nonnull) NSString *mimeType;
 
 /**
  * The unique identifier for this file. This is used to ensure caches on the filesystem don't stomp each other.
  * This is auto-generated.
  */
-@property (nonatomic, readonly) NSString *uuid;
+@property (nonatomic, nonnull, readonly) NSString *uuid;
 
 /**
  * The store that the file belongs to. If you have not explicitly assigned this file to a store, it
@@ -58,7 +58,7 @@
  * If you manually change the store yourself, this file will automatically remove itself from the old
  * store and add it to the new store. <b>This operation is thread-safe.</b>
  */
-@property (nonatomic, assign) CMStore *store;
+@property (nonatomic, nullable, assign) CMStore *store;
 
 /**
  * The ownership level of this object. This reflects whether the object is app-level, user-level, or unknown.
@@ -72,7 +72,7 @@
  * @param theFileData The file's raw data.
  * @param theName The human-readable name of the file. This must be unique in your app, just like when there are many files in the same directory on a filesystem.
  */
-- (instancetype)initWithData:(NSData *)theFileData named:(NSString *)theName;
+- (nonnull instancetype)initWithData:(nonnull NSData *)theFileData named:(nonnull NSString *)theName;
 
 /**
  * Creates a new file instance with data.
@@ -81,7 +81,7 @@
  * @param theName The human-readable name of the file. This must be unique in your app, just like when there are many files in the same directory on a filesystem.
  * @param theMimeType The MIME type of this file. Common MIME types keyed on file extensions can be accessed via CMMimeType#mimeTypeForExtension:. Defaults to <tt>application/octet-stream</tt>.
  */
-- (instancetype)initWithData:(NSData *)theFileData named:(NSString *)theName mimeType:(NSString *)theMimeType NS_DESIGNATED_INITIALIZER;;
+- (nonnull instancetype)initWithData:(nonnull NSData *)theFileData named:(nonnull NSString *)theName mimeType:(nullable NSString *)theMimeType NS_DESIGNATED_INITIALIZER;;
 
 /**
  * @deprecated
@@ -90,9 +90,9 @@
  *
  * The non-deprecated constructor to use is CMFile#initWithData:named:mimeType:.
  */
-- (instancetype)initWithData:(NSData *)theFileData named:(NSString *)theName belongingToUser:(CMUser *)theUser mimeType:(NSString *)theMimeType __attribute__((deprecated));
+- (nonnull instancetype)initWithData:(nonnull NSData *)theFileData named:(nonnull NSString *)theName belongingToUser:(nullable CMUser *)theUser mimeType:(nullable NSString *)theMimeType __attribute__((deprecated));
 
-- (instancetype)init NS_UNAVAILABLE;
+- (null_unspecified instancetype)init NS_UNAVAILABLE;
 
 /**
  * @deprecated
@@ -104,10 +104,18 @@
  * Writes this object to a specific filesystem location. <strong>You typically shouldn't need to invoke this method yourself.</strong>
  *
  * @param url The NSURL of the location on the filesystem to write the file.
+ * @return <tt>YES</tt> if the write operation was successful, <tt>NO</tt> otherwise.
+ */
+- (BOOL)writeToLocation:(nonnull NSURL *)url;
+
+/**
+ * Writes this object to a specific filesystem location. <strong>You typically shouldn't need to invoke this method yourself.</strong>
+ *
+ * @param url The NSURL of the location on the filesystem to write the file.
  * @param options File writing options.
  * @return <tt>YES</tt> if the write operation was successful, <tt>NO</tt> otherwise.
  */
-- (BOOL)writeToLocation:(NSURL *)url options:(NSFileWrapperWritingOptions)options;
+- (BOOL)writeToLocation:(nonnull NSURL *)url options:(NSFileWrapperWritingOptions)options __deprecated_msg("use -writeToLocation: instead");;;
 
 /**
  * @deprecated
@@ -134,7 +142,7 @@
  *
  * @see CMStore#defaultStore
  */
-- (void)save:(CMStoreFileUploadCallback)callback;
+- (void)save:(nonnull CMStoreFileUploadCallback)callback;
 
 /**
  * Saves this file to CloudMine at the user-level associated with the given user.
@@ -147,6 +155,6 @@
  * @param user The user to associate this file with.
  * @param callback The callback block to be invoked after the save operation has completed.
  */
-- (void)saveWithUser:(CMUser *)user callback:(CMStoreFileUploadCallback)callback;
+- (void)saveWithUser:(nullable CMUser *)user callback:(nonnull CMStoreFileUploadCallback)callback __deprecated_msg("use -save: instead, with proper user/ownership settings on the file and store");
 
 @end

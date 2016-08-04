@@ -196,11 +196,17 @@ NSString * const _mimeTypeKey = @"mime";
     [coder encodeObject:mimeType forKey:_mimeTypeKey];
 }
 
-- (BOOL)writeToLocation:(NSURL *)url options:(NSFileWrapperWritingOptions)options {
+- (BOOL)writeToLocation:(NSURL *)url
+{
     return [NSKeyedArchiver archiveRootObject:self toFile:[url path]];
 }
 
-- (BOOL)writeToCache {
+- (BOOL)writeToLocation:(NSURL *)url options:(NSFileWrapperWritingOptions)options {
+    return [self writeToLocation:url];
+}
+
+- (BOOL)writeToCache
+{
     NSLog(@"*** CMFile -writeToCache is deprecated and has no effect. Please remove this call, and any direct access to the cache, from your application.");
     return NO;
 }
