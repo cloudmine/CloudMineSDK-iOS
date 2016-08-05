@@ -16,6 +16,6 @@
 /**
  * The created user.
  */
-@property (nonatomic, strong) CMUser *user;
+@property (nonatomic, strong, nullable) CMUser *user;
 
 @end
