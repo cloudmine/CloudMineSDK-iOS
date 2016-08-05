@@ -15,6 +15,8 @@
 
 @class CMCardPayment, CMUserResponse, ACAccount, CMObjectFetchResponse;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /** Social network identifier for Facebook */
 extern NSString * const CMSocialNetworkFacebook;
 
@@ -75,7 +77,13 @@ FOUNDATION_EXPORT NSString * const CMUserDefaultsLocalSaveKey;
  * Use the convenience functions <tt>CMUserAccountOperationSuccessful</tt> and <tt>CMUserAccountOperationFailed</tt>
  * to help you see if <tt>resultCode</tt> represents success or failure.
  */
-typedef void (^CMUserOperationCallback)(CMUserAccountResult resultCode, NSArray *messages);
+typedef void (^CMUserOperationCallback)(CMUserAccountResult resultCode, NSArray *_Nonnull messages);
+
+/**
+ * The block callback for all social user account operations that take place on an instance of <tt>CMUser</tt>.
+ * The block returns <tt>void</tt> and takes a <tt>CMUserResponse</tt> representing the reuslt of the operation.
+ */
+typedef void(^CMUserSocialOperationCallbak)(CMUserResponse *_Nonnull response);
 
 /**
  * The block callback for any user account operation that involves fetching one or more user profiles. The block returns <tt>void</tt>
@@ -83,9 +91,9 @@ typedef void (^CMUserOperationCallback)(CMUserAccountResult resultCode, NSArray 
  * the server sent back. The second parameter will always be an empty dictionary except when using CMUser#userWithIdentifier:callback:, in which case
  * that will be the place where the "not found" error is recorded.
  */
-typedef void (^CMUserFetchCallback)(NSArray *users, NSDictionary *errors);
+typedef void (^CMUserFetchCallback)(NSArray *_Nonnull users, NSDictionary *_Nullable errors);
 
-typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
+typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *_Nonnull response);
 
 /**
  * Representation of an end-user in CloudMine. This class manages session state (i.e. tokens and all that).
@@ -105,33 +113,33 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
  *
  * <strong>Note:</strong> This variable now maps directly to email, and will be removed at a futre date. Please use email instead.
  */
-@property (atomic, strong) NSString *userId __deprecated_msg("Use 'email' instead");
+@property (atomic, strong, nullable) NSString *userId __deprecated_msg("Use 'email' instead");
 
 /**
  * The user's email (the new User ID).
  */
-@property (atomic, strong) NSString *email;
+@property (atomic, strong, nullable) NSString *email;
 
 /**
  * The user's plaintext password.
  */
-@property (atomic, strong) NSString *password;
+@property (atomic, strong, nullable) NSString *password;
 
 /**
  * The user's plaintext password
  */
-@property (atomic, strong) NSString *username;
+@property (atomic, strong, nullable) NSString *username;
 
 /**
  * The user's session token, as assigned after a successful login operation.
  * When setting this property, CMUser#password will be set to <tt>nil</tt> for security reasons.
  */
-@property (atomic, strong) NSString *token;
+@property (atomic, strong, nullable) NSString *token;
 
 /**
  * The date and time at which the session token is no longer valid.
  */
-@property (atomic, strong) NSDate *tokenExpiration;
+@property (atomic, strong, nullable) NSDate *tokenExpiration;
 
 /**
  * <tt>YES</tt> when the user's account and profile have been created server-side. If <tt>NO</tt>, it means the user exists only locally in your app.
@@ -155,7 +163,7 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
 /**
  * The social services the user has linked their profile to.
  */
-@property (atomic, strong) NSArray *services;
+@property (atomic, strong, nullable) NSArray *services;
 
 
 /**
@@ -171,29 +179,29 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
  *
  * <strong>DEPRECATED:</strong> Now use <tt>initWithEmail:andPassword:</tt> instead.
  */
-- (instancetype)initWithUserId:(NSString *)userId andPassword:(NSString *)password __deprecated_msg("Use -initWithEmail:andPassword: instead");
+- (instancetype)initWithUserId:(nullable NSString *)userId andPassword:(nullable NSString *)password __deprecated_msg("Use -initWithEmail:andPassword: instead");
 
 /**
  * Initialize the user with an email address and password.
  */
-- (instancetype)initWithEmail:(NSString *)theEmail andPassword:(NSString *)thePassword;
+- (instancetype)initWithEmail:(nullable NSString *)theEmail andPassword:(nullable NSString *)thePassword;
 
 /**
  * Initialize the user with a Username and password.
  */
-- (instancetype)initWithUsername:(NSString *)theUsername andPassword:(NSString *)thePassword;
+- (instancetype)initWithUsername:(nullable NSString *)theUsername andPassword:(nullable NSString *)thePassword;
 
 /**
  * Initialize the user with an email, username, and password.
  *
  * <strong>DEPRECATED:</strong> Now use <tt>initWithEmail:andUsername:andPassword:</tt> instead.
  */
-- (instancetype)initWithUserId:(NSString *)theUserId andUsername:(NSString *)theUsername andPassword:(NSString *)thePassword __deprecated_msg("Use -initWithEmail:andUsername:andPassword: instead");
+- (instancetype)initWithUserId:(nullable NSString *)theUserId andUsername:(nullable NSString *)theUsername andPassword:(nullable NSString *)thePassword __deprecated_msg("Use -initWithEmail:andUsername:andPassword: instead");
 
 /**
  * Initialize the user with an email, username, and password.
  */
-- (instancetype)initWithEmail:(NSString *)theEmail andUsername:(NSString *)theUsername andPassword:(NSString *)thePassword;
+- (instancetype)initWithEmail:(nullable NSString *)theEmail andUsername:(nullable NSString *)theUsername andPassword:(nullable NSString *)thePassword;
 
 /**
  * Logs in to social account given the Access Token associated with it. This can either be used to
@@ -208,8 +216,8 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
  */
 - (void)loginWithSocialNetwork:(NSString *)network
                   accessToken:(NSString *)accessToken
-                   descriptors:(NSArray *)descriptors
-                      callback:(void (^) (CMUserResponse *response) )callback;
+                   descriptors:(nullable NSArray *)descriptors
+                      callback:(CMUserSocialOperationCallbak)callback;
 
 /**
  * Logs in to social account given the Token and Secret associated with it. This can either be used to
@@ -226,8 +234,8 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
 - (void)loginWithSocialNetwork:(NSString *)network
                     oauthToken:(NSString *)oauthToken
               oauthTokenSecret:(NSString *)oauthTokenSecret
-                   descriptors:(NSArray *)descriptors
-                      callback:(void (^) (CMUserResponse *response) )callback;
+                   descriptors:(nullable NSArray *)descriptors
+                      callback:(CMUserSocialOperationCallbak)callback;
 
 /**
  * Logs in to social account given a dictionary of credentials. This can either be used to
@@ -244,8 +252,8 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
  */
 - (void)loginWithSocialNetwork:(NSString *)network
                    credentials:(NSDictionary *)credentials
-                   descriptors:(NSArray *)descriptors
-                      callback:(void (^) (CMUserResponse *response) )callback;
+                   descriptors:(nullable NSArray *)descriptors
+                      callback:(CMUserSocialOperationCallbak)callback;
 
 /**
  * Creates a new user with an access_token for the user. This will create a new user, which
@@ -258,9 +266,9 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
  * @param callback The block that will be called on completion of the operation.
  */
 + (void)userWithSocialNetwork:(NSString *)network
-                 accessToken:(NSString *)accessToken
-                  descriptors:(NSArray *)descriptors
-                     callback:(void (^) (CMUserResponse *response) )callback;
+                  accessToken:(NSString *)accessToken
+                  descriptors:(nullable NSArray *)descriptors
+                     callback:(CMUserSocialOperationCallbak)callback;
 
 /**
  * Logs in to social account given the Token and Secret associated with it. This can either be used to
@@ -277,8 +285,8 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
 + (void)userWithSocialNetwork:(NSString *)network
                    oauthToken:(NSString *)oauthToken
              oauthTokenSecret:(NSString *)oauthTokenSecret
-                  descriptors:(NSArray *)descriptors
-                     callback:(void (^) (CMUserResponse *response) )callback;
+                  descriptors:(nullable NSArray *)descriptors
+                     callback:(CMUserSocialOperationCallbak)callback;
 
 /**
  * Creates a new user with a dictionary of credentials. This will create a new user, which
@@ -293,8 +301,8 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
  */
 + (void)userWithSocialNetwork:(NSString *)network
                   credentials:(NSDictionary *)credentials
-                  descriptors:(NSArray *)descriptors
-                     callback:(void (^) (CMUserResponse *response) )callback;
+                  descriptors:(nullable NSArray *)descriptors
+                     callback:(CMUserSocialOperationCallbak)callback;
 
 
 /**
@@ -347,7 +355,7 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
  */
 - (CMSocialLoginViewController *)loginWithSocialNetwork:(NSString *)service
                                          viewController:(UIViewController *)viewController
-                                                 params:(NSDictionary *)params
+                                                 params:(nullable NSDictionary *)params
                                                callback:(CMUserOperationCallback)callback;
 
 
@@ -531,9 +539,9 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
  * @see CMUserAccountResult
  */
 - (void)changeUserCredentialsWithPassword:(NSString *)currentPassword
-                              newPassword:(NSString *)newPassword
-                              newUsername:(NSString *)newUsername
-                                newUserId:(NSString *)newUserId
+                              newPassword:(nullable NSString *)newPassword
+                              newUsername:(nullable NSString *)newUsername
+                                newUserId:(nullable NSString *)newUserId
                                  callback:(CMUserOperationCallback)callback __deprecated_msg("Use -changeUserCredentialsWithPassword:newPassword:newUsername:newEmail:callback: instead");
 
 /**
@@ -565,9 +573,9 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
  * @see CMUserAccountResult
  */
 - (void)changeUserCredentialsWithPassword:(NSString *)currentPassword
-                              newPassword:(NSString *)newPassword
-                              newUsername:(NSString *)newUsername
-                                 newEmail:(NSString *)newEmail
+                              newPassword:(nullable NSString *)newPassword
+                              newUsername:(nullable NSString *)newUsername
+                                 newEmail:(nullable NSString *)newEmail
                                  callback:(CMUserOperationCallback)callback;
 
 /**
@@ -625,7 +633,7 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
 
 + (void)allUserWithOptions:(CMStoreOptions *)options callback:(CMUserFetchWithMetaCallback)callback;
 
-+ (void)searchUsers:(NSString *)query options:(CMStoreOptions *)options callback:(CMUserFetchWithMetaCallback)callback;
++ (void)searchUsers:(nullable NSString *)query options:(nullable CMStoreOptions *)options callback:(CMUserFetchWithMetaCallback)callback;
 
 /**
  * Asynchronously search all profiles of users of this app for matching fields. This will download the profiles of all matching users of your app, and is useful for displaying
@@ -635,7 +643,7 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
  * @param query The search query to run against all user profiles. This is the same syntax as defined at https://cloudmine.io/docs/api#query_syntax and used by <tt>CMStore</tt>'s search methods.
  * @param callback The block that will be called on completion of the operation.
  */
-+ (void)searchUsers:(NSString *)query callback:(CMUserFetchCallback)callback;
++ (void)searchUsers:(nullable NSString *)query callback:(CMUserFetchCallback)callback;
 
 /**
  * Asynchronously fetch a single user profile object from CloudMine given its object id. You can access this via CMUser#objectId.
@@ -678,3 +686,5 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
 - (void)paymentMethods:(CMPaymentServiceCallback)callback;
 
 @end
+
+NS_ASSUME_NONNULL_END
