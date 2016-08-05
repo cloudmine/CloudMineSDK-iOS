@@ -105,7 +105,7 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
  *
  * <strong>Note:</strong> This variable now maps directly to email, and will be removed at a futre date. Please use email instead.
  */
-@property (atomic, strong) NSString *userId __attribute__((deprecated));
+@property (atomic, strong) NSString *userId __deprecated_msg("Use 'email' instead");
 
 /**
  * The user's email (the new User ID).
@@ -171,7 +171,7 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
  *
  * <strong>DEPRECATED:</strong> Now use <tt>initWithEmail:andPassword:</tt> instead.
  */
-- (instancetype)initWithUserId:(NSString *)userId andPassword:(NSString *)password __attribute__((deprecated));
+- (instancetype)initWithUserId:(NSString *)userId andPassword:(NSString *)password __deprecated_msg("Use -initWithEmail:andPassword: instead");
 
 /**
  * Initialize the user with an email address and password.
@@ -188,7 +188,7 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
  *
  * <strong>DEPRECATED:</strong> Now use <tt>initWithEmail:andUsername:andPassword:</tt> instead.
  */
-- (instancetype)initWithUserId:(NSString *)theUserId andUsername:(NSString *)theUsername andPassword:(NSString *)thePassword __attribute__((deprecated));
+- (instancetype)initWithUserId:(NSString *)theUserId andUsername:(NSString *)theUsername andPassword:(NSString *)thePassword __deprecated_msg("Use -initWithEmail:andUsername:andPassword: instead");
 
 /**
  * Initialize the user with an email, username, and password.
@@ -454,7 +454,7 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
  *
  * @see CMUserAccountResult
  */
-- (void)changeUserIdTo:(NSString *)newUserId password:(NSString *)currentPassword callback:(CMUserOperationCallback)callback __attribute__((deprecated));
+- (void)changeUserIdTo:(NSString *)newUserId password:(NSString *)currentPassword callback:(CMUserOperationCallback)callback __deprecated_msg("Use -changeEmailTo:password:callback: instead");
 
 /**
  * Asynchronously change the Email for this user. For security purposes, you must have the user enter his or her
@@ -534,7 +534,7 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
                               newPassword:(NSString *)newPassword
                               newUsername:(NSString *)newUsername
                                 newUserId:(NSString *)newUserId
-                                 callback:(CMUserOperationCallback)callback __attribute__((deprecated));
+                                 callback:(CMUserOperationCallback)callback __deprecated_msg("Use -changeUserCredentialsWithPassword:newPassword:newUsername:newEmail:callback: instead");
 
 /**
  * Asynchronously change the credentials for this user. This method can be called with any combination of new values for the user.
