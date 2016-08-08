@@ -68,8 +68,6 @@
         if (decodedObject) {
             if(![decodedObject isKindOfClass:[CMObject class]] && ![decodedObject isKindOfClass:[CMUser class]]) {
                 [[NSException exceptionWithName:@"CMInternalInconsistencyException" reason:[NSString stringWithFormat:@"Can only deserialize top-level objects that inherit from CMObject. Got %@.", NSStringFromClass([decodedObject class])] userInfo:nil] raise];
-
-                return nil;
             }
 
             // Add it to the final array of inflated objects.
@@ -79,7 +77,7 @@
         }
     }
 
-    return decodedObjects;
+    return [decodedObjects copy];
 }
 
 - (instancetype)initWithSerializedObjectRepresentation:(NSDictionary *)representation {
