@@ -89,4 +89,13 @@
     return [querySegments componentsJoinedByString:@"&"];
 }
 
+- (NSString *)functionName
+{
+    if (nil == functionName) {
+        return @"";
+    }
+
+    return functionName;
+}
+
 @end
