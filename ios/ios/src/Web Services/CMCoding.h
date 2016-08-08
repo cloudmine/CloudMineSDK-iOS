@@ -24,6 +24,6 @@
  *
  * @return The name of the class.
  */
-+ (NSString *)className;
++ (nonnull NSString *)className;
 
 @end
