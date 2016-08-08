@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 extern NSString * const CMPagingDescriptorLimitKey;
 extern NSString * const CMPagingDescriptorSkipKey;
 extern NSString * const CMPagingDescriptorCountKey;
@@ -28,3 +30,5 @@ extern NSString * const CMPagingDescriptorCountKey;
 - (NSString *)stringRepresentation;
 
 @end
+
+NS_ASSUME_NONNULL_END
