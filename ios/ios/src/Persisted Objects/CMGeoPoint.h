@@ -10,6 +10,8 @@
 #include <math.h>
 #import "CMObject.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 extern NSString * const CMGeoPointClassName;
 
 @interface CMGeoPoint : CMObject
@@ -44,7 +46,8 @@ extern NSString * const CMGeoPointClassName;
  */
 - (instancetype)initWithCLLocation:(CLLocation *)location;
 
--(instancetype)initWithObjectId:(NSString *)theObjectId NS_UNAVAILABLE;
+- (instancetype)initWithObjectId:(NSString *)theObjectId NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
 
 /**
  * The latitude in degrees.
@@ -57,3 +60,5 @@ extern NSString * const CMGeoPointClassName;
 @property (atomic, assign) double longitude;
 
 @end
+
+NS_ASSUME_NONNULL_END
