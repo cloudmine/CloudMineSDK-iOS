@@ -11,6 +11,8 @@
 #import <Foundation/Foundation.h>
 #import "CMSerializable.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 extern NSString * const CMDateClassName;
 
 /**
@@ -36,3 +38,5 @@ extern NSString * const CMDateClassName;
 - (instancetype)initWithDate:(NSDate *)theDate NS_DESIGNATED_INITIALIZER;
 
 @end
+
+NS_ASSUME_NONNULL_END
