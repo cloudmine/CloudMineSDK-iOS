@@ -8,13 +8,13 @@
 
 #import "CMObject.h"
 
-FOUNDATION_EXPORT NSString *const CMCardPaymentTypeVisa;
-FOUNDATION_EXPORT NSString *const CMCardPaymentTypeMasterCard;
-FOUNDATION_EXPORT NSString *const CMCardPaymentTypeAmericanExpress;
-FOUNDATION_EXPORT NSString *const CMCardPaymentTypeDinersClub;
-FOUNDATION_EXPORT NSString *const CMCardPaymentTypeDiscover;
-FOUNDATION_EXPORT NSString *const CMCardPaymentTypeJCB;
-FOUNDATION_EXPORT NSString *const CMCardPaymentTypeUnknown;
+FOUNDATION_EXPORT NSString *_Nonnull const CMCardPaymentTypeVisa;
+FOUNDATION_EXPORT NSString *_Nonnull const CMCardPaymentTypeMasterCard;
+FOUNDATION_EXPORT NSString *_Nonnull const CMCardPaymentTypeAmericanExpress;
+FOUNDATION_EXPORT NSString *_Nonnull const CMCardPaymentTypeDinersClub;
+FOUNDATION_EXPORT NSString *_Nonnull const CMCardPaymentTypeDiscover;
+FOUNDATION_EXPORT NSString *_Nonnull const CMCardPaymentTypeJCB;
+FOUNDATION_EXPORT NSString *_Nonnull const CMCardPaymentTypeUnknown;
 
 /**
  * This holds "Whatever information Derek needs to make the payment happen."
@@ -25,10 +25,10 @@ FOUNDATION_EXPORT NSString *const CMCardPaymentTypeUnknown;
  */
 @interface CMCardPayment : CMObject
 
-@property (nonatomic, copy) NSString *nameOnCard;
-@property (nonatomic, copy) NSString *token;
-@property (nonatomic, copy) NSString *expirationDate; //0914
-@property (nonatomic, copy) NSString *last4Digits;
-@property (nonatomic, copy) NSString *type;
+@property (nonatomic, copy, nullable) NSString *nameOnCard;
+@property (nonatomic, copy, nullable) NSString *token;
+@property (nonatomic, copy, nullable) NSString *expirationDate; //0914
+@property (nonatomic, copy, nullable) NSString *last4Digits;
+@property (nonatomic, copy, nullable) NSString *type;
 
 @end

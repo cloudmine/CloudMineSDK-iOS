@@ -13,12 +13,12 @@
 
 @interface CMPaymentService : NSObject
 
-@property (nonatomic, strong) CMUser *user;
+@property (nonatomic, nullable) CMUser *user;
 
 /**
  * Initialize the payment service.
  */
-- (instancetype)init;
+- (nonnull instancetype)init;
 
 /**
  * Initialize the payment service with the given user.
@@ -27,7 +27,7 @@
  *
  * @param aUser The user to initialize the service with.
  */
-- (instancetype)initWithUser:(CMUser *)aUser;
+- (nonnull instancetype)initWithUser:(nullable CMUser *)aUser;
 
 /**
  * Start a transaction with the given cart and payment info.
@@ -35,18 +35,18 @@
  * @param cart This object can be anything you want. It is serialized into JSON.
  *
  */
-- (void)initializeTransactionWithCart:(id)cart paymentInfo:(CMCardPayment *)paymentInfo descriptors:(NSArray *)descriptors callback:(CMPaymentServiceCallback)callback;
+- (void)initializeTransactionWithCart:(nonnull id)cart paymentInfo:(nonnull CMCardPayment *)paymentInfo descriptors:(nullable NSArray *)descriptors callback:(nonnull CMPaymentServiceCallback)callback;
 
 /**
  * Completes the transaction started after initializeTransaction has been called.
  *
  */
-- (void)fulfillTransactionWithID:(NSString *)transactionID descriptors:(NSArray *)descriptors callback:(CMPaymentServiceCallback)callback;
+- (void)fulfillTransactionWithID:(nonnull NSString *)transactionID descriptors:(nullable NSArray *)descriptors callback:(nonnull CMPaymentServiceCallback)callback;
 
 /*
  * Charges the card at the index and processes the cart. This checks out and fulfills the order. You will probably want to use this most of the time.
  */
-- (void)chargeCardAtIndex:(NSUInteger)index cart:(id)cart callback:(CMPaymentServiceCallback)callback;
+- (void)chargeCardAtIndex:(NSUInteger)index cart:(nonnull id)cart callback:(nonnull CMPaymentServiceCallback)callback;
 
 
 @end

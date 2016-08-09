@@ -27,6 +27,6 @@ typedef NS_ENUM(NSInteger, CMPaymentResult) {
 
 @end
 
-typedef void (^CMPaymentServiceCallback)(CMPaymentResponse *response);
+typedef void (^CMPaymentServiceCallback)(CMPaymentResponse *_Nonnull response);
 
 
