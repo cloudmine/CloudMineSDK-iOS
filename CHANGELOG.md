@@ -1,4 +1,4 @@
-1.7.12 (July 26, 2016)
+1.7.12 (August 9, 2016)
 ======================
 Bugfixes:
  * CMDate now serializes and deserializes properly with NSKeyedArchiver/NSKeydUnarchiver
