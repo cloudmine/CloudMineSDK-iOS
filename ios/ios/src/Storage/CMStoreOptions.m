@@ -65,7 +65,7 @@
         [params setObject:@"true" forKey:@"shared_only"];
     }
 
-    return params;
+    return [params copy];
 }
 
 - (NSString *)stringRepresentation {
