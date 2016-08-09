@@ -16,13 +16,13 @@
 /**
  
  */
-- (void)setImageWithFileKey:(NSString *)fileKey;
+- (void)setImageWithFileKey:(nonnull NSString *)fileKey;
 
 /**
  
  */
-- (void)setImageWithFileKey:(NSString *)fileKey placeholderImage:(UIImage *)placeholderImage;
+- (void)setImageWithFileKey:(nonnull NSString *)fileKey placeholderImage:(nullable UIImage *)placeholderImage;
 
-- (void)setImageWithFileKey:(NSString *)fileKey placeholderImage:(UIImage *)placeholderImage user:(CMUser *)user;
+- (void)setImageWithFileKey:(nonnull NSString *)fileKey placeholderImage:(nullable UIImage *)placeholderImage user:(nullable CMUser *)user;
 
 @end
