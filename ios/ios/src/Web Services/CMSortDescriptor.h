@@ -6,6 +6,8 @@
 //  See LICENSE file included with SDK for details.
 //
 
+NS_ASSUME_NONNULL_BEGIN
+
 extern NSString * const CMSortAscending;
 extern NSString * const CMSortDescending;
 #define CMSortDefault [NSNull null]
@@ -16,13 +18,16 @@ extern NSString * const CMSortDescending;
 
 - (instancetype)initWithFieldsAndDirections:(NSString *)fieldsAndDirections, ...  NS_REQUIRES_NIL_TERMINATION;
 
-- (NSString *)directionOfField:(NSString *)fieldName;
+- (nullable NSString *)directionOfField:(NSString *)fieldName;
 - (NSUInteger)count;
 
 - (void)sortByField:(NSString *)fieldName;
-- (void)sortByField:(id)fieldName direction:(id)direction;
+- (void)sortByField:(id)fieldName direction:(nullable id)direction;
 - (void)stopSortingByField:(NSString *)fieldName;
 
 - (NSString *)stringRepresentation;
 
+
 @end
+
+NS_ASSUME_NONNULL_END
