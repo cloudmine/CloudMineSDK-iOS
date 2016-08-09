@@ -9,8 +9,8 @@
 /** @internal */
 @interface CMActiveUser : NSObject <NSCoding>
 
-@property (nonatomic, readonly) NSString *identifier;
+@property (nonatomic, readonly, nullable) NSString *identifier;
 
-+ (CMActiveUser *)currentActiveUser;
++ (nonnull CMActiveUser *)currentActiveUser;
 
 @end
