@@ -29,18 +29,30 @@
 
 - (instancetype)init;
 {
-    return [self initWithObjectId:[NSString stringWithUUID]];
+    self = [super init];
+    if (nil == self) return nil;
+
+    [self configureOnInitWithObjectId:[NSString stringWithUUID]];
+
+    return self;
 }
 
 - (instancetype)initWithObjectId:(NSString *)theObjectId;
 {
-    if (self = [super init]) {
-        objectId = theObjectId;
-        store = nil;
-        dirty = YES;
-        [self registerAllPropertiesForKVO];
-    }
+    self = [super init];
+    if (nil == self) return nil;
+
+    [self configureOnInitWithObjectId:theObjectId];
+
     return self;
+}
+
+- (void)configureOnInitWithObjectId:(NSString *)theObjectId
+{
+    objectId = theObjectId;
+    store = nil;
+    dirty = YES;
+    [self registerAllPropertiesForKVO];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder;

@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  For the super class
  */
-- (instancetype)initWithObjectId:(NSString *)theObjectId NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithObjectId:(NSString *)theObjectId;
 
 - (instancetype)init NS_UNAVAILABLE;
 
