@@ -142,9 +142,18 @@
  *
  * @see CMStore#defaultStore
  */
-- (void)save:(nonnull CMStoreFileUploadCallback)callback;
+- (void)save:(nullable CMStoreFileUploadCallback)callback;
 
 /**
+ * Saves this file at the user level for the currently logged in user. Calling this method on an object that has previously been saved
+ * at the App Level will result in an error.
+ *
+ * @param callback The block to be invoked after the save operation has completed.
+ */
+- (void)saveAtUserLevel:(nullable CMStoreFileUploadCallback)callback NS_SWIFT_NAME(saveAtUserLevel(_:));
+
+/**
+ * @deprecated
  * Saves this file to CloudMine at the user-level associated with the given user.
  * If this file does not belong to a store, the default store will be used.
  *
@@ -152,9 +161,11 @@
  * saved at the user-level. You must duplicate the file, change its CMFile#objectId, and then add it
  * at the user-level.
  *
- * @param user The user to associate this file with.
+ * @warning: This method is deprecated and the `user` parameter is ignored; use `-saveAtUserLevel:`
+ *
+ * @param user This parameter is ignored; use `saveAtUserLevel:` instead
  * @param callback The callback block to be invoked after the save operation has completed.
  */
-- (void)saveWithUser:(nullable CMUser *)user callback:(nonnull CMStoreFileUploadCallback)callback __deprecated_msg("use -save: instead, with proper user/ownership settings on the file and store");
+- (void)saveWithUser:(nullable CMUser *)user callback:(nonnull CMStoreFileUploadCallback)callback __deprecated_msg("use -saveAtUserLevel: instead");
 
 @end
