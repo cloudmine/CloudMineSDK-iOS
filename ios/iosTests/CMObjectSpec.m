@@ -101,10 +101,6 @@ describe(@"CMObject", ^{
             [[theBlock(^{ [obj addACL:acl callback:nil]; }) should] raise];
         });
         
-        it(@"it should always belong to a store", ^{
-            [[theValue([obj belongsToStore]) should] equal:@YES];
-        });
-        
         it(@"should properly make the objectId a string if not given a string", ^{
             NSDictionary *badDict = @{@"something": @"aValue", @"__id__" : @3424};
             CMObjectDecoder *decoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:badDict];
@@ -140,10 +136,6 @@ describe(@"CMObject", ^{
             [[theValue(obj.ownershipLevel) should] equal:theValue(CMObjectOwnershipUserLevel)];
         });
         
-        it(@"it should always belong to a store", ^{
-            [[theValue([obj belongsToStore]) should] equal:@YES];
-        });
-        
         it(@"should be able to change stores", ^{
             
             CMStore *newStore = [CMStore store];
@@ -166,11 +158,7 @@ describe(@"CMObject", ^{
     });
 
     context(@"given an object that doesn't belong to a store yet", ^{
-        
-        it(@"it should always belong to a store", ^{
-            [[theValue([obj belongsToStore]) should] equal:@YES];
-        });
-        
+    
         it(@"should save to the app-level when save: is called on the object", ^{
             [obj save:nil];
             [[theValue(obj.ownershipLevel) should] equal:theValue(CMObjectOwnershipAppLevel)];
