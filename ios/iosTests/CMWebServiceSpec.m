@@ -51,7 +51,7 @@ describe(@"CMWebService", ^{
         it(@"JSON URLs at the app level correctly", ^{
             NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.io/v1/app/%@/text", appId]];
 
-            [service getValuesForKeys:nil
+            [service getValuesForKeys:@[]
                    serverSideFunction:nil
                         pagingOptions:nil
                         sortingOptions:nil

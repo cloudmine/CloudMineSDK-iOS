@@ -86,7 +86,7 @@ describe(@"CMWebServiceIntegration", ^{
             
             CMSocialLoginViewController *controller =  [service loginWithSocial:user
                                                                     withService:CMSocialNetworkTwitter
-                                                                 viewController:nil
+                                                                 viewController:[UIViewController new]
                                                                          params:@{@"scope": @"email"}
                                                                        callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
                                                                            
@@ -96,16 +96,16 @@ describe(@"CMWebServiceIntegration", ^{
         });
         
         it(@"should fail to login a user without a valid challenge", ^{
-            [service cmSocialLoginViewController:nil completeSocialLoginWithChallenge:@"challenge"];
+            [service cmSocialLoginViewController:[CMSocialLoginViewController new] completeSocialLoginWithChallenge:@"challenge"];
         });
         
         it(@"should propogate the error back to the callback", ^{
             NSError *error = [NSError errorWithDomain:@"Domain" code:-100 userInfo:@{}];
-            [service cmSocialLoginViewController:nil hadError:error];
+            [service cmSocialLoginViewController:[CMSocialLoginViewController new] hadError:error];
         });
         
         it(@"should inform the callback it was dismissed", ^{
-            [service cmSocialLoginViewControllerWasDismissed:nil];
+            [service cmSocialLoginViewControllerWasDismissed:[CMSocialLoginViewController new]];
         });
         
     });
