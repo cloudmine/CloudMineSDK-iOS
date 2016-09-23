@@ -50,4 +50,6 @@ extern NSString *_Nonnull const CMACLSegmentLoggedIn;
  */
 @property (nonatomic, strong, nonnull) NSSet *permissions;
 
+- (void)saveAtUserLevel:(null_unspecified CMStoreObjectUploadCallback)callback NS_UNAVAILABLE;
+
 @end

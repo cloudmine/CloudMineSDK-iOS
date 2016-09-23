@@ -89,7 +89,6 @@ describe(@"CMObject", ^{
         });
 
         it(@"should throw an exception if the object is subsequently saved with a user", ^{
-            CMUser *user = [[CMUser alloc] initWithEmail:@"test@test.com" andPassword:@"pass"];
             [obj save:nil];
             [[theValue([obj ownershipLevel]) should] equal:theValue(CMObjectOwnershipAppLevel)];
             [[theBlock(^{ [obj saveAtUserLevel:nil]; }) should] raise];

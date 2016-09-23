@@ -112,7 +112,7 @@ describe(@"CMACL", ^{
     context(@"given an ACL that could be saved", ^{
         
         it(@"should be able to be saved if the store has a user", ^{
-            [acl saveWithUser:nil callback:nil];
+            [acl save:nil];
             [store.webService captureArgument:@selector(updateACL:user:successHandler:errorHandler:) atIndex:1];
             [[acl.store should] equal:[CMStore defaultStore]];
         });
