@@ -30,7 +30,7 @@ describe(@"CMWebService", ^{
     
     beforeAll(^{
         [[CMAPICredentials sharedInstance] setAppIdentifier:appId];
-        [[CMAPICredentials sharedInstance] setAppSecret:appSecret];
+        [[CMAPICredentials sharedInstance] setApiKey:appSecret];
     });
 
     beforeEach(^{

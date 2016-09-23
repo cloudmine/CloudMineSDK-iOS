@@ -19,7 +19,7 @@ describe(@"CMWebServiceIntegration", ^{
     __block CMWebService *service = nil;
     beforeAll(^{
         [[CMAPICredentials sharedInstance] setAppIdentifier:APP_ID];
-        [[CMAPICredentials sharedInstance] setAppSecret:API_KEY];
+        [[CMAPICredentials sharedInstance] setApiKey:API_KEY];
         [[CMAPICredentials sharedInstance] setBaseURL:BASE_URL];
         
         service = [[CMWebService alloc] init];

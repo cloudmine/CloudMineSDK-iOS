@@ -16,7 +16,7 @@ describe(@"CMACL Integration", ^{
     
     beforeAll(^{
         [[CMAPICredentials sharedInstance] setAppIdentifier:APP_ID];
-        [[CMAPICredentials sharedInstance] setAppSecret:API_KEY];
+        [[CMAPICredentials sharedInstance] setApiKey:API_KEY];
         [[CMAPICredentials sharedInstance] setBaseURL:BASE_URL];
     });
     

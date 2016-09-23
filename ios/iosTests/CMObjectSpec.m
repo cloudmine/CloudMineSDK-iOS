@@ -56,7 +56,7 @@ describe(@"CMObject", ^{
     __block CMStore *store;
 
     beforeAll(^{
-        [[CMAPICredentials sharedInstance] setAppSecret:@"appSecret"];
+        [[CMAPICredentials sharedInstance] setApiKey:@"appSecret"];
         [[CMAPICredentials sharedInstance] setAppIdentifier:@"appIdentifier"];
     });
 

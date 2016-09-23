@@ -48,7 +48,7 @@ describe(@"CMObject Integration", ^{
   static CMStore *store = nil;
   beforeAll(^{
     [[CMAPICredentials sharedInstance] setAppIdentifier:APP_ID];
-    [[CMAPICredentials sharedInstance] setAppSecret:API_KEY];
+    [[CMAPICredentials sharedInstance] setApiKey:API_KEY];
     [[CMAPICredentials sharedInstance] setBaseURL:BASE_URL];
     store = [CMStore store];
   });

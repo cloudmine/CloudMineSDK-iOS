@@ -26,7 +26,7 @@ describe(@"CMFile", ^{
 
     beforeEach(^{
         [[CMAPICredentials sharedInstance] setAppIdentifier:@"appId"];
-        [[CMAPICredentials sharedInstance] setAppSecret:@"appSecret"];
+        [[CMAPICredentials sharedInstance] setApiKey:@"appSecret"];
     });
 
     context(@"given an app-level CMFile instance", ^{
@@ -147,7 +147,7 @@ describe(@"CMFile", ^{
     context(@"given a user-level CMFile instance", ^{
         beforeEach(^{
             [[CMAPICredentials sharedInstance] setAppIdentifier:@"appid1234"];
-            [[CMAPICredentials sharedInstance] setAppSecret:@"appsecret1234"];
+            [[CMAPICredentials sharedInstance] setApiKey:@"appsecret1234"];
 
             store = [CMStore defaultStore];
             store.webService = [CMWebService nullMock];
