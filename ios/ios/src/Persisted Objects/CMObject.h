@@ -85,7 +85,7 @@
  * @see CMStore
  * @return <tt>true</tt> if this object belongs to any store.
  */
-- (BOOL)belongsToStore;
+- (BOOL)belongsToStore __deprecated_msg("This method will always return YES. If no store has been explicitly assigned, the default store will be used.");
 
 /**
  * Saves this object to CloudMine using its current store.
