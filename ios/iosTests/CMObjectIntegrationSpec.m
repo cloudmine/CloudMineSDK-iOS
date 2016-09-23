@@ -229,7 +229,7 @@ describe(@"CMObject Integration", ^{
           [store setUser:owner];
           testing = [[CMTestClass alloc] initWithObjectId:testingID];
           [store addUserObject:testing];
-          [testing saveWithUser:owner callback:^(CMObjectUploadResponse *response) {
+          [testing saveAtUserLevel:^(CMObjectUploadResponse *response) {
             resp = response;
           }];
         }];
@@ -487,7 +487,7 @@ describe(@"CMObject Integration", ^{
         [store addUserObject:newTest];
         
         __block CMObjectUploadResponse *resp = nil;
-        [newTest saveWithUser:owner callback:^(CMObjectUploadResponse *response) {
+        [newTest saveAtUserLevel:^(CMObjectUploadResponse *response) {
           [newACL save:^(CMObjectUploadResponse *responseACL) {
             [newTest addACL:newACL callback:^(CMObjectUploadResponse *response) {
               resp = response;

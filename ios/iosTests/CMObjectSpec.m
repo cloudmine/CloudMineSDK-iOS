@@ -92,7 +92,7 @@ describe(@"CMObject", ^{
             CMUser *user = [[CMUser alloc] initWithEmail:@"test@test.com" andPassword:@"pass"];
             [obj save:nil];
             [[theValue([obj ownershipLevel]) should] equal:theValue(CMObjectOwnershipAppLevel)];
-            [[theBlock(^{ [obj saveWithUser:user callback:nil]; }) should] raise];
+            [[theBlock(^{ [obj saveAtUserLevel:nil]; }) should] raise];
         });
         
         it(@"should throw an exception if ACLs are added to the object", ^{
@@ -182,7 +182,7 @@ describe(@"CMObject", ^{
             user.token = @"1234";
             user.tokenExpiration = [NSDate dateWithTimeIntervalSinceNow:1000.0]; // set it to the future
 
-            [obj saveWithUser:user callback:nil];
+            [obj saveAtUserLevel:nil];
             [[theValue(obj.ownershipLevel) should] equal:theValue(CMObjectOwnershipUserLevel)];
         });
     });
