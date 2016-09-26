@@ -508,7 +508,7 @@ describe(@"CMUser Integration", ^{
             __block NSArray *all = nil;
             __block NSError *error = nil;
             
-            [CMUser allUserWithOptions:nil callback:^(CMObjectFetchResponse *response) {
+            [CMUser allUserWithOptions:[CMStoreOptions new] callback:^(CMObjectFetchResponse *response) {
                 all = response.objects;
                 error = response.error;
             }];
