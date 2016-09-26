@@ -200,7 +200,7 @@ describe(@"CMFile", ^{
 
     context(@"given a file that belongs to any store", ^{
         it(@"should set its store to the CMNullStore singleton when the store is set to nil", ^{
-            CMFile *file = [[CMFile alloc] initWithData:NULL named:@"foo"];
+            CMFile *file = [[CMFile alloc] initWithData:[NSData new] named:@"foo"];
             [[file.store should] equal:[CMStore defaultStore]];
             file.store = nil;
             [[file.store should] equal:[CMNullStore nullStore]];
@@ -208,7 +208,7 @@ describe(@"CMFile", ^{
         });
         
         it(@"should properly set the ownership level", ^{
-            CMFile *file = [[CMFile alloc] initWithData:nil named:@"foo"];
+            CMFile *file = [[CMFile alloc] initWithData:[NSData new] named:@"foo"];
             [[file.store should] equal:[CMStore defaultStore]];
             file.store = nil;
             [[file.store should] equal:[CMNullStore nullStore]];
@@ -217,7 +217,7 @@ describe(@"CMFile", ^{
         });
         
         it(@"should properly set the ownership level if being set to a different, but not null, store", ^{
-            CMFile *file = [[CMFile alloc] initWithData:nil named:@"foo"];
+            CMFile *file = [[CMFile alloc] initWithData:[NSData new] named:@"foo"];
             [[file.store should] equal:[CMStore defaultStore]];
             
             CMStore *firstNewStore = [CMStore store];
@@ -234,7 +234,7 @@ describe(@"CMFile", ^{
         });
         
         it(@"should properly set the ownership level if being set to a different, but not null, store for a user", ^{
-            CMFile *file = [[CMFile alloc] initWithData:nil named:@"foo"];
+            CMFile *file = [[CMFile alloc] initWithData:[NSData new] named:@"foo"];
             [[file.store should] equal:[CMStore defaultStore]];
             
             CMUser *fakeUser = [[CMUser alloc] init];
@@ -256,7 +256,7 @@ describe(@"CMFile", ^{
         });
         
         it(@"should properly set the ownership level if being set to a different, but not null, store without setting the file first", ^{
-            CMFile *file = [[CMFile alloc] initWithData:nil named:@"foo"];
+            CMFile *file = [[CMFile alloc] initWithData:[NSData new] named:@"foo"];
             [[file.store should] equal:[CMStore defaultStore]];
 
             CMStore *firstNewStore = [CMStore store];
