@@ -98,7 +98,7 @@ describe(@"CMObject", ^{
             CMACL *acl = [[CMACL alloc] init];
             [obj save:nil];
             [[theValue([obj ownershipLevel]) should] equal:theValue(CMObjectOwnershipAppLevel)];
-            [[theBlock(^{ [obj addACL:acl callback:nil]; }) should] raise];
+            [[theBlock(^{ [obj addACL:acl callback:^(CMObjectUploadResponse * _Nonnull response) { }]; }) should] raise];
         });
         
         it(@"should properly make the objectId a string if not given a string", ^{
