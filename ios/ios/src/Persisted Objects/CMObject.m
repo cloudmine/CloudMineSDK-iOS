@@ -365,11 +365,24 @@
     
     for (RTProperty *prop in properties) {
         if (!([prop.name isEqualToString:@"description"] || [prop.name isEqualToString:@"debugDescription"] )) {
-            string = [string stringByAppendingFormat:@"\n%@: %@", prop.name, [self valueForKey:prop.name]];
+            string = [string stringByAppendingFormat:@"\n%@: %@", prop.name, [self safe_valueForKey:prop.name]];
         }
     }
     
     return string;
+}
+
+- (NSString *)safe_valueForKey:(NSString *)key
+{
+    NSString *value = @"";
+
+    @try {
+        value = [self valueForKey:key];
+    } @catch (NSException *exception) {
+        value = exception.name;
+    } @finally {
+        return value;
+    }
 }
 
 @end
