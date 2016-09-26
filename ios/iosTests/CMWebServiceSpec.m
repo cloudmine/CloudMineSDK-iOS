@@ -154,7 +154,7 @@ describe(@"CMWebService", ^{
             CMUser *creds = [[CMUser alloc] initWithEmail:@"user@test.com" andPassword:@"pass"];
             creds.token = @"token";
 
-            [service getValuesForKeys:nil
+            [service getValuesForKeys:@[]
                    serverSideFunction:nil
                         pagingOptions:nil
                        sortingOptions:nil
@@ -177,7 +177,7 @@ describe(@"CMWebService", ^{
             CMUser *creds = [[CMUser alloc] initWithEmail:@"user@test.com" andPassword:@"pass"];
             creds.token = @"token";
             
-            [service getValuesForKeys:nil
+            [service getValuesForKeys:@[]
                    serverSideFunction:nil
                         pagingOptions:nil
                        sortingOptions:nil
@@ -789,8 +789,9 @@ describe(@"CMWebService", ^{
                                           parameters:nil
                                              headers:nil
                                             withUser:user
-                                      successHandler:nil
-                                        errorHandler:nil];
+                                      successHandler:^(NSString * _Nullable results, NSDictionary * _Nullable headers) {
+                                      } errorHandler:^(NSError * _Nullable error) {
+                                      }];
             
             [[spy.argument should] equal:@"GET"];
             [service enqueueHTTPRequestOperation:nil];
@@ -1085,8 +1086,10 @@ describe(@"CMWebService", ^{
         it(@"sends the correct dev token", ^{
             
             NSString *token = @"<c7e265d1 cbd443b3 ee80fd07 c892a8b8 f20c08c4 91fa11f2 535f2cca ad7f55ef>";
+            CMUser *user = [CMUser new];
+            user.token = @"fake_token";
             
-            [service registerForPushNotificationsWithUser:nil token:(NSData *)token callback:^(CMDeviceTokenResult result) {}];
+            [service registerForPushNotificationsWithUser:user token:(NSData *)token callback:^(CMDeviceTokenResult result) {}];
             
             NSURLRequest *request = spy.argument;
             NSDictionary *requestBody = [NSJSONSerialization JSONObjectWithData:[request HTTPBody] options:0 error:nil];
@@ -1099,7 +1102,10 @@ describe(@"CMWebService", ^{
             [[service should] receive:NSSelectorFromString(@"executeRequest:resultHandler:") withCount:1];
             
             NSString *token = @"<c7e265d1 cbd443b3 ee80fd07 c892a8b8 f20c08c4 91fa11f2 535f2cca ad7f55ef>";
-            [service registerForPushNotificationsWithUser:nil token:(NSData *)token callback:^(CMDeviceTokenResult result) {
+            CMUser *user = [CMUser new];
+            user.token = @"fake_token";
+
+            [service registerForPushNotificationsWithUser:user token:(NSData *)token callback:^(CMDeviceTokenResult result) {
                 [[theValue(result) should] equal:theValue(CMDeviceTokenOperationFailed)];
             }];
             
@@ -1109,8 +1115,10 @@ describe(@"CMWebService", ^{
         });
         
         it(@"correctly sends the deregister request", ^{
+            CMUser *user = [CMUser new];
+            user.token = @"fake_token";
             
-            [service unRegisterForPushNotificationsWithUser:nil callback:^(CMDeviceTokenResult result) { }];
+            [service unRegisterForPushNotificationsWithUser:user callback:^(CMDeviceTokenResult result) { }];
             
             NSURLRequest *request = spy.argument;
             
