@@ -64,12 +64,12 @@ describe(@"CMACL", ^{
         });
         
         it(@"should raise an exception if attempting to view or modify ACLs", ^{
-            [[theBlock(^{ [acl getACLs:nil]; }) should] raiseWithName:NSInternalInconsistencyException];
-            [[theBlock(^{ [acl saveACLs:nil]; }) should] raiseWithName:NSInternalInconsistencyException];
-            [[theBlock(^{ [acl addACLs:nil callback:nil]; }) should] raiseWithName:NSInternalInconsistencyException];
-            [[theBlock(^{ [acl addACL:nil callback:nil]; }) should] raiseWithName:NSInternalInconsistencyException];
-            [[theBlock(^{ [acl removeACLs:nil callback:nil]; }) should] raiseWithName:NSInternalInconsistencyException];
-            [[theBlock(^{ [acl removeACL:nil callback:nil]; }) should] raiseWithName:NSInternalInconsistencyException];
+            [[theBlock(^{ [acl getACLs:^(CMACLFetchResponse * _Nonnull response) {}]; }) should] raiseWithName:NSInternalInconsistencyException];
+            [[theBlock(^{ [acl saveACLs:^(CMObjectUploadResponse * _Nonnull response) {}]; }) should] raiseWithName:NSInternalInconsistencyException];
+            [[theBlock(^{ [acl addACLs:@[] callback:^(CMObjectUploadResponse * _Nonnull response) {}]; }) should] raiseWithName:NSInternalInconsistencyException];
+            [[theBlock(^{ [acl addACL:[CMACL new] callback:^(CMObjectUploadResponse * _Nonnull response) {}]; }) should] raiseWithName:NSInternalInconsistencyException];
+            [[theBlock(^{ [acl removeACLs:@[] callback:^(CMObjectUploadResponse * _Nonnull response) {}]; }) should] raiseWithName:NSInternalInconsistencyException];
+            [[theBlock(^{ [acl removeACL:[CMACL new] callback:^(CMObjectUploadResponse * _Nonnull response) {}]; }) should] raiseWithName:NSInternalInconsistencyException];
         });
     });
     
