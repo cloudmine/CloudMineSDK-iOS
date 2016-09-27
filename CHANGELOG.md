@@ -1,3 +1,9 @@
+1.7.13 (September 26, 2016)
+===========================
+Bugfixes:
+  * Resolve a compiler warning caused by stricter Objective-C casting rules in Xcode 8
+  * Fix a bug in the CMObject -description method that could, in rare circumstances, cause a crash
+
 1.7.12 (August 9, 2016)
 ======================
 Bugfixes:
@@ -30,7 +36,7 @@ v1.7.5 (June 12, 2015)
 v1.7.5 (March 6, 2015)
 ======================
 * Changed all returned values to be `instancetype`
-* Fixed a bug in which a dictionary that looked like a CMObject, but shouldn't be, was deserialized to be a CMUntypedObject. Inserting `__class__: 'map'` as a Key/Value pair in your dictionaries will stop this from occuring.
+* Fixed a bug in which a dictionary that looked like a CMObject, but shouldn't be, was deserialized to be a CMUntypedObject. Inserting `__class__: 'map'` as a Key/Value pair in your dictionaries will stop this from occurring.
 
 v1.7.4 (March 5, 2015)
 ======================
