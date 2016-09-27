@@ -1,3 +1,32 @@
+1.8.0 (September 27, 2016)
+==========================
+The entire SDK has been audited and annotated for nullability. For apps written in
+Objective-C, this means you may see compiler warnings if you are not following the
+SDK's conventions for nil parameters. When using the SDK in Swift, the changes are more
+significant and may require code updates to properly compile. While this may result in
+a small upgrade process for your app, the resulting code is both safer and
+more natively "Swifty."
+
+Nullability annotations allow the SDK to be used more naturally in Swift by enforcing
+the same rules for optionals used in Swift code. In some cases, you may be unwrapping, force
+unwrapping, or implicitly unwrapping an optional in your code that is now annotated as
+nonnull. The Swift compiler will require the now unnecessary step of unwrapping be
+removed. The result of this migration is code that is simpler and safer.
+
+Though we have taken care to audit the SDK thoroughly, we welcome any reports of annotations
+which seem incorrect or edge cases that may have slipped through the cracks. Please report
+these on GitHub and/or to CloudMine support. As always, it is recommended that you test your
+app thoroughly after applying an update to this and other dependencies in your codebase.
+
+Other minor changes are included in this release:
+
+ * The `-saveWithUser:callback:` method on `CMObject` has been deprecated in favor of
+   the new `saveAtUserLevel:` method.
+ * `appSecret` has been deprecated in favor of `apiKey` on `CMAPICredentials`
+ * The designated initializers on `CMObject` have been properly annotated, resulting
+   in less boilerplate and less confustion when subclassing in Swift
+ * Minor bugfixes and improvements
+ 
 1.7.14 (October 3, 2016)
 ========================
 Resolves a bug that, in rare circumstances, could result in the file cache filling
