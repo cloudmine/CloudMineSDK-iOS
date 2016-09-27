@@ -274,7 +274,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
         return;
     }
 
-    CMAppDelegateBase *delegate = [[UIApplication sharedApplication] delegate];
+    CMAppDelegateBase *delegate = (CMAppDelegateBase *)[[UIApplication sharedApplication] delegate];
     delegate.callback = callback;
     delegate.user = aUser;
     delegate.service = self.webService;
