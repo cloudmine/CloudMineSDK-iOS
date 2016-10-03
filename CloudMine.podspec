@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.platform     = :ios, '8.0'
   s.source       = { :git => "https://github.com/cloudmine/CloudMineSDK-iOS.git", :tag => s.version.to_s }
   s.source_files  = 'ios/ios/src/**/*.{h,m}'
-  s.exclude_files = 'NSString+UUID.h', 'NSURL+QueryParameterAdditions.h', 'CMObject+Private.h', 'CMObjectClassNameRegistry.h', 'MARTNSObject.{h,m}', 'RT*.{h,m}'
+  s.exclude_files = 'CMLegacyCacheCleaner.h', 'NSString+UUID.h', 'NSURL+QueryParameterAdditions.h', 'CMObject+Private.h', 'CMObjectClassNameRegistry.h', 'MARTNSObject.{h,m}', 'RT*.{h,m}'
   s.frameworks = 'UIKit', 'CoreGraphics', 'MobileCoreServices', 'SystemConfiguration', 'CFNetwork', 'Foundation', 'CoreFoundation', 'CoreLocation', 'Social', 'Accounts'
   s.libraries = 'z'
   s.requires_arc = true

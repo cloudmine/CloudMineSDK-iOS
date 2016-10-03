@@ -8,6 +8,7 @@
 
 #import "CMAPICredentials.h"
 #import "CMConstants.h"
+#import "CMLegacyCacheCleaner.h"
 
 @implementation CMAPICredentials
 
@@ -31,6 +32,8 @@
     self.appIdentifier = appId;
     self.apiKey = apiKey;
     self.baseURL = baseURL;
+
+    [CMLegacyCacheCleaner cleanLegacyCache];
 }
 
 - (NSString *)baseURL;
