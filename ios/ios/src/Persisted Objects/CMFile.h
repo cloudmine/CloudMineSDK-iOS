@@ -26,9 +26,12 @@
 @property (nonatomic, strong) NSString *fileName;
 
 /**
+ * @deprecated
  * The automatically computed location of where the filesyste cache of this file will be stored.
+ *
+ * @warning If you are accessing the cache directly, you can not rely on files to be there. In future versions of the SDK, caching will be handled internally.
  */
-@property (nonatomic, readonly) NSURL *cacheLocation;
+@property (nonatomic, readonly) NSURL *cacheLocation __deprecated_msg("If you are accessing the cache directly, you can not rely on files to be there. In future versions of the SDK, caching will be handled internally.");
 
 /**
  * The user who owns this file.
@@ -107,11 +110,15 @@
 - (BOOL)writeToLocation:(NSURL *)url options:(NSFileWrapperWritingOptions)options;
 
 /**
+ * @deprecated
  * Writes this object to the cache location on the filesystem. This location is determined automatically depending on whether the file belongs to a user
  * or not, the type and size of the file, etc. <strong>You typically shouldn't need to invoke this method yourself.</strong>
+ *
+ * @warning Deprecated. In future versions of the SDK, caching will be handled internally. You can not rely on files to be present in the legacy location.
+ *
  * @return <tt>YES</tt> if the write was successful, <tt>NO</tt> otherwise.
  */
-- (BOOL)writeToCache;
+- (BOOL)writeToCache __deprecated_msg("In future versions of the SDK, caching will be handled internally. You can not rely on files to be present in the legacy location.");
 
 /**
  * Saves this file to CloudMine using its current store.
