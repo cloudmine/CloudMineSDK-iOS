@@ -1,3 +1,15 @@
+1.7.14 (October 3, 2016)
+========================
+Resolves a bug that, in rare circumstances, could result in the file cache filling
+up. This would only happen if enough files were downloaded to fill the cache
+while the app was still open, before the operating system had a chance to purge the
+cache directory.
+
+Because the previous caching strategy was ineffective, the existing
+caching methods on the CMFile object have been deprecated. If your app uses any
+direct access to the CloudMine cache directories, you should remove this behavior.
+In future versions of the SDK, all caching will be handled internally.
+
 1.7.13 (September 26, 2016)
 ===========================
 Bugfixes:
