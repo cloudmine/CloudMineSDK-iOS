@@ -1299,7 +1299,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
                         } else {
                             [self addFile:file];
                         }
-                        [file writeToCache];
+                        
                         CMFileFetchResponse *response = [[CMFileFetchResponse alloc] initWithFile:file];
 
                         NSDate *expirationDate = [self.dateFormatter dateFromString:[headers objectForKey:CM_TOKENEXPIRATION_HEADER]];
