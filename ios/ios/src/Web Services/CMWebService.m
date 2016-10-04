@@ -22,6 +22,7 @@
 #import "CMObjectSerialization.h"
 #import "CMSocialAccountChooser.h"
 #import "CMUserResponse.h"
+#import "CMLegacyCacheCleaner.h"
 
 #import <Accounts/Accounts.h>
 #import <Social/Social.h>
@@ -103,19 +104,23 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     if (!_validHTTPVerbs) {
         _validHTTPVerbs = [NSSet setWithObjects:@"GET", @"POST", @"PUT", @"DELETE", @"PATCH", nil];
     }
+
+    self = [super initWithBaseURL:url];
+    if (nil == self) return nil;
+
+    self.apiUrl = url.absoluteString;
     
-    if ((self = [super initWithBaseURL:url])) {
-        self.apiUrl = url.absoluteString;
-        
-        _appSecret = appSecret;
-        _appIdentifier = appIdentifier;
-        _responseTimes = [NSMutableDictionary dictionary];
-        self.responseSerializer = [AFJSONResponseSerializer serializer];
-        self.requestSerializer = [AFJSONRequestSerializer serializer];
-        
-        // Enable activity indicator in status bar
-        [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
-    }
+    _appSecret = appSecret;
+    _appIdentifier = appIdentifier;
+    _responseTimes = [NSMutableDictionary dictionary];
+    self.responseSerializer = [AFJSONResponseSerializer serializer];
+    self.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    // Enable activity indicator in status bar
+    [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
+
+    [CMLegacyCacheCleaner cleanLegacyCache];
+
     return self;
 }
 

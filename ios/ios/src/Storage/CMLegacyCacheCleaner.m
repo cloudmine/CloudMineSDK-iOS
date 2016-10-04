@@ -7,11 +7,14 @@
 + (void)cleanLegacyCache
 {
     dispatch_queue_t backgroundQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
+    static dispatch_once_t onceToken;
 
-    dispatch_async(backgroundQueue, ^{
-        for (NSString *path in [self cacheDirectories]) {
-            [self deleteDirectoryWithPath:path];
-        }
+    dispatch_once(&onceToken, ^{
+        dispatch_async(backgroundQueue, ^{
+            for (NSString *path in [self cacheDirectories]) {
+                [self deleteDirectoryWithPath:path];
+            }
+        });
     });
 }
 
