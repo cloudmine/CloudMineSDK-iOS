@@ -193,6 +193,7 @@
 		B4AD7C561C80FF6D00D9F1D1 /* RTProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = B4AD7C4D1C80FF6C00D9F1D1 /* RTProperty.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		B4AD7C571C80FF6D00D9F1D1 /* RTProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = B4AD7C4F1C80FF6C00D9F1D1 /* RTProtocol.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		B4AD7C581C80FF6D00D9F1D1 /* RTUnregisteredClass.m in Sources */ = {isa = PBXBuildFile; fileRef = B4AD7C511C80FF6C00D9F1D1 /* RTUnregisteredClass.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		B4C114D11DA2CF2B00414F35 /* CMLegacyCacheCleaner.m in Sources */ = {isa = PBXBuildFile; fileRef = B4C114D01DA2CF2B00414F35 /* CMLegacyCacheCleaner.m */; };
 		D039C16715BDEB77005CCD33 /* CMACLSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D039C16615BDEB77005CCD33 /* CMACLSpec.m */; };
 		D039C16A15BEEB44005CCD33 /* CMACLFetchResponseSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D039C16915BEEB44005CCD33 /* CMACLFetchResponseSpec.m */; };
 		D03A4D5C15B48D2200A956BC /* CMACLFetchResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D042C2E915AF41F100A88888 /* CMACLFetchResponse.h */; };
@@ -327,7 +328,7 @@
 		7A6B801014871E3700D8B211 /* CMGenericSerializableObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMGenericSerializableObject.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7A766208156307DF009840EE /* CMSortDescriptorSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMSortDescriptorSpec.m; sourceTree = "<group>"; };
 		7A7E31C314C603780091F1E3 /* CMGeoPointTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMGeoPointTest.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		7A7E31C614C88F8A0091F1E3 /* CMStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMStore.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		7A7E31C614C88F8A0091F1E3 /* CMStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMStore.h; sourceTree = "<group>"; };
 		7A7E31C714C88F8A0091F1E3 /* CMStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMStore.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7A7E31CA14C88F970091F1E3 /* CMStoreSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMStoreSpec.m; sourceTree = "<group>"; };
 		7A7EDBD9148EBE3800AB5B69 /* CMObjectSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMObjectSerialization.h; sourceTree = "<group>"; };
@@ -470,6 +471,8 @@
 		B4AD7C4F1C80FF6C00D9F1D1 /* RTProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTProtocol.m; sourceTree = "<group>"; };
 		B4AD7C501C80FF6C00D9F1D1 /* RTUnregisteredClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTUnregisteredClass.h; sourceTree = "<group>"; };
 		B4AD7C511C80FF6C00D9F1D1 /* RTUnregisteredClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTUnregisteredClass.m; sourceTree = "<group>"; };
+		B4C114CF1DA2CF2B00414F35 /* CMLegacyCacheCleaner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMLegacyCacheCleaner.h; sourceTree = "<group>"; };
+		B4C114D01DA2CF2B00414F35 /* CMLegacyCacheCleaner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMLegacyCacheCleaner.m; sourceTree = "<group>"; };
 		C3444874F77B35F0544725D1 /* Pods-cloudmine-ios.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cloudmine-ios.test.xcconfig"; path = "../Pods/Target Support Files/Pods-cloudmine-ios/Pods-cloudmine-ios.test.xcconfig"; sourceTree = "<group>"; };
 		D039C16615BDEB77005CCD33 /* CMACLSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMACLSpec.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D039C16915BEEB44005CCD33 /* CMACLFetchResponseSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMACLFetchResponseSpec.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -612,6 +615,8 @@
 				7A0D7CFA1581479000C7C476 /* CMNullStore.h */,
 				7A0D7CFB1581479000C7C476 /* CMNullStore.m */,
 				7A28005315928518002C504A /* CMObjectOwnershipLevel.h */,
+				B4C114CF1DA2CF2B00414F35 /* CMLegacyCacheCleaner.h */,
+				B4C114D01DA2CF2B00414F35 /* CMLegacyCacheCleaner.m */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -1230,6 +1235,7 @@
 				AAA05FBE183A756B009652C9 /* CMCardPayment.m in Sources */,
 				7AFDFE4A158E965400388D6E /* CMActiveUser.m in Sources */,
 				7AF00BA015A8DC650070442A /* CMACL.m in Sources */,
+				B4C114D11DA2CF2B00414F35 /* CMLegacyCacheCleaner.m in Sources */,
 				B4AD7C521C80FF6D00D9F1D1 /* MARTNSObject.m in Sources */,
 				AAA05FB9183A756B009652C9 /* CMPaymentService.m in Sources */,
 				7AF00BA115A8DC650070442A /* CMUser.m in Sources */,
@@ -1420,7 +1426,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EE1B44A5F6B4AA8E61850EFA /* Pods-cloudmine-ios.debug.xcconfig */;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 1.7.13;
+				CURRENT_PROJECT_VERSION = 1.7.14;
 				DSTROOT = /tmp/ios.dst;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
@@ -1448,7 +1454,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B2A33E73BEDE10A94973E9FE /* Pods-cloudmine-ios.release.xcconfig */;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 1.7.13;
+				CURRENT_PROJECT_VERSION = 1.7.14;
 				DSTROOT = /tmp/ios.dst;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = NO;
@@ -1574,7 +1580,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C3444874F77B35F0544725D1 /* Pods-cloudmine-ios.test.xcconfig */;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 1.7.13;
+				CURRENT_PROJECT_VERSION = 1.7.14;
 				DSTROOT = /tmp/ios.dst;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;

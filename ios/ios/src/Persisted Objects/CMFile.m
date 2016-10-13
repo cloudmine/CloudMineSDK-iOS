@@ -201,10 +201,13 @@ NSString * const _mimeTypeKey = @"mime";
 }
 
 - (BOOL)writeToCache {
-    return [self writeToLocation:[self cacheLocation] options:NSFileWrapperWritingAtomic];
+    NSLog(@"*** CMFile -writeToCache is deprecated and has no effect. Please remove this call, and any direct access to the cache, from your application.");
+    return NO;
 }
 
 - (NSURL *)cacheLocation {
+    NSLog(@"*** CMFile -cacheLocation is deprecated. Please remove any direct access to the cache from your application.");
+
     if (!cacheLocation) {
         // Get the Caches directory for the app.
         NSURL *cacheDirUrl = [[NSFileManager defaultManager] URLForDirectory:NSCachesDirectory

@@ -36,16 +36,6 @@ describe(@"CMFile", ^{
             store.webService = [CMWebService nullMock];
         });
 
-        it(@"it should calculate the cache file location correctly", ^{
-            NSString *uuid = [file valueForKey:@"uuid"];
-            NSArray *cacheLocationPathComponents = [file.cacheLocation pathComponents];
-            NSString *fileName = [cacheLocationPathComponents lastObject];
-            NSString *fileParentDirectory = [cacheLocationPathComponents objectAtIndex:[cacheLocationPathComponents count] - 2];
-
-            [[fileName should] equal:[NSString stringWithFormat:@"%@_foofile", uuid]];
-            [[fileParentDirectory should] equal:@"cmFiles"];
-        });
-
         it(@"should add itself to the new store and remove itself from the old one when a new store is assigned", ^{
             CMStore *newStore = [CMStore store];
             [[file.store should] equal:store];
@@ -149,12 +139,6 @@ describe(@"CMFile", ^{
             [[remade.objectId should] equal:fileName];
         });
         
-        it(@"should not crash when you write to a location", ^{
-            [[ theBlock(^{
-                [realFile writeToCache];
-            }) shouldNot] raise];
-        });
-        
         it(@"should properly get the object from the cache", ^{
             //uhhhh.... what.
         });
@@ -178,16 +162,6 @@ describe(@"CMFile", ^{
 
             store.user = user;
             [store addUserFile:file];
-        });
-
-        it(@"it should calculate the cache file location correctly", ^{
-            NSString *uuid = [file valueForKey:@"uuid"];
-            NSArray *cacheLocationPathComponents = [file.cacheLocation pathComponents];
-            NSString *fileName = [cacheLocationPathComponents lastObject];
-            NSString *fileParentDirectory = [cacheLocationPathComponents objectAtIndex:[cacheLocationPathComponents count] - 2];
-
-            [[fileName should] equal:[NSString stringWithFormat:@"%@_foofile", uuid]];
-            [[fileParentDirectory should] equal:@"cmUserFiles"];
         });
 
         it(@"should save at the user level when save is called directly on the object", ^{
