@@ -12,27 +12,26 @@
 
 + (NSString *)urlEncode:(NSString *)string;
 {
-    CFStringRef ret = CFURLCreateStringByAddingPercentEscapes(
+    NSString* ret = (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(
                                                               kCFAllocatorDefault,
                                                               (CFStringRef)string,
                                                               NULL,
                                                               (CFStringRef)@";/?:@&=+$,",
                                                               kCFStringEncodingUTF8
                                                               );
-    return (__bridge NSString *)(ret);
+    return ret;
 }
 
 + (NSString *)urlEncodeButLeaveQuery:(NSString *)string;
 {
-    CFStringRef ret = CFURLCreateStringByAddingPercentEscapes(
+    NSString* ret = (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(
                                                               kCFAllocatorDefault,
                                                               (CFStringRef)string,
                                                               NULL,
                                                               (CFStringRef)@";/:@+$,",
                                                               kCFStringEncodingUTF8
                                                               );
-    return (__bridge NSString *)(ret);
-    
+    return ret;
 }
 
 
