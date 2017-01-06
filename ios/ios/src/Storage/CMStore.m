@@ -26,7 +26,7 @@
 #import "CMDeleteResponse.h"
 #import "CMAppDelegateBase.h"
 
-#define _CMAssertAPICredentialsInitialized NSAssert([[CMAPICredentials sharedInstance] appSecret] != nil && [[[CMAPICredentials sharedInstance] appSecret] length] > 0 && [[CMAPICredentials sharedInstance] appIdentifier] != nil && [[[CMAPICredentials sharedInstance] appIdentifier] length] > 0, @"The CMAPICredentials singleton must be initialized before using a CloudMine Store")
+#define _CMAssertAPICredentialsInitialized NSAssert([[CMAPICredentials sharedInstance] apiKey] != nil && [[[CMAPICredentials sharedInstance] apiKey] length] > 0 && [[CMAPICredentials sharedInstance] appIdentifier] != nil && [[[CMAPICredentials sharedInstance] appIdentifier] length] > 0, @"The CMAPICredentials singleton must be initialized before using a CloudMine Store")
 #define _CMAssertUserConfigured NSAssert(user, @"You must set the user of this store to a CMUser before querying for user-level objects.")
 #define _CMUserOrNil (userLevel ? user : nil)
 #define _CMTryMethod(obj, method) (obj ? [obj method] : nil)
@@ -236,7 +236,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 - (void)registerForPushNotifications:(NSInteger)notificationType user:(CMUser *)aUser callback:(CMWebServiceDeviceTokenCallback)callback;
 {
-    [self registerForPushNotifications:notificationType categories:nil user:aUser callback:callback];
+    [self registerForPushNotifications:notificationType categories:[NSSet new] user:aUser callback:callback];
 }
 
 - (void)registerForPushNotifications:(NSInteger)notificationType categories:(NSSet *)categories user:(CMUser *)aUser callback:(CMWebServiceDeviceTokenCallback)callback;
@@ -258,7 +258,7 @@ NSString * const CMStoreObjectDeletedNotification = @"CMStoreObjectDeletedNotifi
 
 - (void)registerForPushNotificationTypes:(UIUserNotificationType)notificationTypes user:(CMUser *)aUser callback:(CMWebServiceDeviceTokenCallback)callback
 {
-    [self registerForPushNotificationTypes:notificationTypes categories:nil user:aUser callback:callback];
+    [self registerForPushNotificationTypes:notificationTypes categories:[NSSet new] user:aUser callback:callback];
 }
 
 - (void)registerForPushNotificationTypes:(UIUserNotificationType)notificationTypes categories:(NSSet <UIUserNotificationCategory *>*)categories user:(CMUser *)aUser callback:(CMWebServiceDeviceTokenCallback)callback

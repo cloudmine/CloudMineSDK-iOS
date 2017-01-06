@@ -22,9 +22,11 @@
 @class CMPagingDescriptor;
 @class CMSortDescriptor;
 
-typedef void (^CMWebServiceGenericRequestCallback)(id parsedBody, NSUInteger httpCode, NSDictionary *headers);
+NS_ASSUME_NONNULL_BEGIN
 
-typedef void (^CMWebServiceErorCallack)(id responseBody, NSUInteger httpCode, NSDictionary *headers, NSError *error, NSDictionary *errorInfo );
+typedef void (^CMWebServiceGenericRequestCallback)(id _Nullable parsedBody, NSUInteger httpCode, NSDictionary *_Nullable headers);
+
+typedef void (^CMWebServiceErorCallack)(id _Nullable responseBody, NSUInteger httpCode, NSDictionary *_Nullable headers, NSError *_Nullable error, NSDictionary *_Nullable errorInfo );
 
 
 /**
@@ -33,7 +35,7 @@ typedef void (^CMWebServiceErorCallack)(id responseBody, NSUInteger httpCode, NS
  * a dictionary of errors, a dictionary of metadata, and a dynamic snippet result as arguments.
  * These map directly with the CloudMine API response format.
  */
-typedef void (^CMWebServiceObjectFetchSuccessCallback)(NSDictionary *results, NSDictionary *errors, NSDictionary *meta, id snippetResult, NSNumber *count, NSDictionary *headers);
+typedef void (^CMWebServiceObjectFetchSuccessCallback)(NSDictionary *_Nullable results, NSDictionary *_Nullable errors, NSDictionary *_Nullable meta, id _Nullable snippetResult, NSNumber *_Nullable count, NSDictionary *_Nullable headers);
 
 /**
  * Callback block signature for <b>all</b> operations on <tt>CMWebService</tt> that can fail. These are general
@@ -41,21 +43,21 @@ typedef void (^CMWebServiceObjectFetchSuccessCallback)(NSDictionary *results, NS
  * the <tt>errors</tt> dictionary in the <tt>CMWebServiceObjectFetchSuccessCallback</tt> callback block).
  * The block returns <tt>void</tt> and takes an <tt>NSError</tt> describing the error as an argument.
  */
-typedef void (^CMWebServiceFetchFailureCallback)(NSError *error);
+typedef void (^CMWebServiceFetchFailureCallback)(NSError *_Nullable error);
 
 /**
  * Callback block signature for all operations on <tt>CMWebService</tt> that upload binary files to
  * the CloudMine servers. These blocks return <tt>void</tt> and take a <tt>CMFileUploadResult</tt>, the key
  * of the new file, and a dynamic snippet result as arguments to indicate the final result of the upload operation.
  */
-typedef void (^CMWebServiceFileUploadSuccessCallback)(CMFileUploadResult result, NSString *fileKey, id snippetResult, NSDictionary *headers);
+typedef void (^CMWebServiceFileUploadSuccessCallback)(CMFileUploadResult result, NSString *_Nullable fileKey, id _Nullable snippetResult, NSDictionary *_Nullable headers);
 
 /**
  * Callback block signature for operations on <tt>CMWebService</tt> that directly execute a server-side code snippet on the CloudMine servers.
  * These blocks return <tt>void</tt> and take the snippet result (the type of which is determined by the type of data you use inside your exit() call 
  * in your server-side JavaScript code or what you return from the main method in your server-side Java code) and all the headers of the response.
  */
-typedef void (^CMWebServiceSnippetRunSuccessCallback)(id snippetResult, NSDictionary *headers);
+typedef void (^CMWebServiceSnippetRunSuccessCallback)(id _Nullable snippetResult, NSDictionary *_Nullable headers);
 
 typedef CMWebServiceFetchFailureCallback CMWebServiceSnippetRunFailureCallback;
 
@@ -64,7 +66,7 @@ typedef CMWebServiceFetchFailureCallback CMWebServiceSnippetRunFailureCallback;
  * the CloudMine servers. These blocks return <tt>void</tt> and take an <tt>NSData</tt> instance that contains
  * the raw data for the file as well as a string with the content type of the file returned from the server.
  */
-typedef void (^CMWebServiceFileFetchSuccessCallback)(NSData *data, NSString *contentType, NSDictionary *headers);
+typedef void (^CMWebServiceFileFetchSuccessCallback)(NSData *_Nullable data, NSString *_Nullable contentType, NSDictionary *_Nullable headers);
 
 /**
  * Callback block signature for all operations on <tt>CMWebService</tt> and <tt>CMUser</tt> that involve the management
@@ -72,7 +74,7 @@ typedef void (^CMWebServiceFileFetchSuccessCallback)(NSData *data, NSString *con
  * that represents the result of the operation as well as an <tt>NSDictionary</tt> containing the dictionary representation
  * of the response body from the server.
  */
-typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult result, NSDictionary *responseBody);
+typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult result, NSDictionary *_Nullable responseBody);
 
 /**
  * Callback block signature for all operations that return a list of users for the current app
@@ -80,13 +82,13 @@ typedef void (^CMWebServiceUserAccountOperationCallback)(CMUserAccountResult res
  * a dictionary of errors, and the total number of users returned as arguments.
  * The contents of the former two map directly to the CloudMine API response format.
  */
-typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *results, NSDictionary *errors, NSNumber *count);
+typedef void (^CMWebServiceUserFetchSuccessCallback)(NSDictionary *_Nullable results, NSDictionary *_Nullable errors, NSNumber *_Nullable count);
 
-typedef void (^CMWebServiceUserFetchCallback)(NSDictionary *results, NSDictionary *errors, id snippetResult, NSDictionary *meta, NSNumber *count);
+typedef void (^CMWebServiceUserFetchCallback)(NSDictionary *_Nullable results, NSDictionary *_Nullable errors, id _Nullable  snippetResult, NSDictionary *_Nullable meta, NSNumber *_Nullable count);
 
-typedef void (^CMWebServicesSocialQuerySuccessCallback)(NSString *results, NSDictionary *headers);
+typedef void (^CMWebServicesSocialQuerySuccessCallback)(NSString *_Nullable results, NSDictionary *_Nullable headers);
 
-typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSUInteger httpCode);
+typedef void (^CMWebServiceResultCallback)(id _Nullable responseBody, NSError *_Nullable errors, NSUInteger httpCode);
 
 /**
  * Base class for all classes concerned with the communication between the client device and the CloudMine
@@ -117,7 +119,7 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * @param url The base URL you want to point this web service to. Defaults to CloudMine.
  * @throws NSInternalInconsistencyException <tt>CMUserCredentials</tt> has not been configured.
  */
-- (instancetype)initWithBaseURL:(NSURL *)url;
+- (instancetype)initWithBaseURL:(nullable NSURL *)url;
 
 /**
  * Initializes an instance of a web service connector with the given API key and secret app key. The baseURL for
@@ -161,20 +163,20 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
  */
 - (void)getValuesForKeys:(NSArray *)keys
-      serverSideFunction:(CMServerFunction *)function
-           pagingOptions:(CMPagingDescriptor *)paging
-          sortingOptions:(CMSortDescriptor *)sorting
-                    user:(CMUser *)user
-         extraParameters:(NSDictionary *)params
+      serverSideFunction:(nullable CMServerFunction *)function
+           pagingOptions:(nullable CMPagingDescriptor *)paging
+          sortingOptions:(nullable CMSortDescriptor *)sorting
+                    user:(nullable CMUser *)user
+         extraParameters:(nullable NSDictionary *)params
           successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
             errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
 - (void)searchValuesFor:(NSString *)searchQuery
-     serverSideFunction:(CMServerFunction *)function
-          pagingOptions:(CMPagingDescriptor *)paging
-         sortingOptions:(CMSortDescriptor *)sorting
-                   user:(CMUser *)user
-        extraParameters:(NSDictionary *)params
+     serverSideFunction:(nullable CMServerFunction *)function
+          pagingOptions:(nullable CMPagingDescriptor *)paging
+         sortingOptions:(nullable CMSortDescriptor *)sorting
+                   user:(nullable CMUser *)user
+        extraParameters:(nullable NSDictionary *)params
          successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
            errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
@@ -202,9 +204,9 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * @param errorHandler The block to be called if the request failed.
  */
 - (void)getBinaryDataNamed:(NSString *)key
-        serverSideFunction:(CMServerFunction *)function
-                      user:(CMUser *)user
-           extraParameters:(NSDictionary *)params
+        serverSideFunction:(nullable CMServerFunction *)function
+                      user:(nullable CMUser *)user
+           extraParameters:(nullable NSDictionary *)params
             successHandler:(CMWebServiceFileFetchSuccessCallback)successHandler
               errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
@@ -220,9 +222,9 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
  */
 - (void)updateValuesFromDictionary:(NSDictionary *)data
-                serverSideFunction:(CMServerFunction *)function
-                              user:(CMUser *)user
-                   extraParameters:(NSDictionary *)params
+                serverSideFunction:(nullable CMServerFunction *)function
+                              user:(nullable CMUser *)user
+                   extraParameters:(nullable NSDictionary *)params
                     successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
                       errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
@@ -253,11 +255,11 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * @param errorHandler The block to be called if the request failed.
  */
 - (void)uploadBinaryData:(NSData *)data
-      serverSideFunction:(CMServerFunction *)function
-                   named:(NSString *)key
-              ofMimeType:(NSString *)mimeType
-                    user:(CMUser *)user
-         extraParameters:(NSDictionary *)params
+      serverSideFunction:(nullable CMServerFunction *)function
+                   named:(nullable NSString *)key
+              ofMimeType:(nullable NSString *)mimeType
+                    user:(nullable CMUser *)user
+         extraParameters:(nullable NSDictionary *)params
           successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler
             errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
@@ -278,11 +280,11 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * @param errorHandler The block to be called if the request failed.
  */
 - (void)uploadFileAtPath:(NSString *)path
-      serverSideFunction:(CMServerFunction *)function
-                   named:(NSString *)key
-              ofMimeType:(NSString *)mimeType
-                    user:(CMUser *)user
-         extraParameters:(NSDictionary *)params
+      serverSideFunction:(nullable CMServerFunction *)function
+                   named:(nullable NSString *)key
+              ofMimeType:(nullable NSString *)mimeType
+                    user:(nullable CMUser *)user
+         extraParameters:(nullable NSDictionary *)params
           successHandler:(CMWebServiceFileUploadSuccessCallback)successHandler
             errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
@@ -302,9 +304,9 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
  */
 - (void)setValuesFromDictionary:(NSDictionary *)data
-             serverSideFunction:(CMServerFunction *)function
-                           user:(CMUser *)user
-                extraParameters:(NSDictionary *)params
+             serverSideFunction:(nullable CMServerFunction *)function
+                           user:(nullable CMUser *)user
+                extraParameters:(nullable NSDictionary *)params
                  successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
                    errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
@@ -320,10 +322,10 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * @param successHandler The block to be called when the objects have been populated.
  * @param errorHandler The block to be called if the entire request failed (i.e. if there is no network connectivity).
  */
-- (void)deleteValuesForKeys:(NSArray *)keys
-         serverSideFunction:(CMServerFunction *)function
-                       user:(CMUser *)user
-            extraParameters:(NSDictionary *)params
+- (void)deleteValuesForKeys:(nullable NSArray *)keys
+         serverSideFunction:(nullable CMServerFunction *)function
+                       user:(nullable CMUser *)user
+            extraParameters:(nullable NSDictionary *)params
              successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
                errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
@@ -408,7 +410,7 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
 - (CMSocialLoginViewController *)loginWithSocial:(CMUser *)user
                                      withService:(NSString *)service
                                   viewController:(UIViewController *)viewController
-                                          params:(NSDictionary *)params
+                                          params:(nullable NSDictionary *)params
                                         callback:(CMWebServiceUserAccountOperationCallback)callback;
 
 /**
@@ -470,9 +472,9 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  */
 - (void)changeCredentialsForUser:(CMUser *)user
                         password:(NSString *)password
-                     newPassword:(NSString *)newPassword
-                     newUsername:(NSString *)newUsername
-                       newUserId:(NSString *)newUserId
+                     newPassword:(nullable NSString *)newPassword
+                     newUsername:(nullable NSString *)newUsername
+                       newUserId:(nullable NSString *)newUserId
                         callback:(CMWebServiceUserAccountOperationCallback)callback __attribute__((deprecated));
 
 /**
@@ -506,9 +508,9 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  */
 - (void)changeCredentialsForUser:(CMUser *)user
                         password:(NSString *)password
-                     newPassword:(NSString *)newPassword
-                     newUsername:(NSString *)newUsername
-                        newEmail:(NSString *)newEmail
+                     newPassword:(nullable NSString *)newPassword
+                     newUsername:(nullable NSString *)newUsername
+                        newEmail:(nullable NSString *)newEmail
                         callback:(CMWebServiceUserAccountOperationCallback)callback;
 
 /**
@@ -561,11 +563,11 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
 - (void)searchUsers:(NSString *)query callback:(CMWebServiceUserFetchSuccessCallback)callback;
 
 
-- (void)getUsersWithIdentifier:(NSString *)identifier
-                         query:(NSString *)query
-            ServerSideFunction:(CMServerFunction *)function
-                 pagingOptions:(CMPagingDescriptor *)paging
-                sortingOptions:(CMSortDescriptor *)sorting
+- (void)getUsersWithIdentifier:(nullable NSString *)identifier
+                         query:(nullable NSString *)query
+            ServerSideFunction:(nullable CMServerFunction *)function
+                 pagingOptions:(nullable CMPagingDescriptor *)paging
+                sortingOptions:(nullable CMSortDescriptor *)sorting
                       callback:(CMWebServiceUserFetchCallback)callback;
 
 - (void)saveUser:(CMUser *)user callback:(CMWebServiceUserAccountOperationCallback)callback;
@@ -579,9 +581,9 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * @param successHandler The block to be called when the snippet successfully executes.
  * @param errorHandler The block to be called if the request failed.
  */
-- (void)runSnippet:(NSString *)snippetName withParams:(NSDictionary *)params user:(CMUser *)user successHandler:(CMWebServiceSnippetRunSuccessCallback)successHandler errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
+- (void)runSnippet:(NSString *)snippetName withParams:(nullable NSDictionary *)params user:(nullable CMUser *)user successHandler:(CMWebServiceSnippetRunSuccessCallback)successHandler errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
-- (void)runPOSTSnippet:(NSString *)snippetName withBody:(NSData *)body user:(CMUser *)user successHandler:(CMWebServiceSnippetRunSuccessCallback)successHandler errorHandler:(CMWebServiceSnippetRunFailureCallback)errorHandler;
+- (void)runPOSTSnippet:(NSString *)snippetName withBody:(nullable NSData *)body user:(nullable CMUser *)user successHandler:(CMWebServiceSnippetRunSuccessCallback)successHandler errorHandler:(CMWebServiceSnippetRunFailureCallback)errorHandler;
 
 /**
  * Asynchronously register the device token with CloudMine. On completion, the <tt>callback</tt> will be called with the result of the registration.
@@ -611,11 +613,11 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
 /**
  * Asynchronously subscribes a device to a named Channel. The device should be registered to receive push notificiations.
  *
- * @param deviceID The deviceID that should be registered to the channel.
+ * @param deviceID The deviceID that should be registered to the channel. This device if nil.
  * @param channel The Push Channel to register this device too.
  * @param callback The CMWebServiceDeviceChannelCallback that will be called when the call is finished.
  */
-- (void)subscribeDevice:(NSString *)deviceID toPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback;
+- (void)subscribeDevice:(nullable NSString *)deviceID toPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback;
 
 /**
  * Asynchronously subscribes the user to a named Channel. The user needs to be logged in.
@@ -637,11 +639,11 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
 /**
  * Asynchronously unsubscribes a device from a named Channel. The device should be registered to receive push notificiations.
  *
- * @param deviceID The deviceID that should be registered to the channel.
+ * @param deviceID The deviceID that should be registered to the channel. This device if nil.
  * @param channel The Push Channel to register this device too.
  * @param callback The CMWebServiceDeviceChannelCallback that will be called when the call is finished.
  */
-- (void)unSubscribeDevice:(NSString *)deviceID fromPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback;
+- (void)unSubscribeDevice:(nullable NSString *)deviceID fromPushChannel:(NSString *)channel callback:(CMWebServiceDeviceChannelCallback)callback;
 
 /**
  * Asynchronously unsubscribes the user from a named Channel. The user needs to be logged in.
@@ -662,10 +664,10 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
 /**
  * Asynchronously gets the channels a device is registered too.
  *
- * @param deviceID The deviceID to query.
+ * @param deviceID The deviceID to query. This device if nil.
  * @param callback The CMViewChannelsRequestCallback that will be called when the call is finished.
  */
-- (void)getChannelsForDevice:(NSString *)deviceID callback:(CMViewChannelsRequestCallback)callback;
+- (void)getChannelsForDevice:(nullable NSString *)deviceID callback:(CMViewChannelsRequestCallback)callback;
 
 /**
  * Asynchronously execute a request on the social network through the singly proxy.
@@ -681,12 +683,12 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  */
 - (void)runSocialGraphQueryOnNetwork:(NSString *)network
                             withVerb:(NSString *)verb
-                           baseQuery:(NSString *)base
-                          parameters:(NSDictionary *)params
-                             headers:(NSDictionary *)headers
-                         messageData:(NSData *)data
+                           baseQuery:(nullable NSString *)base
+                          parameters:(nullable NSDictionary *)params
+                             headers:(nullable NSDictionary *)headers
+                         messageData:(nullable NSData *)data
                             withUser:(CMUser *)user
-                       successHandler:(CMWebServicesSocialQuerySuccessCallback)successHandler
+                      successHandler:(CMWebServicesSocialQuerySuccessCallback)successHandler
                         errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
 /**
@@ -700,19 +702,19 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * @param errorHandler The callback for dealing with errors
  */
 - (void)runSocialGraphGETQueryOnNetwork:(NSString *)network
-                           baseQuery:(NSString *)base
-                          parameters:(NSDictionary *)params
-                                headers:(NSDictionary *)headers
-                            withUser:(CMUser *)user
-                       successHandler:(CMWebServicesSocialQuerySuccessCallback)successHandler
-                        errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
+                              baseQuery:(nullable NSString *)base
+                             parameters:(nullable NSDictionary *)params
+                                headers:(nullable NSDictionary *)headers
+                               withUser:(CMUser *)user
+                         successHandler:(CMWebServicesSocialQuerySuccessCallback)successHandler
+                           errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
 
 - (void)executeGenericRequest:(NSURLRequest *)request successHandler:(CMWebServiceGenericRequestCallback)successHandler errorHandler:(CMWebServiceErorCallack)errorHandler;
 
-- (NSMutableURLRequest *)constructHTTPRequestWithVerb:(NSString *)verb URL:(NSURL *)url binaryData:(BOOL)isForBinaryData user:(CMUser *)user;
+- (NSMutableURLRequest *)constructHTTPRequestWithVerb:(NSString *)verb URL:(NSURL *)url binaryData:(BOOL)isForBinaryData user:(nullable CMUser *)user;
 
-- (NSURL *)constructAppURLWithString:(NSString *)url andDescriptors:(NSArray *)descriptors;
+- (NSURL *)constructAppURLWithString:(NSString *)url andDescriptors:(nullable NSArray *)descriptors;
 
 /**
  * Moved method to Header now that AFNetworking does not have this same method.
@@ -725,3 +727,5 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
 
 
 @end
+
+NS_ASSUME_NONNULL_END

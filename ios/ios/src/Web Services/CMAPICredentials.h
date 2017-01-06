@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  * Convenience singleton class for storing your API key and this app's secret key
  * for communicating with CloudMine web services. If this is configured you do not have to pass either of these
@@ -28,7 +30,7 @@
 /**
  * Convenience method to set both the App ID, API Key, and baseURL simultaneously.
  */
-- (void)setAppIdentifier:(NSString *)appId apiKey:(NSString *)apiKey andBaseURL:(NSString *)baseURL;
+- (void)setAppIdentifier:(NSString *)appId apiKey:(NSString *)apiKey andBaseURL:(nullable NSString *)baseURL;
 
 
 /**
@@ -41,7 +43,7 @@
  * @deprecated
  * @see apiKey
  */
-@property (nonatomic, copy) NSString *appSecret;
+@property (nonatomic, copy) NSString *appSecret __deprecated_msg("Use 'apiKey' instead");
 
 /**
  * The App Identifier from your CloudMine dashboard.
@@ -56,3 +58,5 @@
 @property (nonatomic, copy) NSString *baseURL;
 
 @end
+
+NS_ASSUME_NONNULL_END

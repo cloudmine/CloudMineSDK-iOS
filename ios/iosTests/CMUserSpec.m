@@ -53,7 +53,7 @@ SPEC_BEGIN(CMUserSpec)
 
 describe(@"CMUser", ^{
     
-    [[CMAPICredentials sharedInstance] setAppSecret:@"appSecret"];
+    [[CMAPICredentials sharedInstance] setApiKey:@"appSecret"];
     [[CMAPICredentials sharedInstance] setAppIdentifier:@"appIdentifier"];
     
     context(@"given a user", ^{
@@ -251,7 +251,7 @@ describe(@"CMUser", ^{
             
             // This first call should trigger the web service call.
             [user loginWithSocialNetwork:CMSocialNetworkTwitter
-                          viewController:nil
+                          viewController:[CMSocialLoginViewController new]
                                   params:nil
                                 callback:^(CMUserAccountResult resultCode, NSArray *messages) {
                                     [[@(resultCode) should] equal:@(CMUserAccountLoginSucceeded)];
@@ -437,7 +437,7 @@ describe(@"CMUser", ^{
                 [[mockWebService should] receive:@selector(loginUser:callback:)];
                 
                 // Run the test method.
-                [user loginWithCallback:nil];
+                [user loginWithCallback:^(CMUserAccountResult resultCode, NSArray * _Nonnull messages) { }];
                 
                 // Make a mock response from the web server with changes we haven't seen yet.
                 NSMutableDictionary *userState = [NSMutableDictionary dictionaryWithDictionary:@{@"session_token": @"5555",
@@ -467,7 +467,7 @@ describe(@"CMUser", ^{
                 [[mockWebService should] receive:@selector(loginUser:callback:)];
                 
                 // Run the test method.
-                [user loginWithCallback:nil];
+                [user loginWithCallback:^(CMUserAccountResult resultCode, NSArray * _Nonnull messages) { }];
                 
                 // Make a mock response from the web server with changes we haven't seen yet.
                 NSMutableDictionary *userState = [NSMutableDictionary dictionaryWithDictionary:@{@"session_token": @"5555",
@@ -496,7 +496,7 @@ describe(@"CMUser", ^{
                 
                 // Run the test method.
                 // Saving the object should force the person to update, and we can check to see if the properties are set properly
-                [user save:nil];
+                [user save:^(CMUserAccountResult resultCode, NSArray * _Nonnull messages) { }];
                 
                 // Make a mock response from the web server with changes we haven't seen yet.
                 NSDictionary *parsedResults = @{@"__class__" : @"CustomUser", @"__id__" : @"1234", @"__type__" : @"user", @"name" : @"Tomas", @"ageOfPerson" : @35, @"newField" : @"aValue"};

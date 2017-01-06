@@ -26,7 +26,7 @@ describe(@"CMFile", ^{
 
     beforeEach(^{
         [[CMAPICredentials sharedInstance] setAppIdentifier:@"appId"];
-        [[CMAPICredentials sharedInstance] setAppSecret:@"appSecret"];
+        [[CMAPICredentials sharedInstance] setApiKey:@"appSecret"];
     });
 
     context(@"given an app-level CMFile instance", ^{
@@ -94,10 +94,9 @@ describe(@"CMFile", ^{
         
 
         it(@"should throw an exception if the object is subsequently saved with a user", ^{
-            CMUser *user = [[CMUser alloc] initWithEmail:@"test@test.com" andPassword:@"pass"];
             [file save:nil];
             [[theValue([file ownershipLevel]) should] equal:theValue(CMObjectOwnershipAppLevel)];
-            [[theBlock(^{ [file saveWithUser:user callback:nil]; }) should] raise];
+            [[theBlock(^{ [file saveAtUserLevel:nil]; }) should] raise];
         });
     });
     
@@ -148,7 +147,7 @@ describe(@"CMFile", ^{
     context(@"given a user-level CMFile instance", ^{
         beforeEach(^{
             [[CMAPICredentials sharedInstance] setAppIdentifier:@"appid1234"];
-            [[CMAPICredentials sharedInstance] setAppSecret:@"appsecret1234"];
+            [[CMAPICredentials sharedInstance] setApiKey:@"appsecret1234"];
 
             store = [CMStore defaultStore];
             store.webService = [CMWebService nullMock];
@@ -194,14 +193,14 @@ describe(@"CMFile", ^{
             user.token = @"1234";
             user.tokenExpiration = [NSDate dateWithTimeIntervalSinceNow:1000.0]; // set it to the future
 
-            [file saveWithUser:user callback:nil];
+            [file saveAtUserLevel:nil];
             [[theValue(file.ownershipLevel) should] equal:theValue(CMObjectOwnershipUserLevel)];
         });
     });
 
     context(@"given a file that belongs to any store", ^{
         it(@"should set its store to the CMNullStore singleton when the store is set to nil", ^{
-            CMFile *file = [[CMFile alloc] initWithData:NULL named:@"foo"];
+            CMFile *file = [[CMFile alloc] initWithData:[NSData new] named:@"foo"];
             [[file.store should] equal:[CMStore defaultStore]];
             file.store = nil;
             [[file.store should] equal:[CMNullStore nullStore]];
@@ -209,7 +208,7 @@ describe(@"CMFile", ^{
         });
         
         it(@"should properly set the ownership level", ^{
-            CMFile *file = [[CMFile alloc] initWithData:nil named:@"foo"];
+            CMFile *file = [[CMFile alloc] initWithData:[NSData new] named:@"foo"];
             [[file.store should] equal:[CMStore defaultStore]];
             file.store = nil;
             [[file.store should] equal:[CMNullStore nullStore]];
@@ -218,7 +217,7 @@ describe(@"CMFile", ^{
         });
         
         it(@"should properly set the ownership level if being set to a different, but not null, store", ^{
-            CMFile *file = [[CMFile alloc] initWithData:nil named:@"foo"];
+            CMFile *file = [[CMFile alloc] initWithData:[NSData new] named:@"foo"];
             [[file.store should] equal:[CMStore defaultStore]];
             
             CMStore *firstNewStore = [CMStore store];
@@ -235,7 +234,7 @@ describe(@"CMFile", ^{
         });
         
         it(@"should properly set the ownership level if being set to a different, but not null, store for a user", ^{
-            CMFile *file = [[CMFile alloc] initWithData:nil named:@"foo"];
+            CMFile *file = [[CMFile alloc] initWithData:[NSData new] named:@"foo"];
             [[file.store should] equal:[CMStore defaultStore]];
             
             CMUser *fakeUser = [[CMUser alloc] init];
@@ -257,7 +256,7 @@ describe(@"CMFile", ^{
         });
         
         it(@"should properly set the ownership level if being set to a different, but not null, store without setting the file first", ^{
-            CMFile *file = [[CMFile alloc] initWithData:nil named:@"foo"];
+            CMFile *file = [[CMFile alloc] initWithData:[NSData new] named:@"foo"];
             [[file.store should] equal:[CMStore defaultStore]];
 
             CMStore *firstNewStore = [CMStore store];

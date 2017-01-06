@@ -19,7 +19,7 @@ describe(@"CMStoreIntegration", ^{
     __block NSArray *venues = nil;
     beforeAll(^{
         [[CMAPICredentials sharedInstance] setAppIdentifier:APP_ID];
-        [[CMAPICredentials sharedInstance] setAppSecret:API_KEY];
+        [[CMAPICredentials sharedInstance] setApiKey:API_KEY];
         [[CMAPICredentials sharedInstance] setBaseURL:BASE_URL];
         
         store = [CMStore store];
@@ -189,7 +189,7 @@ describe(@"CMStoreIntegration", ^{
         Venue *v1 = venues[1];
         
         __block CMObjectFetchResponse *res = nil;
-        [store searchObjects:nil additionalOptions:nil callback:^(CMObjectFetchResponse *response) {
+        [store searchObjects:@"" additionalOptions:nil callback:^(CMObjectFetchResponse *response) {
             res = response;
             [[res.objects should] contain:v0];
             [[res.objects should] contain:v1];
@@ -557,7 +557,7 @@ describe(@"CMStoreIntegration", ^{
                  receive:@selector(uploadFileAtPath:serverSideFunction:named:ofMimeType:user:extraParameters:successHandler:errorHandler:)];
                 
                 __block CMFileUploadResponse *res = nil;
-                [store saveUserFileAtURL:nil additionalOptions:nil callback:^(CMFileUploadResponse *response) {
+                [store saveUserFileAtURL:[NSURL new] additionalOptions:nil callback:^(CMFileUploadResponse *response) {
                     res = response;
                     [[theValue(res.error.code) should] equal:@(CMErrorUnauthorized)];
                     [[res.error.domain should] equal:CMErrorDomain];
@@ -572,7 +572,7 @@ describe(@"CMStoreIntegration", ^{
                  receive:@selector(uploadFileAtPath:serverSideFunction:named:ofMimeType:user:extraParameters:successHandler:errorHandler:)];
                 
                 __block CMFileUploadResponse *res = nil;
-                [store saveUserFileAtURL:nil named:@"something" additionalOptions:nil callback:^(CMFileUploadResponse *response) {
+                [store saveUserFileAtURL:[NSURL new] named:@"something" additionalOptions:nil callback:^(CMFileUploadResponse *response) {
                     res = response;
                     [[theValue(res.error.code) should] equal:@(CMErrorUnauthorized)];
                     [[res.error.domain should] equal:CMErrorDomain];

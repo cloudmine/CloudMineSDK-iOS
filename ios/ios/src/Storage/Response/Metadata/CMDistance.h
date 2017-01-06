@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 extern NSString * const CMDistanceUnitsKm;
 extern NSString * const CMDistanceUnitsMi;
 extern NSString * const CMDistanceUnitsM;
@@ -25,13 +27,23 @@ extern NSString * const CMDistanceUnitsKey;
 /**
  * Units of distance, valid values are "km", "mi", "ft", and "m".
  */
-@property (strong, nonatomic, readonly) NSString * units;
+@property (nonatomic, readonly) NSString * units;
 
 /**
  * Distance of this object from the given point.
  */
 @property (nonatomic, readonly) double distance;
 
-- initWithDistance:(double)theDistance andUnits:(NSString *)theUnits;
+/**
+ *  Initializes an instance of CMDistance.
+ *
+ * @param theDistance Measured distance
+ * @param theUnits Associated units, see: CMDistanceUnits
+ */
+- (instancetype)initWithDistance:(double)theDistance andUnits:(NSString *)theUnits;
+
+- (instancetype)init NS_UNAVAILABLE;
 
 @end
+
+NS_ASSUME_NONNULL_END

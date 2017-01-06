@@ -30,7 +30,7 @@ describe(@"CMWebService", ^{
     
     beforeAll(^{
         [[CMAPICredentials sharedInstance] setAppIdentifier:appId];
-        [[CMAPICredentials sharedInstance] setAppSecret:appSecret];
+        [[CMAPICredentials sharedInstance] setApiKey:appSecret];
     });
 
     beforeEach(^{
@@ -51,7 +51,7 @@ describe(@"CMWebService", ^{
         it(@"JSON URLs at the app level correctly", ^{
             NSURL *expectedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.cloudmine.io/v1/app/%@/text", appId]];
 
-            [service getValuesForKeys:nil
+            [service getValuesForKeys:@[]
                    serverSideFunction:nil
                         pagingOptions:nil
                         sortingOptions:nil
@@ -154,7 +154,7 @@ describe(@"CMWebService", ^{
             CMUser *creds = [[CMUser alloc] initWithEmail:@"user@test.com" andPassword:@"pass"];
             creds.token = @"token";
 
-            [service getValuesForKeys:nil
+            [service getValuesForKeys:@[]
                    serverSideFunction:nil
                         pagingOptions:nil
                        sortingOptions:nil
@@ -177,7 +177,7 @@ describe(@"CMWebService", ^{
             CMUser *creds = [[CMUser alloc] initWithEmail:@"user@test.com" andPassword:@"pass"];
             creds.token = @"token";
             
-            [service getValuesForKeys:nil
+            [service getValuesForKeys:@[]
                    serverSideFunction:nil
                         pagingOptions:nil
                        sortingOptions:nil
@@ -789,11 +789,12 @@ describe(@"CMWebService", ^{
                                           parameters:nil
                                              headers:nil
                                             withUser:user
-                                      successHandler:nil
-                                        errorHandler:nil];
+                                      successHandler:^(NSString * _Nullable results, NSDictionary * _Nullable headers) {
+                                      } errorHandler:^(NSError * _Nullable error) {
+                                      }];
             
             [[spy.argument should] equal:@"GET"];
-            [service enqueueHTTPRequestOperation:nil];
+            [service enqueueHTTPRequestOperation:[AFHTTPRequestOperation new]];
         });
         
         it(@"should properly deal with arrays in social queries", ^{
@@ -868,7 +869,7 @@ describe(@"CMWebService", ^{
             CMUserAccountResult res2 = callback(0, [NSError errorWithDomain:@"CMErrorDomain" code:CMErrorServerConnectionFailed userInfo:@{}]);
             [[ theValue(res2) should] equal:theValue(CMUserAccountUnknownResult)];
             
-            [service enqueueHTTPRequestOperation:nil];
+            [service enqueueHTTPRequestOperation:[AFHTTPRequestOperation new]];
         });
         
         it(@"should properly look at the error domain on logout", ^{
@@ -880,7 +881,7 @@ describe(@"CMWebService", ^{
             CMUserAccountResult (^callback) (NSUInteger httpResponseCode, NSError *error) = spy.argument;
             CMUserAccountResult res2 = callback(0, [NSError errorWithDomain:@"CMErrorDomain" code:CMErrorServerConnectionFailed userInfo:@{}]);
             [[ theValue(res2) should] equal:theValue(CMUserAccountUnknownResult)];
-            [service enqueueHTTPRequestOperation:nil];
+            [service enqueueHTTPRequestOperation:[AFHTTPRequestOperation new]];
         });
         
         it(@"should properly look at the error domain on create account", ^{
@@ -893,14 +894,14 @@ describe(@"CMWebService", ^{
             CMUserAccountResult (^callback) (NSUInteger httpResponseCode, NSError *error) = spy.argument;
             CMUserAccountResult res2 = callback(0, [NSError errorWithDomain:@"CMErrorDomain" code:CMErrorServerConnectionFailed userInfo:@{}]);
             [[ theValue(res2) should] equal:theValue(CMUserAccountUnknownResult)];
-            [service enqueueHTTPRequestOperation:nil];
+            [service enqueueHTTPRequestOperation:[AFHTTPRequestOperation new]];
         });
         
         it(@"should properly look at the error domain on social login", ^{
             
             KWCaptureSpy *spy = [service captureArgument:NSSelectorFromString(@"executeUserAccountActionRequest:codeMapper:callback:") atIndex:1];
             
-            [service cmSocialLoginViewController:nil completeSocialLoginWithChallenge:@"challenge"];
+            [service cmSocialLoginViewController:[CMSocialLoginViewController new] completeSocialLoginWithChallenge:@"challenge"];
             
             CMUserAccountResult (^callback) (NSUInteger httpResponseCode, NSError *error) = spy.argument;
             CMUserAccountResult res = callback(0, [NSError errorWithDomain:@"CMErrorDomain" code:CMErrorUnauthorized userInfo:@{}]);
@@ -912,7 +913,7 @@ describe(@"CMWebService", ^{
             CMUserAccountResult res3 = callback(200, nil);
             [[ theValue(res3) should] equal:theValue(CMUserAccountLoginSucceeded)];
             
-            [service enqueueHTTPRequestOperation:nil];
+            [service enqueueHTTPRequestOperation:[AFHTTPRequestOperation new]];
         });
         
         it(@"should properly look at the error domain on change credentials", ^{
@@ -933,7 +934,7 @@ describe(@"CMWebService", ^{
             CMUserAccountResult res2 = callback(0, [NSError errorWithDomain:@"CMErrorDomain" code:CMErrorServerConnectionFailed userInfo:@{}]);
             [[ theValue(res2) should] equal:theValue(CMUserAccountUnknownResult)];
             
-            [service enqueueHTTPRequestOperation:nil];
+            [service enqueueHTTPRequestOperation:[AFHTTPRequestOperation new]];
         });
         
         it(@"should properly map the error codes on credential change for password", ^{
@@ -950,7 +951,7 @@ describe(@"CMWebService", ^{
             CMUserAccountResult (^callback) (NSUInteger httpResponseCode, NSError *error) = spy.argument;
             CMUserAccountResult res = callback(401, nil);
             [[ theValue(res) should] equal:theValue(CMUserAccountPasswordChangeFailedInvalidCredentials)];
-            [service enqueueHTTPRequestOperation:nil];
+            [service enqueueHTTPRequestOperation:[AFHTTPRequestOperation new]];
         });
         
         it(@"should properly map the error codes on credential change for credentials", ^{
@@ -967,7 +968,7 @@ describe(@"CMWebService", ^{
             CMUserAccountResult (^callback) (NSUInteger httpResponseCode, NSError *error) = spy.argument;
             CMUserAccountResult res = callback(401, nil);
             [[ theValue(res) should] equal:theValue(CMUserAccountCredentialChangeFailedInvalidCredentials)];
-            [service enqueueHTTPRequestOperation:nil];
+            [service enqueueHTTPRequestOperation:[AFHTTPRequestOperation new]];
         });
         
         it(@"should properly map the error codes on credential change for unknown account", ^{
@@ -984,7 +985,7 @@ describe(@"CMWebService", ^{
             CMUserAccountResult (^callback) (NSUInteger httpResponseCode, NSError *error) = spy.argument;
             CMUserAccountResult res = callback(404, nil);
             [[ theValue(res) should] equal:theValue(CMUserAccountOperationFailedUnknownAccount)];
-            [service enqueueHTTPRequestOperation:nil];
+            [service enqueueHTTPRequestOperation:[AFHTTPRequestOperation new]];
         });
         
         it(@"should properly map the error codes on credential change for duplicate info", ^{
@@ -1001,7 +1002,7 @@ describe(@"CMWebService", ^{
             CMUserAccountResult (^callback) (NSUInteger httpResponseCode, NSError *error) = spy.argument;
             CMUserAccountResult res = callback(409, nil);
             [[ theValue(res) should] equal:theValue(CMUserAccountCredentialChangeFailedDuplicateInfo)];
-            [service enqueueHTTPRequestOperation:nil];
+            [service enqueueHTTPRequestOperation:[AFHTTPRequestOperation new]];
         });
         
         it(@"should properly map the error codes on credential change for duplicate email", ^{
@@ -1018,7 +1019,7 @@ describe(@"CMWebService", ^{
             CMUserAccountResult (^callback) (NSUInteger httpResponseCode, NSError *error) = spy.argument;
             CMUserAccountResult res = callback(409, nil);
             [[ theValue(res) should] equal:theValue(CMUserAccountCredentialChangeFailedDuplicateEmail)];
-            [service enqueueHTTPRequestOperation:nil];
+            [service enqueueHTTPRequestOperation:[AFHTTPRequestOperation new]];
         });
         
         it(@"should properly map the error codes on credential change for duplicate username", ^{
@@ -1035,7 +1036,7 @@ describe(@"CMWebService", ^{
             CMUserAccountResult (^callback) (NSUInteger httpResponseCode, NSError *error) = spy.argument;
             CMUserAccountResult res = callback(409, nil);
             [[ theValue(res) should] equal:theValue(CMUserAccountCredentialChangeFailedDuplicateUsername)];
-            [service enqueueHTTPRequestOperation:nil];
+            [service enqueueHTTPRequestOperation:[AFHTTPRequestOperation new]];
         });
         
         it(@"should properly map the error codes on credential change for password", ^{
@@ -1052,7 +1053,7 @@ describe(@"CMWebService", ^{
             CMUserAccountResult (^callback) (NSUInteger httpResponseCode, NSError *error) = spy.argument;
             CMUserAccountResult res = callback(409, nil);
             [[ theValue(res) should] equal:theValue(CMUserAccountCredentialChangeFailedDuplicateInfo)];
-            [service enqueueHTTPRequestOperation:nil];
+            [service enqueueHTTPRequestOperation:[AFHTTPRequestOperation new]];
         });
         
         it(@"should properly look at the error domain on reset password email", ^{
@@ -1075,7 +1076,7 @@ describe(@"CMWebService", ^{
             CMUserAccountResult res5 = callback(500, nil);
             [[theValue(res5) should] equal:theValue(CMUserAccountUnknownResult)];
             
-            [service enqueueHTTPRequestOperation:nil];
+            [service enqueueHTTPRequestOperation:[AFHTTPRequestOperation new]];
         });
         
     });
@@ -1085,8 +1086,10 @@ describe(@"CMWebService", ^{
         it(@"sends the correct dev token", ^{
             
             NSString *token = @"<c7e265d1 cbd443b3 ee80fd07 c892a8b8 f20c08c4 91fa11f2 535f2cca ad7f55ef>";
+            CMUser *user = [CMUser new];
+            user.token = @"fake_token";
             
-            [service registerForPushNotificationsWithUser:nil token:(NSData *)token callback:^(CMDeviceTokenResult result) {}];
+            [service registerForPushNotificationsWithUser:user token:(NSData *)token callback:^(CMDeviceTokenResult result) {}];
             
             NSURLRequest *request = spy.argument;
             NSDictionary *requestBody = [NSJSONSerialization JSONObjectWithData:[request HTTPBody] options:0 error:nil];
@@ -1099,18 +1102,24 @@ describe(@"CMWebService", ^{
             [[service should] receive:NSSelectorFromString(@"executeRequest:resultHandler:") withCount:1];
             
             NSString *token = @"<c7e265d1 cbd443b3 ee80fd07 c892a8b8 f20c08c4 91fa11f2 535f2cca ad7f55ef>";
-            [service registerForPushNotificationsWithUser:nil token:(NSData *)token callback:^(CMDeviceTokenResult result) {
+            CMUser *user = [CMUser new];
+            user.token = @"fake_token";
+
+            [service registerForPushNotificationsWithUser:user token:(NSData *)token callback:^(CMDeviceTokenResult result) {
                 [[theValue(result) should] equal:theValue(CMDeviceTokenOperationFailed)];
             }];
             
             CMWebServiceResultCallback callback = callbackBlockSpy.argument;
             callback(@{}, nil, 400);
-            [service enqueueHTTPRequestOperation:nil]; //so it doesn't fail
+
+            [service enqueueHTTPRequestOperation:[AFHTTPRequestOperation new]]; //so it doesn't fail
         });
         
         it(@"correctly sends the deregister request", ^{
+            CMUser *user = [CMUser new];
+            user.token = @"fake_token";
             
-            [service unRegisterForPushNotificationsWithUser:nil callback:^(CMDeviceTokenResult result) { }];
+            [service unRegisterForPushNotificationsWithUser:user callback:^(CMDeviceTokenResult result) { }];
             
             NSURLRequest *request = spy.argument;
             
@@ -1138,7 +1147,7 @@ describe(@"CMWebService", ^{
                 CMViewChannelsRequestCallback callback = pushSpy.argument;
                 CMViewChannelsResponse *response = [[CMViewChannelsResponse alloc] initWithResponseBody:@{} httpCode:200 error:nil];
                 callback(response);
-                [service enqueueHTTPRequestOperation:nil];
+                [service enqueueHTTPRequestOperation:[AFHTTPRequestOperation new]];
             });
             
             it(@"shows the user channels as empty if it's an array", ^{
@@ -1149,7 +1158,7 @@ describe(@"CMWebService", ^{
                 CMViewChannelsRequestCallback callback = pushSpy.argument;
                 CMViewChannelsResponse *response = [[CMViewChannelsResponse alloc] initWithResponseBody:@[] httpCode:200 error:nil];
                 callback(response);
-                [service enqueueHTTPRequestOperation:nil];
+                [service enqueueHTTPRequestOperation:[AFHTTPRequestOperation new]];
             });
             
             afterEach(^{

@@ -8,6 +8,7 @@
 
 #import "Kiwi.h"
 #import "CMNullStore.h"
+#import "CMObject.h"
 #import "MARTNSObject.h"
 #import "RTMethod.h"
 
@@ -26,42 +27,42 @@ describe(@"CMNullStore", ^{
         [[theBlock(^{ [CMNullStore store]; }) should] raise];
         [[theBlock(^{ [null allObjectsWithOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
         [[theBlock(^{ [null allUserObjectsWithOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
-        [[theBlock(^{ [null objectsWithKeys:nil additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
-        [[theBlock(^{ [null userObjectsWithKeys:nil additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
-        [[theBlock(^{ [null allObjectsOfClass:nil additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
-        [[theBlock(^{ [null allUserObjectsOfClass:nil additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
-        [[theBlock(^{ [null searchObjects:nil additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
-        [[theBlock(^{ [null searchUserObjects:nil additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
-        [[theBlock(^{ [null fileWithName:nil additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
-        [[theBlock(^{ [null userFileWithName:nil additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
-        [[theBlock(^{ [null saveAll:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
+        [[theBlock(^{ [null objectsWithKeys:@[] additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
+        [[theBlock(^{ [null userObjectsWithKeys:@[] additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
+        [[theBlock(^{ [null allObjectsOfClass:[CMObject class] additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
+        [[theBlock(^{ [null allUserObjectsOfClass:[CMObject class] additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
+        [[theBlock(^{ [null searchObjects:@"" additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
+        [[theBlock(^{ [null searchUserObjects:@"" additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
+        [[theBlock(^{ [null fileWithName:@"'" additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
+        [[theBlock(^{ [null userFileWithName:@"" additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
+        [[theBlock(^{ [null saveAll:^(CMObjectUploadResponse * _Nonnull response) { }]; }) should] raiseWithName:@"CMInvalidStoreException"];
         [[theBlock(^{ [null saveAllWithOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
         [[theBlock(^{ [null saveAllAppObjects:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
         [[theBlock(^{ [null saveAllAppObjectsWithOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
         [[theBlock(^{ [null saveAllUserObjects:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
         [[theBlock(^{ [null saveAllUserObjectsWithOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
-        [[theBlock(^{ [null saveObject:nil additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
-        [[theBlock(^{ [null saveObject:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
-        [[theBlock(^{ [null saveUserObject:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
-        [[theBlock(^{ [null saveUserObject:nil additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
-        [[theBlock(^{ [null deleteObject:nil additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
-        [[theBlock(^{ [null saveFileAtURL:nil additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
-        [[theBlock(^{ [null saveFileAtURL:nil named:nil additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
-        [[theBlock(^{ [null saveUserFileAtURL:nil additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
-        [[theBlock(^{ [null saveUserFileAtURL:nil named:nil additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
-        [[theBlock(^{ [null saveFileWithData:nil additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
-        [[theBlock(^{ [null saveFileWithData:nil named:nil additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
-        [[theBlock(^{ [null saveUserFileWithData:nil additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
-        [[theBlock(^{ [null saveUserFileWithData:nil named:nil additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
-        [[theBlock(^{ [null deleteFileNamed:nil additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
-        [[theBlock(^{ [null deleteUserFileNamed:nil additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
-        [[theBlock(^{ [null deleteObjects:nil additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
-        [[theBlock(^{ [null deleteUserObjects:nil additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
-        [[theBlock(^{ [null addObject:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
-        [[theBlock(^{ [null addUserObject:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
-        [[theBlock(^{ [null removeObject:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
-        [[theBlock(^{ [null removeUserObject:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
-        [[theBlock(^{ [null objectOwnershipLevel:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
+        [[theBlock(^{ [null saveObject:[CMObject new] additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
+        [[theBlock(^{ [null saveObject:[CMObject new] callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
+        [[theBlock(^{ [null saveUserObject:[CMObject new] callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
+        [[theBlock(^{ [null saveUserObject:[CMObject new] additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
+        [[theBlock(^{ [null deleteObject:[CMObject new] additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
+        [[theBlock(^{ [null saveFileAtURL:[NSURL new] additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
+        [[theBlock(^{ [null saveFileAtURL:[NSURL new] named:nil additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
+        [[theBlock(^{ [null saveUserFileAtURL:[NSURL new] additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
+        [[theBlock(^{ [null saveUserFileAtURL:[NSURL new] named:nil additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
+        [[theBlock(^{ [null saveFileWithData:[NSData new] additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
+        [[theBlock(^{ [null saveFileWithData:[NSData new] named:nil additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
+        [[theBlock(^{ [null saveUserFileWithData:[NSData new] additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
+        [[theBlock(^{ [null saveUserFileWithData:[NSData new] named:nil additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
+        [[theBlock(^{ [null deleteFileNamed:@"" additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
+        [[theBlock(^{ [null deleteUserFileNamed:@"" additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
+        [[theBlock(^{ [null deleteObjects:@[] additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
+        [[theBlock(^{ [null deleteUserObjects:@[] additionalOptions:nil callback:nil]; }) should] raiseWithName:@"CMInvalidStoreException"];
+        [[theBlock(^{ [null addObject:[CMObject new]]; }) should] raiseWithName:@"CMInvalidStoreException"];
+        [[theBlock(^{ [null addUserObject:[CMObject new]]; }) should] raiseWithName:@"CMInvalidStoreException"];
+        [[theBlock(^{ [null removeObject:[CMObject new]]; }) should] raiseWithName:@"CMInvalidStoreException"];
+        [[theBlock(^{ [null removeUserObject:[CMObject new]]; }) should] raiseWithName:@"CMInvalidStoreException"];
+        [[theBlock(^{ [null objectOwnershipLevel:[CMObject new]]; }) should] raiseWithName:@"CMInvalidStoreException"];
     });
     
 });

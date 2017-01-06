@@ -32,7 +32,7 @@
  *
  * @return NSDictionary
  */
-@property (atomic, readonly) id encodedRepresentation;
+@property (atomic, readonly, nonnull) id encodedRepresentation;
 
 /**
  * Kicks off the encoding process for a collection of objects that implement <tt>CMSerializable</tt>.
@@ -47,6 +47,6 @@
  * @param objects The objects to encode.
  * @return NSDictionary
  */
-+ (NSDictionary *)encodeObjects:(id<NSFastEnumeration>)objects;
++ (nonnull NSDictionary *)encodeObjects:(nullable id<NSFastEnumeration>)objects;
 
 @end

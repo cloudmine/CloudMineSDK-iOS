@@ -14,37 +14,37 @@
 /**
  * A set of all the ACLs fetched from the server.
  */
-@property (strong, nonatomic) NSSet *acls;
+@property (strong, nonatomic, nullable) NSSet *acls;
 
 /**
  * A dictionary of errors that occurred fetching ACLs from the server. It is keyed by object ID.
  */
-@property (strong, nonatomic) NSDictionary *aclErrors;
+@property (strong, nonatomic, nullable) NSDictionary *aclErrors;
 
-- (instancetype)initWithACLs:(NSSet *)acls errors:(NSDictionary *)errors;
+- (nonnull instancetype)initWithACLs:(nullable NSSet *)acls errors:(nullable NSDictionary *)errors;
 
 /**
  * Returns a set of every user, unioned from every ACL.
  */
-- (NSSet *)allMembers;
+- (nonnull NSSet *)allMembers;
 
 /**
  * Returns a set of permissions thay every ACL has in common, an empty set if none.
  */
-- (NSSet *)permissionsForAllMembers;
+- (nonnull NSSet *)permissionsForAllMembers;
 
 /**
  * Returns the maxmimum permissions of a user, unioned from every ACL in this response that he is also a member of.
  *
  * @param member The member to retrieve permissions for
  */
-- (NSSet *)permissionsForMember:(NSString *)member;
+- (nonnull NSSet *)permissionsForMember:(nonnull NSString *)member;
 
 /**
  * Returns the list of all users with at least the specified permissions.
  *
  * @param permissions The set of permissions that the returned users are guaranteed to have.
  */
-- (NSSet *)membersWithPermissions:(NSSet *)permissions;
+- (nonnull NSSet *)membersWithPermissions:(nonnull NSSet *)permissions;
 
 @end

@@ -54,7 +54,7 @@
         [topLevelObjectsDictionary setObject:encodedRepresentation forKey:object.objectId];
     }
 
-    return topLevelObjectsDictionary;
+    return [topLevelObjectsDictionary copy];
 }
 
 - (NSDictionary *)encodeCMCoding:(id<CMCoding>)object;

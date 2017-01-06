@@ -23,7 +23,7 @@ describe(@"CMUser Integration", ^{
     beforeAll(^{
 
         [[CMAPICredentials sharedInstance] setAppIdentifier:APP_ID];
-        [[CMAPICredentials sharedInstance] setAppSecret:API_KEY];
+        [[CMAPICredentials sharedInstance] setApiKey:API_KEY];
         [[CMAPICredentials sharedInstance] setBaseURL:BASE_URL];
         
         __block CMUserAccountResult code = NSNotFound;
@@ -508,7 +508,7 @@ describe(@"CMUser Integration", ^{
             __block NSArray *all = nil;
             __block NSError *error = nil;
             
-            [CMUser allUserWithOptions:nil callback:^(CMObjectFetchResponse *response) {
+            [CMUser allUserWithOptions:[CMStoreOptions new] callback:^(CMObjectFetchResponse *response) {
                 all = response.objects;
                 error = response.error;
             }];
@@ -606,7 +606,7 @@ describe(@"CMUser Integration", ^{
     context(@"with a wrong appid", ^{
         beforeAll(^{
             [[CMAPICredentials sharedInstance] setAppIdentifier:@"9977f87e6ae99915b32a663902c3ca65"];
-            [[CMAPICredentials sharedInstance] setAppSecret:@"c701d73554594315948c8d3cc0711ac1"];
+            [[CMAPICredentials sharedInstance] setApiKey:@"c701d73554594315948c8d3cc0711ac1"];
         });
 
         it(@"should fail to login a user", ^{
@@ -661,7 +661,7 @@ describe(@"CMUser Integration", ^{
         //
         beforeAll(^{
             [[CMAPICredentials sharedInstance] setAppIdentifier:@"028f6a795835448ea80b8ed38cf98b50"];
-            [[CMAPICredentials sharedInstance] setAppSecret:@"6d6f5ca1a2e74832881a3d2f369ea653"];
+            [[CMAPICredentials sharedInstance] setApiKey:@"6d6f5ca1a2e74832881a3d2f369ea653"];
         });
         
         __block CMUser *user = nil;

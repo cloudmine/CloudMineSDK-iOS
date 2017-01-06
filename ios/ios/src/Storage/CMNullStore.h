@@ -19,6 +19,6 @@
 /**
  * @return The singleton instance of the null store.
  */
-+ (CMNullStore *)nullStore;
++ (nonnull CMNullStore *)nullStore;
 
 @end

@@ -20,7 +20,8 @@ describe(@"CMServerFunction", ^{
     
     it(@"should not be created with just init", ^{
         [[theBlock(^{
-            serverFunction = [[CMServerFunction alloc] init];
+            Class class = [CMServerFunction class];
+            serverFunction = [[class alloc] init];
         }) should] raiseWithName:@"NotImplemented"];
     });
 

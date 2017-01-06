@@ -494,17 +494,25 @@ static id _private_user = nil;
         
         NSDictionary *profile = parsedBody[CMUserJSONSuccessKey][self.objectId];
         
-        if (profile) {
+        if (nil != profile) {
             [self setProfile:profile saveLocally:YES];
         }
         
-        if (callback) {
-            callback(CMUserAccountProfileUpdateSucceeded, @[profile]);
+        if (nil != callback) {
+            if (nil != profile) {
+                callback(CMUserAccountProfileUpdateSucceeded, @[profile]);
+            } else {
+                callback(CMUserAccountProfileUpdateSucceeded, @[]);
+            }
         }
         
     } errorHandler:^(id responseBody, NSUInteger httpCode, NSDictionary *headers, NSError *error, NSDictionary *errorInfo) {
-        if (callback) {
-            callback(CMUserAccountProfileUpdateFailed, @[error]);
+        if (nil != callback) {
+            if (nil != error) {
+                callback(CMUserAccountProfileUpdateFailed, @[error]);
+            } else {
+                callback(CMUserAccountProfileUpdateFailed, @[]);
+            }
         }
     }];
 }
@@ -627,7 +635,7 @@ static id _private_user = nil;
 - (void)loginWithSocialNetwork:(NSString *)network
                    accessToken:(NSString *)accessToken
                    descriptors:(NSArray *)descriptors
-                      callback:(void (^) (CMUserResponse *response) )callback;
+                      callback:(CMUserSocialOperationCallbak)callback;
 {
     [self loginWithSocialNetwork:network
                      credentials:@{CMUserJSONAccessTokenKey: accessToken}
@@ -640,7 +648,7 @@ static id _private_user = nil;
                     oauthToken:(NSString *)oauthToken
               oauthTokenSecret:(NSString *)oauthTokenSecret
                    descriptors:(NSArray *)descriptors
-                      callback:(void (^) (CMUserResponse *response) )callback;
+                      callback:(CMUserSocialOperationCallbak)callback;
 {
     [self loginWithSocialNetwork:network
                      credentials:@{CMUserJSONTokenKey: oauthToken, CMUserJSONSecretKey: oauthTokenSecret}
@@ -652,7 +660,7 @@ static id _private_user = nil;
 - (void)loginWithSocialNetwork:(NSString *)network
                    credentials:(NSDictionary *)credentials
                    descriptors:(NSArray *)descriptors
-                      callback:(void (^) (CMUserResponse *response) )callback;
+                      callback:(CMUserSocialOperationCallbak)callback;
 {
     NSParameterAssert(network);
     NSParameterAssert(credentials);
@@ -687,7 +695,7 @@ static id _private_user = nil;
 + (void)userWithSocialNetwork:(NSString *)network
                   accessToken:(NSString *)accessToken
                   descriptors:(NSArray *)descriptors
-                     callback:(void (^) (CMUserResponse *response) )callback;
+                     callback:(CMUserSocialOperationCallbak)callback;
 {
     CMUser *user = [[self alloc] init];
     [user loginWithSocialNetwork:network
@@ -700,7 +708,7 @@ static id _private_user = nil;
                    oauthToken:(NSString *)oauthToken
              oauthTokenSecret:(NSString *)oauthTokenSecret
                   descriptors:(NSArray *)descriptors
-                     callback:(void (^) (CMUserResponse *response) )callback;
+                     callback:(CMUserSocialOperationCallbak)callback;
 {
     CMUser *user = [[self alloc] init];
     [user loginWithSocialNetwork:network
@@ -713,7 +721,7 @@ static id _private_user = nil;
 + (void)userWithSocialNetwork:(NSString *)network
                   credentials:(NSDictionary *)credentials
                   descriptors:(NSArray *)descriptors
-                     callback:(void (^) (CMUserResponse *response) )callback;
+                     callback:(CMUserSocialOperationCallbak)callback;
 {
     CMUser *user = [[self alloc] init];
     [user loginWithSocialNetwork:network
@@ -729,7 +737,9 @@ static id _private_user = nil;
     [[CMWebService sharedWebService] getAllUsersWithCallback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
         NSArray *users = [CMObjectDecoder decodeObjects:results];
         [self cacheMultipleUsers:users];
-        callback(users, errors);
+
+        NSArray *callbackUsers = nil != users ? users : @[];
+        callback(callbackUsers, errors);
     }];
 }
 
@@ -765,7 +775,9 @@ static id _private_user = nil;
     [[CMWebService sharedWebService] searchUsers:query callback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
         NSArray *users = [CMObjectDecoder decodeObjects:results];
         [self cacheMultipleUsers:users];
-        callback(users, errors);
+
+        NSArray *callbackUsers = nil != users ? users : @[];
+        callback(callbackUsers, errors);
     }];
 }
 
@@ -778,11 +790,13 @@ static id _private_user = nil;
     } else {
         [[CMWebService sharedWebService] getUserProfileWithIdentifier:identifier callback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
             if (errors.count > 0) {
-                callback([NSArray array], errors);
+                callback(@[], errors);
             } else {
                 NSArray *users = [CMObjectDecoder decodeObjects:results];
                 [self cacheMultipleUsers:users];
-                callback(users, errors);
+
+                NSArray *callbackUsers = nil != users ? users : @[];
+                callback(callbackUsers, errors);
             }
         }];
     }

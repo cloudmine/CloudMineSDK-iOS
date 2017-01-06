@@ -16,10 +16,10 @@
 /**
  * Dictionary keyed on object id that indicates the result of uploading each new object.
  */
-@property (strong, nonatomic) NSDictionary *uploadStatuses;
+@property (strong, nonatomic, nullable) NSDictionary *uploadStatuses;
 
-- (instancetype)initWithUploadStatuses:(NSDictionary *)uploadStatuses;
-- (instancetype)initWithUploadStatuses:(NSDictionary *)uploadStatuses snippetResult:(CMSnippetResult *)snippetResult;
-- (instancetype)initWithUploadStatuses:(NSDictionary *)uploadStatuses snippetResult:(CMSnippetResult *)snippetResult responseMetadata:(CMResponseMetadata *)metadata;
+- (nonnull instancetype)initWithUploadStatuses:(nullable NSDictionary *)uploadStatuses;
+- (nonnull instancetype)initWithUploadStatuses:(nullable NSDictionary *)uploadStatuses snippetResult:(nullable CMSnippetResult *)snippetResult;
+- (nonnull instancetype)initWithUploadStatuses:(nullable NSDictionary *)uploadStatuses snippetResult:(nullable CMSnippetResult *)snippetResult responseMetadata:(nullable CMResponseMetadata *)metadata;
 
 @end

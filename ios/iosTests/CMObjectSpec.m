@@ -56,7 +56,7 @@ describe(@"CMObject", ^{
     __block CMStore *store;
 
     beforeAll(^{
-        [[CMAPICredentials sharedInstance] setAppSecret:@"appSecret"];
+        [[CMAPICredentials sharedInstance] setApiKey:@"appSecret"];
         [[CMAPICredentials sharedInstance] setAppIdentifier:@"appIdentifier"];
     });
 
@@ -89,21 +89,16 @@ describe(@"CMObject", ^{
         });
 
         it(@"should throw an exception if the object is subsequently saved with a user", ^{
-            CMUser *user = [[CMUser alloc] initWithEmail:@"test@test.com" andPassword:@"pass"];
             [obj save:nil];
             [[theValue([obj ownershipLevel]) should] equal:theValue(CMObjectOwnershipAppLevel)];
-            [[theBlock(^{ [obj saveWithUser:user callback:nil]; }) should] raise];
+            [[theBlock(^{ [obj saveAtUserLevel:nil]; }) should] raise];
         });
         
         it(@"should throw an exception if ACLs are added to the object", ^{
             CMACL *acl = [[CMACL alloc] init];
             [obj save:nil];
             [[theValue([obj ownershipLevel]) should] equal:theValue(CMObjectOwnershipAppLevel)];
-            [[theBlock(^{ [obj addACL:acl callback:nil]; }) should] raise];
-        });
-        
-        it(@"it should always belong to a store", ^{
-            [[theValue([obj belongsToStore]) should] equal:@YES];
+            [[theBlock(^{ [obj addACL:acl callback:^(CMObjectUploadResponse * _Nonnull response) { }]; }) should] raise];
         });
         
         it(@"should properly make the objectId a string if not given a string", ^{
@@ -141,10 +136,6 @@ describe(@"CMObject", ^{
             [[theValue(obj.ownershipLevel) should] equal:theValue(CMObjectOwnershipUserLevel)];
         });
         
-        it(@"it should always belong to a store", ^{
-            [[theValue([obj belongsToStore]) should] equal:@YES];
-        });
-        
         it(@"should be able to change stores", ^{
             
             CMStore *newStore = [CMStore store];
@@ -167,11 +158,7 @@ describe(@"CMObject", ^{
     });
 
     context(@"given an object that doesn't belong to a store yet", ^{
-        
-        it(@"it should always belong to a store", ^{
-            [[theValue([obj belongsToStore]) should] equal:@YES];
-        });
-        
+    
         it(@"should save to the app-level when save: is called on the object", ^{
             [obj save:nil];
             [[theValue(obj.ownershipLevel) should] equal:theValue(CMObjectOwnershipAppLevel)];
@@ -182,7 +169,7 @@ describe(@"CMObject", ^{
             user.token = @"1234";
             user.tokenExpiration = [NSDate dateWithTimeIntervalSinceNow:1000.0]; // set it to the future
 
-            [obj saveWithUser:user callback:nil];
+            [obj saveAtUserLevel:nil];
             [[theValue(obj.ownershipLevel) should] equal:theValue(CMObjectOwnershipUserLevel)];
         });
     });

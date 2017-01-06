@@ -16,6 +16,8 @@
 /**
  * @return The MIME type of the extension if found, <tt>nil</tt> otherwise.
  */
-+ (NSString *)mimeTypeForExtension:(NSString *)extension;
++ (nonnull NSString *)mimeTypeForExtension:(nonnull NSString *)extension;
+
+- (null_unspecified instancetype)init NS_UNAVAILABLE;
 
 @end

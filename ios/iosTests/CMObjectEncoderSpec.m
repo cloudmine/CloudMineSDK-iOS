@@ -214,11 +214,6 @@ describe(@"CMObjectEncoder", ^{
         [[theBlock(^{ [CMObjectEncoder encodeObjects:@[[NSObject new]]]; }) should] raiseWithName:NSInvalidArgumentException];
     });
     
-    it(@"should raise an exception if the object has no ObjectId", ^{
-        CMObject *randomObject = [[CMObject alloc] initWithObjectId:nil];
-        [[theBlock(^{ [CMObjectEncoder encodeObjects:@[randomObject]]; }) should] raiseWithName:NSInvalidArgumentException];
-    });
-    
     it(@"should encode an object that adheres to NSCoding is encoded properly", ^{
         NSString *uuid = [NSString stringWithUUID];
         CMTestEncoderNSCodingParent *test = [[CMTestEncoderNSCodingParent alloc] initWithObjectId:uuid];

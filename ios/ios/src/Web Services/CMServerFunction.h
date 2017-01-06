@@ -17,7 +17,7 @@
  *
  * This corresponds to the name of the snippet defined in your CloudMine dashboard.
  */
-@property (nonatomic, strong) NSString *functionName;
+@property (nonatomic, nonnull) NSString *functionName;
 
 /**
  * Extra parameters to serve as input to the server-side snippet. These key-value pairs will
@@ -26,7 +26,7 @@
  *
  * Default is <tt>nil</tt>.
  */
-@property (nonatomic, strong) NSDictionary *extraParameters;
+@property (nonatomic, nullable) NSDictionary *extraParameters;
 
 /**
  * If <tt>YES</tt>, this causes only the result of this function call to be sent in the server's response.
@@ -54,7 +54,7 @@
  * @param theFunctionName
  * @return CMServerFunction The newly initialized object.
  */
-+ (instancetype)serverFunctionWithName:(NSString *)theFunctionName;
++ (nonnull instancetype)serverFunctionWithName:(nonnull NSString *)theFunctionName;
 
 /**
  * Convenience method to return a representation of a server-side code snippet given a name and a set
@@ -64,7 +64,7 @@
  * @param theExtraParameters
  * @return CMServerFunction The newly initialized object.
  */
-+ (instancetype)serverFunctionWithName:(NSString *)theFunctionName extraParameters:(NSDictionary *)theExtraParameters;
++ (nonnull instancetype)serverFunctionWithName:(nonnull NSString *)theFunctionName extraParameters:(nullable NSDictionary *)theExtraParameters;
 
 /**
  * Convenience method to return a representation of a server-side code snippet given a name, a set
@@ -78,7 +78,7 @@
  * @param resultOnly
  * @return CMServerFunction The newly initialized object.
  */
-+ (instancetype)serverFunctionWithName:(NSString *)theFunctionName extraParameters:(NSDictionary *)theExtraParameters responseContainsResultOnly:(BOOL)resultOnly;
++ (nonnull instancetype)serverFunctionWithName:(nonnull NSString *)theFunctionName extraParameters:(nullable NSDictionary *)theExtraParameters responseContainsResultOnly:(BOOL)resultOnly;
 
 /**
  * Convenience method to return a representation of a server-side code snippet given a name, a set
@@ -94,7 +94,7 @@
  * @param async
  * @return CMServerFunction The newly initialized object.
  */
-+ (instancetype)serverFunctionWithName:(NSString *)theFunctionName extraParameters:(NSDictionary *)theExtraParameters responseContainsResultOnly:(BOOL)resultOnly performAsynchronously:(BOOL)async;
++ (nonnull instancetype)serverFunctionWithName:(nonnull NSString *)theFunctionName extraParameters:(nullable NSDictionary *)theExtraParameters responseContainsResultOnly:(BOOL)resultOnly performAsynchronously:(BOOL)async;
 
 /**
  * Convenience method to return a representation of a server-side code snippet given a name, a set
@@ -110,14 +110,14 @@
  * @param async
  * @return CMServerFunction The newly initialized object.
  */
-- (instancetype)initWithFunctionName:(NSString *)theFunctionName extraParameters:(NSDictionary *)theExtraParameters responseContainsResultOnly:(BOOL)resultOnly performAsynchronously:(BOOL)async;
+- (nonnull instancetype)initWithFunctionName:(nonnull NSString *)theFunctionName extraParameters:(nullable NSDictionary *)theExtraParameters responseContainsResultOnly:(BOOL)resultOnly performAsynchronously:(BOOL)async;
 
 /**
  * <strong>Do not call this method to construct a new instance.</strong>
  * @see initWithFunctionName:extraParameters:responseContainsResultOnly:performAsynchronously:
  * @throws NSException This initializer is not valid for this object.
  */
-- (instancetype)init;
+- (null_unspecified instancetype)init NS_UNAVAILABLE;
 
 /**
  * This is the query string that will be appended to the CloudMine HTTP call's URL to trigger the server-side
@@ -125,6 +125,7 @@
  *
  * @returns NSString The valid query string representation of all the options encapsulated in this object.
  */
-- (NSString *)stringRepresentation;
+- (nonnull NSString *)stringRepresentation;
 
 @end
+

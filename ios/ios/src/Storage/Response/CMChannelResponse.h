@@ -41,4 +41,4 @@ typedef NS_ENUM(NSInteger, CMDeviceChannelResult){
 /**
  * The callback signature for subscribing and unsubscribing to channels.
  */
-typedef void (^CMWebServiceDeviceChannelCallback)(CMChannelResponse *response);
+typedef void (^CMWebServiceDeviceChannelCallback)(CMChannelResponse *_Nonnull response);

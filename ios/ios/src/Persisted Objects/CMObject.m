@@ -29,18 +29,30 @@
 
 - (instancetype)init;
 {
-    return [self initWithObjectId:[NSString stringWithUUID]];
+    self = [super init];
+    if (nil == self) return nil;
+
+    [self configureOnInitWithObjectId:[NSString stringWithUUID]];
+
+    return self;
 }
 
 - (instancetype)initWithObjectId:(NSString *)theObjectId;
 {
-    if (self = [super init]) {
-        objectId = theObjectId;
-        store = nil;
-        dirty = YES;
-        [self registerAllPropertiesForKVO];
-    }
+    self = [super init];
+    if (nil == self) return nil;
+
+    [self configureOnInitWithObjectId:theObjectId];
+
     return self;
+}
+
+- (void)configureOnInitWithObjectId:(NSString *)theObjectId
+{
+    objectId = theObjectId;
+    store = nil;
+    dirty = YES;
+    [self registerAllPropertiesForKVO];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder;
@@ -151,13 +163,25 @@
     }
 }
 
-- (void)saveWithUser:(CMUser *)user callback:(CMStoreObjectUploadCallback)callback;
+- (void)saveAtUserLevel:(nullable CMStoreObjectUploadCallback)callback
 {
+    NSAssert(nil != [CMUser currentUser] && [CMUser currentUser].isLoggedIn, @"*** Error: Cannot save a user level object without a logged in user");
     NSAssert([self.store objectOwnershipLevel:self] != CMObjectOwnershipAppLevel, @"*** Error: Object %@ is already at the app-level. You cannot also save it to the user level. Make a copy of it with a new objectId to do this.", self);
+
+    if (nil == self.store.user) {
+        self.store.user = [CMUser currentUser];
+    }
+
     if ([self.store objectOwnershipLevel:self] == CMObjectOwnershipUndefinedLevel) {
         [self.store addUserObject:self];
     }
+
     [self save:callback];
+}
+
+- (void)saveWithUser:(CMUser *)user callback:(CMStoreObjectUploadCallback)callback;
+{
+    [self saveAtUserLevel:callback];
 }
 
 - (BOOL)belongsToStore;

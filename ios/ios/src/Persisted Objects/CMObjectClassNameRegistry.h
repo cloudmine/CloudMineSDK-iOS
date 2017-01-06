@@ -26,7 +26,7 @@
 /**
  * @return The singleton instance of the registry.
  */
-+ (instancetype)sharedInstance;
++ (nonnull instancetype)sharedInstance;
 
 /**
  * Given a class name, look up the actual class.
@@ -38,7 +38,7 @@
  *
  * @return The Class found in the registry, or nil if no match was found.
  */
-- (Class)classForName:(NSString *)name;
+- (nullable Class)classForName:(nullable NSString *)name;
 
 /**
  * Drops all the entries in the registry and re-runs the detection method.

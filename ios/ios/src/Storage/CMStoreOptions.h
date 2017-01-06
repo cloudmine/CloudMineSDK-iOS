@@ -23,14 +23,14 @@
  *
  * @see CMPagingDescriptor
  */
-@property (nonatomic, strong) CMPagingDescriptor *pagingDescriptor;
+@property (nonatomic, nullable) CMPagingDescriptor *pagingDescriptor;
 
 /**
  * Options for specifying one or more fields to sort the resulting objects by.
  *
  * @see CMSortDescriptor
  */
-@property (nonatomic, strong) CMSortDescriptor *sortDescriptor;
+@property (nonatomic, nullable) CMSortDescriptor *sortDescriptor;
 
 /**
  * Options for specifying a function you've defined on your CloudMine dashboard to be run as a post-processing step
@@ -40,7 +40,7 @@
  * @see https://compass.cloudmine.io/apps
  * @see https://cloudmine.io/docs/ios/reference#code
  */
-@property (nonatomic, strong) CMServerFunction *serverSideFunction;
+@property (nonatomic, nullable) CMServerFunction *serverSideFunction;
 
 /**
  * Whether or not to include shared objects in the results.
@@ -53,24 +53,24 @@
 @property (nonatomic) BOOL sharedOnly;
 
 @property (nonatomic) BOOL includeDistance;
-@property (nonatomic, strong) NSString *distanceUnits;
+@property (nonatomic, nullable) NSString *distanceUnits;
 
 /**
  *
  */
-- (instancetype)initWithPagingDescriptor:(CMPagingDescriptor *)thePagingDescriptor;
-- (instancetype)initWithServerSideFunction:(CMServerFunction *)theServerFunction;
-- (instancetype)initWithSortDescriptor:(CMSortDescriptor *)theSortDescriptor;
-- (instancetype)initWithPagingDescriptor:(CMPagingDescriptor *)thePagingDescriptor sortDescriptor:(CMSortDescriptor *)theSortDescriptor andServerSideFunction:(CMServerFunction *)theServerFunction;
+- (nonnull instancetype)initWithPagingDescriptor:(nullable CMPagingDescriptor *)thePagingDescriptor;
+- (nonnull instancetype)initWithServerSideFunction:(nullable CMServerFunction *)theServerFunction;
+- (nonnull instancetype)initWithSortDescriptor:(nullable CMSortDescriptor *)theSortDescriptor;
+- (nonnull instancetype)initWithPagingDescriptor:(nullable CMPagingDescriptor *)thePagingDescriptor sortDescriptor:(nullable CMSortDescriptor *)theSortDescriptor andServerSideFunction:(nullable CMServerFunction *)theServerFunction;
 
 /**
  * Creates a key => value dictionary of extra parameters to be added to the query URL.
  */
-- (NSDictionary *)buildExtraParameters;
+- (nonnull NSDictionary *)buildExtraParameters;
 
 /**
  * Converts all the set properties into a query string format that can be appended to a URL.
  */
-- (NSString *)stringRepresentation;
+- (nonnull NSString *)stringRepresentation;
 
 @end

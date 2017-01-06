@@ -8,7 +8,7 @@ Interested in [Apple ResearchKit](http://researchkit.org/)?  Check out the [CMHe
 Installation
 ------------
 
-`pod 'CloudMine', '~> 1.7'`
+`pod 'CloudMine', '~> 1.8'`
 
 Add that line to your Podfile.
 

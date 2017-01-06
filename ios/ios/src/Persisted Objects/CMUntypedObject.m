@@ -30,7 +30,7 @@
     return self;
 }
 
-- (void)encodeWithCoder:(NSCoder *)aCoder;
+- (void)encodeWithCoder:(NSCoder *)aCoder; // Why is there no initWithCoder: method implemented? -bendi
 {
     [super encodeWithCoder:aCoder];
     for (id key in fields) {

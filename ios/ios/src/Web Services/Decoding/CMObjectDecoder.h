@@ -12,8 +12,8 @@
     NSDictionary *_dictionaryRepresentation;
 }
 
-+ (NSArray *)decodeObjects:(NSDictionary *)serializedObjects;
++ (nonnull NSArray *)decodeObjects:(nullable NSDictionary *)serializedObjects;
 
-- (instancetype)initWithSerializedObjectRepresentation:(NSDictionary *)representation;
+- (nonnull instancetype)initWithSerializedObjectRepresentation:(nullable NSDictionary *)representation;
 
 @end
