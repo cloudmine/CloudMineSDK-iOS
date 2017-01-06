@@ -1,3 +1,7 @@
+1.7.15 (January 6, 2017)
+=======================
+Resolves a bug that could, in certain situations, cause a small memory leak when preparing a request.
+
 1.7.14 (October 3, 2016)
 ========================
 Resolves a bug that, in rare circumstances, could result in the file cache filling
