@@ -187,6 +187,8 @@
 		AAE9220F194B8B7B004DA1AC /* venues.plist in Resources */ = {isa = PBXBuildFile; fileRef = AAE9220E194B8B7B004DA1AC /* venues.plist */; };
 		AAE92211194B923D004DA1AC /* CMWebServiceIntegrationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE92210194B923D004DA1AC /* CMWebServiceIntegrationSpec.m */; };
 		AAFB0B8D194B45D5008F2B68 /* CMResponseSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AAFB0B8C194B45D5008F2B68 /* CMResponseSpec.m */; };
+		B4A5BCB11EAFE1E100FC940F /* CMFileMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = B4A5BCB01EAFE1E100FC940F /* CMFileMetadata.m */; };
+		B4A5BCB21EAFE1EF00FC940F /* CMFileMetadata.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B4A5BCAF1EAFE1E100FC940F /* CMFileMetadata.h */; };
 		B4AD7C521C80FF6D00D9F1D1 /* MARTNSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B4AD7C461C80FF6C00D9F1D1 /* MARTNSObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		B4AD7C541C80FF6D00D9F1D1 /* RTIvar.m in Sources */ = {isa = PBXBuildFile; fileRef = B4AD7C491C80FF6C00D9F1D1 /* RTIvar.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		B4AD7C551C80FF6D00D9F1D1 /* RTMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = B4AD7C4B1C80FF6C00D9F1D1 /* RTMethod.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -220,6 +222,7 @@
 			dstSubfolderSpec = 0;
 			files = (
 				AAC1D8F916DD5B34002A7DC0 /* CMResponse.h in CopyFiles */,
+				B4A5BCB21EAFE1EF00FC940F /* CMFileMetadata.h in CopyFiles */,
 				AAC1D8FA16DD5B34002A7DC0 /* CMChannelResponse.h in CopyFiles */,
 				AAB2E0B4167BA05700D2C699 /* CMAppDelegateBase.h in CopyFiles */,
 				715217581653F5C4007FB0A9 /* CMSocialLoginViewController.h in CopyFiles */,
@@ -353,8 +356,8 @@
 		7AB4AB6F145DC5D8006AEF67 /* cloudmine-iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "cloudmine-iosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AB4AB7A145DC5D8006AEF67 /* cloudmine-iosTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "cloudmine-iosTests-Info.plist"; sourceTree = "<group>"; };
 		7AB4AB7C145DC5D8006AEF67 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		7AD36F7C146C650500DD4734 /* CMWebService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMWebService.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		7AD36F7D146C650500DD4734 /* CMWebService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMWebService.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		7AD36F7C146C650500DD4734 /* CMWebService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMWebService.h; sourceTree = "<group>"; };
+		7AD36F7D146C650500DD4734 /* CMWebService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMWebService.m; sourceTree = "<group>"; };
 		7AD36F80146C656600DD4734 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7AD36F82146CA4AC00DD4734 /* CMAPICredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMAPICredentials.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		7AD36F83146CA4AC00DD4734 /* CMAPICredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMAPICredentials.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -381,7 +384,7 @@
 		7AFDFE39158E959B00388D6E /* CMFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMFile.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7AFDFE3A158E959B00388D6E /* CMGeoPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMGeoPoint.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		7AFDFE3B158E959B00388D6E /* CMGeoPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMGeoPoint.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		7AFDFE3C158E959B00388D6E /* CMObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMObject.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		7AFDFE3C158E959B00388D6E /* CMObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMObject.h; sourceTree = "<group>"; };
 		7AFDFE3D158E959B00388D6E /* CMObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMObject.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7AFDFE3E158E959B00388D6E /* CMObjectClassNameRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMObjectClassNameRegistry.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		7AFDFE3F158E959B00388D6E /* CMObjectClassNameRegistry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMObjectClassNameRegistry.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -457,6 +460,8 @@
 		AAFB0B8C194B45D5008F2B68 /* CMResponseSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMResponseSpec.m; sourceTree = "<group>"; };
 		AF2E9ED71CBDDC65DC88789E /* Pods-cloudmine-iosTests.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cloudmine-iosTests.test.xcconfig"; path = "../Pods/Target Support Files/Pods-cloudmine-iosTests/Pods-cloudmine-iosTests.test.xcconfig"; sourceTree = "<group>"; };
 		B2A33E73BEDE10A94973E9FE /* Pods-cloudmine-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cloudmine-ios.release.xcconfig"; path = "../Pods/Target Support Files/Pods-cloudmine-ios/Pods-cloudmine-ios.release.xcconfig"; sourceTree = "<group>"; };
+		B4A5BCAF1EAFE1E100FC940F /* CMFileMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMFileMetadata.h; sourceTree = "<group>"; };
+		B4A5BCB01EAFE1E100FC940F /* CMFileMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMFileMetadata.m; sourceTree = "<group>"; };
 		B4AD7C441C80FF6C00D9F1D1 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		B4AD7C451C80FF6C00D9F1D1 /* MARTNSObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MARTNSObject.h; sourceTree = "<group>"; };
 		B4AD7C461C80FF6C00D9F1D1 /* MARTNSObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MARTNSObject.m; sourceTree = "<group>"; };
@@ -829,6 +834,8 @@
 				7AFDFE3F158E959B00388D6E /* CMObjectClassNameRegistry.m */,
 				7AFDFE40158E959B00388D6E /* CMUntypedObject.h */,
 				7AFDFE41158E959B00388D6E /* CMUntypedObject.m */,
+				B4A5BCAF1EAFE1E100FC940F /* CMFileMetadata.h */,
+				B4A5BCB01EAFE1E100FC940F /* CMFileMetadata.m */,
 			);
 			path = "Persisted Objects";
 			sourceTree = "<group>";
@@ -1203,6 +1210,7 @@
 				7AABA2E91480598300FD52A0 /* NSString+UUID.m in Sources */,
 				7AABA30114818DCA00FD52A0 /* CMObjectDecoder.m in Sources */,
 				7AABA30314818DCA00FD52A0 /* CMObjectEncoder.m in Sources */,
+				B4A5BCB11EAFE1E100FC940F /* CMFileMetadata.m in Sources */,
 				AAB748DF1986D7CD00988D56 /* CMUserResponse.m in Sources */,
 				7A7E31C914C88F8A0091F1E3 /* CMStore.m in Sources */,
 				7AD9221D14CF47360032DDDE /* CMPagingDescriptor.m in Sources */,
