@@ -1,3 +1,9 @@
+1.7.17 (August 31, 2017)
+=====================
+ * Removes the legacy payments API, which was recently removed from the CloudMine platform
+ * Prevents the SDK from throwing-then-catching internal errors when decoding non-CMObject
+   nested types. This should make breakpoint debugging easier for developers using the SDK.
+
 1.7.16 (July 20, 2017)
 =====================
 Adds CMFileMetadata class, a first-class object for interacting with metadata
