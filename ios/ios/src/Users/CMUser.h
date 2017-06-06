@@ -11,7 +11,6 @@
 #import "CMSerializable.h"
 #import "CMUserAccountResult.h"
 #import "CMSocialLoginViewController.h"
-#import "CMPaymentResponse.h"
 
 @class CMCardPayment, CMUserResponse, ACAccount, CMObjectFetchResponse;
 
@@ -644,37 +643,5 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
  * @param callback The block that will be called on completion of the operation.
  */
 + (void)userWithIdentifier:(NSString *)identifier callback:(CMUserFetchCallback)callback;
-
-/**
- * Asynchronously adds a payment method (A credit card) to the user. The user should be logged in.
- *
- * @param paymentMethod The Credit Card you are adding.
- * @param callback The block that will be called on completion of the operation.
- */
-- (void)addPaymentMethod:(CMCardPayment *)paymentMethod callback:(CMPaymentServiceCallback)callback;
-
-/**
- * Asynchronously adds payment methods (credit cards) to the user. The user should be logged in.
- *
- * @param paymentMethods The Credit Cards (CMPayment) you are adding.
- * @param callback The block that will be called on completion of the operation.
- */
-- (void)addPaymentMethods:(NSArray *)paymentMethods callback:(CMPaymentServiceCallback)callback;
-
-/**
- * Asynchronously removes a payment (A credit card) from the user. The user should be logged in. The
- * index is which credit card you want to remove.
- *
- * @param index The index for the Payment you are removing.
- * @param callback The block that will be called on completion of the operation.
- */
-- (void)removePaymentMethodAtIndex:(NSUInteger)index callback:(CMPaymentServiceCallback)callback;
-
-/**
- * Asynchronously fetches the payment methods for the user. The user should be logged in.
- *
- * @param callback The block that will be called on completion of the operation.
- */
-- (void)paymentMethods:(CMPaymentServiceCallback)callback;
 
 @end

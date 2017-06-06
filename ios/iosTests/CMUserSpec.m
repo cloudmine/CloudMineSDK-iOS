@@ -12,7 +12,6 @@
 #import "CMAPICredentials.h"
 #import "CMObjectEncoder.h"
 #import "CMObjectDecoder.h"
-#import "CMCardPayment.h"
 #import "CMUserAccountResult.h"
 #import "CMUserResponse.h"
 
@@ -315,57 +314,6 @@ describe(@"CMUser", ^{
             [user getProfile:^(CMUserAccountResult resultCode, NSArray *messages) {
                 [[@(resultCode) should] equal:@(CMUserAccountProfileUpdateFailed)];
                 [[messages should] haveCountOf:1];
-            }];
-            
-            CMWebServiceErorCallack callback = callbackBlockSpy.argument;
-            callback(@{@"Error": @"error message"}, 400, @{}, [NSError new], @{});
-        });
-        
-        it(@"should return the correct failure when getting payment fails", ^{
-
-            KWCaptureSpy *callbackBlockSpy = [[user valueForKey:@"webService"]
-                                              captureArgument:@selector(executeGenericRequest:successHandler:errorHandler:) atIndex:2];
-            [[[user valueForKey:@"webService"] should] receive:@selector(executeGenericRequest:successHandler:errorHandler:) withCount:1];
-            
-            // This first call should trigger the web service call.
-
-            [user paymentMethods:^(CMPaymentResponse *response) {
-                [[@([response wasSuccess]) should] equal:@NO];
-                [[@(response.result) should] equal:@(CMPaymentResultFailed)];
-            }];
-            
-            CMWebServiceErorCallack callback = callbackBlockSpy.argument;
-            callback(@{@"Error": @"error message"}, 400, @{}, [NSError new], @{});
-        });
-        
-        it(@"should return the correct failure when removing payment fails", ^{
-            
-            KWCaptureSpy *callbackBlockSpy = [[user valueForKey:@"webService"]
-                                              captureArgument:@selector(executeGenericRequest:successHandler:errorHandler:) atIndex:2];
-            [[[user valueForKey:@"webService"] should] receive:@selector(executeGenericRequest:successHandler:errorHandler:) withCount:1];
-            
-            // This first call should trigger the web service call.
-            
-            [user removePaymentMethodAtIndex:0 callback:^(CMPaymentResponse *response) {
-                [[@([response wasSuccess]) should] equal:@NO];
-                [[@(response.result) should] equal:@(CMPaymentResultFailed)];
-            }];
-            
-            CMWebServiceErorCallack callback = callbackBlockSpy.argument;
-            callback(@{@"Error": @"error message"}, 400, @{}, [NSError new], @{});
-        });
-        
-        it(@"should return the correct failure when adding payment fails", ^{
-            
-            KWCaptureSpy *callbackBlockSpy = [[user valueForKey:@"webService"]
-                                              captureArgument:@selector(executeGenericRequest:successHandler:errorHandler:) atIndex:2];
-            [[[user valueForKey:@"webService"] should] receive:@selector(executeGenericRequest:successHandler:errorHandler:) withCount:1];
-            
-            // This first call should trigger the web service call.
-            
-            [user addPaymentMethod:[CMCardPayment new] callback:^(CMPaymentResponse *response) {
-                [[@([response wasSuccess]) should] equal:@NO];
-                [[@(response.result) should] equal:@(CMPaymentResultFailed)];
             }];
             
             CMWebServiceErorCallack callback = callbackBlockSpy.argument;

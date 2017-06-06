@@ -9,11 +9,13 @@
 #import "Kiwi.h"
 #import "CMAPICredentials.h"
 #import "CMUser.h"
-#import "CMCardPayment.h"
 #import "CMWebService.h"
 #import "CMConstants.h"
 #import "TestUser.h"
 #import "CMUserResponse.h"
+#import "CMObjectFetchResponse.h"
+#import "CMPagingDescriptor.h"
+#import "CMStoreOptions.h"
 #import "CMTestMacros.h"
 
 SPEC_BEGIN(CMUserIntegrationSpec)
@@ -397,88 +399,6 @@ describe(@"CMUser Integration", ^{
                 [[expectFutureValue(mes) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveLengthOf:1];
             });
         });
-        
-        context(@"given some payment info", ^{
-            
-            __block CMUser *cardUser = nil;
-            __block CMCardPayment *card = nil;
-            __block NSString *cardId = nil;
-            beforeAll(^{
-                card = [[CMCardPayment alloc] init];
-                card.nameOnCard = @"Ethan Smith";
-                card.token = @"3243249390328409";
-                card.expirationDate = @"0916";
-                card.last4Digits = @"1111";
-                card.type = CMCardPaymentTypeVisa;
-                cardId = card.objectId;
-                
-                __block CMUserAccountResult code = NSNotFound;
-                __block NSArray *mes = nil;
-                
-                CMUser *user = [[CMUser alloc] initWithEmail:@"testcard@cloudmine.me" andPassword:@"testing"];
-                
-                [user createAccountAndLoginWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
-                    code = resultCode;
-                    mes = messages;
-                    cardUser = user;
-                }];
-                
-                [[expectFutureValue(theValue(code)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:theValue(CMUserAccountLoginSucceeded)];
-                [[expectFutureValue(mes) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
-            });
-            
-            it(@"should add a card", ^{
-                __block CMPaymentResponse *res = nil;
-                [cardUser addPaymentMethod:card callback:^(CMPaymentResponse *response) {
-                    res = response;
-                }];
-                
-                [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
-                [[expectFutureValue(@(res.result)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(CMPaymentResultSuccessful)];
-                [[expectFutureValue(@(res.httpResponseCode)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(200)];
-                [[expectFutureValue(res.errors) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
-                [[expectFutureValue(res.body[@"added"]) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(0)];
-            });
-            
-            it(@"should fetch the payment methods", ^{
-                __block CMPaymentResponse *res = nil;
-                [cardUser paymentMethods:^(CMPaymentResponse *response) {
-                    res = response;
-                }];
-                [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
-                [[expectFutureValue(@(res.result)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(CMPaymentResultSuccessful)];
-                [[expectFutureValue(@(res.httpResponseCode)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(200)];
-                [[expectFutureValue(res.errors) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
-                [[expectFutureValue(res.body) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
-                
-                [[expectFutureValue(((CMCardPayment *)res.body[0]).token) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@"3243249390328409"];
-            });
-            
-            it(@"should let you remove a payment method", ^{
-                __block CMPaymentResponse *res = nil;
-                [cardUser removePaymentMethodAtIndex:0 callback:^(CMPaymentResponse *response) {
-                    res = response;
-                }];
-                [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
-                [[expectFutureValue(@(res.result)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(CMPaymentResultSuccessful)];
-                [[expectFutureValue(@([res wasSuccess])) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(YES)];
-                [[expectFutureValue(res.errors) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
-                [[expectFutureValue(res.body) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
-            });
-            
-            it(@"fetching payment methods again should return nothing", ^{
-                __block CMPaymentResponse *res = nil;
-                [cardUser paymentMethods:^(CMPaymentResponse *response) {
-                    res = response;
-                }];
-                [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
-                [[expectFutureValue(@(res.result)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(CMPaymentResultSuccessful)];
-                [[expectFutureValue(@(res.httpResponseCode)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(200)];
-                [[expectFutureValue(res.errors) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
-                [[expectFutureValue(res.body) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:0];
-            });
-            
-        });
     });
     
     context(@"searching for users", ^{
@@ -499,7 +419,7 @@ describe(@"CMUser Integration", ^{
             }];
             
             [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
-            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:10];
+            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:9];
             [[expectFutureValue(error) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
         });
         
@@ -514,7 +434,7 @@ describe(@"CMUser Integration", ^{
             }];
             
             [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
-            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:10];
+            [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:9];
             [[expectFutureValue(error) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNil];
         });
         
@@ -528,7 +448,7 @@ describe(@"CMUser Integration", ^{
             [CMUser allUserWithOptions:options callback:^(CMObjectFetchResponse *response) {
                 all = response.objects;
                 error = response.error;
-                [[theValue(response.count) should] equal:theValue(10)];
+                [[theValue(response.count) should] equal:theValue(9)];
             }];
             
             [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
@@ -541,7 +461,7 @@ describe(@"CMUser Integration", ^{
             __block NSArray *all = nil;
             __block NSDictionary *error = nil;
             
-            [CMUser searchUsers:@"[email=\"testcard@cloudmine.me\"]" callback:^(NSArray *users, NSDictionary *errors) {
+            [CMUser searchUsers:@"[email=\"testsubclassuser@cloudmine.me\"]" callback:^(NSArray *users, NSDictionary *errors) {
                 all = users;
                 error = errors;
                 [[all should] haveCountOf:1];
@@ -554,7 +474,7 @@ describe(@"CMUser Integration", ^{
             [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
             [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
             [[expectFutureValue(error) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beEmpty];
-            [[expectFutureValue(((CMUser *)all[0]).email) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@"testcard@cloudmine.me"];
+            [[expectFutureValue(((CMUser *)all[0]).email) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@"testsubclassuser@cloudmine.me"];
         });
         
         identifier = nil;
@@ -562,7 +482,7 @@ describe(@"CMUser Integration", ^{
             __block NSArray *all = nil;
             __block NSError *error = nil;
             
-            [CMUser searchUsers:@"[email=\"testcard@cloudmine.me\"]" options:nil callback:^(CMObjectFetchResponse *response) {
+            [CMUser searchUsers:@"[email=\"testsubclassuser@cloudmine.me\"]" options:nil callback:^(CMObjectFetchResponse *response) {
                 all = response.objects;
                 error = response.error;
                 [[all should] haveCountOf:1];
@@ -575,7 +495,7 @@ describe(@"CMUser Integration", ^{
             [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
             [[expectFutureValue(all) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] haveCountOf:1];
             [[expectFutureValue(error) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNil];
-            [[expectFutureValue(((CMUser *)all[0]).email) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@"testcard@cloudmine.me"];
+            [[expectFutureValue(((CMUser *)all[0]).email) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@"testsubclassuser@cloudmine.me"];
         });
 
         
@@ -590,7 +510,7 @@ describe(@"CMUser Integration", ^{
                 error = errors;
                 if (all.count > 0) {
                     CMUser *found = all[0];
-                    [[found.email should] equal:@"testcard@cloudmine.me"];
+                    [[found.email should] equal:@"testsubclassuser@cloudmine.me"];
                 } else {
                     fail(@"Fail!");
                 }
