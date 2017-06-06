@@ -66,11 +66,9 @@
             decodedObject = [[klass alloc] initWithCoder:decoder];
         }
 
-        if (decodedObject) {
+        if (nil != decodedObject) {
             if(![decodedObject isKindOfClass:[CMObject class]] && ![decodedObject isKindOfClass:[CMUser class]]) {
-                [[NSException exceptionWithName:@"CMInternalInconsistencyException" reason:[NSString stringWithFormat:@"Can only deserialize top-level objects that inherit from CMObject. Got %@.", NSStringFromClass([decodedObject class])] userInfo:nil] raise];
-
-                return nil;
+                return @[];
             }
 
             // Add it to the final array of inflated objects.

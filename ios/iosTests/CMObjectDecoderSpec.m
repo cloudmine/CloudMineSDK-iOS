@@ -273,9 +273,9 @@ describe(@"CMObjectDecoder", ^{
     it(@"should NOT be able to deserialize a dictionary when it's at the top-level", ^{
         
         NSDictionary *dictionary = @{@"1234": @{@"__id__": @"1234", @"__class__" : @"map", @"name": @"foo"}};
-        [[theBlock(^{
-            [CMObjectDecoder decodeObjects:dictionary];
-        }) should] raiseWithName:@"CMInternalInconsistencyException"];
+        
+        NSArray *decodedObjects = [CMObjectDecoder decodeObjects:dictionary];
+        [[[decodedObjects should] have:0] items];
     });
 
     it(@"should decode multiple objects properly when some of them don't have __id__ fields but do have __class__ fields", ^{
