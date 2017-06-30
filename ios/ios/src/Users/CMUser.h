@@ -627,6 +627,8 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
 
 + (void)searchUsers:(NSString *)query options:(CMStoreOptions *)options callback:(CMUserFetchWithMetaCallback)callback;
 
++ (void)searchUsersWithIdentifiers:(NSArray<NSString*>*)usersIdentifiers callback:(CMUserFetchCallback)callback
+
 /**
  * Asynchronously search all profiles of users of this app for matching fields. This will download the profiles of all matching users of your app, and is useful for displaying
  * and filtering lists of people to share with or running analytics on your users yourself. On completion, the <tt>callback</tt> block will be called with an array
