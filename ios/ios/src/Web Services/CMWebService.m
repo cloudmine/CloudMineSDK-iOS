@@ -1222,6 +1222,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
 - (void)getAllUsersWithCallback:(CMWebServiceUserFetchSuccessCallback)callback {
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"GET"
                                                                   URL:[self constructAccountUrlWithUserIdentifier:nil
+                                                                                                 usersIdentifiers:nil
                                                                                                          function:nil
                                                                                                            paging:nil
                                                                                                           sorting:nil
@@ -1229,6 +1230,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
                                                             appSecret:_appSecret
                                                            binaryData:NO
                                                                  user:nil];
+    
     [self executeUserProfileFetchRequest:request callback:callback];
     
 }
@@ -1237,6 +1239,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
                             callback:(CMWebServiceUserFetchSuccessCallback)callback {
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"GET"
                                                                   URL:[self constructAccountUrlWithUserIdentifier:identifier
+                                                                                                 usersIdentifiers:nil
                                                                                                          function:nil
                                                                                                            paging:nil
                                                                                                           sorting:nil
@@ -1250,10 +1253,25 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
 - (void)searchUsers:(NSString *)query callback:(CMWebServiceUserFetchSuccessCallback)callback {
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"GET"
                                                                   URL:[self constructAccountUrlWithUserIdentifier:nil
+                                                                                                 usersIdentifiers:nil
                                                                                                          function:nil
                                                                                                            paging:nil
                                                                                                           sorting:nil
                                                                                                             query:query]
+                                                            appSecret:_appSecret
+                                                           binaryData:NO
+                                                                 user:nil];
+    [self executeUserProfileFetchRequest:request callback:callback];
+}
+
+- (void)searchUsersWithUsersIdentifiers:(NSArray<NSString*> *)identifiersList  callback:(CMWebServiceUserFetchSuccessCallback)callback {
+    NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"GET"
+                                                                  URL:[self constructAccountUrlWithUserIdentifier:nil
+                                                                                                 usersIdentifiers:identifiersList
+                                                                                                         function:nil
+                                                                                                           paging:nil
+                                                                                                          sorting:nil
+                                                                                                            query:nil]
                                                             appSecret:_appSecret
                                                            binaryData:NO
                                                                  user:nil];
@@ -1271,6 +1289,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"GET"
                                                                   URL:[self constructAccountUrlWithUserIdentifier:identifier
+                                                                                                 usersIdentifiers:nil
                                                                                                          function:function
                                                                                                            paging:paging
                                                                                                           sorting:sorting
@@ -1282,6 +1301,8 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     NSLog(@"META REQUEST: %@", request.URL);
     [self executeUserProfileFetchRequestWithMeta:request callback:callback];
 }
+
+
 
 #pragma - Request queueing and execution
 
@@ -2259,6 +2280,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
 }
 
 - (NSURL *)constructAccountUrlWithUserIdentifier:(NSString *)userId
+                                 usersIdentifiers:(NSArray<NSString*> *)usersIdentifiers
                                          function:(CMServerFunction *)function
                                           paging:(CMPagingDescriptor *)paging
                                          sorting:(CMSortDescriptor *)sorting
@@ -2270,6 +2292,10 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     } else if (query) {
         url = [url URLByAppendingPathComponent:@"search"];
         url = [url URLByAppendingAndEncodingQueryParameter:@"p" andValue:query];
+    } else if (usersIdentifiers) {
+        NSString * userIdentifiersQuery = [usersIdentifiers componentsJoinedByString:@","];
+        url = [url URLByAppendingPathComponent:@"/"];
+        url = [url URLByAppendingAndEncodingQueryParameter:@"ids" andValue:userIdentifiersQuery];
     }
     
     NSMutableArray *queryComponents = [NSMutableArray array];

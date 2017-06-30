@@ -560,6 +560,8 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  */
 - (void)searchUsers:(NSString *)query callback:(CMWebServiceUserFetchSuccessCallback)callback;
 
+- (void)searchUsersWithUsersIdentifiers:(NSArray<NSString *>*)identifiersList  callback:(CMWebServiceUserFetchSuccessCallback)callback;
+
 
 - (void)getUsersWithIdentifier:(NSString *)identifier
                          query:(NSString *)query
