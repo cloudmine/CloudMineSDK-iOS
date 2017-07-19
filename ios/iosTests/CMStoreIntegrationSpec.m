@@ -142,17 +142,33 @@ describe(@"CMStoreIntegration", ^{
     });
     
     __block NSString *nonUserKey = @"app_icon_something";
-    it(@"should upload a file with a given key", ^{
+    it(@"should upload a file with a given key and subsequently fetch it's metadata", ^{
         NSURL *url = [NSURL URLWithString:[[NSBundle bundleForClass:[self class]] pathForResource:@"cloudmine" ofType:@"png"]];
         
         __block CMFileUploadResponse *res = nil;
+        __block CMObjectFetchResponse *fetchRes = nil;
+        __block CMObject *metadataObject = nil;
+        
         [store saveFileAtURL:url named:nonUserKey additionalOptions:nil callback:^(CMFileUploadResponse *response) {
             res = response;
+            
+            [store objectsWithKeys:@[nonUserKey] additionalOptions:nil callback:^(CMObjectFetchResponse *fetchResponse) {
+                fetchRes = fetchResponse;
+                metadataObject = fetchRes.objects.firstObject;
+            }];
         }];
 
         [[expectFutureValue(res) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
         [[expectFutureValue(res.key) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:nonUserKey];
         [[expectFutureValue(theValue(res.result)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@(CMFileCreated)];
+        
+        [[expectFutureValue(fetchRes) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+        [[expectFutureValue(theValue(fetchRes.count)) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@1];
+        [[expectFutureValue(metadataObject) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] beNonNil];
+        [[expectFutureValue([metadataObject class]) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:[CMFileMetadata class]];
+        [[expectFutureValue([(CMFileMetadata *)metadataObject fileName]) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:nonUserKey];
+        [[expectFutureValue([(CMFileMetadata *)metadataObject originalKey]) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:nonUserKey];
+        [[expectFutureValue([(CMFileMetadata *)metadataObject contentType]) shouldEventuallyBeforeTimingOutAfter(CM_TEST_TIMEOUT)] equal:@"image/png"];
     });
     
     it(@"should fetch all the objects", ^{
