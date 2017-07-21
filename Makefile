@@ -54,7 +54,7 @@ cov:
 docs:
 	-@find docs/ -name "*.md" -exec rm -rf {} \;
 	git clone git@github.com:cloudmine/clairvoyance.git
-	-@rsync -rtuvl --exclude=.git --delete clairvoyance/docs/3_iOS/ docs/
+	-@rsync -rtuvl --exclude=.git --delete clairvoyance/docs/03_iOS/ docs/
 	-@cp clairvoyance/app/img/CMHealth-SDK-Login-Screen.png docs/
 	-@rm -rf clairvoyance
 .PHONY: docs
@@ -107,7 +107,7 @@ verify-tag: get-version
 	git tag --verify ${VERSION}
 
 push-tag-to-origin: get-version
-	git push origin $VERSION
+	git push origin ${VERSION}
 
 lint:
 	pod --verbose lib lint
@@ -132,6 +132,6 @@ create-signatures: get-version
 	-@rm -f CloudMineSDK-iOS-${VERSION}.zip
 
 # only for the brave...
-release: get-version docs lint tag-version verify-tag push-origin cocoapods-push create-signatures stage-next-release
+release: get-version docs lint tag-version verify-tag push-tag-to-origin cocoapods-push create-signatures stage-next-release
 
 export VERSION

@@ -1,4 +1,4 @@
-# USER DATA
+# User Data
 
 User accounts can be used to store data privately to that user, in addition to several other common features related to account management. Users are created using the CMUser class.
 

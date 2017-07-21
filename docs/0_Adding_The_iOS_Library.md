@@ -9,13 +9,23 @@ CloudMine has an iOS Library that makes integrating with CloudMine’s services 
 The library *is* Swift compatible.
 
 ## Installing (Current Version: {[{version}]})
-The current only supported installation method is [Cocoapods](http://cocoapods.org/). Cocoapods is a powerful package manager for iOS apps and allows for you to easily add third party libraries. It also manages dependencies between libraries for you.
+Currently the only supported installation method is [CocoaPods](http://cocoapods.org/). CocoaPods is a powerful package manager for iOS apps and allows for you to easily add third party libraries. It also manages dependencies between libraries for you.
 
 To install, add this to your Podfile:
 
 ```ruby
 pod 'CloudMine', '{[{version}]}'
 ```
+
+If you're developing your app in Swift, you should also add the `use_frameworks!` directive to the top of your Podfile. This option also works for Objective-C projects targeting iOS 8 or later.
+
+```ruby
+use_frameworks!
+
+pod 'CloudMine', '{[{version}]}'
+```
+
+If you are developing your app in Swift but are unable to use frameworks, you'll have to use an [Objective-C Bridging header](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html) to import the SDK.
 
 You can also point the Podfile to the CloudMine public repo and get the latest version straight from Github:
 
@@ -36,4 +46,4 @@ Before you can begin using the iOS Library, you must first [create an applicatio
 ## Sample Apps
 The following applications are examples that demonstrate how to properly use CloudMine's iOS Library.
 
-* [Todoly](https://github.com/cloudmine/cloudmine-ios-sample-todo) - A simple application that demonstrates CloudMine's user authentication and object storage APIs. It displays a simple, per-user todo list, and just happens to sync with [this JavaScript sample application](https://cloudmine.io/sample-apps/todo/index.html).
+* [Todoly](https://github.com/cloudmine/cloudmine-ios-sample-todo) - A simple application that demonstrates CloudMine's user authentication and object storage APIs. It displays a simple, per-user todo list.
