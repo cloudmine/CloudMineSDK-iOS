@@ -11,12 +11,14 @@
 #import "CMObjectEncoder.h"
 #import "CMObjectDecoder.h"
 #import "CMSerializable.h"
+#import "CMObjectSerialization.h"
 #import "NSString+UUID.h"
 #import "CMGenericSerializableObject.h"
 #import "CMCrossPlatformGenericSerializableObject.h"
 #import "CMTestEncoder.h"
 #import "CMUntypedObject.h"
 #import "CMACL.h"
+#import "CMFileMetadata.h"
 
 SPEC_BEGIN(CMObjectDecoderSpec)
 
@@ -195,6 +197,22 @@ describe(@"CMObjectDecoder", ^{
         [[object.fields should] haveCountOf:3];
         [[object.fields[@"firstName"] should] equal:@"name"];
         [[object.fields[@"lastName"] should] equal:@"aName"];
+    });
+    
+    it(@"should decode a dictionary into a CMFileMetadata object", ^{
+        NSDictionary *encoded = @{NSUUID.new.UUIDString: @{ CMInternalTypeStorageKey: @"file",
+                                                            @"__original_key__": @"someFileName.png",
+                                                            @"content_type": @"image/png",
+                                                            @"filename": @"someFileName_updated.png", } };
+        
+        NSObject *decodedObject = [CMObjectDecoder decodeObjects:encoded].firstObject;
+        
+        [[[decodedObject class] should] equal:[CMFileMetadata class]];
+        
+        CMFileMetadata *metadata = (CMFileMetadata *)decodedObject;
+        [[metadata.originalKey should] equal:@"someFileName.png"];
+        [[metadata.contentType should] equal: @"image/png"];
+        [[metadata.fileName should] equal: @"someFileName_updated.png"];
     });
     
     it(@"should decode a CMUser which has the type 'user'", ^{

@@ -17,6 +17,7 @@
 #import "CMGeoPoint.h"
 #import "CMDate.h"
 #import "CMTestEncoder.h"
+#import "CMFileMetadata.h"
 
 SPEC_BEGIN(CMObjectEncoderSpec)
 
@@ -203,6 +204,22 @@ describe(@"CMObjectEncoder", ^{
         [[result should] haveValueForKey:uuid];
         NSDictionary *object = result[uuid];
         [[object[@"uuid"] should] equal:@"5iHh+MNsSVqT/Awkej5uXw=="];
+    });
+    
+    it(@"should encode a CMFileMetadata object", ^{
+        NSString *uuid = NSUUID.new.UUIDString;
+        CMFileMetadata *metadata = [[CMFileMetadata alloc] initWithObjectId:uuid];
+        
+        NSDictionary *encoded = [CMObjectEncoder encodeObjects:@[metadata]];
+        [[encoded shouldNot] beNil];
+        [[[encoded should] have:1] items];
+        [[encoded should] haveValueForKey:uuid];
+        
+        NSDictionary *metaDict = encoded[uuid];
+        [[metaDict[CMInternalTypeStorageKey] should] equal:@"file"];
+        [[metaDict[@"filename"] should] beNil];
+        [[metaDict[@"__original_key__"] should] beNil];
+        [[metaDict[@"content_type"] should] beNil];
     });
     
     it(@"should raise an exception when given a non-serializable object", ^{
