@@ -14,6 +14,7 @@
 #import "CMACL.h"
 #import "CMDate.h"
 #import "CMObjectClassNameRegistry.h"
+#import "CMFileMetadata.h"
 
 @interface CMObjectDecoder (Private)
 + (Class)typeFromDictionaryRepresentation:(NSDictionary *)representation;
@@ -207,6 +208,8 @@
         klass = [NSDictionary class];
     } else if ([typeName isEqualToString:@"user"] && !className) {
         klass = [CMUser class];
+    } else if (nil == className && [@"file" isEqualToString:typeName]) {
+        klass = [CMFileMetadata class];
     } else {
         // First try to look up a custom class name (i.e. a name given to a CMObject subclass by overriding +className).
         klass = [[CMObjectClassNameRegistry sharedInstance] classForName:className];

@@ -43,6 +43,7 @@
 #import "CMDistance.h"
 #import "CMUntypedObject.h"
 #import "CMFile.h"
+#import "CMFileMetadata.h"
 #import "CMGeoPoint.h"
 #import "CMACL.h"
 #import "CMMimeType.h"

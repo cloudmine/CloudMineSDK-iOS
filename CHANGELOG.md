@@ -1,3 +1,8 @@
+1.7.16 (July 20, 2017)
+=====================
+Adds CMFileMetadata class, a first-class object for interacting with metadata
+created when a file is uploaded to CloudMine.
+
 1.7.15 (January 6, 2017)
 =======================
 Resolves a bug that could, in certain situations, cause a small memory leak when preparing a request.

@@ -12,6 +12,7 @@
 #import "CMGeoPoint.h"
 #import "CMDate.h"
 #import "CMACL.h"
+#import "CMFileMetadata.h"
 #import "CMCoding.h"
 
 @interface CMObjectEncoder (Private)
@@ -44,13 +45,19 @@
 
         // Each top-level object gets its own encoder, and the result of each serialization is stored
         // at the key specified by the object.
-        CMObjectEncoder *objectEncoder = [[CMObjectEncoder alloc] init];
+        CMObjectEncoder *objectEncoder = [CMObjectEncoder new];
         [object encodeWithCoder:objectEncoder];
+        
         NSMutableDictionary *encodedRepresentation = [NSMutableDictionary dictionaryWithDictionary:objectEncoder.encodedRepresentation];
+        
         if ([object isKindOfClass:[CMACL class]]) {
-            [encodedRepresentation[@"segments"] removeObjectForKey:@"__class__"];
+            [encodedRepresentation[@"segments"] removeObjectForKey:CMInternalClassStorageKey];
         }
-        [encodedRepresentation setObject:[[object class] className] forKey:CMInternalClassStorageKey];
+        
+        if (![object isKindOfClass:[CMFileMetadata class]]) {
+            encodedRepresentation[CMInternalClassStorageKey] = [[object class] className];
+        }
+        
         [topLevelObjectsDictionary setObject:encodedRepresentation forKey:object.objectId];
     }
 
