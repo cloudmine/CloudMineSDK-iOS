@@ -769,6 +769,15 @@ static id _private_user = nil;
     }];
 }
 
++ (void)searchUsersWithIdentifiers:(NSArray<NSString*>*)usersIdentifiers callback:(CMUserFetchCallback)callback {
+    NSParameterAssert(callback);
+    [[CMWebService sharedWebService] searchUsersWithUsersIdentifiers:usersIdentifiers callback:^(NSDictionary *results, NSDictionary *errors, NSNumber *count) {
+        NSArray *users = [CMObjectDecoder decodeObjects:results];
+        [self cacheMultipleUsers:users];
+        callback(users, errors);
+    }];
+}
+
 + (void)userWithIdentifier:(NSString *)identifier callback:(CMUserFetchCallback)callback {
     NSParameterAssert(callback);
 
