@@ -53,7 +53,7 @@ SPEC_BEGIN(CMUserSpec)
 
 describe(@"CMUser", ^{
     
-    [[CMAPICredentials sharedInstance] setAppSecret:@"appSecret"];
+    [[CMAPICredentials sharedInstance] setApiKey:@"appSecret"];
     [[CMAPICredentials sharedInstance] setAppIdentifier:@"appIdentifier"];
     
     context(@"given a user", ^{

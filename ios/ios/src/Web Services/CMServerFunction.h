@@ -51,7 +51,7 @@
  * Convenience method to return a representation of a server-side code snippet given a name and all other
  * options set to defaults.
  *
- * @param theFunctionName
+ * @param theFunctionName The name of the server-side snippet to execute.
  * @return CMServerFunction The newly initialized object.
  */
 + (instancetype)serverFunctionWithName:(NSString *)theFunctionName;
@@ -60,8 +60,8 @@
  * Convenience method to return a representation of a server-side code snippet given a name and a set
  * of extra parameters to send to the snippet. All other options remain set to their defaults.
  *
- * @param theFunctionName
- * @param theExtraParameters
+ * @param theFunctionName The name of the server-side snippet to execute.
+ * @param theExtraParameters Any parameters to pass to the snippet when it is called.
  * @return CMServerFunction The newly initialized object.
  */
 + (instancetype)serverFunctionWithName:(NSString *)theFunctionName extraParameters:(NSDictionary *)theExtraParameters;
@@ -73,9 +73,9 @@
  *
  * @see resultOnly
  *
- * @param theFunctionName
- * @param theExtraParameters
- * @param resultOnly
+ * @param theFunctionName The name of the server-side snippet to execute.
+ * @param theExtraParameters Any parameters to pass to the snippet when it is called.
+ * @param resultOnly Should the server return only the result of the snippet?
  * @return CMServerFunction The newly initialized object.
  */
 + (instancetype)serverFunctionWithName:(NSString *)theFunctionName extraParameters:(NSDictionary *)theExtraParameters responseContainsResultOnly:(BOOL)resultOnly;
@@ -88,10 +88,10 @@
  * @see resultOnly
  * @see async
  *
- * @param theFunctionName
- * @param theExtraParameters
- * @param resultOnly
- * @param async
+ * @param theFunctionName The name of the server-side snippet to execute.
+ * @param theExtraParameters Any parameters to pass to the snippet when it is called.
+ * @param resultOnly Should the server return only the result of the snippet?
+ * @param async Should the server execute the asynchronously instead of waiting to return?
  * @return CMServerFunction The newly initialized object.
  */
 + (instancetype)serverFunctionWithName:(NSString *)theFunctionName extraParameters:(NSDictionary *)theExtraParameters responseContainsResultOnly:(BOOL)resultOnly performAsynchronously:(BOOL)async;
@@ -104,10 +104,10 @@
  * @see resultOnly
  * @see async
  *
- * @param theFunctionName
- * @param theExtraParameters
- * @param resultOnly
- * @param async
+ * @param theFunctionName The name of the server-side snippet to execute.
+ * @param theExtraParameters Any parameters to pass to the snippet when it is called.
+ * @param resultOnly Should the server return only the result of the snippet?
+ * @param async Should the server execute the asynchronously instead of waiting to return?
  * @return CMServerFunction The newly initialized object.
  */
 - (instancetype)initWithFunctionName:(NSString *)theFunctionName extraParameters:(NSDictionary *)theExtraParameters responseContainsResultOnly:(BOOL)resultOnly performAsynchronously:(BOOL)async;

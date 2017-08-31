@@ -138,7 +138,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * <tt>CMAPICredentials</tt> singleton with your app identifier and secret key.
  *
  * @param theUser The user to configure the store with.
- * @param baseURL The base URL you want this instance to point to.
+ * @param url The base URL you want this instance to point to.
  *
  * @see CMAPICredentials
  * @see CMUser
@@ -233,7 +233,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * <strong>Note</strong> - This method will register the stored CMUser to the token. If you do not want to associate the token with the user use
  * registerForPushNotificationTypes:user:callback: and pass nil.
  *
- * @param notificationType The parameter of this method takes a UIUserNotificationType bit mask that specifies the initial types of notifications that the application wishes to receive. For example, Alert, Badge, and Sound.
+ * @param notificationTypes The parameter of this method takes a UIUserNotificationType bit mask that specifies the initial types of notifications that the application wishes to receive. For example, Alert, Badge, and Sound.
  * @param callback Can be nil. The callback which is called once the Token has been sent to CloudMine, returns the result of that transaction.
  */
 - (void)registerForPushNotificationTypes:(UIUserNotificationType)notificationTypes callback:(CMWebServiceDeviceTokenCallback)callback;
@@ -244,8 +244,8 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * will be given.
  *
  *
- * @param notificationType The parameter of this method takes a UIUserNotificationType bit mask that specifies the initial types of notifications that the application wishes to receive. For example, Alert, Badge, and Sound.
- * @param user The user you want to associate the token with.
+ * @param notificationTypes The parameter of this method takes a UIUserNotificationType bit mask that specifies the initial types of notifications that the application wishes to receive. For example, Alert, Badge, and Sound.
+ * @param aUser The user you want to associate the token with.
  * @param callback Can be nil. The callback which is called once the Token has been sent to Cloudmine, returns the result of that transaction.
  */
 - (void)registerForPushNotificationTypes:(UIUserNotificationType)notificationTypes user:(CMUser *)aUser callback:(CMWebServiceDeviceTokenCallback)callback;
@@ -581,7 +581,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * already belong to this store, they will automatically be added as well. If these objects do not exist already
  * on CloudMine, they will be created.
  *
- * @param theObject The objects to replace.
+ * @param objects The objects to replace.
  * @param options Use these options to specify a server-side function to call after persisting the objects. Only CMStoreOptions#serverSideFunction is used.
  * @param callback The callback to be triggered when all the objects are finished uploading.
  *
@@ -623,7 +623,7 @@ extern NSString * const CMStoreObjectDeletedNotification;
  * already belong to this store, they will automatically be added as well. If these objects do not exist already
  * on CloudMine, they will be created.
  *
- * @param theObject The objects to replace.
+ * @param objects The objects to replace.
  * @param options Use these options to specify a server-side function to call after persisting the objects. Only CMStoreOptions#serverSideFunction is used.
  * @param callback The callback to be triggered when all the objects are finished uploading.
  *

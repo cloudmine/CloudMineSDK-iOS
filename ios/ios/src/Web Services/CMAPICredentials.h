@@ -41,7 +41,7 @@
  * @deprecated
  * @see apiKey
  */
-@property (nonatomic, copy) NSString *appSecret;
+@property (nonatomic, copy) NSString *appSecret __deprecated_msg("Use apiKey property instead");
 
 /**
  * The App Identifier from your CloudMine dashboard.

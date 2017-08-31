@@ -196,7 +196,7 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * Asynchronously retrieve a binary file for the named user-leve key. On completion, the <tt>successHandler</tt> block
  * will be called with the raw data from the server.
  *
- * @param keys The key of the binary file to fetch.
+ * @param key The key of the binary file to fetch.
  * @param user The user whose data to fetch. If nil, fetches app-level objects.
  * @param successHandler The block to be called when the file has been fully downloaded.
  * @param errorHandler The block to be called if the request failed.
@@ -500,7 +500,7 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * @param password The current password for the user.
  * @param newPassword Can be nil. The new password for the user.
  * @param newUsername Can be nil. The new username for the user.
- * @param newUserId Can be nil. THe new userId for the user. Must be in the form of an email.
+ * @param newEmail Can be nil. THe new userId for the user. Must be in the form of an email.
  *
  * @see CMUserAccountResult
  */

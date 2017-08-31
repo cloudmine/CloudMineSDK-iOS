@@ -56,7 +56,7 @@ describe(@"CMObject", ^{
     __block CMStore *store;
 
     beforeAll(^{
-        [[CMAPICredentials sharedInstance] setAppSecret:@"appSecret"];
+        [[CMAPICredentials sharedInstance] setApiKey:@"appSecret"];
         [[CMAPICredentials sharedInstance] setAppIdentifier:@"appIdentifier"];
     });
 
@@ -103,7 +103,8 @@ describe(@"CMObject", ^{
         });
         
         it(@"it should always belong to a store", ^{
-            [[theValue([obj belongsToStore]) should] equal:@YES];
+            BOOL belongs = [obj performSelector:@selector(belongsToStore)];
+            [[theValue(belongs) should] equal:@YES];
         });
         
         it(@"should properly make the objectId a string if not given a string", ^{
@@ -142,7 +143,8 @@ describe(@"CMObject", ^{
         });
         
         it(@"it should always belong to a store", ^{
-            [[theValue([obj belongsToStore]) should] equal:@YES];
+            BOOL belongs = [obj performSelector:@selector(belongsToStore)];
+            [[theValue(belongs) should] equal:@YES];
         });
         
         it(@"should be able to change stores", ^{
@@ -169,7 +171,8 @@ describe(@"CMObject", ^{
     context(@"given an object that doesn't belong to a store yet", ^{
         
         it(@"it should always belong to a store", ^{
-            [[theValue([obj belongsToStore]) should] equal:@YES];
+            BOOL belongs = [obj performSelector:@selector(belongsToStore)];
+            [[theValue(belongs) should] equal:@YES];
         });
         
         it(@"should save to the app-level when save: is called on the object", ^{

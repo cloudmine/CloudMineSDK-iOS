@@ -19,7 +19,7 @@
  * Callback block signature for all operations on <tt>CMStore</tt> that fetch ACLs
  * from the CloudMine's servers.
  *
- * @param CMACLFetchResponse
+ * @see CMACLFetchResponse
  */
 typedef void (^CMStoreACLFetchCallback)(CMACLFetchResponse *response);
 
@@ -51,7 +51,7 @@ typedef void (^CMStoreFileFetchCallback)(CMFileFetchResponse *response);
  * Callback block signature for operations on <tt>CMStore</tt> that upload binary files
  * to the CloudMine servers with a given name.
  *
- * @param CMFileUploadResponse
+ * @see CMFileUploadResponse
  */
 typedef void (^CMStoreFileUploadCallback)(CMFileUploadResponse *response);
 
