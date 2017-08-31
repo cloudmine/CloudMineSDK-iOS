@@ -48,7 +48,7 @@ SPEC_BEGIN(CMGeoPointSpec)
 
 describe(@"CMGeoPoint", ^{
     beforeAll(^{
-        [[CMAPICredentials sharedInstance] setAppSecret:@"appSecret"];
+        [[CMAPICredentials sharedInstance] setApiKey:@"appSecret"];
         [[CMAPICredentials sharedInstance] setAppIdentifier:@"appIdentifier"];
     });
 

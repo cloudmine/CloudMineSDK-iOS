@@ -71,9 +71,9 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
 - (instancetype)init;
 {
     CMAPICredentials *credentials = [CMAPICredentials sharedInstance];
-    NSAssert([credentials appSecret] && [credentials appIdentifier],
+    NSAssert([credentials apiKey] && [credentials appIdentifier],
              @"You must configure CMAPICredentials before using this method. If you don't want to use CMAPICredentials, you must call [CMWebService initWithAppSecret:appIdentifier:] instead of this method.");
-    return [self initWithAppSecret:[credentials appSecret] appIdentifier:[credentials appIdentifier]];
+    return [self initWithAppSecret:[credentials apiKey] appIdentifier:[credentials appIdentifier]];
 }
 
 - (instancetype)initWithBaseURL:(NSURL *)url;
@@ -83,10 +83,10 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
         url = [NSURL URLWithString:credentials.baseURL];
     }
     
-    NSAssert([credentials appSecret] && [credentials appIdentifier],
+    NSAssert([credentials apiKey] && [credentials appIdentifier],
              @"You must configure CMAPICredentials before using this method. If you don't want to use CMAPICredentials, you must call [CMWebService initWithAppSecret:appIdentifier:] instead of this method.");
     
-    return [self initWithAppSecret:credentials.appSecret appIdentifier:credentials.appIdentifier baseURL:url];
+    return [self initWithAppSecret:credentials.apiKey appIdentifier:credentials.appIdentifier baseURL:url];
 }
 
 - (instancetype)initWithAppSecret:(NSString *)appSecret appIdentifier:(NSString *)appIdentifier;
