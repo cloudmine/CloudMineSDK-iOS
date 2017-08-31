@@ -11,10 +11,12 @@
 #import "CMObjectSerialization.h"
 #import "CMObjectDecoder.h"
 #import "CMObjectEncoder.h"
-#import "CMCardPayment.h"
 #import "NSDictionary+CMJSON.h"
 #import "CMUserResponse.h"
-
+#import "CMStoreOptions.h"
+#import "CMObjectFetchResponse.h"
+#import "CMResponseMetadata.h"
+#import "CMSnippetResult.h"
 #import "MARTNSObject.h"
 #import "RTProperty.h"
 
@@ -508,95 +510,6 @@ static id _private_user = nil;
         }
     }];
 }
-
-#pragma mark - Payment Methods
-
-- (void)addPaymentMethod:(CMCardPayment *)paymentMethod callback:(CMPaymentServiceCallback)callback;
-{
-        [self addPaymentMethods:@[paymentMethod] callback:callback];
-    }
-
-- (void)addPaymentMethods:(NSArray *)paymentMethods callback:(CMPaymentServiceCallback)callback;
-{
-    //serialize payment method
-    NSString *urlString = @"payments/account/methods/card";
-    
-    NSURL *url = [_webService constructAppURLWithString:urlString andDescriptors:nil];
-    NSMutableURLRequest *request = [_webService constructHTTPRequestWithVerb:@"POST" URL:url binaryData:NO user:self];
-    
-    NSMutableArray *payments = [NSMutableArray array];
-    NSDictionary *encoded = [CMObjectEncoder encodeObjects:paymentMethods];
-    [encoded enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        [payments addObject:obj];
-    }];
-    
-    NSDictionary *finalEncoding = @{@"payments": payments};
-    
-    NSError *error = nil;
-    NSData *data = [NSJSONSerialization dataWithJSONObject:finalEncoding options:0 error:&error];
-    if (error) {
-        NSLog(@"There was an error serializing the CMPayment Object! %@", error);
-    }
-    
-    [request setHTTPBody:data];
-    
-    [_webService executeGenericRequest:request successHandler:^(id parsedBody, NSUInteger httpCode, NSDictionary *headers) {
-        CMPaymentResponse *response = [[CMPaymentResponse alloc] initWithResponseBody:parsedBody httpCode:httpCode headers:headers errors:nil];
-        response.result = CMPaymentResultSuccessful;
-        if (callback) callback(response);
-    } errorHandler:^(id responseBody, NSUInteger httpCode, NSDictionary *headers, NSError *error, NSDictionary *errorInfo) {
-        CMPaymentResponse *response = [[CMPaymentResponse alloc] initWithResponseBody:responseBody httpCode:httpCode headers:headers errors:errorInfo];
-        response.result = CMPaymentResultFailed;
-        if (callback) callback(response);
-    }];
-}
-
-- (void)removePaymentMethodAtIndex:(NSUInteger)index callback:(CMPaymentServiceCallback)callback;
-{
-    NSString *urlString = [NSString stringWithFormat:@"payments/account/methods/card/%lu", (unsigned long)index];
-    
-    NSURL *url = [_webService constructAppURLWithString:urlString andDescriptors:nil];
-    NSMutableURLRequest *request = [_webService constructHTTPRequestWithVerb:@"DELETE" URL:url binaryData:NO user:self];
-    
-    [_webService executeGenericRequest:request successHandler:^(id parsedBody, NSUInteger httpCode, NSDictionary *headers) {
-        CMPaymentResponse *response = [[CMPaymentResponse alloc] initWithResponseBody:parsedBody httpCode:httpCode headers:headers errors:nil];
-        response.result = CMPaymentResultSuccessful;
-        if (callback) callback(response);
-    } errorHandler:^(id responseBody, NSUInteger httpCode, NSDictionary *headers, NSError *error, NSDictionary *errorInfo) {
-        CMPaymentResponse *response = [[CMPaymentResponse alloc] initWithResponseBody:responseBody httpCode:httpCode headers:headers errors:errorInfo];
-        response.result = CMPaymentResultFailed;
-        if (callback) callback(response);
-    }];
-}
-
-- (void)paymentMethods:(CMPaymentServiceCallback)callback;
-{
-    NSString *urlString = @"payments/account/methods";
-    
-    NSURL *url = [_webService constructAppURLWithString:urlString andDescriptors:nil];
-    NSMutableURLRequest *request = [_webService constructHTTPRequestWithVerb:@"GET" URL:url binaryData:NO user:self];
-    
-    [_webService executeGenericRequest:request successHandler:^(id parsedBody, NSUInteger httpCode, NSDictionary *headers) {
-        
-        NSMutableArray *finishedObjects = [NSMutableArray array];
-        for (NSDictionary *dictionary in parsedBody[@"card"]) {
-            CMObjectDecoder *decoder = [[CMObjectDecoder alloc] initWithSerializedObjectRepresentation:dictionary];
-            CMCardPayment *newPayment = [[CMCardPayment alloc] initWithCoder:decoder];
-            [finishedObjects addObject:newPayment];
-        }
-        
-        CMPaymentResponse *response = [[CMPaymentResponse alloc] initWithResponseBody:finishedObjects httpCode:httpCode headers:headers errors:nil];
-        response.result = CMPaymentResultSuccessful;
-        if (callback) callback(response);
-    } errorHandler:^(id responseBody, NSUInteger httpCode, NSDictionary *headers, NSError *error, NSDictionary *errorInfo) {
-        CMPaymentResponse *response = [[CMPaymentResponse alloc] initWithResponseBody:responseBody httpCode:httpCode headers:headers errors:errorInfo];
-        response.result = CMPaymentResultFailed;
-        if (callback) callback(response);
-    }];
-}
-
-
-
 
 #pragma mark - Social Login
 

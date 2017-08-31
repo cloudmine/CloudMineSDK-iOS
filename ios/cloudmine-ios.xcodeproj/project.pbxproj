@@ -135,7 +135,6 @@
 		AA0351A01992AD6A00A3027E /* CMSocialAccountChooserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA03519F1992AD6A00A3027E /* CMSocialAccountChooserSpec.m */; };
 		AA095166194B6C09008602DB /* CMAPICredentialsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA095165194B6C09008602DB /* CMAPICredentialsSpec.m */; };
 		AA095168194B6CB4008602DB /* CMAppDelegateBaseSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA095167194B6CB4008602DB /* CMAppDelegateBaseSpec.m */; };
-		AA09516D194B7AA7008602DB /* CMPaymentServiceSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA09516C194B7AA7008602DB /* CMPaymentServiceSpec.m */; };
 		AA104FE8196326D70043C141 /* TestUser.m in Sources */ = {isa = PBXBuildFile; fileRef = AA104FE7196326D70043C141 /* TestUser.m */; };
 		AA5693C31901790300C4A15A /* CMConstants.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA5693C21901790300C4A15A /* CMConstants.h */; };
 		AA5693C71902E90500C4A15A /* CMTestEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5693C61902E90500C4A15A /* CMTestEncoder.m */; };
@@ -155,12 +154,6 @@
 		AA9528D4194B422800AEB90D /* CMNullStoreSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9528D3194B422800AEB90D /* CMNullStoreSpec.m */; };
 		AA9927C0195C7DBF00C46F02 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA9927BF195C7DBF00C46F02 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		AA9927C2195C7DC700C46F02 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA9927C1195C7DC700C46F02 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		AAA05FB9183A756B009652C9 /* CMPaymentService.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA05FB3183A756B009652C9 /* CMPaymentService.m */; };
-		AAA05FBB183A756B009652C9 /* CMPaymentService.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB4183A756B009652C9 /* CMPaymentService.h */; };
-		AAA05FBC183A756B009652C9 /* CMCardPayment.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB5183A756B009652C9 /* CMCardPayment.h */; };
-		AAA05FBD183A756B009652C9 /* CMPaymentResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA05FB6183A756B009652C9 /* CMPaymentResponse.h */; };
-		AAA05FBE183A756B009652C9 /* CMCardPayment.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA05FB7183A756B009652C9 /* CMCardPayment.m */; };
-		AAA05FC0183A756B009652C9 /* CMPaymentResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA05FB8183A756B009652C9 /* CMPaymentResponse.m */; };
 		AAA102D519265AEC00A11BC4 /* CMObjectIntegrationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA102D419265AEC00A11BC4 /* CMObjectIntegrationSpec.m */; };
 		AAA850ED168271B600C18957 /* CMDeviceTokenResult.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA850EC168271B500C18957 /* CMDeviceTokenResult.h */; };
 		AAA92FF3181966370064F773 /* NSDictionary+CMJSON.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAA92FF1181966370064F773 /* NSDictionary+CMJSON.h */; };
@@ -226,7 +219,6 @@
 				AAC1D8FA16DD5B34002A7DC0 /* CMChannelResponse.h in CopyFiles */,
 				AAB2E0B4167BA05700D2C699 /* CMAppDelegateBase.h in CopyFiles */,
 				715217581653F5C4007FB0A9 /* CMSocialLoginViewController.h in CopyFiles */,
-				AAA05FBB183A756B009652C9 /* CMPaymentService.h in CopyFiles */,
 				D03A4D5C15B48D2200A956BC /* CMACLFetchResponse.h in CopyFiles */,
 				7AF00BA215A8DC7C0070442A /* CMACL.h in CopyFiles */,
 				AA5C4632190C19990086FBD6 /* CMCoding.h in CopyFiles */,
@@ -270,9 +262,7 @@
 				7A87315714BB0AD0000D6DEA /* CMWebService.h in CopyFiles */,
 				7A87315914BB0AD0000D6DEA /* CMAPICredentials.h in CopyFiles */,
 				7A87315A14BB0AD0000D6DEA /* CMServerFunction.h in CopyFiles */,
-				AAA05FBC183A756B009652C9 /* CMCardPayment.h in CopyFiles */,
 				7A87315B14BB0AD0000D6DEA /* CMSerializable.h in CopyFiles */,
-				AAA05FBD183A756B009652C9 /* CMPaymentResponse.h in CopyFiles */,
 				AAA850ED168271B600C18957 /* CMDeviceTokenResult.h in CopyFiles */,
 				AA5693C31901790300C4A15A /* CMConstants.h in CopyFiles */,
 				AA00CED21886E1C700F9958C /* UIImageView+CloudMine.h in CopyFiles */,
@@ -401,7 +391,6 @@
 		AA03519F1992AD6A00A3027E /* CMSocialAccountChooserSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMSocialAccountChooserSpec.m; sourceTree = "<group>"; };
 		AA095165194B6C09008602DB /* CMAPICredentialsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMAPICredentialsSpec.m; sourceTree = "<group>"; };
 		AA095167194B6CB4008602DB /* CMAppDelegateBaseSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMAppDelegateBaseSpec.m; sourceTree = "<group>"; };
-		AA09516C194B7AA7008602DB /* CMPaymentServiceSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPaymentServiceSpec.m; sourceTree = "<group>"; };
 		AA104FE6196326D70043C141 /* TestUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestUser.h; sourceTree = "<group>"; };
 		AA104FE7196326D70043C141 /* TestUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestUser.m; sourceTree = "<group>"; };
 		AA4DE2BA1A6972A600888CB2 /* CMTestMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMTestMacros.h; sourceTree = "<group>"; };
@@ -425,12 +414,6 @@
 		AA9528D3194B422800AEB90D /* CMNullStoreSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMNullStoreSpec.m; sourceTree = "<group>"; };
 		AA9927BF195C7DBF00C46F02 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		AA9927C1195C7DC700C46F02 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
-		AAA05FB3183A756B009652C9 /* CMPaymentService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMPaymentService.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		AAA05FB4183A756B009652C9 /* CMPaymentService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CMPaymentService.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		AAA05FB5183A756B009652C9 /* CMCardPayment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMCardPayment.h; sourceTree = "<group>"; };
-		AAA05FB6183A756B009652C9 /* CMPaymentResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPaymentResponse.h; sourceTree = "<group>"; };
-		AAA05FB7183A756B009652C9 /* CMCardPayment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMCardPayment.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		AAA05FB8183A756B009652C9 /* CMPaymentResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPaymentResponse.m; sourceTree = "<group>"; };
 		AAA102D419265AEC00A11BC4 /* CMObjectIntegrationSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CMObjectIntegrationSpec.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		AAA850EC168271B500C18957 /* CMDeviceTokenResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMDeviceTokenResult.h; sourceTree = "<group>"; };
 		AAA92FF1181966370064F773 /* NSDictionary+CMJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+CMJSON.h"; sourceTree = "<group>"; };
@@ -756,7 +739,6 @@
 		7AD36F7B146C64F300DD4734 /* Web Services */ = {
 			isa = PBXGroup;
 			children = (
-				AAA05FB2183A7558009652C9 /* Payment */,
 				AAB2E0A8167B935C00D2C699 /* Push Notifications */,
 				71E886B3165161050060C217 /* Social Login */,
 				7AABA2FA14818DCA00FD52A0 /* Decoding */,
@@ -879,7 +861,6 @@
 				7AD9221F14CF5B9B0032DDDE /* CMPagingDescriptorSpec.m */,
 				7AD9222514D06EB10032DDDE /* CMStoreOptionsSpec.m */,
 				7A766208156307DF009840EE /* CMSortDescriptorSpec.m */,
-				AA09516C194B7AA7008602DB /* CMPaymentServiceSpec.m */,
 				AA03519F1992AD6A00A3027E /* CMSocialAccountChooserSpec.m */,
 				AA5EB16C1A3FEB300081DAC1 /* Bugs */,
 			);
@@ -907,19 +888,6 @@
 				AA8C4C181AAA4B4800500957 /* IOS-39Spec.m */,
 			);
 			name = Bugs;
-			sourceTree = "<group>";
-		};
-		AAA05FB2183A7558009652C9 /* Payment */ = {
-			isa = PBXGroup;
-			children = (
-				AAA05FB4183A756B009652C9 /* CMPaymentService.h */,
-				AAA05FB3183A756B009652C9 /* CMPaymentService.m */,
-				AAA05FB5183A756B009652C9 /* CMCardPayment.h */,
-				AAA05FB7183A756B009652C9 /* CMCardPayment.m */,
-				AAA05FB6183A756B009652C9 /* CMPaymentResponse.h */,
-				AAA05FB8183A756B009652C9 /* CMPaymentResponse.m */,
-			);
-			name = Payment;
 			sourceTree = "<group>";
 		};
 		AAA92FEB181965F80064F773 /* JSON */ = {
@@ -1215,7 +1183,6 @@
 				7A7E31C914C88F8A0091F1E3 /* CMStore.m in Sources */,
 				7AD9221D14CF47360032DDDE /* CMPagingDescriptor.m in Sources */,
 				7AD9222414D06B9A0032DDDE /* CMStoreOptions.m in Sources */,
-				AAA05FC0183A756B009652C9 /* CMPaymentResponse.m in Sources */,
 				B4AD7C581C80FF6D00D9F1D1 /* RTUnregisteredClass.m in Sources */,
 				7A58CC2214F1B544003E864B /* CMMimeType.m in Sources */,
 				7AE2848B1562C3C8003E8A8F /* CMSortDescriptor.m in Sources */,
@@ -1240,12 +1207,10 @@
 				7AFDFE46158E959B00388D6E /* CMObjectClassNameRegistry.m in Sources */,
 				7AFDFE47158E959B00388D6E /* CMUntypedObject.m in Sources */,
 				7A0D7CFC1581479000C7C476 /* CMNullStore.m in Sources */,
-				AAA05FBE183A756B009652C9 /* CMCardPayment.m in Sources */,
 				7AFDFE4A158E965400388D6E /* CMActiveUser.m in Sources */,
 				7AF00BA015A8DC650070442A /* CMACL.m in Sources */,
 				B4C114D11DA2CF2B00414F35 /* CMLegacyCacheCleaner.m in Sources */,
 				B4AD7C521C80FF6D00D9F1D1 /* MARTNSObject.m in Sources */,
-				AAA05FB9183A756B009652C9 /* CMPaymentService.m in Sources */,
 				7AF00BA115A8DC650070442A /* CMUser.m in Sources */,
 				D042C2EB15AF41F100A88888 /* CMACLFetchResponse.m in Sources */,
 				AAA92FFE181972DA0064F773 /* CMTools.m in Sources */,
@@ -1282,7 +1247,6 @@
 				7AD9222014CF5B9B0032DDDE /* CMPagingDescriptorSpec.m in Sources */,
 				AAD4AD161908104B006B93F2 /* CMUserIntegrationSpec.m in Sources */,
 				AA9528D4194B422800AEB90D /* CMNullStoreSpec.m in Sources */,
-				AA09516D194B7AA7008602DB /* CMPaymentServiceSpec.m in Sources */,
 				AAE92211194B923D004DA1AC /* CMWebServiceIntegrationSpec.m in Sources */,
 				7AD9222614D06EB10032DDDE /* CMStoreOptionsSpec.m in Sources */,
 				7AD93BAF14D1CCFE00CC1CC9 /* CMFileSpec.m in Sources */,
@@ -1434,7 +1398,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EE1B44A5F6B4AA8E61850EFA /* Pods-cloudmine-ios.debug.xcconfig */;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 1.7.16;
+				CURRENT_PROJECT_VERSION = 1.7.17;
 				DSTROOT = /tmp/ios.dst;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
@@ -1462,7 +1426,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B2A33E73BEDE10A94973E9FE /* Pods-cloudmine-ios.release.xcconfig */;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 1.7.16;
+				CURRENT_PROJECT_VERSION = 1.7.17;
 				DSTROOT = /tmp/ios.dst;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = NO;
@@ -1588,7 +1552,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C3444874F77B35F0544725D1 /* Pods-cloudmine-ios.test.xcconfig */;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 1.7.16;
+				CURRENT_PROJECT_VERSION = 1.7.17;
 				DSTROOT = /tmp/ios.dst;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
