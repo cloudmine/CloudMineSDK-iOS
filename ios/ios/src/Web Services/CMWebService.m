@@ -104,10 +104,10 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     if (!_validHTTPVerbs) {
         _validHTTPVerbs = [NSSet setWithObjects:@"GET", @"POST", @"PUT", @"DELETE", @"PATCH", nil];
     }
-
+    
     self = [super initWithBaseURL:url];
     if (nil == self) return nil;
-
+    
     self.apiUrl = url.absoluteString;
     
     _appSecret = appSecret;
@@ -118,9 +118,9 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     
     // Enable activity indicator in status bar
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
-
+    
     [CMLegacyCacheCleaner cleanLegacyCache];
-
+    
     return self;
 }
 
@@ -177,17 +177,34 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
         extraParameters:(NSDictionary *)params
          successHandler:(CMWebServiceObjectFetchSuccessCallback)successHandler
            errorHandler:(CMWebServiceFetchFailureCallback)errorHandler {
-    NSURLRequest *request = [self constructHTTPRequestWithVerb:@"GET"
-                                                           URL:[self constructTextUrlAtUserLevel:(user != nil)
-                                                                                        withKeys:nil
-                                                                                           query:searchQuery
-                                                                                   pagingOptions:paging
-                                                                                  sortingOptions:sorting
-                                                                          withServerSideFunction:function
-                                                                                 extraParameters:params]
-                                                     appSecret:_appSecret
-                                                    binaryData:NO
-                                                          user:user];
+    
+    NSURLRequest *request;
+    
+    if (searchQuery.length < 2000) { //Limit query length for get requests.
+        request = [self constructHTTPRequestWithVerb:@"GET"
+                                                 URL:[self constructTextUrlAtUserLevel:(user != nil)
+                                                                              withKeys:nil
+                                                                                 query:searchQuery
+                                                                         pagingOptions:paging
+                                                                        sortingOptions:sorting
+                                                                withServerSideFunction:function
+                                                                       extraParameters:params]
+                                           appSecret:_appSecret
+                                          binaryData:NO
+                                                user:user];
+    } else { //Use post if query longer then 2000 symbols
+        request = [self constructHTTPPOSTRequestWithURL:[self constructTextUrlAtUserLevel:(user != nil)
+                                                                                 withKeys:nil
+                                                                                    query:nil
+                                                                            pagingOptions:paging
+                                                                           sortingOptions:sorting
+                                                                   withServerSideFunction:function
+                                                                          extraParameters:params]
+                                           jsonPostBody:searchQuery
+                                              appSecret:_appSecret
+                                             binaryData:NO
+                                                   user:user];
+    }
     [self executeRequest:request successHandler:successHandler errorHandler:errorHandler];
 }
 
@@ -780,43 +797,43 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
         self.picker = [[CMSocialAccountChooser alloc] init];
         
         [_accountStore requestAccessToAccountsWithType:twitterType
-                                                   options:nil
-                                                completion:^(BOOL granted, NSError *error) {
-                                                    if (!granted) {
-                                                        [self.picker wouldLikeToLogInWithAnotherAccountWithCallback:^(BOOL answer) {
-                                                            if (!answer) {
-                                                                /// They do not want to login with Twitter.
-                                                                if (callback) {
-                                                                    callback(CMUserAccountSocialLoginDismissed, @{CMErrorDomain: @"User does not want to login with another Twitter Account."});
-                                                                }
-                                                                return;
-                                                            } else {
-                                                                [viewController presentViewController:controller animated:YES completion:nil];
+                                               options:nil
+                                            completion:^(BOOL granted, NSError *error) {
+                                                if (!granted) {
+                                                    [self.picker wouldLikeToLogInWithAnotherAccountWithCallback:^(BOOL answer) {
+                                                        if (!answer) {
+                                                            /// They do not want to login with Twitter.
+                                                            if (callback) {
+                                                                callback(CMUserAccountSocialLoginDismissed, @{CMErrorDomain: @"User does not want to login with another Twitter Account."});
                                                             }
-                                                        }];
-                                                    } else {
-                                                        /// We've been granted access, but if there are more than 1 account, we don't
-                                                        /// know which one to login to. So we obtain all the local account instances...
-                                                        /// Even if they only have 1 account, they may not want to log in to that one.
-                                                        NSArray *accounts = [self.accountStore accountsWithAccountType:twitterType];
-                                                        [self.picker chooseFromAccounts:accounts
-                                                                          showFrom:viewController
-                                                                          callback:^(id account) {
-                                                                              if ([account isKindOfClass:[NSNumber class]]) {
-                                                                                  [viewController presentViewController:controller animated:YES completion:nil];
-                                                                              } else if ([account isKindOfClass:[ACAccount class]]) {
-                                                                                  [self reverseOAuthWithAccount:account
-                                                                                                        service:service
-                                                                                                           user:user
-                                                                                                       callback:callback];
-                                                                              } else {
-                                                                                  if (callback) {
-                                                                                      callback(CMUserAccountSocialLoginDismissed, @{CMErrorDomain: @"User does not want to login with a Twitter Account."});
-                                                                                  }
-                                                                              }
-                                                                          }];
-                                                    }
-                                                }];
+                                                            return;
+                                                        } else {
+                                                            [viewController presentViewController:controller animated:YES completion:nil];
+                                                        }
+                                                    }];
+                                                } else {
+                                                    /// We've been granted access, but if there are more than 1 account, we don't
+                                                    /// know which one to login to. So we obtain all the local account instances...
+                                                    /// Even if they only have 1 account, they may not want to log in to that one.
+                                                    NSArray *accounts = [self.accountStore accountsWithAccountType:twitterType];
+                                                    [self.picker chooseFromAccounts:accounts
+                                                                           showFrom:viewController
+                                                                           callback:^(id account) {
+                                                                               if ([account isKindOfClass:[NSNumber class]]) {
+                                                                                   [viewController presentViewController:controller animated:YES completion:nil];
+                                                                               } else if ([account isKindOfClass:[ACAccount class]]) {
+                                                                                   [self reverseOAuthWithAccount:account
+                                                                                                         service:service
+                                                                                                            user:user
+                                                                                                        callback:callback];
+                                                                               } else {
+                                                                                   if (callback) {
+                                                                                       callback(CMUserAccountSocialLoginDismissed, @{CMErrorDomain: @"User does not want to login with a Twitter Account."});
+                                                                                   }
+                                                                               }
+                                                                           }];
+                                                }
+                                            }];
         return nil;
         
     } else if (CMSocialNetworkFacebook) {
@@ -1307,7 +1324,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
 #pragma - Request queueing and execution
 
 - (void)executeUserProfileFetchRequestWithMeta:(NSMutableURLRequest *)request
-                              callback:(CMWebServiceUserFetchCallback)callback {
+                                      callback:(CMWebServiceUserFetchCallback)callback {
     // TODO: Let this switch between MsgPack and GZIP'd JSON.
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
@@ -1598,97 +1615,97 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
                  errorHandler:(CMWebServiceErorCallack)errorHandler;
 {
     
-        NSDate *startDate = [NSDate date];
+    NSDate *startDate = [NSDate date];
     
-        AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-                NSString *requestId = [[operation.response allHeaderFields] objectForKey:@"X-Request-Id"];
-                if (requestId) {
-                        int milliseconds = (int)([[NSDate date] timeIntervalSinceDate:startDate] * 1000.0f);
-                        [_responseTimes setObject:[NSNumber numberWithInt:milliseconds] forKey:requestId];
-                }
-
-            NSError *parseError;
-            NSDictionary *results = [NSJSONSerialization JSONObjectWithData:operation.responseData
-                                                                    options:0
-                                                                      error:&parseError];
-            
-            if ([[parseError domain] isEqualToString:NSCocoaErrorDomain]) {
-                NSError *error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidResponse userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The response received from the server was malformed and could not be parsed.", NSLocalizedDescriptionKey, parseError, JSONErrorKey, nil]];
-                NSLog(@"CloudMine *** Unexpected error occurred during object request. (%@)", [error localizedDescription]);
-                if (errorHandler != nil) {
-                    NSMutableDictionary *errorInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                                      @(operation.response.statusCode), @"httpCode",
-                                                      operation.responseData, @"responseData",
-                                                      operation.responseString, @"responseString",
-                                                      [operation.response allHeaderFields], @"responseHeaders",
-                                                      error, NSURLErrorKey,
-                                                      nil];
-                    
-                    void (^block)() = ^{ errorHandler(operation.responseData, operation.response.statusCode, operation.response.allHeaderFields, error, errorInfo); };
-                    [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
-                }
-                return;
-            }
-            
-            
-            if (successHandler != nil) {
-                void (^block)() = ^{ successHandler(results, operation.response.statusCode, operation.response.allHeaderFields); };
-                [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
-            }
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            
-            NSMutableDictionary *errorInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                              @(operation.response.statusCode), @"httpCode",
-                                              operation.responseData, @"responseData",
-                                              operation.responseString, @"responseString",
-                                              [operation.response allHeaderFields], @"responseHeaders",
-                                              error, NSURLErrorKey,
-                                              nil];
-            
-            if ([[error domain] isEqualToString:NSURLErrorDomain]) {
-                if ([error code] == NSURLErrorUserCancelledAuthentication) {
-                    [errorInfo setValue:@"The request was unauthorized. Is your API key correct? Did the receiving service require authentication?" forKey:NSLocalizedDescriptionKey];
-                    error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:errorInfo];
-                } else {
-                    [errorInfo setValue:@"A connection to the server was not able to be established." forKey:NSLocalizedDescriptionKey];
-                    error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerConnectionFailed userInfo:errorInfo];
-                }
-            }
-            
-            switch ([operation.response statusCode]) {
-                case 404:
-                    [errorInfo setValue:@"The application was not found. Is your application identifier correct? Or perhaps the page you were looking for in the query does not exist." forKey:NSLocalizedDescriptionKey];
-                    error = [NSError errorWithDomain:CMErrorDomain code:CMErrorNotFound userInfo:errorInfo];
-                    break;
-                    
-                case 401:
-                    [errorInfo setValue:@"The request was unauthorized. Is your API key correct? Did the receiving service require authentication?" forKey:NSLocalizedDescriptionKey];
-                    error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:errorInfo];
-                    break;
-                    
-                case 400:
-                    [errorInfo setValue:@"The request was malformed." forKey:NSLocalizedDescriptionKey];
-                    error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidRequest userInfo:errorInfo];
-                    break;
-                    
-                case 500:
-                    [errorInfo setValue:@"The server experienced an error." forKey:NSLocalizedDescriptionKey];
-                    error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerError userInfo:errorInfo];
-                    break;
-                    
-                default:
-                    // Another error message, pass back status code
-                    break;
-            }
-            
+        NSString *requestId = [[operation.response allHeaderFields] objectForKey:@"X-Request-Id"];
+        if (requestId) {
+            int milliseconds = (int)([[NSDate date] timeIntervalSinceDate:startDate] * 1000.0f);
+            [_responseTimes setObject:[NSNumber numberWithInt:milliseconds] forKey:requestId];
+        }
+        
+        NSError *parseError;
+        NSDictionary *results = [NSJSONSerialization JSONObjectWithData:operation.responseData
+                                                                options:0
+                                                                  error:&parseError];
+        
+        if ([[parseError domain] isEqualToString:NSCocoaErrorDomain]) {
+            NSError *error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidResponse userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"The response received from the server was malformed and could not be parsed.", NSLocalizedDescriptionKey, parseError, JSONErrorKey, nil]];
+            NSLog(@"CloudMine *** Unexpected error occurred during object request. (%@)", [error localizedDescription]);
             if (errorHandler != nil) {
+                NSMutableDictionary *errorInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                                  @(operation.response.statusCode), @"httpCode",
+                                                  operation.responseData, @"responseData",
+                                                  operation.responseString, @"responseString",
+                                                  [operation.response allHeaderFields], @"responseHeaders",
+                                                  error, NSURLErrorKey,
+                                                  nil];
+                
                 void (^block)() = ^{ errorHandler(operation.responseData, operation.response.statusCode, operation.response.allHeaderFields, error, errorInfo); };
                 [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
             }
-            
-        }];
+            return;
+        }
+        
+        
+        if (successHandler != nil) {
+            void (^block)() = ^{ successHandler(results, operation.response.statusCode, operation.response.allHeaderFields); };
+            [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSMutableDictionary *errorInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                          @(operation.response.statusCode), @"httpCode",
+                                          operation.responseData, @"responseData",
+                                          operation.responseString, @"responseString",
+                                          [operation.response allHeaderFields], @"responseHeaders",
+                                          error, NSURLErrorKey,
+                                          nil];
+        
+        if ([[error domain] isEqualToString:NSURLErrorDomain]) {
+            if ([error code] == NSURLErrorUserCancelledAuthentication) {
+                [errorInfo setValue:@"The request was unauthorized. Is your API key correct? Did the receiving service require authentication?" forKey:NSLocalizedDescriptionKey];
+                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:errorInfo];
+            } else {
+                [errorInfo setValue:@"A connection to the server was not able to be established." forKey:NSLocalizedDescriptionKey];
+                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerConnectionFailed userInfo:errorInfo];
+            }
+        }
+        
+        switch ([operation.response statusCode]) {
+            case 404:
+                [errorInfo setValue:@"The application was not found. Is your application identifier correct? Or perhaps the page you were looking for in the query does not exist." forKey:NSLocalizedDescriptionKey];
+                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorNotFound userInfo:errorInfo];
+                break;
+                
+            case 401:
+                [errorInfo setValue:@"The request was unauthorized. Is your API key correct? Did the receiving service require authentication?" forKey:NSLocalizedDescriptionKey];
+                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorUnauthorized userInfo:errorInfo];
+                break;
+                
+            case 400:
+                [errorInfo setValue:@"The request was malformed." forKey:NSLocalizedDescriptionKey];
+                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorInvalidRequest userInfo:errorInfo];
+                break;
+                
+            case 500:
+                [errorInfo setValue:@"The server experienced an error." forKey:NSLocalizedDescriptionKey];
+                error = [NSError errorWithDomain:CMErrorDomain code:CMErrorServerError userInfo:errorInfo];
+                break;
+                
+            default:
+                // Another error message, pass back status code
+                break;
+        }
+        
+        if (errorHandler != nil) {
+            void (^block)() = ^{ errorHandler(operation.responseData, operation.response.statusCode, operation.response.allHeaderFields, error, errorInfo); };
+            [self performSelectorOnMainThread:@selector(performBlock:) withObject:block waitUntilDone:YES];
+        }
+        
+    }];
     
     [self enqueueHTTPRequestOperation:operation];
 }
@@ -2132,7 +2149,71 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     block();
 }
 
-#pragma - Request construction
+#pragma mark - Request construction - POST
+
+- (NSMutableURLRequest *)constructHTTPPOSTRequestWithURL:(NSURL *)url
+                                            jsonPostBody:(NSString *)jsonPostBody
+                                               appSecret:(NSString *)appSecret
+                                              binaryData:(BOOL)isForBinaryData
+                                                    user:(CMUser *)user;
+{
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    if (user) {
+        if (user.token == nil) {
+            [[NSException exceptionWithName:@"CMInternalInconsistencyException" reason:@"You cannot construct a user-level CloudMine request when the user isn't logged in." userInfo:nil] raise];
+            __builtin_unreachable();
+        }
+        [request setValue:user.token forHTTPHeaderField:CM_SESSIONTOKEN_HEADER];
+    }
+    [request setValue:appSecret forHTTPHeaderField:CM_APIKEY_HEADER];
+    
+    // TODO: This should be customizable to change between JSON, GZIP'd JSON, and MsgPack.
+    
+    // Don't do this for binary data since that requires further intervention by the developer.
+    if (!isForBinaryData) {
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    }
+    
+    // Add response times to user token string
+    NSMutableArray *times = [NSMutableArray array];
+    for (NSString *key in [_responseTimes allKeys]) {
+        [times addObject:[NSString stringWithFormat:@"%@:%@", key, [_responseTimes[key] stringValue]]];
+    }
+    [_responseTimes removeAllObjects];
+    if (times.count > 20)
+        [times removeObjectsInRange:NSMakeRange(20, times.count - 20)];
+    NSString *activeIdentifier = [[CMActiveUser currentActiveUser] identifier];
+    NSString *userToken = times.count ? [NSString stringWithFormat:@"%@;%@", activeIdentifier, [times componentsJoinedByString:@","]] : activeIdentifier;
+    
+    // Add user agent and user tracking headers
+    [request setValue:[NSString stringWithFormat:@"CM-iOS/%@", CM_VERSION] forHTTPHeaderField:@"X-CloudMine-Agent"];
+    [request setValue:userToken forHTTPHeaderField:@"X-CloudMine-UT"];
+    
+#ifdef DEBUG
+    NSLog(@"Constructed CloudMine URL: %@\nHeaders:%@", [request URL], [request allHTTPHeaderFields]);
+#endif
+    
+    NSDictionary *tmp = [[NSDictionary alloc] initWithObjectsAndKeys:
+                         jsonPostBody, @"q",
+                         nil];
+    NSError *error;
+    NSData *postdata = [NSJSONSerialization dataWithJSONObject:tmp options:0 error:&error];
+    [request setHTTPBody:postdata];
+    
+    return [request copy];
+}
+
+- (NSMutableURLRequest *)constructHTTPPOSTRequestWithURL:(NSURL *)url
+                                            jsonPostBody:(NSString *)jsonPostBody
+                                              binaryData:(BOOL)isForBinaryData
+                                                    user:(CMUser *)user {
+    return [self constructHTTPPOSTRequestWithURL:url jsonPostBody:jsonPostBody appSecret:_appSecret binaryData:isForBinaryData user:user];
+}
+
+#pragma - Request construction - GET
 
 - (NSMutableURLRequest *)constructHTTPRequestWithVerb:(NSString *)verb
                                                   URL:(NSURL *)url
@@ -2280,8 +2361,8 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
 }
 
 - (NSURL *)constructAccountUrlWithUserIdentifier:(NSString *)userId
-                                 usersIdentifiers:(NSArray<NSString*> *)usersIdentifiers
-                                         function:(CMServerFunction *)function
+                                usersIdentifiers:(NSArray<NSString*> *)usersIdentifiers
+                                        function:(CMServerFunction *)function
                                           paging:(CMPagingDescriptor *)paging
                                          sorting:(CMSortDescriptor *)sorting
                                            query:(NSString *)query;
@@ -2348,3 +2429,4 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
 }
 
 @end
+
