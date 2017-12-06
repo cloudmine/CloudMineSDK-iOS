@@ -2207,7 +2207,6 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     NSError *error;
     NSData *postdata = [NSJSONSerialization dataWithJSONObject:tmp options:0 error:&error];
     [request setHTTPBody:postdata];
-    NSLog(@"URL - %@", url);
     
     return [request copy];
 }
