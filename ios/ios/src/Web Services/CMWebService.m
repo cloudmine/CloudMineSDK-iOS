@@ -146,6 +146,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
                                                            URL:[self constructTextUrlAtUserLevel:(user != nil)
                                                                                         withKeys:keys
                                                                                            query:nil
+                                                                                        endpoint:nil
                                                                                    pagingOptions:paging
                                                                                   sortingOptions:sorting
                                                                           withServerSideFunction:function
@@ -185,6 +186,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
                                                  URL:[self constructTextUrlAtUserLevel:(user != nil)
                                                                               withKeys:nil
                                                                                  query:searchQuery
+                                                                              endpoint:nil
                                                                          pagingOptions:paging
                                                                         sortingOptions:sorting
                                                                 withServerSideFunction:function
@@ -196,6 +198,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
         request = [self constructHTTPPOSTRequestWithURL:[self constructTextUrlAtUserLevel:(user != nil)
                                                                                  withKeys:nil
                                                                                     query:nil
+                                                                                 endpoint:@"search"
                                                                             pagingOptions:paging
                                                                            sortingOptions:sorting
                                                                    withServerSideFunction:function
@@ -252,6 +255,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
                                                                   URL:[self constructTextUrlAtUserLevel:(user != nil)
                                                                                                withKeys:nil
                                                                                                   query:nil
+                                                                                               endpoint:nil
                                                                                           pagingOptions:nil
                                                                                          sortingOptions:nil
                                                                                  withServerSideFunction:function
@@ -343,6 +347,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
                                                                   URL:[self constructTextUrlAtUserLevel:(user != nil)
                                                                                                withKeys:nil
                                                                                                   query:nil
+                                                                                               endpoint:nil
                                                                                           pagingOptions:nil
                                                                                          sortingOptions:nil
                                                                                  withServerSideFunction:function
@@ -2202,6 +2207,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     NSError *error;
     NSData *postdata = [NSJSONSerialization dataWithJSONObject:tmp options:0 error:&error];
     [request setHTTPBody:postdata];
+    NSLog(@"URL - %@", url);
     
     return [request copy];
 }
@@ -2304,6 +2310,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
 - (NSURL *)constructTextUrlAtUserLevel:(BOOL)atUserLevel
                               withKeys:(NSArray *)keys
                                  query:(NSString *)searchString
+                              endpoint:(NSString *)endpointString
                          pagingOptions:(CMPagingDescriptor *)paging
                         sortingOptions:(CMSortDescriptor *)sorting
                 withServerSideFunction:(CMServerFunction *)function
@@ -2312,10 +2319,15 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     NSAssert(keys == nil || searchString == nil, @"When constructing CM URLs, 'keys' and 'searchString' are mutually exclusive");
     
     NSString *endpoint = nil;
-    if (searchString != nil) {
-        endpoint = @"search";
+    
+    if (endpointString != nil) {
+        endpoint = endpointString;
     } else {
-        endpoint = @"text";
+        if (searchString != nil) {
+            endpoint = @"search";
+        } else {
+            endpoint = @"text";
+        }
     }
     
     NSURL *url;
@@ -2429,4 +2441,3 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
 }
 
 @end
-
