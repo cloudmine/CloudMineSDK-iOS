@@ -1286,7 +1286,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
     [self executeUserProfileFetchRequest:request callback:callback];
 }
 
-- (void)searchUsersWithUsersIdentifiers:(NSArray<NSString*> *)identifiersList  callback:(CMWebServiceUserFetchSuccessCallback)callback {
+- (void)searchUsersWithUsersIdentifiers:(NSArray<NSString*> *)identifiersList  callback:(CMWebServiceUserFetchCallback)callback {
     NSMutableURLRequest *request = [self constructHTTPRequestWithVerb:@"GET"
                                                                   URL:[self constructAccountUrlWithUserIdentifier:nil
                                                                                                  usersIdentifiers:identifiersList
@@ -1297,7 +1297,7 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
                                                             appSecret:_appSecret
                                                            binaryData:NO
                                                                  user:nil];
-    [self executeUserProfileFetchRequest:request callback:callback];
+    [self executeUserProfileFetchRequestWithMeta:request callback:callback];
 }
 
 - (void)getUsersWithIdentifier:(NSString *)identifier
@@ -2440,3 +2440,4 @@ NSString * const JSONErrorKey = @"JSONErrorKey";
 }
 
 @end
+

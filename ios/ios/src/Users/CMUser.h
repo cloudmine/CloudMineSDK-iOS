@@ -207,7 +207,7 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
  * @param callback The block that will be called on completion of the operation.
  */
 - (void)loginWithSocialNetwork:(NSString *)network
-                  accessToken:(NSString *)accessToken
+                   accessToken:(NSString *)accessToken
                    descriptors:(NSArray *)descriptors
                       callback:(void (^) (CMUserResponse *response) )callback;
 
@@ -258,7 +258,7 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
  * @param callback The block that will be called on completion of the operation.
  */
 + (void)userWithSocialNetwork:(NSString *)network
-                 accessToken:(NSString *)accessToken
+                  accessToken:(NSString *)accessToken
                   descriptors:(NSArray *)descriptors
                      callback:(void (^) (CMUserResponse *response) )callback;
 
@@ -329,7 +329,7 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
  *
  * If you call this method and the user is logged in already, it will link the logged in user with the social network account. If the user
  * is not logged in, this call will create a new user.
- * 
+ *
  * Upon successful login, the CMUser#token property will be set to the user's new session token The CMUser#tokenExpiration property will also be set with the expiration date and time
  * of the session token. In addition, all your custom properties (if you are using a custom subclass of <tt>CMUser</tt>) will be populated for you using key-value coding.
  * All these properties will be set <strong>before</strong> the callback block is invoked.
@@ -448,7 +448,7 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
  * - <tt>CMUserAccountUnknownResult</tt>
  *
  * @param newUserId The new User ID for this user. It needs to be in the form of an email address. If you don't want to use an email
-    then you should <tt>username</tt>
+ then you should <tt>username</tt>
  * @param currentPassword The current password for the user.
  * @param callback The block that will be called on completion of the operation.
  *
@@ -605,7 +605,7 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
 - (void)save:(CMUserOperationCallback)callback;
 
 /**
- * Fetches the user's account from the server and updates the local user with the values received. This will override any local changes that have 
+ * Fetches the user's account from the server and updates the local user with the values received. This will override any local changes that have
  * been made.
  *
  * This is a better way to work with the <code>save:</code> method, as it will not force a refresh of the session-token;
@@ -627,7 +627,7 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
 
 + (void)searchUsers:(NSString *)query options:(CMStoreOptions *)options callback:(CMUserFetchWithMetaCallback)callback;
 
-+ (void)searchUsersWithIdentifiers:(NSArray<NSString*>*)usersIdentifiers callback:(CMUserFetchCallback)callback;
++ (void)searchUsersWithIdentifiers:(NSArray<NSString*>*)usersIdentifiers callback:(CMUserFetchWithMetaCallback)callback;
 
 /**
  * Asynchronously search all profiles of users of this app for matching fields. This will download the profiles of all matching users of your app, and is useful for displaying
@@ -680,3 +680,4 @@ typedef void (^CMUserFetchWithMetaCallback)(CMObjectFetchResponse *response);
 - (void)paymentMethods:(CMPaymentServiceCallback)callback;
 
 @end
+
