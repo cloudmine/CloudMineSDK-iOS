@@ -52,7 +52,7 @@ typedef void (^CMWebServiceFileUploadSuccessCallback)(CMFileUploadResult result,
 
 /**
  * Callback block signature for operations on <tt>CMWebService</tt> that directly execute a server-side code snippet on the CloudMine servers.
- * These blocks return <tt>void</tt> and take the snippet result (the type of which is determined by the type of data you use inside your exit() call 
+ * These blocks return <tt>void</tt> and take the snippet result (the type of which is determined by the type of data you use inside your exit() call
  * in your server-side JavaScript code or what you return from the main method in your server-side Java code) and all the headers of the response.
  */
 typedef void (^CMWebServiceSnippetRunSuccessCallback)(id snippetResult, NSDictionary *headers);
@@ -122,7 +122,7 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
 /**
  * Initializes an instance of a web service connector with the given API key and secret app key. The baseURL for
  * this WebService will be to CloudMine, or whatever is last configured in CMAPICredentials.
- * 
+ *
  * @param appSecret The App Secret for your application
  * @param appIdentifier The App ID for your application
  */
@@ -397,7 +397,7 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
 
 /**
  * Initialize the social login service by calling the SocialLoginViewController (which contains only a webview)
- * 
+ *
  * @param user The user object that is attempting the login
  * @param service The social service to be logged into, @see CMSocialNetwork codes
  * @param viewController the current viewController in use when this method is called
@@ -560,6 +560,8 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  */
 - (void)searchUsers:(NSString *)query callback:(CMWebServiceUserFetchSuccessCallback)callback;
 
+- (void)searchUsersWithUsersIdentifiers:(NSArray<NSString*> *)identifiersList  callback:(CMWebServiceUserFetchCallback)callback;
+
 
 - (void)getUsersWithIdentifier:(NSString *)identifier
                          query:(NSString *)query
@@ -686,7 +688,7 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
                              headers:(NSDictionary *)headers
                          messageData:(NSData *)data
                             withUser:(CMUser *)user
-                       successHandler:(CMWebServicesSocialQuerySuccessCallback)successHandler
+                      successHandler:(CMWebServicesSocialQuerySuccessCallback)successHandler
                         errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
 /**
@@ -700,12 +702,12 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * @param errorHandler The callback for dealing with errors
  */
 - (void)runSocialGraphGETQueryOnNetwork:(NSString *)network
-                           baseQuery:(NSString *)base
-                          parameters:(NSDictionary *)params
+                              baseQuery:(NSString *)base
+                             parameters:(NSDictionary *)params
                                 headers:(NSDictionary *)headers
-                            withUser:(CMUser *)user
-                       successHandler:(CMWebServicesSocialQuerySuccessCallback)successHandler
-                        errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
+                               withUser:(CMUser *)user
+                         successHandler:(CMWebServicesSocialQuerySuccessCallback)successHandler
+                           errorHandler:(CMWebServiceFetchFailureCallback)errorHandler;
 
 
 - (void)executeGenericRequest:(NSURLRequest *)request successHandler:(CMWebServiceGenericRequestCallback)successHandler errorHandler:(CMWebServiceErorCallack)errorHandler;
@@ -718,10 +720,11 @@ typedef void (^CMWebServiceResultCallback)(id responseBody, NSError *errors, NSU
  * Moved method to Header now that AFNetworking does not have this same method.
  * We are keeping it because it centralizes the placement of where operations are
  * started.
- * 
+ *
  * @param operation The AFHTTPRequestOperation to start.
  */
 - (void)enqueueHTTPRequestOperation:(AFHTTPRequestOperation *)operation;
 
 
 @end
+

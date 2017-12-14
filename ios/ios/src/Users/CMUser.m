@@ -189,9 +189,9 @@ static id _private_user = nil;
         id newValue = [change objectForKey:NSKeyValueChangeNewKey];
         if (![oldValue isEqual:newValue]) {
             // Only apply the change if a change was actually made.
-            #ifdef DEBUG
-                NSLog(@"Detected change for property %@. Old value was \"%@\", new value is \"%@\"", keyPath, oldValue, newValue);
-            #endif
+#ifdef DEBUG
+            NSLog(@"Detected change for property %@. Old value was \"%@\", new value is \"%@\"", keyPath, oldValue, newValue);
+#endif
             isDirty = YES;
         }
     }
@@ -209,7 +209,7 @@ static id _private_user = nil;
     if (self.username) {
         [coder encodeObject:self.username forKey:@"username"];
     }
-
+    
     [coder encodeObject:self.services forKey:@"services"];
 }
 
@@ -219,7 +219,7 @@ static id _private_user = nil;
     if (![object isKindOfClass:[CMUser class]]) {
         return NO;
     }
-
+    
     if (_email) {
         return ([[object email] isEqualToString:_email] && [[object password] isEqualToString:password]);
     } else if (username) {
@@ -238,7 +238,7 @@ static id _private_user = nil;
 - (void)setToken:(NSString *)theToken {
     @synchronized(self) {
         token = theToken;
-
+        
         // Once a token is set, clear the password for security reasons.
         self.password = nil;
     }
@@ -334,11 +334,11 @@ static id _private_user = nil;
 - (void)loginWithCallback:(CMUserOperationCallback)callback {
     [_webService loginUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         NSArray *messages = [NSArray array];
-
+        
         if (result == CMUserAccountLoginSucceeded) {
             [self setUserProperties:responseBody];
         }
-
+        
         if (callback) {
             callback(result, messages);
         }
@@ -356,7 +356,7 @@ static id _private_user = nil;
         } else {
             messages = [responseBody allValues];
         }
-
+        
         if (callback) {
             callback(result, messages);
         }
@@ -366,14 +366,14 @@ static id _private_user = nil;
 - (void)createAccountWithCallback:(CMUserOperationCallback)callback {
     [_webService createAccountWithUser:self callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
         NSArray *messages = [NSArray array];
-
+        
         if (result != CMUserAccountCreateSucceeded) {
             messages = [responseBody objectForKey:@"errors"];
         } else {
             objectId = [responseBody objectForKey:CMInternalObjectIdKey];
             isDirty = NO;
         }
-
+        
         if (callback) {
             callback(result, (messages ? messages : [NSArray array]) );
         }
@@ -421,60 +421,60 @@ static id _private_user = nil;
 - (void)changeUserCredentialsWithPassword:(NSString *)currentPassword
                               newPassword:(NSString *)newPassword
                               newUsername:(NSString *)newUsername
-                                newEmail:(NSString *)newEmail
+                                 newEmail:(NSString *)newEmail
                                  callback:(CMUserOperationCallback)callback {
     
     [_webService changeCredentialsForUser:self
-                                password:currentPassword
-                             newPassword:newPassword
-                             newUsername:newUsername
-                               newEmail:newEmail
-                                callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
-                                    
-                                    if (result == CMUserAccountCredentialChangeSucceeded ||
-                                        result == CMUserAccountPasswordChangeSucceeded ||
-                                        result == CMUserAccountUsernameChangeSucceeded ||
-                                        result == CMUserAccountEmailChangeSucceeded) {
-                                        
-                                        self.password = currentPassword;
-                                        
-                                        if (newPassword) {
-                                            self.password = newPassword;
-                                        }
-                                        if (newUsername) {
-                                            self.username = newUsername;
-                                        }
-                                        if (newEmail) {
-                                            self.email = newEmail;
-                                        }
-                                        
-                                        // Only login if it was successful, otherwise it won't expire the session token.
-                                        [self loginWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
-                                            ///
-                                            /// The email may be overriden if you changed it and had it in your profile,
-                                            /// so set it again to whatever the new email is.
-                                            ///
-                                            /// However, if the user logs in again, this will remove their email/username
-                                            /// and that is very bad. We should blaclist both.
-                                            ///
-                                            if (newUsername) {
-                                                self.username = newUsername;
-                                            }
-                                            if (newEmail) {
-                                                self.email = newEmail;
-                                            }
-                                            
-                                            if (callback) {
-                                                callback(result, [NSArray array]);
-                                            }
-                                        }];
-                                        
-                                    } else {
-                                        if (callback) {
-                                            callback(result, [NSArray array]);
-                                        }
-                                    }
-                                }];
+                                 password:currentPassword
+                              newPassword:newPassword
+                              newUsername:newUsername
+                                 newEmail:newEmail
+                                 callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
+                                     
+                                     if (result == CMUserAccountCredentialChangeSucceeded ||
+                                         result == CMUserAccountPasswordChangeSucceeded ||
+                                         result == CMUserAccountUsernameChangeSucceeded ||
+                                         result == CMUserAccountEmailChangeSucceeded) {
+                                         
+                                         self.password = currentPassword;
+                                         
+                                         if (newPassword) {
+                                             self.password = newPassword;
+                                         }
+                                         if (newUsername) {
+                                             self.username = newUsername;
+                                         }
+                                         if (newEmail) {
+                                             self.email = newEmail;
+                                         }
+                                         
+                                         // Only login if it was successful, otherwise it won't expire the session token.
+                                         [self loginWithCallback:^(CMUserAccountResult resultCode, NSArray *messages) {
+                                             ///
+                                             /// The email may be overriden if you changed it and had it in your profile,
+                                             /// so set it again to whatever the new email is.
+                                             ///
+                                             /// However, if the user logs in again, this will remove their email/username
+                                             /// and that is very bad. We should blaclist both.
+                                             ///
+                                             if (newUsername) {
+                                                 self.username = newUsername;
+                                             }
+                                             if (newEmail) {
+                                                 self.email = newEmail;
+                                             }
+                                             
+                                             if (callback) {
+                                                 callback(result, [NSArray array]);
+                                             }
+                                         }];
+                                         
+                                     } else {
+                                         if (callback) {
+                                             callback(result, [NSArray array]);
+                                         }
+                                     }
+                                 }];
     
 }
 
@@ -513,8 +513,8 @@ static id _private_user = nil;
 
 - (void)addPaymentMethod:(CMCardPayment *)paymentMethod callback:(CMPaymentServiceCallback)callback;
 {
-        [self addPaymentMethods:@[paymentMethod] callback:callback];
-    }
+    [self addPaymentMethods:@[paymentMethod] callback:callback];
+}
 
 - (void)addPaymentMethods:(NSArray *)paymentMethods callback:(CMPaymentServiceCallback)callback;
 {
@@ -608,18 +608,18 @@ static id _private_user = nil;
 {
     
     CMSocialLoginViewController *login = [_webService loginWithSocial:self
-                                                         withService:service
-                                                      viewController:viewController
-                                                              params:params
-                                                            callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
-        if (result == CMUserAccountLoginSucceeded) {
-            [self setUserProperties:responseBody];
-        }
-        
-        if (callback) {
-            callback(result, @[]);
-        }
-    }];
+                                                          withService:service
+                                                       viewController:viewController
+                                                               params:params
+                                                             callback:^(CMUserAccountResult result, NSDictionary *responseBody) {
+                                                                 if (result == CMUserAccountLoginSucceeded) {
+                                                                     [self setUserProperties:responseBody];
+                                                                 }
+                                                                 
+                                                                 if (callback) {
+                                                                     callback(result, @[]);
+                                                                 }
+                                                             }];
     
     return login;
 }
@@ -691,7 +691,7 @@ static id _private_user = nil;
 {
     CMUser *user = [[self alloc] init];
     [user loginWithSocialNetwork:network
-                    accessToken:accessToken
+                     accessToken:accessToken
                      descriptors:descriptors
                         callback:callback];
 }
@@ -769,9 +769,25 @@ static id _private_user = nil;
     }];
 }
 
++ (void)searchUsersWithIdentifiers:(NSArray<NSString*>*)usersIdentifiers callback:(CMUserFetchWithMetaCallback)callback {
+    NSParameterAssert(callback);
+    [[CMWebService sharedWebService] searchUsersWithUsersIdentifiers:usersIdentifiers callback:^(NSDictionary *results, NSDictionary *errors, id snippetResult, NSDictionary *meta, NSNumber *count) {
+        NSArray *users = [CMObjectDecoder decodeObjects:results];
+        
+        CMResponseMetadata *metadata = [[CMResponseMetadata alloc] initWithMetadata:meta];
+        CMSnippetResult *result = [[CMSnippetResult alloc] initWithData:snippetResult];
+        CMObjectFetchResponse *response = [[CMObjectFetchResponse alloc] initWithObjects:users errors:errors snippetResult:result responseMetadata:metadata];
+        response.count = count ? [count integerValue] : [users count];
+        
+        if (callback) {
+            callback(response);
+        }
+    }];
+}
+
 + (void)userWithIdentifier:(NSString *)identifier callback:(CMUserFetchCallback)callback {
     NSParameterAssert(callback);
-
+    
     CMUser *cachedUser = [self userFromCacheWithIdentifier:identifier];
     if (cachedUser) {
         callback(@[cachedUser], [NSDictionary dictionary]);
@@ -810,7 +826,7 @@ static id _private_user = nil;
         _cacheLocation = [[[NSFileManager defaultManager] URLsForDirectory:NSCachesDirectory inDomains:NSUserDomainMask] lastObject];
         _cacheLocation = [_cacheLocation URLByAppendingPathComponent:@"cmusers.plist"];
     });
-
+    
     return _cacheLocation;
 }
 
@@ -829,7 +845,7 @@ static id _private_user = nil;
     [users enumerateObjectsUsingBlock:^(CMUser *obj, NSUInteger idx, BOOL *stop) {
         [cachedUsers setObject:obj forKey:obj.objectId];
     }];
-
+    
     [[NSKeyedArchiver archivedDataWithRootObject:cachedUsers] writeToURL:[self cacheLocation] atomically:YES];
 }
 
@@ -893,3 +909,4 @@ static id _private_user = nil;
 }
 
 @end
+
